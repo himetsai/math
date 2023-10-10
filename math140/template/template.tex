@@ -1,47 +1,140 @@
-\documentclass[addpoints, 11pt]{exam}
-\setlength{\headsep}{0.25in}
-\setlength{\unitlength}{1in}
-%
-\pagestyle{head}
-%
-\usepackage[utf8]{inputenc} %use Unicode
-\usepackage[T1]{fontenc} %European fonts
+\documentclass{article}
 
-\usepackage{%
-	amsmath,       %some math tools
-	amssymb,       %math symbols
-	graphicx,      %enhanced graphics options
-	mathtools,     %extension of amsmath
-	microtype,     %small typographic effects
-	bm,            %bold math symbols
-	% todonotes,   %adds the option \todo{...} (use fixme instead)
-	stmaryrd,      %some more math symbolswork
-	% nicematrix,    %nicer matrix controls
-	mathrsfs,      %more math fonts
-        dsfont,
-}
-\usepackage{url}
-\usepackage{hyperref}
-%
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
 \usepackage{amsthm}
-% \newtheorem*{thm11.1.7}{Theorem 11.1.7}
-%
-\usepackage[shortlabels]{enumitem}
-\usepackage{nicematrix}
-\usepackage{multicol}
-%
-\usepackage[normalem]{ulem}
-%
-\newcommand{\myCourseNumber}{Math 140A A02}
-\newcommand{\myName}{Ray Tsai}
-\newcommand{\myID}{A16848188}
-\newcommand{\myProfessor}{Professor Mohammadi}
-\newcommand{\myHmwkNumber}{0}
-% \newcommand{\myExamVersion}{}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{5pt}
+\usetikzlibrary{automata,positioning}
 
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#0}
+\newcommand{\hmwkDueDate}{October 9, 2023}
+\newcommand{\hmwkClass}{MATH 140A}
+\newcommand{\hmwkClassTime}{Section A02}
+\newcommand{\hmwkClassInstructor}{Professor Mohammadi}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
 \newcommand*{\Z}{\mathbb{Z}}
 \newcommand*{\Q}{\mathbb{Q}}
 \newcommand*{\R}{\mathbb{R}}
@@ -50,79 +143,32 @@
 \newcommand*{\prob}{\mathds{P}}
 \newcommand*{\E}{\mathds{E}}
 
-\definecolor{crimson}{rgb}{0.86,0.08,0.24}
-
-\newenvironment{question}[1]{\smallskip\noindent\color{crimson}{\bf Question #1.}}{}
-\allowdisplaybreaks[1]
-
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{5pt}
-
-%% define absolute value \abs{...}:
-\DeclarePairedDelimiterX\abs[1]\lvert\rvert{%
-  \ifblank{#1}{\:\cdot\:}{#1}
-}
-% define norm \norm{...}:
-\DeclarePairedDelimiterX\norm[1]\lVert\rVert{%
-  \ifblank{#1}{\:\cdot\:}{#1}
-}
-% define inner product \inner{...}{...}:
-\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{%
-  \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2}
-}
-
-% define \set{...} to write sets and \given to write \set{... \given ...} for {...|...}
-\newcommand*\setSymbol[1][]{
-  \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}
-}
-\providecommand\given{}
-\DeclarePairedDelimiterX\set[1]{\lbrace}{\rbrace}{
-  \renewcommand*\given{\setSymbol[\delimsize]}
-  #1
-}
-
-% free group geneated by ... \free{...} or \free{... \given ...}
-\DeclarePairedDelimiterX\free[1]{\langle}{\rangle}{
-  \renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:
-    \mathopen{}}
-  #1}
-
-% define \lopen{...}{...}, \ropen{...}{...}, \open{...}{...}, \closed{...}{...} for intervals
-\DeclarePairedDelimiterX\open[2](){#1,#2}
-\DeclarePairedDelimiterX\lopen[2](]{#1,#2}
-\DeclarePairedDelimiterX\ropen[2][){#1,#2}
-\DeclarePairedDelimiterX\closed[2][]{#1,#2}
-
-\NiceMatrixOptions{cell-space-limits = 1pt}
-\newcommand*{\pmat}[1]{\begin{pNiceMatrix} #1 \end{pNiceMatrix}}
-\newcommand*{\dfdx}[2]{\frac{\partial #1}{\partial #2}}
-
-\DeclareMathOperator{\vol}{vol}
-%
-\pointsinmargin
-\pointpoints{\thinspace point}{points}
-\marginpointname{ \points}
-%
 \begin{document}
-%
-\firstpageheader{\bfseries \myCourseNumber}{\bfseries Homework \myHmwkNumber}{\bfseries \myName \\ \myID \\ \myProfessor}
-%
-\runningheader{}{(page \textit{\thepage}\ of \textit{\numpages})}{}
-%
-%
 
-\begin{question}{1}
-    question
-\end{question}
+\maketitle
 
-\begin{enumerate}[(a)]
-    \color{crimson}
-    \item  subquestion
-    \normalcolor
-    
-    \begin{proof}[Solution]
-        
+\pagebreak
+
+\begin{homeworkProblem}
+    question.
+
+    \begin{proof}
+      proof.
     \end{proof}
-\end{enumerate}
+\end{homeworkProblem}
 
+\newpage
+
+\begin{homeworkProblem}
+
+    question \\
+
+    \part
+
+    subquestion
+
+    \begin{proof}
+      proof
+    \end{proof}
+\end{homeworkProblem}
 \end{document}
