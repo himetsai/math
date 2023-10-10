@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath, amssymb, amsthm, graphicx} % Math 
+\graphicspath{ {./images} }
+\usepackage{enumitem}
+\setlength{\parindent}{0pt} \oddsidemargin -0.2in \evensidemargin
+0.0in \topmargin -1in \textheight 9.9in \textwidth 6.9in
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{claim}[thm]{Claim}
+
+\newenvironment{problem}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+% main content
+\begin{document} 
+
+\textbf{Math 158 HW4}
+
+% 5.9.2
+\begin{problem}{5.9.2}
+     Let $k \geq 1$. Prove that an $n$-vertex bipartite graph containing no matching of size $k$ has at most $(k - 1)(n - k + 1)$ edges for $n \geq 2k$. For each $k \geq 1$ and $n \geq 2k$, give an example of a graph with exactly $(k - 1)(n - k + 1)$ edges and no matching of size $k$.
+\end{problem}
+
+\begin{proof}
+    Let $G$ be a $n$-vertex bipartite graph. For $n \geq 2k$, we prove by induction on $n$ that if $G$ has no matching of size $k$ and has at least $(k-1)(n - k + 1)$ edges, then $G = K_{k-1,n-k+1}$. For $n = 2k$, $G$ has at least $k^2 - 1$ edges. Suppose $G$ has parts with sizes $k + \gamma$ and $k - \gamma$, then $e(G) \leq (k + \gamma)(k - \gamma) = k^2 - \gamma^2$. Since $k^2 - \gamma^2 \geq e(G) \geq k^2 - 1$, $\gamma$ can only be $0$ or $1$. Suppose $\gamma = 0$. $G \neq K_{k,k}$ because it has no matching of size $k$. Suppose $G = K_{k,k} - \{u, v\}$, for some $u,v \in V(K_{k,k})$. Since $G$ has a $K_{k-1,k-1}$ subgraph that does not have $v$ and some vertex $w \neq u$, $G$ has a matching $M$ of size $k - 1$ such that $\{u, w\} \notin M$. Since $u,w$ forms an edge in $G$, $M \cup \{u, w\}$ is a matching of $G$ with size $k$. Thus, for $n = 2k$, $G$ must be $K_{k-1,k+1}$ to have at least $k^2 + 1$ edges. 
+    
+    For $n \geq 2k + 1$, let $G$ be an $n$-vertex graph with no matching of size $k$ and $e(G) \geq (k-1)(n - k + 1)$. Let $H$ be a subgraph with $(k-1)(n - k + 1)$ edges. Suppose for the sake of contradiction that $\delta(H) \geq k$. Let $P$ be the longest path in $H$, say $v_1v_2\dots v_m$. We know $N(v_1) \subseteq V(P)$. Since $H$ is bipartite, $H$ does not contain any triangles, so there exists $v_i \in N(v_1)$ for some $2k \leq i \leq m$. Thus, $v_1v_2\cdots v_iv_1$ is a cycle of length at least $2k$ in $H$, and the cycle contains a matching of size $k$, contradiction. Thus, $\delta(H) \leq k - 1 = \delta(K_{k-1,n-k+1})$. If $v$ is a vertex of minimum degree in $H$, then 
+    \begin{align}
+        e(H - \{v\}) 
+        &\geq e(K_{k-1,n-k+1}) - \delta(K_{k-1,n-k+1}) \\
+        &= (k-1)(n-k+1) - (k-1) = e(K_{k-1,n-k}).
+    \end{align}
+    By induction, $H - \{v\} = K_{k-1,n-k}$, and so $d_H(v) = (k-1)(n - k + 1) - e(K_{k-1,n-k}) = k - 1$. Let $A,B$ be parts of $H - \{v\}$ such that $|A| = k - 1$ and $|B| = n - k$. Suppose for sake of contradiction that $A \cup \{v\}$ is a part of $H$. Let $S \subset A \cup \{v\}$ such that $S \neq \emptyset$. If $S = \{v\}$, then $|N(S)| = k - 1 \geq |S|$. If $S \neq \{v\}$, then $S \cap A \neq \emptyset$. Since each vertex in $A$ is connected to all vertices in $B$, $|N(S)| = |B| = n - k \geq |S|$. By Hall's Theorem, there is a matching saturating $A \cup \{v\}$, which has a size of $k$, contradiction. Therefore, $B \cup \{v\}$ is part of $H$, so $H = K_{k-1,n-k+1}$. Since $K_{k-1,n-k+1}$ is a maximal graph that has no matching of size $k$, $G = H = K_{k-1,n-k+1}$, and thus $G$ is an example of the required graph.
+\end{proof}
+
+\newpage
+
+% 5.9.3
+\begin{problem}{5.9.3}
+     Determine for all $n \geq 1$ the value of ex$(n, P_3)$.
+\end{problem}
+
+\begin{proof}
+    By the Erdös-Gallai Theorem, we know ex$(n, P_3) \leq n$, with equality if and only if $3|n$ and every component of the graph is $K_3$. Thus, if $3|n$, a graph that consists of a union of $K_3$ has $n$ edges and is a maximal graph that does not contain any $P_3$, so ex$(n, P_3) \geq n$. If $3 \nmid n$, we have ex$(n, P_3) \leq n - 1$. Since $K_{n-1,1}$ is a maximal graph that has no $P_3$ and $e(K_{n-1,1}) = n - 1$, ex$(n, P_3) \geq n - 1$. Therefore, \[
+        \text{ex}(n,P_3)= \begin{cases}
+        n,      & \text{if } n | 3 \\
+        n - 1,  & \text{otherwise}.
+        \end{cases}
+    \]
+\end{proof}
+
+\newpage
+
+\begin{problem}{5.9.8}
+    Let $G$ be a graph. Prove that there exists a partition $(A, B)$ of $V(G)$ such that $e(A,B) \geq \frac{1}{2}e(G)$ and $|A| \leq |B| \leq |A| + 1$.
+\end{problem}
+
+\begin{proof}
+    We will first prove by induction on $n$ to show that there exists a partition $(A, B)$ of $V(G)$ such that $e(A,B) \geq \frac{1}{2}e(G)$ and $|A| = |B|$, for $n = |V(G)|$ is even. The case $n = 2$ is true since $e(A, B) = e(G)$. For $n > 2$, if $G$ is a complete graph, then we are done. Thus, we can assume there exist non-adjacent vertices $u,v \in G$. We obtain $G'$ by removing $u, v$. By induction, there exists a partition $(A', B')$ of $V(G')$ such that $e(A', B') \geq \frac{1}{2}(e(G) - d(u) - d(v))$ and $|A'| = |B'|$. Since $d(u) + d(v) = e(u, A') + e(u, B') + e(v, A') + e(v, B')$, we know $\max(e(u, A') + e(v, B'), e(u, B') + e(v, A')) \geq \frac{1}{2}(d(u) + d(v))$. Suppose without loss of generality that $e(u, A') + e(v, B') \geq \frac{1}{2}(d(u) + d(v))$. Let $A = A' \cup \{v\}$, $B = B' \cup \{u\}$. Then $(A, B)$ is a partition of $V(G)$ such that $e(A, B) \geq \frac{1}{2}e(G)$. 
+    
+    Suppose that $n$ is odd. Let $v \in G$. We know there exists a partition $(A',B')$ of $V(G)\backslash \{v\}$ such that $e(A',B') \geq \frac{1}{2}(e(G) - d(v))$ and $|A'| = |B'|$. Since $d(v) = e(v, A') + e(v, B')$, $\max(e(v, A'), e(v, B')) \geq \frac{1}{2}d(v)$. Suppose, without loss of generality, that $e(v, A') \geq \frac{1}{2}d(v)$. Let $A = A'$, $B = B' \cup \{v\}$. Then $(A,B)$ is a partition of $V(G)$ such that $e(A,B) \geq \frac{1}{2}e(G)$.
+\end{proof} 
+
+\newpage
+
+\begin{problem}{5.9.12}
+    Let $G$ be a bipartite graph with parts of sizes $m$ and $n$, not containing a $4$-cycle. Prove that
+    \[
+        |E(G)| \leq m\sqrt{n} + m + n
+    \]
+\end{problem}
+
+\begin{proof}
+    Let $M, N$ be parts of $G$ such that $|M| = m$, $|N| = n$. We count the number of $K_{1,2}$. Since no set of $2$ vertices have more than $1$ common neighbor, we get
+    \[
+        \sum_{v \in N} { d(v) \choose 2 } \leq { m \choose 2 } \leq \frac{m^2}{2}.
+    \]
+    Let $d$ be the average degree of the vertices in $N$. Since $|E(G)| = nd \leq n$ for $d \leq 1$, we can assume $d \geq 2$. Define $f : \mathbb{R} \rightarrow \mathbb{R}$ to be $f(x) = \begin{cases}
+        { x \choose 2 } &, x \geq 2 \\
+        0 &, x < 2
+    \end{cases}$. Since $f$ is convex, Jensen's inequality gives 
+    \[
+        \sum_{v \in N} { d(v) \choose 2 } \geq n{ d \choose 2 } \geq \frac{n(d - 1)^2}{2}.
+    \]
+    Thus, we get 
+    \begin{gather}
+        n(d - 1)^2 \leq m^2 \\
+        d \leq \frac{m}{\sqrt{n}} + 1
+    \end{gather}
+    Therefore, $|E(G)| = nd \leq m\sqrt{n} + n \leq m\sqrt{n} + m + n$.
+\end{proof}
+
+\newpage
+
+\begin{problem}{6.3.9}
+    Prove that for $n > 2^k$, every k-coloring of $E(K_n)$ gives a monochromatic odd cycle
+\end{problem}
+
+\begin{proof}
+    Suppose for sake of contradiction that $G$ is a $k$-edge-colored $K_n$ with no monochromatic odd cycle, for $n \geq 2^k + 1$. $G$ contains a subgraph $k$-colored $K_{2^k+1}$ with no monochromatic odd cycle, we name it $G_k$. We obtain $H \subseteq G_k$ by picking a color from $G_k$ and removing all edges that are not that color. Since $G_k$ contains no monochromatic odd cycles, $H$ is bipartite, say with parts $A$, $B$. Assume, without loss of generality, that $|A| \geq 2^{k-1} + 1$. Let $H' = G[A]$. Then $H'$ contains a $(k-1)$-edge-coloring of a $K_{2^{k-1} + 1}$ with no monochromatic odd cycle, we name it $G_{k-1}$. By recursively finding a complete subgraph $G_r$ with fewer colors, we can find $G_3$, a $1$-edge-colored $K_3$ with no monochromatic odd cycle, contradiction. Therefore, $G$ contains a monochromatic odd cycle.
+\end{proof}
+
+\end{document}

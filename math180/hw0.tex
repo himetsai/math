@@ -1,0 +1,106 @@
+\documentclass[addpoints, 11pt]{exam}
+\setlength{\headsep}{0.25in}
+\setlength{\unitlength}{1in}
+%
+\pagestyle{head}
+%
+\usepackage[utf8]{inputenc} %use Unicode
+\usepackage[T1]{fontenc} %European fonts
+
+\usepackage{%
+	amsmath,       %some math tools
+	amssymb,       %math symbols
+	graphicx,      %enhanced graphics options
+	mathtools,     %extension of amsmath
+	microtype,     %small typographic effects
+	bm,            %bold math symbols
+	% todonotes,   %adds the option \todo{...} (use fixme instead)
+	stmaryrd,      %some more math symbolswork
+	% nicematrix,    %nicer matrix controls
+	mathrsfs,      %more math fonts
+}
+\usepackage{url}
+\usepackage{hyperref}
+%
+\usepackage{amsthm}
+% \newtheorem*{thm11.1.7}{Theorem 11.1.7}
+%
+\usepackage[shortlabels]{enumitem}
+\usepackage{nicematrix}
+\usepackage{multicol}
+%
+\usepackage[normalem]{ulem}
+%
+\newcommand{\myCourseNumber}{Math 180A}
+\newcommand{\myName}{Ray Tsai}
+\newcommand{\myID}{A16848188}
+\newcommand{\myProfessor}{Professor Carfagnini}
+\newcommand{\myHmwkNumber}{0}
+% \newcommand{\myExamVersion}{}
+
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+%% define absolute value \abs{...}:
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define inner product \inner{...}{...}:
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{%
+  \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2}
+}
+
+% define \set{...} to write sets and \given to write \set{... \given ...} for {...|...}
+\newcommand*\setSymbol[1][]{
+  \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}
+}
+\providecommand\given{}
+\DeclarePairedDelimiterX\set[1]{\lbrace}{\rbrace}{
+  \renewcommand*\given{\setSymbol[\delimsize]}
+  #1
+}
+
+% free group geneated by ... \free{...} or \free{... \given ...}
+\DeclarePairedDelimiterX\free[1]{\langle}{\rangle}{
+  \renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:
+    \mathopen{}}
+  #1}
+
+% define \lopen{...}{...}, \ropen{...}{...}, \open{...}{...}, \closed{...}{...} for intervals
+\DeclarePairedDelimiterX\open[2](){#1,#2}
+\DeclarePairedDelimiterX\lopen[2](]{#1,#2}
+\DeclarePairedDelimiterX\ropen[2][){#1,#2}
+\DeclarePairedDelimiterX\closed[2][]{#1,#2}
+
+\NiceMatrixOptions{cell-space-limits = 1pt}
+\newcommand*{\pmat}[1]{\begin{pNiceMatrix} #1 \end{pNiceMatrix}}
+\newcommand*{\dfdx}[2]{\frac{\partial #1}{\partial #2}}
+
+\DeclareMathOperator{\vol}{vol}
+%
+\pointsinmargin
+\pointpoints{\thinspace point}{points}
+\marginpointname{ \points}
+%
+\begin{document}
+%
+\firstpageheader{\bfseries \myCourseNumber}{\bfseries Homework \myHmwkNumber}{\bfseries \myName \\ \myID \\ \myProfessor}
+%
+\runningheader{}{(page \textit{\thepage}\ of \textit{\numpages})}{}
+%
+%
+
+\begin{description}
+  \item[Question 1] Write a short paragraph (3-5 sentences) explaining what you think probability is. 
+  
+    Probability is a way of measuring how likely something is to happen. It can be expressed as a number between 0 and 1, where 0 means impossible and 1 means certain. The main use of probability is to help us make decisions based on uncertain events.
+\end{description}
+
+\end{document}

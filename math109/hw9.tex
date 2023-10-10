@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath, amssymb, amsthm} % Math notations imported
+\usepackage{enumitem}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+
+% title information
+\title{Math 109 HW 9}
+\author{Ray Tsai}
+\date{11/28/2022}
+
+% main content
+\begin{document} 
+
+% placing title information; comment out if using fancyhdr
+\maketitle 
+
+\begin{enumerate}
+% Q1
+\item 
+\begin{prop}
+    Suppose that for all $n \geq 1$, $\bigcap\limits_{i=1}^n S_i \neq \emptyset$, $i \in \mathbb{Z}_{\geq 1}$. $\bigcap\limits_{i=1}^\infty S_i \neq \emptyset$.
+\end{prop}
+\begin{proof}
+    We will prove by contradiction. Suppose for the sake of contradiction that $\bigcap\limits_{i=1}^\infty S_i = \emptyset$. This means that there exists $a > b \geq 1$ such that $S_a \cap S_b = \emptyset$, which means that $\bigcap\limits_{i=1}^a S_i = \emptyset$. However, this contradicts our assumption that for all integers $i, n \geq 1$, $\bigcap\limits_{i=1}^n S_i \neq \emptyset$.
+
+    Therefore, $\bigcap\limits_{i=1}^\infty S_i \neq \emptyset$.
+\end{proof}
+
+% Q2
+\item 
+\begin{prop}
+    Let $f: A \rightarrow B$ be a function. If $g,h: B \rightarrow A$ are inverse functions of $f$, then $g(b) = h(b)$ for all $b \in B$.
+\end{prop}
+\begin{proof}
+    Let $g, h$ be functions such that $f(g(b)) = b$ and $f(h(b)) = b$ for all $b \in B$ and $g(f(a)) = a$ and $h(f(a)) = a$ for all $a \in A$. Let $x \in B$. We will show that $g(x) = h(x)$. 
+    Since $f(h(x)) = x$, we have $g(f(h(x))) = g(x)$. In addition, since $g(f(a)) = a$ for all $a \in A$, we then have $g(f(h(x))) = h(x)$. Thus, $g(x) = g(f(h(x))) = h(x)$.
+
+    Therefore, the inverse function of $f$ is unique.
+\end{proof}
+
+% Q3
+\item \begin{prop}
+    If a function $f: A \rightarrow B$ has an inverse, then $f$ is bijective.
+\end{prop}
+\begin{proof}
+    We will prove by contradiction. Let $g: B \rightarrow A$ be a function such that $g(f(x)) = x$ and $f(g(y)) = y$, for all $x \in A$, $y \in B$. Suppose for the sake of contradiction that $f$ is not bijective, namely $f$ is not injective or not surjective. 
+
+    If $f$ is not injective, then there exists $m, n \in A$ such that $m \neq n$ and $f(m) = f(n)$. We then have $g(f(m)) = g(f(n))$. However, since $g(f(m)) = m$ and $g(f(n)) = n$, we have $m = n$, which contradicts our assumption. Thus, $f$ is injective.
+
+    If $f$ is not subjective, then there exists $k \in B$ such that for all $l \in A$, $f(l) \neq k$. We then have $f(g(k)) \neq k$. However, this contradicts our assumption that $f(g(y)) = y$ , for all $y \in B$. Therefore, $f$ is surjective.
+
+    Combining these two cases, our assumption that $f$ is not bijective is contradicted. 
+
+    Therefore, if there exists an inverse of $f$, then $f$ is bijective.
+\end{proof}
+
+% Q4
+\item 
+\begin{prop}
+     If a function $f: A \rightarrow B$ is bijective, then it has an inverse.
+\end{prop}
+\begin{proof}
+    Let $f: A \rightarrow B$ be a bijective function, and $g: B \rightarrow A$. Let $x \in A, y \in B$, such that $f(x) = y$. We will show that there exists a function $g: B \rightarrow A$ such that $g(f(x)) = x$ and $f(g(y)) = x$. 
+    
+    Since $f$ is surjective, we know that there exists a function $g$ such that for all $y \in B$, there exist $z \in A$ such that $g(y) = z$. 
+    
+    Since $f$ is injective and a well-defined function, we know that $f(m) = f(n)$ if and only if $m = n$, $m,n \in A$. Let $m = g(k)$ and $n = g(l)$, for some $k, l \in B$. This shows that there exists $g$ such that if $g(k) = g(l)$, then $k = l$. 
+    
+    This shows that there exists a well-defined function $g: B \rightarrow A$ such that $g(y) = x$. We then have $g(f(x)) = g(y)$ and $f(g(y)) = f(x) = y$.
+
+    Therefore, if a function is bijective, then it has an inverse.
+\end{proof}
+
+% Q5
+\item 
+\begin{prop}
+   $f$ is a well-defined function.
+\end{prop}
+\begin{proof}
+    We will show that $f$ is a well-defined function.
+
+    Existence: Let $x \in S$. We will show that there exist $s \in \in S$ such that $f(x) = s$. Let $s = [x] \in S / \sim$. Since $\sim$ is reflexive, we have $x \sim [x]$. This shows that $f(x) = [x] = s$. 
+
+    Uniqueness: Let $[b_1] = f(a), [b_2] = f(a)$ for some $a, b_1. b_2 \in S$. We will show that $[b_1] = [b_2]$. Since $[b_1] = f(a), [b_2] = f(a)$, we know that $a \sim b_1$ and $a \sim b_2$. Since $\sim$ is symmetric, we have $b_1 \sim a$. Since $\sim$ is transitive, we then have $b_1 \sim b_2$, which shows that $[b_1] = [b_2]$.
+
+    Therefore, $f$ is a well-defined function.
+\end{proof}
+    
+\end{enumerate}
+\end{document}

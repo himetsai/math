@@ -1,0 +1,283 @@
+\documentclass[addpoints, 11pt]{exam}
+\setlength{\headsep}{0.25in}
+\setlength{\unitlength}{1in}
+%
+\pagestyle{head}
+%
+\usepackage[utf8]{inputenc} %use Unicode
+\usepackage[T1]{fontenc} %European fonts
+
+\usepackage{%
+	amsmath,       %some math tools
+	amssymb,       %math symbols
+	graphicx,      %enhanced graphics options
+	mathtools,     %extension of amsmath
+	microtype,     %small typographic effects
+	bm,            %bold math symbols
+	% todonotes,   %adds the option \todo{...} (use fixme instead)
+	stmaryrd,      %some more math symbolswork
+	% nicematrix,    %nicer matrix controls
+	mathrsfs,      %more math fonts
+        dsfont,
+}
+\usepackage{url}
+\usepackage{hyperref}
+%
+\usepackage{amsthm}
+% \newtheorem*{thm11.1.7}{Theorem 11.1.7}
+%
+\usepackage[shortlabels]{enumitem}
+\usepackage{nicematrix}
+\usepackage{multicol}
+%
+\usepackage[normalem]{ulem}
+%
+\newcommand{\myCourseNumber}{Math 180A}
+\newcommand{\myName}{Ray Tsai}
+\newcommand{\myID}{A16848188}
+\newcommand{\myProfessor}{Professor Carfagnini}
+\newcommand{\myHmwkNumber}{3}
+% \newcommand{\myExamVersion}{}
+
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+
+%% define absolute value \abs{...}:
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define inner product \inner{...}{...}:
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{%
+  \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2}
+}
+
+% define \set{...} to write sets and \given to write \set{... \given ...} for {...|...}
+\newcommand*\setSymbol[1][]{
+  \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}
+}
+\providecommand\given{}
+\DeclarePairedDelimiterX\set[1]{\lbrace}{\rbrace}{
+  \renewcommand*\given{\setSymbol[\delimsize]}
+  #1
+}
+
+% free group geneated by ... \free{...} or \free{... \given ...}
+\DeclarePairedDelimiterX\free[1]{\langle}{\rangle}{
+  \renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:
+    \mathopen{}}
+  #1}
+
+% define \lopen{...}{...}, \ropen{...}{...}, \open{...}{...}, \closed{...}{...} for intervals
+\DeclarePairedDelimiterX\open[2](){#1,#2}
+\DeclarePairedDelimiterX\lopen[2](]{#1,#2}
+\DeclarePairedDelimiterX\ropen[2][){#1,#2}
+\DeclarePairedDelimiterX\closed[2][]{#1,#2}
+
+\NiceMatrixOptions{cell-space-limits = 1pt}
+\newcommand*{\pmat}[1]{\begin{pNiceMatrix} #1 \end{pNiceMatrix}}
+\newcommand*{\dfdx}[2]{\frac{\partial #1}{\partial #2}}
+
+\DeclareMathOperator{\vol}{vol}
+%
+\pointsinmargin
+\pointpoints{\thinspace point}{points}
+\marginpointname{ \points}
+%
+\begin{document}
+%
+\firstpageheader{\bfseries \myCourseNumber}{\bfseries Homework \myHmwkNumber}{\bfseries \myName \\ \myID \\ \myProfessor}
+%
+\runningheader{}{(page \textit{\thepage}\ of \textit{\numpages})}{}
+%
+%
+
+\begin{description}
+    \item[Question 1]  Let $c > 0$ and $X \sim \text{Unif}[0, c]$. Show that the random variable $Y = c - X$ has the same cumulative distribution function as $X$ and hence also the same density function.
+    \begin{proof}[Solution]
+    Let $F$ be the cumulative distribution function. For $x \in [0, c]$, 
+        \begin{align}
+            F_X(x) 
+            &= \prob(X \leq x) = \frac{x}{c}, \\
+            F_Y(x) 
+            &= \prob(Y \leq x) \\
+            &= \prob(X \geq c - x) = \frac{x}{c}.
+        \end{align}
+        Thus, $X$ and $Y$ have the same cumulative distribution.
+
+        Since the density function $p_X(x) = \frac{d}{dx}F_X(x) = \frac{d}{dx}F_Y(x) = p_Y(x) = \frac{1}{c}$, the density functions of $X,Y$ are the same.
+    \end{proof}
+    
+
+    \newpage
+
+    \item[Question 2]  Parts (a) and (b) ask for an example of a random variable $X$ whose cumulative distribution function $F(x)$ satisfies $F(1) = \frac{1}{3}$, $F(2) = \frac{3}{4}$, and $F(3) = 1$.
+
+    \begin{enumerate}[(a)]
+        \item Make $X$ discrete and give its probability mass function.
+
+        \begin{proof}[Solution]
+            An urn contains 12 balls with 4 of them numbered 1, 5 of them numbered 2, and 3 of them numbered 3. Let $X$ be the number of the selected ball. The mass function \[
+                p(x) = 
+                \begin{cases}
+                    \frac{1}{3}, & x = 1 \\
+                    \frac{5}{12}, & x = 2 \\
+                    \frac{1}{4}, & x = 3
+                \end{cases}.
+            \]
+            Since $F(1) = p(1) = \frac{1}{3}$, $F(2) = p(1) + p(2) = \frac{1}{3} + \frac{5}{12} = \frac{3}{4}$, and $F(3) = 1$, $X$ satisfies the given condition.
+        \end{proof}
+
+        \item Make $X$ continuous and give its probability density function.
+
+        \begin{proof}[Solution]
+            Let $a = 4-\sqrt{13}$. Define distribution
+            \[
+                F(x) = \begin{cases}
+            0, & x < a \\
+            -\frac{1}{12}x^2 + \frac{2}{3}x - \frac{1}{4}, & x \in [a, 3] \\
+            1, & x > 3.
+        \end{cases}
+            \]
+            Let $X \sim F$. Since $F(1) = \frac{1}{3}$, $F(2) = \frac{3}{4}$, and $F(3) = 1$, $X$ satisfies the given condition. The density function of $X$ is $p(x) = F'(x) = \begin{cases}
+                -\frac{1}{6} + \frac{2}{3}, & x \in [a, 3] \\
+                0, & x \notin [a, 3]
+            \end{cases}$. 
+        \end{proof}
+    \end{enumerate}
+
+    \newpage
+
+    \item[Question 3] Let $A$ and $B$ be two disjoint events. Under what conditions are they independent?
+
+    \begin{proof}[Solution]
+        Suppose $A,B$ are independent. Then $\prob(AB) = \prob(A)\prob(B) = 0$. Thus, $A,B$ are independent if $\prob(A)$ or $\prob(B)$ is 0.
+    \end{proof}
+
+    \newpage
+
+    \item[Question 4] Suppose that the events $A, B$, and $C$ are mutually independent with
+    \[
+        \prob(A) = \frac{1}{2}, \quad \prob(B) = \frac{1}{3}, \quad \prob(C) = \frac{1}{4}.
+    \]
+    Compute $\prob(AB \cup C)$.
+
+    \begin{proof}[Solution]
+        \begin{align}
+            \prob(AB \cup C)
+            &= \prob(AB) + \prob(C) - \prob(ABC) \\
+            &= \frac{1}{2} \cdot \frac{1}{3} + \frac{1}{4} - \frac{1}{2} \cdot \frac{1}{3} \cdot \frac{1}{4} \\
+            &= \frac{3}{8}.
+        \end{align}
+    \end{proof}
+
+    \newpage
+
+    \item[Question 5]  Let $n$ be a fixed integer and $c \in R$. Let us consider the function
+    \[
+        p(x) = \begin{cases}
+            cx, & x \in [n] \\
+            0, & \text{otherwise}
+        \end{cases}.
+    \]
+    Find the value of $c$ so that $p(x)$ is the probability mass function of a random variable $X$. 
+
+    \begin{proof}[Solution]
+    \begin{gather}
+        \sum_{x \in [n]} p(x) = c\sum_{x \in [n]} x = \frac{cn(n+1)}{2} = 1, \\
+        c = \frac{2}{n^2 + n}.
+    \end{gather}
+    \end{proof}
+
+    \newpage
+
+    \item[Question 6]  Let us consider the function
+    \[
+        f(x) = \begin{cases}
+            cxe^x, & x \in (0,3) \\
+            0, & \text{otherwise}
+        \end{cases},
+    \]
+    for some $c \in \R$. Is it possible to find a value for $c$ so that $f(x)$ is the probability density function of a random variable $X$?
+
+    \begin{proof}[Solution]
+    Suppose that $\int^{\infty}_{-\infty} f(x) dx = c\int^3_0 xe^x dx = c[(x-1)e^x]^3_0 = c(2e^3 + 1) \leq 1$, $f(x)$ can be a probability density function for $0 \leq c \leq \frac{1}{2e^3 + 1}$.
+    \end{proof}
+
+    \newpage
+
+    \item[Question 7]  A fair coin is flipped twice. Let $X$ be the number of heads observed.
+
+    \begin{enumerate}[(a)]
+        \item Give the possible values and probability mass function for $X$.
+
+        \begin{proof}[Solution]
+            The possible values are $0,1,2$. The probability mass function $p(x) = \frac{{2 \choose x}}{4}$, for $x \in \{0, 1, 2\}$.
+        \end{proof}
+
+        \item Find $\prob(X \geq 1)$ and $\prob(X > 1)$.
+
+        \begin{proof}[Solution]
+            \begin{gather}
+                \prob(X \geq 1) = p(1) + p(2) = \frac{3}{4} \\
+                \prob(X > 1) = p(2) = \frac{1}{4}.
+            \end{gather}
+        \end{proof}
+    \end{enumerate}
+
+    \newpage
+
+    \item[Question 8] Suppose that $X$ is a discrete random variable with possible values $\N = \{1, 2, 3, \dots\}$, and probability mass function
+    \[
+        p_X(k) = \frac{c}{k(k+1)},
+    \]
+    for some constant $c > 0$. What is the value of $c$?
+
+    \begin{proof}[Solution]
+        \begin{align}
+            \sum_{k \in \N} p_X(k) 
+            &= c\sum_{k \in \N} \frac{1}{k(k+1)} \\
+            &= c\sum_{k \in \N} \frac{1}{k} - \frac{1}{k + 1} \\
+            &= c \cdot \left(1 - \frac{1}{\infty}\right) = 1.
+        \end{align}
+        Therefore, $c = 1$.
+    \end{proof}
+
+    \newpage
+
+    \item[Question 9] We choose a number from the set $\{10, 11, 12, . . . , 99\}$ uniformly at random.
+
+    \begin{enumerate}[(a)]
+        \item Let $X$ be the first digit and $Y$ be the second digit of the chosen number. Show that $X$ and $Y$ are independent random variables.
+
+        \begin{proof}[Solution]
+            The possible values for $X$ are $1, \dots, 9$, $Y$ are $0, 1, \dots, 9$. Let $d_1$ be a possible value of $X$ and $d_2$ be a possible value of $Y$. There are 9 numbers that start with $d_1$ and 10 numbers that end with $d_2$, and there is only one number that starts with $d_1$ and ends with $d_2$. Since the number is chosen uniformly at random, $\prob(X = d_1) = \frac{1}{9}$ and $\prob(Y = d_2) = \frac{1}{10}$. Since \[
+                \prob(X = d_1 \text{ and } Y = d_2) = \frac{1}{90} = \prob(X = d_1)\prob(Y = d_2),
+            \]
+            $X$, $Y$ are independent variables.
+        \end{proof}
+
+        \item  Let $X$ be the first digit of the chosen number and $Z$ be the sum of the two digits. Show that $X$ and $Z$ are not independent.
+
+        \begin{proof}[Solution]
+            The possible values for $X$ are $1, \dots, 9$, and $Z$ are $1, \dots, 18$. Since it's impossible for the sum of the digits to be 18 when the first digit is 1, $\prob(X = 1 \text{ and } Z = 18) = 0$. Since 99 is the only number whose sum of digits is 18, $\prob(Z = 18) = \frac{1}{90}$.
+            Since 
+            \begin{gather}
+                \prob(X = 1)\prob(Z = 18) = \frac{1}{9} \cdot \frac{1}{90}, \\
+                \prob(X = 1 \text{ and } Z = 18) = 0,
+            \end{gather}
+            $X, Z$ are not independent.
+            
+        \end{proof}
+    \end{enumerate}
+    
+\end{description}
+
+\end{document}

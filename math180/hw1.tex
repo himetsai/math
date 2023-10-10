@@ -1,0 +1,257 @@
+\documentclass[addpoints, 11pt]{exam}
+\setlength{\headsep}{0.25in}
+\setlength{\unitlength}{1in}
+%
+\pagestyle{head}
+%
+\usepackage[utf8]{inputenc} %use Unicode
+\usepackage[T1]{fontenc} %European fonts
+
+\usepackage{%
+	amsmath,       %some math tools
+	amssymb,       %math symbols
+	graphicx,      %enhanced graphics options
+	mathtools,     %extension of amsmath
+	microtype,     %small typographic effects
+	bm,            %bold math symbols
+	% todonotes,   %adds the option \todo{...} (use fixme instead)
+	stmaryrd,      %some more math symbolswork
+	% nicematrix,    %nicer matrix controls
+	mathrsfs,      %more math fonts
+        dsfont,
+}
+\usepackage{url}
+
+\usepackage{hyperref}
+%
+\usepackage{amsthm}
+% \newtheorem*{thm11.1.7}{Theorem 11.1.7}
+%
+\usepackage[shortlabels]{enumitem}
+\usepackage{nicematrix}
+\usepackage{multicol}
+%
+\usepackage[normalem]{ulem}
+%
+\newcommand{\myCourseNumber}{Math 180A}
+\newcommand{\myName}{Ray Tsai}
+\newcommand{\myID}{A16848188}
+\newcommand{\myProfessor}{Professor Carfagnini}
+\newcommand{\myHmwkNumber}{1}
+% \newcommand{\myExamVersion}{}
+
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+
+%% define absolute value \abs{...}:
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define inner product \inner{...}{...}:
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{%
+  \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2}
+}
+
+% define \set{...} to write sets and \given to write \set{... \given ...} for {...|...}
+\newcommand*\setSymbol[1][]{
+  \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}
+}
+\providecommand\given{}
+\DeclarePairedDelimiterX\set[1]{\lbrace}{\rbrace}{
+  \renewcommand*\given{\setSymbol[\delimsize]}
+  #1
+}
+
+% free group geneated by ... \free{...} or \free{... \given ...}
+\DeclarePairedDelimiterX\free[1]{\langle}{\rangle}{
+  \renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:
+    \mathopen{}}
+  #1}
+
+% define \lopen{...}{...}, \ropen{...}{...}, \open{...}{...}, \closed{...}{...} for intervals
+\DeclarePairedDelimiterX\open[2](){#1,#2}
+\DeclarePairedDelimiterX\lopen[2](]{#1,#2}
+\DeclarePairedDelimiterX\ropen[2][){#1,#2}
+\DeclarePairedDelimiterX\closed[2][]{#1,#2}
+
+\NiceMatrixOptions{cell-space-limits = 1pt}
+\newcommand*{\pmat}[1]{\begin{pNiceMatrix} #1 \end{pNiceMatrix}}
+\newcommand*{\dfdx}[2]{\frac{\partial #1}{\partial #2}}
+
+\DeclareMathOperator{\vol}{vol}
+%
+\pointsinmargin
+\pointpoints{\thinspace point}{points}
+\marginpointname{ \points}
+%
+\begin{document}
+%
+\firstpageheader{\bfseries \myCourseNumber}{\bfseries Homework \myHmwkNumber}{\bfseries \myName \\ \myID \\ \myProfessor}
+%
+\runningheader{}{(page \textit{\thepage}\ of \textit{\numpages})}{}
+%
+%
+
+\begin{description}
+    \item[Question 1]  We roll a fair die four times
+    \begin{enumerate}[(a)]
+        \item Describe the sample space $\Omega$ and the probability measure $\prob$ that model this experiment. To describe $\prob$, give the value $\prob(\Omega)$ for each outcome $\omega \in \Omega$.
+        \begin{proof}[Solution] 
+            \[
+                \Omega = \{(x,y,w,z) \, | \, x,y,w,z \in [6] \}.
+            \]
+            For all $\omega \in \Omega$, 
+            \[
+                \prob(\omega) = \frac{1}{|\Omega|} = \frac{1}{6^4} = \frac{1}{1296}.
+            \]
+        \end{proof}
+
+        \item Let $A$ be the event that there are at least two fives among the four rolls. Let $B$ be the event that there is at most one five among the four rolls. Find the probabilities $\prob(A)$ and $\prob(B)$ by finding the ratio of the number of favorable outcomes to the total.
+        \begin{proof}[Solution]
+            \begin{align}
+                \prob(A) 
+                &= P(\text{two fives}) + P(\text{three fives}) + P(\text{four fives}) \\
+                &= \frac{5^2{4 \choose 2}}{|\Omega|} + \frac{5{4 \choose 3}}{|\Omega|} + \frac{1}{|\Omega|} \\
+                &= \frac{171}{1296}. \\\\
+                \prob(B) 
+                &= P(\text{no five}) + P(\text{one five}) \\
+                &= \frac{5^4}{|\Omega|} + \frac{5^3{4 \choose 1}}{|\Omega|} \\
+                &= \frac{1125}{1296}.
+            \end{align}
+        \end{proof}
+
+        \item What is the set $A \cup B$? Check if $\prob(A \cup B) = \prob(A) + \prob(B)$.
+        \begin{proof}[Solution]
+            Since $B = A^c$, $A \cup B = \Omega$, and thus $P(A \cup B) = 1$. We also know that $\prob(A) + \prob(B) = \frac{171}{1296} + \frac{1125}{1296} = 1$. Therefore, the statement holds true.
+        \end{proof}
+    \end{enumerate}
+
+    \newpage
+
+    \item[Question 2]  Every day a kindergarten class chooses randomly one of the $50$ state flags to hang on the wall, without regard to previous choices. We are interested in the flags that are chosen on Monday, Tuesday and Wednesday of next week.
+
+    \begin{enumerate}[(a)]
+        \item Describe the sample space $\Omega$ and the probability measure $\prob$ that model this experiment.
+        \begin{proof}[Solution] 
+            \[
+                \Omega = \{(m, t, w) \, | \, m, t, w \in [50] \}.
+            \]
+            For all $\omega \in \Omega$, 
+            \[
+                \prob(\omega) = \frac{1}{|\Omega|} = \frac{1}{50^3} = \frac{1}{125000}.
+            \]
+        \end{proof}
+
+        \item What is the probability that the class hangs Wisconsin’s flag on Monday, Michigan’s flag on Tuesday, and California’s flag on Wednesday?
+        \begin{proof}[Solution]
+            Let $\omega$ be the event where the class hangs Winconsin's flag on Monday, Michigan's flag on Tuesday, and California's flag on Wednesday. Since $\omega \in \Omega$, $\prob(\omega) = \frac{1}{125000}$.
+        \end{proof}
+
+        \item What is the probability that Wisconsin’s flag will be hung at least two of the three days?
+        \begin{proof}[Solution]
+           \[
+            \prob(\text{Wisconsin’s flag hung at least two days}) = \frac{49{3 \choose 2} + 1}{125000} = \frac{148}{125000}.
+           \]
+        \end{proof}
+    \end{enumerate}
+
+    \newpage
+
+    \item[Question 3] 10 women, 5 nonbinary folks, and 5 men are meeting in a conference room. Four people are chosen at random from the 20 to form a committee.
+
+    \begin{enumerate}[(a)]
+        \item What is the probability that the committee consists of 2 women, 1 nonbinary person, and 1 man?
+        \begin{proof}[Solution] 
+            Let $A$ be the event where the committee consists of 2 women, 1 nonbinary person, and 1 man.
+            \[
+                \prob(A) = \frac{{10 \choose 2}{5 \choose 1}{5 \choose 1}}{{20 \choose 4}} = \frac{75}{323}.
+            \]
+        \end{proof}
+
+        \item Among the 20 is a couple of friends, Alex (who identifies as a woman) and Pete (who identifies as nonbinary). What is the probability that Alex and Pete both end up on the committee?
+        \begin{proof}[Solution]
+            Let $A$ be the event where Alex and Pete both end up on the committee.
+            \[
+                \prob(A) = \frac{{18 \choose 2}}{{20 \choose 4}} = \frac{3}{95}.
+            \]
+        \end{proof}
+
+        \item What is the probability that Alex ends up on the committee but Pete doesn’t?
+        \begin{proof}[Solution]
+            Let $A$ be the event where Alex ends up on the committee but Pete doesn’t.
+            \[
+                \prob(A) = \frac{{18 \choose 3}}{{20 \choose 4}} = \frac{16}{95}.
+            \]
+        \end{proof}
+    \end{enumerate}
+
+    \newpage
+
+    \item[Question 4]  Pick a uniformly chosen random point inside a unit square (a square of side length 1) and draw a circle of radius $\frac{1}{3}$ around the point. Find the probability that the circle lies entirely inside the square.
+    \begin{proof}[Solution]
+        A circle $C$ with radius $\frac{1}{3}$ would lie entirely inside the unit square $S$ if the distance from its center to any side of $S$ is greater or equal to $\frac{1}{3}$, which requires the center of $C$ to be in the smaller square $S'$ with side length $\frac{1}{3}$ centered in $S$. Therefore, 
+        \[
+            \prob(C \text{ lies entirely in } S) = \frac{\text{Area}(S')}{\text{Area}(S)} = \frac{1}{9}.
+        \]
+    \end{proof}
+
+    \newpage
+
+    \item[Question 5]  An urn contains 1 green ball, 1 red ball, 1 yellow ball, and 1 white ball. I draw 4 balls with replacements. What is the probability that there is at least one color that is repeated exactly twice?
+
+    \begin{proof}[Solution]
+        Let $A = \{\text{ at least one color repeat exactly twice }\}$, $O = \{\text{ only one color repeat exactly twice }\}$, $T = \{\text{ two colors repeat exactly twice }\}$. Since $O$ and $T$ are disjoint to each other, 
+        \[
+            \prob(A) = \prob(O) + \prob(T) = \frac{{ 4 \choose 2 } \cdot \frac{4!}{1!}}{4^4} + \frac{{ 4 \choose 2 } \cdot \frac{4!}{2!2!}}{4^4} = \frac{45}{64}.
+        \]
+        
+    \end{proof}
+
+    \newpage
+
+    \item[Question 6]  Assume that $\prob(A) = \frac{2}{5}$ and $\prob(B) = \frac{7}{10}$. Making no further assumptions on $A$ and $B$, show that $\prob(AB)$ satisfies $\frac{1}{10} \leq \prob(AB) \leq \frac{2}{5}$.
+    
+    \begin{proof}[Solution] 
+        By inclusion-exclusion, 
+        \[
+            \prob(AB) = \prob(A) + \prob(B) - \prob(A \cup B) = \frac{11}{10} - \prob(A \cup B).
+        \]
+        Since $\prob(B) = \frac{7}{10} \leq \prob(A \cup B) \leq 1$, we get $\frac{1}{10} \leq \prob(AB) \leq \frac{2}{5}$.
+    \end{proof}
+
+    \newpage
+
+    \item[Question 7] Show that for any events $A_1, A_2, \dots, A_m$
+    \[
+        \prob(A_1 \cup \dots \cup A_m) \leq \sum^m_{k = 1} \prob(A_k).
+    \]
+    
+    \begin{proof}[Solution] 
+        We will prove by induction on $m$. When $m = 2$, 
+        \[
+            \prob(A_1 \cup A_2) = \prob(A_1) + \prob(A_2) - \prob(A_1 \cap A_2)
+        \]
+        by inclusion-exclusion, and thus $\prob(A_1 \cup A_2) \leq \prob(A_1) + \prob(A_2)$ because $\prob(A_1 \cap A_2) \geq 0$. 
+        
+        For $m > 2$, 
+        \[
+            \prob(A_1 \cup \dots \cup A_m) \leq \prob(A_m) + \prob(A_1 \cup \dots \cup A_{m-1})
+        \]
+        by inclusion-exclusion. By induction, $\prob(A_1 \cup \dots \cup A_{m-1}) \leq \sum^{m-1}_{k = 1} \prob(A_k)$, and thus 
+        \[
+            \prob(A_1 \cup \dots \cup A_m) \leq \prob(A_m) + \sum^{m-1}_{k = 1} \prob(A_k) = \sum^m_{k = 1} \prob(A_k).
+        \]
+    \end{proof}
+
+    
+\end{description}
+
+\end{document}

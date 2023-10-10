@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{color}
+\setlength{\parindent}{0pt} \oddsidemargin 0.0in \evensidemargin
+0.0in \topmargin -1in \textheight 9.9in \textwidth 6.9in
+\renewcommand{\baselinestretch}{1.02}
+\usepackage{amsfonts,verbatim}
+\usepackage{sectsty}
+\sectionfont{\huge}
+\subsectionfont{\Large}
+\subsubsectionfont{\large}
+
+\newcounter{question}[section]
+
+\newenvironment{question}{\refstepcounter{question}\textbf{Question~\thequestion.}}{\bigskip}
+
+\begin{document}
+
+{\Large {\sf Math 158 - Homework 1}}
+
+\bigskip
+
+
+\begin{question}  Let $K_{n:r}$ denote the {\em Kneser graph}, whose vertex set is the
+set of $r$-element subsets of an $n$-element sets, and where two vertices form an edge if the
+corresponding sets are disjoint.
+\begin{center}
+\begin{tabular}{lp{5.5in}}
+(a) & Describe $K_{n:1}$ for $n \geq 1$. \\
+(b) & Draw $K_{4:2}$ and $K_{5:2}$. \\
+(c) & Determine $|E(K_{n:r})|$ for $n \geq 2r \geq 1$.
+\end{tabular}
+
+\end{center}
+\end{question}
+
+\newpage
+
+\begin{question}
+Let $G$ be a digraph such that every vertex has positive in-degree. Prove that $G$ contains a directed cycle.
+\end{question}
+
+\newpage
+
+
+\begin{question}     Let $G$ be an $n$-vertex graph with $n \geq 2$ and
+$\delta(G) \geq (n - 1)/2$. Prove that $G$ is connected and that the diameter of
+$G$ is at most two.
+\end{question}
+
+
+\newpage
+\begin{question}
+
+\smallskip
+
+\begin{tabular}{lp{5.5in}}
+(a) & Let $P$ and $Q$ be longest paths in a connected graph $G$. Prove that
+\[ V(P) \cap V(Q) \neq \emptyset.\] \vspace{-0.2in}
+\end{tabular}
+\end{question}
+
+\newpage
+
+\begin{question}
+Prove that a graph of minimum degree at least $k \geq 2$ containing no triangles contains a cycle of length at least $2k$.
+\end{question}
+
+\end{document}

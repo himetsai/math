@@ -1,0 +1,213 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath, amssymb, amsthm} % Math notations imported
+\usepackage{enumitem}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+
+% title information
+\title{Math 109 HW 8}
+\author{Ray Tsai}
+\date{11/21/2022}
+
+% main content
+\begin{document} 
+
+% placing title information; comment out if using fancyhdr
+\maketitle 
+
+\begin{enumerate}
+% Q1
+\item \begin{enumerate}
+\item \begin{prop}
+    $\sim$ is equivalent.
+\end{prop}
+\begin{proof}
+    We will show that $\sim$ is reflexive, symmetric, and transitive.
+
+    Reflexive: Let $(a, b) \in \mathbb{R}^2$. We will show that $(a, b) \sim (a, b)$. Since there exists $k = 1 \in \mathbb{R}$ such that $(a, b) = (ka, kb)$, $(a, b) \sim (a, b)$.
+
+    Symmetric: Let $(a, b) \sim (c, d)$. We will show that $(c, d) \sim (a, b)$. Since $(a, b) \sim (c, d)$, we know that there exists $k \in \mathbb{R}$ such that $(a, b) = (kc, kd)$. Since $k \neq 0$, we can let $m = \frac{1}{k} \in \mathbb{R}$. We then get $(ma, mb) = (kmc, kmd) = (c, d)$, which shows that $(c, d) ~ (a, b)$.
+
+    Transitive: Let $(a, b) \sim (c, d)$, $(c, d) \sim (e, f)$. We will show that $(a, b) \sim (e, f)$. Since $(a, b) \sim (c, d)$ and $(c, d) \sim (e, f)$, we have $(a, b) = (kc, kd)$ and $(c, d) = (me, mf)$, $k, m \in \mathbb{R}_{\neq 0}$. We then have $(a, b) = (kc, kd) = (kme, kmf)$. Since $km \in \mathbb{R}_{\neq 0}$, we have $(a, b) \sim (e, f)$.
+
+    Therefore, $\sim$ is reflexive, symmetric, and transitive.
+\end{proof}
+
+\item \begin{prop}
+    $\sim$ is not equivalent.
+\end{prop}
+\begin{proof}
+    Consider the case $(1, 0), (0, 0) \in \mathbb{R}^2$. Since $1^2 + 0^2 = 1 \geq 0^2 + 0^2$, we have $(1, 0) \sim (0, 0)$. However, $(0, 0) \not\sim (1, 0)$ because $0^2 + 0^2 = 1 < 1^2 + 0^2$. Therefore, $\sim$ is not equivalent.
+\end{proof}
+\end{enumerate}
+
+% Q2
+\item 
+\begin{prop}
+    $\approx$ is an equivalent relation.
+\end{prop}
+\begin{proof}
+    We will show that $\approx$ is reflexive, symmetric, and transitive.
+
+    Reflexive: Let $a \in A$. We will show that $a \approx a$. Since $\sim$ is an equivalent relation and $f(a) = f(a)$, we know that $f(a) \sim f(a)$ by the reflexive property. Therefore, since $f(a) \sim f(a)$, we have $a \approx a$.
+
+    Symmetric: Let $a_1 \approx a_2$. We will show that $a_2 \approx a_1$. Since $a_1 \approx a_2$, we know that $f(a_1) \sim f(a_2)$. By the symmetric property of $\sim$, we have $f(a_2) \sim f(a_1)$, which shows that $a_2 \approx a_1$.
+
+    Transitive: Let $a_1 \approx a_2$, $a_2 \approx a_3$. We will show that $a_1 \approx a_3$. Since $a_1 \approx a_2$, $a_2 \approx a_3$, we know that $f(a_1) \sim f(a_2)$ and $f(a_2) \sim f(a_3)$. By the transitive property of $\sim$, we have $f(a_1) \sim f(a_3)$, which shows that $a_1 \approx a_3$.
+
+    Therefore, $\approx$ is an equivalent relation.
+\end{proof}
+
+% Q3
+\item 
+\begin{enumerate}
+    \item 
+    \begin{prop}
+        $S/\sim$ has $3$ elements.
+    \end{prop}
+    \begin{proof}
+        We know that for all $m \in S$, $1 \leq m \leq 15$, $m \in \mathbb{Z}$. Since the $2$ is the smallest integer, $1$ has $0$ prime factors. Since $2 \in S$, we know that $S/\sim$ contains a equivalent class for elements that have $1$ prime factor. The second smallest integer is $3$. Since $2 \cdot 3  = 6 \in S$, we know that $S/\sim$ contains a equivalent class for elements that have $2$ prime factor. The third smallest integer is $5$. The smallest integer that has $3$ or more prime factors is $2\cdot3\cdot5 = 30 \notin S$, as it is greater than $15$. Since all the integers that have $3$ or more prime factors are greater than $15$, there does not exist an equivalent class for them. Therefore, $S/\sim$ has $3$ elements, namely integers that have $0, 1, 2$ prime factors respectively.
+    \end{proof}
+
+    \item 
+    $6$ has $2$ prime factors, so the equivalent class containing $6$ is $\{6, 10, 12, 14, 15\} \subseteq S$.
+\end{enumerate}
+
+% Q4
+\item 
+Let $a,b,c,d,n \in \mathbb{Z}$ such that $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$.
+\begin{enumerate}
+\item 
+\begin{prop}
+     $a + c \equiv b + d \pmod{n}$.
+\end{prop}
+\begin{proof}
+    Let $a = nk_1 + b$, $c = nk_2 + d$, $k_1, k_2 \in \mathbb{Z}$. We will show that $a + c \equiv b + d \pmod{n}$. We know that 
+    \begin{align}
+        a + c &\equiv (nk_1 + b) + (nk_2 + d) \pmod{n} \\
+              &\equiv n(k_1 + k_2) + b + d \pmod{n} \\
+              &\equiv b + d \pmod{n}.
+    \end{align}
+    Therefore, $a + c \equiv b + d \pmod{n}$.
+\end{proof}
+
+\item 
+\begin{prop}
+     $ac \equiv bd \pmod{n}$.
+\end{prop}
+\begin{proof}
+    Let $a = nk_1 + b$, $c = nk_2 + d$, $k_1, k_2 \in \mathbb{Z}$. We will show that $ac \equiv bd \pmod{n}$. We know that 
+    \begin{align}
+        ac &\equiv (nk_1 + b)(nk_2 + d) \pmod{n} \\
+              &\equiv n(nk_1k_2 + k_1d + k_2b) + bd \pmod{n} \\
+              &\equiv bd \pmod{n}.
+    \end{align}
+    Therefore, $ac \equiv bd \pmod{n}$.
+\end{proof}
+
+\item 
+\begin{prop}
+     $a^m \equiv b^m \pmod{n}$ for all $m \in \mathbb{Z}_{> 0}$.
+\end{prop}
+\begin{proof}
+    We will proceed by induction on $m$.
+
+    Suppose $m = 1$, we have $a \equiv b \pmod{n}$.
+
+    Suppose that $a^m \equiv b^m \pmod{n}$ for some $m$. We will show that $a^{m+1} \equiv b^{m+1} \pmod{n}$. Since $a \equiv b \pmod{n}$ and the induction hypothesis, we know that $a\cdot a^m \equiv b\cdot b^m \pmod{n}$ by Q4.b. Thus, $a^{m+1} \equiv b^{m+1} \pmod{n}$ if $a^m \equiv b^m \pmod{n}$.
+
+    Therefore, $a^m \equiv b^m \pmod{n}$ for all $m \in \mathbb{Z}_{> 0}$.
+\end{proof}
+\end{enumerate}
+
+% Q5
+\item 
+\begin{prop}
+   $13^{145} \equiv 13 \pmod{21}$
+\end{prop}
+\begin{proof}
+    \begin{align}
+        13^{145} &\equiv 13^{12\cdot12 + 1} \pmod{21} \\
+                 &\equiv 13\cdot(13^{12})^{12} \pmod{21}\\
+                 &\equiv 13\cdot(1)^{12} \pmod{21} \\
+                 &\equiv 13 \pmod{21}
+    \end{align}
+\end{proof}
+
+% Q6
+\item 
+\begin{prop}
+    $2^{101} \equiv 4 \pmod{7}.$
+\end{prop}
+\begin{proof}
+    Since
+    \begin{align}
+        2^1 &\equiv 2 \pmod{7} \\
+        2^2 &\equiv 4 \pmod{7} \\
+        2^3 &\equiv 1 \pmod{7}, 
+    \end{align}
+    we know that 
+    \begin{align}
+        2^{101} &\equiv 2^{3\cdot33 + 2} \pmod{7} \\
+                &\equiv 2^2\cdot(2^{3})^{33} \pmod{7} \\
+                &\equiv 4\cdot(1)^{33} \pmod{7} \\
+                &\equiv 4 \pmod{7}.
+    \end{align}
+\end{proof}
+
+% Q7
+\item 
+\begin{prop}
+    The possible congruence classes are $[1], [-2]$.
+\end{prop}
+\begin{proof}
+    Let $2x + 3 \equiv -1 \pmod{6}$ for some congruence class $x$. We then have $2x \equiv -4 \equiv 2 \pmod{6}$ by Q4.a. By Q4.b, we can cancel the $2$ on all sides, which shows that $x \equiv -2 \pmod{6}$ or $x \equiv 1 \pmod{6}$. 
+
+    Therefore, the possible congruence classes are $[1], [-2]$.
+\end{proof}
+
+% Q8
+\item 
+\begin{prop}
+    There does not exist integers $x, y$ such that $x^3 + 7y^2 = 3$.
+\end{prop}
+\begin{proof}
+    We will prove by contradiction. Let $x, y$ be integers. Suppose for the sake of contradiction that $x^3 + 7y^2 = 3$. By taking modulo $7$ of the equation, we have $x^3 + 7y^2 \equiv x^3 \equiv 3 \pmod{7}$. However, there does not exist $x$ such that $x^3 \equiv 3 \pmod{7}$, since 
+    \begin{align}
+              0^3 &\equiv 0 \pmod{7} \\
+        (\pm 1)^3 &\equiv \pm 1 \pmod{7} \\
+        (\pm 2)^3 &\equiv \pm 8 \pmod{7} \\
+                  &\equiv \pm 1 \pmod{7} \\
+        (\pm 3)^3 &\equiv \pm 27 \pmod{7} \\
+                  &\equiv \pm 1 \pmod{7},
+    \end{align}
+    none of which are congruent to $3$, which contradicts our assumption.
+
+    Therefore, there does not exist integers $x$ such that $x^3 + 7y^2 = 3$.
+\end{proof}
+
+% Q9
+\item 
+\begin{prop}
+    If $n \equiv 3 \pmod{4}$, then there does not exist integers  $x, y$ such that $x^2 + y^2 = n$.
+\end{prop}
+\begin{proof}
+    We will prove by contradiction. Let $x, y \in \mathbb{Z}$. Suppose for the sake of contradiction that $n \equiv 3 \pmod{4}$. By taking modulo $4$ of $x^2 + y^2 = n$, we have $x^2 + y^2 \equiv 3 \pmod{4}$. Since 
+    \begin{align}
+              0^2 &\equiv 0 \pmod{4} \\
+        (\pm 1)^2 &\equiv 1 \pmod{4} \\
+              2^2 &\equiv 0 \pmod{4},
+    \end{align}
+    $x^2 \pmod{4}$ and $y^2 \pmod{4}$ can only be congruent to $0$ or $1$. 
+
+    If $x^2 \equiv 0 \pmod{4}$, then $y^2 \pmod{4}$ must be congruent to $3$, which is impossible.
+
+    If $x^2 \equiv 1 \pmod{4}$, then $y^2 \pmod{4}$ must be congruent to $2$, which is also impossible.
+
+    This contradicts our assumption and shows that there does not exist $x, y \in \mathbb{Z}$ such that $x^2 + y^2 = n$.
+\end{proof}
+    
+\end{enumerate}
+\end{document}
