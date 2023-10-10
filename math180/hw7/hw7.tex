@@ -1,0 +1,389 @@
+\documentclass[addpoints, 11pt]{exam}
+\setlength{\headsep}{0.25in}
+\setlength{\unitlength}{1in}
+%
+\pagestyle{head}
+%
+\usepackage[utf8]{inputenc} %use Unicode
+\usepackage[T1]{fontenc} %European fonts
+
+\usepackage{%
+	amsmath,       %some math tools
+	amssymb,       %math symbols
+	graphicx,      %enhanced graphics options
+	mathtools,     %extension of amsmath
+	microtype,     %small typographic effects
+	bm,            %bold math symbols
+	% todonotes,   %adds the option \todo{...} (use fixme instead)
+	stmaryrd,      %some more math symbolswork
+	% nicematrix,    %nicer matrix controls
+	mathrsfs,      %more math fonts
+        dsfont,
+}
+\usepackage{url}
+\usepackage{hyperref}
+%
+\usepackage{amsthm}
+% \newtheorem*{thm11.1.7}{Theorem 11.1.7}
+%
+\usepackage[shortlabels]{enumitem}
+\usepackage{nicematrix}
+\usepackage{multicol}
+%
+\usepackage[normalem]{ulem}
+%
+\newcommand{\myCourseNumber}{Math 180A}
+\newcommand{\myName}{Ray Tsai}
+\newcommand{\myID}{A16848188}
+\newcommand{\myProfessor}{Professor Carfagnini}
+\newcommand{\myHmwkNumber}{7}
+% \newcommand{\myExamVersion}{}
+
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\definecolor{crimson}{rgb}{0.86,0.08,0.24}
+
+\newenvironment{question}[1]{\smallskip\noindent\color{crimson}{\bf Question #1.}}{}
+\allowdisplaybreaks[1]
+
+%% define absolute value \abs{...}:
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define inner product \inner{...}{...}:
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{%
+  \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2}
+}
+
+% define \set{...} to write sets and \given to write \set{... \given ...} for {...|...}
+\newcommand*\setSymbol[1][]{
+  \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}
+}
+\providecommand\given{}
+\DeclarePairedDelimiterX\set[1]{\lbrace}{\rbrace}{
+  \renewcommand*\given{\setSymbol[\delimsize]}
+  #1
+}
+
+% free group geneated by ... \free{...} or \free{... \given ...}
+\DeclarePairedDelimiterX\free[1]{\langle}{\rangle}{
+  \renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:
+    \mathopen{}}
+  #1}
+
+% define \lopen{...}{...}, \ropen{...}{...}, \open{...}{...}, \closed{...}{...} for intervals
+\DeclarePairedDelimiterX\open[2](){#1,#2}
+\DeclarePairedDelimiterX\lopen[2](]{#1,#2}
+\DeclarePairedDelimiterX\ropen[2][){#1,#2}
+\DeclarePairedDelimiterX\closed[2][]{#1,#2}
+
+\NiceMatrixOptions{cell-space-limits = 1pt}
+\newcommand*{\pmat}[1]{\begin{pNiceMatrix} #1 \end{pNiceMatrix}}
+\newcommand*{\dfdx}[2]{\frac{\partial #1}{\partial #2}}
+
+\DeclareMathOperator{\vol}{vol}
+%
+\pointsinmargin
+\pointpoints{\thinspace point}{points}
+\marginpointname{ \points}
+%
+\begin{document}
+%
+\firstpageheader{\bfseries \myCourseNumber}{\bfseries Homework \myHmwkNumber}{\bfseries \myName \\ \myID \\ \myProfessor}
+%
+\runningheader{}{(page \textit{\thepage}\ of \textit{\numpages})}{}
+%
+%
+
+\begin{question}{1}
+     The sandwich shop offers 8 different sandwiches. Jamey likes them all equally. He picks one randomly each day for lunch. During a given week of 5 days, let X be the number of times he chooses salami, Y the number of times he chooses falafel, and Z the number of times he chooses veggie. Find the joint probability mass function of (X, Y, Z). Do you recognize some of these distributions?
+\end{question}
+
+\begin{proof}[Solution]
+For non-negative integers $x, y, z$ such that $x + y + z \leq 5$, the joint probability mass function 
+    \begin{align*}
+        p_{X,Y,Z}(x, y, z) 
+        &=
+        \prob(X = x, Y = y, Z = z) \\
+        &= {5 \choose x}8^{-x}{5 - x \choose y}8^{-y}{5 - x - y \choose z}8^{-z}\left(\frac{5}{8}\right)^{5 - x - y - z} \\
+        &= \frac{{5 \choose x}{5 - x \choose y}{5 - x - y \choose z}5^{5-x-y-z}}{8^5} \\
+        &= \frac{5!}{x!y!z!(5 - x - y - z)!} \cdot \frac{5^{5-x-y-z}}{8^5}.
+    \end{align*}
+    We note that $(X,Y,Z) \sim \text{Multi}(5, 8, \frac{1}{8}, \dots, \frac{1}{8})$.
+\end{proof}
+
+\newpage
+
+\begin{question}{2}
+     Suppose $X,Y$ have joint density function given by $f(x, y) = c(xy + y^2)$ for $0 \leq x \leq 1$ and $0 \leq y \leq 1$, and $f(x, y) = 0$ otherwise.
+\end{question}
+
+\begin{enumerate}[(a)]
+    \color{crimson}
+    \item  Find $c$ so that $f$ is a joint distribution function.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            \int^{\infty}_{-\infty}\int^{\infty}_{-\infty} f(x, y) dxdy
+            &= c\int^{1}_{0}\int^{1}_{0} (xy + y^2) dxdy \\
+            &= c\int^1_0 \frac{1}{2}y + y^2 dy \\
+            &= \frac{7c}{12} = 1.
+        \end{align*}
+        Thus, $c = \frac{12}{7}$.
+    \end{proof}
+
+    \color{crimson}
+    \item   Find the marginal densities of $X$ and $Y$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            f_X(x) 
+            &= \int^{\infty}_{-\infty} f(x, y) dy \\
+            &= \frac{12}{7}\int^1_0 (xy + y^2) dy \\
+            &= \frac{12}{7}\left(\frac{1}{2}x +  \frac{1}{3}\right) \\
+            &= \frac{6}{7}x + \frac{4}{7}.
+        \end{align*}
+
+        \begin{align*}
+            f_Y(y) 
+            &= \int^{\infty}_{-\infty} f(x, y) dx \\
+            &= \frac{12}{7}\int^1_0 (xy + y^2) dx \\
+            &= \frac{12}{7}\left(\frac{1}{2}y +  y^2\right) \\
+            &= \frac{6}{7}y + \frac{12}{7}y^2.
+        \end{align*}
+    \end{proof}
+
+    \color{crimson}
+    \item   Compute $\prob(X < Y)$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            \prob(X < Y)
+            &= \frac{12}{7}\int^1_0 \int^y_0 (xy + y^2) dxdy \\
+            &= \frac{12}{7} \int^1_0 \frac{3}{2}y^3 dy \\
+            &= \frac{9}{14}.
+        \end{align*}
+    \end{proof}
+
+    \color{crimson}
+    \item  Compute $\E[XY^2]$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            \E[XY^2]
+            &= \int^{\infty}_{-\infty}\int^{\infty}_{-\infty} xy^2f(x, y) dxdy \\
+            &= \frac{12}{7}\int^{1}_{0}\int^{1}_{0} xy^2(xy + y^2) dxdy \\
+            &= \frac{12}{7}\int^{1}_{0} \frac{1}{3}y^3 + \frac{1}{2}y^4 dy \\
+            &= \frac{12}{7}\left(\frac{1}{12} + \frac{1}{10}\right) \\
+            &= \frac{11}{35}.
+        \end{align*}
+    \end{proof}
+\end{enumerate}
+
+\newpage
+
+\begin{question}{3}
+     Suppose $X,Y$ have joint density function given by $f(x, y) = e^{-x(1+y)}$ for $x > 0$ and $y > 0$, and $f(x, y) = 0$ otherwise.
+\end{question}
+
+\begin{enumerate}[(a)]
+    \color{crimson}
+    \item  Find the marginal densities of $X$ and $Y$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+    For $x > 0$,
+        \begin{align*}
+            f_X(x) 
+            &= \int^{\infty}_{-\infty} f(x, y) dy \\
+            &= \int^{\infty}_0 e^{-x(1+y)} dy \\
+            &= \left[-\frac{1}{x}e^{-x(1+y)}\right]^{\infty}_{y=0} \\
+            &= \frac{1}{xe^{x}}.
+        \end{align*}
+    Otherwise, $f_X(x) = 0$.
+
+    For $y > 0$,
+        \begin{align*}
+            f_Y(y) 
+            &= \int^{\infty}_{-\infty} f(x, y) dx \\
+            &= \int^{\infty}_0 e^{-x(1+y)} dx \\
+            &= \left[-\frac{1}{1 + y}e^{-x(1+y)}\right]^{\infty}_{x=0} \\
+            &= \frac{1}{1 + y}.
+        \end{align*}
+    Otherwise, $f_Y(y) = 0$.
+    \end{proof}
+
+    \color{crimson}
+    \item  Are $X$ and $Y$ independent?
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        Since $f_X(x)f_Y(y) = \frac{1}{x(1 + y)e^x} \neq f(x,y)$, $X$ and $Y$ are not independent.
+    \end{proof}
+
+    \color{crimson}
+    \item   Compute $\E[XY]$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            \E[XY]
+            &= \int^{\infty}_{-\infty}\int^{\infty}_{-\infty} xyf(x, y) dxdy \\
+            &= \int^{\infty}_{0}\int^{\infty}_{0} xye^{-x(1+y)} dxdy \\
+            &= \int^{\infty}_{0} -\left[\dfrac{y\left(yx+x+1\right)\mathrm{e}^{-\left(y+1\right)x}}{\left(y+1\right)^2}\right]^{\infty}_0 dy \\
+            &= \int^{\infty}_{0} \dfrac{y}{\left(y+1\right)^2} dy \\
+            &= \left[\ln\left(\left|y+1\right|\right)+\dfrac{1}{y+1}\right]^{\infty}_0 \rightarrow \infty.
+        \end{align*}
+        Thus, $\E[XY]$ is divergent.
+    \end{proof}
+
+    \color{crimson}
+    \item  Compute $\E[\frac{X}{1+Y}]$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            \E\left[\frac{X}{1+Y}\right]
+            &= \int^{\infty}_{-\infty}\int^{\infty}_{-\infty} \frac{x}{1+y}f(x, y) dxdy \\
+            &= \int^{\infty}_{0}\int^{\infty}_{0} \frac{x}{1+y}e^{-x(1+y)} dxdy \\
+            &= \int^{\infty}_{0} \left[-\dfrac{\left(yx+x+1\right)\mathrm{e}^{-\left(y+1\right)x}}{\left(y+1\right)^3}\right]^{\infty}_0 dy \\
+            &= \int^{\infty}_{0} \dfrac{1}{\left(y+1\right)^3} dy \\
+            &= \left[-\dfrac{1}{2\left(y+1\right)^2}\right]^{\infty}_0 = \frac{1}{2}.
+        \end{align*}
+    \end{proof}
+\end{enumerate}
+
+\newpage
+
+\begin{question}{4}
+     Suppose that $X_1$ and $X_2$ are independent random variables with $\prob(X_1 = 1) = \prob(X_1 = -1) = \frac{1}{2}$ and $\prob(X_2 = 1) = 1 - \prob(X_2 = -1) = p$ for some $0 < p < 1$. Let $Y = X_1X_2$. Show that $X_2$ and $Y$ are independent.
+\end{question}
+
+\begin{proof}
+    \begin{align}
+        p_{X_2}(x) 
+        &= \prob(X_2 = x) \\
+        &= \begin{cases}
+            p & x = 1 \\
+            1 - p & x = -1
+        \end{cases}.
+    \end{align}
+
+    \begin{align}
+        p_{Y}(y) 
+        &= \prob(Y = y) \\
+        &= \begin{cases}
+            \frac{1}{2}p + \frac{1}{2}(1 - p) & y = 1 \\
+            \frac{1}{2}(1 - p) + \frac{1}{2}p & y = -1
+        \end{cases} \\
+        &= \frac{1}{2}.
+    \end{align}
+
+    \begin{align}
+        p_{X_2, Y}(x, y)
+        &= \prob(X_2 = x, Y = y) \\
+        &= \begin{cases}
+            \frac{1}{2}p & x = 1, y = 1 \\
+            \frac{1}{2}p & x = 1, y = -1 \\
+            \frac{1}{2}(1 - p) & x = -1, y = 1 \\
+            \frac{1}{2}(1 - p) & x = -1, y = -1
+        \end{cases} \\
+        &= \begin{cases}
+            p_{X_2}(1)p_{Y}(1) & x = 1, y = 1 \\
+            p_{X_2}(1)p_{Y}(-1) & x = 1, y = -1 \\
+            p_{X_2}(-1)p_{Y}(1) & x = -1, y = 1 \\
+            p_{X_2}(-1)p_{Y}(-1) & x = -1, y = -1
+        \end{cases} \\
+        &= p_{X_2}(x)p_{Y}(y).
+    \end{align}
+    Thus, $X_2, Y$ are independent.
+\end{proof}
+
+\newpage
+\begin{question}{5}
+     Let $X_1, \dots , X_n$ be independent exponential random variables with parameter $\lambda_i$ for $X_i$. Let $Y$ be the minimum of these random variables, that is, $Y = \text{min}(X_1, \dots , X_n)$. Show that $Y \sim Exp(\lambda_1 + \dots + \lambda_n)$.
+\end{question}
+
+\begin{proof}
+    For $y > 0$,
+    \begin{align*}
+        \prob(Y \geq y)
+        &= \prob(X_1, \dots , X_n \geq y) \\
+        &= \prob(X_1 \geq y)\prob(X_2 \geq y) \dots \prob(X_n \geq y) \\
+        &= e^{-\lambda_1}e^{-\lambda_2} \dots e^{-\lambda_n} \\
+        &= e^{-(\lambda_1 + \dots + \lambda_n)}.
+    \end{align*}
+     Thus, the cumulative distribution function of $Y$ is $\prob(Y \leq y) = 1 - e^{-(\lambda_1 + \dots + \lambda_n)}$, which is the same as that of a exponential random variable with parameter $\lambda = \lambda_1 + \dots + \lambda_n$. Therefore, $Y \sim Exp(\lambda_1 + \dots + \lambda_n)$.
+\end{proof}
+
+\newpage
+
+\begin{question}{6}
+    Let $X$ be a Poisson random variable with parameter $\lambda = 2$, and let $Y$ be a geometric random variable with parameter $p = \frac{2}{3}$. Suppose that $X$ and $Y$ are independent, and let $Z = X+Y$. Find $\prob(Z = 3)$.
+\end{question}
+
+\begin{proof}[Solution]
+    Since $X,Y$ are independent,
+    \begin{align*}
+        \prob(Z = 3)
+        &= \prob(X = 1, Y = 2) + \prob(X = 2, Y = 1) \\
+        &= 2e^{-2} \cdot \frac{2}{9} + 2e^{-2} \cdot \frac{2}{3} \\
+        &= \frac{16}{9}e^{-2}.
+    \end{align*}
+\end{proof}
+
+\newpage
+
+\begin{question}{7}
+    Suppose that $X$ and $Y$ are independent exponential random variables with parameters $\lambda \neq \mu$. Find the density function of $X + Y$.
+\end{question}
+
+\begin{proof}[Solution]
+    Let $f_{X+Y}(x)$ be the density function of $X + Y$. Since $X, Y$ are independent, for $z \in [0, \infty)$,
+    \begin{align*}
+        f_{X+Y}(z)
+        &= f_X \ast f_Y(z) \\
+        &= \int^{\infty}_{-\infty} f_X(x)f_Y(z - x) dx \\
+        &= \int^{z}_{0} \lambda e^{-\lambda x} \mu e^{-\mu (z - x)} dx \\
+        &= \lambda \mu e^{-\mu z}\int^{z}_{0}  e^{(\mu - \lambda)x} dx \\
+        &= \lambda \mu e^{-\mu z}\left[\frac{1}{\mu - \lambda}e^{(\mu - \lambda)x}\right]^{z}_0 \\
+        &= \frac{\lambda \mu (e^{-\lambda z} - e^{-\mu z})}{\mu - \lambda}.
+    \end{align*}
+\end{proof}
+
+\newpage
+
+\begin{question}{8}
+    Let $X_1, \dots , X_n$ be i.i.d. random variables (independent and identical distributed) with $X_i \sim Unif[0, 1]$ for each $i$. Let $Tn = \frac{X1 + \dots + Xn}{n}$. Compute the moment generating function of $T_n$.
+\end{question}
+
+\begin{proof}[Solution]
+    Since $X_i \sim Unif[0,1]$, $f_{X_i}(x) = 1$. Since $X_1, \dots , X_n$ are independent,
+    \begin{align*}
+        M(t)
+        &= \E[e^{tT_n}] \\
+        &= \E\left[\prod_{k = 1}^n e^{\frac{tX_k}{n}}\right] \\
+        &= \int_{\R^n} \left(\prod_{k = 1}^n e^{\frac{tx_k}{n}}\right) f_{T_n}(x_1, x_2, \dots, x_n) \, dx_1 dx_2 \dots dx_n \\
+        &= \int_{\R^n} \left(\prod_{k = 1}^n e^{\frac{tx_k}{n}} f_{X_k}(x_k)\right) \, dx_1 dx_2 \dots dx_n \\
+        &= \prod_{k = 1}^n \int^1_0 e^{\frac{tx_k}{n}} f_{X_k}(x_k) dx_k \\
+        &= \prod_{k = 1}^n \int^1_0 e^{\frac{tx_k}{n}} dx_k \\
+        &= \prod_{k = 1}^n \left(\frac{n}{t}e^{\frac{t}{n}} - \frac{n}{t}\right) \\
+        &= \left(\frac{n}{t}e^{\frac{t}{n}} - \frac{n}{t}\right)^n
+    \end{align*}
+\end{proof}
+
+\end{document}

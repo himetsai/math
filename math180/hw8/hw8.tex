@@ -1,0 +1,325 @@
+\documentclass[addpoints, 11pt]{exam}
+\setlength{\headsep}{0.25in}
+\setlength{\unitlength}{1in}
+%
+\pagestyle{head}
+%
+\usepackage[utf8]{inputenc} %use Unicode
+\usepackage[T1]{fontenc} %European fonts
+
+\usepackage{%
+	amsmath,       %some math tools
+	amssymb,       %math symbols
+	graphicx,      %enhanced graphics options
+	mathtools,     %extension of amsmath
+	microtype,     %small typographic effects
+	bm,            %bold math symbols
+	% todonotes,   %adds the option \todo{...} (use fixme instead)
+	stmaryrd,      %some more math symbolswork
+	% nicematrix,    %nicer matrix controls
+	mathrsfs,      %more math fonts
+        dsfont,
+}
+\usepackage{url}
+\usepackage{hyperref}
+%
+\usepackage{amsthm}
+% \newtheorem*{thm11.1.7}{Theorem 11.1.7}
+%
+\usepackage[shortlabels]{enumitem}
+\usepackage{nicematrix}
+\usepackage{multicol}
+%
+\usepackage[normalem]{ulem}
+%
+\newcommand{\myCourseNumber}{Math 180A}
+\newcommand{\myName}{Ray Tsai}
+\newcommand{\myID}{A16848188}
+\newcommand{\myProfessor}{Professor Carfagnini}
+\newcommand{\myHmwkNumber}{8}
+% \newcommand{\myExamVersion}{}
+
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\definecolor{crimson}{rgb}{0.86,0.08,0.24}
+
+\newenvironment{question}[1]{\smallskip\noindent\color{crimson}{\bf Question #1.}}{}
+\allowdisplaybreaks[1]
+
+%% define absolute value \abs{...}:
+\DeclarePairedDelimiterX\abs[1]\lvert\rvert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{%
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+% define inner product \inner{...}{...}:
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{%
+  \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2}
+}
+
+% define \set{...} to write sets and \given to write \set{... \given ...} for {...|...}
+\newcommand*\setSymbol[1][]{
+  \nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}
+}
+\providecommand\given{}
+\DeclarePairedDelimiterX\set[1]{\lbrace}{\rbrace}{
+  \renewcommand*\given{\setSymbol[\delimsize]}
+  #1
+}
+
+% free group geneated by ... \free{...} or \free{... \given ...}
+\DeclarePairedDelimiterX\free[1]{\langle}{\rangle}{
+  \renewcommand\given{\nonscript\:\delimsize\vert\nonscript\:
+    \mathopen{}}
+  #1}
+
+% define \lopen{...}{...}, \ropen{...}{...}, \open{...}{...}, \closed{...}{...} for intervals
+\DeclarePairedDelimiterX\open[2](){#1,#2}
+\DeclarePairedDelimiterX\lopen[2](]{#1,#2}
+\DeclarePairedDelimiterX\ropen[2][){#1,#2}
+\DeclarePairedDelimiterX\closed[2][]{#1,#2}
+
+\NiceMatrixOptions{cell-space-limits = 1pt}
+\newcommand*{\pmat}[1]{\begin{pNiceMatrix} #1 \end{pNiceMatrix}}
+\newcommand*{\dfdx}[2]{\frac{\partial #1}{\partial #2}}
+
+\DeclareMathOperator{\vol}{vol}
+%
+\pointsinmargin
+\pointpoints{\thinspace point}{points}
+\marginpointname{ \points}
+%
+\begin{document}
+%
+\firstpageheader{\bfseries \myCourseNumber}{\bfseries Homework \myHmwkNumber}{\bfseries \myName \\ \myID \\ \myProfessor}
+%
+\runningheader{}{(page \textit{\thepage}\ of \textit{\numpages})}{}
+%
+%
+
+\begin{question}{1}
+    Let $X$ be an exponential random variable with parameter $\lambda = 1/2$.
+\end{question}
+
+\begin{enumerate}[(a)]
+    \color{crimson}
+    \item Use Markov’s inequality to find an upper bound for $\prob(X > 6)$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        By Markov's inequality,
+        \[
+            \prob(X > 6) \leq \frac{1}{3}.
+        \]
+    \end{proof}    
+
+    \color{crimson}
+    \item Use Chebyshev’s inequality to find an upper bound for $\prob(X > 6)$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        We first note that $\E[X] = 2$, Var$(X) = 4$, and $X > 0$. By Chebyshev’s inequality,
+        \[
+            \prob(X > 6) \leq \prob(|X - 2| > 4) \leq \frac{4}{16} = \frac{1}{4}.
+        \]
+    \end{proof}
+
+    \color{crimson}
+    \item Explicitly compute $\prob(X > 6)$ and compare it with the upper bounds you derived.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            \prob(X > 6)
+            &= 1 - \prob(X \leq 6) \\
+            &= 1 - (1 - e^{-\frac{6}{2}}) \\
+            &= e^{-3} \approx \frac{1}{20}.
+        \end{align*}
+
+        Comparing with the upper bounds, $\frac{\frac{1}{20}}{\frac{1}{3}} = 15\%$, $\frac{\frac{1}{20}}{\frac{1}{4}} = 20\%$, both of which are not tight.
+    \end{proof}
+\end{enumerate}
+
+\newpage
+
+\begin{question}{2}
+    Suppose we roll a die 3600 times. Let $X_i$ be the number showing on the $i$th roll. Let $S_n = X_1+ \dots + X_n$. By the law of large numbers, we know that $S_n/n$ will be close to 3.5. Approximate the probability that $S_n/n$ differs from 3.5 by more than 0.05. Write a numerical answer or leave it in terms of $\Phi$ if you use a normal approximation.
+\end{question}
+
+\begin{proof}[Solution]
+    Let $n = 3600$. We know that 
+    $\E[S_n/n] = 3.5$. 
+    \[
+        \text{Var}(S_n/n) = \frac{1}{n^2}\text{Var}(S_n) = \frac{1}{n}\text{Var}(X_1) = \frac{35}{43200}.
+    \]
+    Let $Z = \frac{S_n/n - 3.5}{\sqrt{\frac{35}{43200}}}$. By normal approximation,
+    \begin{align*}
+        \prob(|S_n/n - 3.5| > 0.05)
+        &= 2\prob\left(Z < \frac{-0.05}{\sqrt{\frac{35}{43200}}}\right) \\
+        &\approx 2\Phi(-1.757).
+    \end{align*}
+\end{proof}
+
+\newpage
+
+\begin{question}{3}
+    Let $X_1, \dots , X_{100}$ be i.i.d. exponential random variable with parameter $\lambda = 1$. Approximate
+    \[
+        \prob\left(\sum_{i=1}^{100} X_i > 90 \right).
+    \]
+\end{question}
+
+\begin{proof}[Solution]
+    Let $Y = \sum_{i=1}^{100} X_i$. Then $\E[Y] = 100\E[X_1] = 100$, Var$(Y) = 100\text{Var}(X_1) = 100$. Let $Z = \frac{Y - 100}{10}$.
+    \begin{align*}
+        \prob(Y > 90)
+        &= \prob\left(Z > -1 \right) \\
+        &= 1 - \Phi(-1).
+    \end{align*}
+\end{proof}
+
+\newpage
+
+\begin{question}{4}
+    Suppose that the checkout time at the Art of Espresso has a mean of 5 minutes and a standard deviation of 2 minutes. Estimate the probability to serve at least 36 customers during a 3-hour and a-half shift.
+\end{question}
+
+\begin{proof}[Solution]
+    Let $T$ be the time spent on serving 36 customers. Then $\E[T] = 180$ and Var$(T) = 144$. Let $Z = \frac{T - 180}{\sqrt{144}}$ Thus,
+    \begin{align*}
+        \prob(T \leq 210)
+        &= \prob\left(Z \leq \frac{30}{\sqrt{144}}\right) \\
+        &= \Phi\left(\frac{5}{2}\right).
+    \end{align*}
+\end{proof}
+
+\newpage
+
+\begin{question}{5}
+     Suppose the random variable $X$ is positive and has moment generating function
+     \[
+        M_X(t) = (1 - 2t)^{-3/2}.
+     \]
+\end{question}
+
+\begin{enumerate}[(a)]
+    \color{crimson}
+    \item  Use Markov’s inequality to to bound $\prob(X > 8)$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        \begin{align*}
+            \prob(X > 8)
+            &\leq \frac{\E[X]}{8} \\
+            &= \frac{M_X'(0)}{8} \\
+            &= \frac{3}{8}.
+        \end{align*}
+    \end{proof}
+
+    \color{crimson}
+    \item  Use Chebyshev’s inequality to to bound $\prob(X > 8)$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+    We note that $\E[X] = M_X'(0) = 3$.
+    \begin{align*}
+        \text{Var}(X)
+        &= \E[X^2] - \E[X]^2 \\
+        &= M_X''(0) - M_X'(0)^2 \\
+        &= 15(1 - 0)^{-7/2} - 9(1 - 0)^{-5} \\
+        &= 6.
+    \end{align*}
+        \begin{align*}
+            \prob(X > 8)
+            &\leq \prob(|X - \E[X]| > 8 - \E[X]) \\
+            &\leq \frac{\text{Var}(X)}{(8 - \E[X])^2} \\
+            &= \frac{6}{25}.
+        \end{align*}
+    \end{proof}
+\end{enumerate}
+
+\newpage
+
+\begin{question}{6}
+    Every morning I take either bus number 5 or bus number 8 to work. Every morning the waiting time for the number 5 is exponential with mean 10 minutes, while the waiting time for the number 8 is exponential with a mean of 20 minutes. Assume all waiting times are independent of each other. Let $S_n$ be the total amount of bus waiting (in minutes) that I have done during $n$ mornings. Compute
+    \[
+        \lim_{x\to\infty} \prob(S_n \leq 7n).
+    \]
+\end{question}
+
+\begin{proof}[Solution]
+    Let $A$ be the waiting time for bus number 5, $B$ be the waiting time for bus number 8, and $T$ be the bus waiting time in one morning. We note that $T = \text{min}(A, B)$. The cumulative distribution function 
+    \begin{align*}
+        F_T(x) 
+        &= 1 - \prob(T > x) \\
+        &= 1 - \prob(A > x, B > x) \\
+        &= 1 - e^{-\frac{x}{10}}e^{-\frac{x}{20}} \\
+        &= 1 - e^{-\frac{3x}{20}}.
+    \end{align*}
+    Therefore, $T \sim Exp(\frac{3}{20})$, and thus $\E[T] = \frac{20}{3}$, Var$(T) = \frac{400}{9}$. Let $T_1, \dots, T_n$ be random variables such that each of them is i.i.d with $T$. Since $S_n = \sum_{i = 1}^n T_i$, $\E[S_n] = \frac{20}{3}n$ and Var$(T) = \frac{400}{9}n$. Let $Z_n = \frac{S_n - \frac{20}{3}n}{\sqrt{\frac{400}{9}n}}$. By normal approximation,
+    \begin{align*}
+        \prob(S_n \leq 7n)
+        &= \prob\left(Z_n \leq \frac{7n - \frac{20}{3}n}{\sqrt{\frac{400}{9}n}}\right) \\
+        &= \prob\left(Z_n \leq \frac{\sqrt{n}}{20}\right).
+    \end{align*}
+    Therefore, \[
+        \lim_{x\to\infty} \prob(S_n \leq 7n) = \lim_{x\to\infty} \prob\left(Z_n \leq \frac{\sqrt{n}}{20}\right) \rightarrow 1.
+    \]
+\end{proof}
+
+\newpage
+
+\begin{question}{7}
+    Let $X$ be a continuous random variable with pdf $f(x) = \frac{5}{x^6}$ for $x \geq 1$ and 0 otherwise.
+\end{question}
+
+\begin{enumerate}[(a)]
+    \color{crimson}
+    \item  Use Chebyshev’s inequality to bound $\prob(X \geq 2.5)$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        We first note that
+        \begin{align*}
+            \E[X]
+            &= \int^{\infty}_1 \frac{5}{x^5} dx = \frac{5}{4}, \\
+            \E[X^2]
+            &= \int^{\infty}_1 \frac{5}{x^4} dx = \frac{5}{3}, \\
+            \text{Var}(X)
+            &= \E[X^2] - \E[X]^2 \\
+            &= \frac{5}{3} - \frac{25}{16} = \frac{5}{48}.
+        \end{align*}
+        By Chebyshev’s inequality
+        \begin{align}
+            \prob(X \geq 2.5)
+            &= \prob\left(X - \frac{5}{4} \geq 2.5 - \frac{5}{4}\right) \\
+            &\leq \prob\left(|X - \frac{5}{4}| \geq \frac{5}{4}\right) \\
+            &\leq \frac{\text{Var}(X)}{\left(\frac{5}{4}\right)^2} \\
+            &= \frac{1}{15}.
+        \end{align}
+    \end{proof}
+
+    \color{crimson}
+    \item   For what value of $a$ can we say that $\prob(X \geq a) \leq 15\%$.
+    \normalcolor
+    
+    \begin{proof}[Solution]
+        Suppose that $\prob(X \geq a) \leq 15\%$. The cumulative distribution function of $X$ is $F(x) = \int^x_{-\infty} \frac{5}{s^6} ds = -x^{-5} + 1$ for $x \geq 1$ and $0$ otherwise. We note that $a \geq 1$. Thus, for $x \geq 1$,
+        \begin{align*}
+            F(x)
+            &= -a^{-5} + 1 \\
+            &= \prob(X < a) > 85\%.
+        \end{align*}
+        Thus, for $a \geq \left(\frac{20}{3}\right)^{\frac{1}{5}}$, $\prob(X \geq a) \leq 15\%$.
+    \end{proof}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,184 @@
+\documentclass{article}
+\usepackage{amsfonts, amsmath, amssymb, amsthm} % Math notations imported
+\usepackage{enumitem}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+
+% title information
+\title{Math 109 HW 7}
+\author{Ray Tsai}
+\date{11/9/2022}
+
+% main content
+\begin{document} 
+
+% placing title information; comment out if using fancyhdr
+\maketitle 
+
+\begin{enumerate}
+% Q1
+\item 
+\begin{prop}
+    $P(n)$ is true for all $n \geq 1$.
+\end{prop}
+\begin{proof}
+    We will show by strong induction on $n$ that for all $n \geq 1$, we have $P(n)$ is true.
+
+    Base Case: If $n = 1$, then we have $P(1)$, which is true. 
+
+    Induction Step: Let $k \geq 1$, $k \in \mathbb{Z}$. Suppose that for all $m \in \mathbb{Z}$, $1 \leq m \leq k$, we have $P(m)$ is true. We will show that $P(k + 1)$ is also true.
+
+    We know that if $P(k)$ is true, then $P(k + 1) is true$. By the induction hypothesis, we know that $P(k)$ is true, and thus $P(k + 1)$ is true. Hence, if $P(1), P(2), \ldots , P(k)$ are all true, then $P(k + 1)$ is true.
+
+    Therefore, for all $n \geq 1$, we have $P(n)$ is true.
+\end{proof}
+
+% Q2
+\item 
+\begin{prop}
+    $Q(n)$ is true for all $n \geq 1$.
+\end{prop}
+\begin{proof}
+    Let $Q(n)$ be the statement $``P(1), P(2), \ldots , P(n)$ are all true."
+    We will show induction on $n$ that for all $n \geq 1$, we have $Q(n)$ is true, which shows that $P(n)$ is true.
+
+    Suppose that $Q(1)$ is true and for all $k \geq 1$, if $Q(k)$ is true, then $Q(k + 1)$ is also true.
+
+    Base Case: If $n = 1$, we have $Q(1)$ is true.
+
+    Induction Step: Assume that $Q(k)$ is true for some $k \in \mathbb{N}$. By the Induction Hypothesis, $Q(k + 1)$ is true, as $Q(k)$ is true. Since $Q(k + 1)$ is true, $P(1), P(2), \ldots , P(n + 1)$ are all true, which shows that $P(n + 1)$ is true. Thus, if $Q(k)$ is true for some $k$, $P(n + 1)$ is true.
+
+    Therefore, for all $n \geq 1$, $P(n)$ is true.
+\end{proof}
+
+% Q3
+\item 
+\begin{prop}
+     $gcd(115, 29) = 1 = -1 \cdot 115 + 4 \cdot 29$.
+\end{prop}
+\begin{proof}
+Let $gcd(115, 29) = 29m + 115n$, for some $m, n \in \mathbb{Z}$.
+\begin{align}
+    115 &= 29 \cdot 3  + 28 \\
+    29  &= 28 \cdot 1 + 1 \\
+    28  &= 1 \cdot 28 + 0 \\
+\end{align}
+Therefore, $gcd(115, 29) = 1$. 
+
+We then have
+\begin{align}
+    1 &= 29 - 1 \cdot 28 \\
+      &= 29 - 1 \cdot (115 - 3 \cdot 29) \\
+      &= 29 - 115 + 3 \cdot 29 \\
+      &= -1 \cdot 115 + 4 \cdot 29
+\end{align}
+Therefore, $m = 4, n = -1$.
+\end{proof}
+
+
+% Q4
+\item 
+\begin{prop}
+     $gcd(1001, 182) = 91 = -5 \cdot 182 + 1 \cdot 1001$.
+\end{prop}
+\begin{proof}
+Let $gcd(1001, 182) = 182m + 1001n$, for some $m, n \in \mathbb{Z}$.
+\begin{align}
+    1001 &= 182 \cdot 5  + 91 \\
+    182  &= 91 \cdot 2 + 0
+\end{align}
+Therefore, $gcd(1001, 182) = 91$. 
+
+We then have
+\begin{align}
+    91 &= 1001 - 182 \cdot 5 \\
+       &= -5 \cdot 182 + 1 \cdot 1001
+\end{align}
+Therefore, $m = -5, n = 1$.
+\end{proof}
+
+% Q5
+\item \begin{enumerate}
+    
+    \item \begin{prop}
+        $\sim$ is reflexive and symmetric but not transitive.
+    \end{prop}
+    \begin{proof}
+        Define $R \subseteq \mathbb{R}^2$ by
+        \begin{gather}
+            (x, y) \in R \text{ if } |x - y| \leq 2.
+        \end{gather}
+        Reflexive: Let $x \in \mathbb{R}$. We have $|x - x| = 0 \leq 2$. Thus, for all $x \in \mathbb{R}$, $(x,x) \in R$, and so $\sim$ is reflexive.
+
+        Symmetric: Let $(x, y) \in R$. We have $|y - x| = |x - y| \leq 2$. Thus, for all $(x, y) \in R$, $(y,x) \in R$, and so $\sim$ is symmetric.
+
+        Transitive: Consider the case $(4, 2), (2, 0) \in R$. $(4, 0) \notin R$ because $|4 - 0| = 4 > 2$, and so $\sim$ is not transitive.
+    \end{proof}
+
+    \item \begin{prop}
+        $\sim$ is reflexive and transitive but not symmetric.
+    \end{prop}
+    \begin{proof}
+        Define $R \subseteq \mathbb{Z}^2$ by
+        \begin{gather}
+            (m, n) \in R \text{ if } m|n.
+        \end{gather}
+        Reflexive: Let $m \in \mathbb{Z}$. We have $m|m$. Thus, for all $m \in \mathbb{R}$, $(m,m) \in R$, and so $\sim$ is reflexive.
+
+        Symmetric: Consider the case $(1, 3) \in R$. $(3, 1) \notin R$ because $3 \nmid 1$, and so $\sim$ is not symmetric.
+
+        Transitive: Let $(m, n), (n, k) \in R$. We have $mq = n$ and $np = k$, $q, p \in \mathbb{Z}$. We then have $k = (mq)p = (qp)m$. Since $qp$ is an integer, we have $m|k$. Thus, for all $(m, n), (n, k) \in R$, $(m,k) \in R$, and so $\sim$ is transitive.
+    \end{proof}
+
+    \item \begin{prop}
+        $\sim$ is reflexive, symmetric and transitive.
+    \end{prop}
+    \begin{proof}
+        Define $R \subseteq \mathbb{R}^2 \times \mathbb{R}^2$ by
+        \begin{gather}
+            ((x_1, y_1), (x_2, y_2)) \in R \text{ if } x_1 + 2y_1 = x_2 + 2y_2.
+        \end{gather}
+        Reflexive: Let $(x_1, y_1) \in \mathbb{R}^2$. We have $x_1 + 2y_1 = x_1 + 2y_1$. Thus, for all $(x_1, y_1) \in \mathbb{R}^2$, $((x_1, y_1), (x_1, y_1)) \in R$, and so $\sim$ is reflexive.
+
+        Symmetric: Let $((x_1, y_1), (x_2, y_2)) \in R$. We have $x_2 + 2y_2 = x_1+ 2y_1$, . Thus, for all $((x_1, y_1), (x_2, y_2)) \in R$, $((x_2, y_2), (x_1, y_1)) \in R$, and so $\sim$ is symmetric.
+
+        Transitive: Let $((x_1, y_1), (x_2, y_2)), ((x_2, y_2), (x_3, y_3)) \in R$. We have $x_1 + 2y_1 = x_2 + 2y_2 = x_3 + 2y_3$. \\
+        Thus, for all $((x_1, y_1), (x_2, y_2)), ((x_2, y_2), (x_3, y_3)) \in R$, $((x_1, y_1), (x_3, y_3)) \in R$, and so $\sim$ is transitive.
+    \end{proof}
+
+    \item \begin{prop}
+        $\sim$ symmetric and transitive but not reflexive.
+    \end{prop}
+    \begin{proof}
+        Define $R \subseteq \mathbb{R}^2$ by
+        \begin{gather}
+            (x, y) \in R \text{ if } \frac{x}{y} = 1.
+        \end{gather}
+        Reflexive: Consider $0 \in \mathbb{R}$. We have $\frac{0}{0}$, which is undefined, and so $\sim$ is not reflexive.
+
+        Symmetric: Let $(x, y) \in R$. Since $\frac{x}{y} = 1$, we know that $x = y$. We then have $\frac{y}{x} = 1$. Thus, for all $(x, y) \in R$, $(y, x) \in R$, and so $\sim$ is symmetric.
+
+        Transitive: Let $(x, y), (y, z) \in R$. Since $\frac{x}{y} = \frac{y}{z} = 1$, we know that $x = y$ and $y = z$, so $x = z$. We then have $\frac{x}{z} = 1$. Thus, for all $(x, y), (y, z) \in R$, $(x, z) \in R$, and so $\sim$ is transitive.
+    \end{proof}
+\end{enumerate}
+
+
+% Q6
+\item 
+\begin{enumerate}
+    \item 
+    $x \sim y \text{ if } |x - y| = 2$, $x, y \in \mathbb{R}$.
+    \item
+    $x \sim y \text{ if } x|y$, $x, y \in \mathbb{Z}$.
+    \item
+    $x \sim y \text{ if } \frac{x}{y}$, $x, y \in \mathbb{R}$.
+\end{enumerate}
+
+% Q7
+\item 
+The proof is assuming that for all $a \in S$, there exists $b \in S$ such that $a \sim b$. However, $a \in S$ does not imply there exists $b \in S$ such that $a \sim b$ because there could still be elements in $S$ that does not have a relation with any other elements.
+    
+\end{enumerate}
+\end{document}
