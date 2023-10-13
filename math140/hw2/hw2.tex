@@ -1,0 +1,416 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{October 13, 2023}
+\newcommand{\hmwkClass}{MATH 140A}
+\newcommand{\hmwkClassTime}{Section A02}
+\newcommand{\hmwkClassInstructor}{Professor Mohammadi}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 11:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Let $A \subset R$ be a non-empty subset which satisfies the following two properties
+
+    \begin{enumerate}
+        \item $A = A + A$
+        \item For every $\epsilon > 0$, there exists some $a \in A$ so that $0 < a < \epsilon$.
+    \end{enumerate}
+
+    Prove that  for every $x \in R^{>0}$, there exists some $a \in A$ so that
+    \[
+        0 < x - a < \epsilon.
+    \]
+
+    \begin{proof}
+      Let $a \in A$. We first show that for $n \in \N$, $na \in A$ by induction on $n$. We already know $a \in A$.
+      For $n > 1$, since $(n - 1)a \in A$, we know $na = a + (n - 1)a \in A$ by rule 1. Thus, $na \in A$, for all $n \in \N$.
+      
+      Since $\epsilon > 0$, there exists $a \in A$ such that $0 < a < \epsilon$, by rule 2.    
+      We assume that $\epsilon < x$, otherwise we are done. 
+      Now we show that there exists $n \in \N$ such that $0 < x - an < \epsilon$.
+      Let $0 < \frac{x - \epsilon}{a} < n < \frac{x}{a}$. Since $\epsilon > a$, we know such $n$ exists 
+      because $\frac{x}{a} - \frac{x - \epsilon}{a} = \frac{\epsilon}{a} > 1$, and so there
+      must exists a natural number within the interval. Thus, we get 
+      \[
+        0 = x - a \cdot \frac{x}{a} < x - an < x - a \cdot \frac{x - \epsilon}{a} = \epsilon.
+      \]
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+
+    Let $a, b, c, d \in \R$ and assume $a < b$ and $c < d$. Give an explicit 
+    one-to-one correspondence between
+
+    \begin{enumerate}
+        \item The points of the two open intervals $(a, b)$ and $(c, d)$.
+        
+        \begin{proof}
+            Define $f: (a, b) \rightarrow (c, d)$ to be $f(x) = \frac{(d - c)x + (cb - ad)}{b - a}$.
+            Let $l, m \in (a, b)$. Since $a < l < b$, 
+            \begin{gather*}
+                \frac{d - c}{b - a}a < \frac{d - c}{b - a}l < \frac{d - c}{b - a}b \\
+                \frac{(d - c)a + (cb - ad)}{b - a} < \frac{(d - c)l + (cb - ad)}{b - a} < \frac{(d - c)b + (cb - ad)}{b - a} \\
+                c < f(l) < d.
+            \end{gather*}
+            Suppose that $l = m$. Then 
+            \[
+                \frac{(d - c)l + (cb - ad)}{b - a} = f(l) = f(m) = \frac{(d - c)m + (cb - ad)}{b - a},
+            \]
+            and so $f$ is well defined.
+
+            Suppose $f(l) = f(m)$. Then, 
+            \begin{align*}
+                \frac{(d - c)l + (cb - ad)}{b - a} &= \frac{(d - c)m + (cb - ad)}{b - a} \\
+                (d - c)l + (db - ad) &= (d - c)m + (db - ad) \\
+                (d - c)l &= (d - c)m \\
+                l &= m.
+            \end{align*}
+            Thus, $f$ is injective.
+
+            Let $y \in (c, d)$. There exists $x = \frac{(b - a)y - (cb - ad)}{d - c} \in (a, b)$ such that $f(x) = y$, and so $f$ is surjective.
+
+            Thus, $f$ is an one-to-one correspondence.
+        \end{proof}
+
+        \item The points of the two closed intervals $[a, b]$ and $[c, d]$.
+        
+        \begin{proof}
+            Define $f: [a, b] \rightarrow [c, d]$ to be $f(x) = \frac{(d - c)x + (cb - ad)}{b - a}$.
+            Let $l, m \in [a, b]$. Since $a \leq l \leq b$, 
+            \begin{gather*}
+                \frac{d - c}{b - a}a \leq \frac{d - c}{b - a}l \leq \frac{d - c}{b - a}b \\
+                \frac{(d - c)a + (cb - ad)}{b - a} \leq \frac{(d - c)l + (cb - ad)}{b - a} \leq \frac{(d - c)b + (cb - ad)}{b - a} \\
+                c \leq f(l) \leq d.
+            \end{gather*}
+            Suppose that $l = m$. Then 
+            \[
+                \frac{(d - c)l + (cb - ad)}{b - a} = f(l) = f(m) = \frac{(d - c)m + (cb - ad)}{b - a},
+            \]
+            and so $f$ is well defined.
+
+            Suppose $f(l) = f(m)$. Then, 
+            \begin{align*}
+                \frac{(d - c)l + (cb - ad)}{b - a} &= \frac{(d - c)m + (cb - ad)}{b - a} \\
+                (d - c)l + (db - ad) &= (d - c)m + (db - ad) \\
+                (d - c)l &= (d - c)m \\
+                l &= m.
+            \end{align*}
+            Thus, $f$ is injective.
+
+            Let $y \in [c, d]$. There exists $x = \frac{(b - a)y - (cb - ad)}{d - c} \in [a, b]$ such that $f(x) = y$, and so $f$ is surjective.
+
+            Thus, $f$ is an one-to-one correspondence.
+        \end{proof}
+
+        \item The points of the closed interval $[a, b]$ and the open interval $(c, d)$.
+        
+        \begin{proof}
+            Define $f: [a, b] \rightarrow (c, d)$ to be
+            \[
+                f(x) = \begin{cases}
+                    c + \frac{d - c}{n + 2}, &x = a + \frac{b - a}{n}, n \in \N \\
+                    \frac{c + d}{2}, &x = a \\
+                    \frac{(d - c)x + (cb - ad)}{b - a}, & \text{otherwise}.
+                \end{cases}
+            \]
+            Note that the product of $f$ of different cases would not be equal.
+
+            Obviously, $f(x) \in (c, d)$ for all $x \in [a, b]$. Let $k, m \in [a, b]$.
+            If $k = m = a$, then $f(k) = f(m) = \frac{c + d}{2}$. If $k = m = a + \frac{b - a}{n}$, for some $n \in \N$,
+            then $f(k) = f(m) = c + \frac{d - c}{n + 2}$. Otherwise, $\frac{(d - c)k + (cb - ad)}{b - a} = \frac{(d - c)m + (cb - ad)}{b - a}$, 
+            which implies that $f(k) = f(m)$. Therefore, $f$ is well defined.
+
+            Suppose that $f(k) = f(m)$. If $f(k) = f(m) = \frac{c + d}{2}$, then $k = m = a$. If $f(k) = f(m) = c + \frac{d - c}{n + 2}$ for some $n \in \N$, then
+            $k = m = a + \frac{b - a}{n}$. If $f(k) = \frac{(d - c)k + (cb - ad)}{b - a} = \frac{(d - c)m + (cb - ad)}{b - a} = f(m)$, Then $k = m$, by the results we
+            obtained from previous parts. Thus, $f$ is injective.
+
+            Let $y \in (c, d)$. There exists
+            \[
+                x = \begin{cases}
+                    a + \frac{b - a}{n}, &y = c + \frac{d - c}{n + 2}, n \in \N \\
+                    a, &y = \frac{c + d}{2} \\
+                    \frac{(b - a)x + (ad - cb)}{d - c}, & \text{otherwise},
+                \end{cases}
+            \]
+            such that $f(x) = y$. Thus, $f$ is surjective.
+
+            Therefore, $f$ is bijective.
+        \end{proof}
+
+        \item The points of the closed interval $[a, b]$ and $\R$
+        
+        \begin{proof}
+            Consider $\tan: (-\frac{\pi}{2}, \frac{\pi}{2}) \rightarrow \R$ 
+            and $\tan^{-1}: \R \rightarrow (-\frac{\pi}{2}, \frac{\pi}{2})$.
+            Since $\tan$ and $\tan^{-1}$ are inverses of each other, they are bijective.
+            We can then use the function $f$ we defined in part 3 to get a
+            bijective mapping from $[a, b]$ to $(-\frac{\pi}{2}, \frac{\pi}{2})$. Thus,
+            we get a bijection $(\tan \circ f): [a, b] \rightarrow \R$,
+            \[
+                (\tan \circ f)(x) = \begin{cases}
+                    \tan(-\frac{\pi}{2} + \frac{\pi}{n + 2}), &x = a + \frac{b - a}{n}, n \in \N \\
+                    0, &x = a \\
+                    \tan(\frac{2\pi x - \pi(b + a)}{2(b - a)}), & \text{otherwise}.
+                \end{cases}
+            \]
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Fix $b > 1, y > 0$, and prove that there is a unique real $x$ such that $b^x = y$.
+    
+    \begin{proof}
+        We first show that for any positive integer $n$, $b^n - 1 \geq n(b - 1)$. We show that $b^n > 1$ by induction on $n$.
+        We already know $b > 1$. For $n > 1$, $b^n = b \cdot b^{n - 1} > 1$, since $b^{n - 1} > 1$ by induction. 
+        Thus, 
+        \begin{gather}
+            b^n - 1 = (b - 1)(b^{n-1} + \dots + b + 1) \geq (b - 1)n.
+        \end{gather}
+        By Theorem $1.21$, we know that there exists a unique $a \in \R^+$ such that $a^n = b$. Suppose that $a \leq 1$. We show that
+        $a^n \leq 1$ by induction on $n$. For $n > 1$, we know that $a^n = a \cdot a^{n - 1} \leq 1$, since $a^{n - 1} \leq 1$ by induction. Thus, $a$ must be
+        greater than $1$. Then, by (1), we know that $b - 1= a^n - 1 \geq (a - 1)n = (b^{\frac{1}{n}} - 1)n$. 
+        
+        Let $t > 1$. Suppose that $n > \frac{b - 1}{t - 1}$, then $nt - n > b - 1$. Since $n \geq 1$, we know $t > b$. 
+        Note that since $a^n > 1$ for all $n \in \N$, $b = b^{\frac{1}{n}} \cdot a^{n - 1} \geq b^{\frac{1}{n}}$. 
+        Thus, we get
+        \begin{gather}
+            t > b \geq b^{\frac{1}{n}}.
+        \end{gather}
+
+        Let $w \in \R$. Suppose that $b^w < y$. Let $t = y \cdot b^{-w} > b^w \cdot b^{-w} = 1$. 
+        By (2), there exists $n > \frac{b - 1}{t - 1}$, such that $t = y \cdot b^{-w} > b^{\frac{1}{n}}$, 
+        and so $y > b^{w + \frac{1}{n}}$.
+        Suppose that $b^w < y$. Let $t = b^wy^{-1}$. Similarly, there exists $n > \frac{b - 1}{t - 1}$, such that
+        $t = b^wy^{-1} > b^{\frac{1}{n}}$, and so $b^{w-\frac{1}{n}} > y$.
+
+        Let $A$ be the set of all $w$ such that $b^w < y$. We will show that $x = \sup A$ satisfies $b^x = y$. Suppose for the
+        sake of contradiction that $b^x < y$. Then, by the result we obtained above, we know there exists a large enough $n \in \N$,
+        such that $b^x < b^{x + \frac{1}{n}} < n$. This implies that there exists $x + \frac{1}{n} \in A$, which contradicts that $x = \sup A$.
+        Suppose for the sake of contradiction that $b^x > y$. Then, by the result we obtained above, there exists a large enough $n \in \N$,
+        such that $b^x > b^{x - \frac{1}{n}} > y$, contradicting the fact that $x = \sup A$. Thus, $b^{x} = y$.
+
+        Suppose that $b^z = b^x = y$. $x \not> z$, otherwise $b^z < b^x$, contradiction. Similarly, we also know $x \not< z$. Therefore, $x$ is unique.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $x, y$ are complex, prove that
+    \[
+        ||x| - |y|| \leq |x - y|.
+    \]
+
+    \begin{proof}
+        We sqaure both sides. On the right-hand-side, we have
+        \begin{align*}
+            |x - y|^2 
+            &= (x - y)\overline{(x - y)} \\
+            &= |x|^2 + |y|^2 - y\overline x - x\overline y
+        \end{align*}
+        Note that $\overline{x\overline y} = y\overline x$, so $y\overline x + x\overline y = 2\operatorname{Re}(x\overline y)$.
+        On the left-hand-side, we have 
+        \begin{align*}
+            (|x| - |y|)^2 
+            &= |x|^2 + |y|^2 - 2|x||y| \\
+            &= |x|^2 + |y|^2 - 2|x||\overline y| \\
+            &= |x|^2 + |y|^2 - 2|x \overline y|
+        \end{align*}
+        Since $\operatorname{Re}(x\overline y) \leq |x \overline y|$,
+        \begin{align*}
+            |x|^2 + |y|^2 - 2|x \overline y| 
+            &\leq |x|^2 + |y|^2 -2\operatorname{Re}(x\overline y) \\
+            &= |x|^2 + |y|^2 - y\overline x - x\overline y,
+        \end{align*}
+        and thus $||x| - |y|| \leq |x - y|$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If z is a complex number such that $|z| = 1$, that is, such that $z\overline z= 1$, compute
+    \[
+        |1 + z|^2 + |1 - z|^2
+    \]
+
+    \begin{proof}
+        \begin{align*}
+            |1 + z|^2 + |1 - z|^2
+            &= (1 + z)\overline{(1 + z)} + (1 - z)\overline{(1 - z)} \\
+            &= 1 + z + \overline z + z\overline z + 1 - z - \overline z + z\overline z \\
+            &= 4.
+        \end{align*}
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Prove that
+    \[
+        |x + y|^2 + |x - y|^2 = 2|x|^2 + 2|y|^2
+    \]
+    if $x \in \R^k$ and $y \in \R^k$. 
+    Interpret this geometrically, as a statement about parallelograms.
+
+    \begin{proof}
+        \begin{align*}
+            |x + y|^2 + |x - y|^2
+            &= |x|^2 + |y|^2 + 2x \cdot y + |x|^2 + |y|^2 - 2x \cdot y \\
+            &= 2|x|^2 + 2|y|^2.
+        \end{align*}
+        Interpreting geometrically, if $x, y$ were the neighboring sides of a para;;elogram,
+        then $x + y$ and $x - y$ are its diagonals. Thus, the equation suggests that the sum
+        of the squares of the sides is equal to the sum of the square of the diagonals.
+    \end{proof}
+\end{homeworkProblem}
+\end{document}
