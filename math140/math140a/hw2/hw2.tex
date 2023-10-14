@@ -170,9 +170,11 @@
       Since $\epsilon > 0$, there exists $a \in A$ such that $0 < a < \epsilon$, by rule 2.    
       We assume that $\epsilon < x$, otherwise we are done. 
       Now we show that there exists $n \in \N$ such that $0 < x - an < \epsilon$.
-      Let $0 < \frac{x - \epsilon}{a} < n < \frac{x}{a}$. Since $\epsilon > a$, we know such $n$ exists 
-      because $\frac{x}{a} - \frac{x - \epsilon}{a} = \frac{\epsilon}{a} > 1$, and so there
-      must exists a natural number within the interval. Thus, we get 
+      Let $0 < \frac{x - \epsilon}{a} < n < \frac{x}{a}$. 
+      By the archimedean property, we know there exists $n > \frac{x - \epsilon}{a}$. 
+      Since $\epsilon > a$, the gap $\frac{x}{a} - \frac{x - \epsilon}{a} = \frac{\epsilon}{a} > 1$, 
+      and so there exists such natural number $n$ within the interval.
+      Thus, we get 
       \[
         0 = x - a \cdot \frac{x}{a} < x - an < x - a \cdot \frac{x - \epsilon}{a} = \epsilon.
       \]
