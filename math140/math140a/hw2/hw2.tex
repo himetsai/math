@@ -171,7 +171,7 @@
       We assume that $\epsilon < x$, otherwise we are done. 
       Now we show that there exists $n \in \N$ such that $0 < x - an < \epsilon$.
       Let $0 < \frac{x - \epsilon}{a} < n < \frac{x}{a}$. 
-      By the archimedean property, we know there exists $n > \frac{x - \epsilon}{a}$. 
+      By the Archimedean Property, we know there exists $n > \frac{x - \epsilon}{a}$. 
       Since $\epsilon > a$, the gap $\frac{x}{a} - \frac{x - \epsilon}{a} = \frac{\epsilon}{a} > 1$, 
       and so there exists such natural number $n$ within the interval.
       Thus, we get 
@@ -320,7 +320,8 @@
         $a^n \leq 1$ by induction on $n$. For $n > 1$, we know that $a^n = a \cdot a^{n - 1} \leq 1$, since $a^{n - 1} \leq 1$ by induction. Thus, $a$ must be
         greater than $1$. Then, by (1), we know that $b - 1= a^n - 1 \geq (a - 1)n = (b^{\frac{1}{n}} - 1)n$. 
         
-        Let $t > 1$. Suppose that $n > \frac{b - 1}{t - 1}$, then $nt - n > b - 1$. Since $n \geq 1$, we know $t > b$. 
+        Let $t > 1$. Suppose that $n > \frac{b - 1}{t - 1}$, then $nt - n > b - 1$.
+        Note that we know there exists $n > \frac{b - 1}{t - 1}$ by the Archimedean Property. Since $n \geq 1$, we know $t > b$. 
         Note that since $a^n > 1$ for all $n \in \N$, $b = b^{\frac{1}{n}} \cdot a^{n - 1} \geq b^{\frac{1}{n}}$. 
         Thus, we get
         \begin{gather}

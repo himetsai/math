@@ -1,0 +1,140 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\textsc{\hmwkHeader}}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+\newenvironment{thm}[1]{\subsection*{Theorem #1.}}{}
+\newenvironment{lemma}[1]{\subsection*{Lemma #1.}}{}
+\newenvironment{defn}{\subsection*{Definition.}}{}
+\newenvironment{corollary}[1]{
+    \def\temp{#1}\ifx\temp\empty
+        \subsection*{Corollary.}
+    \else
+        \subsection*{Corollary #1.}
+    \fi
+    
+}{}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkInstitution}{University of California San Diego}
+\newcommand{\hmwkTitle}{\textsc{MATH 100 Notes}}
+\newcommand{\hmwkHeader}{Abstract Algebra Notes}
+\newcommand{\hmwkTextbook}{Abstract Algebra by I.N. Herstein (3rd ed.)}
+\newcommand{\hmwkAuthorName}{Ray Tsai}
+
+%
+% Title Page
+%
+
+
+\title{
+    \vspace{2in}
+    \textsc{\Large\hmwkInstitution} \\
+    \vspace{0.2in}
+    \textmd{\textbf{\hmwkTitle}}\\
+    \vspace{0.2in}\large{Textbook: \textit{\hmwkTextbook}}
+}
+
+\author{
+  Organized by \hmwkAuthorName
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+
+\maketitle
+
+\thispagestyle{empty}
+\clearpage
+\pagenumbering{arabic} 
+
+\pagebreak
+
+\rhead{MATH 100A}
+
+\begin{center}
+    \section*{\\ MATH 100A}
+\end{center}
+
+\vspace{0.2in}
+
+\begin{defn}
+    definition
+\end{defn}
+
+\end{document}
