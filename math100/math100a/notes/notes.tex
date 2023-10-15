@@ -41,7 +41,7 @@
 \newenvironment{lemma}[1]{\subsection*{Lemma #1.}}{}
 \newenvironment{defn}{\subsection*{Definition.}}{}
 \newenvironment{corollary}[1]{
-    \def\temp{#1}\ifx\temp\empty
+    \def\temp{#1}\def\null{&}\ifx\temp\null
         \subsection*{Corollary.}
     \else
         \subsection*{Corollary #1.}
@@ -188,10 +188,11 @@
 \end{defn}
 
 \begin{lemma}{2.3.2}
-    Suppose that $G$ is a group and $H$ a nonempty \textit{finite} subset of $G$ closed under the product in $G$
+    Suppose that $G$ is a group and $H$ a nonempty \textit{finite} subset of $G$ closed under the product in $G$.
+    Then $H$ is a subgroup of $G$.
 \end{lemma}
 
-\begin{corollary}
+\begin{corollary}{&}
     If $G$ is a finite group and $H$ a nonempty subset of $G$ closed under multiplication, then $H$ is a subgroup of $G$.
 \end{corollary}
 
