@@ -93,7 +93,7 @@
 \newcommand{\hmwkClassTime}{Section A02 5:00PM - 5:50PM}
 \newcommand{\hmwkSectionLeader}{Castellano}
 \newcommand{\hmwkClassInstructor}{Professor McKernan}
-\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion, Office Hour}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
 \newcommand{\hmwkPID}{A16848188}
 
@@ -327,9 +327,18 @@
     $T$ the set of all left cosets of $H$ in $G$. Prove that there is a 1-1 mapping of $S$ onto $T$.    
 
     \begin{proof}
-        Consider the function $f: S \rightarrow T$, $f(Hx) = x^{-1}H$, for $x \in G$. We want to show $f$ is injective.
+        Consider the function $f: S \rightarrow T$, $f(Hx) = x^{-1}H$, for $x \in G$. 
+        Let $Ha, Ha' \in S$, such that $Ha = Ha'$. This implies that $Haa'^{-1} = H$, and so $aa'^{-1} \in H$.
+        Let $h = aa'^{-1}$. We know $a^{-1}h = a^{-1}aa'^{-1} = a'^{-1} \in a^{-1}H$, and thus $f(Ha) = a^{-1}H = a'^{-1}H = f(Ha')$.
+        
+        We first show $f$ is injective.
         Let $a, b \in G$, such that $f(Ha) = f(Hb)$. Then, we know $a^{-1}H = b^{-1}H$, and so $ba^{-1}H = H$, which implies $ba^{-1} \in H$.
-        Let $h = ba^{-1} \in H$. We then get $ha = b \in Ha$, and thus $Ha = Hb$. Therefore, $f$ is a 1-1 mapping of $S$ onto $T$.
+        Let $h = ba^{-1} \in H$. We then get $ha = b \in Ha$, and thus $Ha = Hb$. 
+
+        We now show $f$ is surjective.
+        For all $y = bH \in T$, we have $x = Hb^{-1} \in S$, so that $f(x) = bH$.
+        
+        Therefore, $f$ is a 1-1 mapping of $S$ onto $T$.
     \end{proof}
 \end{homeworkProblem}
 
@@ -341,6 +350,10 @@
     \begin{proof}
         Let $b \in aH$. Then, $aH = bH$, which forces $b \in Hb = Ha$. Thus, $aH \subseteq Ha$, so $aHa^{-1} \subseteq H$.
         We now show that $|aHa^{-1}| \geq |H|$. Define $f: aHa^{-1} \rightarrow H$ as $f(x) = a^{-1}xa$.
+
+        Let $x = aha^{-1}, x' = ah'a^{-1}$, for some $h, h'$, such that $x = x'$. By cancellation, we know $h = h'$. 
+        Then, $f(x) = a^{-1}xa = h = h' = a^{-1}x'a = f(x')$, and so $f$ is well defined.
+
         For each $y \in H$, we have $x = aya^{-1}$, such that $f(x) = a^{-1}(aya^{-1})a = y$. 
         Thus, $f$ is surjective, and so $|aHa^{-1}| \geq |H|$. 
         Since $aHa^{-1} \subseteq H$ and $|aHa^{-1}| \geq |H|$, we have $aHa^{-1} = H$.
@@ -354,7 +367,15 @@
     \begin{proof}
         We proceed by induction on $r$. The base case $aba^{-1} = b^i$ is already given. 
         For $r > 1$, we get $a^rba^{-r} = a \cdot a^{r - 1}ba^{-(r - 1)} \cdot a^{-1}$. 
-        By induction, $a \cdot a^{r - 1}ba^{-(r - 1)} \cdot a^{-1} = ab^{i^{r - 1}}a^{-1} = b^{i^{r - 1} \cdot i} = b^{i^r}$, and we are done.
+        By induction, 
+        \begin{align*}
+            a \cdot a^{r - 1}ba^{-(r - 1)} \cdot a^{-1}
+            &= ab^{i^{r - 1}}a^{-1} \\
+            &= \underbrace{aba^{-1}aba^{-1} \dots aba^{-1}}_{i^{r-1} \text{ times}} \\
+            &= (b^{i})^{i^{r - 1}} \\
+            &= b^{i^r},
+        \end{align*}
+        and we are done.
     \end{proof}
 \end{homeworkProblem}
 
@@ -366,6 +387,51 @@
     \begin{proof}
         Since $aba^{-1} = b^2$, by the result we obtained from the previous question, we know $a^5ba^{-5} = b = b^{2^5}$, and thus we get $b^{2^5 - 1} = e$.
         Since $2^5 - 1 = 31$ is a prime number and $b \neq e$, there are no positive $r < 31$ such that $b^r = e$, and so $o(b) = 31$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\section{Challenge Problems}
+
+\begin{homeworkProblem}
+    Let $G$ be an abelian group of order $n$, and $a_1, \dots, a_n$ its elements.
+    Let $x = a_1a_2\dots a_n$. Show that:
+    \begin{enumerate}
+        \item[(a)] If $G$ has exactly one element $b \neq e$ such that $b^2 = e$, then $x = b$.
+        \begin{proof}
+            In problem $7$, we proved that we can rearrange $x = a_1a_2\dots a_n$ into any ordering.
+            For all $a_i^2 \neq e$, we rearrange $a_1a_2\dots a_n$ such that $a_i$ is next it its inverse, 
+            which allows each $a_i$ to pair up with its neighboring inverse and resolve to $e$.
+            Thus, the sequence becomes $x = be = e$, and we are done.
+        \end{proof}
+
+        \item[(b)] If $G$ has more than one element $b \neq e$ such that $b^2 = e$, then $x = e$.
+         
+        \begin{proof}
+            idk bro.
+        \end{proof}
+        
+        \item[(c)] If $n$ is odd, then $x = e$.
+        \begin{proof}
+            Proved in problem $8$.
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    “Every countable group is finitely generated.” True or False? If true
+    then give a proof and if false then give a counterexample.
+
+    \begin{proof}
+        Consider $\Q$ under addition. We know $\Q$ is countable.
+        Suppose for sake of contradiction that there exists a finite set $S = \{s_1, s_2, \dots, s_n\} \subset \Q$, $s_i = \frac{a_i}{b_i}$ for $a_i, b_i \in \Z - \{0\}$,
+        such that $\langle S \rangle = \Q$. 
+        Let $b = \Pi_{s_i \in S} b_i$. Then, all elements in $\langle S \rangle$ can be represented in the form of $\frac{c_i}{b}$, $c_i \in \Z$.
+        However, we can find $\frac{p}{q} \in \Q$, such that $p, q \in \N$, $\gcd(q, b) = 1$, so that $\frac{p}{q}$ cannot be represented in the form of $\frac{c_i}{b}$, contradiction.
+        Therefore, $\Q$ under addition is a countable group that cannot be finitely generated.
     \end{proof}
 \end{homeworkProblem}
 
