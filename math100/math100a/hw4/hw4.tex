@@ -1,0 +1,601 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{October 26, 2023}
+\newcommand{\hmwkClass}{MATH 100A}
+\newcommand{\hmwkClassTime}{Section A02 5:00PM - 5:50PM}
+\newcommand{\hmwkSectionLeader}{Castellano}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Find the order of all the elements of $U_{18}$. 
+    Is $U_{18}$ cyclic?
+
+    \begin{proof}
+      We know that $18 = 2\cdot 3^2$, and so $U_{18} = \{[1], [5], [7], [11], [13], [17]\}$.
+      Notice that
+      \begin{align*}
+        [5]^1 &= 5 \\
+        [5]^2 &= 7 \\
+        [5]^3 &= 17 \\
+        [5]^4 &= 13 \\
+        [5]^5 &= 11 \\
+        [5]^6 &= 1.
+      \end{align*}
+      Thus, we know that $U_{18}$ is a cyclic group.
+      Let $[5] = a$. We can represent each element in $U_{18}$ as $a^i$, for some $0 < i \leq \varphi(18) = 6$.
+      Hence, for all $a^i \in U_{18}$, the order of $a^i$ is equal to the least common multiple of $i$ and $\varphi(18) = 6$ divided by $i$, namely 
+      \[
+        o(a^i) = \frac{\text{lcm}(i, 6)}{i} = \frac{6i}{i \cdot \gcd(i, 6)} = \frac{6}{\gcd(i, 6)}.
+      \]
+      Therefore,
+      \begin{align*}
+        o([1]) &= \frac{6}{\gcd(6, 6)} = 1 \\
+        o([5]) &= \frac{6}{\gcd(1, 6)} = 6 \\
+        o([7]) &= \frac{6}{\gcd(2, 6)} = 3 \\
+        o([11]) &= \frac{6}{\gcd(5, 6)} = 6 \\
+        o([13]) &= \frac{6}{\gcd(4, 6)} = 3 \\
+        o([17]) &= \frac{6}{\gcd(3, 6)} = 2.
+      \end{align*}
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the order of all the elements of $U_{20}$. 
+  Is $U_{20}$ cyclic?
+
+  \begin{proof}
+    We know that $20 = 2^2\cdot 5$, and so $U_{20} = \{[1], [3], [7], [9], [11], [13], [17], [19]\}$.
+    Notice that
+    \begin{align*}
+      [3]^1 &= [3] && [7]^1 = [7] && [17]^1 = [17] && [13]^1 = [13] && [9]^1 = [9] && [11]^1 = [11] && [19]^1 = [19] \\
+      [3]^2 &= [9] && [7]^2 = [9] && [17]^2 = [9] && [13]^2 = [9] && [9]^2 = [1] && [11]^2 = [1] && [19]^2 = [1] \\
+      [3]^3 &= [7] && [7]^3 = [3] && [17]^3 = [13] && [13]^3 = [17] \\
+      [3]^4 &= [1] && [7]^4 = [1] && [17]^4 = [1] && [13]^4 = [1]
+    \end{align*}
+    Thus,we have
+    \begin{align*}
+      o([1]) &= 1 \\
+      o([3]) &= 4 \\
+      o([7]) &= 4 \\
+      o([9]) &= 2 \\
+      o([11]) &= 2 \\
+      o([13]) &= 4 \\
+      o([17]) &= 4 \\
+      o([19]) &= 2
+    \end{align*}
+    Since we cannot represent all the elements as powers of a single element in $U_{20}$, we know $U_{20}$ is not a cyclic group.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If $p$ is a prime number of the form $4n + 3$, show that we cannot solve 
+  \[
+    x^2 \equiv -1 \mod p. 
+  \]
+  \begin{proof}
+    Suppose for the sake of contradiction that $x^2 \equiv -1 \mod p$. 
+    Then, $x^4 \equiv 1 \mod p$. 
+    Since $x^2 \equiv -1 \mod p$, we know $x \not\equiv \pm 1 \mod p$, and so $x^3 = x\cdot x^2 \not\equiv 1 \mod p$.
+    Therefore, we know that $x$ is of order $4$. 
+    By Lagrange's Theorem, we know that $4 | \varphi(p) = p - 1 = 4n + 2$, contradiction.
+    Therefore, we cannot solve the above equation.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the products:
+  \begin{enumerate}[label=(\alph*)]
+    \item $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 & 6 \\
+      6 & 4 & 5 & 2 & 1 & 3
+    \end{pmatrix}\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 & 6 \\
+      2 & 3 & 4 & 5 & 6 & 1
+    \end{pmatrix}$.
+
+    \begin{proof}
+      \[
+        \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 & 6 \\
+          6 & 4 & 5 & 2 & 1 & 3
+        \end{pmatrix}\begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 & 6 \\
+          2 & 3 & 4 & 5 & 6 & 1
+        \end{pmatrix} = \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 & 6 \\
+          4 & 5 & 2 & 1 & 3 & 6
+        \end{pmatrix}
+      \]
+    \end{proof}
+
+    \item $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 \\
+      2 & 1 & 3 & 4 & 5
+    \end{pmatrix}\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 \\
+      3 & 2 & 1 & 4 & 5
+    \end{pmatrix}$.
+    
+    \begin{proof}
+      \[
+        \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 \\
+          2 & 1 & 3 & 4 & 5
+        \end{pmatrix}\begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 \\
+          3 & 2 & 1 & 4 & 5
+        \end{pmatrix} = \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 \\
+          3 & 1 & 2 & 4 & 5
+        \end{pmatrix}.
+      \]
+    \end{proof}
+
+    \item $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 \\
+      4 & 1 & 3 & 2 & 5
+    \end{pmatrix}^{-1}\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 \\
+      2 & 1 & 3 & 4 & 5
+    \end{pmatrix}\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 \\
+      4 & 1 & 3 & 2 & 5
+    \end{pmatrix}$.
+    
+    \begin{proof}
+      \[
+        \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 \\
+          4 & 1 & 3 & 2 & 5
+        \end{pmatrix}^{-1}\begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 \\
+          2 & 1 & 3 & 4 & 5
+        \end{pmatrix}\begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 \\
+          4 & 1 & 3 & 2 & 5
+        \end{pmatrix} = \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 \\
+          1 & 4 & 3 & 2 & 5
+        \end{pmatrix}.
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the order of the product you obtained in the previous problem.
+
+  \begin{proof}
+    Since $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 & 6 \\
+      4 & 5 & 2 & 1 & 3 & 6
+    \end{pmatrix} = \begin{pmatrix}
+      1 & 4
+    \end{pmatrix}\begin{pmatrix}
+      5 & 3 & 2
+    \end{pmatrix}$, the order of it is the least common multiple of the size of the two cycles, namely $6$.
+
+    Since $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 \\
+      3 & 1 & 2 & 4 & 5
+    \end{pmatrix}$ is a $3$-cycle in $S_5$, the order of it is $3$.
+
+    Since $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 \\
+      1 & 4 & 3 & 2 & 5
+    \end{pmatrix}$ is a $3$-cycle in $S_5$, the order of it is $3$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Show that if $\sigma, \tau$ are two disjoint cycles, then $\sigma\tau = \tau\sigma$.
+
+  \begin{proof}
+    Let $\sigma, \tau \in S_n$, where $S = \{1, 2, \dots, n\}$. Let $i \in S$. 
+    If $i$ is not in $\sigma$ nor $\tau$, then $\sigma\tau(i) = \tau\sigma(i) = i$.
+    Since $\sigma, \tau$ are disjoint cycles, $i$ is not in cycle $\tau$ if it is already in $\sigma$, and thus $\sigma\tau(i) = \sigma(i) = \tau\sigma(i)$.
+    By symmetry, we also know that if $i$ is in $\tau$, we get $\tau\sigma(i) = \tau(i) = \sigma\tau(i)$, and we exausted all cases.
+
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the cycle decomposition and order.
+
+  \begin{enumerate}[label=(\alph*)]
+    \item $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+      3 & 1 & 4 & 2 & 7 & 6 & 9 & 8 & 5
+    \end{pmatrix}$.
+
+    \begin{proof}
+      The above permutation can be decomposed into 
+      \[
+        \begin{pmatrix}
+          1 & 3 & 4 & 2
+        \end{pmatrix}\begin{pmatrix}
+          5 & 7 & 9
+        \end{pmatrix},
+      \]
+      and the order of it is the least common multiple of the size of the disjoint cycles, namely $12$.
+    \end{proof}
+
+    \item $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      7 & 6 & 5 & 4 & 3 & 2 & 1
+    \end{pmatrix}$.
+
+    \begin{proof}
+      The above permutation can be decomposed into 
+      \[
+        \begin{pmatrix}
+          1 & 7
+        \end{pmatrix}\begin{pmatrix}
+          2 & 6
+        \end{pmatrix}\begin{pmatrix}
+          3 & 5
+        \end{pmatrix},
+      \]
+      and the order of it is the least common multiple of the size of the disjoint cycles, namely $2$.
+    \end{proof}
+
+    \item $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      7 & 6 & 5 & 4 & 3 & 2 & 1
+    \end{pmatrix}\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      2 & 3 & 1 & 5 & 6 & 7 & 4
+    \end{pmatrix}$.
+
+    \begin{proof}
+      \begin{align*}
+        \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+          7 & 6 & 5 & 4 & 3 & 2 & 1
+        \end{pmatrix}\begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+          2 & 3 & 1 & 5 & 6 & 7 & 4
+        \end{pmatrix}
+        &= \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+          6 & 5 & 7 & 3 & 2 & 1 & 4
+        \end{pmatrix} \\
+        &= \begin{pmatrix}
+          1 & 6
+        \end{pmatrix}\begin{pmatrix}
+          2 & 5
+        \end{pmatrix}\begin{pmatrix}
+          3 & 7 & 4
+        \end{pmatrix},
+      \end{align*}
+      and the order of it is the least common multiple of the size of the disjoint cycles, namely $6$.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Express as the product of disjoint cycles and find the order.
+
+  \begin{enumerate}
+    \item[(c)] $\begin{pmatrix}
+      1 & 2 & 3 & 4 & 5
+    \end{pmatrix}\begin{pmatrix}
+      1 & 2 & 3 & 4 & 6
+    \end{pmatrix}\begin{pmatrix}
+      1 & 2 & 3 & 4 & 7
+    \end{pmatrix}$.
+
+    \begin{proof}
+      \begin{align*}
+        \begin{pmatrix}
+          1 & 2 & 3 & 4 & 5
+        \end{pmatrix}\begin{pmatrix}
+          1 & 2 & 3 & 4 & 6
+        \end{pmatrix}\begin{pmatrix}
+          1 & 2 & 3 & 4 & 7
+        \end{pmatrix}
+        &= \begin{pmatrix}
+          1 & 4 & 7 & 3 & 6 & 2 & 5
+        \end{pmatrix}.
+      \end{align*}
+      Since it's a $7$-cycle, the order of it is $7$.
+    \end{proof}
+
+    \item[(d)] $\begin{pmatrix}
+      1 & 2 & 3
+    \end{pmatrix}\begin{pmatrix}
+      1 & 3 & 2
+    \end{pmatrix}$.
+
+    \begin{proof}
+      \[
+        \begin{pmatrix}
+          1 & 2 & 3
+        \end{pmatrix}\begin{pmatrix}
+          1 & 3 & 2
+        \end{pmatrix} = \begin{pmatrix}
+          1 & 2 & 3 \\
+          1 & 2 & 3
+        \end{pmatrix}.
+      \]
+      Since it's the identity element, the order is $1$.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Express the permutations in the previous problem as the product of transpositions.
+
+  \begin{proof}
+    For (c),
+    \begin{align*}
+      \begin{pmatrix}
+        1 & 2 & 3 & 4 & 5
+      \end{pmatrix}\begin{pmatrix}
+        1 & 2 & 3 & 4 & 6
+      \end{pmatrix}\begin{pmatrix}
+        1 & 2 & 3 & 4 & 7
+      \end{pmatrix}
+      &= \begin{pmatrix}
+        1 & 4 & 7 & 3 & 6 & 2 & 5
+      \end{pmatrix} \\
+      &= \begin{pmatrix}
+        1 & 5
+      \end{pmatrix}\begin{pmatrix}
+        1 & 2
+      \end{pmatrix}\begin{pmatrix}
+        1 & 6
+      \end{pmatrix}\begin{pmatrix}
+        1 & 3
+      \end{pmatrix}\begin{pmatrix}
+        1 & 7
+      \end{pmatrix}\begin{pmatrix}
+        1 & 4
+      \end{pmatrix}.
+    \end{align*}
+
+    For (d),
+    \begin{align*}
+      \begin{pmatrix}
+        1 & 2 & 3
+      \end{pmatrix}\begin{pmatrix}
+        1 & 3 & 2
+      \end{pmatrix}
+      &= \begin{pmatrix}
+        1 & 3
+      \end{pmatrix}\begin{pmatrix}
+        1 & 2
+      \end{pmatrix}\begin{pmatrix}
+        1 & 2
+      \end{pmatrix}\begin{pmatrix}
+        1 & 3
+      \end{pmatrix}.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the conjugate of $\sigma = (1, 4, 7, 2)(3, 6, 5) \in S_7$ by $\tau = (1, 2, 3)(4, 7, 5)$.
+  What is the order of $\sigma$ and $\tau$?
+
+  \begin{proof}
+    \begin{align*}
+      \tau\sigma\tau^{-1}
+      &= \begin{pmatrix}
+        \tau(1) & \tau(4) & \tau(7) & \tau(2)
+      \end{pmatrix}\begin{pmatrix}
+        \tau(3) & \tau(6) & \tau(5)
+      \end{pmatrix} \\
+      &= \begin{pmatrix}
+        2 & 7 & 5 & 3
+      \end{pmatrix}\begin{pmatrix}
+        1 & 6 & 4
+      \end{pmatrix}.
+    \end{align*}
+
+    The order of $\sigma$ and $\tau$ are $12$ and $3$ respectively.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find an element $\tau \in S_7$ that carries $\sigma = (1, 2, 5)(3, 6, 7, 4)$ into
+  $\sigma' = (3, 1, 4)(2, 7, 6, 5)$, that is find $\tau \in S_7$ such that
+  \[
+    \sigma' = \tau\sigma\tau^{-1}.
+  \]
+
+  \begin{proof}
+    Consider 
+    \[
+      \tau = \begin{pmatrix}
+        1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+        3 & 1 & 2 & 5 & 4 & 7 & 6
+      \end{pmatrix}.
+    \]
+    \begin{align*}
+      \tau\sigma\tau^{-1}
+      &= \begin{pmatrix}
+        \tau(1) & \tau(2) & \tau(5)
+      \end{pmatrix}\begin{pmatrix}
+        \tau(3) & \tau(6) & \tau(7) & \tau(4)
+      \end{pmatrix} \\
+      &= \begin{pmatrix}
+        3 & 1 & 4
+      \end{pmatrix}\begin{pmatrix}
+        2 & 7 & 6 & 5
+      \end{pmatrix} \\
+      &= \sigma',
+    \end{align*}
+    and so $\tau$ is what we're looking for.
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
