@@ -226,12 +226,18 @@
     x^2 \equiv -1 \mod p. 
   \]
   \begin{proof}
-    Suppose for the sake of contradiction that $x^2 \equiv -1 \mod p$. 
+    Suppose for the sake of contradiction that $x^2 \equiv -1 \mod p$ for some $x$. 
     Then, $x^4 \equiv 1 \mod p$. 
     Since $x^2 \equiv -1 \mod p$, we know $x \not\equiv \pm 1 \mod p$, and so $x^3 = x\cdot x^2 \not\equiv 1 \mod p$.
-    Therefore, we know that $x$ is of order $4$. 
+    Therefore, we know that $[x]$ is of order $4$ in $U_p$. 
     By Lagrange's Theorem, we know that $4 | \varphi(p) = p - 1 = 4n + 2$, contradiction.
     Therefore, we cannot solve the above equation.
+  \end{proof}
+
+  \begin{proof}[Aliter]
+    We can assume that $p$ does not divide $x$, otherwise we get $x^2 \equiv 0 \mod p$.
+    Then, we know $x^{p - 1} \equiv 1 \mod p$, by Fermat's theorem.
+    We thus get $x^{4n + 2} = (x^2)^{2n + 1} \equiv 1 \mod p$, but $(-1)^{2n + 1} \equiv -1 \mod p$, and so the equation cannot be solved.
   \end{proof}
 \end{homeworkProblem}
 
@@ -340,7 +346,7 @@
     Since $\begin{pmatrix}
       1 & 2 & 3 & 4 & 5 \\
       1 & 4 & 3 & 2 & 5
-    \end{pmatrix}$ is a $3$-cycle in $S_5$, the order of it is $3$.
+    \end{pmatrix}$ is a $2$-cycle in $S_5$, the order of it is $2$.
   \end{proof}
 \end{homeworkProblem}
 
