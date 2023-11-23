@@ -1,0 +1,285 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{November 21, 2023}
+\newcommand{\hmwkClass}{MATH 100A}
+\newcommand{\hmwkClassTime}{Section A02 5:00PM - 5:50PM}
+\newcommand{\hmwkSectionLeader}{Castellano}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    If $G_1$ and $G_2$ are groups, prove that $G_1 \times G_2 \simeq G_2 \times G_1$.
+
+    \begin{proof}
+        Define $\phi: G_1 \times G_2 \rightarrow G_2 \times G_1$ as $\phi(a, b) = (b, a)$.
+        $\phi$ is obviously a well-defined.
+        Define $\psi: G_2 \times G_1 \rightarrow G_1 \times G_2$ as $\psi(b, a) = (a, b)$.
+        Since $\phi(\psi(b, a)) = \phi(a, b) = (b, a)$ and $\psi(\phi(a, b)) = \psi(b, a) = (a, b)$, $\psi$ is an inverse of $\phi$, so $\phi$ is bijective.
+        Since $\phi(a, b)\phi(a', b') = (bb', aa') = \phi(aa', bb')$, $\phi$ is an isomorphism, and thus $G_1 \times G_2 \simeq G_2 \times G_1$.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    If $G_1$ and $G_2$ are cyclic groups of orders $m$ and $n$, respectively, prove that $G_1 \times G_2$ is cyclic if and only if $m$ and $n$ are relatively prime.
+
+    \begin{proof}
+        Suppose that $G_1 \times G_2$ is cyclic.
+        Then $G_1 \times G_2 = \{(a^i, b^i) \, | \, i \in \Z\}$, for some $a \in G_1$, $b \in G_2$.
+        Since $G_1 \times G_2$ is of order $mn$, we know $m, n$ is relatively prime, otherwise we can find $k < mn$ such that $(a^k, b^k) = (e_1, e_2)$, which contradicts that $G_1 \times G_2$ is of order $mn$.
+        Suppose that $m, n$ are relatively prime.
+        Let $c \in G_1, d \in G_2$ each be the generator of their respective group.
+        Let $(x, y) = (c^j, d^l) \in G_1 \times G_2$, and let $d = l - j$.
+        Since $m, n$ are relatively prime, there exists $m\alpha + n\beta = 1$.
+        Multiplying both sides by $d$, we get $md\alpha + nd\beta = l - j$, and so there exists $x = (d\alpha) m + j = (-d\beta) n + l$.
+        Thus, $(x, y) = (c^j, d^l) = (c^x, d^x)$, and so $G_1 \times G_2$ is cyclic.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Let $G$ be a group, $A = G \times G$.
+    In $A$ let $T = \{(g, g) \, | \, g \in G\}$.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Prove that $T \simeq G$.
+        
+        \begin{proof}
+            Let $\phi: T \rightarrow G$ be the natural projection.
+            Then, $\phi$ is well-defined and surjective.
+            Since $\phi(g, g)\phi(g', g') = gg' = \phi(gg', gg')$, $\phi$ is a homomorphism.
+            Let $(a, a) \in \text{Ker }\phi$.
+            $\phi(a, a) = a = e$, and so Ker $\phi$ is trivial.
+            Therefore, $\phi$ is an isomorphism, and thus $T \simeq G$.
+        \end{proof}
+
+        \item Prove that $T \vartriangleleft A$ if and only if $G$ is abelian.
+
+        \begin{proof}
+            Suppose that $T \vartriangleleft A$.
+            For $(g, h) \in A$, $(g, h)(g, g)(g^{-1}, h^{-1}) = (g, hgh^{-1}) \in T$.
+            This implies that for all $g, h \in G$, $g = hgh^{-1}$.
+            Rearranged, we get $gh = hg$, which makes $G$ abelian.
+            Suppose that $G$ is abelian. 
+            Let $(g, g) \in T$, $(a, b) \in A$.
+            Since $(a, b)(g, g)(a^{-1}, b^{-1}) = (aga^{-1}, bgb^{-1}) = (g, g) \in T$, $T$ is normal in $A$.
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Let $H$ and $K$ be two normal subgroups of a group $G$, whose intersection is the trivial subgroup. 
+    Prove that every element of $H$ commutes with every element of $K$.
+
+    \begin{proof}
+        Let $h \in H$, $k \in K$.
+        Since $H$ is normal, $h^{-1}k^{-1}hk = h^{-1}h'k^{-1}k = h^{-1}h' \in H$.
+        By symmetry, $h^{-1}k^{-1}hk \in K$, which makes $h^{-1}k^{-1}hk \in H \cap K = \{e\}$.
+        Thus, we know $h^{-1}k^{-1}hk$ must be the identity element, and thus $hk = kh$.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Prove that a group $G$ is isomorphic to the product of two groups $H'$ and $K'$ if and only if $G$ contains two normal subgroups $H$ and $K$,
+    such that
+    \begin{enumerate}
+        \item $H$ is isomorphic to $H'$ and $K$ is isomorphic to $K'$.
+        \item $H \cap K = \{e\}$.
+        \item $G = H \vee K$.
+    \end{enumerate}
+
+    \begin{proof}
+        Suppose that $G \simeq H' \times K'$.
+        Let $\phi: H' \times K' \rightarrow G$ be an isomorphism, $G_{H'} = \{(h, e_{k'}) \, | \, h \in H'\}$, and $G_{K'} = \{(e_{h'}, k) \, | \, k \in K'\}$, where $e_{h'} \in H', e_{k'} \in K'$ are the identity element of their corresponding groups.
+        Let $H = \phi(G_{H'})$ and $K = \phi(G_{K'})$.
+        From Homework 6 question 2.7.4, we have shown that $H' \simeq G_{H'}$ and $K' \simeq G_{K'}$, and $G_{H'}, G_{K'}$ are normal subgroups of $H' \times K'$.
+        Thus, we know $H \simeq G_{H'} \simeq H'$ and $K \simeq G_{K'} \simeq K'$ are both normal subgroups of $G$.
+        Let $\psi: G \rightarrow H' \times K'$ be the inverse of $\phi$.
+        Then, $\psi(H \cap K) = G_{H'} \cap G_{K'} = \{(e_{h'}, e_{k'})\}$, which contains only the identity element of $H' \times K'$.
+        Since $\psi$ is an isomorphism, $H \cap K  = \{e\}$.
+        Note that for all $x \in H' \times K'$, $x = ab$, for some $a \in G_{H'}$, $b \in G_{K'}$.
+        Thus, $\phi(x) = \phi(ab) = \phi(a)\phi(b) = hk$, where $h \in H$ and $k \in K$.
+        This implies that $G = HK$, and so $G = H \vee K$, by the Second Isomorphism Theorem.
+        
+        We now suppose that conditions 1-3 hold.
+        Since $H, K$ are normal, by the Second Isomorphism Theorem, $G = H \vee K = HK$.
+        Let $\alpha: H \rightarrow H'$ and $\beta: K \rightarrow K'$ be isomorphisms.
+        Define $\varphi: G \rightarrow H' \times K'$ as $\varphi(hk) = (\alpha(h), \beta(k))$, for $h \in H$, $k \in K$.
+        Suppose $hk = h_0k_0 \in G$, for $h, h_0 \in H$ and $k, k_0 \in K$.
+        Then, $\varphi(hk) = (\alpha(h), \beta(k)) = (\alpha(h_0), \beta(k_0)) = \varphi(h'k')$, so $\varphi$ is well-defined.
+        Define $\theta: H' \times K' \rightarrow G$ as $\theta(h', k') = \alpha^{-1}(h')\beta^{-1}(k')$, where $\alpha^{-1}, \beta^{-1}$ are the inverses of $\alpha, \beta$, respectively.
+        We then get $\varphi(\theta(h', k')) = \varphi(\alpha^{-1}(h')\beta^{-1}(k')) = (\alpha(\alpha^{-1}(h')), \beta(\beta^{-1}(k'))) = (h', k')$ and $\theta(\varphi(hk)) = \theta(\alpha(h), \beta(k)) = \alpha^{-1}(\alpha(h))\beta^{-1}(\beta(k)) = hk$.
+        Thus, $\theta$ is the inverse of $\varphi$, so $\varphi$ is a bijective mapping.
+        Finally, we check that $\varphi$ is a homomorphism.
+        Let $m = hk, n = h_1k_1 \in G$, where $h, h_1 \in H$ and $k, k_1 \in K$.
+        Note that since $H, K$ are both normal and $H \cap K = \{e\}$, every element of $H$ commutes with every element of $K$, by result we obtained in the previous problem.
+        Thus, 
+        \begin{align*}
+            \varphi(mn) 
+            &= \varphi(hkh_1k_1) \\
+            &= \varphi(hh_1kk_1) \\
+            &= (\alpha(hh_1), \beta(kk_1)) \\
+            &= (\alpha(h)\alpha(h_1), \beta(k)\beta(k_1)) \\
+            &= (\alpha(h), \beta(k))(\alpha(h_1), \beta(k_1)) \\
+            &= \varphi(hk)\varphi(h_1k_1) \\
+            &= \varphi(m)\varphi(n).
+        \end{align*}
+        Therefore, $\varphi$ is an isomorphism, and so $G \simeq H' \times K'$.
+    \end{proof}
+\end{homeworkProblem}
+\end{document}
