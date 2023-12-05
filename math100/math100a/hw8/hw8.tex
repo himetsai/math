@@ -1,0 +1,310 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#8}
+\newcommand{\hmwkDueDate}{November 30, 2023}
+\newcommand{\hmwkClass}{MATH 100A}
+\newcommand{\hmwkClassTime}{Section A02 5:00PM - 5:50PM}
+\newcommand{\hmwkSectionLeader}{Castellano}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Find the parity of each of permutation.
+
+    \begin{enumerate}[(a)]
+        \item $\begin{pmatrix}
+            1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+            2 & 4 & 5 & 1 & 3 & 7 & 8 & 9 & 6
+        \end{pmatrix}$.
+
+        \begin{proof}
+            Since
+            \begin{align*}
+                \begin{pmatrix}
+                    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+                    2 & 4 & 5 & 1 & 3 & 7 & 8 & 9 & 6
+                \end{pmatrix}
+                &= (1, 2, 4)(3, 5)(6, 7, 8, 9) \\
+                &= (1, 2)(1, 4)(3, 5)(6, 7)(6, 8)(6, 9),
+            \end{align*}
+            the parity is even.
+        \end{proof}
+
+        \item $(1, 2, 3, 4, 5, 6)(7, 8, 9)$.
+        
+        \begin{proof}
+            Since $(1, 2, 3, 4, 5, 6)(7, 8, 9) = (1, 2)(1, 3)(1, 4)(1, 5)(1, 6)(7, 8)(7, 9)$,
+            the parity is odd.
+        \end{proof}
+
+        \item $(1, 2, 3, 4, 5, 6)(1, 2, 3, 4, 5, 7)$.
+        
+        \begin{proof}
+            Since 
+            \begin{align*}
+                (1, 2, 3, 4, 5, 6)(1, 2, 3, 4, 5, 7) 
+                &= (1, 2)(1, 3)(1, 4)(1, 5)(1, 6)(1, 2)(1, 3)(1, 4)(1, 5)(1, 7),
+            \end{align*}
+            the parity is even.
+        \end{proof}
+
+        \item $(1, 2)(1, 2, 3)(4, 5)(5, 6, 8)(1, 7, 9)$.
+        
+        \begin{proof}
+            Since 
+            \begin{align*}
+                (1, 2)(1, 2, 3)(4, 5)(5, 6, 8)(1, 7, 9)
+                &= (2, 3)(4, 5)(5, 6)(5, 8)(1, 7)(1, 9),
+            \end{align*}
+            the parity is even.
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    If $\sigma$ is a $k$-cycle, show that $\sigma$ is an odd permutation if $k$ is even, and is an even permutation if $k$ is odd.
+    
+    \begin{proof}
+        Since every $k$-cycle is a product of $k - 1$ transposes, the above statement holds.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Prove that $\sigma$ and $\tau^{-1}\sigma\tau$, for any $\sigma$, $\tau \in S_n$, are of the same parity.
+
+    \begin{proof}
+        Since $\tau^{-1}\sigma\tau$ is the conjugate of $\sigma$, they are of the same cycle type, and thus they are of the same parity.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Suppose that you are told that the permutation 
+    \[
+        \begin{pmatrix}
+            1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+            3 & 1 & 2 &  &  & 7 & 8 & 9 & 6
+        \end{pmatrix},
+    \]
+    in $S_9$, where the images of 5 and 4 have been lost, is an even permutation.
+    What must the images of 5 and 4 be?
+
+    \begin{proof}
+        Notice that the permutation contains $(1, 3, 2)$ and $(6, 7, 8, 9)$, and all the numbers that are not classified to a cycle are 4 and 5.
+        Since the permutation is even, 4 and 5 must form a transposition, otherwise the permutation can be decomposed into $2 + 3 = 5$ transpositions, which forces it to be odd.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    If $n \geq 3$, show that every element in $A_n$ is a product of $3$-cycles.
+
+    \begin{proof}
+        Note that every element $\sigma \in A_n$ can be decomposed into even number of transpositions.
+        Suppose that $\sigma$ is the identity.
+        Since the identity permutation can be represented as a$\prod\limits_{1 \leq x < y < z \leq n} (x, y, z)^3$, we may assume $\sigma$ is not the identity.
+        Since $(a, b)(c, d) = (a, b)(a, c)(c, a)(c, d) = (a, b, c)(c, a, d)$ for any pair of distinct transpositions $(a, b)(c, d)$, we can pair up consecutive transpositions in $\sigma$ and convert each of them into a product of $3$-cycles, which makes $\sigma$ also a product of $3$-cycles.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Show that every element in $A_n$ is a product of $n$-cycles.
+
+    \begin{proof}
+        Let $\sigma \in A_n$.
+        Since the identity is simply the $n$-th power of any $n$-cycle, we may assume that $\sigma$ is not the identity.
+        Let $(a_1, a_2)(b_1, b_2)$ be a pair of consecutive transpositions in $\sigma$.
+        Note that $(a_1, a_2)$ and $(b_1, b_2)$ are distinct, otherwise they may cancell each other.
+        Thus, we may assume $a_1 \neq b_1$.
+        Let $\tau$ be a $(n - 2)$-cycle $\underbrace{(a_1, \dots, b_1)}_{n - 2 \text{ elements}}$ that only excludes $a_2$ and $b_2$.
+        Then, 
+        \begin{align*}
+            \sigma
+            &= (a_1, a_2)(b_1, b_2) \\
+            &= (a_1, a_2)\tau\tau^{-1}(b_1, b_2) \\
+            &= (a_1, a_2)(a_1, \dots, b_1)(b_1, \dots, a_1)(b_1, b_2) \\
+            &= \underbrace{(a_1, a_2, \dots, b_1)}_{\text{only excludes }b_2}\underbrace{(b_1, \dots, a_1, b_2)}_{\text{only excludes }a_2} \\
+            &= (a_2, \dots, b_1, a_1)(b_2, b_1, \dots, a_1) \\
+            &= (a_2, \dots, b_1, a_1)(a_2, b_2)(b_2, a_2)(b_2, b_1, \dots, a_1) \\
+            &= \underbrace{(a_2, \dots, b_1, a_1, b_2)}_{n\text{-cycle}} \underbrace{(b_2, a_2, b_1, \dots, a_1)}_{n\text{-cycle}}.
+        \end{align*}
+        Since $\sigma$ is even, we can pair up consecutive transpositions in $\sigma$ and convert each of them into a product of $n$-cycles, which makes $\sigma$ also a product of $n$-cycles.
+    \end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Find a normal subgroup in $A_4$ of order 4.
+    
+    \begin{proof}
+       $A_4$ only contains even permutations, namely the identity, 3-cycles, and the product of 2 disjoint transpositions.
+       3-cycles cannot be in a subgroup of order 4, so the subgroup can only contain the identity and the product of disjoint transpositions.
+       There are $\frac{1}{2}{4 \choose 2} = 3$ cycles in $A_4$, so the group we are looking for can only be $S = \{(), (1, 2)(3, 4), (1, 3)(2, 4), (1, 4)(2, 3)\}$.
+       Since
+       \begin{align*}
+            (1, 2)(3, 4)(1, 3)(2, 4) &= (1, 4)(2, 3) \\
+            (1, 2)(3, 4)(1, 4)(2, 3) &= (1, 3)(2, 4) \\
+            (1, 3)(2, 4)(1, 4)(2, 3) &= (1, 2)(3, 4),
+       \end{align*}
+       $S$ is a subset of a finite group and is closed under multiplication, so $S$ is a subgroup.
+       Since $S$ contains the identity and all products of disjoint transpositions, $S$ is a union of conjugacy class, which makes $S$ a normal subgroup in $A_4$.
+    \end{proof}
+\end{homeworkProblem}
+\end{document}
