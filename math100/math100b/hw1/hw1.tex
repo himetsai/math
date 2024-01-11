@@ -1,0 +1,608 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{Janurary 19, 2024}
+\newcommand{\hmwkClass}{MATH 100B}
+\newcommand{\hmwkClassTime}{Section A02 6:00PM - 6:50PM}
+\newcommand{\hmwkSectionLeader}{Castellano}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion, Office Hour}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    Show that any field is an integral domain.
+
+    \begin{proof}
+        Let $F$ be a field, and let $a, b \in F$, such that $ab = 0$. Suppose for the sake of
+        contradiction that $a, b \neq 0$. Since $F$ is a division ring, there exists $a^{-1} \in F$.
+        But this implies $a^{-1}ab = b = 0$, contradiction. Thus, $F$ is an integral domain.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Fine all matrices $\begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}$ such that $\begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}\begin{pmatrix}
+        1 & 0 \\
+        0 & 0
+    \end{pmatrix} = \begin{pmatrix}
+        1 & 0 \\
+        0 & 0
+    \end{pmatrix}\begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}$.
+
+    \begin{proof}
+        $\begin{pmatrix}
+            a & b \\
+            c & d
+        \end{pmatrix}\begin{pmatrix}
+            1 & 0 \\
+            0 & 0
+        \end{pmatrix} = \begin{pmatrix}
+            1 & 0 \\
+            0 & 0
+        \end{pmatrix}\begin{pmatrix}
+            a & b \\
+            c & d
+        \end{pmatrix}$ if and only if $\begin{pmatrix}
+            a & 0 \\
+            c & 0
+        \end{pmatrix} = \begin{pmatrix}
+            a & b \\
+            0 & 0 
+        \end{pmatrix}$ if and only if $b = c = 0$. Thus, only diagonal $2 \times 2$ matrices meet 
+        the requirement.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Let $R$ be any ring with unit, $S$ the ring of $2 \times 2$ matrices over $R$.
+    \begin{enumerate}[(a)]
+        \item Check the associative law of multiplication in $S$.
+        \begin{proof}
+            Let $\begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix},\begin{pmatrix}
+                g & h \\
+                k & l 
+            \end{pmatrix}, \begin{pmatrix}
+                w & x \\
+                y & z 
+            \end{pmatrix} \in S$.
+            Since $$\left[\begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix}\begin{pmatrix}
+                g & h \\
+                k & l 
+            \end{pmatrix}\right]\begin{pmatrix}
+                w & x \\
+                y & z 
+            \end{pmatrix} = \begin{pmatrix}
+                ag + bk & ah + bl \\
+                cg + dk & ch + dl 
+            \end{pmatrix}\begin{pmatrix}
+                w & x \\
+                y & z 
+            \end{pmatrix} = \begin{pmatrix}
+                agw + bkw + ahy + bly & agx + bkx + ahz + blz \\
+                cgw + dkw + chy + dly & cgx + dkx + chz + dlz 
+            \end{pmatrix},$$
+            $$\begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix}\left[\begin{pmatrix}
+                g & h \\
+                k & l 
+            \end{pmatrix}\begin{pmatrix}
+                w & x \\
+                y & z 
+            \end{pmatrix}\right] = \begin{pmatrix}
+                a & b \\
+                c & d
+            \end{pmatrix}\begin{pmatrix}
+                gw + hy & gx + hz \\
+                kw + ly & kx + lz
+            \end{pmatrix} = \begin{pmatrix}
+                agw + bkw + ahy + bly & agx + bkx + ahz + blz \\
+                cgw + dkw + chy + dly & cgx + dkx + chz + dlz 
+            \end{pmatrix},$$ the associative law is met.
+        \end{proof}
+
+        \item Show that $\left\{\left.\begin{pmatrix}
+            a & b \\
+            0 & c
+        \end{pmatrix} \, \right| \, a, b, c \in R\right\}$ is a subring of $S$.
+        \begin{proof}
+            We name the set $L$. $L$ contains the unit, namely the identity matrix. If suffices to
+            check that $L$ is closed under addition, additive inverses, and multiplication. Let 
+            $\begin{pmatrix}
+                x & y \\
+                0 & z
+            \end{pmatrix}, \begin{pmatrix}
+                g & h \\
+                0 & k
+            \end{pmatrix} \in L$. Since $\begin{pmatrix}
+                x & y \\
+                0 & z
+            \end{pmatrix} + \begin{pmatrix}
+                g & h \\
+                0 & k
+            \end{pmatrix} = \begin{pmatrix}
+                x + g & y + h \\
+                0 & z + k
+            \end{pmatrix} \in L$, $L$ is closed under addition. Since there exists 
+            $\begin{pmatrix}
+                -x & -y \\
+                0 & -z
+            \end{pmatrix} \in L$ such that $\begin{pmatrix}
+                x & y \\
+                0 & z
+            \end{pmatrix} + \begin{pmatrix}
+                -x & -y \\
+                0 & -z
+            \end{pmatrix} = \begin{pmatrix}
+                -x & -y \\
+                0 & -z
+            \end{pmatrix} + \begin{pmatrix}
+                x & y \\
+                0 & z
+            \end{pmatrix} = \begin{pmatrix}
+                0 & 0 \\
+                0 & 0
+            \end{pmatrix}$, $L$ is closed under taking additive inverse. Since $\begin{pmatrix}
+                x & y \\
+                0 & z
+            \end{pmatrix}\begin{pmatrix}
+                g & h \\
+                0 & k
+            \end{pmatrix} = \begin{pmatrix}
+                xg & xh + yk \\
+                0 & zk
+            \end{pmatrix} \in L$, $L$ is closed under multiplication. Therefore, $L$ is a subring.
+        \end{proof}
+
+        \item Show that $\begin{pmatrix}
+            a & b \\
+            0 & c
+        \end{pmatrix}$ has an inverse in $S$ if and only if $a$ and $c$ have inverses in $R$. In
+        that case write down $\begin{pmatrix}
+            a & b \\
+            0 & c
+        \end{pmatrix}^{-1}$ explicitly.
+
+        \begin{proof}
+            Suppose that there exists $\begin{pmatrix}
+                a & b \\
+                0 & c
+            \end{pmatrix}^{-1} = \begin{pmatrix}
+                x & y \\
+                w & z
+            \end{pmatrix} \in S$, such that $\begin{pmatrix}
+                a & b \\
+                0 & c
+            \end{pmatrix}\begin{pmatrix}
+                x & y \\
+                w & z
+            \end{pmatrix} = \begin{pmatrix}
+                x & y \\
+                w & z
+            \end{pmatrix}\begin{pmatrix}
+                a & b \\
+                0 & c
+            \end{pmatrix} = \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}$. Then, $\begin{pmatrix}
+                ax + bw & ay + bz \\
+                cw & cz
+            \end{pmatrix} = \begin{pmatrix}
+                xa & xb + yc \\
+                wa & wb + zc
+            \end{pmatrix} = \begin{pmatrix}
+                1 & 0 \\
+                0 & 1 \end{pmatrix}$. Notice that $w = 0$, otherwise $a = c = 0$ and $xa = 0 \neq
+            1$. Thus, we have $xa = ax + bw = ax = 1$ and $cz = wb + zc = zc = 1$, so $a, c$ have
+            inverse $x, z \in R$, respectively. Since $ay + bc^{-1} = a^{-1}b + yc = 0$, we know $y
+            = -a^{-1}bc^{-1}$, and so $\begin{pmatrix}
+                a & b \\
+                0 & c
+            \end{pmatrix}^{-1} = \begin{pmatrix}
+                a^{-1} & -a^{-1}bc^{-1} \\
+                0 & c^{-1}
+            \end{pmatrix}$.
+
+            We now suppose that $a^{-1}, c^{-1} \in R$. Then, there exists $\begin{pmatrix}
+                a^{-1} & -a^{-1}bc^{-1} \\
+                0 & c^{-1}
+            \end{pmatrix} \in S$, such that $$\begin{pmatrix}
+                a^{-1} & -a^{-1}bc^{-1} \\
+                0 & c^{-1}
+            \end{pmatrix}\begin{pmatrix}
+                a & b \\
+                0 & c
+            \end{pmatrix} = \begin{pmatrix}
+                a & b \\
+                0 & c
+            \end{pmatrix}\begin{pmatrix}
+                a^{-1} & -a^{-1}bc^{-1} \\
+                0 & c^{-1}
+            \end{pmatrix} = \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix},$$ and we are done.
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Let $F: \C \rightarrow \C$ be defined by $F(a + bi) = a - bi$. Show that:
+    \begin{enumerate}[(a)]
+        \item $F(xy) = F(x)F(y)$ for $x, y \in \C$.
+        \begin{proof}
+            Let $x = a + bi, y = c + di \in \C$.
+            \begin{align*}
+                F(xy)
+                &= F[(a + bi)(c + di)] \\
+                &= F(ac - bd + (ad + bc)i) \\
+                &= ac - bd - (ad + bc)i \\
+                &= (a - bi)(c - di) = F(x)F(y).
+            \end{align*}
+        \end{proof}
+        
+        \item $F(x\bar{x}) = |x|^2$.
+        \begin{proof}
+            \[
+                F(x\bar{x}) = F((a + bi)(a - bi)) = F(a^2 + b^2) = |x|^2.
+            \]
+        \end{proof}
+
+        \item Using Parts (a) and (b), show that
+        \[
+            (a^2 + b^2)(c^2 + d^2) = (ac - bd)^2 + (ad + bc)^2.
+        \]
+        \begin{proof}
+            \begin{align*}
+                (a^2 + b^2)(c^2 + d^2)
+                &= F(x\bar{x})F(y\bar{y}) \\
+                &= F(x\bar{x}y\bar{y}) \\
+                &= F(xy\bar{x}\bar{y}) \\
+                &= F(xy\overline{xy}) \\
+                &= |xy|^2 \\
+                &= (ac - bd)^2 + (ad + bc)^2.
+            \end{align*}
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Show that the only quaternions commuting with $i$ are of the form $\alpha + \beta i$.
+
+    \begin{proof}
+        Let $q = ai + bj + ck + d$ be a quaternion that commutes with $i$. This means that $qi = -a
+        -bk + cj + di = -a + bk - cj + di = iq$, so $b = -b$ and $c = -c$. Thus, $b = c = 0$, so $q
+        = d + ai$ is of the form $\alpha + \beta i$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Find the quaternions that commute with both $i$ and $j$.
+
+    \begin{proof}
+        Let $q = ai + bj + ck + d$ be a quaternion that commutes with both $i$ and $j$. This means
+        that $qi = -a -bk + cj + di = -a + bk - cj + di = iq$ and $qj = ak -b - ci + dj = -ak - b +
+        ci + dj = jq$, so $b = -b, c = -c,$ and $a = -a$. Thus, $a = b = c = 0$, so $q$ is a real
+        number.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Show that there is an \textit{inifnite} number of solutions to $x^2 = -1$ in the quaternions.
+
+    \begin{proof}
+        Consider $x = bi + cj + dk$. Then, $x^2 = -(b^2 + c^2 + d^2) = -1$, but $b^2 + c^2 + d^2 =
+        1$ has infinitly many real solutions. Therefore, there is an inifnite number of solutions to
+        $x^2 = -1$ in the quaternions.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    In the quaternions, consider the following set $G$ having eight elements: $G = \{\pm 1, \pm i,
+    \pm j, \pm k\}$.
+    \begin{enumerate}[(a)]
+        \item Prove that $G$ is a group under multiplication.
+        \begin{proof}
+            Since the quaternions from a division ring, it suffices to show that $G$ is closed under
+            multiplication and taking inverses. By the quaternions multiplication rule carved on the
+            Brougham Bridge in Dublin, $G$ is closed under multiplication. Since the inverse of each
+            element in $G$ is just the conjugate of itself, which is also in $G$, $G$ is closed
+            under taking inverses, and this completes the proof.
+        \end{proof}
+
+        \item List all subgroups of $G$.
+        \begin{proof}
+            $G$ itself and the trivial subgroup $\{1\}$ are subgroups of $G$. By Lagrange's Theorem,
+            the remaining subgroups are of sizes either $2$ or $4$. We first consider subgroups
+            generated by a single element. We know $\langle -1 \rangle = \{\pm 1\}$. Consider the
+            subgroup generated by $i$ or $-i$. We get $\langle i \rangle = \langle -i \rangle =
+            \{\pm 1, \pm i\}$. By symmetry, we also have $\{\pm 1, \pm j\}$ and $\{\pm 1, \pm k\}$.
+            Since any pair of elements $\neq \pm 1$ and not from the same subgroup listed above
+            would generate $G$, we have listed all the subgroups of $G$.
+        \end{proof}
+
+        \item What is the center of $G$.
+        \begin{proof}
+            Since only $\pm 1$ commute with all elements in $G$, $\{\pm 1\}$ is the center of $G$.
+        \end{proof}
+
+        \item Show that $G$ is a nonabelian group all of whose subgroups are normal.
+        \begin{proof}
+            Since $ij \neq ji$, $G$ is nonabelian. Since subgroups of order 4 is half the size
+            of $G$, all subgroups of order 4 are normal. However, the remaining subgroups of $G$ are
+            the trivial subgroup, the center, and $G$ itself, so all subgroups of $G$ are normal. 
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Define the map * in the quaternions by
+    \[
+        (\alpha_0 + \alpha_1i + \alpha_2j + \alpha_3k)^* = (\alpha_0 - \alpha_1i - \alpha_2j - \alpha_3k).
+    \]
+    Show that 
+    \begin{enumerate}[(a)]
+        \item $x^{**} = (x^*)^* = x$.
+        \item $(x + y)^* = x^* + y^*$.
+        \item $xx^* = x^*x$ is real and nonnegative.
+        \item $(xy)^* = y^*x^*$.
+    \end{enumerate}
+    \begin{proof}
+        Let $x = a + bi + cj + dk$, $y = m + yi + wj + zk$. 
+        \begin{enumerate}[(a)]
+            \item $x^{**} = (a - bi - cj - dk)^* = a + bi + cj + dk = x$
+            \item \begin{align*}
+                (x + y)^*
+                &= ((a + m) + (b + y)i + (c + w)j + (d + z)k)^* \\
+                &= (a + m) - (b + y)i - (c + w)j - (d + z)k \\
+                &= (a - bi - cj - dk) + (m - yi - wj - zk) = x^* + y^*.
+            \end{align*}
+            \item $xx^* = (a + bi + cj + dk)(a - bi - cj - dk) = a^2 + b^2 + c^2 + d^2 = (a - bi -
+            cj - dk)(a + bi + cj + dk) = x^*x$, which is a sum of squares.
+
+            \item \begin{align*}
+                (xy)^*
+                &= ((a + bi + cj + dk)(m + yi + wj + zk))^* \\
+                &= ((am - by - cw - dz) + (ay + bm - cz + dw)i + (az - bx + cm + dy)j + (aw + bx -
+                cy + dm)k)^* \\
+                &= (am - by - cw - dz) - (ay + bm - cz + dw)i - (az - bx + cm + dy)j - (aw + bx - cy
+                + dm)k, \\
+                y^*x^*
+                &= am+aw-ayi+azi-bmi-bw-by+bz+cm+cw-cyi+czi+dmi+dw+dy-dz \\
+                &= (am+bw+cz+dy)-(ay+bm-cz+dw)i-(az+bx-cm-dy)j-(aw-bx+cy-dm)k,
+            \end{align*}
+            so $(xy)^* = y^*x^*$.
+        \end{enumerate}
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $R$ is an integral domain and $ab = ac$ for $a \neq 0, b, c \in R$, show that $b = c$.
+
+    \begin{proof}
+        $ab = ac$ implies $ab - ac = a(b - c) = 0$. Since $R$ is an integral domain and $a \neq 0$,
+        we know $b - c = 0$, and so $b = c$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $R$ is a finite integral domain, show that $R$ is a field.
+
+    \begin{proof}
+        Since $R$ is an integral domain, $R - \{0\}$ is closed under multiplication. Thus, it
+        suffices to show that $R$ is closed under taking inverse and contains the unit. Suppose for
+        the sake of contradiction that $a \neq 0$ does not have an multiplicative inverse in $R -
+        \{0\}$. Then, $a^i \neq 1$ for finite $i$, which makes $R$ an infinite group, contradiction.
+        Therefore, $R - \{0\}$ is closed under taking inverse. With the same arguement, we may also
+        show that $R$ contains the unit, and this completes the proof that $R$ is a field.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $F$ is a finite field, show that:
+    \begin{enumerate}[(a)]
+        \item There exists a prime $p$ such that $pa = 0$ for all $a \in F$.
+        \begin{proof}
+            Denote $[k]$ as $1$ added to itself $k \in \N$ times. Note that $[a][b] = [ab]$, for $a,
+            b \in \N$. Then, $$ka = \underbrace{a + a + \dots + a}_{k \text{ times}} =
+            (\underbrace{1 + 1 + \dots + 1}_{k \text{ times}})a = [k]a.$$ Since $F$ is finite, there
+            exists $k$ such that $[k]a = 0$. Since $F$ is an integral domain, $[k]a = 0$ implies
+            $[k] = 0$. Suppose that $k$ is a composite number, say $k = xy$. Then, $[k] = [x][y] =
+            0$, so one of $[x], [y]$ is equal to 0. This implies that we may recursively decompose
+            our current $k$ and eventually get a prime number $p$ such that $[p] = 0$, and thus $pa
+            = [p]a = 0$.
+        \end{proof}
+
+        \item If $F$ has $q$ elements, then $q = p^n$ for some integer $n$. 
+        \begin{proof}
+            Since $pa = 0$ for all $a \in F$, all non-identity elements in $F$ are of order $p$
+            under addition. Therefore, there does not exists prime number $m \neq p$ that divides
+            $q$, otherwise there exists an element of order $m$, by Sylow's Theorem.
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+\end{document}
