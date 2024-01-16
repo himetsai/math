@@ -93,7 +93,7 @@
 \newcommand{\hmwkDueDate}{Janurary 19, 2024}
 \newcommand{\hmwkClass}{MATH 100B}
 \newcommand{\hmwkClassTime}{Section A02 6:00PM - 6:50PM}
-\newcommand{\hmwkSectionLeader}{Castellano}
+\newcommand{\hmwkSectionLeader}{Castellano-Macías}
 \newcommand{\hmwkClassInstructor}{Professor McKernan}
 \newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion, Office Hour}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
@@ -587,14 +587,14 @@
     \begin{enumerate}[(a)]
         \item There exists a prime $p$ such that $pa = 0$ for all $a \in F$.
         \begin{proof}
-            Denote $[k]$ as $1$ added to itself $k \in \N$ times. Note that $[a][b] = [ab]$, for $a,
-            b \in \N$. Then, $$ka = \underbrace{a + a + \dots + a}_{k \text{ times}} =
+            Denote $[k]$ as $1$ added to itself $k \in \N$ times. Note that $[i][j] = [ij]$, for $i,
+            j \in \N$. Then, $$ka = \underbrace{a + a + \dots + a}_{k \text{ times}} =
             (\underbrace{1 + 1 + \dots + 1}_{k \text{ times}})a = [k]a.$$ Since $F$ is finite, there
             exists $k$ such that $[k]a = 0$. Since $F$ is an integral domain, $[k]a = 0$ implies
             $[k] = 0$. Suppose that $k$ is a composite number, say $k = xy$. Then, $[k] = [x][y] =
-            0$, so one of $[x], [y]$ is equal to 0. This implies that we may recursively decompose
-            our current $k$ and eventually get a prime number $p$ such that $[p] = 0$, and thus $pa
-            = [p]a = 0$.
+            0$, so one of $[x], [y]$ is equal to 0. Suppose that $[x] = 0$. We may recursively take
+            $[x]$ as our current $[k]$ and decompose it to eventually end up with a prime number $p$
+            such that $[p] = 0$, and thus $pa = [p]a = 0$, for all $a \in F$.
         \end{proof}
 
         \item If $F$ has $q$ elements, then $q = p^n$ for some integer $n$. 
