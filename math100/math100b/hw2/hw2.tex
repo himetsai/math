@@ -1,0 +1,670 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{January 25, 2024}
+\newcommand{\hmwkClass}{MATH 100B}
+\newcommand{\hmwkClassTime}{Section A02 6:00PM - 6:50PM}
+\newcommand{\hmwkSectionLeader}{Castellano-Macías}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion, Office Hour}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    If $\varphi: R \rightarrow R'$ is a homomorphism of $R$ \textit{onto} $R'$ and $R$ has a unit
+    element, 1, show that $\varphi(1)$ is the unit element of $R'$.
+
+    \begin{proof}
+        Let $r' \in R'$. Since $\varphi$ is onto, there exists $r \in R$, such that $\varphi(r) =
+        r'$. However,
+        \[
+            r'\varphi(1) = \varphi(r)\varphi(1) = \varphi(r) = \varphi(1)\varphi(r) = \varphi(1)r',
+        \]
+        so $\varphi(1)$ is the unit element of $R'$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $I, J$ are ideals of $R$, define $I + J$ by $I + J = \{ i + j \mid i \in I, j \in J \}$.
+    Prove that $I + J$ is an ideal of $R$.
+
+    \begin{proof}
+        We first show $I + J$ is a subgroup of $R$. Let $a, b \in I + J$. We know $a = i + j$, $b =
+        i' + j'$, for some $i, i' \in I$ and $j, j' \in J$. Then, $a + b = i + i' + j + j'$.
+        However, $i + i' \in I$ and $j + j' \in J$, so $a + b \in I + J$. Since $a^{-1} = -(i + j) =
+        (-i) + (-j) \in I + J$, $I + J$ is closed under taking inverse. Hence, $I + J$ is a subgrou
+        of $R$. Let $r \in R$. Since $ri \in I$ and $rj \in J$, we know $r(i + j) = ri + rj \in I +
+        J$. Similarly, since $ir \in I$ and $jr \in J$, we know $(i + j)r = ir + jr \in I + J$.
+        Therefore, $I + J$ is an ideal of $R$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $I$ is an ideal of $R$ and $A$ is a subring of $R$, show that $I \cap A$ is an ideal of $A$.
+
+    \begin{proof}
+        We already know the intersection of two groups is a group, and thus $I \cap A$ is a group
+        under addition. Let $i \in I \cap A$ and $a \in A$. Since $I$ is an ideal, $ia, ai \in I$.
+        However, $A$ is closed under multiplication, so $ia, ai \in A$. Thus, $ai, ia \in I \cap A$,
+        so $I \cap A$ is an ideal of $A$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $I, J$ are ideals of $R$, show that $I \cap J$ is an ideal of $R$.
+
+    \begin{proof}
+        We already know the intersection of two groups is a group, and thus $I \cap J$ is a group
+        under addition. Let $k \in I \cap J$ and $r \in R$. Since $I, J$ are both ideal, $kr, rk \in
+        I$ and $kr, rk \in J$. Hence, $kr, rk \in I \cap J$, so $I \cap J$ is an ideal of $R$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Let $\varphi : R \rightarrow R'$ be a homomorphism of $R$ onto $R'$ with kernel $K$. If $A'$ is
+    a subring of $R'$, let $A = \{ a \in R \mid \varphi(a) \in A' \}$. Show that:
+\begin{enumerate}[(a)]
+    \item $A$ is a subring of $R$, $A \supset K$.
+    \begin{proof}
+        Let $a, b \in A$. Since $A'$ contains the unit, $1 \in A$. Since $\varphi(a + b) =
+        \varphi(a) + \varphi(b) \in A'$ and $\varphi(-a) = -\varphi(a) \in A'$, $A$ is a subgroup
+        under addition. Since $\varphi(ab) = \varphi(a)\varphi(b) \in A'$, $A$ is closed under
+        multiplication, and thus $A$ is a subring of $R$. Let $k \in K$ and let $0'$ be the zero in
+        $A'$. Since $\varphi(k) = 0' \in A'$, we know $k \in A$, and so $A \supset K$.
+    \end{proof}
+    \item $A/K \simeq A'$.
+    \begin{proof}
+        Define $\phi: A \rightarrow A'$ as $\phi(a) \mapsto \varphi(a)$. $\phi$ is well-defined as
+        $\varphi$ is well-defined. Since $\varphi$ is surjective, there exists $m \in R$ such that
+        $\varphi(m) = a'$, for all $a' \in A'$. However, $\varphi(m) = a'$ implies that $m \in A$,
+        so $\phi$ is surjective. Since $A \supset K$, $\phi$ shares the same kernel $K$ with
+        $\varphi$. The result now follows by the Isomorphism Theorem of rings.
+    \end{proof}
+    \item If $A'$ is a left ideal of $R'$, then $A$ is a left ideal of $R$.
+    \begin{proof}
+        Let $r \in R$, and $a \in A$. We know $\varphi(a) = a'$, for some $a' \in A'$. Since $A'$ is
+        a left ideal of $R'$, we get $\varphi(ra) = \varphi(r)\varphi(a) = \varphi(r)a' \in A'$,
+        which makes $ra \in A$. Hence, $A$ is a left ideal of $R$.
+    \end{proof}
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    In Example 4, show that $R/I \simeq \Z_p$.
+
+    \begin{proof}
+        Let $a = \frac{m}{n} \in R$, where $m, n \in \Z$ and $\gcd(m, n) = 1$. Since $n$ is not
+        divisible by $p$, there exists $[n]^{-1} \in \Z_p$. Thus, we may define $\phi: R \rightarrow
+        \Z_p$ as $\phi(a) = [m][n]^{-1}$. Let $b = \frac{p}{q} \in R$, where $p, q \in \Z$ and
+        $\gcd(p, q) = 1$. Suppose that $a = b$. Then, $a, b$ must have the same reduced form, so $m
+        = p$ and $n = q$. Then, $\phi(a) = [m][n]^{-1} = [p][q]^{-1} = \phi(b)$, so $\phi$ is
+        well-defined. Since
+        \begin{align*}
+            \phi(a + b)
+            &= \phi\left(\frac{mq + np}{nq}\right) \\
+            &= [mq + np][nq]^{-1} \\
+            &= [mq][nq]^{-1} + [np][nq]^{-1} \\
+            &= [m][q][q]^{-1}[n]^{-1} + [n][p][q]^{-1}[n]^{-1} \\
+            &= [m][n]^{-1} + [p][q]^{-1} \\
+            &= \phi(a) + \phi(b),
+        \end{align*}
+        \begin{align*}
+            \phi(ab)
+            &= \phi\left(\frac{mp}{nq}\right) \\
+            &= [mp][nq]^{-1} \\
+            &= [m][q][q]^{-1}[n]^{-1} \\
+            &= ([m][n]^{-1})([p][q]^{-1}) \\
+            &= \phi(a)\phi(b),
+        \end{align*}
+        and $\phi(1) = [1][1]^{-1} = 1$, $\phi$ is a homomorphism. For $[\alpha] \in \Z_p$, there
+        exists $\alpha \in R$ such that $\phi(\alpha) = [\alpha]$, so $\phi$ is surjective. Suppose
+        that $a \in \text{Ker }\phi$. $\phi(k) = 0$ if and only if $[m][n]^{-1} = 0$. Since $n$ is
+        not divisible by $p$, $[m][n]^{-1} = 0$ if and only if $[m] = 0$ if and only if $m$ is
+        divisible by $p$ if and only if $a \in I$. Therefore, Ker $\phi = I$. The result now follows
+        by the Isomorphism Theorem of rings.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    In Example 8, verify that the mapping $\psi$ given is an isomorphism of $R$ onto $\C$.
+
+    \begin{proof}
+        Define $\phi: \C \rightarrow R$ as $\phi(a + bi) = \begin{bmatrix}
+            a & b \\
+            -b & a 
+        \end{bmatrix}$. $\psi$ and $\phi$ are both obviously well-defined. Let $m + ni \in \C$. 
+        Since $\psi(\phi(m + ni)) = \psi\left(\begin{bmatrix}
+            m & n \\
+            -n & m 
+        \end{bmatrix}\right) = m + ni$ and $\phi(\psi\left(\begin{bmatrix}
+            m & n \\
+            -n & m 
+        \end{bmatrix}\right)) = \phi(m + ni) = \begin{bmatrix}
+            m & n \\
+            -n & m \end{bmatrix}$, $\phi$ is the inverse of $\psi$, and thus $\psi$ is bijective.
+        Let $\begin{bmatrix}
+            p & q \\
+            -q & p
+        \end{bmatrix} \in R$. Since 
+        \begin{align*}
+            \psi\left(\begin{bmatrix}
+                m & n \\
+                -n & m 
+            \end{bmatrix} + \begin{bmatrix}
+                p & q \\
+                -q & p
+            \end{bmatrix}\right) 
+            &= \psi\left(\begin{bmatrix}
+                m + p & n + q \\
+                -(n + q) & m + p
+            \end{bmatrix}\right) \\
+            &= (m + p) + (n + q)i \\
+            &= m + ni + p + qi \\
+            &= \psi\left(\begin{bmatrix}
+                m & n \\
+                -n & m 
+            \end{bmatrix}\right) + \psi\left(\begin{bmatrix}
+                p & q \\
+                -q & p
+            \end{bmatrix}\right),
+        \end{align*}
+        and
+        \begin{align*}
+            \psi\left(\begin{bmatrix}
+                m & n \\
+                -n & m 
+            \end{bmatrix}\begin{bmatrix}
+                p & q \\
+                -q & p
+            \end{bmatrix}\right) 
+            &= \psi\left(\begin{bmatrix}
+                mp - nq & mq + np \\
+                -(mq + np) & mp - nq
+            \end{bmatrix}\right) \\
+            &= (mp - nq) + (mq + np)i \\
+            &= (m + ni)(p + qi) \\
+            &= \psi\left(\begin{bmatrix}
+                m & n \\
+                -n & m 
+            \end{bmatrix}\right)\psi\left(\begin{bmatrix}
+                p & q \\
+                -q & p
+            \end{bmatrix}\right),
+        \end{align*}
+        $\psi$ is an isomorphism, and thus $R \simeq \C$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $I, J$ are ideals of $R$, let $IJ$ be the set of all sums of elements of the form $ij$, where
+    $i \in I, j \in J$. Prove that $IJ$ is an ideal of $R$. 
+
+    \begin{proof}
+        Let $m, n \in IJ$. $m, n$ are of the form $i_{m_1}j_{m_1} + i_{m_2}j_{m_2} + \dots$ and
+        $i_{n_1}j_{n_1} + i_{n_2}j_{n_2} + \dots$, respectively. Since $m + n$ and $m^{-1}$ are both
+        sums of elements of the form $ij$, $IJ$ is closed under addition and taking additive
+        inverses, and thus $IJ$ is a subgroup under addition. Let $r \in R$. Since $I, J$ are
+        ideals, for $i \in I$ and $j \in J$, we know $rij = (ri)j = i'j$, for some $i' \in I$.
+        Similarly, $ijr = i(jr) = ij'$, for some $j' \in J$. Therefore, $$rm = r(i_{m_1}j_{m_1} +
+        i_{m_2}j_{m_2} + \dots) = ri_{m_1}j_{m_1} + ri_{m_2}j_{m_2} + \dots = i_{m_1}'j_{m_1} +
+        i_{m_2}'j_{m_2} + \dots \in IJ$$ and $$mr = (i_{m_1}j_{m_1} + i_{m_2}j_{m_2} + \dots)r =
+        i_{m_1}j_{m_1}r + i_{m_2}j_{m_2}r + \dots = i_{m_1}j_{m_1}' + i_{m_2}j_{m_2}' + \dots \in
+        IJ$$ for some $i'_{m_k} \in I, j'_{m_k} \in J$, so $IJ$ is an ideal in of $R$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Prove Theorem 4.3.5 (Second Homomorphism Theorem): 
+    
+    Let $A$ be a subring of a ring $R$ and $I$ an
+    ideal of $R$. Then $A + I = \{a + i \mid a \in A, i \in I\}$ is a subring of $R$, $I$ is an
+    ideal of $A + I$, and $(A + I)/I \simeq A/(A \cap I)$.
+
+    \begin{proof}
+        We show that $A + I$ is closed under addition, taking additive inverse, multiplication, and
+        contains the unit $1$. Let $a + i, a' + i' \in A + I$, where $a, a' \in A$ and $i, i' \in
+        I$. Then, $a + i + a' + i' = (a + a') + (i + i') \in A + I$ and $-(a + i) = (-a) + (-i) \in
+        A + I$, so $A + I$ is a group under addition. For multiplication, $(a + i)(a' + i') = aa' +
+        ai' + ia' + ii'$. Since $I$ is an ideal, $ai' + ia' + ii' \in I$, and thus $A + I$ is closed
+        under multiplication. Since $A$ is a subring, we know $1 \in A$. However, $I$ is an ideal,
+        so $0 \in I$. This gives us $1 + 0 = 1 \in A + I$. Thus, $A + I$ is a subring of $R$. 
+        
+        Let $m\in I$ and let $a + i \in A + I$. We already know
+        $I$ is a subgroup under addition. Since $m(a + i) = ma + mi \in I$ and $(a + i)m = am + im
+        \in I$, $I$ is an ideal of $A + I$. 
+        
+        Let $A \rightarrow A + I$ be the natural inclusion. Since $I$ is an ideal of $A + I$, we may
+        compose the inclusion with the natural projection map to get a homomorphism
+        \[
+            A \rightarrow (A + I)/I.
+        \]
+        The map sends $a$ to $a + I$.
+
+        Suppose that $x \in (A + I)/I$. Then, $x = (a + i) + I = a + I$, for some $a \in A$. Thus
+        the homorphism above is clearly surjective. Suppose that $a \in A$ belongs to the kernel.
+        Then, $a + I = I$, so $a \in I$. Hence, $a \in A \cap I$, and the result follows by the
+        First Isomorphism Theorem of ring applied to the map above.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Show that $R \oplus S$ is a ring and that the subrings $\{(r, 0) \mid r \in R\}$ and $\{(0, s)
+    \mid s \in S\}$ are ideals of $R \oplus S$ isomorphic to $R$ and $S$, respectively.
+
+    \begin{proof}
+        Let $(r, s), (r', s'), (r'', s'') \in R \oplus S$. Since $(r, s) + (r', s') = (r + r', s +
+        s') \in R \oplus S$ and $(r, s)(r', s') = (rr', ss') \in R \oplus S$, $R \oplus S$ is closed
+        under addition and multiplication. Since
+        \begin{align*}
+            ((r, s) + (r', s')) + (r'', s'') 
+            &= (r + r', s + s') + (r'', s'') \\
+            &= (r + r' + r'', s + s' + s'') \\
+            &= (r, s) + (r' + r'', s' + s'') \\
+            &= (r, s) + ((r', s') + (r'', s''))
+        \end{align*}
+        and 
+        \begin{align*}
+            ((r, s)(r', s'))(r'', s'') 
+            &= (rr', ss')(r'', s'') \\
+            &= (rr'r'', ss's'') \\
+            &= (r, s)(r'r'', s's'') \\
+            &= (r, s)((r', s')(r'', s'')),
+        \end{align*}
+        $R \oplus S$ is associative under both addition and multiplication. Since $(0, 0) \in R
+        \oplus S$ such that $(0, 0) + (r, s) = (r, s) + (0 , 0) = (r, s)$, $R \oplus S$ contains the
+        zero. Similarly, there exists unit $(1, 1) \in R \oplus S$ such that $(1, 1)(r, s) = (r,
+        s)(1, 1) = (r, s)$. Since $-(r, s) = (-r, -s) \in R \oplus S$, $R \oplus S$ is
+        closed under taking inverse, and thus $R \oplus S$ is a ring.
+
+        Let $r, r' \in R$, $s, s' \in S$. Since $(1, 0) \in \{(r, 0) \mid r \in R\}$ and $(0, 1) \in
+        \{(0, s) \mid s \in S\}$ such that $(1, 0)(r, 0) = (r, 0)(1, 0) = (r, 0)$ and $(0, 1)(0, s)
+        = (0, s)(0, 1) = (0, s)$, both sets contain a unit. Since $(r, 0) + (r', 0) = (r + r', 0)
+        \in \{(r, 0) \mid r \in R\}$, $(0, s) + (0, s') = (0, s + s') \in \{(0, s) \mid s \in S\}$,
+        $-(r, 0) = (-r, 0) \in \{(r, 0) \mid r \in R\}$, and $-(0, s) = (0, -s) \in \{(0, s) \mid s
+        \in S\}$, we know $\{(r, 0) \mid r \in R\}$ and $\{(0, s) \mid s \in S\}$ are subgroups
+        under addition. Since $(r, 0)(r', 0) = (rr', 0) \in \{(r, 0) \mid r \in R\}$ and $(0, s)(0,
+        s') = (0, ss') \in \{(0, s) \mid s \in S\}$, $\{(r, 0) \mid r \in R\}, \{(0, s) \mid s \in
+        S\}$ are closed under multiplication, adn thus they are both subrings. Lastly, since 
+        \[
+            (r, s)((r', s') + (r'', s'')) = (r, s)(r' + r'', s' + s'') = (rr' + rr'', ss' + ss'') = (r, s)(r', s')
+ + (r, s)(r'', s''),  
+        \]
+        \[
+            ((r', s') + (r'', s''))(r, s) = (r' + r'', s' + s'')(r, s) = (r'r + r''r, s's + s''s) = (r', s')(r, s)
+ + (r'', s'')(r, s),
+        \]
+        $R \oplus S$ is distributive.
+
+        We know $\{(r, 0) \mid r \in R\}$ and $\{(0, s) \mid s \in S\}$ are both subgroups under
+        addition. Let $(m, n) \in R \oplus S$. Since $(r, 0)(m, n) = (rm, 0) \in \{(r, 0) \mid r \in
+        R\}, (m, n)(r, 0) = (mr, 0) \in \{(r, 0) \mid r \in R\}$, $\{(r, 0) \mid r \in R\}$ is an
+        ideal of $R \oplus S$. Similarly, Since $(0, s)(m, n) = (0, sn) \in \{(0, s) \mid s \in S\},
+        (m, n)(0, s) = (0, ns) \in \{(0, s) \mid s \in S\}$, $\{(0, s) \mid s \in S\}$ is an ideal
+        of $R \oplus S$.
+
+        Define $\phi: R \rightarrow \{(r, 0) \mid r \in R\}$ as $\phi(r) = (r, 0)$, and define
+        $\psi: \{(r, 0) \mid r \in R\} \rightarrow R$ as $\psi((r, 0)) = r$. Both functions are
+        obviously well-defined. Since $\phi(\psi(r, 0)) = \phi(r) = (r, 0)$ and $\psi(\phi(r)) =
+        \psi(r, 0) = r$, $\phi$ is a bijection. We may define a bijective mapping $\tau: S
+        \rightarrow \{(0, s) \mid s \in S\}$ in a similar manner. Since 
+        \[
+            \phi(r) + \phi(r') = (r, 0) + (r', 0) = (r + r', 0) = \phi(r + r'),
+        \]
+        \[
+            \phi(r)\phi(r') = (r, 0)(r', 0) = (rr', 0) = \phi(rr'),
+        \]
+        \[
+            \tau(s) + \tau(s') = (0, s) + (0, s') = (0, s + s') = \tau(s + s'),
+        \]
+        \[
+            \tau(s)\tau(s') = (0, s)(0, s') = (0, ss') = \tau(ss'),
+        \]
+        $\phi$ and $\tau$ are both isomorphisms, and thus $R \simeq \{(r, 0) \mid r \in R\}$ and $S
+        \simeq \{(0, s) \mid s \in S\}$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $R = \left\{ \begin{pmatrix} 
+        a & b \\ 
+        0 & c 
+    \end{pmatrix} \middle| \, a, b, c \text{ real} \right\}$ and $I = \left\{ \begin{pmatrix} 
+        0 & b \\ 
+        0 & 0 
+    \end{pmatrix} \middle| \, b \text{ real} \right\},$ show that:
+
+    \begin{enumerate}[(a)]
+        \item $R$ is a ring.
+        \begin{proof}
+            We already know matricies are associative under addition and multiplication, commutes
+            under addition, and distributive. Since $R$ contains the zero matrix and the identity
+            matrix, $R$ contains zero and unit. Let $k =
+            \begin{pmatrix} 
+                a & b \\ 
+                0 & c 
+            \end{pmatrix}$, $m = \begin{pmatrix} 
+                x & y \\ 
+                0 & z 
+            \end{pmatrix}$. Since $k + m = \begin{pmatrix} 
+                a + x & b + y \\ 
+                0 & c + z 
+            \end{pmatrix}$ and $km = \begin{pmatrix} 
+                ax & ay + bz \\ 
+                0 & cz 
+            \end{pmatrix}$, $R$ is closed under addition and multiplication. Since $-k = \begin{pmatrix} 
+                -a & -b \\ 
+                0 & -c \end{pmatrix} \in R$, $R$ is closed under taking additive inverse. Therefore,
+            $R$ is a ring.
+        \end{proof}
+        \item $I$ is an ideal of $R$.
+        \begin{proof}
+            $k =
+            \begin{pmatrix} 
+                0 & a \\ 
+                0 & 0 
+            \end{pmatrix}$, $m = \begin{pmatrix} 
+                0 & x \\ 
+                0 & 0 
+            \end{pmatrix}$. Since $k + m = \begin{pmatrix} 
+                0 & a + x \\ 
+                0 & 0 
+            \end{pmatrix} \in I$ and $-k = \begin{pmatrix} 
+                0 & -a \\ 
+                0 & 0 
+            \end{pmatrix} \in I$, $I$ is an additive subgroup of $R$. Let $r = \begin{pmatrix} 
+                p & q \\ 
+                0 & r 
+            \end{pmatrix} \in R$. Since $kr = \begin{pmatrix} 
+                0 & ar \\ 
+                0 & 0 
+            \end{pmatrix}$ and $rk = \begin{pmatrix} 
+                0 & pa \\ 
+                0 & 0 
+            \end{pmatrix}$, $I$ is an ideals of $R$. 
+        \end{proof}
+        \item $R/I \simeq F \oplus F$, where $F$ is the field of real numbers.
+        \begin{proof}
+            Consider the map $\phi: R \rightarrow F \oplus F$ that sends $\begin{pmatrix} 
+                a & b \\ 
+                0 & c 
+            \end{pmatrix}$ to $(a, c)$. Suppose that $\begin{pmatrix} 
+                a & b \\ 
+                0 & c 
+            \end{pmatrix} = \begin{pmatrix} 
+                a' & b' \\ 
+                0 & c' 
+            \end{pmatrix}$. Then $a = a'$ and $c = c'$, and so $\phi\left(\begin{pmatrix} 
+                a & b \\ 
+                0 & c 
+            \end{pmatrix}\right) = (a, c) = (a', c') = \phi\left(\begin{pmatrix} 
+                a' & b' \\ 
+                0 & c' 
+            \end{pmatrix}\right)$, so $\phi$ is well-defined. $\phi$ is also surjective,
+            as for all $(a, c) \in F \oplus F$, there exists $k = \begin{pmatrix} 
+                a & b \\ 
+                0 & c 
+            \end{pmatrix} \in R$ such that $\phi(k) = (a, c)$. Let $m = \begin{pmatrix} 
+                a' & b' \\ 
+                0 & c' 
+            \end{pmatrix} \in R$. Since
+            \[
+                \phi(k) + \phi(m) = (a, c) + (a', c') = (a + a', c + c') = \phi(k + m),
+            \]
+            and
+            \[
+                \phi(k)\phi(m) = (a, c)(a', c') = (aa', cc') = \phi(km),
+            \]
+            $\phi$ is a homomorphism. The result now follows by the Isomorphism Theorem of rings.
+        \end{proof} 
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $I, J$ are ideals of $R$, let $R_1 = R/I$ and $R_2 = R/J$. Show that $\varphi : R \to R_1
+    \oplus R_2$ defined by $\varphi(r) = (r + I, r + J)$ is a homomorphism of $R$ into $R_1
+    \oplus R_2$ such that $\text{Ker } \varphi = I \cap J.$
+
+    \begin{proof}
+        Let $m, n \in R$. Note that since $I$ is an ideal of $R$, for $i \in I$, $(m + i)(n + i) =
+        mn + in + mi + i^2 = mn + i' \in mn + I$, for some $i' = in + mi + i^2 \in I$. By symmetry,
+        we also know $(m + j)(n + j) = mn + j' \in mn + J$, for some $j, j' \in J$. Thus, $(m + I)(n
+        + I) = mn + I$ and $(m + J)(n + J) = mn + J$. Since
+        \begin{align*}
+            \varphi(m) + \varphi(n)
+            &= (m + I, m + J) + (n + I, n + J) \\
+            &= ((m + n) + I, (m + n) + J) \\
+            &= \varphi(m + n)
+        \end{align*}
+        and
+        \begin{align*}
+            \varphi(m)\varphi(n)
+            &= (m + I, m + J)(n + I, n + J) \\
+            &= ((mn) + I, (mn) + J) \\
+            &= \varphi(mn),
+        \end{align*}
+        $\varphi$ is a homomorphism. Let $k \in \text{Ker } \varphi$. Then, $\varphi(k) = (k + I, k
+        + J) = (I, J)$, so $k \in I$ and $k \in J$, which makes $\text{Ker }\varphi = I \cap J$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Let $\Z$ be the ring of integers and $m, n$ two relatively prime integers, $I_m$ the multiples
+    of $m$ in $\Z$, and $I_n$ the multiples of $n$ in $\Z$.
+    \begin{enumerate}[(a)]
+        \item What is $I_m \cap I_n$?
+        \begin{proof}
+            Since $m, n$ are relatively prime, $I_m \cap I_n$ is the multiples of $mn$, namely
+            $I_{mn}$.
+        \end{proof}
+        \item Use the result of Problem 12 to show that there is a one-to-one homomorphism from
+        $\Z/I_{mn}$ to $\Z/I_m \oplus \Z/I_n$.
+        \begin{proof}
+            We first show that $I_m$ and $I_n$ are ideals of $\Z$. We already know $I_m$ and $I_n$
+            are additive subgroups of $\Z$. Let $x \in \Z$, $p \in I_m$, and $q \in I_n$. Since $xp
+            = px$ is a multiple of $m$ and $xq = qx$ is a multiple of $n$, $I_m$ and $I_n$ are
+            indeed ideals of $\Z$. It follows by the results of Problem 12 that there exists a
+            homomorphism $\Z \rightarrow \Z/I_m \oplus \Z/I_n$ that maps $x$ to $(x + I_m, x + I_n)$
+            and has $I_m \cap I_n = I_{mn}$ as its kernel. By the Isomorphism Theorem of rings,
+            there exists a injective homomorphism $\phi: \Z/I_{mn} \rightarrow \Z/I_m \oplus \Z/I_n$
+            that maps $x + I_{mn}$ to $(x + I_m, x + I_n)$.
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    If $m, n$ are relatively prime, prove that $\Z_{mn} \simeq \Z_m \oplus \Z_n$.
+
+    \begin{proof}
+        Since $\Z_{mn} = \Z/I_{mn}$, $\Z_{m} = \Z/I_{m}$, and $\Z_{n} = \Z/I_{n}$, we may continue
+        using our homomorphism $\phi$ defined in the previous problem. Note that $|\Z_{mn}| = mn =
+        |\Z_m||\Z_n| = |\Z_m \oplus \Z_n|$. Since $\phi$ is injective and $|\Z_{mn}| = |\Z_m \oplus
+        \Z_n|$ are finite, $\phi$ is an isomorphism, and thus $\Z_{mn} \simeq \Z_m \oplus \Z_n$.
+    \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+    Use the result of Problem 14 to prove the \textit{Chinese Remainder Theorem}, which asserts that
+    if $m$ and $n$ are relatively prime integers and $a, b$ any integers, we can find an integer $x$
+    such that $x \equiv a \mod m$ and $x \equiv b \mod n$ simultaneously.
+
+    \begin{proof}
+        Define $\phi$ as we did in Problem 13. Since $\phi: \Z_{mn} \rightarrow \Z_m \oplus \Z_n$ is
+        an isomorphism, we may find $[x]_{mn} \in \Z_{mn}$ such that $\phi([x]_{mn}) = ([a]_{m},
+        [b]_{n})$, for any $a, b \in \Z$, and the result now follows.
+    \end{proof}
+\end{homeworkProblem}
+\end{document}
