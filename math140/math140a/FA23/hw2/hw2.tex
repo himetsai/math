@@ -164,8 +164,9 @@
     \]
 
     \begin{proof}
-      Let $a \in A$. We first show that for $n \in \N$, $na \in A$ by induction on $n$. We already know $a \in A$.
-      For $n > 1$, since $(n - 1)a \in A$, we know $na = a + (n - 1)a \in A$ by rule 1. Thus, $na \in A$, for all $n \in \N$.
+      Let $a \in A$. We first show that for $n \in \N$, $na \in A$ by induction on $n$. We already
+      know $a \in A$. For $n > 1$, since $(n - 1)a \in A$, we know $na = a + (n - 1)a \in A$ by rule
+      1. Thus, $na \in A$, for all $n \in \N$.
       
       Since $\epsilon > 0$, there exists $a \in A$ such that $0 < a < \epsilon$, by rule 2.    
       We assume that $\epsilon < x$, otherwise we are done. 
@@ -214,7 +215,8 @@
             \end{align*}
             Thus, $f$ is injective.
 
-            Let $y \in (c, d)$. There exists $x = \frac{(b - a)y - (cb - ad)}{d - c} \in (a, b)$ such that $f(x) = y$, and so $f$ is surjective.
+            Let $y \in (c, d)$. There exists $x = \frac{(b - a)y - (cb - ad)}{d - c} \in (a, b)$
+            such that $f(x) = y$, and so $f$ is surjective.
 
             Thus, $f$ is an one-to-one correspondence.
         \end{proof}
@@ -244,7 +246,8 @@
             \end{align*}
             Thus, $f$ is injective.
 
-            Let $y \in [c, d]$. There exists $x = \frac{(b - a)y - (cb - ad)}{d - c} \in [a, b]$ such that $f(x) = y$, and so $f$ is surjective.
+            Let $y \in [c, d]$. There exists $x = \frac{(b - a)y - (cb - ad)}{d - c} \in [a, b]$
+            such that $f(x) = y$, and so $f$ is surjective.
 
             Thus, $f$ is an one-to-one correspondence.
         \end{proof}
@@ -262,14 +265,17 @@
             \]
             Note that the product of $f$ of different cases would not be equal.
 
-            Obviously, $f(x) \in (c, d)$ for all $x \in [a, b]$. Let $k, m \in [a, b]$.
-            If $k = m = a$, then $f(k) = f(m) = \frac{c + d}{2}$. If $k = m = a + \frac{b - a}{n}$, for some $n \in \N$,
-            then $f(k) = f(m) = c + \frac{d - c}{n + 2}$. Otherwise, $\frac{(d - c)k + (cb - ad)}{b - a} = \frac{(d - c)m + (cb - ad)}{b - a}$, 
-            which implies that $f(k) = f(m)$. Therefore, $f$ is well defined.
+            Obviously, $f(x) \in (c, d)$ for all $x \in [a, b]$. Let $k, m \in [a, b]$. If $k = m =
+            a$, then $f(k) = f(m) = \frac{c + d}{2}$. If $k = m = a + \frac{b - a}{n}$, for some $n
+            \in \N$, then $f(k) = f(m) = c + \frac{d - c}{n + 2}$. Otherwise, $\frac{(d - c)k + (cb
+            - ad)}{b - a} = \frac{(d - c)m + (cb - ad)}{b - a}$, which implies that $f(k) = f(m)$.
+            Therefore, $f$ is well defined.
 
-            Suppose that $f(k) = f(m)$. If $f(k) = f(m) = \frac{c + d}{2}$, then $k = m = a$. If $f(k) = f(m) = c + \frac{d - c}{n + 2}$ for some $n \in \N$, then
-            $k = m = a + \frac{b - a}{n}$. If $f(k) = \frac{(d - c)k + (cb - ad)}{b - a} = \frac{(d - c)m + (cb - ad)}{b - a} = f(m)$, Then $k = m$, by the results we
-            obtained from previous parts. Thus, $f$ is injective.
+            Suppose that $f(k) = f(m)$. If $f(k) = f(m) = \frac{c + d}{2}$, then $k = m = a$. If
+            $f(k) = f(m) = c + \frac{d - c}{n + 2}$ for some $n \in \N$, then $k = m = a + \frac{b -
+            a}{n}$. If $f(k) = \frac{(d - c)k + (cb - ad)}{b - a} = \frac{(d - c)m + (cb - ad)}{b -
+            a} = f(m)$, Then $k = m$, by the results we obtained from previous parts. Thus, $f$ is
+            injective.
 
             Let $y \in (c, d)$. There exists
             \[
@@ -287,12 +293,11 @@
         \item The points of the closed interval $[a, b]$ and $\R$
         
         \begin{proof}
-            Consider $\tan: (-\frac{\pi}{2}, \frac{\pi}{2}) \rightarrow \R$ 
-            and $\tan^{-1}: \R \rightarrow (-\frac{\pi}{2}, \frac{\pi}{2})$.
-            Since $\tan$ and $\tan^{-1}$ are inverses of each other, they are bijective.
-            We can then use the function $f$ we defined in part 3 to get a
-            bijective mapping from $[a, b]$ to $(-\frac{\pi}{2}, \frac{\pi}{2})$. Thus,
-            we get a bijection $(\tan \circ f): [a, b] \rightarrow \R$,
+            Consider $\tan: (-\frac{\pi}{2}, \frac{\pi}{2}) \rightarrow \R$ and $\tan^{-1}: \R
+            \rightarrow (-\frac{\pi}{2}, \frac{\pi}{2})$. Since $\tan$ and $\tan^{-1}$ are inverses
+            of each other, they are bijective. We can then use the function $f$ we defined in part 3
+            to get a bijective mapping from $[a, b]$ to $(-\frac{\pi}{2}, \frac{\pi}{2})$. Thus, we
+            get a bijection $(\tan \circ f): [a, b] \rightarrow \R$,
             \[
                 (\tan \circ f)(x) = \begin{cases}
                     \tan(-\frac{\pi}{2} + \frac{\pi}{n + 2}), &x = a + \frac{b - a}{n}, n \in \N \\
@@ -310,35 +315,39 @@
     Fix $b > 1, y > 0$, and prove that there is a unique real $x$ such that $b^x = y$.
     
     \begin{proof}
-        We first show that for any positive integer $n$, $b^n - 1 \geq n(b - 1)$. We show that $b^n > 1$ by induction on $n$.
-        We already know $b > 1$. For $n > 1$, $b^n = b \cdot b^{n - 1} > 1$, since $b^{n - 1} > 1$ by induction. 
-        Thus, 
+        We first show that for any positive integer $n$, $b^n - 1 \geq n(b - 1)$. We show that $b^n
+        > 1$ by induction on $n$. We already know $b > 1$. For $n > 1$, $b^n = b \cdot b^{n - 1} >
+        1$, since $b^{n - 1} > 1$ by induction. Thus, 
         \begin{gather}
             b^n - 1 = (b - 1)(b^{n-1} + \dots + b + 1) \geq (b - 1)n.
         \end{gather}
-        By Theorem $1.21$, we know that there exists a unique $a \in \R^+$ such that $a^n = b$. Suppose that $a \leq 1$. We show that
-        $a^n \leq 1$ by induction on $n$. For $n > 1$, we know that $a^n = a \cdot a^{n - 1} \leq 1$, since $a^{n - 1} \leq 1$ by induction. Thus, $a$ must be
-        greater than $1$. Then, by (1), we know that $b - 1= a^n - 1 \geq (a - 1)n = (b^{\frac{1}{n}} - 1)n$. 
+        By Theorem $1.21$, we know that there exists a unique $a \in \R^+$ such that $a^n = b$.
+        Suppose that $a \leq 1$. We show that $a^n \leq 1$ by induction on $n$. For $n > 1$, we know
+        that $a^n = a \cdot a^{n - 1} \leq 1$, since $a^{n - 1} \leq 1$ by induction. Thus, $a$ must
+        be greater than $1$. Then, by (1), we know that $b - 1= a^n - 1 \geq (a - 1)n =
+        (b^{\frac{1}{n}} - 1)n$. 
         
-        Let $t > 1$. Suppose that $n > \frac{b - 1}{t - 1}$, then $nt - n > b - 1$.
-        Note that we know there exists $n > \frac{b - 1}{t - 1}$ by the Archimedean Property. Since $n \geq 1$, we know $t > b$. 
-        Note that since $a^n > 1$ for all $n \in \N$, $b = b^{\frac{1}{n}} \cdot a^{n - 1} \geq b^{\frac{1}{n}}$. 
-        Thus, we get
+        Let $t > 1$. Suppose that $n > \frac{b - 1}{t - 1}$, then $nt - n > b - 1$. Note that we
+        know there exists $n > \frac{b - 1}{t - 1}$ by the Archimedean Property. Since $n \geq 1$,
+        we know $t > b$. Note that since $a^n > 1$ for all $n \in \N$, $b = b^{\frac{1}{n}} \cdot
+        a^{n - 1} \geq b^{\frac{1}{n}}$. Thus, we get
         \begin{gather}
             t > b \geq b^{\frac{1}{n}}.
         \end{gather}
 
-        Let $w \in \R$. Suppose that $b^w < y$. Let $t = y \cdot b^{-w} > b^w \cdot b^{-w} = 1$. 
-        By (2), there exists $n > \frac{b - 1}{t - 1}$, such that $t = y \cdot b^{-w} > b^{\frac{1}{n}}$, 
-        and so $y > b^{w + \frac{1}{n}}$.
-        Suppose that $b^w < y$. Let $t = b^wy^{-1}$. Similarly, there exists $n > \frac{b - 1}{t - 1}$, such that
-        $t = b^wy^{-1} > b^{\frac{1}{n}}$, and so $b^{w-\frac{1}{n}} > y$.
+        Let $w \in \R$. Suppose that $b^w < y$. Let $t = y \cdot b^{-w} > b^w \cdot b^{-w} = 1$. By
+        (2), there exists $n > \frac{b - 1}{t - 1}$, such that $t = y \cdot b^{-w} >
+        b^{\frac{1}{n}}$, and so $y > b^{w + \frac{1}{n}}$. Suppose that $b^w < y$. Let $t =
+        b^wy^{-1}$. Similarly, there exists $n > \frac{b - 1}{t - 1}$, such that $t = b^wy^{-1} >
+        b^{\frac{1}{n}}$, and so $b^{w-\frac{1}{n}} > y$.
 
-        Let $A$ be the set of all $w$ such that $b^w < y$. We will show that $x = \sup A$ satisfies $b^x = y$. Suppose for the
-        sake of contradiction that $b^x < y$. Then, by the result we obtained above, we know there exists a large enough $n \in \N$,
-        such that $b^x < b^{x + \frac{1}{n}} < n$. This implies that there exists $x + \frac{1}{n} \in A$, which contradicts that $x = \sup A$.
-        Suppose for the sake of contradiction that $b^x > y$. Then, by the result we obtained above, there exists a large enough $n \in \N$,
-        such that $b^x > b^{x - \frac{1}{n}} > y$, contradicting the fact that $x = \sup A$. Thus, $b^{x} = y$.
+        Let $A$ be the set of all $w$ such that $b^w < y$. We will show that $x = \sup A$ satisfies
+        $b^x = y$. Suppose for the sake of contradiction that $b^x < y$. Then, by the result we
+        obtained above, we know there exists a large enough $n \in \N$, such that $b^x < b^{x +
+        \frac{1}{n}} < n$. This implies that there exists $x + \frac{1}{n} \in A$, which contradicts
+        that $x = \sup A$. Suppose for the sake of contradiction that $b^x > y$. Then, by the result
+        we obtained above, there exists a large enough $n \in \N$, such that $b^x > b^{x -
+        \frac{1}{n}} > y$, contradicting the fact that $x = \sup A$. Thus, $b^{x} = y$.
 
         Suppose that $b^z = b^x = y$. $x \not> z$, otherwise $b^z < b^x$, contradiction. Similarly, we also know $x \not< z$. Therefore, $x$ is unique.
     \end{proof}
@@ -411,9 +420,9 @@
             &= |x|^2 + |y|^2 + 2x \cdot y + |x|^2 + |y|^2 - 2x \cdot y \\
             &= 2|x|^2 + 2|y|^2.
         \end{align*}
-        Interpreting geometrically, if $x, y$ were the neighboring sides of a para;;elogram,
-        then $x + y$ and $x - y$ are its diagonals. Thus, the equation suggests that the sum
-        of the squares of the sides is equal to the sum of the square of the diagonals.
+        Interpreting geometrically, if $x, y$ were the neighboring sides of a parallelogram, then $x
+        + y$ and $x - y$ are its diagonals. Thus, the equation suggests that the sum of the squares
+        of the sides is equal to the sum of the square of the diagonals.
     \end{proof}
 \end{homeworkProblem}
 \end{document}
