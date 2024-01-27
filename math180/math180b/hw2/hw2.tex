@@ -1,0 +1,307 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{Jan 26, 2023}
+\newcommand{\hmwkClass}{MATH 180B}
+\newcommand{\hmwkClassInstructor}{Professor Carfagnini}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\p}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Suppose $U$ and $V$ are independent and follow the geometric distribution
+  \[ p(k) = p(1 - p)^k \quad \text{for } k = 0, 1, \ldots. \]
+  
+  Define the random variable $Z = U + V$.
+  \begin{enumerate}[(a)]
+      \item Determine the joint probability mass function $p_{U,Z}(u,z) = \p \{U = u, Z = z\}$.
+      \begin{proof}
+        Since $p_{U,Z}(u,z) = \p \{U = u, Z = z\} = \p \{U = u, V = z - u\}$, we have
+        \[
+          p_{U,Z}(u,z) = p(1 - p)^up(1 - p)^{z - u} = p^2(1 - p)^{z}.
+        \]
+      \end{proof}
+      \item Determine the conditional probability mass function for $U$ given that $Z = n$.
+      \begin{proof}
+        Note that $p_Z(z) = \sum_{u = 0}^{z} p_U(u)p_U(z - u) = \sum_{u = 0}^{z} p_U(u)p_v(v) =
+        \sum_{u = 0}^{z} p^2(1 - p)^{z} = (z + 1)p^2(1 - p)^{z}$. Thus,
+        \begin{align*}
+          p_{U|Z}(u|n)
+          &= \frac{p_{U,Z}(u,n)}{p_Z(n)} \\
+          &= \frac{p^2(1 - p)^{n}}{(n + 1)p^2(1 - p)^{n}} \\
+          &= \frac{1}{n + 1}.
+        \end{align*}
+      \end{proof}
+  \end{enumerate}  
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $N$ have a Poisson distribution with parameter $\lambda = 1$. Conditioned on $N = n$, let $X$
+  have a uniform distribution over the integers $0, 1, \ldots, n+1$. What is the marginal
+  distribution for $X$?
+
+  \begin{proof}
+    \begin{align*}
+      p_X(x) 
+      &= \sum_{n = 0}^{\infty} p_{X|N}(x|n)p_N(n) \\
+      &= \sum_{n = x - 1}^{\infty} \frac{1}{n + 2} \cdot \frac{1}{n!}e^{-1} \\
+      &= e^{-1}\sum_{n = x - 1}^{\infty} \frac{1}{(n + 2)n!} \\
+      &= e^{-1}\sum_{n = x - 1}^{\infty} \frac{1}{(n + 1)!} - \frac{1}{(n + 2)!} \\
+      &= e^{-1}\left(\sum_{n = x - 2}^{\infty} \frac{1}{(n + 2)!} - \sum_{n = x - 1}^{\infty} \frac{1}{(n + 2)!}\right) \\
+      &= e^{-1}\left(\frac{1}{x!} + \sum_{n = x - 1}^{\infty} \frac{1}{(n + 2)!} - \sum_{n = x - 1}^{\infty} \frac{1}{(n + 2)!}\right) \\
+      &= \frac{1}{e(x!)}.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose that upon striking a plate a single electron is transformed into a number $N$ of
+  electrons, where $N$ is a random variable with mean $\mu$ and standard deviation $\sigma$. Suppose
+  that each of these electrons strikes a second plate and releases further electrons, independently
+  of each other and each with the same probability distribution as $N$. Let $Z$ be the total number
+  of electrons emitted from the second plate. Determine the mean and variance of $Z$.
+
+  \begin{proof}
+    Note that $Z = \xi_1 + \dots + \xi_N$, where $\xi_k$ is the number of electrons struck by the
+    $k$th electron from the first plate. $\xi_k$ shares the same distribution as $N$, for all $k$.
+    Thus, $$\E[Z] = \E[N]\E[N] = \mu^2,$$ $$Var(Z) = \E[N]Var(N) + \E[N]^2Var(N) = \mu\sigma^2 +
+    \mu^2\sigma^2 = \mu(\mu + 1)\sigma^2.$$
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A six-sided die is rolled, and the number $N$ on the uppermost face is recorded. From a jar
+  containing 10 tags numbered $1, 2, \ldots, 10$ we then select $N$ tags at random without
+  replacement. Let $X$ be the smallest number on the drawn tags. Determine $\p(X = 2)$ and $\E[X]$.
+
+  \begin{proof}
+    Note that $\p(X = x| N = n) = \frac{{10 - x \choose n - 1}}{{10 \choose n}}$. Thus,
+    \begin{align*}
+      \p(X = 2) 
+      &= \sum_{n = 1}^6 \p(X = 2 | N = n)\p(N = n) \\
+      &= \frac{1}{6}\sum_{n = 1}^6 \p(X = 2 | N = n) \\
+      &= \frac{1}{6}\sum_{n = 1}^6 \frac{{8 \choose n - 1}}{{10 \choose n}} \\
+      &= \frac{1}{6}\sum_{n = 1}^6 \frac{n}{9} - \frac{n^2}{90} \\
+      &= \frac{119}{540},
+    \end{align*}
+    and
+    \begin{align*}
+      \E[X]
+      &= \E[\E[X | N]] \\
+      &= \E\left[\sum_{x = 1}^{11 - N} x\p(X = x| N)\right] \\
+      &= \E\left[\sum_{x = 1}^{11 - N} \frac{x{10 - x \choose N - 1}}{{10 \choose N}}\right] \\
+      &= \E\left[\frac{1}{{10 \choose N}}\sum_{x = 1}^{11 - N} {x \choose 1}{10 - x \choose N - 1}\right] \\
+      &= \E\left[\frac{11}{N + 1}\right] \approx 2.92024
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose that $\xi_1, \xi_2, \ldots$ are independent and identically distributed with $\p \{\xi_k =
+  \pm 1\} = \frac{1}{2}$. Let $N$ be independent of $\xi_1, \xi_2, \ldots$ and follow the geometric
+  probability mass function
+
+  \[ p_N(k) = \alpha(1 - \alpha)^k \quad \text{for } k = 0, 1, \ldots, \]
+
+  where $0 < \alpha < 1$. Form the random sum $Z = \xi_1 + \ldots + \xi_N$.
+  \begin{enumerate}[(a)]
+      \item Determine the mean and variance of $Z$.
+      \begin{proof}
+        Since the $\E[N] = \frac{1 - \alpha}{\alpha}$ and $Var(N) = \frac{1 - \alpha}{\alpha^2}$, 
+        \[
+          \E[Z] = \E[N]\E[\xi_1] = 0, \quad Var(Z) = \E[N]Var(\xi_1) + \E[\xi_1]^2Var(N) = \frac{1}{\alpha}.
+        \]
+      \end{proof}
+      \item Evaluate the higher moments $m_3 = \E[Z^3]$ and $m_4 = \E[Z^4]$.
+      \begin{proof}
+        Note that $\xi_i^2 = 1$ and $\E[\xi_i] = \E[\xi_i\xi_j] = 0$. Hence,
+        \[
+          \E[\xi_i\xi_j\xi_k] = \E[\xi_i\xi_j\xi_k\xi_m] = \E[\xi_i^2\xi_j\xi_k] = \E[\xi_i^3\xi_j] = 0,
+        \]
+        so we only need to care about $\E[\xi_i^2\xi_j^2]$ and $\E[\xi_i^4]$.
+        We thus get
+        \begin{align*}
+          \E[Z^3] 
+          &= \E\left[\E\left[\sum_i\sum_j\sum_k \xi_i\xi_j\xi_k | N\right]\right] \\
+          &= \E\left[N(N - 1)(N - 2)\E[\xi_i\xi_j\xi_k] + N(3N - 2)\E[\xi_i]\right] = 0, \\
+          \E[Z^4]
+          &= \E\left[\sum_i\sum_j\sum_k\sum_m \E[\xi_i\xi_j\xi_k\xi_m] | N\right] \\
+          &= \E\left[3N(N - 1)\E[\xi_i^2\xi_j^2] + N\E[\xi_i^4]\right] \\
+          &= \E\left[(3N^2 - 2N)\E[1]\right] \\
+          &= \E\left[3N^2 - 2N\right] = 3(Var(N) + \E[N]^2) - 2\E[N] = \frac{6 - 5\alpha}{\alpha^2}.
+        \end{align*}
+      \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  To form a slightly different random sum, let $\xi_0, \xi_1, \ldots$ be independent identically distributed random variables and let $N$ be a nonnegative integer-valued random variable, independent of $\xi_0, \xi_1, \ldots$. The first two moments are
+
+  \[ \E[\xi_k] = \mu, \quad Var[\xi_k] = \sigma^2, \]
+  \[ \E[N] = \nu, \quad Var[N] = \tau^2. \]
+
+  Determine the mean and variance of the random sum $Z = \xi_0 + \ldots + \xi_N$.
+
+  \begin{proof}
+    \[
+      \E[Z] = \E[\xi_k](\E[N] + 1) = \mu(\nu + 1),
+    \]
+    \[
+      Var(Z) = (\E[N] + 1)Var(\xi_k) + \E[\xi_k]^2Var(N) = (\nu + 1)\sigma^2 + \mu^2\tau^2.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
