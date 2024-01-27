@@ -354,12 +354,19 @@
   \begin{proof}
     $\phi$ is obviously well defined. Suppose that $a, b \in R$. Then,
     \begin{align*}
+      \phi(a + b)
+      &= (a + b + I_1, a + b + I_2, \ldots, a + b + I_k) \\
+      &= (a + I_1, a + I_2, \ldots, a + I_k) = (b + I_1, b + I_2, \ldots, b + I_k) \\
+      &= \phi(a) + \phi(b),
+    \end{align*}
+    \begin{align*}
       \phi(ab)
       &= (ab + I_1, ab + I_2, \ldots, ab + I_k) \\
       &= (a + I_1, a + I_2, \ldots, a + I_k)(b + I_1, b + I_2, \ldots, b + I_k) \\
       &= \phi(a)\phi(b),
     \end{align*}
-    so $\phi$ is a homomorphism.
+    and most importantly, $\phi(1) = (1 + I_1, 1 + I_2, \ldots, 1 + I_k)$. Thus, $\phi$ is a
+    homomorphism.
   \end{proof}
   \item  Show that $\phi$ is surjective if and only if the ideals $I_1, I_2,\ldots , I_k$ are
   pairwise coprime.
@@ -401,7 +408,7 @@
     multiples of $n$. We know that $I_m \cap I_n = I_{mn}$, the set of multiples of $mn$. Since $m,
     n$ are coprime, $um + vn = 1$, for some $u, v \in \Z$. However, since $1 = um + vn \in I_m +
     I_n$, we know $I_m$ and $I_n$ are coprime. Since $I_m \cap I_n = I_{mn}$, we get $\Z/(I_m \cap
-    I_n) \simeq \Z_m \oplus \Z_n$.
+    I_n) = \Z_{mn} \simeq \Z_m \oplus \Z_n$.
   \end{proof}
 \end{homeworkProblem}
 \end{document}
