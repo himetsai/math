@@ -1,0 +1,356 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{Feb 9, 2023}
+\newcommand{\hmwkClass}{MATH 180B}
+\newcommand{\hmwkClassInstructor}{Professor Carfagnini}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\p}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  A Markov chain \(X_0, X_1, \ldots\) on states \(0, 1, 2\) has the transition probability matrix
+
+  \[
+  P = \begin{bmatrix}
+  0.1 & 0.2 & 0.7 \\
+  0.9 & 0.1 & 0 \\
+  0.1 & 0.8 & 0.1 \\
+  \end{bmatrix}
+  \]
+  
+  and initial distribution \(p_0 = \Pr\{X_0 = 0\} = 0.3\), \(p_1 = \Pr\{X_0 = 1\} = 0.4\), and \(p_2
+  = \Pr\{X_0 = 2\} = 0.3\). Determine \(\Pr\{X_0 = 0, X_1 = 1, X_2 = 2\}\).
+  
+  \begin{proof}
+    \[
+      \Pr\{X_0 = 0, X_1 = 1, X_2 = 2\} = p_0P_{0, 1}P_{1, 2} = 0.3 \cdot 0.2 \cdot 0 = 0.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A Markov chain \(X_0, X_1, X_2, \ldots\) has the transition probability matrix
+
+  \[
+  P = \begin{bmatrix}
+  0.7 & 0.2 & 0.1 \\
+  0 & 0.6 & 0.4 \\
+  0.5 & 0 & 0.5 \\
+  \end{bmatrix}
+  \].
+
+  Determine the conditional probabilities
+
+  \[
+  \Pr\{X_2 = 1, X_3 = 1 | X_1 = 0\} \quad \text{and} \quad \Pr\{X_1 = 1, X_2 = 1 | X_0 = 0\}.
+  \]
+
+  \begin{proof}
+    \[
+      \Pr\{X_2 = 1, X_3 = 1 | X_1 = 0\} = \Pr\{X_1 = 1, X_2 = 1 | X_0 = 0\} = P_{0, 1}P_{1, 1} = 0.2 \cdot 0.6 = 0.12.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A simplified model for the spread of a disease goes this way: The total population size is \( N =
+  5 \), of which some are diseased and the remainder are healthy. During any single period of time,
+  two people are selected at random from the population and assumed to interact. The selection is
+  such that an encounter between any pair of individuals in the population is just as likely as
+  between any other pair. If one of these persons is diseased and the other not, with probability \(
+  \alpha = 0.1 \) the disease is transmitted to the healthy person. Otherwise, no disease
+  transmission takes place. Let \( X_n \) denote the number of diseased persons in the population at
+  the end of the \( n \)th period. Specify the transition probability matrix.
+  
+  \begin{proof}
+    Note that $X_n$ can either increment by one or stay the same in a single period of time. $X_n$
+    increase by one if and only if one diseased and one healthy people are selected and the disease
+    succfully transmitted during the period of time, of which the probability is $\alpha\frac{{X_{n
+    - 1} \choose 1}{5 - X_{n - 1} \choose 1}}{{5 \choose 2}} = \frac{X_{n - 1}(5 - X_{n -
+    1})}{100}$. Thus, the probability that $X_n$ remain the same is $1 - \frac{X_{n - 1}(5 - X_{n -
+    1})}{100}$. Hence, we have the trasition matrix is
+    \[
+      \begin{bmatrix}
+        0.96 & 0.04 & 0 & 0 & 0 \\
+        0 & 0.94 & 0.06 & 0 & 0 \\
+        0 & 0 & 0.94 & 0.06 & 0 \\
+        0 & 0 & 0 & 0.96 & 0.04 \\
+        0 & 0 & 0 & 0 & 1
+      \end{bmatrix},
+    \]
+    where the $i$-th row $j$-th column represents the probability that the number of diseased
+    transition from $N = i$ to $N = j$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A particle moves among the states 0, 1, 2 according to a Markov process whose transition
+  probability matrix is
+
+  \[
+    P = \begin{bmatrix}
+      0 & \frac{1}{2} & \frac{1}{2} \\
+      \frac{1}{2} & 0 & \frac{1}{2} \\
+      \frac{1}{2} & \frac{1}{2} & 0
+    \end{bmatrix}.
+  \]
+
+  Let \( X_n \) denote the position of the particle at the $n$th move. Calculate \( \Pr\{X_n = 0
+  \mid X_0 = 0\} \) for \( n = 0, 1, 2, 3, 4 \).
+
+  \begin{proof}
+    Note that
+    \begin{gather*}
+      P^2 = \begin{bmatrix}
+        \frac{1}{2} & \frac{1}{4} & \frac{1}{4} \\
+        \frac{1}{4} & \frac{1}{2} & \frac{1}{4} \\
+        \frac{1}{4} & \frac{1}{4} & \frac{1}{2} \\
+      \end{bmatrix}\quad
+      P^3 = \begin{bmatrix}
+        \frac{1}{4} & \frac{3}{8} & \frac{3}{8} \\
+        \frac{3}{8} & \frac{1}{4} & \frac{3}{8} \\
+        \frac{3}{8} & \frac{3}{8} & \frac{1}{4} \\
+      \end{bmatrix}\quad
+      P^4 = \begin{bmatrix}
+        \frac{3}{8} & \frac{5}{16} & \frac{5}{16} \\
+        \frac{5}{16} & \frac{3}{8} & \frac{5}{16} \\
+        \frac{5}{16} & \frac{5}{16} & \frac{3}{8} \\
+      \end{bmatrix}.
+    \end{gather*}
+    Thus,
+    \begin{align*}
+      &\Pr\{X_0 = 0\} = 1 \\
+      &\Pr\{X_1 = 0 \mid X_0 = 0\} = 0 \\
+      &\Pr\{X_2 = 0 \mid X_0 = 0\} = P^2_{0, 0} = \frac{1}{2} \\
+      &\Pr\{X_3 = 0 \mid X_0 = 0\} = P^3_{0, 0} = \frac{1}{4} \\
+      &\Pr\{X_4 = 0 \mid X_0 = 0\} = P^4_{0, 0} = \frac{3}{8}.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Consider the Markov chain whose transition probability matrix is given by
+
+  \[
+    P = \begin{bmatrix}
+      0.4 & 0.3 & 0.2 & 0.1 \\
+      0.1 & 0.4 & 0.3 & 0.2 \\
+      0.3 & 0.2 & 0.1 & 0.4 \\
+      0.2 & 0.1 & 0.4 & 0.3 \\
+    \end{bmatrix}
+  \].
+
+  Suppose that the initial distribution is \( p_i = \frac{1}{4} \) for \( i = 0, 1, 2, 3 \). Show
+  that \( \Pr\{X_n = k\} = \frac{1}{4} \), \( k = 0, 1, 2, 3 \), for all \( n \). Can you deduce a
+  general result from this example?
+
+  \begin{proof}
+    Let $v = (\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4})^T$. Note that $Pv = v$, and thus
+      we may conclude that $P^nv = PP^{n - 1}v = Pv = v$ by induction on $n$. Since $P^n_{ij} =
+      \Pr\{X_n = j | X_{0} = 0\}$, we get that
+      \begin{align*}
+        \Pr\{X_n = k\} 
+        &= \sum_{i = 0}^3 \Pr\{X_n = k | X_{0} = i\}\Pr\left\{X_{0} = i\right\} \\
+        &= \sum_{i = 0}^3 P_{ik}^np_i\\
+        &= P_{k}^nv = v_k = \frac{1}{4},
+      \end{align*}
+      where $P^n_k$ is the $k$-th row of $P^n$ and $v_k$ is the $k$-th entry of $v$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Consider two urns \( A \) and \( B \) containing a total of \( N \) balls. An experiment is
+  performed in which a ball is selected at random (all selections equally likely) at time \( t \)
+  (\( t = 1, 2, \ldots \)) from among the totality of \( N \) balls. Then, an urn is selected at
+  random (\( A \) is chosen with probability \( p \) and \( B \) is chosen with probability \( q \))
+  and the ball previously drawn is placed in this urn. The state of the system at each trial is
+  represented by the number of balls in \( A \). Determine the transition matrix for this Markov
+  chain.
+
+  \begin{proof}
+    We denote $X_t$ as the number of balls in $A$ at time $t$. We know $B$ contains $N - X_t$ balls
+    at time $t$. Since we only move a ball at a time, $|X_{t + 1} - X_t| \leq 1$. Then,
+    \begin{align*}
+      \p(X_{t + 1} = x + 1 \mid X_t = x) 
+      &= \p\{\text{Pick a ball from }A\text{ and pick urn } B\} \\ 
+      &= \p\{\text{Pick a ball from }A\}\p\{\text{Pick urn } B\} \\
+      &= \frac{x}{N} \cdot q
+    \end{align*}
+    \begin{align*}
+      \p(X_{t + 1} = x - 1 \mid X_t = x) 
+      &= \p\{\text{Pick a ball from }B\text{ and pick urn } A\} \\
+      &= \p\{\text{Pick a ball from }B\}\p\{\text{Pick urn } A\} \\
+      &= \frac{N - x}{N} \cdot p
+    \end{align*}
+    \begin{align*}
+      \p(X_{t + 1} = x \mid X_t = x) 
+      &= \p\{\text{Pick a ball from }A\text{ and pick urn } A\} + \p\{\text{Pick a ball from }B\text{ and pick urn } B\} \\
+      &= \p\{\text{Pick a ball from }A\}\p\{\text{Pick urn } A\} + \p\{\text{Pick a ball from }B\}\p\{\text{Pick urn } B\} \\
+      &= \frac{x}{N} \cdot p + \frac{N - x}{N} \cdot q.
+    \end{align*}
+    Hence, the entry at the $i$-th row $j$-column of the transition matrix is
+    \[
+      P_{ij} = \begin{cases}
+        \frac{iq}{N} & j = i + 1 \\
+        \frac{(N - i)p}{N} & j = i - 1 \\
+        \frac{ip + (N - i)q}{N} & j = i \\
+        0 & \text{otherwise}
+      \end{cases}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+\end{document}

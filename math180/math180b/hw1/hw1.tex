@@ -204,7 +204,7 @@
   $M_X(t)$ of $X$ is the function $M_X : \R \rightarrow \R \cup \{\infty\}$ defined by $t \mapsto
   \E[e^{tX}]$. Now suppose that $X \sim Gamma(\alpha, \lambda)$, where $\alpha, \lambda > 0$.
 
-  \begin{enumerate}
+  \begin{enumerate}[(a)]
     \item Prove that
     \[
       M_X(t) = \begin{cases}
@@ -283,8 +283,8 @@
       &= A^T\E[(X - \E[X])(X - \E[X])^T]A \\
       &= A^T\Sigma_XA \\
       &= \begin{bmatrix}
-        4\sigma_1^2 + 5\rho\sigma_1\sigma_2 + \sigma_2^2 & 2\sigma_1^2 - \rho\sigma_1\sigma_2 - \sigma_2^2 \\
-        2\sigma_1^2 - 3\rho\sigma_1\sigma_2 - \sigma_2^2 & \sigma_1^2 - 2\rho\sigma_1\sigma_2 + \sigma_2^2
+        4\sigma_1^2 + 4\rho\sigma_1\sigma_2 + \sigma_2^2 & 2\sigma_1^2 - \rho\sigma_1\sigma_2 - \sigma_2^2 \\
+        2\sigma_1^2 - \rho\sigma_1\sigma_2 - \sigma_2^2 & \sigma_1^2 - 2\rho\sigma_1\sigma_2 + \sigma_2^2
       \end{bmatrix}.
     \end{align*}
     Therefore, $Y \sim \N(\mu_Y, \Sigma_Y)$.

@@ -572,12 +572,11 @@
     If $R$ is a finite integral domain, show that $R$ is a field.
 
     \begin{proof}
-        Since $R$ is an integral domain, $R - \{0\}$ is closed under multiplication. Thus, it
-        suffices to show that $R$ is closed under taking inverse and contains the unit. Suppose for
-        the sake of contradiction that $a \neq 0$ does not have an multiplicative inverse in $R -
-        \{0\}$. Then, $a^i \neq 1$ for finite $i$, which makes $R$ an infinite group, contradiction.
-        Therefore, $R - \{0\}$ is closed under taking inverse. With the same arguement, we may also
-        show that $R$ contains the unit, and this completes the proof that $R$ is a field.
+        Since $R$ is a ring, $R - \{0\}$ is closed under multiplication, so it suffices to show that
+        $R$ is closed under taking inverse. Suppose for the sake of contradiction that $a \neq 0$
+        does not have an multiplicative inverse in $R - \{0\}$. Since $R$ is an integral domain, we
+        know $a^i \neq 0$ for all positive $i$. Then, $a^i \neq 1$ for finite $i$, which makes $R$
+        an infinite group, contradiction. Therefore, $R - \{0\}$ is closed under taking inverse.
     \end{proof}
 \end{homeworkProblem}
 
