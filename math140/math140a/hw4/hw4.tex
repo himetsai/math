@@ -1,0 +1,328 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{Feb 9, 2024}
+\newcommand{\hmwkClass}{MATH 140A}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Let $E^\circ$ denote the set of all interior points of a set $E$.
+
+  \begin{enumerate}[(a)]
+    \item Prove that $E^\circ$ is always open.
+    \begin{proof}
+      Let $p \in E^\circ$. Since $p$ is an interior point of $E$, there exists a neighborhood $N$ of
+      $p$ such that $N \subset E$. Let $q \in N$. Since $N$ is an open set, there exists a
+      neighborhood $V$ of $q$ such that $V \subset N \subset E$, and thus $q$ is also an interior
+      point of $E$. Hence, $N \subset E^\circ$, so $E^\circ$ is open.
+    \end{proof}
+    \item Prove that $E$ is open if and only if $E^\circ = E$.
+    \begin{proof}
+      Suppose that $E$ is open. By definition, we know $E \subset E^{\circ}$. For $p \in E^{\circ}$,
+      we know there exists a neighborhood $N$ of $p$ such that $N \subset E$. However, $p \in N
+      \subset E$, and thus $E^{\circ} \subset E$. Therefore, $E^\circ = E$.
+
+      We now assume the converse. For $p \in E$, since $p \in E^\circ$, $p$ is an interior point of
+      $E$, and thus $E$ is open.
+    \end{proof}
+    \item If $G \subseteq E$ and $G$ is open, prove that $G \subseteq E^\circ$.
+    \begin{proof}
+      Let $g \in G$. Since $g$ is an interior point of $G$, there exists a neighborhood $N$ of $g$
+      such that $N \subset G \subset E$. Thus, $g$ is also an interior point of $G$, and the result
+      now follows.
+    \end{proof}
+    \item Prove that the complement of $E^\circ$ is the closure of the complement of $E$.
+    \begin{proof}
+      Let $p \in (E^\circ)^c$. Then, for all neighborhood $N$ of $p$, $N$ is not a subset of $E$,
+      and thus $N$ contains a point in $E^c$, which makes $p$ is limit point of $E^c$. Therefore, $p
+      \in \overline{E^c} = (E^c)' \cup E^c$.
+    \end{proof}
+    \item Do $E$ and $\overline{E}$ always have the same interiors?
+    \begin{proof}
+      No. Consider $E = \Q$ in $\R$. By the density of $\Q$, any real number is a limit point of
+      $\Q$, so $\overline{E} = \R$. However, $\Q$ has no interiors points, but $\R$ is open. Hence,
+      $\Q$ and $\R$ do not have the same interiors.
+    \end{proof}
+    \item Do $E$ and $E^\circ$ always have the same closures?
+    \begin{proof}
+      No. Consider the set $E = \{\pi\}$ in $\R$. We know that $E$ is closed so $\overline{E} = E$.
+      However, $E$ does not contain any interior points, so $E^\circ = \emptyset$. It immediately
+      follows that $\emptyset$ is closed, and thus $\overline{E^\circ} = \emptyset \neq
+      \overline{E}$.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $K \subseteq \mathbb{R}^1$ consist of $0$ and the numbers $\frac{1}{n}$ for $n =
+  1,2,3,\ldots$. Prove that $K$ is compact directly from the definition (without using the
+  Heine-Borel theorem).
+
+  \begin{proof}
+    Let $\{G_{\alpha}\}$ be an open cover of $K$. Then, $0$ must be in some $G_{\alpha_0}$. Since
+    $G_{\alpha_0}$ is an open set, there exists $N_{\epsilon}(0) = (-\epsilon, \epsilon) \subset
+    G_{\alpha_0}$. Hence, $(-\epsilon, \epsilon)$ covers all $\frac{1}{k} \in K$ such that $k >
+    \frac{1}{\epsilon}$. By the archimedean property, we may find an integer $m >
+    \frac{1}{\epsilon}$. For natural number $n < m$, we may find a $G_{\alpha_n}$ that covers
+    $\frac{1}{n}$. Thus, with the choice of $m$ indices $\alpha_0, \alpha_1, \ldots, \alpha_{m -
+    1}$, $$K \subset G_{\alpha_0} \cup G_{\alpha_0} \cup \ldots \cup G_{\alpha_{m - 1}},$$ which
+    proves the compactness of $K$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Give an example of an open cover of the segment $(0, 1)$ which has no finite subcover.
+
+  \begin{proof}
+    Consider $\{G_{\alpha}\}$, where $G_{\alpha} = (0, \alpha)$, for $\alpha \in (0, 1)$.
+    $\{G_{\alpha}\}$ is clearly an infinite collection. Let $p \in (0, 1)$ and $q \in (p, 1)$. Since
+    there exists $G_{q}$ such that $p \in G_{q}$, $\{G_{\alpha}\}$ is an infinite open cover of $(0,
+    1)$. Let $A \subset (0, 1)$ be non-empty and finite. Then, there exists $k = \max A$. Since $k <
+    1$, there exists $h \in (k, 1)$ such that $h \notin G_{a} = (0, a)$, for all $a \in A$, as $a <
+    k < h < 1$. Hence, $\{G_{\alpha}\}$ has no finite subcover.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A metric space is called \textit{separable} if it contains a countable dense subset. Show that
+  $\mathbb{R}^k$ is separable. \textit{Hint:} Consider the set of points which have only rational
+  coordinates.
+
+  \begin{proof}
+    Consider $\Q^k \subset \R^k$. Note that $\Q$ is countable, so $\Q^k$ is countable, by Theorem
+    2.12. Let $S$ be a non-empty open subset of $\R^k$ and let $x = (x_1, x_2, \ldots, x_k) \in S$.
+    Then, we may find a ball $B_{\epsilon}(x) \subset S$, for some $\epsilon > 0$. Since $\Q$ is
+    dense in $\R$, there exists $r_i \in \Q$ such that $|x_i - r_i| < \frac{\epsilon}{\sqrt{k}}$,
+    for all $1 \leq i \leq k$. Let $r = (r_1, r_2, \ldots, r_k)$. Then, we may find a rational
+    coordinate $r$ such that
+    \[
+      \lVert x - r \rVert = \left(\sum_{i = 1}^k (x_i - r_i)^2\right)^{\frac{1}{2}} < \left(\sum_{i = 1}^k \frac{\epsilon^2}{k}\right)^{\frac{1}{2}} = \epsilon.
+    \]
+    Hence, $r \in S$, and thus $\R^k$ contains a dense set $\Q^k$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A collection $\{V_{\alpha}\}$ of open subsets of $X$ is said to be a \textit{base} for $X$ if the
+  following is true: For every $x \in X$ and every open set $G \subseteq X$ such that $x \in G$, we
+  have $x \in V_{\alpha} \subseteq G$ for some $\alpha$. In other words, every open set in $X$ is
+  the union of a subcollection of $\{V_{\alpha}\}$. Prove that every separable metric space has a
+  \textit{countable base}. \textit{Hint:} Take all neighborhoods with rational radius and center in
+  some countable dense subset of $X$.
+
+  \begin{proof}
+    Suppose that $X$ is a separable metric space. Let $S \subset X$ be a countable dense subset, and
+    let $\{V_{\alpha}\}$ be the collection of neighborhoods $N_r(s)$, for all $s \in S$ and $r \in
+    \Q^+$. Since $\{V_{\alpha}\}$ contains neighborhoods of countably many points with countably
+    many radii, $\{V_{\alpha}\}$ is countable. Let $x \in X$ and let $G$ be an open set in $X$ such
+    that $x \in G$. Then, there exists an open neighborhood $N_{\delta}(x) \subset G$, for some
+    $\delta > 0$. Let $\epsilon \in \Q^+$ such that $\epsilon < \delta/2$. Since $S$ is dense in
+    $X$, there exists $k \in S$ such that $d(x, k) < \epsilon$. Consider $N_{\epsilon}(k)$. Since
+    $d(x, k) < \epsilon$, we already know $x \in N_{\epsilon}(k)$. However, notice that for all $b
+    \in N_{\epsilon}(k)$, $d(x, b) \leq d(x, k) + d(k, b) < \frac{\epsilon}{2} + \frac{\epsilon}{2}
+    < \delta$, and thus $x \in N_{\epsilon}(k) \subset N_{\delta}(x) \subset G$. It immediately
+    follows that $N_{\epsilon}(k) = V_{\alpha}$, for some $\alpha$, so $\{V_{\alpha}\}$ is a
+    countable base for $X$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $X$ be a metric space in which every infinite subset has a limit point. Prove that $X$ is
+  separable. \textit{Hint:} Fix $\delta > 0$, and pick $x_1 \in X$. Having chosen $x_1, \ldots, x_j
+  \in X$, choose $x_{j+1} \in X$, if possible, so that $d(x_i, x_{j+1}) \geq \delta$ for $i = 1,
+  \ldots, j$. Show that this process must stop after a finite number of steps, and that $X$ can
+  therefore be covered by finitely many neighborhoods of radius $\delta$. Take $\delta = 1/n$ $(n =
+  1,2,3,\ldots)$, and consider the centers of the corresponding neighborhoods.
+
+  \begin{proof}
+    Suppose that the process does not terminate after a finite number of steps. Then, $\{x_i\}_{i =
+    1}^{\infty}$ is an infinite subset of $X$, which means that there exists a limit point $s$ of
+    $\{x_i\}_{i = 1}^{\infty}$. But then $N_{\frac{\delta}{2}}(s)$ contains at most $1$ point in
+    $\{x_i\}_{i = 1}^{\infty}$, which contradicts the fact that any neighborhoods of a limit point
+    contain infinitly many points. Hence, for all $p \in X$, there exists $x_i$ such that $p \in
+    N_{\delta}(x_i)$, and thus $\{N_{\delta}(x_i)\}$ is a finite open cover of $X$. Let $S$ be the
+    set of all $x_i$ we pick via the process, with $\delta = \frac{1}{n} (n = 1, 2, 3, \ldots)$.
+    Since $S$ is a union of countably many finite sets, $S$ is countable. Let $G$ be a non-empty
+    open subset of $X$, and let $g \in G$. There exists $\epsilon > 0$ such that $N_{\epsilon}(g)
+    \subset G$. By the archimedean property, there exists $k \in \N$ such that $k\epsilon > 1$, and
+    thus $\frac{1}{k} < \epsilon$. We know there exists $x_i \in S$ such that $g \in
+    N_{\frac{1}{k}}(x_i)$. But then $d(x_i, g) < \frac{1}{k} < \epsilon$, so $x_i \in G$. Hence, $S$
+    is a countable dense subset of $X$, and the result now follows.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove that every open set in $\mathbb{R}^1$ is the union of an at most countable collection of
+  disjoint segments. \textit{Hint:} Use Exercise 2.22.
+
+  \begin{proof}
+    From Exercise 2.22, we know $\R^1$ is separable. The proof of Exercise 2.23 gives us a countable
+    base $\{V_{\alpha, \beta}\}$ of $\R_1$, where $V_{\alpha, \beta} = (\alpha - \beta, \alpha +
+    \beta)$, $\alpha, \beta \in \Q$, $\beta > 0$. In other words, every open set in $\R^1$ is the
+    union of a subcollection of $\{V_{\alpha, \beta}\}$, which is a union of an at most countable
+    collection of segments. Let $S$ be an open set in $\R^1$, and let $K$ be the subcollection of
+    $\{V_{\alpha, \beta}\}$ whose union of all elements is $S$. For each pair of segments $u, v \in
+    K$, if $u \cap v \neq \emptyset$, then we replace $u$ and $v$ with segment $u \cup v$. We repeat
+    this process until all segments in $K$ are disjoint. We call this new collection $K'$. Since the
+    union of every segment in $K'$ remains to be $S$ and $|K'| \leq |K|$, $K'$ is an at most
+    countable collection of disjoint segments such that $S = \bigcup_{k \in K'} k$.
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
