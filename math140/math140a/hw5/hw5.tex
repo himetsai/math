@@ -1,0 +1,368 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{Feb 16, 2024}
+\newcommand{\hmwkClass}{MATH 140A}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Construct a compact set of real numbers whose limit points form a countable set.
+
+  \begin{proof}
+    Consider
+    \[
+      S = \{0\} \cup \left\{\frac{1}{n} \mid n \in \N\right\} \cup \bigcup_{k \in \N} S_k,
+    \]
+    where $S_k = \left\{\frac{1}{k} + \frac{1}{n} \mid n > k(k - 1), n \in \N\right\}$. Note that
+    $S_k$ is bounded below by $\frac{1}{k}$ and bounded above by $\frac{1}{k - 1}$, as $\sup S_k <
+    \frac{1}{k} + \frac{1}{k(k - 1)} = \frac{1}{k - 1}$. Thus, $S_i$ and $S_j$ are disjoint if $i
+    \neq j$. We claim $S' = \{0\} \cup \left\{\frac{1}{n} \mid n \in \N\right\}$. Since $0$ is a
+    limit point of $\left\{\frac{1}{n} \mid n \in \N\right\}$ and $\frac{1}{k}$ is the limit point
+    of $S_k$, we only need to prove that $S' \subseteq \left\{\frac{1}{n} \mid n \in \N\right\} \cup
+    \{0\}$. It is obvious that $S$ is bounded above by $2$ and below by $0$, so we only need to
+    consider points in $[0, 2]$. Let $x \in [0, 2]$ be a limit point of $S$. Suppose for sake of
+    contradiction that $x \notin \left\{\frac{1}{n} \mid n \in \N\right\} \cup \{0\}$. If $x > 1$,
+    then $x = \epsilon + 1$, for some positive $\epsilon$. But then $B_{\frac{\epsilon}{2}}(x) \cap
+    S = B_{\frac{\epsilon}{2}}(x) \cap S_1 = \left\{1 + \frac{1}{n} \mid n < \frac{1}{\epsilon}, n
+    \in \N\right\}$ is finite. Hence, we may assume $x < 1$. Then, $\frac{1}{p} < x < \frac{1}{p -
+    1}$ for some $p \in \N$, by the archimedean property. This means that $B_{\delta}(x) \cap S =
+    B_{\delta}(x) \cap S_p$, for $\delta < \frac{1}{2p(p - 1)}$. But then $x$ is the limit point of
+    $S_p$, which is $\frac{1}{p}$, contradiction. Hence, $x \in \{0\} \cup \left\{\frac{1}{n} \mid n
+    \in \N\right\} \subset S$, and thus $S = \{0\} \cup \left\{\frac{1}{n} \mid n \in \N\right\}$,
+    which is countable. Since $S' \in S$ and $S \subset [0, 2]$, $S$ is compact, by Theorem 2.41.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Regard $\Q$, the set of all rational numbers, as a metric space, with $d(p, q) = |p - q|$. Let $E$
+  be the set of all $p \in \Q$ such that $2 < p^2 < 3$. Show that $E$ is closed and bounded in $\Q$,
+  but that $E$ is not compact. Is $E$ open in $\Q$?
+
+  \begin{proof}
+    $E$ is obviously bounded above by $3$ and below by $-3$, otherwise there exists $p \in E$ such
+    that $p^2 > 3^2 > 3$. 
+    
+    We show that $E$ is closed. Let $x \in E^c$. Then, either $x^2 \leq 2$ or $x^2 \geq 3$.
+    Suppose that $x^2 \leq 2$. Then, $-\sqrt{2} \leq x \leq \sqrt{2}$. Pick $\epsilon <
+    \min(\sqrt{2} - x, x + \sqrt{2})$. Since $x + \epsilon < x + (\sqrt{2} - x) = \sqrt{2}$ and $x -
+    \epsilon > x - (x + \sqrt{2}) = -\sqrt{2}$, $B_{\epsilon}(x)$ is bounded above by $\sqrt{2}$ and
+    below by $-\sqrt{2}$. Thus, $B_{\epsilon}(x) \subset [-\sqrt{2}, \sqrt{2}] \cap \Q \subset E^c$,
+    $x$ is an interior point of $E^c$. Suppose that $x^2 \geq 3$. Then, either $x \geq \sqrt{3}$ or
+    $x \leq -\sqrt{3}$. If $x \geq \sqrt{3}$, then $B_{x - \sqrt{3}}(x)$ is bounded below by
+    $\sqrt{3}$, so $B_{x - \sqrt{3}}(x) \subset E^c$. Otherwise, $B_{-\sqrt{3} - x}(x)$ is bounded
+    above by $-\sqrt{3}$, and thus $B_{-\sqrt{3} - x}(x) \subset E^c$. Hence, $x$ is an interior
+    point of $E^c$. It follows that $E^c$ is open, and thus $E$ is closed. 
+
+    We now show that $E$ is not compact. Consider the set $S = \{2 < r^2 < 3\}$ under $\R$. Let $r
+    \in S$. Since $2 < r^2 < 3$, either $\sqrt{2} < r < \sqrt{3}$ or $-\sqrt{3} < r < -\sqrt{2}$.
+    Hence, $S = (-\sqrt{3}, -\sqrt{2}) \cup (\sqrt{2}, \sqrt{3})$, which is open by Theorem 2.24. By
+    Theorem 2.34, $S$ is not compact in $\R$. By Theorem 2.33, $S$ is not compact relative to $\Q
+    \subset \R$. But then $E = S \cap \Q$, so $E$ is not compact.
+
+    By Theorem 2.30, we also know $E = S \cap \Q$ is open in $\Q$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $E$ be the set of all $x \in [0, 1]$ whose decimal expansion contains only the digits 4 and 7.
+  Is $E$ countable? Is $E$ dense in $[0, 1]$? Is $E$ compact? Is $E$ perfect?
+
+  \begin{proof}
+    We show by Cantor's diagonalization argument that $E$ is uncountable. Let $C$ be a countable set
+    of $E$. We associate each number in $C$ a unique index, say $a_1, a_2, \ldots \in C$. Define $f:
+    [0, 1] \times \N \rightarrow \Z_{\geq 0}$ that maps $(a, n)$ to the $n$th decimal digit of $a$.
+    Let $k \in [0, 1]$ such that $f(k, n) = 4$ if $f(a_n, n) = 7$ and $f(k, n) = 7$ otherwise, for
+    $n \in \N$. Since the decimal expansion is of $k$ contains only 4 and 7, $k$ is in $E$. However,
+    $k \neq a_i$, for all $a_i \in C$. Hence, $E$ is uncountable.
+
+    Note that $E \subset [0.4, 0.8]$. Since there does not exist $a \in E$ such that $0.8 < a < 1$,
+    $E$ is not dense in $[0, 1]$.
+
+    For compactness, we already know $E$ is bounded, so it suffices to show that $E$ is closed, by
+    Theorem 2.41. 
+    
+    Let $x \in E^c$. $x$ contains a decimal digit other than 4 and 7. Consider the first such digit,
+    say the $n$th digit. Let $\delta > 0$ such that $\delta < 10^{-n}$. Then, $N_{\delta}(x)$ does
+    not contain any point in $E$, and thus $x$ cannot be a limit point of $E$. Therefore, $E'
+    \subset E$, so $E$ is closed.
+
+    However, $E$ is not perfect. Consider $0.4 \in E$. $N_{0.01}(0.4) \cap E = \emptyset$ and thus
+    $0.4$ is not a limit point of $E$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Is there a nonempty perfect set in $\R^1$ which contains no rational number?
+
+  \begin{proof}
+    Yes. Let $E_0 = [r, s]$, where $r, s$ are two irrational numbers. We inductively remove all
+    rational numbers from $E_0$. Since $\Q$ is countable, associate an index to each rational
+    number, say $a_1, a_2, \ldots \in E_0$. We construct $E_n$ by removing the segment $(r_n, s_n)$
+    from $E_{n - 1}$, for some irrational $r_n, s_n$ such that $r_n < a_n < s_n$, and make it $E_n$.
+    Note that $E_n$ union of intervals and thus $E_0 \supset E_1 \supset \cdots$ is a chain of
+    compact sets, by Theorem 2.41. Let $E = \bigcap_{i = 0}^{\infty} E_i$. $E$ is closed and
+    nonempty, by Theorem 2.24 and 2.36. For rational $q \in [r, s]$, $q \notin E_n$, and thus $q
+    \notin E$. Hence, $E$ does not contain any rational numbers. It remains to show that every point
+    in $E$ is a limit point. Notice that $E$ does contain any segments, as $\Q$ is dense in $\R$ so
+    any segment $(a, b) \subset \R$ contains a rational number. Let $x \in E$ and let $\epsilon >
+    0$. Let $I_n$ be an interval of $E_n$ which contains $x$. Since the open set $N_{\epsilon}(x)$
+    is not contained in $E$, there exists large enough $n$ such that $I_n \subset N_{\epsilon}(x)$,
+    and thus $N_{\epsilon}(x)$ contains the end point of $I_n$. It follows that $x$ is a limit point
+    of $E$, as $(N_{\epsilon}(x) \backslash \{x\}) \cap E \neq \emptyset$, and this completes the
+    proof.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item If $A$ and $B$ are disjoint closed sets in some metric space $X$, prove that they are
+    separated.
+    \begin{proof}
+      Since $A, B$ are closed, $A = \overline{A}$ and $B = \overline{B}$. Since $\overline{A} \cap B
+      = A \cap \overline{B} = A \cap B = \emptyset$, the result follows.
+    \end{proof}
+    \item Prove the same for disjoint open sets.
+    \begin{proof}
+      It suffices to show that $A' \cap B = A \cap B' = \emptyset$. Let $a \in A$. Since there
+      exists a neighborhood $N$ of $a$ such that $N \subset A$, $N$ contains not point of $B$, and
+      thus $A \cap B' = \emptyset$. By symmetry, we also know $B' \cap A = \emptyset$, and this
+      completes to proof.
+    \end{proof}
+    \item Fix $p \in X, \delta > 0$, define $A$ to be the set of all $q \in X$ for which $d(p, q) <
+    \delta$, define $B$ similarly, with $>$ in place of $<$. Prove that $A$ and $B$ are separated.
+    \begin{proof}
+      Since $A = N_{\delta}(p)$, $A$ is obviously an open set. Moreover, $B$ is the complement of
+      $\overline{A}$, so $B$ is an open set disjoint to $A$. The result now follows from $(b)$.
+    \end{proof}
+    \item Prove that every connected metric space with at least two points is uncountable.
+    \textit{Hint:} Use (c).
+    \begin{proof}
+      Let $X$ be a metric space and $p, q \in X$ such that $p < q$. Then, $d(p, q) > 0$. Since $X$
+      is connected, there exists $m \in X$ such that $d(p, m) = \delta$, for every $\delta \in [0,
+      d(p, q)]$, otherwise $X$ is separated by $(c)$. Hence, there exists an surjective mapping $X
+      \rightarrow [0, d(p, q)]$ that maps $r$ to $\epsilon$, for some $d(p ,r) = \epsilon$. However,
+      $[0, d(p, q)]$ is uncountable, and thus $X$ is uncountable.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Are closures and interiors of connected sets always connected? (Look at subsets of $\R^2$.)
+
+  \begin{proof}
+    Closures of connected sets are connected. Let $X$ be a nonempty connected set. Suppose for the
+    sake of contradiction that $\overline{X}$ is not connected. Then, $\overline{X} = A \cup B$,
+    where $\overline{A} \cap B = \overline{B} \cap A = \emptyset$. We know $X \not\subset A$,
+    otherwise  $B$ contains limit points of $A$, which forces $\overline{A} \cap B \neq \emptyset$.
+    Similarly, $X \not\subset B$, so $X \cap A$ and $X \cap B$ are both nonempty. Hence, $X$ is the
+    union of disjoint sets $X \cap A$ and $X \cap B$. However, since $\overline{A} \cap B =
+    \overline{B} \cap A = \emptyset$, we have $(\overline{X \cap A}) \cap (X \cap B) = (\overline{X
+    \cap B}) \cap (X \cap A) = \emptyset$, contradicting that $X$ is connected. 
+
+    However, interiors of connected sets are not always connected. Let $p, q \in \R^2$, $p \neq q$.
+    Let $A = \{a \in \R^2 \mid d(p, a) \leq \frac{1}{2}d(p, q)\}$ and $B = \{b \in \R^2 \mid d(q, b)
+    \leq \frac{1}{2}d(p, q)\}$, and let $E = A \cup B$. Note that $A \cap B \neq \emptyset$. Suppose
+    for the sake of contradiction tha $E$ is not connected. Then, $E$ can be partitioned into two
+    nonempty sets $G, H$, such that $\overline{G} \cap H = \overline{H} \cap G = \emptyset$. Let $x
+    \in A \cap B$. Suppose WLOG that $x \in G$. Let $y \in H$. Since $y \in E$, we know $y$ is in
+    $A$ or $B$. Say that $y \in A$. Then, $x \in A \cap G$ and $y \in A \cap H$. However, since $G,
+    H$ are disjoint, $A$ can be separated into two disjoint sets $A \cap G$ and $A \cap H$,
+    contradiction. Hence, $E$ is connected. The interior points of $E$ is $N_{\frac{1}{2}d(p, q)}(p)
+    \cup N_{\frac{1}{2}d(p, q)}(q)$, which is the union of two disjoint open sets. The result now
+    follows from Problem 5 (b).
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $A$ and $B$ be separated subsets of some $\mathbb{R}^k$, suppose $a \in A$, $b \in B$, and
+  define
+  \[ p(t) = (1 - t)a + tb \] for $t \in \mathbb{R}^1$. Put $A_0 = p^{-1}(A)$, $B_0 = p^{-1}(B)$.
+  [Thus $t \in A_0$ if and only if $p(t) \in A$.]
+  \begin{enumerate}[(a)]
+      \item Prove that $A_0$ and $B_0$ are separated subsets of $\mathbb{R}^1$.
+      \begin{proof}
+        $A_0$ and $B_0$ are disjoint, otherwise there exists $x \in A_0 \cap B_0$ such that $p(x)
+        \in A \cap B$. Let $k$ be a limit point of $A_0$. Suppose for the sake of contradiction that
+        $k \in B_0$. Then, for $\epsilon > 0$, there exists $m \in N_{\frac{\epsilon}{|b - a|}}(k)
+        \cap A_0$. Hence, $d(p(k), p(m)) = |[(1 - k)a + kb] - [(1 - m)a + mb]| = (k - m)|b - a| <
+        \epsilon$. Since $\epsilon$ is arbitrary and $p(m) \in A$, $p(k)$ is a limit point of $A$.
+        But then $p(k) \in B_0 \cap \overline{A_0}$, contradiction. Hence, $k \notin B_0$. By
+        symmetry, we also know that $A_0 \cap \overline{B_0} = \emptyset$, and thus $A_0$ and $B_0$
+        are separated.
+      \end{proof}
+      \item Prove that there exists $t_0 \in (0, 1)$ such that $p(t_0) \not\in A \cup B$.
+      \begin{proof}
+        Note that $0 \in A_0$ and $1 \in B_0$. Let $t_0 = \sup(A \cap [0, 1])$. By Theorem 2.28,
+        $t_0 \in \overline{A_0}$, and thus $t_0 \notin B_0$, as $A_0, B_0$ are separated. In
+        particular, $0 \leq t_0 < 1$. If $t_0 \notin A_0$, it follows that $0 < t_0 < 1$ and $t_0
+        \notin A_0 \cup B_0$. If $t_0 \in A_0$, then $t_0 \notin \overline{B_0}$, and thus there
+        exists $t_0' \notin B_0$ such that $t_0 < t_0' < 1$. Hence, $0 < t_0' < 1$ and $t_0 \notin
+        A_0 \cup B_0$. Since there is a point $t_0 \in (0, 1) \backepsilon (A_0 \cup B_0)$, $p(t_0)
+        \notin A \cup B$.
+      \end{proof}
+      \item Prove that every convex subset of $\mathbb{R}^k$ is connected.
+      \begin{proof}
+        Let $S \subset \R^k$ be not connected. Then, $S = A \cup B$, for separated $A, B$. But then
+        there exists $t \in (0, 1)$ such that $(1 - t)a + tb \notin A \cup B$, by (b), and thus $S$
+        is not convex. The result now follows from the contrapositive.
+      \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+\end{document}
