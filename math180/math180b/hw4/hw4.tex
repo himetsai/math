@@ -489,13 +489,13 @@
         0, & \text{otherwise}
       \end{cases}.
     \]
-    Let $T = \inf\{n \geq 0; \xi_{n + 1} > 100\}$. Note that $\E[T|\xi_1 \leq 100] = \E[T] + 1$.
-    Then,
+    Let $T = \inf\{n \geq 0; \xi_{n + 1} > 100\}$. Note that $\E[T|\xi_1 < 100] = \E[T] + 1$ and
+    $\E[T|\xi_1 \geq 100] = 1$. Then,
     \begin{align*}
       \E[T]
       &= \E[T|\xi_1 \geq 100]P_{00} + \E[T|\xi_1 < 100]P_{01} \\
-      &= (1 + \E[T])(1 - (0.99)^{100}) \\
-      &= \frac{1}{(0.99)^{100}} - 1
+      &= P_{00} + (1 + \E[T])(1 - (0.99)^{100}) \\
+      &= \frac{1}{(0.99)^{100}} \approx 2.73
     \end{align*}
   \end{proof}
 \end{homeworkProblem}
