@@ -1,0 +1,381 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{Feb 23, 2024}
+\newcommand{\hmwkClass}{MATH 140A}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Calculate $\lim_{{n \to \infty}} \left( \sqrt{n^2 + n} - n \right)$.
+
+  \begin{proof}
+    We show that the limit is $\frac{1}{2}$. Since $\lim_{{n \to \infty}} \frac{\sqrt{n^2 + n} +
+    n}{\sqrt{n^2 + n} + n} = 1$, we have
+    \begin{align*}
+      \lim_{{n \to \infty}} \left( \sqrt{n^2 + n} - n \right) 
+      &= \lim_{{n \to \infty}} \left( \sqrt{n^2 + n} - n \right)\left(\frac{\sqrt{n^2 + n} + n}{\sqrt{n^2 + n} + n}\right) \\
+      &= \lim_{{n \to \infty}} \left(\frac{n}{\sqrt{n^2 + n} + n}\right) \\
+      &= \lim_{{n \to \infty}} \left(\frac{1}{\sqrt{1 + \frac{1}{n}} + 1}\right),
+    \end{align*}
+    by Theorem 3.3. Note that
+    \[
+      \frac{1}{1 + \frac{1}{n} + 1} = \frac{1}{\frac{1}{n} + 2} < \frac{1}{\sqrt{1 + \frac{1}{n}} + 1} < \frac{1}{1 + 1} = \frac{1}{2}.
+    \]
+    Since $\frac{1}{\frac{1}{n} + 2} \to \frac{1}{2}$, the result follows from Theorem 3.19.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the upper and lower limits of the sequence $(s_n)$ defined by
+  \[
+    s_1 = 0; \quad s_{2m} = \frac{s_{2m-1}}{2}, \quad s_{2m+1} = \frac{1}{2} + s_{2m}.
+  \]
+
+  \begin{proof}
+    We first show that $s_{2m + 1} = 1 - 2^{-m}$ by induction on $m$. If $m = 0$, $s_1 = 1 - 2^{0} =
+    0$. Suppose $m > 0$. We know $s_{2m + 1} = s_{2m} + \frac{1}{2} = \frac{s_{2(m - 1) + 1}}{2} +
+    \frac{1}{2}$. It follows that
+    \[
+      \frac{s_{2(m - 1) + 1}}{2} + \frac{1}{2} = \frac{1 - 2^{-(m - 1)}}{2} + \frac{1}{2} = 1 - 2^{-m},
+    \]
+    by induction. Hence $s_{2m + 1} = 1 - 2^{-m}$, and thus $s_{2m} = s_{2m+1} - \frac{1}{2} =
+    \frac{1}{2} - 2^{-m}$. By Theorem $3.20$,
+    \[
+      \lim_{m \to \infty} s_{2m + 1} = \lim_{m \to \infty} (1 - 2^{-m}) = 1,
+    \]
+    \[
+      \lim_{m \to \infty} s_{2m} = \lim_{m \to \infty} \left(\frac{1}{2} - 2^{-m}\right) = \frac{1}{2}.
+    \]
+    Since subsequences of $s_n$ contains either a subsequence of $s_{2m}$ or a subsequence
+    of $s_{2m + 1}$, any convergence sequence converges to either $1$ or $\frac{1}{2}$. Therefore,
+    the upper limit and lower limit of $(s_n)$ are $1$ and $\frac{1}{2}$, respectively.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For any two real sequences $(a_n), (b_n)$, prove that
+  \[
+    \limsup_{n \to \infty} (a_n + b_n) \leq \limsup_{n \to \infty} a_n + \limsup_{n \to \infty} b_n,
+  \]
+  provided the sum on the right is not of the form $\infty - \infty$.
+
+  \begin{proof}
+    The inequality obviously holds for the case $\limsup_{n \to \infty} a_n = \infty$ and
+    $\limsup_{n \to \infty} b_n > -\infty$. 
+    
+    Suppose $\limsup_{n \to \infty} a_n = -\infty$ and $\limsup_{n \to \infty} b_n < \infty$. Then,
+    there are no subsequential limits for $a_n$ and $b_n$ is bounded above by some $b$. Consider
+    subequence $(a_{n_k} + b_{n_k})$. Suppose for the sake of contradiction that $(a_{n_k} +
+    b_{n_k})$ converges at some point $p$. Let $r > 0$. Since $a_n$ has no subsequential limits,
+    there are only at most finitely many values of $n$ such that $a_n > p - r - b$. It follows that
+    the neighborhood $N_{r}(p)$ only contains at most finitely many values of $n$ such that $a_{n} +
+    b_{n} \in N_{r}(p)$, contradiction. Hence, $$\limsup_{n \to \infty} (a_n + b_n) = \limsup_{n \to
+    \infty} a_n + \limsup_{n \to \infty} b_n = -\infty,$$ and the inequality holds.
+
+    It remains to show the case for $\limsup_{n \to \infty} a_n = p$ and $\limsup_{n \to \infty} b_n
+    = q$, for some $p, q \in \R$. Since both $a_n$ and $b_n$ have subsequential limits, $a_n$ and
+    $b_n$ are bounded. It follows that $(a_n + b_n)$ are also bounded, so $\limsup_{n \to \infty}
+    (a_n + b_n) = r$, for some $r \in \R$, by Theorem 3.6. Theorem 3.7 shows that there exists
+    subsequence $(a_{n_k} + b_{n_k})$ such that $a_{n_k} + b_{n_k} \to r$. Since $a_{n_k}$ is
+    bounded, there exists subsequence $a_{n_{k_p}}$ of $a_{n_k}$ such that $a_{n_{k_p}} \to
+    \limsup_{k \to \infty} a_{n_k}$. The subsequence $(a_{n_{k_p}} + b_{n_{k_p}})$ of $(a_{n_k} +
+    b_{n_k})$ also converges to $r$. By Theorem 3.3, $\lim_{p \to \infty} a_{n_{k_p}} + \lim_{p \to
+    \infty} b_{n_{k_p}} = \lim_{p \to \infty} (a_{n_{k_p}} + b_{n_{k_p}})$, and so $b_{n_{k_p}}$ is
+    also a convergence sequence. Hence, we have shown the existence of convergence subsequences
+    $a_{n_{k_p}}$ and $b_{n_{k_p}}$. It immediately follows that
+    \[
+      r = \lim_{n \to \infty} (a_{n_k} + b_{n_k}) = \lim_{p \to \infty} (a_{n_{k_p}} + b_{n_{k_p}}) =  \lim_{p \to \infty} a_{n_{k_p}} + \lim_{p \to \infty} b_{n_{k_p}} \leq p + q,
+    \]
+    and this completes the proof.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If $(s_n)$ is a complex sequence, define its arithmetic means $\sigma_n$ by
+  \[
+    \sigma_n = \frac{s_0 + s_1 + \ldots + s_n}{n + 1} \quad (n = 0,1,2,\ldots).
+  \]
+  \begin{enumerate}[(a)]
+    \item If $\lim s_n = s$, prove that $\lim \sigma_n = s$.
+    \begin{proof}
+      Fix $\epsilon > 0$. There exsits $N$ such that for all $n \geq N$, $|s - s_n| <
+      \frac{\epsilon}{2}$. Pick integer $N'$ such that $\frac{\epsilon}{2} N' > \sum_{i = 0}^{N - 1} |s -
+      s_i|$. Then for $n \geq \max(N, N')$,
+      \begin{align*}
+        |s - \sigma_n|
+        &= \left|s - \frac{1}{n + 1}\sum_{i = 0}^n s_i\right| \\
+        &\leq \frac{1}{n + 1}\sum_{i = 0}^n |s - s_i| \\
+        &= \frac{1}{n + 1}\left(\sum_{i = 0}^{N - 1} |s - s_i| + \sum_{i = N}^n |s - s_i|\right) \\
+        &< \frac{1}{n + 1}\left(\sum_{i = 0}^{N - 1} |s - s_i| + (n - N + 1)\frac{\epsilon}{2} \right) \\
+        &= \frac{\sum_{i = 0}^{N - 1} |s - s_i|}{n + 1} + \frac{n - N + 1}{n + 1} \cdot \frac{\epsilon}{2} \\
+        &\leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+      \end{align*}
+      Hence, $\sigma_n \to s$.
+    \end{proof}
+    \item Construct a sequence $(s_n)$ which does not converge, although $\lim \sigma_n = 0$.
+    \begin{proof}
+      Consider $(s_n)$, with $s_1 = 1$, $s_{2k} = -1$, and $s_{2k + 1} = 1$. $s_n$ obviously does
+      not converge. Since
+      \begin{align*}
+        \sigma_n 
+        &= \begin{cases}
+          \frac{1}{n} \left(\sum_{i = 1}^k 1 +  \sum_{i = 1}^k -1\right) & n = 2k, $ for some $k \in \N \\
+          \frac{1}{n} \left(1 + \sum_{i = 1}^k 1 +  \sum_{i = 1}^k -1\right) & n = 2k + 1, $ for some $k \in \N
+        \end{cases} \\
+        &= \begin{cases}
+          0 & n = 2k, $ for some $k \in \N \\
+          \frac{1}{n} & n = 2k + 1, $ for some $k \in \N
+        \end{cases},
+      \end{align*}
+      we get $\sigma_n \to 0$.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Fix a positive number $\alpha$. Choose $x_1 > \sqrt{\alpha}$, and define $x_2, x_3, x_4, \ldots$ by the recursion formula
+  \[
+    x_{n+1} = \frac{1}{2} \left( x_n + \frac{\alpha}{x_n} \right).
+  \]
+  Prove that $(x_n)$ decreases monotonically and that $\lim x_n = \sqrt{\alpha}$.
+
+  \begin{proof}
+    We show that $x_n > \sqrt{\alpha}$ by induction on $n$. $x_1 > \sqrt{\alpha}$, obviously.
+    Suppose $n > 1$. By induction, $x_{n - 1} > \sqrt{\alpha}$, and the induction result then
+    follows from
+    \[
+      \frac{(x_{n - 1} - \sqrt{\alpha})^2}{2x_{n - 1}} = \frac{1}{2}\left(x_{n - 1} + \frac{\alpha}{x_{n - 1}}\right) - \sqrt{\alpha} = x_{n} - \sqrt{\alpha} > 0.
+    \]
+    Notice that since $x_n^2 > \alpha$, we substitute $\alpha$ from the recursion formula and get
+    $x_{n + 1} < x_n$, and thus $x_n$ is monotonically decreasing. It remains to show $x_n \to
+    \sqrt{\alpha}$. Note that $\lim x_n = \lim x_{n + 1} = a$, for some $a \geq \sqrt{\alpha}$. But
+    then $a = \frac{1}{2}\left( a + \frac{\alpha}{a} \right)$, the solving the equation gives us $a
+    = \sqrt{\alpha}$, and we are done.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Fix $\alpha > 1$. Take $x_1 > \sqrt{\alpha}$ and define
+  \[
+    x_{n+1} = \frac{\alpha + x_n}{1 + x_n} = x_n + \frac{\alpha - x_n^2}{1 + x_n}.
+  \]
+  \begin{enumerate}[(a)]
+    \item Prove that $x_1 > x_3 > x_5 > \ldots$.
+    \begin{proof}
+      We first note that
+      \begin{gather}
+        x_{n + 1} = \frac{\alpha + x_n}{1 + x_n} = \frac{\alpha + \left(\frac{\alpha + x_{n - 1}}{1 + x_{n - 1}}\right)}{1 + \left(\frac{\alpha + x_{n - 1}}{1 + x_{n - 1}}\right)} = \frac{2\alpha + (1 + \alpha)x_{n - 1}}{(1 + \alpha) + 2x_{n - 1}} = x_{n - 1} + \delta_n,
+      \end{gather}
+      where $\delta_n = \frac{\alpha - x_{n - 1}^2}{\frac{1}{2}(1 + \alpha) + x_{n - 1}}$. Hence, if
+      $x_{n - 1} > \sqrt{\alpha}$, then $\delta_n < 0$ and thus $x_{n + 1} < x_{n - 1}$. Otherwise, we
+      have $\delta_n > 0$, and so $x_{n + 1} > x_{n - 1}$.
+
+      Let $a_m = x_{2m - 1}$, for $m \geq 1$. We now show that $a_{m} > \sqrt{\alpha}$ by induction
+      on $m$. The base case is clear. Suppose $m > 1$. By induction, $a_{m - 1} > \sqrt{\alpha}$,
+      and so $a_{m} - a_{m - 1} = \delta_m < 0$. Hence, $a_m$ is monotonically decreasing.
+    \end{proof}
+    \item Prove that $x_2 < x_4 < x_6 < \ldots$.
+    \begin{proof}
+      Similar to (a), we show that $b_m = x_{2m} < \sqrt{\alpha}$ by induction on $m$. We first
+      prove the base case $m = 1$. Let $\epsilon = x_1 - \sqrt{\alpha} > 0$. Then,
+      \[
+        x_2 = x_1 + \frac{\alpha - x_1^2}{1 + x_1} = x_1 + \frac{(\sqrt{\alpha} - x_1)(\sqrt{\alpha} + x_1)}{1 + x_1} = x_1 - \frac{\sqrt{\alpha} + x_1}{1 + x_1} \cdot \epsilon.
+      \]
+      It follows that $\frac{\sqrt{\alpha} + x_1}{1 + x_1} > 1$, so $x_2 < x_1 - \epsilon =
+      \sqrt{\alpha}$. Suppose $m > 1$. Define $\delta_m$ the way we did in (1). By induction, $b_{m
+      - 1} < \sqrt{\alpha}$, and so $b_{m} - b_{m - 1} = \delta_m > 0$. Hence, $b_m$ is
+      monotonically increasing.
+    \end{proof}
+    \item Prove that $\lim x_n = \sqrt{\alpha}$.
+    \begin{proof}
+      We show that both subsequences $a_n$ and $b_n$ converge to $\sqrt{\alpha}$. Since both $a_n$
+      and $b_n$ are bounded and monotomic, by Theorem 3.14, $a_n \to a$ and $b_n \to b$, where $a
+      \geq \sqrt{\alpha} \geq b$. Notice that $\lim a_n = \lim a_{n + 1} = a$ and $\lim b_n = \lim
+      b_{n + 1} = b$. By (1),
+      \[
+        a = a + \lim \delta_m = a + \frac{\alpha - a^2}{\frac{1}{2}(1 + \alpha) + a},
+      \]
+      \[
+        b = b + \lim \delta_m = b + \frac{\alpha - b^2}{\frac{1}{2}(1 + \alpha) + b},
+      \]
+      and solving the equations gives us $a = b = \sqrt{\alpha}$. Take $\gamma > 0$. There exists
+      $m_a$ and $m_b$ such that $|a_k - \sqrt{\alpha}|, |b_l - \sqrt{\alpha}| < \gamma$, for all $k
+      > m_a$ and $l > m_b$. Hence, for all $n \geq \max(m_a, m_b)$, we have $|x_n - \sqrt{\alpha}| <
+      \gamma$, and the result follows.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $(p_n)$ is a Cauchy sequence in a metric space $X$, and some subsequence $(p_{n_i})$
+  converges to a point $p \in X$. Prove that the full sequence $(p_n)$ converges to $p$.
+
+  \begin{proof}
+    Fix $\epsilon > 0$. There exists integer $N$ such that $d(p_n, p_m) < \frac{\epsilon}{2}$, for
+    all $m ,n \geq N$. Since $(p_{n_i})$ converges, there exists $N'$ such that $d(p_{n_i}, p) <
+    \frac{\epsilon}{2}$, for all $i \geq N'$. Hence, for all $n \geq N$, pick $i > N'$ such that
+    $n_i \geq N$ and we have
+    \[
+      d(p_n, p) \leq d(p_n, p_{n_1}) + d(p_{n_i}, p) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon,
+    \]
+    and the result follows.
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
