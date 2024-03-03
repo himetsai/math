@@ -1,0 +1,345 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Mar 4, 2024}
+\newcommand{\hmwkClass}{MATH 140A}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Investigate the behavior (convergence or divergence) of $\sum a_n$ if
+
+  \begin{enumerate}[(a)]
+      \item $a_n = \sqrt{n+1} - \sqrt{n}$;
+      \begin{proof}
+        \begin{align*}
+          \sum^{\infty}_{n = 1} a_n 
+          &=  \sqrt{2} - \sqrt{1} + \sqrt{3} - \sqrt{2} + \dots + \sqrt{n} - \sqrt{n - 1} + \sqrt{n + 1} - \sqrt{n} \\
+          &= \sqrt{n + 1} - 1.
+        \end{align*}
+        Hence, $\lim_{n \to \infty} (\sqrt{n + 1} - 1) = \infty$.
+      \end{proof}
+      \item $a_n = \left(\sqrt{n+1} - \sqrt{n}\right) / n$;
+      \begin{proof}
+        Notice $$a_n = \frac{\sqrt{n + 1} - \sqrt{n}}{n} = \frac{1}{n\sqrt{n + 1} + \sqrt{n}} <
+        \frac{1}{n\sqrt{n}} = \frac{1}{n^{\frac{3}{2}}}.$$ By Theorem 3.28, $\sum
+        \frac{1}{n^{\frac{3}{2}}}$ converges, and thus $\sum a_n$ converges by the compatison test.
+      \end{proof}
+      \item $a_n = \left( \sqrt[n]{n} - 1 \right)^n$;
+      \begin{proof}
+        Since
+        \[
+          \lim_{n \to \infty} \sqrt[n]{|a_n|} = \lim_{n \to \infty} \sqrt[n]{n} - 1 = 1 - 1 = 0, 
+        \]
+        $\sum a_n$ converges by the root test.
+      \end{proof}
+      \item $a_n = 1 / (1 + z^n)$, for complex values of $z$.
+      \begin{proof}
+        Suppose $|z| \leq 1$. Since
+        \[
+          |a_n| = \left|\frac{1}{1 + z^n}\right| \geq \frac{1}{1 + |z|^n} \geq \frac{1}{2},
+        \]
+        $a_n$ does not converge to $0$, and thus $\sum a_n$ diverges.
+
+        Suppose $|z| > 1$. Notice
+        \[
+          |a_n| = \left|\frac{1}{1 + z^n}\right| \leq \frac{1}{|z^n|} = \left|\frac{1}{z}\right|^n.
+        \]
+        Since $\lim_{n \to \infty} \sqrt[n]{\left|\frac{1}{z}\right|^n} = \frac{1}{|z|} < 1$, $\sum
+        \left|\frac{1}{z}\right|^n$ converges by the root test, and thus $a_n$ converges by the
+        comparison test.
+      \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove that the convergence of $\sum a_n$ implies the convergence of $\sum \frac{\sqrt{a_n}}{n}$,
+  if $a_n \geq 0$.
+
+  \begin{proof}
+    Note that both $\sum a_n$ and $\sum \frac{1}{n^2}$ converges absolutely. By the Cauchy-Schwarz
+    inequality, 
+    \[
+      \left(\sum \frac{\sqrt{a_n}}{n}\right)^2 \leq \sum a_n \sum \frac{1}{n^2}.
+    \]
+    Since $\sum a_n \sum \frac{1}{n^2}$ converges, $\sum \frac{\sqrt{a_n}}{n}$ is bounded. But then
+    $\sum \frac{\sqrt{a_n}}{n}$ is a series of nonnegative terms, so it converges.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If $\sum a_n$ converges and if $(b_n)$ is monotonic and bounded, prove that $\sum a_n b_n$
+  converges.
+
+  \begin{proof}
+    Since $(b_n)$ is monotonic and bounded, $(b_n)$ converges. Put $A = \sum^{\infty}_{n = 1} a_n$
+    and $B = \lim b_n$. Let $c_n = b_n - B$ if $b_n$ monotonically decreases. Otherwise, let $c_n =
+    B - b_n$. In this way, we guarantee $c_n$ is monotonically decreasing and $c_n \to 0$. Then,
+    \[
+      \sum^{\infty}_{n = 1} a_nb_n = \sum^{\infty}_{n = 1} a_n(b_n - B + B),
+    \]
+    so $\sum^{\infty}_{n = 1} a_nb_n = \sum^{\infty}_{n = 1} a_nc_n \pm AB$, depending on whether
+    $b_n$ monotonically increases or decreases. Since $\sum a_n$ converges, it follows from Theorem
+    3.42 that $\sum a_nc_n$ converges, and thus $\sum a_nb_n$ converges.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the radius of convergence of each of the following power series:
+  \begin{enumerate}[(a)]
+    \item $\sum n^3 z^n$
+    \begin{proof}
+      Since
+      \begin{align*}
+        \limsup_{n \to \infty} \sqrt[n]{n^3} = \limsup_{n \to \infty} {(\sqrt[n]{n})^3} = 1,
+      \end{align*}
+      the radius of convergence is $1$.
+    \end{proof}
+    \item $\sum \frac{2^n}{n!} z^n$
+    \begin{proof}
+      Since
+      \begin{align*}
+        \limsup_{n \to \infty} \left|\frac{a_{n + 1}}{a_n}\right| = \limsup_{n \to \infty} \left|\frac{2}{n + 1}\right| = 0
+      \end{align*}
+      The radius of convergence is $\infty$.
+    \end{proof}
+    \item $\sum \frac{2^n}{n^2} z^n$
+    \begin{proof}
+      Since
+      \begin{align*}
+        \limsup_{n \to \infty} \left|\frac{a_{n + 1}}{a_n}\right| = \limsup_{n \to \infty} 2\left(\frac{n}{n + 1}\right)^2 = 2
+      \end{align*}
+      The radius of convergence is $\frac{1}{2}$.
+    \end{proof}
+    \item $\sum \frac{n^3}{3^n} z^n$.
+    \begin{proof}
+      Since
+      \begin{align*}
+        \limsup_{n \to \infty} \left|\frac{a_{n + 1}}{a_n}\right| = \limsup_{n \to \infty} \frac{1}{3}\left(\frac{n + 1}{n}\right)^2 = \frac{1}{3}
+      \end{align*}
+      The radius of convergence is $3$.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose that the coefficients of the power series $\sum a_n z^n$ are integers, infinitely many of
+  which are distinct from zero. Prove that the radius of convergence is at most 1.
+
+  \begin{proof}
+    Since infinitely many of $a_n$ are distinct from zero, $\limsup_{n \to \infty} |a_n z^n| \geq \limsup_{n \to \infty} |z|^n \geq 1$
+    when $z > 0$. But then $|a_n z^n|$ does not converge to $0$, so $\sum a_n z^n$ diverges when
+    $|z| \geq 1$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove the following analogue of Theorem 3.10(b): If $(E_n)$ is a sequence of closed, nonempty, and
+  bounded sets in a \textit{complete} metric space $X$, if $E_n \supset E_{n+1}$, and if
+  \[
+    \lim_{n \to \infty} \text{diam } E_n = 0,
+  \]
+  then $\bigcap_{n=1}^{\infty} E_n$ consists of exactly one point.
+
+  \begin{proof}
+    Since $E_n$ is nonempty, let $(p_n)$ be a sequence such that $a_n \in E_n$ for all $n$. Let
+    $K_N$ contain the points $p_n, p_{N + 1}, \ldots$. Since $K_N \subset E_N$ and $E_N$ is bounded, 
+    \[
+      \lim_{n \to \infty} \text{diam } K_n \leq \lim_{n \to \infty} \text{diam } E_n = 0,
+    \]
+    and so $(p_n)$ is a Cauchy sequence. Since $X$ is complete, $p_n$ converges to some point $p \in
+    X$. Note that $p$ is a limit point of every $E_n$. But then $E_n$ is closed, so $p \in E_n$ for
+    all $n$, that is, $p \in \bigcap_{n=1}^{\infty} E_n$. Suppose for the sake of contradiction that
+    $\bigcap_{k=1}^{\infty} E_k$ contains two distinct points $p, q$. But since
+    $\bigcap_{k=1}^{\infty} E_k \subset E_n$ for all $n$, 
+    \[
+      0 < \text{diam} \bigcap_{k=1}^{\infty} E_k \leq \text{diam } E_n,
+    \]
+    and so $\text{diam } E_n$ does not converge to $0$, contradiction.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $X$ is a nonempty complete metric space, and $(G_n)$ is a sequence of dense open subsets
+  of $X$. Prove Baire's theorem, namely, that $\bigcap_{n=1}^{\infty} G_n$ is not empty (In fact, it
+  is dense in $X$). \textit{Hint}: Find a shrinking sequence of neighborhoods $E_n$ such that
+  $\overline{E}_n \subset G_n$, and apply Exercise 3.21.
+
+  \begin{proof}
+    We inductively construct sequence of open sets $(E_n)$. Since $G_1$ is open and nonempty, let
+    $x_1 \in G_1$. There exists small enough $\epsilon_1 > 0$ such that $\text{diam }
+    N_{\epsilon_1}(x_1) < 1$ and $\overline{N_{\epsilon_1}(x_1)} \subset G_1$. Put $E_1 =
+    N_{\epsilon_1}(x_1)$. 
+    
+    Suppose that $E_n$ is constructed. Since $G_{n + 1}$ is dense and open, $E_n \cap G_{n + 1}$ is
+    nonempty and open. Let $x_{n + 1} \in E_n \cap G_{n + 1}$. There exists small enough
+    $\epsilon_{n + 1}$ such that $\text{diam } N_{\epsilon_{n + 1}}(x_{n + 1}) < \frac{1}{n + 1}$
+    and $\overline{N_{\epsilon_{n + 1}}(x_{n + 1})} \subset E_n \cap G_{n + 1}$. Put $E_{n + 1} =
+    N_{\epsilon_{n + 1}}(x_{n + 1})$. 
+
+    Thus, we have constructed a sequence of closed, nonempty, and bounded sets $\overline{E_n}$.
+    Since $G_n \supset \overline{E_n} \supset \overline{E_{n + 1}}$ and
+    \[
+      \lim_{n \to \infty} \text{diam } \overline{E_n} = \lim_{n \to \infty} \text{diam } E_n \leq \lim_{n \to \infty} \frac{1}{n} = 0,
+    \]
+    it follows from Exercise 3.21 that $\bigcap_{n = 1}^{\infty} G_n \supset \bigcap_{n =
+    1}^{\infty} \overline{E_n} \neq \emptyset$.
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
