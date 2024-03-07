@@ -1,0 +1,236 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#8}
+\newcommand{\hmwkDueDate}{Mar 8, 2024}
+\newcommand{\hmwkClass}{MATH 140A}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Suppose $a_n > 0$, $s_n = a_1 + \cdots + a_n$, and $\sum a_n$ diverges.
+  \begin{enumerate}[(a)]
+      \item Prove that $\sum \frac{a_n}{(1 + a_n)}$ diverges.
+      \begin{proof}
+        Note that if $a_n > 1$, then $\frac{a_n}{a_n + 1} = 1 - \frac{1}{a_n + 1} > \frac{1}{2}$. On
+        the other hand, if $a_n \leq 1$, we have $\frac{a_n}{a_n + 1} \geq \frac{a_n}{2}$. If there
+        are infinitely many $n$ such that $a_n > 1$, then the series obviously diverges, as it would
+        be greater than the sum of infinitely many $\frac{1}{2}$. Hence, we may assume there exists
+        $N \geq 0$ such that $a_n \leq 1$ for all $n \geq N$. But then
+        \[
+          \sum \frac{a_n}{(1 + a_n)} \geq \sum_{n = 1}^{N - 1} \frac{a_n}{(1 + a_n)} + \frac{1}{2}\sum_{n = N}^{\infty} a_n.
+        \]
+        Since $\sum a_n$ diverges, $\frac{1}{2}\sum_{n = N}^{\infty} a_n$ diverges, by comparison
+        test. The result now follows.
+      \end{proof}
+      \item Prove that 
+      \[
+        \frac{a_{N+1}}{s_{N+1}} + \cdots + \frac{a_{N+k}}{s_{N+k}} \geq 1 - \frac{s_N}{s_{N+k}}
+      \]
+      and deduce that $\sum \frac{a_n}{s_n}$ diverges.
+      \begin{proof}
+        We first note that 
+        \[
+          \frac{a_{N+1}}{s_{N+1}} + \cdots + \frac{a_{N+k}}{s_{N+k}} \geq \frac{a_{N + 1} + \dots + a_{N + k}}{s_{N + k}} =  1 - \frac{s_N}{s_{N+k}}.
+        \]
+        Fix $\epsilon \in (0, 1)$. Since $S_n$ is increasing and unbounded, $\frac{s_N}{s_{N+k}} \to
+        0$. Hence, we may find large enough $k$ such that $\frac{s_N}{s_{N+k}} < 1 - \epsilon$. But
+        then $\sum_{n = N + 1}^{N + k} \frac{a_n}{s_n} \geq \epsilon$, which fails to meet the
+        Cauchy criterion.
+      \end{proof}
+      \item Prove that 
+      \[
+        \frac{a_n}{s_n^2} \leq \frac{1}{s_{n-1}} - \frac{1}{s_n}
+      \]
+      and deduce that $\sum \frac{a_n}{s_n^2}$ converges.
+      \begin{proof}
+        Since
+        \[
+          \frac{a_n}{s_n^2} \leq \frac{a_n}{s_{n - 1}s_n} = \frac{1}{s_{n-1}} - \frac{1}{s_n},
+        \]
+        the consecutive terms cancel out, and we get $\sum_{n = 1}^N \frac{a_n}{s_n^2} \leq \sum_{n
+        = 2}^N \frac{1}{s_{n-1}} - \frac{1}{s_n} = \frac{1}{a_1} - \frac{1}{s_N}$. But then $s_n$ is
+        increasing and unbounded, and thus
+        \[
+          \frac{1}{a_1} \leq \lim_{N \to \infty} \sum \frac{a_n}{s_n^2} \leq \lim_{N \to \infty} \frac{1}{a_1} - \frac{1}{s_N} = \frac{1}{a_1}.
+        \]
+        Hence, the series converges to $\frac{1}{a_1}$.
+      \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $a_n > 0$ and $\sum a_n$ converges. Put 
+    \[
+    r_n = \sum_{m=n}^{\infty} a_m.
+    \]
+  \begin{enumerate}[(a)]
+    \item Prove that 
+    \[
+      \frac{a_m}{r_m} + \dots + \frac{a_n}{r_n} > 1 - \frac{r_n}{r_m}
+    \]
+    if $m < n$, and deduce that $\sum \frac{a_n}{r_n}$ diverges.
+    \begin{proof}
+      Let $A = \sum_{n = 1}^{\infty} a_n$. We know $r_n = A - s_n$, where $s_n$ is the sum of the
+      first $n - 1$ terms of $a_n$. Note that for $n > m$, we have $r_n < r_m$, as $s_{n} > s_m$.
+      Hence,
+      \[
+        \frac{a_m}{r_m} + \dots + \frac{a_n}{r_n} > \frac{a_m + \dots + a_{n - 1}}{r_m} = \frac{r_m - r_n}{r_m} = 1 - \frac{r_n}{r_m}.
+      \]
+      Fix 
+      
+      $\lim_{n \to \infty} \sum_{k=m}^{n} \frac{a_n}{r_n}$
+    \end{proof}
+    \item Prove that
+    \[
+    \frac{a_n}{\sqrt{r_n}} < 2\left( \sqrt{r_n} - \sqrt{r_{n+1}} \right)
+    \]
+    and deduce that $\sum \frac{a_n}{\sqrt{r_n}}$ converges.
+  \end{enumerate}
+\end{homeworkProblem}
+\end{document}
