@@ -1,0 +1,332 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Mar 15, 2024}
+\newcommand{\hmwkClass}{MATH 180B}
+\newcommand{\hmwkClassInstructor}{Professor Carfagnini}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\p}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Suppose that customers arrive at a facility according to a Poisson process having rate $\lambda =
+  2$. Let $X(t)$ be the number of customers that have arrived up to time $t$. Determine the
+  following probabilities and conditional probabilities:
+  \begin{enumerate}[(a)]
+    \item $\Pr\{X(1) = 2\}$.
+    \begin{proof}
+      \begin{align*}
+        \Pr\{X_1 = 2\}
+        &= \frac{\lambda^2 e^{-\lambda}}{2!} = 2e^{-2}.
+      \end{align*}
+    \end{proof}
+    \item $\Pr\{X(1) = 2 \text{ and } X(3) = 6\}$.
+    \begin{proof}
+      \begin{align*}
+        \Pr\{X_1 = 2 \text{ and } X_3 = 6\}
+        &= \Pr\{X_1 = 2 \text{ and } X_3 - X_1 = 4\} \\
+        &= \Pr\{X_1 = 2\}\Pr\{X_3 - X_1 = 4\} \\
+        &= 2e^{-2} \cdot \frac{(2\lambda)^4e^{-2\lambda}}{4!} \\
+        &= 2e^{-2} \cdot \frac{32e^{-4}}{3} \\
+        &= \frac{64e^{-6}}{3}.
+      \end{align*}
+    \end{proof}
+    \item $\Pr\{X(1) = 2 | X(3) = 6\}$.
+    \begin{proof}
+      By Theorem 5.6,
+      \begin{align*}
+        \Pr\{X_1 = 2 | X_3 = 6\}
+        &= {6 \choose 2}\left(\frac{1}{3}\right)^2\left(1 - \frac{1}{3}\right)^4 \\
+        &= 15 \cdot \frac{1}{9} \cdot \frac{16}{81} \\
+        &= \frac{80}{243}.
+      \end{align*}
+    \end{proof}
+    \item $\Pr\{X(3) = 6 | X(1) = 2\}$.
+    \begin{proof}
+      \begin{align*}
+        \Pr\{X_3 = 6 | X_1 = 2\}
+        &= \frac{\Pr\{X_3 - X_1 = 4\}\Pr\{X_1 = 2\}}{\Pr\{X_1 = 2\}} \\
+        &= \Pr\{X_3 - X_1 = 4\} \\
+        &= \frac{32e^{-4}}{3}.
+      \end{align*}
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Shocks occur to a system according to a Poisson process of rate $\lambda$. Suppose that the system
+  survives each shock with probability $\alpha$, independently of other shocks, so that its
+  probability of surviving $k$ shocks is $\alpha^k$. What is the probability that the system is
+  surviving at time $t$?
+
+  \begin{proof}
+    Let $X_t$ denote the number of shocks at time $t$ and $S_t$ be the event that the system
+    survives at time $t$. Then,
+    \begin{align*}
+      \Pr(S_t)
+      &= \sum_{k = 0}^{\infty} \Pr\{S_t \mid X_t = k\}\Pr\{X_t = k\} \\
+      &= \sum_{k = 0}^{\infty} \alpha^k \cdot \frac{(t\lambda)^ke^{-t\lambda}}{k!} \\
+      &= e^{-t\lambda}\sum_{k = 0}^{\infty} \frac{(\alpha t\lambda)^k}{k!} \\
+      &= e^{-t\lambda}e^{-\alpha t\lambda} = e^{(\alpha - 1)t\lambda}.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Determine numerical values to three decimal places for $\Pr\{X = k\}$, $k = 0, 1, 2$, when
+  \begin{enumerate}[(a)]
+    \item $X$ has a binomial distribution with parameters $n = 20$ and $p = 0.06$.
+    \begin{proof}
+      \[
+        \Pr\{X = k\} = {20 \choose k}(0.06)^k(0.94)^{20 - k}.
+      \]
+      Hence,
+      \[
+        \Pr\{X = 0\} = 0.290, \quad \Pr\{X = 1\} = 0.370, \quad \Pr\{X = 2\} = 0.225.
+      \]
+    \end{proof}
+    \item $X$ has a binomial distribution with parameters $n = 40$ and $p = 0.03$.
+    \begin{proof}
+      \[
+        \Pr\{X = k\} = {40 \choose k}(0.03)^k(0.97)^{40 - k}.
+      \]
+      Hence,
+      \[
+        \Pr\{X = 0\} = 0.296, \quad \Pr\{X = 1\} = 0.366, \quad \Pr\{X = 2\} = 0.221.
+      \]
+    \end{proof}
+    \item $X$ has a Poisson distribution with parameter $\lambda = 1.2$.
+    \begin{proof}
+      \[
+        \Pr\{X = k\} = \frac{(1.2)^ke^{-1.2}}{k!}.
+      \]
+      Hence,
+      \[
+        \Pr\{X = 0\} = 0.301, \quad \Pr\{X = 1\} = 0.361, \quad \Pr\{X = 2\} = 0.217.
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For $i = 1, \ldots, n$, let $\{X_i(t); t \geq 0\}$ be independent Poisson processes, each with the
+  same parameter $\lambda$. Find the distribution of the first time that at least one event has
+  occurred in every process.
+
+  \begin{proof}
+    Let $T$ denote the first time that at least one event has occurred in every process. Then, the
+    CDF of the desired distribution is
+    \begin{align*}
+      \Pr\{T < t\}
+      &= \prod_{i = 1}^n \Pr\{X_t \geq 1\} \\
+      &= \prod_{i = 1}^n 1 - (t\lambda)^0e^{-t\lambda} \\
+      &= \left(1 - e^{-t\lambda}\right)^n
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Customers arrive at a certain facility according to a Poisson process of rate $\lambda$. Suppose
+  that it is known that five customers arrived in the first hour. Determine the mean total waiting
+  time $E[W_1 + W_2 + \ldots + W_5]$.
+
+  \begin{proof}
+    We give each customer a label. Let $U_k$ denote the time customer $k$ arrive at the facility. By
+    Theorem 5.7, $U_k$ is of a uniform distribution. Hence, 
+    \[
+      E[W_1 + W_2 + \ldots + W_5] = E[U_1 + U_2 + \ldots + U_5] = 5E[U_1] = \frac{5}{2}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $W_1, W_2, \ldots$ be the event times in a Poisson process $\{X(t); t \geq 0\}$ of rate
+  $\lambda$. Suppose it is known that $X(1) = n$. For $k < n$, what is the conditional density
+  function of $W_1, \ldots, W_{k-1}, W_{k+1}, \ldots, W_n$, given that $W_k = w$?
+
+  \begin{proof}
+    \begin{align*}
+      f_{W_1, \ldots, W_{k-1}, W_{k+1}, \ldots, W_n|W_k, X_1 = n}&(w_1, \dots, w_n|w) \\
+      &= f_{W_1, \ldots, W_{k-1}|X_{w} = k - 1}(w_1, \dots, w_{k - 1})f_{W_1, \ldots, W_{n - k}|X_{1 - w} = n - k}(w_1, \dots, w_{n - k}) \\
+      &= \frac{(k - 1)!}{w^{1 - k}} \cdot \frac{(n - k)!}{(1 - w)^{k - n}}
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $W_1, W_2, \ldots$ be the event times in a Poisson process $\{X(t); t \geq 0\}$ of rate
+  $\lambda$, and let $f(w)$ be an arbitrary function. Verify that
+  \[
+    E\left[\sum_{i=1}^{X(t)} f(W_i)\right] = \lambda \int_{0}^{t} f(w)dw.
+  \]
+
+  \begin{proof}
+    Let $U_1, \ldots, U_n$ denote independent random variables that are uniformly distributed in
+    $(0, t]$. By Theorem 5.7,
+    \begin{align*}
+      E\left[\sum_{i=1}^{X(t)} f(W_i)\right]
+      &= \sum_{n = 1}^{\infty} E\left[\sum_{i=1}^{n} f(W_i) | X(t) = n\right]\Pr\{X(t) = n\} \\
+      &= \sum_{n = 1}^{\infty} E\left[\sum_{i=1}^{n} f(U_i)\right]\Pr\{X(t) = n\} \\
+      &= E\left[f(U_1)\right]\sum_{n = 1}^{\infty} n\Pr\{X(t) = n\} \\
+      &= t\lambda E\left[f(U_1)\right] \\
+      &= t\lambda \int_{0}^t f(w)\Pr\{U_1 = w\} dw \\
+      &= \lambda \int_{0}^t f(w) dw.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
