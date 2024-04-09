@@ -1,0 +1,323 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{Apr 12, 2024}
+\newcommand{\hmwkClass}{MATH 140B}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Suppose $f'(x) > 0$ in $(a, b)$. Prove that $f$ is strictly increasing on $(a, b)$, and let $g$ be its inverse function. Prove that $g$ is differentiable and that
+  \[
+  g'(f(x)) = \frac{1}{f'(x)} \quad (a < x < b).
+  \]
+
+
+  \begin{proof}
+    Suppose for contradiction that there exists $x, y \in (a, b)$ such that $y > x$ but $f(y) <
+    f(x)$. Since $f$ is differentiable in $(x, y)$, there exists $w \in (x, y)$ such that $(y -
+    x)f'(w) = f(y) - f(x)$, by the Mean Value Theorem. But then $f'(w) < 0$, contradiction.
+
+    Pick any arbitrary closed set $S \subset (a, b)$. By Theorem 2.41, $S$ is compact. By Theorem
+    4.14, $f(S)$ is compact and thus closed in the domain of $g$. By Theorem 4.8, $g$ is continuous.
+    Let $y = f(x)$ and $s = f(t)$, such that $s \neq y$. Since $g$ is continuous, $t \to x$ as $s
+    \to y$. Note that $\frac{1}{f'(x)}$ exists. Hence,
+    \[
+      g'(f(x)) = \lim_{s \to y} \frac{g(s) - g(y)}{s - y} = \lim_{t \to x} \frac{1}{\frac{f(t) - f(x)}{t - x}} = \frac{1}{\lim\limits_{t \to x} \frac{f(t) - f(x)}{t - x}} = \frac{1}{f'(x)},
+    \]
+    and $g$ is differentiable, as $f$ is strictly increasing and thus injective.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If 
+  \[
+    C_0 + \frac{C_1}{2} + \ldots + \frac{C_{n-1}}{n} + \frac{C_n}{n+1} = 0,
+  \]
+  where $C_0, \ldots, C_n$ are real constants, prove that the equation
+  \[
+    C_0 + C_1 x + \ldots + C_{n-1}x^{n-1} + C_n x^n = 0
+  \]
+  has at least one real root between 0 and 1.
+
+  \begin{proof}
+    Define $f(x) = \sum_{k = 0}^n \frac{C_kx^{k + 1}}{k + 1}$. $f$ is differentiable as it is a real
+    polynomial, and $f'(x) = C_0 + C_1 x + \ldots + C_{n-1}x^{n-1} + C_n x^n$. But then $f(0) = f(1)
+    = 0$, and the result now follows from the mean value theorem.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose
+  \begin{enumerate}[(a)]
+    \item $f$ is continuous for $x \geq 0$,
+    \item $f'(x)$ exists for $x > 0$,
+    \item $f(0) = 0$,
+    \item $f'$ is monotonically increasing.
+  \end{enumerate}
+  Put 
+  \[ 
+    g(x) = \frac{f(x)}{x} \quad (x > 0) 
+  \]
+  and prove that $g$ is monotonically increasing.
+
+  \begin{proof}
+    Notice that $g(x) = \frac{f(x) - f(0)}{x - 0}$. By the mean value theorem, there exists $w \in
+    (0, x)$ such that $f'(w) = g(x)$. Since $f'$ is monotonically increasing and $x > w$, $f'(x)
+    \geq f'(w) = \frac{f(x)}{x}$, and so $xf'(x) - f(x) \geq 0$. But then $g$ is differentiable and
+    $g'(x) = \frac{xf'(x) - f(x)}{x^2} \geq 0$, by Theorem 5.3. Pick any $a, b$ such that $b > a >
+    0$. By the mean value theorem, $g(b) - g(a) = (b - a)g'(p) \geq 0$, for some $p > 0$, and the
+    result follows.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f'$ is continuous on $[a, b]$ and $\varepsilon > 0$. Prove that there exists $\delta > 0$
+  such that
+  \[
+    \left| \frac{f(t) - f(x)}{t - x} - f'(x) \right| < \varepsilon
+  \]
+  whenever $0 < |t - x| < \delta$, $a \leq x \leq b$, $a \leq t \leq b$. (This could be expressed by
+  saying that $f$ is uniformly differentiable on $[a, b]$ if $f'$ is continuous on $[a, b]$.) Does
+  this hold for vector-valued functions too?
+
+  \begin{proof}
+    Since $f'$ is continuous on a compact set, $f'$ is uniformly continuous, by Theorem 4.19. That
+    is, there exists $\delta > 0$ such that $|f'(y) - f'(x)| < \epsilon$, for all $|y - x| < \delta$,
+    $y, x \in [a, b]$. By the mean value theorem, for any $x, t \in [a, b]$ such that $0 < |x - t| <
+    \delta$, 
+    \[
+      \left| \frac{f(t) - f(x)}{t - x} - f'(x) \right| = \left| f'(w) - f'(x) \right| < \epsilon,
+    \]
+    for some $w$ between $x$ and $t$, as $|w - x| < |t - x| < \delta$.
+
+    Since this holds for all components, it also holds for vector-valued functions, by Theorem 3.4.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $f$ be a continuous real function on $\mathbb{R}^1$, of which it is known that $f'(x)$ exists
+  for all $x \neq 0$ and that $f'(x) \rightarrow 3$ as $x \rightarrow 0$. Does it follow that
+  $f'(0)$ exists?
+
+  \begin{proof}
+    Since $f$ is continuous and differentiable on $\R \backslash 0$, for all $x \neq 0$ we have
+    \[
+      \frac{f(x) - f(0)}{x} = f'(w),
+    \]
+    for some $w$ between $0$ and $x$. But then 
+    \[
+      f'(0) = \lim_{x \to 0} \frac{f(x) - f(0)}{x} = \lim_{x \to 0} f'(w) = 3,
+    \]
+    since $w \to 0$ as $x \to 0$. The result now follows.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f$ is a real, three times differentiable function on $[-1,1]$, such that
+  \[
+    f(-1) = 0, \quad f(0) = 0, \quad f(1) = 1, \quad f'(0) = 0.
+  \]
+  Prove that $f^{(3)}(x) \geq 3$ for some $x \in (-1,1)$. Note that equality holds for $\frac{x^3 +
+  x^2}{2}$. \textit{Hint:} Use Theorem 5.15, with $\alpha = 0$ and $\beta = \pm1$, to show that
+  there exists $s \in (0,1)$ and $t \in (-1,0)$ such that
+  \begin{gather}
+    f^{(3)}(s) + f^{(3)}(t) = 6.
+  \end{gather}
+
+  \begin{proof}
+    Define function $P$ over $[-1, 1]$ as
+    \[
+      P(x) = \sum_{k = 0}^{2} \frac{f^{(k)}(0)}{k!} \cdot x^k = \frac{f''(0)}{2} \cdot x^2.
+    \]
+    By Taylor's Theorem, there exists $s \in (0, 1)$ and $t \in (-1, 0)$ such that 
+    \[
+      f(1) = P(1) + \frac{f^{(3)}(s)}{6}, \quad \text{and} \quad f(-1) = P(-1) - \frac{f^{(3)}(t)}{6}.
+    \]
+    Note that $P(1) = P(-1)$. Combining both equations, we get 
+    \[
+      f(1) - f(-1) = 1 = \frac{f^{(3)}(s)}{6} + \frac{f^{(3)}(t)}{6},
+    \]
+    and (1) follows. Since the average of $f^{(3)}(s)$ and $f^{(3)}(t)$ is 3, one of them must be at
+    least 3.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f$ is differentiable on $[a, b]$, $f(a) = 0$, and there is a real number $A$ such that
+  $|f'(x)| \leq A |f(x)|$ on $[a, b]$. Prove that $f(x) = 0$ for all $x \in [a, b]$.
+
+  \begin{proof}
+    Fix $x_0 \in [a, b]$, and let
+    \[
+      M_0 = \sup |f(x)|, \quad M_1 = \sup |f'(x)|
+    \]
+    for $a \leq x \leq x_0$. For any such $x$,
+    \[
+      |f(x)| \leq M_1 (x_0 - a) \leq A(x_0 - a)M_0.
+    \]
+    Hence $M_0 = 0$ if $A(x_0 - a) < 1$. That is, $f = 0$ on $[a, x_0]$. To achieve this, we may
+    pick $x_0 = a + \frac{1}{2A}$. Hence, it remains to show that $f = 0$ on $[x_0, b]$. Again, we
+    may pick $x_1 = x_0 + \frac{1}{2A} = a + 2 \cdot \frac{1}{2A}$. Then, $A(x_1 - x_0) =
+    \frac{1}{2} < 1$, and thus it remains to show that $f = 0$ on $[x_1, b]$, and so on. Let natural
+    number $n > 2A(b - a)$. Since $x_n = a + n \cdot \frac{1}{2A} > b$, the above process would
+    reach $b$ and terminate after $n$ steps, which concludes that $f(x) = 0$ for all $x \in [a, b]$. 
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
