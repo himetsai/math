@@ -1,0 +1,329 @@
+\documentclass[12pt, oneside]{article}
+
+\usepackage[letterpaper, scale=0.8, centering]{geometry}
+\usepackage{fancyhdr}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\rfoot{{\footnotesize Copyright Mia Minnes, 2024, Version \today~(\thepage)}}
+
+\usepackage{titlesec}
+
+\author{CSE105W24}
+
+\newcommand{\instructions}{{\bf For all HW assignments:} Weekly homework 
+may be done individually or in groups of up to 3 students. 
+You may switch HW partners for different HW assignments. 
+Please ensure your name(s) and PID(s) are clearly visible on the first page of your homework submission 
+and then upload the PDF to Gradescope. If working in a group, submit only one submission per group: 
+one partner uploads the submission through their Gradescope account and then adds the other group member(s) 
+to the Gradescope submission by selecting their name(s) in the ``Add Group Members" dialog box. 
+You will need to re-add your group member(s) every time you resubmit a new version of your assignment.
+ Each homework question will be graded either for correctness (including clear and precise explanations and 
+ justifications of all answers) or fair effort completeness. 
+ For ``graded for correctness''
+ questions: collaboration is allowed only with CSE 105 students in your group; 
+ if your group has questions about a problem, you may ask in drop-in 
+ help hours or post a private post (visible only to the Instructors) on Piazza.
+ For ``graded for completeness''
+ questions: collaboration is allowed with any CSE 105 students this quarter; 
+ if your group has questions about a problem, you may ask in drop-in 
+ help hours or post a public post on Piazza.
+
+All submitted homework for this class must be typed. 
+You can use a word processing editor if you like (Microsoft Word, Open Office, Notepad, Vim, Google Docs, etc.) 
+but you might find it useful to take this opportunity to learn LaTeX. 
+LaTeX is a markup language used widely in computer science and mathematics. 
+The homework assignments are typed using LaTeX and you can use the source files 
+as templates for typesetting your solutions.
+To generate state diagrams of machines, we recommend using Flap.js
+or JFLAP. Photographs of clearly hand-drawn diagrams may also be used. We recommend that you
+submit early drafts to Gradescope so that in case of any technical difficulties, at least some of your
+work is present. You may update your submission as many times as you'd like up to the deadline.
+
+
+{\bf Integrity reminders}
+\begin{itemize}
+\item Problems should be solved together, not divided up between the partners. The homework is
+designed to give you practice with the main concepts and techniques of the course, 
+while getting to know and learn from your classmates.
+\item You may not collaborate on homework questions graded for correctness with anyone other than your group members.
+You may ask questions about the homework in office hours (of the instructor, TAs, and/or tutors) and 
+on Piazza (as private notes viewable only to the Instructors).  
+You \emph{cannot} use any online resources about the course content other than the class material 
+from this quarter -- this is primarily to ensure that we all use consistent notation and
+definitions (aligned with the textbook) and also to protect the learning experience you will have when
+the `aha' moments of solving the problem authentically happen.
+\item Do not share written solutions or partial solutions for homework with 
+other students in the class who are not in your group. Doing so would dilute their learning 
+experience and detract from their success in the class.
+\end{itemize}
+
+}
+
+\newcommand{\gradeCorrect}{({\it Graded for correctness}) }
+\newcommand{\gradeCorrectFirst}{\gradeCorrect\footnote{This means your solution 
+will be evaluated not only on the correctness of your answers, but on your ability
+to present your ideas clearly and logically. You should explain how you 
+arrived at your conclusions, using
+mathematically sound reasoning. Whether you use formal proof techniques or 
+write a more informal argument
+for why something is true, your answers should always be well-supported. 
+Your goal should be to convince the
+reader that your results and methods are sound.} }
+\newcommand{\gradeComplete}{({\it Graded for completeness}) }
+\newcommand{\gradeCompleteFirst}{\gradeComplete\footnote{This means you will 
+get full credit so long as your submission demonstrates honest effort to 
+answer the question. You will not be penalized for incorrect answers. 
+To demonstrate your honest effort in answering the question, we 
+expect you to include your attempt to answer *each* part of the question. 
+If you get stuck with your attempt, you can still demonstrate 
+your effort by explaining where you got stuck and what 
+you did to try to get unstuck.} }
+
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning,arrows}
+
+\usepackage{amssymb,amsmath,pifont,amsfonts,comment,enumerate,enumitem}
+\usepackage{currfile,xstring,hyperref,tabularx,graphicx,wasysym}
+\usepackage[labelformat=empty]{caption}
+\usepackage{xcolor}
+\usepackage{multicol,multirow,array,listings,tabularx,lastpage,textcomp,booktabs}
+
+\lstnewenvironment{algorithm}[1][] {   
+    \lstset{ mathescape=true,
+        frame=tB,
+        numbers=left, 
+        numberstyle=\tiny,
+        basicstyle=\rmfamily\scriptsize, 
+        keywordstyle=\color{black}\bfseries,
+        keywords={,procedure, div, for, to, input, output, return, datatype, function, in, if, else, foreach, while, begin, end, }
+        numbers=left,
+        xleftmargin=.04\textwidth,
+        #1
+    }
+}
+{}
+
+\newcommand\abs[1]{\lvert~#1~\rvert}
+\newcommand{\st}{\mid}
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+ 
+\newcommand{\SUBSTRING}{\textsc{Substring}}
+\newcommand{\REP}{\textsc{Rep}}
+\newcommand{\blank}{\scalebox{1.5}{\textvisiblespace}}
+ 
+\title{HW4CSE105W24: Homework assignment 4}
+\date{Due: February 29th at 5pm (no penalty late submission until 8am next morning), via Gradescope}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+{\bf In this assignment,}
+You will  practice analyzing, designing, and working with Turing machines.
+You will use general constructions and specific machines to explore the classes 
+of recognizable and decidable languages. 
+You will explore various ways to encode machines as strings so that 
+computational problems can be recognized.
+
+{\bf Resources}: To review the topics 
+for this assignment, see the class material from Weeks 5-7.
+We will post frequently asked questions and our answers to them in a 
+pinned Piazza post.
+
+{\bf Reading and extra practice problems}:  
+Sipser Sections 3.1, 3.3, 4.1
+Chapter 3 exercises 3.1, 3.2, 3.5, 3.8.
+Chapter 4 exercises 4.1, 4.2, 4.3, 4.4, 4.5.
+
+\instructions
+
+You will submit this assignment via Gradescope
+(\href{https://www.gradescope.com}{https://www.gradescope.com}) 
+in the assignment called ``hw4CSE105W24''.
+
+{\bf Assigned questions}
+\begin{enumerate}[wide, labelwidth=!, labelindent=0pt]
+
+
+\item\textbf{Classifying languages} (10 points):
+Our first example of a more complicated Turing machine was of a Turing machine 
+that recognized the language $\{w \# w \mid w \in\{0,1\}^*\}$, which we 
+know is not context-free. The language
+\[
+    \{0^n 1^n 2^n \mid n \geq 0\}
+\]
+is also not context-free. 
+
+\begin{enumerate}
+    \item\gradeCorrectFirst Give an implementation-level description of a Turing machine 
+    that recognizes this language.
+    \item\gradeCompleteFirst Draw a state diagram of the Turing machine you gave in part (a) and trace
+    the computation of this Turing machine on the input $012$. You may use all 
+    our usual conventions for state diagrams of Turing machines 
+    (we do not include the node for the reject state $qrej$ and any missing transitions 
+    in the state diagram have value $(qrej,\square,R)$; 
+    $b \to R$ label means $b \to b, R$ ).
+\end{enumerate}
+
+
+\item \textbf{Deciders, Recognizers, Decidability, and Recognizability} (15 points):
+For this question, consider the alphabet $\Sigma = \{0,1\}$.
+\begin{enumerate}
+\item[(a)]\gradeCorrect Give an example of a finite, nonempty language over $\Sigma$ and 
+two different Turing machines that recognize it: one that is a decider and one that is not.
+A complete solution will include a precise definition for your example language, 
+along with {\bf both} a state diagram and an implementation-level description 
+of each Turing machines, along with a brief explanation of why each of them recognizes
+the language and why one is a decider and there other is not.
+
+\item[(b)]\gradeCorrect True or false: There is a Turing machine that is not a decider that recognizes 
+the empty set. A complete solution will include a witness Turing machine (given by 
+state diagram or implementation-level description or high-level description) and a justification 
+for why it's not a decider and why it does not accept any strings, or a complete and correct
+justification for why there is no such Turing machine.
+
+\item[(c)]\gradeCorrect True or false: There is a Turing machine that is not a decider that recognizes 
+the set of all string $\Sigma^*$.  A complete solution will include a witness Turing machine 
+(given by 
+state diagram or implementation-level description or high-level description) and a justification 
+for why it's not a decider and why it accept each string over $\{0,1\}$, or a complete and correct
+justification for why there is no such Turing machine.
+\end{enumerate}
+
+\item\textbf{Closure} (15 points):
+Suppose $M$ is a Turing machine over the alphabet $\{0,1\}$. 
+Let $s_1, s_2, \ldots$ be a list of all strings in 
+$\{0,1\}^*$ in string (shortlex) order.
+We define a new Turing machine 
+by giving its high-level description as follows: 
+\begin{align*}
+   M_{new} &= ``\text{On input }w:\\
+    &\text{1. For $n = 1, 2, \ldots$}\\
+    &\text{2.~~~For $j = 1, 2, \ldots n$} \\
+    &\text{3.~~~For $k = 1, 2, \ldots, n$} \\
+    &\text{4.~~~~~~Run the computation of $M$ on $s_jws_k$}\\
+    &\text{5.~~~~~~If it accepts, accept.}\\
+    &\text{6.~~~~~~If it rejects, go to the next iteration of the loop"}\\
+\end{align*}
+
+Recall the definitions we have: 
+For languages $L_1, L_2$ over the alphabet $\Sigma = \{0,1\}$, we have the 
+associated sets of strings
+\[
+   SUBSTRING(L_1) = \{ w \in \Sigma^* ~|~ \text{there exist } a,b \in \Sigma^* \text{ such that } awb \in L_1\}
+\]
+and 
+\[
+   L_1 \circ L_2 = \{ w \in \Sigma^* ~|~ w = uv \text{ for some strings } u \in L_1 \text{ and } v \in L_2 \}
+\]
+We say that self-set-wise concatenation of the set $L_1$ is $L_1 \circ L_1$.
+
+
+{\it Note: there was a bug in the version of this assignment 
+that was first released.}
+
+\begin{enumerate}
+\item[(a)]\gradeComplete Prove that this Turing machine construction 
+{\bf cannot} be used to prove that the
+class of decidable languages over $\{0,1\}$ is closed under {\bf either} of the above operations
+($SUBSTRING$ or self-set-wise concatenation).
+A complete answer will give a counterexample or general description why the construction doesn't work for 
+both operations.
+\item[(b)] \gradeCorrect Prove that this Turing machine construction cannot be used to prove that the
+class of recognizable languages over $\{0,1\}$ is closed under the $SUBSTRING$ set operation. In particular, 
+give a counterexample of a specific language $L_1$ and Turing machine $M_1$ recognizing it where $M_{new}$ does not
+recognize $SUBSTRING(L_1)$.
+\item[(c)] \gradeComplete Define a new construction by slightly modifiying this one that can be used to prove  that the
+class of recognizable languages over $\{0,1\}$ is closed under $SUBSTRING$. Justify that 
+your construction works. The proof of correctness for the closure claim can be structured like: 
+``Let $L_1 $ be a recognizable language over $\{0,1\}$ and 
+assume we are given a Turing machine $M_1$ so that $L(M_1) = L_1$. Consider the new Turing machine 
+$M_{new}$ defined above. We will show that $L(M_{new}) = SUBSTRING(L_1) $... {\it complete the proof
+by proving subset inclusion in two directions, by tracing the relevant Turing machine computations}''
+\end{enumerate}
+
+\item \textbf{Computational problems} (10 points):
+Recall the definitions of some example computational problems from class
+
+\hspace{-30pt}
+    \begin{tabular}{|lcl|}
+    \hline
+    \multicolumn{3}{|l|}{{\bf  Acceptance problem} } \\
+    & & \\
+    \ldots for DFA & $A_{DFA}$ & $\{ \langle B,w \rangle \mid  \text{$B$ is a  DFA that accepts input 
+    string $w$}\}$ \\
+    \ldots for NFA & $A_{NFA}$ & $\{ \langle B,w \rangle \mid  \text{$B$ is a  NFA that accepts input 
+    string $w$}\}$ \\
+    \ldots for regular expressions & $A_{REX}$ & $\{ \langle R,w \rangle \mid  \text{$R$ is a  regular
+    expression that generates input string $w$}\}$ \\
+    \ldots for CFG & $A_{CFG}$ & $\{ \langle G,w \rangle \mid  \text{$G$ is a context-free grammar 
+    that generates input string $w$}\}$ \\
+    \ldots for PDA & $A_{PDA}$ & $\{ \langle B,w \rangle \mid  \text{$B$ is a PDA that accepts input string $w$}\}$ \\
+    & & \\
+    \hline
+    \multicolumn{3}{|l|}{{\bf Language emptiness  testing} } \\
+    & & \\
+    \ldots for DFA & $E_{DFA}$ & $\{ \langle A \rangle \mid  \text{$A$ is a  DFA and  $L(A) = \emptyset$\}}$ \\
+    \ldots for NFA & $E_{NFA}$ & $\{ \langle A\rangle \mid  \text{$A$ is a NFA and  $L(A) = \emptyset$\}}$ \\
+    \ldots for regular expressions & $E_{REX}$ & $\{ \langle R \rangle \mid  \text{$R$ is a  regular
+    expression and  $L(R) = \emptyset$\}}$ \\
+    \ldots for CFG & $E_{CFG}$ & $\{ \langle G \rangle \mid  \text{$G$ is a context-free grammar 
+    and  $L(G) = \emptyset$\}}$ \\
+    \ldots for PDA & $E_{PDA}$ & $\{ \langle A \rangle \mid  \text{$A$ is a PDA and  $L(A) = \emptyset$\}}$ \\
+    & & \\
+    \hline
+    \multicolumn{3}{|l|}{{\bf Language equality testing} } \\
+    & & \\
+    \ldots for DFA & $EQ_{DFA}$ & $\{ \langle A, B \rangle \mid  \text{$A$ and $B$ are DFAs and  $L(A) =L(B)$\}}$\\
+    \ldots for NFA & $EQ_{NFA}$ & $\{ \langle A, B \rangle \mid  \text{$A$ and $B$ are NFAs and  $L(A) =L(B)$\}}$\\
+    \ldots for regular expressions & $EQ_{REX}$ & $\{ \langle R, R' \rangle \mid  \text{$R$ and $R'$ are regular
+    expressions and  $L(R) =L(R')$\}}$\\
+    \ldots for CFG & $EQ_{CFG}$ & $\{ \langle G, G' \rangle \mid  \text{$G$ and $G'$ are CFGs and  $L(G) =L(G')$\}}$ \\
+    \ldots for PDA & $EQ_{PDA}$ & $\{ \langle A, B \rangle \mid  \text{$A$ and $B$ are PDAs and  $L(A) =L(B)$\}}$ \\
+    \hline
+    \end{tabular}
+
+\begin{enumerate}
+    \item[(a)] \gradeComplete Pick five of the computational problems above and give 
+    examples (preferably different from the ones we talked about in class) of strings that are
+    in each of the corresponding languages. Remember to use the 
+    notation $\langle \cdots \rangle$ to denote the string encoding of relevant objects.
+    {\it Extension, not for credit:} Explain why it's hard to write a specific string of 
+    $0$s and $1$s and make a claim about membership in one of these sets.
+    \item[(b)] \gradeComplete Computational problems can also be defined about Turing machines.
+    Consider the two high-level descriptions of Turing machines below.
+    Reverse-engineer them to define the computational problem that is being
+    recognized, where $L(M_{DFA})$ is the language corresponding to this computational
+    problem about DFA and $L(M_{TM})$ is the language corresponding to this computational
+    problem about Turing machines. {\it Hint}: the computational problem is not acceptance,
+    language emptiness, or language equality (but is related to one of them).
+
+    Let $s_1, s_2, \ldots$ be a list of all strings in 
+    $\{0,1\}^*$ in string (shortlex) order. Consider the following Turing machines
+    \begin{align*}
+        M_{DFA} &= ``\text{On input $\langle D \rangle$ where $D$ is a DFA}:\\
+         &\text{1. for $i=1, 2, 3, \ldots$} \\
+         &\text{2.~~~ Run $D$ on $s_i$} \\
+         &\text{3.~~~~If it accepts, accept.}\\
+         &\text{4.~~~~If it rejects, go to the next iteration of the loop"}\\
+     \end{align*}
+     and
+     \begin{align*}
+        M_{TM} &= ``\text{On input $\langle T \rangle$ where $T$ is a Turing machine}:\\
+         &\text{1. for $i=1, 2, 3, \ldots$} \\
+         &\text{2.~~~ Run $T$ for $i$ steps on each input $s_1, s_2, \ldots, s_i$ in turn} \\
+         &\text{3.~~~~If $T$ has accepted any of these, accept.}\\
+         &\text{4.~~~~Otherwise, go to the next iteration of the loop"}\\
+     \end{align*}
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
