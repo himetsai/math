@@ -1,0 +1,349 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+\usepackage{cancel}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\textsc{\hmwkHeader}}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+\newenvironment{topic}[1]{\subsection*{#1}}{}
+\newenvironment{lemma}[1]{\subsection*{Lemma #1.}}{}
+\newenvironment{defn}{\subsection*{Definition.}}{}
+\newenvironment{defnlemma}[1]{\subsection*{Definition-Lemma #1.}}{}
+\newenvironment{corollary}[1]{
+    \def\temp{#1}\def\null{&}\ifx\temp\null
+        \subsection*{Corollary.}
+    \else
+        \subsection*{Corollary #1.}
+    \fi
+    
+}{}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkInstitution}{University of California San Diego}
+\newcommand{\hmwkTitle}{\textsc{ECE 271 Notes}}
+\newcommand{\hmwkHeader}{Statistical Learning Notes}
+\newcommand{\hmwkInstructor}{Prof. Nuno Vasconcelos}
+\newcommand{\hmwkAuthorName}{Ray Tsai}
+
+%
+% Title Page
+%
+\title{
+    \vspace{2in}
+    \textsc{\Large\hmwkInstitution} \\
+    \vspace{0.2in}
+    \textmd{\textbf{\hmwkTitle}}\\
+    \vspace{0.2in}\large{Instructor: \textit{\hmwkInstructor}}
+}
+
+\author{
+  Organized by \hmwkAuthorName
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\G}{\mathcal{G}}
+\newcommand*{\D}{\mathcal{D}}
+
+\begin{document}
+
+
+\maketitle
+
+\thispagestyle{empty}
+\clearpage
+\pagenumbering{arabic} 
+
+\pagebreak
+
+\rhead{ECE 271A}
+
+% \begin{center}
+%     \section*{\\ Bayesian Decision Theory}
+% \end{center}
+
+% \vspace{0.2in}
+
+
+\begin{topic}{Bayes Decision Rule}
+    \begin{align*}
+        g^*(x) 
+        &= \underset{g(x)}{\arg \min} \, \sum_i P_{Y|X}(i|x)L[g(x), i] \\
+        &= \underset{i}{\arg \max} \, P_{Y|X}(i|x) && \text{(for 0-1 loss function)} \\
+        &= \underset{i}{\arg \max} \, P_{X|Y}(x|i)P_Y(i) && \text{(for 0-1 loss function)} \\
+        &= \underset{i}{\arg \max} \, \log P_{X|Y}(x|i) + \log P_Y(i). && \text{(for 0-1 loss function)}
+    \end{align*}
+    
+    For binary classification, the likelihood ratio form is: pick $0$ if $\frac{P_{X|Y}(x|0)}{P_{X|Y}(x|1)} > T^* = \frac{P_Y(1)}{P_X(0)}$.
+\end{topic}
+
+\begin{topic}{Associated Risk}
+    \[
+        R^* = \int P_X(x) \sum_{i \neq g^*(x)} P_{Y|X}(i|x) dx = \int P_{Y,X}(y \neq g^*(x), x) dx \quad \text{(For 0-1 loss function)}
+    \]
+\end{topic}
+
+\begin{topic}{Gaussian Classifier}
+    For single variable, we assume $\sigma_i = \sigma$ and pick 0 if
+    \[
+        x < \frac{\mu_1 + \mu_0}{2} + \frac{1}{\frac{\mu_1 - \mu_0}{\sigma^2}}\log \frac{P_Y(0)}{P_Y(1)}.
+    \]
+    Generalizing it to multiple variables, we assume $\Sigma_i = \Sigma$, then the BDR becomes
+    \[
+        i^*(x) = \underset{i}{\arg \min}[d(x, \mu_i) + \alpha_i],
+    \]
+    where $d(x, y) = (x - y)^T\Sigma^{-1}(x - y)$ and $\alpha_i = \cancel{\log\left[(2\pi)^d|\Sigma|\right]} - 2\log P_Y(i)$.
+
+    Alternatively,
+    \[
+        i^*(x) = \underset{i}{\arg \max} \, g_i(x),
+    \]
+    where $g_i(x) = w_i^Tx + w_{i0}$, $w_i = \Sigma^{-1}\mu_i$, and $w_{i0} = -\frac{1}{2}\mu_i^T\Sigma^{-1}\mu_i + \log P_Y(i)$.
+\end{topic}
+
+\begin{topic}{Geometric Interpretation}
+    Thus, the hyperplane between class $0$ and $1$ is 
+    \[
+        g_0(x) - g_1(x) = w^Tx + b = 0,
+    \]
+    where $w = \Sigma^{-1}(\mu_0 - \mu_1)$ and $b = -\frac{(\mu_0 + \mu_1)^T\Sigma^{-1}(\mu_0 - \mu_1)}{2} + \log \frac{P_Y(0)}{P_Y(1)}$.
+
+    It could also be rewritten as
+    \[
+        w^T(x - x_0) = 0,
+    \]
+    where $w = \Sigma^{-1}(\mu_0 - \mu_1)$ and $x_0 = \frac{\mu_0 + \mu_1}{2} - \frac{1}{(\mu_0 - \mu_1)^T\Sigma^{-1}(\mu_0 - \mu_1)} \log \frac{P_Y(0)}{P_Y(1)}(\mu_0 - \mu_1)$
+\end{topic}
+
+\begin{topic}{Gaussian Distribution Transformation}
+    Let $x \sim N(\mu, \Sigma)$, and let $y = A^Tx$, for some matrix $A$. Then, $y \sim N(A^T\mu, A^T\Sigma A)$. A special case of this is the whitening transform $A_w = \Phi\Lambda^{-1/2}$, where $\Phi$ is the matrix of orthonormal eigenvectors of $\Sigma$, and $\Lambda$ is the diagonal matrix of eigenvalues of $\Sigma$.
+\end{topic}
+
+\begin{topic}{Sigmoid}
+    Suppose that $g_1(x) = 1 - g_0(x)$. Then, we can rewrite
+    \[
+        g_0(x) = \frac{1}{1 + \frac{P_{X|Y}(x|1)P_Y(1)}{P_{X|Y}(x|0)P_Y(0)}} = \frac{1}{1 + \exp\{d_0(x, \mu_0) - d_1(x, \mu_1) + \alpha_0 - \alpha_1\}},
+    \]
+    where $d(x, y) = (x - y)^T\Sigma^{-1}(x - y)$ and $\alpha_i = \log \left[(2\pi)^d|\Sigma_i|\right] - 2\log P_Y(i)$.
+\end{topic}
+
+\begin{topic}{Maximum Likelihood Estimation}
+    Solve for
+    \[
+        \theta^* = \underset{\Theta}{\arg \max} \, P_{X;\Theta}(\D;\theta) = \underset{\Theta}{\arg \max} \, \log P_{X|\Theta}(\D;\theta).
+    \]
+    Consider the Gaussian example: 
+    
+    Given a sample $\D = \{x_1, \dots , x_n\}$ of independent points, where $P_X(x_i) = \frac{1}{\sqrt{(2\pi)^d|\Sigma|}}e^{-\frac{1}{2}(x_i - \mu)^T\Sigma^{-1}(x_i - \mu)}$.
+
+    Then, the likelihood $L(x_1, \dots, x_n|\mu, \sigma) = \prod_{i = 1}^n P_X(x_i)$.
+    We take the gradient of the natural log of $L$ with respect to $\mu$ and get
+    \begin{align*}
+        \nabla_{\mu} (\log L) 
+        &= \nabla_{\mu} \left(-\frac{1}{2}\log[(2\pi)^d|\Sigma|] - \frac{1}{2} \sum_{i = 1}^n (x_i - \mu)^T\Sigma^{-1}(x_i - \mu)\right) \\
+        &= \sum_{i = 1}^n \Sigma^{-1}(x_i - \mu) = \sum_{i = 1}^n x_i - \sum_{i = 1}^n \mu  = 0.
+    \end{align*}
+    Thus, we get $\hat{\mu} = \frac{1}{n}\sum_{i = 1}^n x_i$. 
+    By taking the Hessian, we get $\nabla_{\mu}^2(\log L) = -\sum_{i = 1}^n \Sigma^{-1} = -n\Sigma^{-1}$.
+    Since the covariance matrix $\Sigma$ is positive definite, $-n\Sigma^{-1}$ is negative definite. Thus $\hat{\mu}$ is the maximum point.
+
+    In addition, the MLE of the covariance matrix is
+    \[
+        \hat{\Sigma} = \frac{1}{n}\sum_{i = 1}^n (x_i - \mu)(x_i - \mu)^T.
+    \]
+\end{topic}
+
+\begin{topic}{Bias and Variance}
+    \begin{gather*}
+        Bias(\hat{\theta}) = E[\hat{\theta} - \theta], \quad Var(\hat{\theta}) = E\left\{(\hat{\theta} - E[\hat{\theta}])^2\right\}, \\
+        MSE(\hat{\theta}) = E\left[(\hat{\theta} - \theta)^2\right] = Var(\hat{\theta}) + Bias^2(\hat{\theta}).
+    \end{gather*}
+\end{topic}
+
+\begin{topic}{Least Squares}
+    Consider an overdetermined system $\Phi\theta = z$, where we attempt to minimize $\lVert z - \Phi\theta \rVert$, the least square solution is
+    \[
+        \theta^* = (\Phi^T\Phi)^{-1}\Phi^Tz.
+    \]
+    For a overdetermined system $W\Phi\theta = Wz$, where we attempt to minimize $(z - \Phi\theta)^TW^TW(z - \Phi\theta)$, the least square solution is
+    \[
+        \theta^* = (\Phi^TW^TW\Phi)^{-1}\Phi^TW^TWz.
+    \]
+\end{topic}
+
+\begin{topic}{Bayesian Estimation}
+    Pick $i$ if
+    \[
+        i^{*}(x) = \underset{i}{\arg \max} \, P_{X|Y, T}(x|i, \D_i)P_Y(i),
+    \]
+    where the class conditional is the predictive distribution
+    \[
+        P_{X|Y, T}(x|i, \D_i) = \int P_{X|Y, \Theta}(x|i, \theta)P_{\Theta|Y, T}(\theta|i, \D_i) \, d\theta = E_{\Theta|Y, T}[P_{X|i, \Theta}(x|\theta) \, | \, T = \D_i].
+    \]
+    For the multivariate Gaussian case, suppose
+    \[
+        P_{T|\mu}(\D|\mu) = \G(\D, \mu, \Sigma), \quad P_{\mu}(\mu) = \G(\mu, \mu_0, \Sigma_0),
+    \]
+    for known $\Sigma, \mu_0, \Sigma_0$. The posterior distribution is $P_{\mu|T}(\mu|\D) = \G(\mu, \mu_n, \Sigma_n)$, where 
+    \begin{align*}
+        \Sigma_n &= \Sigma_0A^{-1}\frac{1}{n}\Sigma \Rightarrow \Sigma_n^{-1} = n\Sigma^{-1} + \Sigma_0^{-1}, \\
+        \mu_n &= \Sigma_0A^{-1}\mu_{ML} + \frac{1}{n}\Sigma A^{-1}\mu_0, \\
+        A &= \Sigma_0 + \frac{1}{n}\Sigma.
+    \end{align*}
+    Then, the predictive distribution is
+    \begin{align*}
+        P_{X|T}(x|\D)
+        &= \int P_{X|\mu}(x|\mu)P_{\mu|T}(\mu|\D) \, d\mu \\
+        &= \int \G(x, \mu, \Sigma)\G(\mu, \mu_n, \Sigma_n) \, d\mu \\
+        &= \int \G(x - \mu, 0, \Sigma)\G(\mu, \mu_n, \Sigma_n) \, d\mu \\
+        &= \G(x, 0, \Sigma) * \G(x, \mu_n, \Sigma_n) = \G(x, \mu_n, \Sigma + \Sigma_n).
+    \end{align*}
+    Note that for non-informative prior,
+    $\displaystyle{\lim_{|\Sigma_0| \to \infty}} \mu_n = \mu_{ML}$ and $\displaystyle{\lim_{|\Sigma_0| \to \infty}} \Sigma_n = \frac{1}{n}\Sigma = \Sigma_{ML}$, so
+    \[
+        P_{X|T}(x|\D) = \G(x, \mu_n, \Sigma + \Sigma_n) = \G\left(x, \mu_{ML}, \left(1 + \frac{1}{n}\right)\Sigma\right).
+    \]
+\end{topic}
+
+\begin{topic}{MAP Estimation}
+    \[
+        \theta_{MAP} = \underset{\theta}{\arg \max} \, P_{\Theta|T}(\theta|\D) = \underset{\theta}{\arg \max} \, P_{T|\Theta}(\D|\theta)P_{\Theta}(\theta),
+    \]
+    and this makes the predictive distribution equal to
+    \[
+        P_{X|T}(x|\D) = P_{X|\Theta}(x|\theta_{MAP}) = \G(x, \mu_{ML}, \Sigma)
+    \]
+    Note that for the MAP estimator approaches the ML estimator as the sample size increases, i.e. $\theta_{MAP} \rightarrow \theta_{ML}$ as $n \rightarrow \infty$.
+\end{topic}
+
+\pagebreak
+
+\begin{topic}{Expectation-maximization}
+    \begin{enumerate}
+        \item write down the likelihood of the complete data (can drop terms irrelevant to $Z$ and $\Psi$)
+                \[
+                    P_{X, Z}(\D, z; \Psi) = \left(\prod_{i = 1}^n P_{X| Z}(x_i| z; \Psi)\right)P_Z(z; \Psi).
+                \]
+        \item \textbf{E-step}: write down the $Q$ function
+                \[
+                    Q(\Psi; \Psi^{(n)}) = E_{Z|X;\Psi^{(n)}}[\log P_{X, Z}(\D, z; \Psi) \, | \, \D].
+                \]
+        \item \textbf{M-step}: update $\Psi$, i.e.
+                \[
+                    \Psi^{(n + 1)} = \underset{\Psi}{\arg \max} \, Q(\Psi; \Psi^{(n)}).
+                \]
+    \end{enumerate}
+\end{topic}
+
+\begin{topic}{EM for Mixtures}
+    Represent the class variable as $z = e_j = (\underbrace{0, \ldots, 1_j, \ldots, 0}_{C \text{ entries}})^T$. The complete data log likelihood is 
+    \[
+        \log P_{X, Z}(\D, \{z_1, \dots, z_n\}; \Psi) = \log \prod_{i = 1}^n \prod_{j = 1}^C [P_{X|Z}(x|e_j, \Psi)\pi_j]^{z_{ij}} = \sum_{i, j} z_{ij} \log [P_{X|Z}(x|e_j, \Psi)\pi_j].
+    \]
+    Thus, in E-step,
+    \[
+        Q(\Psi; \Psi^{(n)}) = \sum_{i, j} h_{ij}\log [P_{X|Z}(x|e_j, \Psi)\pi_j]
+    \]
+    where $h_{ij} = E_{Z|X;\Psi^{(n)}}[z_{ij}|\D]$. Hence, we only have to compute
+    \[
+        h_{ij} = E_{Z|X;\Psi^{(n)}}[z_{ij}|\D] = P_{Z|X}(z_{ij} = 1|x_i; \Psi^{(n)}) = P_{Z|X}(e_j|x_i; \Psi^{(n)})
+    \]
+    In M-step, we compute
+    \[
+        \Psi^{(n + 1)} = \underset{\Psi}{\arg \max} \, \sum_{i, j} h_{ij}\log [P_{X|Z}(x|e_j, \Psi)\pi_j].
+    \]
+    For Gaussiam mixure, we may solve for $h_{ij}$ first then take the Lagrangian 
+    $L = Q(\Psi; \Psi^{(n)}) + \lambda\left(\sum_{j = 1}^C \pi_j - 1\right)$
+    to solve for the parameters. Here are the results:
+    \begin{align*}
+        &h_{ij} = \frac{\G\left(x_i, \mu_j^{(n)}, \sigma_j^{(n)}\right)\pi_j^{(n)}}{\sum_k^C \G\left(x_i, \mu_k^{(n)}, \sigma_k^{(n)}\right)\pi_k^{(n)}}
+        &\pi_j^{(n + 1)} = \frac{1}{n}\sum_{i = 1}^n h_{ij} \\
+        &\mu_j^{(n + 1)} = \frac{\sum_{i}^n h_{ij}x_i}{\sum_{i}^n h_{ij}}
+        &\sigma^{2(n + 1)}_j = \frac{\sum_{i}^n h_{ij}(x_i - \mu_j)^2}{\sum_{i}^n h_{ij}}
+    \end{align*}
+\end{topic}
+
+\begin{topic}{MAP-EM}
+    \begin{enumerate}
+        \item \textbf{E-step}: compute
+        \[
+            E_{Z|X, \Psi}[\log P_{\Psi|X, Z} (\Psi| \D, z)\, | \, \D, \Psi^{(n)}] \Rightarrow Q(\Psi|\Psi^{(n)}) + \log P_{\Psi}(\Psi) \quad (\text{only need to compute }Q)
+        \]
+        \item \textbf{M-step}: compute
+        \[
+            \Psi^{(n + 1)} = \underset{\Psi}{\arg \max} \, \{Q(\Psi|\Psi^{(n)}) + \log P_{\Psi}(\Psi)\}.
+        \]
+    \end{enumerate}
+\end{topic}
+\end{document}

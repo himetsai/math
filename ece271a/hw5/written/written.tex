@@ -1,0 +1,423 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumerate}
+
+\usetikzlibrary{automata,positioning}
+
+\graphicspath{ {./img} }
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{December 8, 2023}
+\newcommand{\hmwkClass}{ECE 271A}
+\newcommand{\hmwkClassInstructor}{Professor Vasconcelos}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 11:59pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathcal{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\G}{\mathcal{G}}
+\newcommand*{\D}{\mathcal{D}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  \textbf{BDR and nearest neighbors}:
+  Consider a classification problem with $c$ classes and uniform class probabilities, i.e. $P_Y(i) = \frac{1}{c}, \forall i$. 
+  Assume that the goal is to classify an iid sequence of observations $X = \{x_1, \dots , x_n\}$ as a whole (i.e. the samples are not classified one at a time).
+  \\
+
+  \part{A}
+
+  Compute the BDR for this problem and show that it converges (in probability) to a nearest neighbor rule based on the class-conditional distributions and the distribution of the observations. 
+  Show that the distance function is the Kullback-Leibler divergence
+  \[
+    \D[p(\mathbf{x})\|q(\mathbf{x})] = \int p(\mathbf{x})\log \frac{p(\mathbf{x})}{q(\mathbf{x})}d{\mathbf{x}}.
+  \]
+  This proves that the BDR for the classification of sequence is really just a nearest neighbor rule.
+  \\
+
+  \textbf{Solution}
+  \begin{align*}
+    i^*(\mathbf{x})
+    &= \underset{i}{\arg \max} \log P_{\mathbf{X}|Y}(\mathbf{x} | i) + \log P_Y(i) \\
+    &= \underset{i}{\arg \max} \log P_{\mathbf{X}|Y}(\mathbf{x} | i) \\
+    &= \underset{i}{\arg \max} \sum_{k = 1}^n \log P_{\mathbf{X}|Y}(\mathbf{x_k} | i) \\
+    &= \underset{i}{\arg \max} \, \frac{1}{n} \sum_{k = 1}^n \log P_{\mathbf{X}|Y}(\mathbf{x_k} | i).
+  \end{align*}
+  Thus, when $n \rightarrow \infty$, $i^*(\mathbf{x}) \rightarrow \underset{i}{\arg \max} \, E_{\mathbf{X}}[\log P_{\mathbf{X}|Y}(\mathbf{x} | i)]$, by the Law of large numbers.
+  This immediately follows that
+  \begin{align*}
+    i^*(\mathbf{x})
+    &= \underset{i}{\arg \min} \, - E_{\mathbf{X}}[\log P_{\mathbf{X}|Y}(\mathbf{x} | i)] \\
+    &= \underset{i}{\arg \min} \, E_{\mathbf{X}}[\log Q_X(\mathbf{x})] - E_{\mathbf{X}}[\log P_{\mathbf{X}|Y}(\mathbf{x} | i)] \\
+    &= \underset{i}{\arg \min} \, E_{\mathbf{X}}\left[\log \frac{Q_X(\mathbf{x})}{P_{\mathbf{X}|Y}(\mathbf{x} | i)}\right] \\
+    &= \underset{i}{\arg \min} \, \int Q_{\mathbf{X}}(\mathbf{x}) \log \frac{Q_{\mathbf{X}}(\mathbf{x})}{P_{\mathbf{X}|Y}(\mathbf{x} | i)} \, dx \\
+    &= \underset{i}{\arg \min} \, \D[Q_{\mathbf{X}}(\mathbf{x}) \| P_{\mathbf{X}|Y}(\mathbf{x} | i)],
+  \end{align*}
+  where $Q_{\mathbf{X}}(\mathbf{x})$ is the density function from which $X$ was sampled.
+  Therefore, the BDR is equivalent to the nearest neighbor search for $P_{\mathbf{X}|Y}(\mathbf{x} | i)$ that's closest to $Q_{\mathbf{X}}(\mathbf{x})$, with the KL-divergence as the distance metric.
+  
+  \pagebreak
+
+  \part{B}
+
+  Assuming that all densities are Gaussian with equal covariance $\mathbf{\Sigma}$, the class conditional densities have mean $\mu_i$ and the observation density has mean $\mu$ write down an expression for the decision rule as a function of the Gaussian parameters. 
+  Provide an interpretation for this new decision rule, by stating what are the items being compared and what is the distance function.
+  \\
+  
+  \textbf{Solution}
+
+  In this case,
+  \begin{align*}
+    i^*(\mathbf{x})
+    &= \underset{i}{\arg \min} \, E_{\mathbf{X}}\left[\log \frac{Q_X(\mathbf{x})}{P_{\mathbf{X}|Y}(\mathbf{x} | i)}\right] \\
+    &= \underset{i}{\arg \min} \, E_{\mathbf{X}}\left[-\frac{1}{2}(x - \mu)^T\mathbf{\Sigma}^{-1}(x - \mu) + \frac{1}{2} (x - \mu_i)^T\mathbf{\Sigma}^{-1}(x - \mu_i)\right] \\
+    &= \underset{i}{\arg \min} \, -\frac{1}{2}E_{\mathbf{X}}\left[\mu^T\mathbf{\Sigma}^{-1}\mu - \mu_i^T\mathbf{\Sigma}^{-1}\mu_i - 2\mu^T\mathbf{\Sigma}^{-1}x + 2\mu_i^T\mathbf{\Sigma}^{-1}x\right] \\
+    &= \underset{i}{\arg \min} \, \frac{1}{2}\mu_i^T\mathbf{\Sigma}^{-1}\mu_i - \mu_i^T\mathbf{\Sigma}^{-1}\mu + \frac{1}{2}\mu^T\mathbf{\Sigma}^{-1}\mu \\
+    &= \underset{i}{\arg \min} \, \frac{1}{2}(\mu_i - \mu)^T\mathbf{\Sigma}^{-1}(\mu_i - \mu).
+  \end{align*}
+  Therefore, the BDR is simply looking for the class conditional densities mean $\mu_i$ that has the smallest Mahalanobis distance to the observation density $\mu$.
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  \textbf{Multinomial EM}: 
+  In this problem we consider an example where there is a closed-form solution to ML estimation from incomplete data. 
+  The goal is to compare with the EM solution and get some insight on how the steps of the latter can be substantially easier to derive than the former.
+
+  Consider our bridge example and let $U$ be the type of vehicle that crosses the bridge. 
+  $U$ that can take 4 values, (\textit{compact, sedan, station wagon, and pick-up truck}) that we denote by $U \in \{1, 2, 3, 4\}$. 
+  On a given day, an operator collects an iid sample of size $n$ from $U$ and the number of vehicles of each type is counted and stored in a vector $\D = (x_1, x_2, x_3, x_4)$. 
+  The resulting random variable $X$ (the histogram of vehicle classes) has a multinomial distribution
+  \[
+    P_{X_1, X_2, X_3, X_4}(x_1, x_2, x_3, x_4; \Psi) = \frac{n!}{x_1!x_2!x_3!x_4!}\left(\frac{1}{2} + \frac{1}{4}\Psi\right)^{x_1}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_2}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_3}\left(\frac{1}{4}\Psi\right)^{x_4}.
+  \]
+  However, it is later realized that the operator included motorcycles in the compact class. 
+  It is established that bikes have probability $\frac{1}{4}\Psi$, which leads to a new model
+  \begin{align*}
+    &P_{X_{11}, X_{11}, X_2, X_3, X_4}(x_{11}, x_{12}, x_2, x_3, x_4; \Psi) \\
+    &= \frac{n!}{x_{11}!x_{12}!x_2!x_3!x_4!}\left(\frac{1}{2}\right)^{x_{11}}\left(\frac{1}{4}\Psi\right)^{x_{12}}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_2}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_3}\left(\frac{1}{4}\Psi\right)^{x_4}.
+  \end{align*}
+  Determining the parameters $\Psi$ from the available data is as a problem of ML estimation with \textit{missing data}, since we only have measurements for
+  \[
+    x_1 = x_{11} + x_{12}
+  \]
+  but not for $x_{11}$ and $x_{12}$ independently.
+  \\
+
+  \part{A}
+
+  Determine the value of $\Psi$ that maximizes the likelihood of $\D$, i.e.
+  \[
+    \Psi_i^* = \underset{\Psi}{\arg \max} \, P_{X_1, X_2, X_3, X_4}(\D; \Psi)
+  \]
+  by  using standard ML estimation procedures.
+  \\
+
+  \textbf{Solution}
+  \begin{align*}
+    \Psi_i^* 
+    &= \underset{\Psi}{\arg \max} \, P_{X_1, X_2, X_3, X_4}(\D; \Psi) \\
+    &= \underset{\Psi}{\arg \max} \, \log  P_{X_1, X_2, X_3, X_4}(\D; \Psi) \\
+    &= \underset{\Psi}{\arg \max} \, x_1\log \left(\frac{1}{2} + \frac{1}{4}\Psi\right) + x_2\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_3\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_4\log \left(\frac{1}{4}\Psi\right).
+  \end{align*}
+  Let $L = \log  P_{X_1, X_2, X_3, X_4}(\D; \Psi)$.
+  Since
+  \begin{align*}
+    \frac{\partial L}{\partial \Psi} 
+    &= \frac{1}{4} \left(\frac{x_1}{\frac{1}{2} + \frac{1}{4}\Psi} - \frac{x_2}{\frac{1}{4} - \frac{1}{4}\Psi} - \frac{x_3}{\frac{1}{4} - \frac{1}{4}\Psi} + \frac{x_4}{\frac{1}{4}\Psi}\right) \\
+    &= \frac{x_1}{2 + \Psi} - \frac{x_2}{1 - \Psi} - \frac{x_3}{1 - \Psi} + \frac{x_4}{\Psi} \\
+    &= \frac{\Psi(1 - \Psi)^2x_1 - \Psi(1 - \Psi)(2 + \Psi)x_2 - \Psi(1 - \Psi)(2 + \Psi)x_3 + (2 + \Psi)(1 - \Psi)^2x_4}{\Psi(2 + \Psi)(1 - \Psi)^2} \\
+    &= \frac{\Psi(1 - \Psi)x_1 - \Psi(2 + \Psi)x_2 - \Psi(2 + \Psi)x_3 + (2 + \Psi)(1 - \Psi)x_4}{\Psi(2 + \Psi)(1 - \Psi)} \\
+    &= \frac{-n\Psi^2 + (x_1 - 2x_2 - 2x_3 - x_4)\Psi + 2x_4}{\Psi(2 + \Psi)(1 - \Psi)} = 0, 
+  \end{align*}
+  we get the solution $\Psi = \frac{-(x_1 - 2x_2 - 2x_3 - x_4) \pm \sqrt{(x_1 - 2x_2 - 2x_3 - x_4)^2 + 8nx_4}}{2n}$.
+  \\
+
+  \part{B}
+
+  Assume that we have the complete data, i.e. $\D_c = (x_{11}, x_{12}, x_2, x_3, x_4)$. 
+  Determine the value of $\Psi$ that maximizes its likelihood, i.e.
+  \[
+    \Psi^*_c = \underset{\Psi}{\arg \max} \, P_{X_{11}, X_{12}, X_2, X_3, X_4}(\D_c; \Psi),
+  \]
+  by using standard ML estimation procedures.
+  Compare the difficuly of obtaining this solution vs. that
+  of obtaining the solution in part A.
+  Does this look like a problem where EM might be helpful?
+  \\
+
+  \textbf{Solution}
+  \begin{align*}
+    \Psi_i^* 
+    &= \underset{\Psi}{\arg \max} \, P_{X_{11}, X_{12}, X_2, X_3, X_4}(\D; \Psi) \\
+    &= \underset{\Psi}{\arg \max} \, \log  P_{X_{11}, X_{12}, X_3, X_4}(\D; \Psi) \\
+    &= \underset{\Psi}{\arg \max} \, x_{12}\log \left(\frac{1}{4}\Psi\right) + x_2\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_3\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_4\log \left(\frac{1}{4}\Psi\right).
+  \end{align*}
+  Let $L = \log  P_{X_{11}, X_{12}, X_3, X_4}(\D; \Psi)$.
+  Since
+  \begin{align*}
+    \frac{\partial L}{\partial \Psi} 
+    &= \frac{1}{4} \left(\frac{x_{12}}{\frac{1}{4}\Psi} - \frac{x_2}{\frac{1}{4} - \frac{1}{4}\Psi} - \frac{x_3}{\frac{1}{4} - \frac{1}{4}\Psi} + \frac{x_4}{\frac{1}{4}\Psi}\right) \\
+    &= \frac{x_{12}}{\Psi} - \frac{x_2}{1 - \Psi} - \frac{x_3}{1 - \Psi} + \frac{x_4}{\Psi} \\
+    &= \frac{(1 - \Psi)x_{12} - \Psi x_2 - \Psi x_3 + (1 - \Psi)x_4}{\Psi(1 - \Psi)} \\
+    &= \frac{-(x_{12} + x_2 + x_3 + x_4)\Psi + x_{12} + x_4}{\Psi(1 - \Psi)} = 0, 
+  \end{align*}
+  we get the solution $\Psi = \frac{x_{12} + x_4}{x_{12} + x_2 + x_3 + x_4}$.
+  This solution is a lot simplier than the previous one, and the EM algorithm would be helpful here.
+
+  \pagebreak
+
+  \part{C}
+
+  Derive the E and M-steps of the EM algorithm for this problem.
+  \\
+
+  \textbf{Solution}
+  
+  The observed variables are $X = \{X_1, X_2, X_3, X_4\}$, and the hidden variables are $Z = \{X_{11}, X_{12}\}$.
+  Hence, the $Q$ function is
+  \begin{align*}
+    Q(\Psi; \Psi^{(n)})
+    &= E_{Z|X; \Psi^{(n)}}\left[\log P_{X, Z}(\D, Z; \Psi)|\D\right] \\
+    &= E_{Z|X; \Psi^{(n)}}\left[\log L(\D; \Psi)|\D\right].
+  \end{align*}
+  Thus, by the linearity of expectation, the only unknown part of $Q(\Psi; \Psi^{(n)})$ is $E_{X_{12}|X; \Psi^{(n)}}[X_{12}|\D]$.
+  Since $X_1, X_2, X_3, X_4$ are independent, we are essentially counting the subset of a set of size $X_1$.
+  We know the probability of event for $X_{12}$ is 
+  \[
+    p = \frac{\frac{\Psi}{4}}{\frac{1}{2} + \frac{\Psi}{4}} = \frac{\Psi}{2 + \Psi},
+  \]
+  and so 
+  \[
+    P_{X_{12}|X_1}(x_{12}|x_1) = {x_1 \choose x_{12}}p^{x_{12}}(1 - p)^{x_1 - x_{12}}.
+  \]
+  Thus, the E step consists of computing
+  \[
+    \hat{x}_{12} = E_{X_{12}|X; \Psi^{(n)}}[X_{12}|\D] = px_1 = \frac{\Psi^{(n)}x_1}{2 + \Psi^{(n)}}.
+  \]
+  Since the M step is to calculate
+  \begin{align*}
+    \Psi^{(n + 1)}
+    &= \underset{\Psi}{\arg \max} \, Q(\Psi; \Psi^{(n)}) \\
+    &= \underset{\Psi}{\arg \max} \, E_{Z|X; \Psi^{(n)}}\left[\log L(\D; \Psi)|\D\right] \\
+    &= \underset{\Psi}{\arg \max} \, \hat{x}_{12}\log \left(\frac{1}{4}\Psi\right) + x_2\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_3\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_4\log \left(\frac{1}{4}\Psi\right),
+  \end{align*}
+  we know $\Psi^{(n + 1)} = \frac{\hat{x}_{12} + x_4}{\hat{x}_{12} + x_2 + x_3 + x_4}$ from part B.
+  
+  To sum it up:
+  \begin{gather*}
+    \text{E-step}: \hat{x}_{12} = \frac{\Psi^{(n)}x_1}{2 + \Psi^{(n)}}, \\
+    \text{M-step}: \Psi^{(n + 1)} = \frac{\hat{x}_{12} + x_4}{\hat{x}_{12} + x_2 + x_3 + x_4}.
+  \end{gather*}
+
+  \pagebreak
+
+  \part{D}
+
+  Using the equations for the EM steps, determine the fixed point of the algorithm (i.e. the solution) by making
+  \[
+    \Psi^{k + 1} = \Psi^k,
+  \]
+  where $k$ is the iteration number. 
+  Compare to the solution obtained in part A.
+  \\
+
+  \textbf{Solution}
+
+  Suppose that $\Psi^{k + 1} = \Psi^k$.
+  Then,
+
+  \begin{align*}
+    \frac{\frac{\Psi^{(k)}x_1}{2 + \Psi^{(k)}} + x_4}{\frac{\Psi^{(k)}x_1}{2 + \Psi^{(k)}} + x_2 + x_3 + x_4} &= \Psi^{(k)} \\
+    \frac{\Psi^{(k)}x_1 + (2 + \Psi^{(k)})x_4}{\Psi^{(k)}x_1 + (2 + \Psi^{(k)})(x_2 + x_3 + x_4)} &= \Psi^{(k)} \\
+    (x_1 + x_2 + x_3 + x_4)\left(\Psi^{(k)}\right)^2 + 2(x_2 + x_3 + x_4)\Psi^{(k)} &= (x_1 + x_4)\Psi^{(k)} + 2x_4 \\
+    (x_1 + x_2 + x_3 + x_4)\left(\Psi^{(k)}\right)^2 + (-x_1 + 2x_2 + 2x_3 + x_4)\Psi^{(k)} - 2x_4 &= 0.
+  \end{align*}
+  Notice that this equation coincides with the equation we obtained in part A, indicating that the EM algorithm would eventually converge to the ML solution.
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+  \textbf{EM and MAP estimates}:
+  In this problem we use EM for the maximization of the posterior probability
+  \[
+    \Psi^* = \underset{\Psi}{\arg \max} \, P_{\Psi|X}(\Psi|x).
+  \]
+  Consider the binomial distribution of problem 2. and a Gamma prior
+  \[
+    P_{\Psi}(\Psi) = \frac{\Gamma(\nu_1 + \nu_2)}{\Gamma(\nu_1)\Gamma(\nu_2)}\Psi^{\nu_1 - 1}(1 - \Psi)^{\nu_2 - 1}.
+  \]
+  Derive the equations of the EM algorithm for MAP estimation of the parameter $\Psi$.
+  \\
+
+  \textbf{Solution}
+
+  In E-step, we first write out the expectation equation we are to maximize:
+  \begin{align*}
+    &E_{Z|X; \Psi}[\log P_{\Psi|X, Z}(\Psi|\D, z)|\D, \Psi^{(n)}] \\
+    &= E_{Z|X; \Psi}[\log P_{X, Z|\Psi}(\D, z|\Psi)|\D, \Psi^{(n)}] + E_{Z|X; \Psi}[\log P_{\Psi}(\Psi)|\D, \Psi^{(n)}] - E_{Z|X; \Psi}[\log P_{X, Z}(\D, z)|\D, \Psi^{(n)}] \\
+    &= Q(\Psi; \Psi^{(n)}) + \log P_{\Psi}(\Psi) - E_{Z|X; \Psi}[\log P_{X, Z}(\D, z)|\D, \Psi^{(n)}].
+  \end{align*}
+  Since the last term does not depend on $\Psi$, we may ignore it.
+  Thus, in the case of problem 2, the equation we are to maximize becomes
+  \begin{align*}
+    Q(\Psi; \Psi^{(n)}) + \log P_{\Psi}(\Psi)
+    &= E_{Z|X; \Psi^{(n)}}\left[\log L(\D, x_{12}; \Psi)|\D\right] + \log P_{\Psi}(\Psi) \\
+    &= \hat{x}_{12}\log \left(\frac{1}{4}\Psi\right) + x_2\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_3\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_4\log \left(\frac{1}{4}\Psi\right) \\
+    &\quad \quad + (\nu_1 - 1)\log \Psi + (\nu_2 - 1)\log (1 - \Psi),
+  \end{align*}
+  where $\hat{x}_{12} = \frac{\Psi^{(n)}x_1}{2 + \Psi^{(n)}}$.
+
+  In the M-step, we update the parameter $\Psi$ by calculating
+  \begin{align*}
+    \Psi^{(n + 1)} 
+    &= \underset{\Psi}{\arg \max} \, \hat{x}_{12}\log \left(\frac{1}{4}\Psi\right) + x_2\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_3\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_4\log \left(\frac{1}{4}\Psi\right) \\
+    &\quad \quad + (\nu_1 - 1)\log \Psi + (\nu_2 - 1)\log (1 - \Psi).
+  \end{align*}
+  We do so by taking the partial derivatives
+  \begin{align*}
+    \frac{\partial}{\partial \Psi} \left[Q(\Psi; \Psi^{(n)}) + \log P_{\Psi}(\Psi)\right]
+    &= \frac{-(\hat{x}_{12} + x_2 + x_3 + x_4)\Psi + \hat{x}_{12} + x_4}{\Psi(1 - \Psi)} + \frac{(\nu_1 - 1)(1 - \Psi) - (\nu_2 - 1)\Psi}{\Psi(1 - \Psi)} \\
+    &= \frac{-(\hat{x}_{12} + x_2 + x_3 + x_4 + \nu_1 + \nu_2 - 2)\Psi + \hat{x}_{12} + x_4 + \nu_1 - 1}{\Psi(1 - \Psi)} = 0,
+  \end{align*}
+  and we get the solution $\Psi^{(n + 1)} = \frac{\hat{x}_{12} + x_4 + \nu_1 - 1}{\hat{x}_{12} + x_2 + x_3 + x_4 + \nu_1 + \nu_2 - 2}$.
+\end{homeworkProblem}
+\end{document}

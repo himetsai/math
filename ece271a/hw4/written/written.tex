@@ -1,0 +1,490 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumerate}
+
+\usetikzlibrary{automata,positioning}
+
+\graphicspath{ {./img} }
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{November 6, 2023}
+\newcommand{\hmwkClass}{ECE 271A}
+\newcommand{\hmwkClassInstructor}{Professor Vasconcelos}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 11:59pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathcal{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\G}{\mathcal{G}}
+\newcommand*{\D}{\mathcal{D}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  \textbf{Bayesian regression}: 
+  in last week's problem set we showed that various forms of linear regression by the method of least squares are really just particular cases of ML estimation under the model
+  \[
+    \mathbf{z} = \mathbf{\Phi}\theta + \epsilon,
+  \]
+  where $\mathbf{z} = (z_1, \dots, z_n)^T$, $\theta = (\theta_1, \dots, \theta_k)^T$
+  \[
+    \mathbf{\Phi} = \begin{bmatrix}
+      1 & \dots & x_1^K \\
+      \vdots & \ddots & \vdots \\
+      1 & \dots & x_n^K \\
+    \end{bmatrix}
+  \]
+  and $\epsilon = (\epsilon_1, \dots, \epsilon_n)^T$ is a normal random process $\epsilon \sim \N(\mathbf{0, \Sigma})$.
+  It seems only natural to consider the Bayesian extension of this model, an extension that has been the subject of some recent research under the denomination of \textit{Gaussian processes}.
+  For this, we simply extend the model considering a Gaussian prior
+  \[
+    P_{\theta}(\theta) = \G(\theta, \mathbf{0, \Gamma}).
+  \]
+  \part{A}
+
+  Given a training set $\D = \{(\D_x, \D_z)\} = \{(x_1, z_1), \dots ,(x_n, z_n)\}$, compute the posterior distribution
+  \[
+    P_{\theta|T}(\theta|\D)
+  \]
+  and the predictive distribution
+  \[
+    P_{z|T}(z|\D).
+  \]
+  \textbf{Solution}
+
+  We know 
+  \begin{align*}
+    P_{\theta|T}(\theta|\D)
+    &= P_{\theta|T_x, T_z}(\theta|\D_x, \D_z) \\
+    &= \frac{P_{T_z|\theta, T_x}(\D_z|\theta, \D_x)P_{\theta| T_x}(\theta|\D_x)}{\int P_{T_z|\theta, T_x}(\D_z|\theta, \D_x)P_{\theta| T_x}(\theta|\D_x) \, d\theta} \\
+    &= \frac{P_{T_z|\theta, T_x}(\D_z|\theta, \D_x)P_{\theta}(\theta)}{\int P_{T_z|\theta, T_x}(\D_z|\theta, \D_x)P_{\theta}(\theta) \, d\theta}.
+  \end{align*}
+  Since $P_{T_z|\theta, T_x}(\D_z|\theta, \D_x) = \G(\mathbf{z}, \mathbf{\Phi}\theta, \mathbf{\Sigma})$
+  \begin{align*}
+    P_{\theta|T}(\theta|\D)
+    &\propto P_{T_z|\theta, T_x}(\D_z|\theta, \D_x)P_{\theta}(\theta) \\
+    &\propto \exp\left\{-\frac{1}{2}\left[(\mathbf{z} - \mathbf{\Phi}\theta)^T\mathbf{\Sigma}^{-1}(\mathbf{z} - \mathbf{\Phi}\theta) + \theta^T\mathbf{\Gamma}^{-1}\theta\right]\right\} \\
+    &\propto \exp\left\{-\frac{1}{2}\left[\theta^T(\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})\theta - 2\theta^T\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}\right]\right\} \\
+    &\propto \exp\left\{-\frac{1}{2}\left(\theta^T\mathbf{\Sigma}^{-1}_{\theta}\theta - 2\theta^T\mathbf{\Sigma}^{-1}_{\theta}\mu_{\theta}\right)\right\} \\
+    &\propto \exp\left\{-\frac{1}{2}\left[(\theta - \mu_{\theta})^T\mathbf{\Sigma}^{-1}_{\theta}(\theta - \mu_{\theta})\right]\right\},
+  \end{align*}
+  where $\mathbf{\Sigma}_{\theta} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}$ and $\mu_{\theta} = \mathbf{\Sigma}_{\theta}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$.
+  Therefore, 
+  \[
+    P_{\theta|T}(\theta|\D) = \G(\theta, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}).
+  \]
+  Let $\xi = \phi^T\theta$.
+  Then, the predictive distribution
+  \begin{align*}
+    P_{z|T, x}(z|\D, x)
+    &= \int P_{z|\xi, x}(z|\xi, x)P_{\xi|T}(\xi|\D) d\xi \\
+    &= \int \G(z, \phi^T\theta, \sigma(x)^2)\G(\phi^T\theta, \phi^T\mu_{\theta}, \phi^T\mathbf{\Sigma}_{\theta}\phi) \, d\xi \\
+    &= \G(z, 0, \sigma(x)^2) * \G(z, \phi^T\mu_{\theta}, \phi^T\mathbf{\Sigma}_{\theta}\phi) \\
+    &= \G(z, \phi^T\mu_{\theta}, \sigma(x)^2 + \phi^T\mathbf{\Sigma}_{\theta}\phi).
+  \end{align*}
+
+  \part{B}
+
+  Consider the MAP estimate
+  \[
+    \theta_{MAP} = \underset{\theta}{\arg \max} \, P_{\theta|\mathbf{T}}(\theta|\D).
+  \]
+  How does it differ from the weighted least squares estimate?
+  What is the role of the terms that were not present in the latter?
+  Is there any advantage in setting them to anything other than zero?
+  \\
+
+  \textbf{Solution}
+
+  Since $P_{\theta|T}(\theta|\D) = \G(\theta, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1})$ is simply a gaussian distribution, the map estimate $\theta_{MAP} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$.
+  From last week, we get that the weighted least equares estimate is $\theta_{ML} =  (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$.
+  Notice that the weighted least equares estimate is missing the term $\mathbf{\Gamma}^{-1}$ in the $\mathbf{\Sigma}_{\theta}$ term of $\theta_{MAP}$.
+  $\mathbf{\Gamma}^{-1}$ plays the role of regularization for the model.
+  An example of the advantage of setting $\mathbf{\Gamma}^{-1}$ to a non-zero value is that it allows us to adjust the importance of each order of the polynomial terms.
+  \\
+
+  \part{C}
+
+  Consider the case in which prior covariance $\mathbf{\Gamma}$ is a diagonal matrix, not necessarily the identity.
+  Suppose that you are told that $K$, i.e. the number of parameters in $\theta$ or the degree of the polynomial $\phi(x)^T\theta$, is somewhere between 1 and 25. 
+  How would you set up $\mathbf{\Gamma}$ and why? 
+  Discuss the implications of your selection on the bias and variance of your MAP solution
+  \[
+    z_{MAP} = \mathbf{\Phi}(x)\theta_{MAP}.
+  \]
+
+  \textbf{Solution}
+
+  Since a polynomial of degree 25 is going to be extremely "wiggly," it is highly likely that it would end up overfitting the training data, so I would heavily bias against the higher orders and favor the lower orders.
+  Therefore, I would set a monotonicity decreasing sequence along the diagonal of $\mathbf{\Gamma}$, where the last few entries are close to 0.
+  In terms of the prior distribution $P_{\theta}(\theta) = \G(\theta, \mathbf{0, \Gamma})$, doing so it basically say that the first few entries of $\theta$ is of a wide range of numbers depending on the data, but the last few are most likely going to be $0$. 
+  Since we are removing the flexibility of the higher order terms of the polynomial $z_{MAP}$, the variance would get lower but the bias would get higher.
+\end{homeworkProblem}  
+
+\pagebreak
+
+\begin{homeworkProblem}
+  In this problem we explore the exponential family and conjugate priors. 
+  The exponential family is the family of densities of the form
+  \[
+    P_{\mathbf{X}|\theta} = f(\mathbf{x})g(\theta)e^{\phi(\theta)^Tu(\mathbf{x})}
+  \]
+  with
+  \[
+    [g(\theta)]^{-1} = \int f(\mathbf{x})e^{\phi(\theta)^Tux`(\mathbf{x})}d\mathbf{x}.
+  \]
+
+  \part{A}
+
+  Show that, for a density in this family, the likelihood of a sequence $\D = \{\mathbf{x}_1, \dots, \mathbf{x}_n\}$ is
+  \[
+    P_{\mathbf{T}|\theta} \propto \prod_{i = 1}^n f(\mathbf{x}_i)\exp\left\{\phi(\theta)^T\sum_{i = 1}^n u(\mathbf{x}_i)\right\}.
+  \]
+  What is the normalization constant?
+  \\
+  
+  \textbf{Solution}
+  
+  Since
+  \begin{align*}
+    P_{\mathbf{T}|\theta}(\D|\theta)
+    &= \prod_{i = 1}^n P_{\mathbf{X}|\theta}(\mathbf{x}_i|\theta) \\
+    &= \prod_{i = 1}^n f(\mathbf{x}_i)g(\theta)\exp\left\{\phi(\theta)^T u(\mathbf{x}_i)\right\} \\
+    &= g(\theta)^n \left[\prod_{i = 1}^n f(\mathbf{x}_i)\right]\exp\left\{\phi(\theta)^T\sum_{i = 1}^n u(\mathbf{x}_i)\right\},
+  \end{align*}
+  we know
+  \[
+    P_{\mathbf{T}|\theta} \propto \prod_{i = 1}^n f(\mathbf{x}_i)\exp\left\{\phi(\theta)^T\sum_{i = 1}^n u(\mathbf{x}_i)\right\},
+  \]
+  the normalization constant is $g(\theta)^n$.
+  \\
+
+  \part{B}
+
+  It has been shown that, apart from certain irregular cases, the exponential family is the only family of distributions for which there is a conjugate prior. 
+  Show that
+  \[
+    P_{\theta}(\theta) = \frac{g(\theta)^{\eta}e^{\phi(\theta)^T\nu}}{\int g(\theta)^{\eta}e^{\phi(\theta)^T\nu} d\theta}
+  \]
+  is a conjugate prior for the exponential family and compute the posterior distribution $P_{\theta|\mathbf{T}}(\theta|\D)$.
+  Denoting $\mathbf{s} = \sum_{i = 1}^n u(\mathbf{x}_i)$ as the \textit{sufficient statistic}, compare the posterior with prior density. 
+  What is the result of “propagating” the prior through the likelihood function?
+  \\
+
+  \textbf{Solution}
+
+  Since
+  \begin{align*}
+    P_{\theta|\mathbf{T}}(\theta|\D)
+    &= P_{\mathbf{T}|\theta}(\D|\theta)P_{\theta}(\theta) \\
+    &\propto g(\theta)^{\eta}e^{\phi(\theta)^T\nu} \cdot g(\theta)^n \left[\prod_{i = 1}^n f(\mathbf{x}_i)\right]\exp\left\{\phi(\theta)^T\sum_{i = 1}^n u(\mathbf{x}_i)\right\} \\
+    &\propto g(\theta)^{\eta + n} \exp\left\{\phi(\theta)^T\left(\nu + \sum_{i = 1}^n u(\mathbf{x}_i)\right)\right\},
+  \end{align*}
+  We know
+  \[
+    P_{\theta|\mathbf{T}}(\theta|\D) = \frac{g(\theta)^{\eta + n} \exp\left\{\phi(\theta)^T\left(\nu + \mathbf{s}\right)\right\}}{\int g(\theta)^{\eta + n} \exp\left\{\phi(\theta)^T\left(\nu + \mathbf{s}\right)\right\} d\theta},
+  \]
+  and so the posterior is of the same form as the prior, with $\eta$ replaced as $\eta + n$ and $\nu$ replaced as $\nu + \mathbf{s}$.
+  Hence, $P_{\theta}$ is indeed a conjugate prior for the exponential family.
+  The result could be viewed as updating the prior with the newly observed data.
+  We can think of $\eta$ as the virtual sample size and $n$ as the sample size of the training set.
+  Similarly, $\nu$ can be think of as the value of the virtual sample and $\mathbf{s}$ as the actual data from the training set.
+  \\
+
+  \part{C}
+
+  Consider table 1. For each row i) show that the likelihood function on the left column belongs to the exponential family, ii) show that the prior on the left column is a conjugate prior for the likelihood function on the right column, iii) compute the posterior $P_{\theta|T}(\theta|\D)$, and iv) interpret the meaning of the sufficient statistic and the “propagation” discussed in part B.
+
+  \begin{enumerate}[(i)]
+    \item We show that each of the following likelihood functions belongs to the exponential family.
+    
+    \textbf{Bernoulli}
+
+    Since
+    \begin{align*}
+      \prod_{i = 1}^n \theta^{x_i}(1 - \theta)^{1 - x_i}
+      &= \theta^{\sum_{i = 1}^n x_i}(1 - \theta)^{n - \sum_{i = 1}^n x_i} \\
+      &= \exp \left\{\log (\theta) \sum_{i = 1}^n x_i + \log (1 - \theta)\sum_{i = 1}^n 1 - x_i\right\} \\
+      &= \exp \left\{\log(1 - \theta)n + \log \left(\frac{\theta}{1 - \theta}\right)\sum_{i = 1}^n x_i\right\} \\
+      &= (1 - \theta)^n \exp \left\{\log \left(\frac{\theta}{1 - \theta}\right)\sum_{i = 1}^n x_i\right\},
+    \end{align*}
+    it indeed belongs to the exponential family, with $g(\theta) = (1 - \theta)$, $f(x) = 1$, $\phi(\theta) = \log \left(\frac{\theta}{1 - \theta}\right)$, and $u(x) = x$.
+    
+    \textbf{Poisson}
+
+    Since
+    \begin{align*}
+      \prod_{i = 1}^n \frac{e^{-\theta}\theta^{x_i}}{x_i!}
+      &=  \frac{e^{-n\theta}\theta^{\sum_{i = 1}^n x_i}}{\prod_{i = 1}^n x_i!} \\
+      &=  \frac{e^{-n\theta}}{\prod_{i = 1}^n x_i!}\exp\left\{\log \theta\sum_{i = 1}^n x_i\right\},
+    \end{align*}
+    it indeed belongs to the exponential family, with $g(\theta) = e^{-\theta}$, $f(x) = \frac{1}{x!}$, $\phi(\theta) = \log \theta$, and $u(x) = x$.
+
+    \textbf{Exponential}
+
+    Since
+    \begin{align*}
+      \prod_{i = 1}^n \theta e^{-\theta x_i}
+      &= \theta^n e^{-\theta \sum_{i = 1}^n x_i},
+    \end{align*}
+    it indeed belongs to the exponential family, with $g(\theta) = \theta$, $f(x) = 1$, $\phi(\theta) = -\theta$, and $u(x) = x$.
+
+    \textbf{Normal}
+
+    Since
+    \begin{align*}
+      \prod_{i = 1}^n \sqrt{\frac{\theta}{2\pi}} \exp \left\{-\frac{\theta}{2}(x_i - \mu)^2\right\}
+      &= \sqrt{\frac{\theta}{2\pi}}^n \exp \left\{-\frac{\theta}{2} \sum_{i = 1}^n (x_i - \mu)^2\right\},
+    \end{align*}
+    it indeed belongs to the exponential family, with $g(\theta) =  \sqrt{\frac{\theta}{2\pi}}$, $f(x) = 1$, $\phi(\theta) = -\frac{\theta}{2}$, and $u(x) = (x - \mu)^2$.
+
+    \item We now show that the prior on the right column is a conjugate prior for the likelihood function on the left column.
+    
+    \textbf{Bernoulli}
+
+    Since
+    \begin{align*}
+      \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha - 1}(1 - \theta)^{\beta - 1}
+      &\propto \exp \left\{(\alpha - 1)\log(\theta) + (\beta - 1)\log(1 - \theta)\right\} \\
+      &\propto (1 - \theta)^{\alpha + \beta - 2}\exp \left\{(\alpha - 1)\log\left(\frac{\theta}{1 - \theta}\right)\right\} \\
+      &\propto (1 - \theta)^{\eta}\exp \left\{\log\left(\frac{\theta}{1 - \theta}\right)\nu\right\},
+    \end{align*}
+    the Beta function is a conjugate prior for the likelihood function for the Bernoulli distribution, with $\eta = \alpha + \beta - 2$, $\nu = \alpha - 1$, $g(\theta) = 1 - \theta$, and $\phi = \log \frac{\theta}{1 - \theta}$.
+    \\
+
+    \textbf{Poisson}
+
+    Since
+    \begin{align*}
+      \frac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha - 1}e^{-\beta\theta}
+      &\propto e^{-\eta \theta} \exp \left\{\log(\theta)\nu\right\},
+    \end{align*}
+    the Gamma function is a conjugate prior for the likelihood function for the Poisson distribution, with $\eta = \beta$, $\nu = \alpha - 1$, $g(\theta) = e^{-\theta}$, and $\phi = \log \theta$.
+    \\
+
+    \textbf{Exponential}
+
+    Since
+    \begin{align*}
+      \frac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha - 1}e^{-\beta\theta}
+      &\propto \theta^{\eta} \exp \left\{-\nu\theta\right\},
+    \end{align*}
+    the Gamma function is a conjugate prior for the likelihood function for the Exponential distribution, with $\eta = \alpha - 1$, $\nu = \beta$, $g(\theta) = \theta$, and $\phi = -\theta$.
+
+    \pagebreak
+
+    \textbf{Normal}
+
+    Since
+    \begin{align*}
+      \frac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha - 1}e^{-\beta\theta}
+      &\propto \left(\sqrt{\frac{\theta}{2\pi}}\right)^{2\alpha - 2} \exp \left\{-\frac{\theta}{2} \cdot 2\beta\right\} \\
+      &\propto \left(\sqrt{\frac{\theta}{2\pi}}\right)^{\eta} \exp \left\{-\frac{\theta}{2} \cdot \nu\right\},
+    \end{align*}
+    the Gamma function is a conjugate prior for the likelihood function for the Normal distribution, with $\eta = 2\alpha - 2$, $\nu = 2\beta$, $g(\theta) = \sqrt{\frac{\theta}{2\pi}}$, and $\phi = -\frac{\theta}{2}$.
+
+    \item We now compute the posterior $P_{\theta|\mathbf{T}}(\theta|\D)$ for each distribution.
+
+    \textbf{Bernoulli}
+    \begin{align*}
+      P_{\theta|\mathbf{T}}(\theta|\D)
+      &= \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha - 1}(1 - \theta)^{\beta - 1}\prod_{i = 1}^n \theta^{x_i}(1 - \theta)^{1 - x_i} \\
+      &\propto (1 - \theta)^{\eta}\exp \left\{\log\left(\frac{\theta}{1 - \theta}\right)\nu\right\}(1 - \theta)^n \exp \left\{\log \left(\frac{\theta}{1 - \theta}\right)\sum_{i = 1}^n x_i\right\} \\
+      &= (1 - \theta)^{\eta + n}\left\{\log\left(\frac{\theta}{1 - \theta}\right)\left(\nu + \sum_{i = 1}^n x_i\right)\right\} \\
+      &= (1 - \theta)^{\alpha + \beta - 2 + n}\left\{\log\left(\frac{\theta}{1 - \theta}\right)\left(\alpha - 1 + \sum_{i = 1}^n x_i\right)\right\}.
+    \end{align*}
+
+    \textbf{Poisson}
+    \begin{align*}
+      P_{\theta|\mathbf{T}}(\theta|\D)
+      &= \frac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha - 1}e^{-\beta\theta}\prod_{i = 1}^n \frac{e^{-\theta}\theta^{x_i}}{x_i!} \\
+      &\propto e^{-\eta \theta} \exp \left\{\log(\theta)\nu\right\}\frac{e^{-n\theta}}{\prod_{i = 1}^n x_i!}\exp\left\{\log \theta\sum_{i = 1}^n x_i\right\} \\
+      &= \frac{e^{-(\eta + n)\theta}}{\prod_{i = 1}^n x_i!}\exp\left\{\log \theta \left(\nu + \sum_{i = 1}^n x_i\right)\right\} \\
+      &= \frac{e^{-(\beta + n)\theta}}{\prod_{i = 1}^n x_i!}\exp\left\{\log \theta \left(\alpha - 1 + \sum_{i = 1}^n x_i\right)\right\}.
+    \end{align*}
+
+    \textbf{Exponential}
+    \begin{align*}
+      P_{\theta|\mathbf{T}}(\theta|\D)
+      &= \frac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha - 1}e^{-\beta\theta}\prod_{i = 1}^n \frac{e^{-\theta}\theta^{x_i}}{x_i!} \\
+      &\propto \theta^n e^{-\theta \sum_{i = 1}^n x_i}\theta^{\eta} \exp \left\{-\nu\theta\right\} \\
+      &= \theta^{\eta + n}\exp \left\{-\theta\left(\nu + \sum_{i = 1}^n x_i\right)\right\} \\
+      &= \theta^{\alpha - 1 + n}\exp \left\{-\theta\left(\beta + \sum_{i = 1}^n x_i\right)\right\}.
+    \end{align*}
+
+    \textbf{Normal}
+    \begin{align*}
+      P_{\theta|\mathbf{T}}(\theta|\D)
+      &= \frac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha - 1}e^{-\beta\theta}\prod_{i = 1}^n \sqrt{\frac{\theta}{2\pi}} \exp \left\{-\frac{\theta}{2}(x_i - \mu)^2\right\} \\
+      &\propto \left(\sqrt{\frac{\theta}{2\pi}}\right)^{\eta} \exp \left\{-\frac{\theta}{2} \cdot \nu\right\}\sqrt{\frac{\theta}{2\pi}}^n \exp \left\{-\frac{\theta}{2} \sum_{i = 1}^n (x_i - \mu)^2\right\} \\
+      &= \left(\sqrt{\frac{\theta}{2\pi}}\right)^{\eta + n} \exp \left\{-\frac{\theta}{2} \left(\nu + \sum_{i = 1}^n (x_i - \mu)^2\right)\right\} \\
+      &= \left(\sqrt{\frac{\theta}{2\pi}}\right)^{2\alpha - 2 + n} \exp \left\{-\frac{\theta}{2} \left(2\beta + \sum_{i = 1}^n (x_i - \mu)^2\right)\right\}.
+    \end{align*}
+
+    \item We now interpret the meaning of the sufficient statistic and the “propagation” for each distribution.
+    
+    \textbf{Bernoulli}
+
+    The sifficient statistic here represents the number of tosses in $\D$ that results in $1$.
+    The propagation in this case represents the addition of virtual tosses we have.
+    Of the total $\alpha + \beta - 2$ tosses, $\alpha - 1$ of them are $1$ and $\beta - 1$ of them are $0$.
+    Hence, the prior suggests that the chance to toss an 1 should be closer to $\frac{\alpha - 1}{\alpha + \beta - 2}$.
+
+    \textbf{Poisson}
+
+    The sifficient statistic here represents the sum of the number of times an event was triggered in $\D$.
+    The propagation in this case represents addition of the virtual experiments that was done.
+    Of the $\beta$ virtual experiments, the total number of times an event was triggered is $\alpha - 1$.
+    Hence, the prior suggests that the rate of trigger should be closer to $\frac{\alpha - 1}{\beta}$.
+
+    \textbf{Exponential}
+
+    The sufficent statistic here represents the sum of the time we waited in $\D$.
+    The propagation in this case represents the addition of the virtual experiments that was done.
+    Of the $\alpha - 1$ virtual experiments, the total time we waited is $\beta$.
+    Hence, the prior suggests that the wait time should be closer to $\frac{\beta}{\alpha - 1}$.
+
+    \textbf{Normal}
+
+    The sufficent statistic here represents the sum of the variance between each sample in $\D$ and the mean.
+    The propagation in this case represents the addition of the virtual sample.
+    Of the $2\alpha - 2$ virtual experiments, the sum of all variances is $2\beta$.
+    Hence, the prior suggests that the variance should be closer to $\frac{\beta}{\alpha - 1}$.
+  \end{enumerate}
+\end{homeworkProblem}
+\end{document}
