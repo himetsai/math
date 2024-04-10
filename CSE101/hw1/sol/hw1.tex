@@ -232,19 +232,12 @@
     vertices. Determine the big-Theta bound of $P(N)$.
 
     \begin{proof}
-      We have already know $P(N) = (\frac{N}{2}!)^2$ when $N$ is even. If $N$ is odd, then
-      calculating $P(N)$ is equivalent to calculating $B(n)$ with an additional step of picking out
-      a random vertex to be the start. Hence, $P(N) = N(\frac{N - 1}{2}!)^2$ when $N$ is odd.
-      Applying Stiring's formula to both cases, we get
+      We have already know $P(N) = (\frac{N}{2}!)^2$ when $N$ is even. Applying Stiring's formula,
+      we get
       \begin{gather*}
-        \left(\frac{N}{2}!\right)^2 \sim \left(\sqrt{\pi N}\left(\frac{N}{2e}\right)^{N - 1/2}\right)^2 = 2^{\log \pi + \log N + N\log N - N\log 2e}
+        P(N) = \left(\frac{N}{2}!\right)^2 \sim \left(\sqrt{\pi N}\left(\frac{N}{2e}\right)^{N - 1/2}\right)^2 = 2^{\log \pi + \log N + N\log N - N\log 2e}
       \end{gather*}
-      \begin{align*}
-        N\left(\frac{N - 1}{2}!\right)^2 
-        &\sim N\left(\sqrt{\pi (N - 1)}\left(\frac{N - 1}{2e}\right)^{N - 1/2}\right)^2 \\
-        &= 2^{\log \pi + \log N + \log (N - 1) + (N - 1)\log (N - 1) - (N - 1)\log 2e}.
-      \end{align*}
-      Hence, in either case, $P(N) = 2^{\Theta(N\log N)} = \Theta(N!)$.
+      Hence, $P(N) = 2^{\Theta(N\log N)} = \Theta(N!)$.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
