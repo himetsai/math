@@ -2,7 +2,7 @@
 
 Instructor: Jacques Verstraete
 
-Material: [Lecture Notes](https://github.com/himetsai/math/blob/main/math158/lecture_notes.pdf), by Jacques Verstraete
+Material: [Lecture Notes](https://github.com/himetsai/math/blob/main/MATH158/lecture_notes.pdf), by Jacques Verstraete
 
 Term: WI23
 
