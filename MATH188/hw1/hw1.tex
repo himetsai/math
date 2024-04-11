@@ -1,0 +1,489 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{Apr 13, 2024}
+\newcommand{\hmwkClass}{MATH 188}
+\newcommand{\hmwkClassInstructor}{Professor Kunnawalkam Elayavalli}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\p}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Find a closed formula for the following recurrence relation:
+  \begin{gather*}
+    a_0 = 1, \quad a_1 = 1, \quad a_2 = 2, \\
+    a_n = 5a_{n-1} - 8a_{n-2} + 4a_{n-3} \quad (n \geq 3).
+  \end{gather*}
+
+  \begin{proof}
+    The characteristic polynomial of this recurrence relation is defined to be
+    \[
+      t^3 - 5t^2 + 8t - 4 = (t - 1)(t - 2)^2,
+    \]
+    which has roots $t = 1, 2$. Note that $2$ is a repeated root, and thus 
+    \[
+      a_n = \alpha_1 + \alpha_22^n + \alpha_3n2^n.
+    \]
+    Solving the system of equations
+    \[
+      \begin{cases}
+        1 = \alpha_1 + \alpha_2 \\
+        1 = \alpha_1 + 2\alpha_2 + 2\alpha_3 \\
+        2 = \alpha_1 + 4\alpha_2 + 8\alpha_3
+      \end{cases},
+    \]
+    we get
+    \[
+      a_n = 2 - 2^n + n2^{n - 1}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $r_1, \ldots, r_d$ be distinct numbers. Show that the determinant of the $d \times d$ matrix
+  $(r_i^{j-1})_{i,j=1,\ldots,d}$ is nonzero (interpret $0^0 = 1$). Explain why this implies that the
+  sequences $(r_1^n)_{n\geq0}, \ldots, (r_d^n)_{n\geq0}$ are linearly independent.
+
+  \begin{proof}
+    Given numbers $x_1, x_2, \dots, x_d$, define
+    \[
+      M(x_1, x_2, \dots, x_d) = \begin{bmatrix}
+        1 & x_1 & x_1^2 & \cdots & x_1^{d - 1} \\
+        1 & x_2 & x_2^2 & \cdots & x_2^{d - 1} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & x_{d} & x_{d}^2 & \cdots & x_{d}^{d - 1} \\
+      \end{bmatrix}.
+    \]
+    We first show by induction on $d$ that, $$\det M(x_1, x_2, \dots, x_d) = \prod_{1 \leq i < j
+    \leq d} (x_j - x_i),$$ for all $d \geq 2$. We already know.
+    \[
+      \det M(x_1, x_2) = \det \begin{bmatrix}
+        1 & x_1 \\
+        1 & x_2
+      \end{bmatrix} = x_2 - x_1.
+    \]
+    Suppose $d > 2$. Note that the determinant remains the same after subtracting to each column the
+    preceding column scaled by $x_1$. Hence,
+    \begin{align*}
+      \det M(x_1, x_2, \dots, x_d) &= \det \begin{bmatrix}
+        1 & x_1 & x_1^2 & \cdots & x_1^{d - 1} \\
+        1 & x_2 & x_2^2 & \cdots & x_2^{d - 1} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & x_{d} & x_{d}^2 & \cdots & x_{d}^{d - 1} \\
+      \end{bmatrix} \\
+      &= \det \begin{bmatrix}
+        1 & 0 & 0 & \cdots & 0 \\
+        1 & x_2 - x_1 & x_2(x_2 - x_1) & \cdots & x_2^{d - 2}(x_2 - x_1) \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & x_d - x_1 & x_d(x_d - x_1) & \cdots & x_d^{d - 2}(x_d - x_1) \\
+      \end{bmatrix} \\
+      &= \det \begin{bmatrix}
+        x_2 - x_1 & x_2(x_2 - x_1) & \cdots & x_2^{d - 2}(x_2 - x_1) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        x_d - x_1 & x_d(x_d - x_1) & \cdots & x_d^{d - 2}(x_d - x_1) \\
+      \end{bmatrix}.
+    \end{align*}
+    Since the entries of $i$th row share a common factor $(x_{i + 1} - x_1)$, we may extract them
+    from the determinant and get
+    \begin{align*}
+      \det M(x_1, x_2, \dots, x_d) 
+      &= \left(\prod_{1 \leq i \leq d - 1} (x_{i + 1} - x_1)\right)\det M(x_2, x_2, \dots, x_d) \\
+      &= \left(\prod_{1 \leq i \leq d - 1} (x_{i + 1} - x_1)\right)\left(\prod_{2 \leq i < j \leq d} (x_j - x_i)\right) = \prod_{1 \leq i < j \leq d} (x_j - x_i),
+    \end{align*}
+    by induction. Since all $r_i$'s are distinct,
+    \[
+      \det M(r_1, r_2, \dots, r_d) = \prod_{1 \leq i < j \leq d} (r_j - r_i) \neq 0.
+    \]
+    But then $(r_1^n)_{0 \leq n < d}, \ldots, (r_d^n)_{0 \leq n < d}$ are linearly independent, so
+    $(r_1^n)_{n\geq0}, \ldots, (r_d^n)_{n\geq0}$ are also linearly independent. (\textit{Source
+    cited: en.wikipedia.org/wiki/Vandermonde\underline{\hspace{0.5em}}matrix})
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $(a_n)_{n\geq0}$ be a sequence satisfying a linear recurrence relation whose characteristic
+  polynomial is $(t^2 - 1)^d$. Show that there exist polynomials $p(n)$ and $q(n)$ of degree $\leq d
+  - 1$ such that
+  \[
+    a_n = \begin{cases}
+      p(n) & \text{if } n \text{ is even} \\
+      q(n) & \text{if } n \text{ is odd}
+    \end{cases}.
+  \]
+
+  \begin{proof}
+    Since $(t^2 - 1)^d = (t - 1)^d(t + 1)^d$,
+    \begin{align*}
+      a_n 
+      &= \alpha_0 + \alpha_1n + \dots + \alpha_{d - 1}n^{d - 1} + (-1)^{n}(\beta_0 + \beta_1n + \dots + \beta_{d - 1}n^{d - 1}) \\
+      &= \begin{cases}
+        \sum_{0 \leq k \leq d - 1} (\alpha_k + \beta_k)n^k & \text{if } n \text{ is even} \\
+        \sum_{0 \leq k \leq d - 1} (\alpha_k - \beta_k)n^k & \text{if } n \text{ is odd} \\
+      \end{cases}.
+    \end{align*}
+    The result follows by taking $p(n) = \sum_{0 \leq k \leq d - 1} (\alpha_k + \beta_k)n^k$ and
+    $q(n) = \sum_{0 \leq k \leq d - 1} (\alpha_k - \beta_k)n^k$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item Suppose that $(a_n)_{n\geq0}$ and $(a'_n)_{n\geq0}$ both satisfy the same linear
+    recurrence relation of order $d$ and that they agree in $d$ consecutive places, i.e., there
+    exists $k$ such that $a_k = a'_k$, $a_{k+1} = a'_{k+1}$, $\ldots$, $a_{k+d-1} = a'_{k+d-1}$.
+    Show that these sequences are the same.
+
+    \begin{proof}
+      By assumption,
+      \begin{gather*}
+        a_n = c_1a_{n - 1} + c_2a_{n - 2} + \dots + c_da_{n - d} \\
+        a'_n = c_1a'_{n - 1} + c_2a'_{n - 2} + \dots + c_da'_{n - d},
+      \end{gather*}
+      for some $c_1, \ldots, c_d$, with $c_d \neq 0$. By induction, $a_n = a'_n$ for all $n \geq k$,
+      so it remains to show the equality also holds true for $n < k$. Rearranging the equations, we
+      get
+      \begin{gather*}
+        a_{n} = \frac{1}{c_d}(a_{n + d} - c_1a_{n + d - 1} - \dots - c_{d - 1}a_{n + 1}) \\
+        a'_{n} = \frac{1}{c_d}(a'_{n + d} - c_1a'_{n + d - 1} - \dots - c_{d - 1}a'_{n + 1}),
+      \end{gather*}
+      so by induction based on the $k$ consecutive terms that both sequences agree we get $a_n =
+      a'_n$ for all $n < k$, and this completes the proof.
+    \end{proof}
+
+    \item Suppose that $(a_n)_{n\geq0}$ satisfies the linear recurrence relation of order $d$
+    \[
+      a_n = c_1a_{n-1} + \ldots + c_da_{n-d} \quad \text{for all } n \geq d
+    \]
+    with $c_d \neq 0$. Show that there is a unique sequence $(b_n)_{n\in\mathbb{Z}}$ (indexed by
+    \textit{all} integers) such that $b_n = a_n$ for $n \geq 0$ and such that
+    \begin{gather}
+      b_n = c_1b_{n-1} + \ldots + c_db_{n-d} \quad \text{for all } n \in \mathbb{Z}.
+    \end{gather}
+    \begin{proof}
+      Given $b_n = a_n$ for $n \geq 0$, define 
+      \begin{gather}
+        b_{n} = \frac{1}{c_d}(b_{n + d} - c_1b_{n + d - 1} - \dots - c_{d - 1}b_{n + 1}),
+      \end{gather}
+      for $n < 0$. Rearranging (1), we know $b_n$ follows (2) for $n \in \Z$. Hence, it remains to
+      show the uniqueness of $(b_n)$. Suppose there exists $(b'_n)$ such that $b'_n = a_n$ for $n
+      \geq 0$ and satisfies the recurrence relation for all $n \in \Z$. We already know $(b_n)$ and
+      $(b'_n)$ agree for all nonnegative terms. But then by (2), $(b_n)$ and $(b'_n)$ agree with
+      each negative term by backwards induction on negative $n$ based on the first $d$ nonnegative
+      terms, so both sequences also agree on the negative terms. Hence, $(b_n) = (b'_n)$ and we are
+      done.
+    \end{proof}
+
+    \item Consider the Fibonacci sequence $f_0 = 0$, $f_1 = 1$, and $f_n = f_{n-1} + f_{n-2}$. How
+    does the negatively indexed Fibonacci sequence relate to the usual one?
+    \begin{proof}
+      For $n < 0$, $f_n$ is defined as
+      \[
+        f_{n} = -f_{n + 1} + f_{n + 2}.
+      \]
+      Define a new sequence $(g_n)_{n \geq 0}$ as $g_n = f_{-n}$. The characteristic polynomial of
+      $(g_n)$ is $t^2 + t - 1$, which has roots $r'_1 = \frac{-1 + \sqrt{5}}{2}$ and $r'_2 =
+      \frac{-1 - \sqrt{5}}{2}$. Notice that $r'_1 = -r_1$ and $r'_2 = -r_2$, where $r_1, r_2$ are
+      the roots of the characteristic polynomial of the Fibonacci sequence. Since $g_0 = 0$ and
+      $g_1 = 1$,
+      \[
+        g_n = \frac{1}{\sqrt{5}}((r'_1)^n + (r'_2)^n) = \frac{(-1)^n}{\sqrt{5}}(r_1^n + r_2^n) = (-1)^nf_n,
+      \]
+      so $(g_n)$ is just the alternating Fibonacci sequence.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $A_0(x), A_1(x), \ldots$ and $B_0(x), B_1(x), \ldots$ be sequences of formal power series.
+  Assume that $\lim\limits_{i \to \infty} A_i(x) = A(x)$ and $\lim\limits_{i \to \infty} B_i(x) =
+  B(x)$.
+
+  \begin{enumerate}[(a)]
+    \item Prove that $\lim\limits_{i \to \infty} (A_i(x) + B_i(x)) = A(x) + B(x)$. 
+    \begin{proof}
+      Note that for any $n$, there exists $N_{a_n}, N_{b_n}$ such that $[x^n]A_i(x) = [x^n]A(x)$ and
+      $[x^n]B_i(x) = [x^n]B(x)$, for all $i \geq N_n = \max(N_{a_n}, N_{b_n})$. Hence, 
+      \[
+        [x^n](A_i(x) + B_i(x)) = [x^n]A_i(x) + [x^n]B_i(x) = [x^n]A(x) + [x^n]B(x) = [x^n](A(x) + B(x)),
+      \]
+      for $i \geq N_n$, and the result follows.
+    \end{proof}
+    \item Prove that $\lim\limits_{i \to \infty} (A_i(x)B_i(x)) = A(x)B(x)$.
+    \begin{proof}
+      Note that for any $n$, there exists $N_{a_n}, N_{b_n}$ such that $[x^n]A_i(x) = [x^n]A(x)$ and
+      $[x^n]B_i(x) = [x^n]B(x)$, for all $i \geq N_n = \max(N_{a_n}, N_{b_n})$. Given $m \geq 0$,
+      take $N = \max(N_0, N_1, \ldots, N_m)$. Then, 
+      \[
+        [x^m](A_i(x)B_i(x)) = \sum_{k = 0}^m [x^k]A_i(x)[x^{m - k}]B_i(x) = \sum_{k = 0}^m [x^k]A(x)[x^{m - k}]B(x) = [x^m](A(x)B(x)),
+      \]
+      for $i \geq N$, and the result follows.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Continuing from Problem 3, how does the statement generalize if the characteristic polynomial is
+  $(t^k - 1)^d$?
+
+  \begin{proof}
+    Notice $t^k - 1 = (t - 1)(t - \omega)(t - \omega^2)\dots(t - \omega^k)$, where $\omega =
+    e^{\frac{2\pi}{k}}$. Hence, for $m = 0, 1, \dots k - 1$, take $p_m(n) = \sum_{i = 1}^k
+    \omega^{im}\sum_{j = 0}^{d - 1} \alpha_{i, j}n^j$, which are polynomials of degree at most $d -
+    1$. Then,
+    \begin{align*}
+      a_n 
+      &= \sum_{i = 1}^k \omega^{in}\sum_{j = 0}^{d - 1} \alpha_{i, j}n^j \\
+      &= \begin{cases}
+        p_0(n) & \text{if } n \equiv 0 \pmod k \\
+        p_1(n) & \text{if } n \equiv 1 \pmod k \\
+        &\vdots \\
+        p_{k - 1}(n) & \text{if } n \equiv k - 1 \pmod k \\
+      \end{cases}.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $p$ be a prime number and let $(a_n)_{n\geq0}$ be a sequence such that $a_n \in \mathbb{Z}/p$
+  and which satisfies a homogeneous linear recurrence relation. Show that the sequence is in fact
+  periodic.
+
+  \begin{proof}
+    By assumption,
+    \[
+      a_n = c_1a_{n - 1} + c_2a_{n - 1} + \dots + c_da_{n - d},
+    \]
+    for some $c_1, c_2, \dots, c_d \in \Z/p$, $c_d \neq 0$. Since there are only $p^d$ possible
+    strings of length $d$, it is guaranteed that some length $d$ string $s_d$ repeats in the first
+    $dp^d$ terms. Suppose that $s_d$ initially appeared at $a_ka_{k + 1}\ldots a_{k + d - 1}$ and
+    reappeared at $a_la_{l + 1}\ldots a_{l + d - 1}$. Since 
+    \begin{gather}
+      a_{n} = \frac{1}{c_d}(a_{n + d} - c_1a_{n + d - 1} - \dots - c_{d - 1}a_{n + 1}),
+    \end{gather}
+    we may inductively calculate the first $k$ terms based on $a_k, a_{k + 1}, \ldots ,a_{k + d -
+    1}$. Let $s_{d_0}$ be the string of the first $d$ terms. We reapply $(3)$ on $a_la_{l + 1}\ldots
+    a_{l + d - 1}$ and get that $s_{d_0}$ repeats at $a_{l - k}a_{l - k + 1}\ldots a_{l - k + d -
+    1}$. Hence, $(a_n)_{n \geq 0}$ is periodic.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $r_1, \ldots, r_{d-1}$ be distinct numbers. Prove that the sequences $\alpha_1 = (r_1^n),
+  \ldots, \alpha_{d-1} = (r_{d-1}^n), \alpha_d = (nr_{d-1}^{n - 1})$ are linearly independent by
+  showing that the determinant of $(\alpha_{i,j-1})_{i,j=1,\ldots,d}$ is nonzero (interpret $0^0 =
+  1$ and if $r_{d-1} = 0$, interpret $\alpha_{d,0} = 0$).
+
+  \begin{proof}
+    Given distinct $d$ numbers $r_1, r_2, \dots, r_{d - 1}$, define
+    \[
+      M(r_1, r_2, \dots, r_{d - 1}) = \begin{bmatrix}
+        1 & r_1 & r_1^2 & \cdots & r_1^{d - 1} \\
+        1 & r_2 & r_2^2 & \cdots & r_2^{d - 1} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & r_{d-1} & r_{d-1}^2 & \cdots & r_{d-1}^{d - 1} \\
+        0 & 1 & 2r_{d-1} & \cdots & dr_{d-1}^{d - 1} \\
+      \end{bmatrix}.
+    \]
+    We first show by induction on $d$ that, $$\det M(r_1, r_2, \dots, r_{d - 1}) \neq 0,$$ for any
+    $d$ distinct numbers, $d \geq 2$. We already know.
+    \[
+      \det M(r_1) = \det \begin{bmatrix}
+        1 & r_1 \\
+        0 & 1
+      \end{bmatrix} = 1.
+    \]
+    Suppose we are given distinct $r_1, \ldots, r_{d-1}$, for $d > 2$. Note that the determinant
+    remains the same after subtracting to each column the preceding column scaled by $r_1$. Hence,
+    \begin{align*}
+      \det M(r_1, r_2, \dots, r_{d - 1}) &= \det \begin{bmatrix}
+        1 & r_1 & r_1^2 & \cdots & r_1^{d - 1} \\
+        1 & r_2 & r_2^2 & \cdots & r_2^{d - 1} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & r_{d-1} & r_{d-1}^2 & \cdots & r_{d-1}^{d - 1} \\
+        0 & 1 & 2r_{d-1} & \cdots & dr_{d-1}^{d - 1} \\
+      \end{bmatrix} \\
+      &= \det \begin{bmatrix}
+        1 & 0 & 0 & \cdots & 0 \\
+        1 & r_2 - r_1 & r_2(r_2 - r_1) & \cdots & r_2^{d - 2}(r_2 - r_1) \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & r_{d - 1} - r_1 & r_{d - 1}(r_{d - 1} - r_1) & \cdots & r_{d - 1}^{d - 2}(r_{d - 1} - r_1) \\
+        0 & 1 & 2r_{d-1} - r_1 & \cdots & dr_{d-1}^{d - 1} - (d - 1)r_1r^{d - 2}_{d - 1} \\
+      \end{bmatrix} \\
+      &= \det \begin{bmatrix}
+        r_2 - r_1 & r_2(r_2 - r_1) & \cdots & r_2^{d - 2}(r_2 - r_1) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        r_{d - 1} - r_1 & r_{d - 1}(r_{d - 1} - r_1) & \cdots & r_{d - 1}^{d - 2}(r_{d - 1} - r_1) \\
+        1 & 2r_{d-1} - r_1 & \cdots & dr_{d-1}^{d - 1} - (d - 1)r_1r^{d - 2}_{d - 1} \\
+      \end{bmatrix} \\
+      &= (r_{d-1} - r_1)\left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right)\det \begin{bmatrix}
+        1 & r_2 & r_2^2 & \cdots & r_2^{d - 2} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & r_{d - 1} & r^2_{d - 1} & \cdots & r_{d - 1}^{d - 2} \\
+        0 & 1 & 2r_{d - 1} & \cdots & (d - 1)r_{d - 1}^{d - 2} \\
+      \end{bmatrix} \\
+      &= (r_{d-1} - r_1)\left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right)M(r_2, r_3, \dots, r_{d - 1}).
+    \end{align*}
+    But then all $r_i$'s are distinct, so $\det M(r_1, r_2, \dots, r_{d - 1}) \neq 0$, by induction.
+    The induction result implies that $(r_1^n)_{0 \leq n < d}, \ldots, (r_{d - 1}^n)_{0 \leq n < d},
+    (nr_{d - 1}^{n - 1})_{0 \leq n < d}$ are linearly independent, so $(r_1^n)_{n\geq0}, \ldots,
+    (r_{d - 1}^n)_{n\geq0}, (nr_{d - 1}^{n - 1})_{n\geq0}$ are also linearly independent.
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
