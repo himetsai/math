@@ -151,6 +151,21 @@
 
 \pagebreak
 
+We first give a proof for the general closed form of homogeneous linear recurrence relations for
+later use: 
+\begin{proof}
+  Given 
+  \[
+    a_n = c_1a_{n - 1} + c_2a_{n - 2} + \dots + c_da_{n - d}
+  \]
+  for $n \geq d$, and the values of $a_n$, $n < d$, the characteristic polynomial $p(t) = t^d -
+  c_1t^{d - 1} - \dots - c_da_{n - d} = (t - r_1)^{m^1}\cdots (t - r_s)^{m^s}$, where $r_1, \dots,
+  r_s$ are distinct nonzero roots. Put $Q(t) = t^dp(t^{-1}) = (1 - r_st)^{m^s}$, and the result
+  now follows from Theorem 2.22.
+\end{proof}
+
+\newpage
+
 \begin{homeworkProblem}
   Find a closed formula for the following recurrence relation:
   \begin{gather*}
@@ -264,12 +279,12 @@
       a_n 
       &= \alpha_0 + \alpha_1n + \dots + \alpha_{d - 1}n^{d - 1} + (-1)^{n}(\beta_0 + \beta_1n + \dots + \beta_{d - 1}n^{d - 1}) \\
       &= \begin{cases}
-        \sum_{0 \leq k \leq d - 1} (\alpha_k + \beta_k)n^k & \text{if } n \text{ is even} \\
-        \sum_{0 \leq k \leq d - 1} (\alpha_k - \beta_k)n^k & \text{if } n \text{ is odd} \\
+        \sum_{k = 0}^{d - 1} (\alpha_k + \beta_k)n^k & \text{if } n \text{ is even} \\
+        \sum_{k = 0}^{d - 1} (\alpha_k - \beta_k)n^k & \text{if } n \text{ is odd} \\
       \end{cases}.
     \end{align*}
     The result follows by taking $p(n) = \sum_{0 \leq k \leq d - 1} (\alpha_k + \beta_k)n^k$ and
-    $q(n) = \sum_{0 \leq k \leq d - 1} (\alpha_k - \beta_k)n^k$.
+    $q(n) = \sum_{k = 0}^{d - 1} (\alpha_k - \beta_k)n^k$.
   \end{proof}
 \end{homeworkProblem}
 
