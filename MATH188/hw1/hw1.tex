@@ -466,19 +466,19 @@
         1 & r_{d - 1} - r_1 & r_{d - 1}(r_{d - 1} - r_1) & \cdots & r_{d - 1}^{d - 2}(r_{d - 1} - r_1) \\
         0 & 1 & 2r_{d-1} - r_1 & \cdots & dr_{d-1}^{d - 1} - (d - 1)r_1r^{d - 2}_{d - 1} \\
       \end{bmatrix} \\
-      &= \det \begin{bmatrix}
-        r_2 - r_1 & r_2(r_2 - r_1) & \cdots & r_2^{d - 2}(r_2 - r_1) \\
+      &= \left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right) \det \begin{bmatrix}
+        1 & r_2 & \cdots & r_2^{d - 2} \\
         \vdots & \vdots & \ddots & \vdots \\
-        r_{d - 1} - r_1 & r_{d - 1}(r_{d - 1} - r_1) & \cdots & r_{d - 1}^{d - 2}(r_{d - 1} - r_1) \\
+        1 & r_{d - 1} & \cdots & r_{d - 1}^{d - 2} \\
         1 & 2r_{d-1} - r_1 & \cdots & dr_{d-1}^{d - 1} - (d - 1)r_1r^{d - 2}_{d - 1} \\
       \end{bmatrix} \\
-      &= (r_{d-1} - r_1)\left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right)\det \begin{bmatrix}
+      &= \left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right)\det \begin{bmatrix}
         1 & r_2 & r_2^2 & \cdots & r_2^{d - 2} \\
         \vdots & \vdots & \ddots & \vdots \\
         1 & r_{d - 1} & r^2_{d - 1} & \cdots & r_{d - 1}^{d - 2} \\
-        0 & 1 & 2r_{d - 1} & \cdots & (d - 1)r_{d - 1}^{d - 2} \\
+        0 & (r_{d-1} - r_1) & 2(r_{d-1} - r_1)r_{d - 1} & \cdots & (d - 1)(r_{d-1} - r_1)r_{d - 1}^{d - 2} \\
       \end{bmatrix} \\
-      &= (r_{d-1} - r_1)\left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right)M(r_2, r_3, \dots, r_{d - 1}).
+      &= (r_{d-1} - r_1)\left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right) \det M(r_2, r_3, \dots, r_{d - 1}).
     \end{align*}
     But then all $r_i$'s are distinct, so $\det M(r_1, r_2, \dots, r_{d - 1}) \neq 0$, by induction.
     The induction result implies that $(r_1^n)_{0 \leq n < d}, \ldots, (r_{d - 1}^n)_{0 \leq n < d},
