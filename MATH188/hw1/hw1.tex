@@ -410,15 +410,10 @@
     \]
     for some $c_1, c_2, \dots, c_d \in \Z/p$, $c_d \neq 0$. Since there are only $p^d$ possible
     strings of length $d$, it is guaranteed that some length $d$ string $s_d$ repeats in the first
-    $dp^d$ terms. Suppose that $s_d$ initially appeared at $a_ka_{k + 1}\ldots a_{k + d - 1}$ and
-    reappeared at $a_la_{l + 1}\ldots a_{l + d - 1}$. Since 
-    \begin{gather}
-      a_{n} = \frac{1}{c_d}(a_{n + d} - c_1a_{n + d - 1} - \dots - c_{d - 1}a_{n + 1}),
-    \end{gather}
-    we may inductively calculate the first $k$ terms based on $a_k, a_{k + 1}, \ldots ,a_{k + d -
-    1}$. Let $s_{d_0}$ be the string of the first $d$ terms. We reapply $(3)$ on $a_la_{l + 1}\ldots
-    a_{l + d - 1}$ and get that $s_{d_0}$ repeats at $a_{l - k}a_{l - k + 1}\ldots a_{l - k + d -
-    1}$. Hence, $(a_n)_{n \geq 0}$ is periodic.
+    $dp^d$ terms. Suppose that $s_d$ initially appeared at $a_k$ and repeated at $a_{k + l}$, that
+    is, $a_k = a_{k + l}, a_{k + 1} = a_{k + 1 + l}, \ldots, a_{k + d - 1} = a_{k + d - 1 = l}$.
+    Note that $\Z/p$ is closed under taking multiplicative inverse. Hence, by problem 4(a), we have
+    $(a_n)_{n \geq 0} = (a_{n + l})_{n \geq 0}$, and thus $(a_n)_{n \geq 0}$ is periodic.
   \end{proof}
 \end{homeworkProblem}
 
