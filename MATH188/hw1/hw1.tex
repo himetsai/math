@@ -467,26 +467,26 @@ later use:
         1 & r_2 & r_2^2 & \cdots & r_2^{d - 1} \\
         \vdots & \vdots & \vdots & \ddots & \vdots \\
         1 & r_{d-1} & r_{d-1}^2 & \cdots & r_{d-1}^{d - 1} \\
-        0 & 1 & 2r_{d-1} & \cdots & dr_{d-1}^{d - 1} \\
+        0 & 1 & 2r_{d-1} & \cdots & (d - 1)r_{d-1}^{d - 2} \\
       \end{bmatrix} \\
       &= \det \begin{bmatrix}
         1 & 0 & 0 & \cdots & 0 \\
         1 & r_2 - r_1 & r_2(r_2 - r_1) & \cdots & r_2^{d - 2}(r_2 - r_1) \\
         \vdots & \vdots & \vdots & \ddots & \vdots \\
         1 & r_{d - 1} - r_1 & r_{d - 1}(r_{d - 1} - r_1) & \cdots & r_{d - 1}^{d - 2}(r_{d - 1} - r_1) \\
-        0 & 1 & 2r_{d-1} - r_1 & \cdots & dr_{d-1}^{d - 1} - (d - 1)r_1r^{d - 2}_{d - 1} \\
+        0 & 1 & 2r_{d-1} - r_1 & \cdots & (d - 1)r_{d-1}^{d - 2} - (d - 2)r_1r^{d - 3}_{d - 1} \\
       \end{bmatrix} \\
       &= \left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right) \det \begin{bmatrix}
         1 & r_2 & \cdots & r_2^{d - 2} \\
         \vdots & \vdots & \ddots & \vdots \\
         1 & r_{d - 1} & \cdots & r_{d - 1}^{d - 2} \\
-        1 & 2r_{d-1} - r_1 & \cdots & dr_{d-1}^{d - 1} - (d - 1)r_1r^{d - 2}_{d - 1} \\
+        1 & 2r_{d-1} - r_1 & \cdots & (d - 1)r_{d-1}^{d - 2} - (d - 2)r_1r^{d - 3}_{d - 1} \\
       \end{bmatrix} \\
       &= \left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right)\det \begin{bmatrix}
         1 & r_2 & r_2^2 & \cdots & r_2^{d - 2} \\
         \vdots & \vdots & \ddots & \vdots \\
         1 & r_{d - 1} & r^2_{d - 1} & \cdots & r_{d - 1}^{d - 2} \\
-        0 & (r_{d-1} - r_1) & 2(r_{d-1} - r_1)r_{d - 1} & \cdots & (d - 1)(r_{d-1} - r_1)r_{d - 1}^{d - 2} \\
+        0 & (r_{d-1} - r_1) & 2(r_{d-1} - r_1)r_{d - 1} & \cdots & (d - 2)(r_{d-1} - r_1)r_{d - 1}^{d - 3} \\
       \end{bmatrix} \\
       &= (r_{d-1} - r_1)\left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right) \det M(r_2, r_3, \dots, r_{d - 1}).
     \end{align*}
