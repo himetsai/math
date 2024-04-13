@@ -275,8 +275,8 @@ later use:
     from the determinant and get
     \begin{align*}
       \det M(x_1, x_2, \dots, x_d) 
-      &= \left(\prod_{1 \leq i \leq d - 1} (x_{i + 1} - x_1)\right)\det M(x_2, x_2, \dots, x_d) \\
-      &= \left(\prod_{1 \leq i \leq d - 1} (x_{i + 1} - x_1)\right)\left(\prod_{2 \leq i < j \leq d} (x_j - x_i)\right) = \prod_{1 \leq i < j \leq d} (x_j - x_i),
+      &= \left(\prod_{i = 1}^{d - 1} (x_{i + 1} - x_1)\right)\det M(x_2, x_2, \dots, x_d) \\
+      &= \left(\prod_{i = 1}^{d - 1} (x_{i + 1} - x_1)\right)\left(\prod_{2 \leq i < j \leq d} (x_j - x_i)\right) = \prod_{1 \leq i < j \leq d} (x_j - x_i),
     \end{align*}
     by induction. Since all $r_i$'s are distinct,
     \[
@@ -504,19 +504,19 @@ later use:
         1 & r_{d - 1} - r_1 & r_{d - 1}(r_{d - 1} - r_1) & \cdots & r_{d - 1}^{d - 2}(r_{d - 1} - r_1) \\
         0 & 1 & 2r_{d-1} - r_1 & \cdots & (d - 1)r_{d-1}^{d - 2} - (d - 2)r_1r^{d - 3}_{d - 1} \\
       \end{bmatrix} \\
-      &= \left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right) \det \begin{bmatrix}
+      &= \left(\prod_{i = 2}^{d - 1} (r_{i} - r_1)\right) \det \begin{bmatrix}
         1 & r_2 & \cdots & r_2^{d - 2} \\
         \vdots & \vdots & \ddots & \vdots \\
         1 & r_{d - 1} & \cdots & r_{d - 1}^{d - 2} \\
         1 & 2r_{d-1} - r_1 & \cdots & (d - 1)r_{d-1}^{d - 2} - (d - 2)r_1r^{d - 3}_{d - 1} \\
       \end{bmatrix} \\
-      &= \left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right)\det \begin{bmatrix}
+      &= \left(\prod_{i = 2}^{d - 1} (r_{i} - r_1)\right)\det \begin{bmatrix}
         1 & r_2 & r_2^2 & \cdots & r_2^{d - 2} \\
         \vdots & \vdots & \ddots & \vdots \\
         1 & r_{d - 1} & r^2_{d - 1} & \cdots & r_{d - 1}^{d - 2} \\
         0 & (r_{d-1} - r_1) & 2(r_{d-1} - r_1)r_{d - 1} & \cdots & (d - 2)(r_{d-1} - r_1)r_{d - 1}^{d - 3} \\
       \end{bmatrix} \\
-      &= (r_{d-1} - r_1)\left(\prod_{1 \leq i \leq d - 1} (r_{i + 1} - r_1)\right) \det M(r_2, r_3, \dots, r_{d - 1}).
+      &= (r_{d-1} - r_1)\left(\prod_{i = 2}^{d - 1} (r_{i} - r_1)\right) \det M(r_2, r_3, \dots, r_{d - 1}).
     \end{align*}
     But then all $r_i$'s are distinct, so $\det M(r_1, r_2, \dots, r_{d - 1}) \neq 0$, by induction.
     The induction result implies that $(r_1^n)_{0 \leq n < d}, \ldots, (r_{d - 1}^n)_{0 \leq n < d},
