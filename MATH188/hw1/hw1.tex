@@ -158,10 +158,38 @@ later use:
   \[
     a_n = c_1a_{n - 1} + c_2a_{n - 2} + \dots + c_da_{n - d}
   \]
-  for $n \geq d$, and the values of $a_n$, $n < d$, the characteristic polynomial $p(t) = t^d -
-  c_1t^{d - 1} - \dots - c_da_{n - d} = (t - r_1)^{m^1}\cdots (t - r_s)^{m^s}$, where $r_1, \dots,
-  r_s$ are distinct nonzero roots. Put $Q(t) = t^dp(t^{-1}) = (1 - r_st)^{m^s}$, and the result
-  now follows from Theorem 2.22.
+  for $n \geq d$, and the values of $a_n$, $n < d$, define $A(x) = \sum\limits_{n \geq 0} a_nx^n$.
+  Then, we have 
+  \begin{align*}
+    A(x) 
+    &= a_0 + a_1x + \dots + a_{d - 1}x^{d - 1} + \sum_{n \geq d} (c_1a_{n - 1} + c_2a_{n - 2} + \dots + c_da_{n - d})x^n \\
+    &= \sum_{n = 0}^{d - 1} a_nx^n + c_1x\sum_{n \geq d - 1} a_{n}x^n + c_2x^2\sum_{n \geq d - 2} a_{n}x^n + \dots + c_dx^d\sum_{n \geq 0} a_{n}x^n \\
+    &= \sum_{n = 0}^{d - 1} a_nx^n + c_1x\left(A(x) - \sum_{n = 0}^{d - 2} a_nx^n\right) + c_2x^2\left(A(x) - \sum_{n = 0}^{d - 3} a_nx^n\right) + \dots + c_dx^dA(x)
+  \end{align*}
+  Rearranged,
+  \[
+    A(x) = \frac{p(x)}{1 - c_1x - c_2x^2 - \dots - c_dx^d},
+    \]
+  for some polynomial $p(x)$ of degree less than $d$. We may assume $1 - c_1x - c_2x^2 - \dots -
+  c_dx^d$ has factorization $(1 - r_1x)^{w_1}(1 - r_2x)^{w_2} \dots (1 - r_sx)^{w_s}$. By applying
+  partial fraction decomposition,
+  \[
+    A(x) = \sum_{m = 1}^{w_1} \frac{p_{1, m}(x)}{(1 - r_1x)^m} + \sum_{m = 1}^{w_2} \frac{p_{2, m}(x)}{(1 - r_2x)^m} + \dots + \sum_{m = 1}^{w_s} \frac{p_{s, m}(x)}{(1 - r_sx)^m},
+  \]
+  where $p_{i, m}(x)$ is some polynomial of degree less than $m$. Note that for $k < m$,
+  \begin{gather*}
+    \frac{x^k}{(1 - r_ix)^m} = \sum_{n \geq 0} {m + n - 1 \choose n}r_i^nx^{n + k} = \sum_{n \geq k} \left({m + n - k - 1 \choose n - k}r_i^{-k}\right)r_i^{n}x^{n},
+  \end{gather*}
+  By the binomial theorem. But then
+  \[
+    {m + n - k - 1 \choose n - k}r_i^{-k} = \frac{r_i^{-k}}{(m - 1)!}(m + n - k - 1) \cdots (n - k + 2)(n - k + 1),
+  \]
+  so the each coefficient is really just a polynomial of $n$ with degree less than $m - 1$. It
+  follows that for $n \geq d$, the recurrence relation has a closed form 
+  \[
+    a_n = \sum_{i = 1}^s f_i(n)r_i^n,
+  \]
+  for some polynomial $f_i(n)$ of degree less than $w_i$.
 \end{proof}
 
 \newpage
