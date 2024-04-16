@@ -1,0 +1,181 @@
+
+\documentclass[10pt,letterpaper,unboxed,cm]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{enumerate}
+
+\newcommand{\st}{~\mid~}
+\newcommand{\ind}{$~~~$}
+\usepackage{xcolor}
+
+
+\begin{document}
+
+
+\hfill{CSE 101 Winter 2024}
+\hfill{Homework 2}
+\hfill{Due: Wednesday 4/17 at 11:59pm}
+
+
+
+\begin{quote}
+For questions 3 and 4 you must include the following:
+\begin{itemize}
+\item
+High-level description of your algorithm
+\item
+Proof of correctness
+\item
+Runtime analysis (Based on $|V|$ and $|E|$)
+\end{itemize}
+Note that you will also be graded on the efficiency of your algorithms.  It may also be helpful to write psuedo-code for your algorithms to aid you in writing a runtime analysis and for your general understanding of your solutions.
+
+\end{quote}
+
+\begin{enumerate}
+
+\item Run the SCC algorithm on the following directed graph $G$. When doing DFS on $G^R$: whenever there is a choice of vertices to explore, always pick the one that is alphabetically first.\\
+{\scriptsize$
+A:  D,G\\
+B:  F,G,L\\
+C:  B,E\\
+D:  G,H\\
+E:  A,J\\
+F:  B\\
+G:  H\\
+H:  B,L\\
+I:  K\\
+J:  F,L\\
+K:  D\\
+L:  E,H,K$}
+\begin{enumerate}
+\item (5 points)
+In what order are the strongly connected components (SCCs) found?
+
+\item (5 points)
+Which are source SCCs and which are sink SCCs?
+
+\item (5 points)
+Draw the ``metagraph" (each meta-node is an SCC of $G$)
+\end{enumerate}
+
+
+
+
+
+\item (10 points)
+Consider the following problem:
+
+\begin{quote}
+Given a strongly connected simple \emph{directed} graph $G$, determine the total number of cycles in the graph.
+
+Consider the following algorithm that claims to compute the total number of cycles in the graph.
+\end{quote}
+
+\begin{quote}
+(In a \emph{cycle}, you cannot repeat vertices (except for the starting and ending vertices) and you cannot repeat edges.)
+\end{quote}
+
+For each algorithm, 
+\begin{itemize}
+\item
+Provide a runtime analysis (Based on $|V|$ and $|E|$)
+\item
+identify if it correctly solves the problem.
+\item
+If it is correct, provide a correctness proof. If it is not correct, provide a counterexample.
+\end{itemize}
+
+
+\begin{enumerate}
+
+
+\break
+\item
+\begin{quote}
+{\bf Algorithm1}($G$; a strongly connected simple directed graph $G$.)
+
+\begin{enumerate}[1.]
+\item
+Run {\bf DFS}$(G)$
+\item
+c = 0
+\item
+{\bf for} each edge $(u,v)$ {\bf then}
+\item
+\ind {\bf if} $post(v)<post(u)$ {\bf then}
+\item
+\ind\ind $c = c + 1$
+\item
+{\bf return} c
+\end{enumerate}
+\end{quote}
+
+\item
+\begin{quote}
+{\bf Algorithm2}($G$; a strongly connected simple directed graph $G$.)
+
+[[run graphsearch and every time you encounter a vertex you have already seen before, increment your counter, $c$.]]
+
+\begin{enumerate}[1.]
+\item
+$c = 0$
+\item
+{\bf for all} $v\in V$:
+\item
+\ind Status($v$) = {\bf U}
+\item
+Pick any vertex $s$
+\item
+Status($s$) = {\bf F}
+\item
+Initialize a Stack: $F = [s]$
+\item
+{\bf while} $|F| > 0$
+\item
+\ind $w = pop(F)$.
+\item
+\ind For each outgoing neighbor $y$ of $w$ (for each $(w,y)\in E$):
+\item
+\ind\ind {\bf if} Status($y$) $\neq$ {\bf U}:
+\item
+\ind\ind\ind $c = c+1$
+\item
+\ind\ind {\bf else:}
+\item
+\ind\ind\ind Status($y$) = {\bf F}
+\item
+\ind\ind\ind $push(F,y)$
+\item
+\ind Status($w$) = {\bf X}
+\item
+{\bf return} $c$
+\end{enumerate}
+\end{quote}
+
+
+
+
+\end{enumerate}
+
+\item (15 points)
+You are given a simple directed graph $G$ with vertex set $V$, edge set $E$ and vertex labels $L(v)\in  \{0,1\}$ as well as a starting and ending vertex $s,t$.
+
+Design a reasonably efficient algorithm that determines if there is a walk from $s$ to $t$ such that the sequence of vertex labels in the walk have exactly one occurrence of two 1's in a row.
+
+(Note that a \emph{walk} is a sequence of edges from $s$ to $t$ such that you can repeat edges and vertices.)
+
+(7 points for reasonably efficient correct high level algorithm description (with correctness proof), 5 points for correct time analysis,
+and 3 points for efficiency of your algorithm.)
+
+\item (15 points)
+
+You are given a directed graph.
+
+Design a reasonably efficient algorithm that
+\emph{determines} if there exists a walk that goes through each vertex at least once.
+
+(7 points for reasonably efficient correct high level algorithm description (with correctness proof), 5 points for correct time analysis,
+and 3 points for efficiency of your algorithm.)
+\end{enumerate}
+\end{document}
