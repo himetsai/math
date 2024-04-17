@@ -459,7 +459,7 @@ Initialize a Stack: $F = [s]$
       \item
       \ind Meta[ccnum[$u$], ccnum[$v$]] = 1
       \item
-      {\bf for} $i = 1; i <= cc; i++$ {\bf then}
+      {\bf for} $i = 1; i < cc; i++$ {\bf then}
       \item 
       \ind hasWalk *= Meta[$i + 1$, $i$]
       \item {\bf return} hasWalk == 1

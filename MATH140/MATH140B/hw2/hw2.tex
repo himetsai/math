@@ -1,0 +1,251 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{Apr 19, 2024}
+\newcommand{\hmwkClass}{MATH 140B}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Suppose $f$ is defined in a neighborhood of $x$, and suppose $f''(x)$ exists. Show that
+  \[
+  \lim_{{h \to 0}} \frac{f(x + h) + f(x - h) - 2f(x)}{h^2} = f''(x).
+  \]
+  Show by example that the limit may exist even if $f''(x)$ does not. 
+
+  \begin{proof}
+    Put $g(h) = f(x + h) + f(x - h) - 2f(x)$. Since $g$ is differentiable in a neighborhood of $x$
+    and $g(h) \to 0$ as $h \to 0$, we may apply the L'Hospotal's Rule and get
+    \begin{align*}
+      \lim_{{h \to 0}} \frac{g(h)}{h^2} 
+      &= \lim_{{h \to 0}} \frac{f'(x + h) - f'(x - h)}{2h} \\
+      &= \lim_{{h \to 0}} \frac{f'(x + h) - f'(x)}{2h} - \lim_{{h \to 0}} \frac{f'(x - h) - f'(x)}{2h} \\
+      &= \lim_{{h \to 0}} \frac{f'(x + h) - f'(x)}{2h} - \lim_{{k \to 0}} \frac{f'(x + k) - f'(x)}{-2k} \\
+      &= \frac{f''(x)}{2} + \frac{f''(x)}{2} = f''(x).
+    \end{align*}
+
+    Consider $f(x) = \begin{cases}
+      1 & x > 0 \\
+      0 & x = 0 \\
+      -1 & x < 0 \end{cases}$. $f$ is not continuous at $0$, so $f''(0)$ does not exist. But then
+    $f(h) + f(-h) - 2f(0) = 0$ for all $h > 0$, so $\lim_{{h \to 0}} \frac{f(x + h) + f(x - h) -
+    2f(x)}{h^2}$ exists.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $a \in \mathbb{R}^1$, $f$ is a twice-differentiable real function on $(a, \infty)$, and
+  $M_0$, $M_1$, $M_2$ are the least upper bounds of $|f(x)|$, $|f'(x)|$, $|f''(x)|$, respectively,
+  on $(a, \infty)$. Prove that
+  \[
+    M_1^2 \leq 4M_0M_2.
+  \]
+  \textit{Hint}: If $h > 0$, Taylor's theorem shows that
+  \[
+    f'(x) = \frac{1}{2h} [f(x + 2h) - f(x)] - hf''(\xi)
+  \]
+  for some $\xi$ in $(x, x + 2h)$. Hence
+  \[
+    |f'(x)| \leq hM_2 + \frac{M_0}{h}.
+  \]
+  To show that $M_1^2 = 4M_0M_2$ can actually happen, take $a = -1$, define
+  \[
+    f(x) = \begin{cases} 
+      2x^2 - 1 & (-1 < x < 0),\\
+      \frac{x^2 - 1}{x^2 + 1} & (0 \leq x < \infty),
+    \end{cases}
+  \]
+  and show that $M_0 = 1$, $M_1 = 4$, and $M_2 = 4$. Does $M_1^2 \leq 4M_0M_2$ hold for
+  vector-valued functions too?
+
+  \begin{proof}
+    
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f$ is a real function on $(-\infty, \infty)$. Call $x$ a fixed point of $f$ if $f(x) =
+  x$.
+
+  \begin{enumerate}[(a)]
+    \item If $f$ is differentiable and $f'(t) \neq 1$ for every real $t$, prove that $f$ has at most
+    one fixed point.
+    \item Show that the function $f$ defined by
+    \[
+    f'(t) = t + (1 + e^t)^{-1}
+    \]
+    has no fixed point, although $0 < f'(t) < 1$ for all real $t$.
+    \item However, if there is a constant $A < 1$ such that $|f'(t)| \leq A$ for all real $t$, prove
+    that a fixed point of $f$ exists, and that $x = \lim_{n \to \infty} x_n$, where $x_1$ is an
+    arbitrary real number and
+    \[
+    x_{n+1} = f(x_n)
+    \]
+    for $n = 1, 2, 3, \ldots$.
+    \item Show that the process described in (c) can be visualized by the zig-zag path
+    \[
+    (x_1, x_2) \to (x_2, x_2) \to (x_2, x_3) \to (x_3, x_3) \to (x_3, x_4) \to \ldots .
+    \]
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $\alpha$ increases on $[a, b]$, $a \leq x_0 \leq b$, $\alpha$ is continuous at $x_0$,
+  $f(x_0) = 1$, and $f(x) = 0$ if $x \neq x_0$. Prove that $f \in \mathcal{C}(\alpha)$ and that
+  $\int f \, d\alpha = 0$.
+
+  \begin{proof}
+    
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
