@@ -10,6 +10,7 @@
 \usepackage{algpseudocode}
 \usepackage{enumerate}
 \usepackage{amssymb}
+\usepackage{mathrsfs}
 
 \usetikzlibrary{automata,positioning}
 
@@ -183,29 +184,67 @@
   Suppose $a \in \mathbb{R}^1$, $f$ is a twice-differentiable real function on $(a, \infty)$, and
   $M_0$, $M_1$, $M_2$ are the least upper bounds of $|f(x)|$, $|f'(x)|$, $|f''(x)|$, respectively,
   on $(a, \infty)$. Prove that
-  \[
+  \begin{gather}
     M_1^2 \leq 4M_0M_2.
-  \]
-  \textit{Hint}: If $h > 0$, Taylor's theorem shows that
-  \[
-    f'(x) = \frac{1}{2h} [f(x + 2h) - f(x)] - hf''(\xi)
-  \]
-  for some $\xi$ in $(x, x + 2h)$. Hence
-  \[
-    |f'(x)| \leq hM_2 + \frac{M_0}{h}.
-  \]
-  To show that $M_1^2 = 4M_0M_2$ can actually happen, take $a = -1$, define
-  \[
-    f(x) = \begin{cases} 
-      2x^2 - 1 & (-1 < x < 0),\\
-      \frac{x^2 - 1}{x^2 + 1} & (0 \leq x < \infty),
-    \end{cases}
-  \]
-  and show that $M_0 = 1$, $M_1 = 4$, and $M_2 = 4$. Does $M_1^2 \leq 4M_0M_2$ hold for
-  vector-valued functions too?
+  \end{gather}
+  Does $M_1^2 \leq 4M_0M_2$ hold for vector-valued functions too?
 
   \begin{proof}
+    Let $x \in (a, \infty)$. Put $h > 0$. By Taylor's Theorem, there eixsts $t \in (x, x + 2h)$ such
+    that
+    \[
+      f(x + 2h) = f(x) + 2hf'(x) + 2h^2f''(t),
+    \]
+    that is,
+    \[
+      f'(x) = \frac{1}{2h}[f(x + 2h) - f(x)] + hf''(t).
+    \]
+    But then
+    \[
+      -\frac{M_0}{h} - hM_2 \leq f'(x) \leq \frac{M_0}{h} + hM_2.
+    \]
+    It follows that
+    \[
+      M_1^2 \leq \left(\frac{M_0}{h} + hM_2\right)^2 = \left(\frac{M_0^2}{h^2} + h^2M_2^2\right) + 2M_0M_2 \leq 4M_0M_2,
+    \]
+    as $\frac{M_0^2}{h^2} + h^2M_2^2 \geq 2M_0M_2$ by AM-GM.
+
+    To show that $M_1^2 = 4M_0M_2$ can actually happen, take $a = -1$, define
+    \[
+      f(x) = 
+      \begin{cases} 
+        2x^2 - 1 & x \in (-1, 0)\\
+        \frac{x^2 - 1}{x^2 + 1} & x \in [0, \infty)
+      \end{cases}.
+    \] 
+    we know
+    \[
+      f'(x) = 
+      \begin{cases} 
+        4x & x \in (-1, 0) \\
+        \frac{4x}{(x^2 + 1)^2} & x \in [0, \infty)
+      \end{cases}, \  f''(x) = 
+      \begin{cases} 
+        4 & x \in (-1, 0) \\
+        \frac{4(-3x^2 + 1)}{(x^2 + 1)^3} & x \in [0, \infty)
+      \end{cases}, \  f'''(x) = 
+      \begin{cases} 
+        0 & x \in (-1, 0) \\
+        \frac{48x(x^2 - 1)}{(x^2 + 1)^4} & x \in [0, \infty)
+      \end{cases}
+    \]
+    Since $f' < 0$ when $x < 0$ but $f' > 0$ when $x > 0$, $f(x)$ monotonically decreases from 1 to
+    $-1$ then monotonically approaches $1$, and thus $M_0 = 1$. 
+
+    When $x < 0$, since $f'' > 0$, $f'$ monotonically increases from $-4$ to 0. Notice that
+    $\frac{4(-3x^2 + 1)}{(x^2 + 1)^3} = 0$ has a single positive root at $x = \frac{1}{\sqrt{3}}$.
+    Since $f'(0) = 0$, $f'(1/\sqrt{3}) = \frac{3\sqrt{3}}{4}$, and $\lim_{x \to \infty} f'(x) = 0$,
+    $|f'(x)| \leq \frac{3\sqrt{3}}{4} < 4$ for nonnegative $x$. Hence, $M_1 = 4$.
     
+    Notice that $f'''(x) = 0$ has a single positive root at $x = 1$. But then $f''(0) = 4, f''(1) =
+    -1, \lim_{x \to \infty} f''(x) = 0$, so $M_2 = 4$.
+
+    Therefore, the equality of (1) holds for this example.
   \end{proof}
 \end{homeworkProblem}
 
@@ -218,22 +257,61 @@
   \begin{enumerate}[(a)]
     \item If $f$ is differentiable and $f'(t) \neq 1$ for every real $t$, prove that $f$ has at most
     one fixed point.
+    \begin{proof}
+      Suppose for contradiction that $f$ has multiple fixed points, say $x, y$, $x < y$. By MVT,
+      there exists $t \in (x, y)$ such that
+      \[
+        f(y) - f(x) = x - y = (x - y)f'(t).
+      \]
+      But then $f'(t) = 1$, contradiction.
+    \end{proof}
     \item Show that the function $f$ defined by
     \[
-    f'(t) = t + (1 + e^t)^{-1}
+      f(t) = t + (1 + e^t)^{-1}
     \]
     has no fixed point, although $0 < f'(t) < 1$ for all real $t$.
+    \begin{proof}
+      We can easily see that
+      \[
+        f'(t) = 1 + \frac{-e^t}{(1 + e^t)^2}.
+      \]
+      Since $e^t, (1 + e^t)^2 > 0$ and $e^t < (1 + e^t)^2$, we have $0 < \frac{e^t}{(1 + e^t)^2} <
+      1$, and so $0 < f'(t) < 1$.
+
+      Suppose $t$ is a fixed point of $f$, which implies $t + (1 + e^t)^{-1} = t$. But then $(1 +
+      e^t)^{-1} = 0$, contradiction. 
+    \end{proof}
     \item However, if there is a constant $A < 1$ such that $|f'(t)| \leq A$ for all real $t$, prove
     that a fixed point of $f$ exists, and that $x = \lim_{n \to \infty} x_n$, where $x_1$ is an
     arbitrary real number and
     \[
-    x_{n+1} = f(x_n)
+      x_{n+1} = f(x_n)
     \]
     for $n = 1, 2, 3, \ldots$.
+    \begin{proof}
+      Since $x_{n + 1} = f(x_n)$ and $x_n = f(x_{n - 1})$, by MVT,
+      \[
+        |f(x_n) - f(x_{n - 1})| = |x_{n + 1} - x_n| = |f'(t)(x_{n} - x_{n - 1})| \leq |f'(t)||(x_{n} - x_{n - 1})| \leq A|x_{n} - x_{n - 1}|,
+      \]
+      for some $t$, and thus $|x_{n + 1} - x_n| \leq A^{n - 1}|x_2 - x_1|$. But then for $m, n \geq
+      N$, 
+      \begin{align*}
+        |x_m - x_n| 
+        &\leq |x_m - x_{m - 1}| + \dots + |x_{n + 1} - x_n| \\
+        &= (x_2 - x_1)\sum_{k = n - 1}^{m - 2} A_k \\
+        &\leq (x_2 - x_1)\sum_{k = N}^{\infty} A_k \leq \frac{|x_2 - x_1|A^N}{1 - A}.
+      \end{align*}
+      As $A < 1$, $|x_m - x_n| \to 0$ as $N \to \infty$. Therefore, $(x_n)$ is a Cauchy sequence in
+      the reals, which converges to some $x$. But then $f(x) = \lim\limits_{n \to \infty} f(x_n) =
+      x_{n + 1} = x$, so $x$ is a fixed point.
+    \end{proof}
     \item Show that the process described in (c) can be visualized by the zig-zag path
     \[
-    (x_1, x_2) \to (x_2, x_2) \to (x_2, x_3) \to (x_3, x_3) \to (x_3, x_4) \to \ldots .
+      (x_1, x_2) \to (x_2, x_2) \to (x_2, x_3) \to (x_3, x_3) \to (x_3, x_4) \to \ldots .
     \]
+    \begin{proof}
+      
+    \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
 
@@ -241,11 +319,157 @@
 
 \begin{homeworkProblem}
   Suppose $\alpha$ increases on $[a, b]$, $a \leq x_0 \leq b$, $\alpha$ is continuous at $x_0$,
-  $f(x_0) = 1$, and $f(x) = 0$ if $x \neq x_0$. Prove that $f \in \mathcal{C}(\alpha)$ and that
+  $f(x_0) = 1$, and $f(x) = 0$ if $x \neq x_0$. Prove that $f \in \mathscr{R}(\alpha)$ and that
   $\int f \, d\alpha = 0$.
 
   \begin{proof}
-    
+    Pick arbitrary $\epsilon > 0$. We first note that the infimum of $f(x)$ over any interval in
+    $[a, b]$ is 0, so $L(P, f, \alpha) = 0$. Since $\alpha$ is continuous at $x_0$, there exists
+    $\delta > 0$ such that $|\alpha(x) - \alpha(x_0)| < \epsilon/2$ whenever $|x - x_0| < \delta$.
+    Consider the partition $P = \{a, x_0 - \delta', x_0 + \delta', b\}$, where $0 < \delta' < \min
+    \{\delta, x_0 - a, b - x_0\}$. We then have
+    \begin{align*}
+      U(P, f, \alpha)
+      &= \alpha(x_0 + \delta') - \alpha(x_0 - \delta') \\
+      &= (\alpha(x_0 + \delta') - \alpha(x_0)) + (\alpha(x_0) - \alpha(x_0 - \delta')) \\
+      &< \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+    \end{align*}
+    Hence, $U(P, f, \alpha) - L(P, f, \alpha) = \epsilon$, and so $f \in \mathscr{R}(\alpha)$ by
+    Theorem 6.6. Since $L(P, f, \alpha) \leq \int f d\alpha \leq U(P, f, \alpha)$, we have $\int f
+    d\alpha = 0$. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f \geq 0$, $f$ is continuous on $[a, b]$, and $\int_a^b f(x) \, dx = 0$. Prove that $f(x)
+  = 0$ for all $x \in [a, b]$.
+
+  \begin{proof}
+    Suppose for the sake of contradicion that there exists some $x_0 \in [a, b]$ with $f(x_0) =
+    \epsilon$, for some $\epsilon > 0$. Since $f$ is continuous, there exists $\delta > 0$ such that
+    $|f(x) - f(x_0)| < \epsilon$ for all $|x - x_0| < \delta$. Consider the partition $P = \{a, x_0
+    - \delta', x_0 + \delta', b\}$, where $0 < \delta' < \min \{\delta, x_0 - a, b - x_0\}$. We know
+    $m = \inf f(x) > 0$, for $x \in (x_0 - \delta', x_0 + \delta')$. But then $L(P, f) \geq
+    2\delta'm > 0$, which forces $ \underline{\int}_a^b f(x) dx > 0$, contradiction.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Define three functions $\beta_1, \beta_2, \beta_3$ as follows: $\beta_j(x) = 0$ if $x < 0$,
+  $\beta_j(x) = 1$ if $x > 0$ for $j = 1, 2, 3$; and $\beta_1(0) = 0$, $\beta_2(0) = 1$, $\beta_3(0)
+  = 1/2$. Let $f$ be a bounded function on $[-1, 1]$.
+
+  \begin{enumerate}[(a)]
+    \item Prove that $f \in \mathscr{R}(\beta_1)$ if and only if $f(0+)$ equals $f(0)$ and that then
+    \[
+      \int f \, d\beta_1 = f(0).
+    \]
+    \begin{proof}
+      Suppose $f \in \mathscr{R}(\beta_1)$. Pick $\epsilon > 0$. There exists partition $P$ such
+      that 
+      \[
+        U(P, f, \beta_1) - L(P, f, \beta_1) < \epsilon.
+      \]
+      Let $P^*$ be a refinement which contains 0. Let $\delta \in P^*$ such that $[0, \delta]$ is an
+      interval given by the partition $P$. Then, $U(P^*, f, \beta_1) - L(P^*, f, \beta_1) = \sup
+      f(x) - \inf f(x) < \epsilon$, $x \in [0, \delta]$. But then, $|f(t) - f(0)| < \epsilon$
+      whenever $t \in (0, \delta)$. Hence, $f(0+) = f(0)$.
+
+      We now suppose $f(0+) = f(0)$. Pick $\epsilon > 0$. There exists $\delta > 0$ such that $|f(t)
+      - f(0)| < \epsilon/2$ whenever $t \in (0, \delta)$. Let $\delta' < \min(1, \delta)$ be
+      positive. Consider the partition $P = \{-1, 0, \delta', 1\}$. Then,
+      \[
+        U(P, f, \beta_1) - L(P, f, \beta_1) = f(s) - f(t) \leq |f(s) - f(0)| + |f(t) - f(0)| < \epsilon,
+      \]
+      for some $s, t \in [0, \delta']$. Hence, by Theorem 6.6, $f \in \mathscr{R}(\beta_1)$. Note
+      that for any $P$ which contains $0$, we have $U(P, f, \beta_1) = M$ and $L(P, f, \beta_1) =
+      m$, where $M = \sup_{x \in (0, \delta')} f(x)$ and $m = \inf_{x \in (0, \delta')} f(x)$. Since
+      $f(0+) = f(0)$, $f(x) \to f(0)$ as $\delta \to 0$, and so $\int f \, d\beta_1 = f(0)$.
+    \end{proof}
+    \item State and prove a similar result for $\beta_2$.
+    \begin{proof}
+      We show that $f \in \mathscr{R}(\beta_2)$ if and only if $f(0-)$ equals $f(0)$ and that then
+      $\int f \, d\beta_2 = f(0)$.
+      
+      Suppose $f \in \mathscr{R}(\beta_2)$. Pick $\epsilon > 0$. There exists partition $P$ such
+      that 
+      \[
+        U(P, f, \beta_2) - L(P, f, \beta_2) < \epsilon.
+      \]
+      Let $P^*$ be a refinement which contains 0. Let $-\delta \in P^*$ such that $[-\delta, 0]$ is
+      an interval given by the partition $P$. Then, $U(P^*, f, \beta_2) - L(P^*, f, \beta_2) = \sup
+      f(x) - \inf f(x) < \epsilon$, $x \in [-\delta, 0]$. But then, $|f(t) - f(0)| < \epsilon$
+      whenever $t \in (-\delta, 0)$. Hence, $f(0-) = f(0)$.
+
+      We now suppose $f(0-) = f(0)$. Pick $\epsilon > 0$. There exists $\delta > 0$ such that $|f(t)
+      - f(0)| < \epsilon/2$ whenever $t \in (-\delta, 0)$. Let $\delta' < \min(1, \delta)$ be
+      positive. Consider the partition $P = \{-1, -\delta', 0, 1\}$. Then,
+      \[
+        U(P, f, \beta_2) - L(P, f, \beta_2) = f(s) - f(t) \leq |f(s) - f(0)| + |f(t) - f(0)| < \epsilon,
+      \]
+      for some $s, t \in [0, \delta']$. Hence, by Theorem 6.6, $f \in \mathscr{R}(\beta_2)$. Note
+      that for any $P$ which contains $0$, we have $U(P, f, \beta_2) = M$ and $L(P, f, \beta_2) =
+      m$, where $M = \sup_{x \in (-\delta', 0)} f(x)$ and $m = \inf_{x \in (-\delta', 0)} f(x)$.
+      Since $f(0-) = f(0)$, $f(x) \to f(0)$ as $\delta' \to 0$, and so $\int f \, d\beta_1 = f(0)$.
+    \end{proof}
+    \item Prove that $f \in \mathscr{R}(\beta_3)$ if and only if $f$ is continuous at $0$.
+    \begin{proof}
+      Suppose $f \in \mathscr{R}(\beta_3)$. Pick $\epsilon > 0$. There exists partition $P$ such
+      that 
+      \[
+        U(P, f, \beta_3) - L(P, f, \beta_3) < \epsilon.
+      \]
+      Let $P^*$ be a refinement which contains 0. Let $[x_i, 0]$, $[0, x_{i + 1}]$ be the intervals
+      given by $P^*$ which contains $0$. Then, 
+      \[
+        U(P^*, f, \beta_3) - L(P^*, f, \beta_3) = \frac{1}{2}\left(\sup_{x \in [x_i, 0]} f(x) - \inf_{x \in [x_i, 0]} f(x) + \sup_{x \in [0, x_{i + 1}]} f(x) - \inf_{x \in [0, x_{i + 1}]} f(x)\right) < \epsilon/2
+      \]
+      But then, $|f(t) - f(0)| < \epsilon$ whenever $t \in (-\delta, \delta)$, where $\delta =
+      \min(|x_i|, |x_{i + 1}|)$. Hence, $f$ is continuous at $0$. 
+
+      We now suppose $f$ is continuous at $0$. Pick $\epsilon > 0$. There exists $\delta > 0$ such
+      that $|f(t) - f(0)| < \epsilon/2$ whenever $t \in (-\delta, \delta)$. Let $\delta' < \min(1,
+      \delta)$ be positive. Consider the partition $P = \{-1, -\delta', \delta', 1\}$. Then,
+      \[
+        U(P, f, \beta_3) - L(P, f, \beta_3) = f(s) - f(t) \leq |f(s) - f(0)| + |f(t) - f(0)| < \epsilon,
+      \]
+      for some $s, t \in [-\delta', \delta']$. Hence, by Theorem 6.6, $f \in \mathscr{R}(\beta_2)$.
+    \end{proof}
+    \item If $f$ is continuous at $0$ prove that
+    \[
+      \int f \, d\beta_1 = \int f \, d\beta_2 = \int f \, d\beta_3 = f(0).
+    \]
+    \begin{proof}
+      We have already shown $\int f \, d\beta_1 = \int f \, d\beta_2 = f(0)$, from (a), (b). It
+      remains show $\int f \, d\beta_3 = f(0)$.
+
+      Pick $\epsilon > 0$. There exists $\delta > 0$ such that $|f(t) - f(0)| < \epsilon/2$ whenever
+      $|t| < \delta$. But then for any $P$ which contains $-\delta, 0,\delta$, we have $U(P, f,
+      \beta_3) < f(0) + \epsilon$ and $L(P, f, \beta_3) > f(0) - \epsilon$. Hence, 
+      \[
+        f(0) - \epsilon < L(P, f, \beta_3) \leq \int f \, d\beta_3 \leq U(P, f, \beta_3) < f(0) + \epsilon,
+      \]
+      for arbitrary $\epsilon$, and the result follows.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If $f(x) = 0$ for all irrational $x$, $f(x) = 1$ for all rational $x$, prove that $f \notin
+  \mathscr{R}$ on $[a, b]$ for any $a < b$.
+
+  \begin{proof}
+    Take any partition $P = \{x_0 = a, \dots, x_n = b\}$. Notice that there exists an irrational in
+    any interval, so $L(P, f) = 0$. But then $\Q$ is dense in $\R$, so for any distinct $x_i, x_{i +
+    1}$, there exists $q \in \Q$ such that $x_i < q < x_{i + 1}$. Hence, $U(P, f) = \sum_{i = 1}^n
+    (x_i - x_{i - 1}) = b - a > 0$. Hence, $\inf U(P, f) = b - a \neq 0 = \sup L(P, f)$, and the
+    result now follows.
   \end{proof}
 \end{homeworkProblem}
 \end{document}
