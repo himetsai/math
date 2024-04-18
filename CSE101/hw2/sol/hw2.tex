@@ -361,26 +361,34 @@ Initialize a Stack: $F = [s]$
 
   However, this algorithm is incorrect. Consider the following graph:
   \begin{center}
-    \begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto, node distance=2cm, main node/.style={circle, draw}]
+    \begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto, node distance=3cm, main node/.style={circle, draw}]
 
       \node[main node] (1) {$A$};
-      \node[main node] (2) [below left of=1] {$B$};
-      \node[main node] (3) [below right of=1] {$C$};
+      \node[main node] (2) [right of=1] {$D$};
+      \node[main node] (3) [below of=2] {$C$};
+      \node[main node] (4) [below of=1] {$B$};
+      \node[main node] (5) [below of=1, xshift=30,  yshift=30] {$E$};
     
       \path
-        (1) edge [bend left=15] node {} (3)
-        (3) edge [bend left=15] node {} (1)
-        (2) edge [bend left=15] node {} (3)
-        (3) edge [bend left=15] node {} (2)
-        (1) edge [bend left=15] node {} (2)
-        (2) edge [bend left=15] node {} (1);
+      (3) edge [bend right=15] node {} (1)
+      (1) edge [bend right=10] node {} (5)
+      (5) edge [bend right=10] node {} (3)
+      (2) edge node {} (1)
+      (4) edge node {} (3)
+      (1) edge node {} (4)
+      (3) edge node {} (2);
     \end{tikzpicture}
   \end{center}
-  The graph is obviously strongly connected. Suppose that the algorithm starts at vertex $A$. Upon
-  exploring, $B, C$ are pushed to stack $F$, and not vertex has state $U$ at this point. Hence, both
-  of the outgoing edges from $B$ or $C$ lead to reached vertices, so $c$ increments by 4 and the
-  algorithm terminates. But then there are 5 cycles in the graph, namely $A \to B \to C \to A$, $A
-  \to C \to B \to A$, $A \to B \to A$, $A \to C \to A$, $B \to C \to B$. 
+  The graph is obviously strongly connected. We first note that the graph has 4 cycles, namely $A \to B \to C \to A$, $A
+  \to B \to C \to D \to A$, $A \to E \to C \to A$, $A \to E \to C \to D \to A$.
+  
+  Suppose that the algorithm starts at vertex $A$. Here is the order of edges the for loop in
+  the algorithm will check:
+  \[
+    (A, B) \to (A, E) \to (B, C) \to (C, \textbf{A}) \to (C, D) \to (D, \textbf{A}) \to (E, \textbf{C}).
+  \]
+  The bolded vertices represents the already visited vertices, which causes the counter to
+  increment. But then the algorithm returns 3, which is not the number of cycles in the graph.
 \end{proof}
 \end{homeworkProblem}
 
@@ -459,7 +467,7 @@ Initialize a Stack: $F = [s]$
       \item
       \ind Meta[ccnum[$u$], ccnum[$v$]] = 1
       \item
-      {\bf for} $i = 1; i < cc; i++$ {\bf then}
+      {\bf for} $i = 1; i <= cc; i++$ {\bf then}
       \item 
       \ind hasWalk *= Meta[$i + 1$, $i$]
       \item {\bf return} hasWalk == 1

@@ -416,6 +416,9 @@
       m$, where $M = \sup_{x \in (-\delta', 0)} f(x)$ and $m = \inf_{x \in (-\delta', 0)} f(x)$.
       Since $f(0-) = f(0)$, $f(x) \to f(0)$ as $\delta' \to 0$, and so $\int f \, d\beta_1 = f(0)$.
     \end{proof}
+
+    \break
+
     \item Prove that $f \in \mathscr{R}(\beta_3)$ if and only if $f$ is continuous at $0$.
     \begin{proof}
       Suppose $f \in \mathscr{R}(\beta_3)$. Pick $\epsilon > 0$. There exists partition $P$ such
@@ -467,7 +470,7 @@
   \begin{proof}
     Take any partition $P = \{x_0 = a, \dots, x_n = b\}$. Notice that there exists an irrational in
     any interval, so $L(P, f) = 0$. But then $\Q$ is dense in $\R$, so for any distinct $x_i, x_{i +
-    1}$, there exists $q \in \Q$ such that $x_i < q < x_{i + 1}$. Hence, $U(P, f) = \sum_{i = 1}^n
+    1}$, there exists $q \in \Q$ such that $x_i < q < x_{i + 1}$. But then $U(P, f) = \sum_{i = 1}^n
     (x_i - x_{i - 1}) = b - a > 0$. Hence, $\inf U(P, f) = b - a \neq 0 = \sup L(P, f)$, and the
     result now follows.
   \end{proof}
