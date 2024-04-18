@@ -282,9 +282,9 @@ c = 0
     \begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto, node distance=2cm, main node/.style={circle, draw}]
 
       \node[main node] (1) {$A$};
-      \node[main node] (2) [right of=1] {$B$};
+      \node[main node] (2) [right of=1] {$D$};
       \node[main node] (3) [below of=2] {$C$};
-      \node[main node] (4) [below of=1] {$D$};
+      \node[main node] (4) [below of=1] {$B$};
     
       \path[every node/.style={font=\sffamily\small}]
         (1) edge node [] {} (3)
@@ -294,19 +294,20 @@ c = 0
         (3) edge node [] {} (2);
     \end{tikzpicture}
   \end{center}
-  Note that the graph is strongly connected, as there is a directed hamiltonian cycle. Performing
-  DFS on this graph yields the following {\fontfamily{qcr}\selectfont post} numbers:
+  Note that the graph is simple and strongly connected, as there is a directed hamiltonian cycle.
+  Performing DFS on this graph starting from $A$ yields the following {\fontfamily{qcr}\selectfont
+  post} numbers:
   \begin{center}
     \begin{tabular}{|c|c|c|c|}
       \hline
       $A$ & $B$ & $C$ & $D$ \\
       \hline
-      8 & 4 & 5 & 7 \\
+      8 & 7 & 6 & 5 \\
       \hline
     \end{tabular}
   \end{center}
-  $(B, A)$ is the only edge that meets the condition at step 4, so the algorithm outputs 1. But then
-  there are two cycles in the graph, namely $A \to C \to B \to A$ and $A \to D \to C \to B \to A$.
+  $(D, A)$ is the only edge that meets the condition at step 4, so the algorithm outputs 1. But then
+  there are two cycles in the graph, namely $A \to C \to D \to A$ and $A \to B \to C \to D \to A$.
 \end{proof}
 
 \break
@@ -379,7 +380,7 @@ Initialize a Stack: $F = [s]$
       (3) edge node {} (2);
     \end{tikzpicture}
   \end{center}
-  The graph is obviously strongly connected. We first note that the graph has 4 cycles, namely $A \to B \to C \to A$, $A
+  The graph is obviously simple and strongly connected. We first note that the graph has 4 cycles, namely $A \to B \to C \to A$, $A
   \to B \to C \to D \to A$, $A \to E \to C \to A$, $A \to E \to C \to D \to A$.
   
   Suppose that the algorithm starts at vertex $A$. Here is the order of edges the for loop in
