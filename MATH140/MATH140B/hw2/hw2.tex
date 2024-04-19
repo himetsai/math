@@ -11,6 +11,11 @@
 \usepackage{enumerate}
 \usepackage{amssymb}
 \usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\graphicspath{ {./images} }
 
 \usetikzlibrary{automata,positioning}
 
@@ -120,6 +125,9 @@
 %
 % Various Helper Commands
 %
+
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{{#1}}
 
 % Useful for algorithms
 \newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
@@ -245,6 +253,23 @@
     -1, \lim_{x \to \infty} f''(x) = 0$, so $M_2 = 4$.
 
     Therefore, the equality of (1) holds for this example.
+
+    We now show that (1) also holds for vector valued functions. Let $f'(x) = (f_1(x), \dots,
+    f_n(x))$ be a twice differentiable vector valued function on $(a, \infty)$. Let $M_0^f$,
+    $M_1^f$, $M_2^f$ be the least upper bounds of $\norm{f(x)}$, $\norm{f'(x)}$, $\norm{f''(x)}$,
+    respectively. Pick $\epsilon > 0$. There exists $c \in \R$ such that $\norm{f'(c)} \geq M_1^f -
+    \epsilon$. Let $u = \frac{f'(c)}{\norm{f'(c)}}$ and define $g(x) = u \cdot f(x)$. Let $M_0^g$,
+    $M_1^g$, $M_2^g$ be the least upper bounds of $|g(x)|$, $|g'(x)|$, $|g''(x)|$, respectively. We
+    know 
+    \[
+      M_1^g \geq g'(c) = u \cdot f'(c) = \norm{f'(c)} \geq M_1^f - \epsilon,
+    \]
+    for arbitrary $\epsilon$, and thus $M_1^g \geq M_1^f$. But then by Cauchy-Schwarz inequality, 
+    \[
+      g(x)^2 \leq \norm{u}\norm{f(x)}^2 \leq M_0, \quad g'(x)^2 \leq \norm{u}\norm{f''(x)}^2 \leq M_2,
+    \]
+    as $\norm{u} = 1$. Hence, applying (1) on $g$, we get $M_1^f \leq M_1^g \leq 2\sqrt{M_0^gM_2^g}
+    \leq 2\sqrt{M_0^fM_2^f}$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -305,12 +330,18 @@
       the reals, which converges to some $x$. But then $f(x) = \lim\limits_{n \to \infty} f(x_n) =
       x_{n + 1} = x$, so $x$ is a fixed point.
     \end{proof}
+    
+    \break 
+
     \item Show that the process described in (c) can be visualized by the zig-zag path
     \[
       (x_1, x_2) \to (x_2, x_2) \to (x_2, x_3) \to (x_3, x_3) \to (x_3, x_4) \to \ldots .
     \]
     \begin{proof}
-      
+      Take $f(x) = \frac{1 - x}{2}$ and consider the following diagram:
+      \begin{center}
+        \includegraphics[width=0.8\textwidth]{Q4d}
+      \end{center}
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -387,8 +418,12 @@
       \]
       for some $s, t \in [0, \delta']$. Hence, by Theorem 6.6, $f \in \mathscr{R}(\beta_1)$. Note
       that for any $P$ which contains $0$, we have $U(P, f, \beta_1) = M$ and $L(P, f, \beta_1) =
-      m$, where $M = \sup_{x \in (0, \delta')} f(x)$ and $m = \inf_{x \in (0, \delta')} f(x)$. Since
-      $f(0+) = f(0)$, $f(x) \to f(0)$ as $\delta \to 0$, and so $\int f \, d\beta_1 = f(0)$.
+      m$, where $M = \sup_{x \in (0, \delta')} f(x)$ and $m = \inf_{x \in (0, \delta')} f(x)$. But
+      then $M < f(0) + \epsilon$ and $m > f(0) - \epsilon$. Hence,
+      \[
+        f(0) - \epsilon < L(P, f, \beta_1) \leq \int f \, d\beta_1 \leq U(P, f, \beta_1) < f(0) + \epsilon,
+      \]
+      for arbitrary $\epsilon$, and the result follows.
     \end{proof}
     \item State and prove a similar result for $\beta_2$.
     \begin{proof}
@@ -413,8 +448,12 @@
       \]
       for some $s, t \in [0, \delta']$. Hence, by Theorem 6.6, $f \in \mathscr{R}(\beta_2)$. Note
       that for any $P$ which contains $0$, we have $U(P, f, \beta_2) = M$ and $L(P, f, \beta_2) =
-      m$, where $M = \sup_{x \in (-\delta', 0)} f(x)$ and $m = \inf_{x \in (-\delta', 0)} f(x)$.
-      Since $f(0-) = f(0)$, $f(x) \to f(0)$ as $\delta' \to 0$, and so $\int f \, d\beta_1 = f(0)$.
+      m$, where $M = \sup_{x \in (\delta', 0)} f(x)$ and $m = \inf_{x \in (\delta', 0)} f(x)$. But
+      then $M < f(0) + \epsilon$ and $m > f(0) - \epsilon$. Hence,
+      \[
+        f(0) - \epsilon < L(P, f, \beta_2) \leq \int f \, d\beta_2 \leq U(P, f, \beta_2) < f(0) + \epsilon,
+      \]
+      for arbitrary $\epsilon$, and the result follows.
     \end{proof}
 
     \break

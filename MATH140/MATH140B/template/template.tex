@@ -11,6 +11,8 @@
 \usepackage{enumerate}
 \usepackage{amssymb}
 \usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
 
 \usetikzlibrary{automata,positioning}
 
@@ -120,6 +122,9 @@
 %
 % Various Helper Commands
 %
+
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{{#1}}
 
 % Useful for algorithms
 \newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
