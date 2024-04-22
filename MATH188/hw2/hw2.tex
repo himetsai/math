@@ -357,11 +357,12 @@
     \textit{[Remember that we defined rational powers in a very specific way, so your proof needs to use this definition.]}
     
     \begin{proof}
-      Let $a = m/n$, $b = p/q$, for some $m, n, p, q \in \Z$. Then,
+      By definition, $A(x)^{m/n} = (A(x)^{1/n})^m = (A(x)^m)^{1/n}$. Let $a = m/n$, $b = p/q$, for
+      some $m, n, p, q \in \Z$. Then,
       \begin{align*}
         A(x)^a A(x)^b
         &= (A(x)^{1/{nq}})^{mq}(A(x)^{1/{nq}})^{np} \\
-        &= A(x)^{(mq + np)/{nq}} \\
+        &= (A(x)^{1/{nq}})^{mq + np} \\
         &= A(x)^{a + b}.
       \end{align*}
     \end{proof}
@@ -402,7 +403,7 @@
         \[
           DG = \sum_{n \geq 0} \frac{D(F^{n}(x))}{n!} = \sum_{n \geq 1} DF \cdot \frac{F^{n - 1}(x)}{(n - 1)!} = DF \sum_{n \geq 0} \frac{F^{n}(x)}{n!} = DF \cdot G,
         \]
-        and $G(0) = F^0(0) = 1$. It remains to show that $D$ is unique. Suppose there exists $G =
+        and $G(0) = F^0(0) = 1$. It remains to show that $G$ is unique. Suppose there exists $G =
         \sum_{n \geq 0} b_nx_n, G' = \sum_{n \geq 0} b'_nx_n \in W$ such that $\textbf{E}(F) = G$
         and $\textbf{E}(F) = G'$. Suppose $DF = \sum_{n \geq 0} a_nx_n$ We know $DG = DF \cdot G$
         and $DG' = DF \cdot G'$. By comparing coefficients, for $k \geq 1$,
