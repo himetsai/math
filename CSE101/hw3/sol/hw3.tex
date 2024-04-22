@@ -218,7 +218,7 @@
     $time(X) = T = \delta(X)$, the base case is done. Suppose $n > 1$. Let $u$ be the last vertex
     added to $R_n$. By induction, $time(v) = \delta(v)$ for all $v \in R_{n - 1}$, and thus it
     remains to show that $time(u) = \delta(u)$. Suppose for the sake of contradiction that the
-    fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S) < time(u)$. We know the the first
+    fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S) < time(u)$. We know that the first
     station in $S$ which is not in $R_{n - 1}$ must be $u$, otherwise there exists some $w \notin
     R_{n - 1}$ with $time(w) < time(u)$, contradicting the algorithm's choice of $u$ at step 9. Let
     $z \in R_{n - 1}$ be the second last station in $S$. Let $S_z$ be $S$ without the last transfer
