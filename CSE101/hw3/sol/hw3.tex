@@ -211,19 +211,24 @@
     This algorithm is a modified version of Dijkstra's, with an additional step of constructing a
     bus schedule with respect to each station. 
 
-    We now give a justification for the correctness of the algorithm. Let $R_n$ be $V\backslash H$
-    at the end of $n$th iteration of the while loop, and let $\delta(v)$ be the earliest time $v$
-    can be reached from $X$, and let $l(S)$ be the time that the sequences of transfers $S$ ends. We
-    show that $time(v) = \delta(v)$ for all $v \in R_n$ by induction on $n$. Since $R_1 = \{X\}$ and
-    $time(X) = T = \delta(X)$, the base case is done. Suppose $n > 1$. Let $u$ be the last vertex
-    added to $R_n$. By induction, $time(v) = \delta(v)$ for all $v \in R_{n - 1}$, and thus it
-    remains to show that $time(u) = \delta(u)$. Suppose for the sake of contradiction that the
-    fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S) < time(u)$, say $S = s_0s_1\dots
-    s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Suppose $s_i$ is the first station in $S$ which is
-    not in $R_{n - 1}$, and let $S_k = s_0s_1 \dots s_k$, for $0 \leq k \leq n$. Note that we may
-    make the subsequential transfers in $S$ if we arrive at $s_{i}$ earlier than $l(S_{i})$, as we
-    can wait at the station. Hence, as $time(s_{i - 1}) \leq l(S_{i - 1})$ and $s_{i - 1} \in R_{n -
-    1}$, 
+    We now give a justification for the correctness of the algorithm. We first note that step 10 of
+    the algorithm ensures any transfers taken to be valid. Thus, given any vertex $v$, there is
+    always a valid sequence of transfers such that the number of transfers is equal to $step(v)$ in
+    any iteration. It remains to show that the sequence of transfers is the fastest at the end of
+    the algorithm.
+    
+    Let $R_n$ be $V\backslash H$ at the end of $n$th iteration of the while loop, and let
+    $\delta(v)$ be the earliest time $v$ can be reached from $X$, and let $l(S)$ be the time that
+    the sequences of transfers $S$ ends. We show that $time(v) = \delta(v)$ for all $v \in R_n$ by
+    induction on $n$. Since $R_1 = \{X\}$ and $time(X) = T = \delta(X)$, the base case is done.
+    Suppose $n > 1$. Let $u$ be the last vertex added to $R_n$. By induction, $time(v) = \delta(v)$
+    for all $v \in R_{n - 1}$, and thus it remains to show that $time(u) = \delta(u)$. Suppose for
+    the sake of contradiction that the fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S)
+    < time(u)$, say $S = s_0s_1\dots s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Suppose $s_i$ is
+    the first station in $S$ which is not in $R_{n - 1}$, and let $S_k = s_0s_1 \dots s_k$, for $0
+    \leq k \leq n$. Note that we may make the subsequential transfers in $S$ if we arrive at $s_{i}$
+    earlier than $l(S_{i})$, as we can wait at the station. Hence, as $time(s_{i - 1}) \leq l(S_{i -
+    1})$ and $s_{i - 1} \in R_{n - 1}$, 
     \[
       time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S),
     \]
@@ -275,10 +280,6 @@
       \item
       \ind $append(schedule(S_{i, j}), (i, j))$
       \item
-      {\bf for all} $v \in V$:
-      \item
-      \ind $sort(schedule(v))$ (decreasing $t_{i, j}$ order)
-      \item
       $H = makequeue(V)$ (using $step$ values as keys)
       \item
       {\bf while} $|H| > 0$
@@ -300,7 +301,13 @@
     This algorithm is a modified version of Dijkstra's, with an additional step of constructing a
     bus schedule with respect to each station. 
 
-    We now give a justification for the correctness of the algorithm. Let $R_n$ be $V\backslash H$
+    We now give a justification for the correctness of the algorithm. We first note that step 12 of
+    the algorithm ensures any transfers taken to be valid. Thus, given any vertex $v$, there is
+    always a valid sequence of transfers such that the number of transfers is equal to $step(v)$ in
+    any iteration. It remains to show that the sequence of transfers is the shortest at the end of
+    the algorithm.
+    
+    Let $R_n$ be $V\backslash H$
     at the end of $n$th iteration of the while loop, and let $\delta(v)$ be the minimum number of
     transfers $v$ can be reached from $X$, and let $|S|$ be the number of transfers in a sequences
     of transfers $S$. We show that $step(v) = \delta(v)$ for all $v \in R_n$ by induction on $n$.
@@ -319,7 +326,7 @@
     \[
       step(s_{i}) \leq step(s_{i - 1}) + 1 \leq |S_{i - 1}| + 1 = |S_{i}| = |S| < step(u).
     \]
-    But then the algorithm picked $u$ over $s_i$ at step 13, so $step(u) < step(s_{i})$,
+    But then the algorithm picked $u$ over $s_i$ at step 11, so $step(u) < step(s_{i})$,
     contradiction.
 
     Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which
