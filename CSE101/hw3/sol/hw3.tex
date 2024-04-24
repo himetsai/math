@@ -218,34 +218,35 @@
     $time(X) = T = \delta(X)$, the base case is done. Suppose $n > 1$. Let $u$ be the last vertex
     added to $R_n$. By induction, $time(v) = \delta(v)$ for all $v \in R_{n - 1}$, and thus it
     remains to show that $time(u) = \delta(u)$. Suppose for the sake of contradiction that the
-    fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S) < time(u)$. We know that the first
-    station in $S$ which is not in $R_{n - 1}$ must be $u$, otherwise there exists some $w \notin
-    R_{n - 1}$ with $time(w) < time(u)$, contradicting the algorithm's choice of $u$ at step 9. Let
-    $z \in R_{n - 1}$ be the second last station in $S$. Let $S_z$ be $S$ without the last transfer
-    to $u$. Note that at the worst case, the time we arrive at $u$ via the earliest sequence of
-    transfers from $X$ to $z$ then traveling to $u$ as soon as possible would be no later than
-    traveling via the $S_z$ then to $u$, as we can wait at station $z$ upon arrival. Hence,
+    fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S) < time(u)$, say $S = s_0s_1\dots
+    s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Suppose $s_i$ is the first station in $S$ which is
+    not in $R_{n - 1}$, and let $S_k = s_0s_1 \dots s_k$, for $0 \leq k \leq n$. Note that we may
+    make the subsequential transfers in $S$ if we arrive at $s_{i}$ earlier than $l(S_{i})$, as we
+    can wait at the station. Hence, as $time(s_{i - 1}) \leq l(S_{i - 1})$ and $s_{i - 1} \in R_{n -
+    1}$, 
     \[
-      time(z) + t'_{zu} \leq l(S_z) + t_{zu} \leq l(S),
+      time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S),
     \]
-    where $t_{zu}$ is the traveling time from $z$ to $u$ after $S_z$ and $t'_{zu}$ is the fastest
-    traveling time from $z$ to $u$ via the earliest sequence of transfers from $X$ to $z$. But then
-    by the while loop, $time(u)$ is the earliest time you can travel from $X$ to $u$ via the
-    stations in $R_{n - 1}$, so
+    Since $s_i$ is immediate to stations in $R_{n - 1}$, the while loop forces the $time(s_i)$ to be
+    the earliest time you can travel from $X$ to $s_i$ via the stations in $R_{n - 1}$, and so
     \[
-      time(u) \leq time(z) + t_{zu} \leq l(S) < time(u),
+      time(s_{i}) \leq time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})).
     \]
+    But then the algotithm picked $u$ over $s_i$ at step 9, so
+    \[
+      time(u) \leq time(s_{i}) \leq time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S) < time(u),
+    \] 
     contradiction. Hence, $time(u) = \delta(u)$, and this completes the induction. By the time the
     algorithm terminates, $V = R_n$, and the result follows.
 
     Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which
     takes $O(\log |V|)$ for $insert$, $decreaseKey$, and $deletemin$. The first for loop runs over
-    $V$ for initialization, which takes $O(|V|)$ time. The second for loop runs through all entrys
+    $V$ for initialization, which takes $O(|V|)$ time. The second for loop runs through all entries
     of $B$, which takes $O(nk)$ time. $makequeue$ takes $O(|V|)$ time. The while loop goes through
     all $|V|$ stations, and the inner for loop at 10. goes through at most $\sum_{u \in V}
     |schedule(u)| = |B| = nk$ entries, each entry runs $decreaseKey$ at most $k$ times. Hence, the
-    while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(|V|\log |V|nk^2)$ time. In total, the
-    algorithm takes $O(|V|\log |V|nk^2)$ time.
+    while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(nk^2|V|\log |V|)$ time. In total, the
+    algorithm takes $O(nk^2|V|\log |V|)$ time. 
   \end{proof}
 
   \item
@@ -306,18 +307,20 @@
     Since $R_1 = \{X\}$ and $step(X) = 0 = \delta(X)$, the base case is done. Suppose $n > 1$. Let
     $u$ be the last vertex added to $R_n$. By induction, $step(v) = \delta(v)$ for all $v \in R_{n -
     1}$, and thus it remains to show that $step(u) = \delta(u)$. Suppose for the sake of
-    contradiction that the minimum sequence of transfers from $X$ to $u$ is $S$ and $|S| < step(u)$.
-    We know the the first station in $S$ which is not in $R_{n - 1}$ must be $u$, otherwise there
-    exists some $w \notin R_{n - 1}$ with $step(w) < step(u)$, contradicting the algorithm's choice
-    of $u$ at step 13. Let $z \in R_{n - 1}$ be the second last station in $S$. Let $S_z$ be $S$
-    without the last transfer to $u$. We have, $|S_z| + 1 = |S|$. But then there exists $w \in R_{n
-    - 1}$ such that
+    contradiction that the minimum sequence of transfers from $X$ to $u$ is $S$ and $|S| < step(u)$,
+    say $S = s_0s_1\dots s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Let $S_k = s_0s_1 \dots s_k$,
+    for $0 \leq k \leq n$. Suppose $s_i$ is the first station in $S$ which is not in $R_{n - 1}$.
+    Since $s_{i - 1} \in R_{n - 1}$, by induction,
     \[
-      |S_z| + 1 = |S| < step(u) = step(w) + 1 = \delta(w) + 1.
+      step(s_{i - 1}) + 1 \leq |S_{i - 1}| + 1 = |S_{i}| = |S| < step(u).
     \]
-    This contradicts the design of the while loop, as $step(u)$ would have been set to $|S_z| + 1$
-    instead of $step(w) + 1$. Hence, $step(u) = \delta(u)$, and this completes the induction. By the
-    time the algorithm terminates, $V = R_n$, and the result follows.
+    Since $s_i$ is immediate to stations in $R_{n - 1}$, the while loop forces $step(s_i)$ to be the
+    minimum steps you can travel from $X$ to $s_i$ via the stations in $R_{n - 1}$, and so
+    \[
+      step(s_{i}) \leq step(s_{i - 1}) + 1 \leq |S_{i - 1}| + 1 = |S_{i}| = |S| < step(u).
+    \]
+    But then the algorithm picked $u$ over $s_i$ at step 13, so $step(u) < step(s_{i})$,
+    contradiction.
 
     Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which
     takes $O(\log |V|)$ for $insert$, $decreaseKey$, and $deletemin$. The first for loop runs over

@@ -416,8 +416,7 @@
           b_k = \frac{k + 1}{-a_0k - a_0 + 1}\sum_{i = 1}^k a_ib_{k - i},  \quad b_k = \frac{k + 1}{-a_0k - a_0 + 1}\sum_{i = 1}^k a_ib_{k - i},
         \]
         so $b_k, b'_k$ are uniquely determined by the corrresponding previous coefficients, and thus
-        $G = G'$ if and only if they agree with the constant term. But then $G(0) = G'(0) = 1$, and
-        the result follows. 
+        $G = G'$ if and only if $b_0 = b'_0$. But then $G(0) = G'(0) = 1$, and the result follows. 
       \end{proof}
       
       \item Given $G \in W$, show that there is a \textit{unique} formal power series $F \in V$ such
@@ -481,7 +480,7 @@
         \begin{gather}
           G_1G_2D(F_1 + F_2) = DG_1 \cdot G_2 + DG_2 \cdot G_1 = D(G_1G_2),
         \end{gather}
-        that is, $D(F_1 + F_2) = D(G_1G_2)/G_1G_2$. But then $F_1 + F_2 \in F$, so $G_1G_2$ is
+        that is, $D(F_1 + F_2) = D(G_1G_2)/G_1G_2$. But then $F_1 + F_2 \in F$, so $G_!$ is
         the unique element in $W$ that satisfies (3), and thus $\textbf{L}(G_1G_2) = F_1 + F_2 =
         \textbf{L}(G_1) + \textbf{L}(G_2)$.
       \end{proof}
