@@ -424,17 +424,17 @@
     that moment. By the fact that for every possible distance $i = 1, ..., l$, at some point in BFS,
     the queue will contain exactly all of the vertices that are distance $i$ away from $s$, BFS will
     visit all vertices of distance less than $l$ before visiting vertices of distance $l$. Since
-    each vertex $v \neq s$ has at most $d - 1$ nonvisited neighbors (excluding the preceding
-    vertex), there are at most $d(d - 1)^{k - 1}$ vertices that has distance $k$ from $s$ by
-    induction. But then there are at most
+    each vertex $v \neq s$ has at most $d$ nonvisited neighbors (excluding the preceding vertex),
+    there are less than $d^k$ vertices that has distance $k$ from $s$ by induction on $k$. But then
+    there are less than
     \[
-      1 + \sum_{k = 1}^l d(d - 1)^{k - 1} = 1 + d \cdot \frac{(d - 1)^{l} - 1}{d - 2} = 1 - \frac{d}{d - 2} + \frac{d(d - 1)^l}{d - 2}
+      1 + \sum_{k = 1}^l d^k = \frac{d^{l + 1} - 1}{d - 1}
     \]
-    vertices which have distance at most $l$ from $s$. Hence, in the worst case, $t$ would be the
-    $(1 - \frac{d}{d - 2} + \frac{d(d - 1)^l}{d - 2})$th visited vertex, and thus the algorithm has
-    a worst case runtime of 
+    vertices which have distance at most $l$ from $s$. Hence, in the worst case, $t$ would be
+    explored before the $\frac{d^{l + 1} - 1}{d - 1}$th vertex is explored, and thus the algorithm
+    has a worst case runtime of 
     \[
-      O\left(|V| + 1 - \frac{d}{d - 2} + \frac{d(d - 1)^l}{d - 2}\right) = O(d^{l}).
+      O\left(|V| + \frac{d^{l + 1} - 1}{d - 1}\right) = O(d^{l}).
     \]
   \end{proof}
   \end{enumerate}
@@ -455,11 +455,10 @@
   Runtime analysis.
   \begin{proof}
     At the worst case, both \texttt{BFS2} meet at the middle of the shortest path between $s$ and
-    $t$, say vertex $v$. But then the shortest path between $s, v$ and $s, t$ have length $l/2$.
-    By (a).ii, the runtime for each \texttt{BFS2} is $O(d^{l/2})$, and thus the total runtime is
+    $t$, say vertex $v$. But then the shortest paths between $s, v$ and $s, t$ have length $l/2$. By
+    (a).ii, the runtime for each \texttt{BFS2} is $O(d^{l/2})$, and thus the total runtime is
     $O(2d^{l/2}) = O(d^{l/2})$. 
   \end{proof}
-
   \end{enumerate}
   \end{enumerate}
 \end{homeworkProblem}
@@ -470,7 +469,7 @@
   For all integers $n\geq 0$, consider the graph $H(n)$ pictured below:
 
   \begin{center}
-    \includegraphics[scale=0.35]{Dijkstra_negative}
+    \includegraphics[scale=0.30]{Dijkstra_negative}
   \end{center}
 
   That is, $A_0$ has no outgoing neighbors and the adjacency list for each other vertex is:
@@ -494,16 +493,19 @@
   \begin{proof}
     We proceed by induction on $n$. Since $A_0$ has no out going edge, $maxdist(A_0) = 0 \leq 2^n +
     n$ and the base case is done. Suppose $n \geq 1$. Since there is only one path to either $B_{n -
-    1}$ or $C_{n - 1}$ from $A_n$, $maxdist(B_{n - 1}) = 2^{k - 1}$ and $maxdist(C_{n - 1}) = 2^{k}
-    + k$, both of which are at most $2^n + n$. There are two possible paths, $A_nB_{n - 1}A_{n - 1}$
-    and $A_nC_{n - 1}A_{n - 1}$, from $A_n$ to $A_{n - 1}$, each having weights $2^{n - 1}$ and $0$,
-    respectively. Since $2^{n - 1} < 2^k + k$, $maxdist(A_{n - 1})$ would be set to $2^{n - 1}$. But
-    then $2^{n - 1} < 2^n + n$, so the algorithm would prioritize $A_{n - 1}$ over $C_{n - 1}$. By
-    induction,
+    1}$ or $C_{n - 1}$ from $A_n$, $maxdist(B_{n - 1}) = 2^{n - 1}$ and $maxdist(C_{n - 1}) = 2^{n}
+    + n$, both of which are at most $2^n + n$. There are two possible paths from $A_n$ to $A_{n -
+    1}$, namely $A_nB_{n - 1}A_{n - 1}$ and $A_nC_{n - 1}A_{n - 1}$, which have weights $2^{n - 1}$
+    and $0$, respectively. Since $2^{n - 1} < 2^n + n$, $maxdist(A_{n - 1})$ would be set to $2^{n -
+    1}$. But then $2^{n - 1} < 2^n + n$, so the algorithm would prioritize $A_{n - 1}$ over $C_{n -
+    1}$. Note that the subgraph starting from $A_{n - 1}$ is isomorphic to $H(n - 1)$. Call it $H'(n
+    - 1)$. For $v \in H'(n - 1)$, $maxdist(v)$ can be calculated by running Dijkstra's on $H'(n -
+    1)$ starting from $A_{n - 1}$, with the initial distance at $A_{n - 1}$ set to $maxdist(A_{n -
+    1})$. By induction,
     \[
-      maxdist(v) \leq maxdist(A_{n - 1}) + (2^{n - 1} + n - 1) \leq 2^{n - 1} + (2^{n - 1} + n - 1) = 2^n + n - 1 \leq 2^n + n,
+      maxdist(v) \leq maxdist(A_{n - 1}) + (2^{n - 1} + n - 1) \leq 2^{n - 1} + (2^{n - 1} + n - 1) = 2^n + n - 1 \leq 2^n + n.
     \]
-    for all $v \in H(n - 1)$. Hence, the inequality holds true for all $v \in H(n)$.
+    Hence, the inequality holds true for all $v \in H(n)$.
   \end{proof}
 
   \item
@@ -513,15 +515,15 @@
   \begin{proof}
     We proceed by induction on $n$. For $n = 0$, $H(0)$ consists of a single vertex $A_0$ and thus
     the algorithm would only eject it once. Suppose $n \geq 1$. Since $dist(A_{n - 1})$ would
-    initially be assigned $2^{n - 1} < 2^n + n$, $A_{n - 1}$ would be prioritised over $C_{n - 1}$.
+    initially be assigned $2^{n - 1} < 2^n + n$, $A_{n - 1}$ would be prioritized over $C_{n - 1}$.
     By (a), $maxdist(v) \leq 2^{n - 1} + n - 1$ for all $v \in H(n - 1)$. But then $2^{n - 1} + 2^{n
     - 1} + n - 1 = 2^n + n - 1 < 2^n + n$, so all vertices of subscripts less than $n - 1$ would be
-    prioritised over $C_{n - 1}$. Hence, the process of the algorithm before revisiting $C_{n - 1}$
-    is equivalent to running Dijkstra's algorithm on $H(n - 1)$, which would ejected $A_0$ $2^{n -
-    1}$ times, by induction. But then after revisiting $C_{n - 1}$, the algorithm push $A_{n - 1}$
-    back to the priority queue, and the remaining process is also equivalent to running Dijkstra's
-    algorithm on $H(n - 1)$, which would eject $A_0$ another $2^{n - 1}$ times. Hence, $A_0$ would
-    be ejected $2^n$ times in total.
+    prioritized over $C_{n - 1}$. Hence, the process of the algorithm before ejecting $C_{n - 1}$ is
+    equivalent to running Dijkstra's algorithm on $H'(n - 1)$ starting at $A_{n - 1}$, which would
+    ejected $A_0$ $2^{n - 1}$ times, by induction. But then after ejecting $C_{n - 1}$, the
+    algorithm push $A_{n - 1}$ back to the priority queue, and the remaining process is also
+    equivalent to running Dijkstra's algorithm on $H'(n - 1)$ starting at $A_{n - 1}$, which would
+    eject $A_0$ another $2^{n - 1}$ times. Hence, $A_0$ would be ejected $2^n$ times in total.
   \end{proof}
 
   \item
