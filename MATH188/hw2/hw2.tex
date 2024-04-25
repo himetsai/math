@@ -503,10 +503,14 @@
       \item Show that if $\sum_{i \geq 0} F_i(x)$ converges to $F(x)$, then $\prod_{i \geq 0}
       \textbf{E}(F_i)$ converges to $\textbf{E}(F)$.
       \begin{proof}
-        By (d),
+        Let $F(x) = \sum_{n \geq 0} a_nx^n$. For $n \geq 0$, there exists $N_n$ such that
+        $[x^n]\sum_{i = 0}^k F_i(x) = [x^n]F(x)$ for all $k > N_n$. Note that
+        $[x^n]\textbf{E}(F(x))$ only depends on $a_0, \dots, a_n$. Take $N > \max(N_0, \dots, N_n)$.
+        By part (d), for $k > N$, 
         \[
-          \textbf{E}(F(x)) = \textbf{E}\left(\sum_{i \geq 0} F_i(x)\right) = \prod_{i \geq 0} \textbf{E}(F_i).
+          [x^n]\textbf{E}(F(x)) = [x^n]\textbf{E}\left(\sum_{i = 0}^k F_i(x)\right) = [x^n]\prod_{i = 0}^k \textbf{E}(F_i(x)),
         \]
+        and thus the convergence.
       \end{proof}
       
       \item Show that if $\prod_{i \geq 0} G_i(x)$ converges to $G(x)$, then $\sum_{i \geq 0}

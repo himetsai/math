@@ -182,6 +182,8 @@
       \item
       \ind $time(v) = \infty$
       \item
+      \ind $prev(v) = null$
+      \item
       \ind Initialize array $schedule(v)$
       \item
       $time(X) = T$
@@ -204,6 +206,8 @@
       \item
       \ind\ind\ind $decreaseKey(H, S_{i, j})$
       \item
+      \ind\ind\ind $prev(S_{i, j}) = u$
+      \item
       {\bf return} $time(Y)$
       \end{enumerate}
     \end{quote}
@@ -211,10 +215,11 @@
     This algorithm is a modified version of Dijkstra's, with an additional step of constructing a
     bus schedule with respect to each station. 
 
-    We now give a justification for the correctness of the algorithm. We first note that step 10 of
-    the algorithm ensures any transfers taken to be valid. Thus, given any vertex $v$, there is
-    always a valid sequence of transfers such that the number of transfers is equal to $time(v)$ in
-    any iteration. It remains to show that $time(v)$ is minimum by the end of the algorithm.
+    We now give a justification for the correctness of the algorithm. Note that at any moment, there
+    is always a valid sequence of transfers such that the number of transfers is equal to $time(v)$
+    in any iteration if $time(v) < \infty$. We may find such sequence by backtracing $prev(v)$ until
+    we reach $X$, and step 11 ensures each transfer in the sequence is valid. Hence, it remains to
+    show that $time(v)$ is minimum by the end of the algorithm.
     
     Let $R_n$ be $V\backslash H$ at the end of $n$th iteration of the while loop, and let
     $\delta(v)$ be the earliest time $v$ can be reached from $X$, and let $l(S)$ be the time that
@@ -236,7 +241,7 @@
     \[
       time(s_{i}) \leq time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})).
     \]
-    But then the algotithm picked $u$ over $s_i$ at step 9, so
+    But then the algotithm picked $u$ over $s_i$ at step 10, so
     \[
       time(u) \leq time(s_{i}) \leq time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S) < time(u),
     \] 
@@ -269,6 +274,8 @@
       \item
       \ind $step(v) = \infty$
       \item
+      \ind $prev(v) = null$
+      \item
       \ind Initialize array $schedule(v)$
       \item
       $time(X) = T$
@@ -293,6 +300,8 @@
       \item
       \ind\ind\ind $decreaseKey(H, S_{i, j})$
       \item
+      \ind\ind\ind $prev(S_{i, j}) = u$
+      \item
       {\bf return} $step(Y)$
       \end{enumerate}
     \end{quote}
@@ -300,10 +309,11 @@
     This algorithm is a modified version of Dijkstra's, with an additional step of constructing a
     bus schedule with respect to each station. 
 
-    We now give a justification for the correctness of the algorithm. We first note that step 12 of
-    the algorithm ensures any transfers taken to be valid. Thus, given any vertex $v$, there is
-    always a valid sequence of transfers such that the number of transfers is equal to $step(v)$ in
-    any iteration. It remains to show that $step(v)$ is minimum by the end of the algorithm.
+    We now give a justification for the correctness of the algorithm. Note that at any moment, there
+    is always a valid sequence of transfers such that the number of transfers is equal to $step(v)$
+    in any iteration if $step(v) < \infty$. We may find such sequence by backtracing $prev(v)$ until
+    we reach $X$, and step 13 ensures each transfer in the sequence is valid. Hence, it remains to
+    show that $step(v)$ is minimum by the end of the algorithm.
     
     Let $R_n$ be $V\backslash H$
     at the end of $n$th iteration of the while loop, and let $\delta(v)$ be the minimum number of
@@ -324,7 +334,7 @@
     \[
       step(s_{i}) \leq step(s_{i - 1}) + 1 \leq |S_{i - 1}| + 1 = |S_{i}| = |S| < step(u).
     \]
-    But then the algorithm picked $u$ over $s_i$ at step 11, so $step(u) < step(s_{i})$,
+    But then the algorithm picked $u$ over $s_i$ at step 12, so $step(u) < step(s_{i})$,
     contradiction.
 
     Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which
@@ -333,8 +343,8 @@
     of $B$, which takes $O(nk)$ time. $makequeue$ takes $O(|V|)$ time. The while loop goes through
     all $|V|$ stations, and the inner for loop at 10. goes through at most $\sum_{u \in V}
     |schedule(u)| = |B| = nk$ entries, each entry runs $decreaseKey$ at most $k$ times. Hence, the
-    while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(|V|\log |V|nk^2)$ time. In total, the
-    algorithm takes $O(|V|\log |V|nk^2)$ time.
+    while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(nk^2|V|\log |V|)$ time. In total, the
+    algorithm takes $O(nk^2|V|\log |V|)$ time.
   \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
