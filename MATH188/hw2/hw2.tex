@@ -404,16 +404,16 @@
           DG = \sum_{n \geq 0} \frac{D(F^{n}(x))}{n!} = \sum_{n \geq 1} DF \cdot \frac{F^{n - 1}(x)}{(n - 1)!} = DF \sum_{n \geq 0} \frac{F^{n}(x)}{n!} = DF \cdot G,
         \]
         and $G(0) = F^0(0) = 1$. It remains to show that $G$ is unique. Suppose there exists $G =
-        \sum_{n \geq 0} b_nx_n, G' = \sum_{n \geq 0} b'_nx_n \in W$ such that $\textbf{E}(F) = G$
-        and $\textbf{E}(F) = G'$. Suppose $DF = \sum_{n \geq 0} a_nx_n$ We know $DG = DF \cdot G$
+        \sum_{n \geq 0} b_nx^n, G' = \sum_{n \geq 0} b'_nx^n \in W$ such that $\textbf{E}(F) = G$
+        and $\textbf{E}(F) = G'$. Suppose $DF = \sum_{n \geq 0} a_nx^n$ We know $DG = DF \cdot G$
         and $DG' = DF \cdot G'$. By comparing coefficients, for $k \geq 1$,
         \begin{gather*}
-          \frac{b_k}{k + 1} = [x^k]DG = [x^k](DF \cdot G) = \sum_{i = 0}^k a_{i}b_{k - i}, \\
-          \frac{b'_k}{k + 1} = [x^k]DG = [x^k](DF \cdot G) = \sum_{i = 0}^k a_{i}b'_{k - i}.
+          (k + 1)b_{k + 1} = [x^k]DG = [x^k](DF \cdot G) = \sum_{i = 0}^k a_{i}b_{k - i}, \\
+          (k + 1)b'_{k + 1} = [x^k]DG = [x^k](DF \cdot G) = \sum_{i = 0}^k a_{i}b'_{k - i}.
         \end{gather*}
         In particular, for $k \geq 1$,
         \[
-          b_k = \frac{k + 1}{-a_0k - a_0 + 1}\sum_{i = 1}^k a_ib_{k - i},  \quad b_k = \frac{k + 1}{-a_0k - a_0 + 1}\sum_{i = 1}^k a_ib_{k - i},
+          b_k = \frac{1}{k + 1}\sum_{i = 0}^k a_ib_{k - i},  \quad b'_k = \frac{1}{k + 1}\sum_{i = 0}^k a_ib'_{k - i},
         \]
         so $b_k, b'_k$ are uniquely determined by the corrresponding previous coefficients, and thus
         $G = G'$ if and only if $b_0 = b'_0$. But then $G(0) = G'(0) = 1$, and the result follows. 
