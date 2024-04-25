@@ -213,9 +213,8 @@
 
     We now give a justification for the correctness of the algorithm. We first note that step 10 of
     the algorithm ensures any transfers taken to be valid. Thus, given any vertex $v$, there is
-    always a valid sequence of transfers such that the number of transfers is equal to $step(v)$ in
-    any iteration. It remains to show that the sequence of transfers is the fastest at the end of
-    the algorithm.
+    always a valid sequence of transfers such that the number of transfers is equal to $time(v)$ in
+    any iteration. It remains to show that $time(v)$ is minimum by the end of the algorithm.
     
     Let $R_n$ be $V\backslash H$ at the end of $n$th iteration of the while loop, and let
     $\delta(v)$ be the earliest time $v$ can be reached from $X$, and let $l(S)$ be the time that
@@ -304,8 +303,7 @@
     We now give a justification for the correctness of the algorithm. We first note that step 12 of
     the algorithm ensures any transfers taken to be valid. Thus, given any vertex $v$, there is
     always a valid sequence of transfers such that the number of transfers is equal to $step(v)$ in
-    any iteration. It remains to show that the sequence of transfers is the shortest at the end of
-    the algorithm.
+    any iteration. It remains to show that $step(v)$ is minimum by the end of the algorithm.
     
     Let $R_n$ be $V\backslash H$
     at the end of $n$th iteration of the while loop, and let $\delta(v)$ be the minimum number of
