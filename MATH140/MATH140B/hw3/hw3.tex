@@ -1,0 +1,382 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{ \nobreak\extramarks{}{Problem \arabic{#1} continued on next
+    page\ldots}\nobreak{} \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1}
+    continued on next page\ldots}\nobreak{} }
+
+\newcommand{\exitProblemHeader}[1]{ \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem
+    \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{Apr 29, 2024}
+\newcommand{\hmwkClass}{MATH 140B}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{{#1}}
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Suppose $f$ is a bounded real function on $[a, b]$ and $f^2 \in \mathscr{R}$ on $[a, b]$. Does it
+  follow that $f \in \mathscr{R}$? Does the answer change if we assume that $f^3 \in \mathscr{R}$?
+
+  \begin{proof}
+    $f$ is not necessarily integrable. Consider
+    \[
+      f(x) = \begin{cases}
+        1, & x \in \Q \\
+        -1, & x \notin \Q
+      \end{cases}.
+    \]
+    $f^2(x) = 1$ is obviously continuous, as it is constant. Since both rationals and irrationals
+    are dense in $\R$,
+    \[
+      U(P, f) = \sum_{i = 0}^n \Delta x_i = b - a, \quad L(P, f) = \sum_{i = 0}^n -\Delta x_i = a - b,
+    \]
+    for any partition $P$. But then $U(P, f) - L(P, f) = 2(b - a)$, and thus $f \notin \mathscr{R}$.
+
+    Suppose $f^3 \in \mathscr{R}$. Since $f$ is bounded, we may assume $|f| < M$. Define $\phi(x) =
+     \sqrt[3]{x}$. Note that $\phi(f^3(x)) = f(x)$. Since $x^3$ is a continuous 1-1 mapping on
+     $[-M^{1/3}, M^{1/3}]$, its inverse $\phi = \sqrt[3]{x}$ is continuous on $[-M, M]$, by Theorem
+     4.17. But then by Theorem 6.11, $f(x) = \phi(f^3(x)) \in \mathscr{R}$ on $[a, b]$. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $P$ be the Cantor set constructed in Theorem 2.44. Let $f$ be a bounded real function on $[0,
+  1]$ which is continuous at every point outside $P$. Prove that $f \in \mathscr{R}$ on $[0, 1]$.
+
+  \begin{proof}
+    Note that $P$ can be covered by finitely many segments whose total length can be made as small
+    as desired. Pick $\epsilon > 0$ and let $M = \sup |f(x)|$. Take finitely many disjoint intervals
+    $[u_i, v_i] \subset [0, 1]$ such that $\bigcup_{i = 0}^{n} (u_i, v_i) \supset P$ and $\sum_{i =
+    0}^n (v_i - u_i) < \epsilon$. Put $K = [0, 1] \backslash \bigcup_{i = 0}^{n} (u_i, v_i)$. Since
+    $K$ is compact, $f$ is uniformly continuous on $K$. Hence, there exists $\delta > 0$ such that
+    $|f(s) - f(t)| < \epsilon$ whenever $s, t \in K$ and $|s - t| < \delta$. 
+    
+    Now consider a partition $\rho = \{x_0, x_1, \dots, x_n\}$ of $[0, 1]$ such that each $u_i, v_i$
+    occurs in $\rho$ and no point of any segment $(u_i, v_i)$ occurs in $\rho$. Additionally, if
+    $x_{i - 1}$ is not one of the $u_j$, then $\Delta x_i < \delta$. 
+
+    Note that $M_i - m_i \leq 2M$ for every $i$, and that $M_i - m_i \leq \epsilon$ unless $x_{i -
+    1}$ is one of the $u_j$. Hence, 
+    \begin{align*}
+      U(\rho, f) - L(\rho, f) 
+      &= \sum_{i = 1}^n (M_i - m_i) \Delta x_i \\
+      &= \sum_{x_{i - 1} = u_j}^n (M_i - m_i) \Delta x_i + \sum_{x_{i - 1} \neq u_j}^n (M_i - m_i) \Delta x_i \\
+      &< 2M\epsilon + \epsilon = (2M + 1)\epsilon, \\
+    \end{align*}
+    and the result follows from Theorem 6.6.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage 
+
+\begin{homeworkProblem}
+  Suppose $f$ is a real function on $(0,1]$ and $f \in \mathscr{R}$ on $[c,1]$ for every $c > 0$.
+  Define
+  \[
+    \int_{0}^{1} f(x) \, dx = \lim_{c \to 0} \int_{c}^{1} f(x) \, dx
+  \]
+  if this limit exists (and is finite).
+  
+  \begin{enumerate}[(a)]
+    \item If $f \in \mathscr{R}$ on $[0,1]$, show that this definition of the integral agrees with
+    the old one.
+    \begin{proof}
+      \[
+        \lim_{c \to 0} \int_{c}^{1} f(x) \, dx = \int_{0}^{1} f(x) \, dx - \lim_{c \to 0} \int_{0}^{c} f(x) \, dx,
+      \]
+      so it remains to show that $\lim_{c \to 0} \int_{0}^{c} f(x) \, dx = 0$. Since $f \in
+      \mathscr{R}$, we may assume $|f(x)| \leq M$ for $x \in [0, 1]$. Pick $\epsilon > 0$. Then,
+      given any partition $P= \{x_0, \dots, x_n\}$, we have $\delta = \frac{\epsilon}{nM}$ such
+      that, 
+      \[
+        U(P, f) = \sum_{i = 1}^n M_i \Delta x_i \leq nMc < \epsilon, \quad L(P, f) = \sum_{i = 1}^n m_i \Delta x_i > -nMc > -\epsilon,
+      \]
+      for all $c \in (0, \delta)$. But then
+      \[
+        \left|\int_{0}^{c} f(x)\right| < \epsilon,
+      \]
+      and the result follows.
+    \end{proof}
+    \item Construct a function $f$ such that the above limit exists, although it fails to exist with
+    $|f|$ in place of $f$.
+    \begin{proof}
+      Define $f(x) = \frac{(-1)^n}{n}$ if $x \in (\frac{1}{n + 1}, \frac{1}{n}]$, for $n \in \N$.
+      Suppose $c = \frac{1}{n + 1}$. Then, 
+      \[
+        \int_c^1 f(x) \, dx = \sum_{k = 1}^n \frac{(-1)^k}{k}, \quad \int_c^1 |f(x)| \, dx = \sum_{k = 1}^n \frac{1}{k}.
+      \]
+      As $c \to 0$, $n \to \infty$, and thus $\int_c^1 f(x) \, dx$ converges but not $\int_c^1
+      |f(x)| \, dx$.
+    \end{proof}
+  \end{enumerate}
+  \end{homeworkProblem}
+
+  \newpage
+
+  \begin{homeworkProblem}
+    Suppose $f \in \mathscr{R}$ on $[a, b]$ for every $b > a$ where $a$ is fixed. Define
+    \[
+      \int_{a}^{\infty} f(x) \, dx = \lim_{b \to \infty} \int_{a}^{b} f(x) \, dx
+    \]
+    if this limit exists (and is finite). In that case, we say that the integral on the left
+    \emph{converges}. If it also converges after $f$ has been replaced by $|f|$, it is said to
+    converge \emph{absolutely}.
+    
+    Assume that $f(x) \geq 0$ and that $f$ decreases monotonically on $[1, \infty)$. Prove that
+    \[
+      \int_{1}^{\infty} f(x) \, dx
+    \]
+    converges if and only if
+    \[
+      \sum_{n=1}^{\infty} f(n)
+    \]
+    converges. (This is the so-called ``integral test'' for convergence of series.)
+
+    \begin{proof}
+      Consider the partition $P = \{1, \dots, n\}$. Since $f$ is monotonically decreasing,
+      \[
+        U(P, f) = \sum_{k = 1}^{n - 1} f(k), \quad L(P, f) = \sum_{k = 2}^n f(k).
+      \]
+      Note that since $f$ is at least 0 and monotonically decreasing, $\lim_{n \to \infty} f(n) \in
+      \R$. We then get
+      \[
+        f(n) + \sum_{k = 2}^n f(k) \leq f(n) + \int_{1}^n f(x) \, dx \leq \sum_{k = 1}^{n} f(k) \leq f(1) + \int^n_2 f(x) \, dx.
+      \]
+      But then $\int_{1}^{\infty} f(x) \, dx$ and $\sum_{n=1}^{\infty} f(n)$ are bounded together,
+      and the result follows.
+    \end{proof}
+  \end{homeworkProblem}
+    
+  \newpage
+
+  \begin{homeworkProblem}
+    Let $p$ and $q$ be positive real numbers such that
+    \[
+      \frac{1}{p} + \frac{1}{q} = 1.
+    \]
+    Prove the following statements.
+    
+    \begin{enumerate}[(a)]
+    \item If $u \geq 0$ and $v \geq 0$, then
+    \[
+      uv \leq \frac{u^p}{p} + \frac{v^q}{q}.
+    \]
+    Equality holds if and only if $u^p = v^q$.
+
+    \begin{proof}
+      Fix $u$. Define $f(v) = \frac{u^p}{p} + \frac{v^q}{q} - uv$. Then, $f'(v) = v^{q - 1} - u,
+      f''(v) = (q - 1)v^{q - 2} \geq 0$, for $v \geq 0$. Hence, $f(v)$ reaches minimum at $v =
+      u^{\frac{1}{q - 1}}$. Note that $p = \frac{q}{q - 1}$. But then
+      \begin{align*}
+        f(v)
+        &= \frac{u^p}{p} + \frac{v^q}{q} - uv \\
+        &\geq \frac{u^p}{p} + \frac{u^{\frac{q}{q - 1}}}{q} - u^{\frac{q}{q - 1}} \\
+        &= \left(\frac{1}{p} + \frac{1}{q} - 1\right)u^p = 0,
+      \end{align*}
+      and the result follows.
+    \end{proof}
+    
+    \item If $f \in \mathscr{R}(\alpha)$, $g \in \mathscr{R}(\alpha)$, $f \geq 0$, $g \geq 0$, and
+    \[
+      \int_{a}^{b} f^p d\alpha = 1 = \int_{a}^{b} g^q d\alpha,
+    \]
+    then
+    \[
+      \int_{a}^{b} fg d\alpha \leq 1.
+    \]
+
+    \begin{proof}
+      By (a),
+      \[
+        \int_{a}^{b} \frac{f^p}{p} d\alpha + \int_{a}^{b} \frac{g^q}{q} d\alpha = \int_{a}^{b} \frac{f^p}{p} + \frac{g^q}{q} d\alpha \geq \int_{a}^{b} fg d\alpha.
+      \]
+      But then
+      \[
+        1 = \frac{1}{p} + \frac{1}{q} = \int_{a}^{b} fg d\alpha.
+      \]
+    \end{proof}
+    
+    \item If $f$ and $g$ are complex functions in $\mathscr{R}(\alpha)$, then
+    \[
+      \left| \int_{a}^{b} fg d\alpha \right| \leq \left( \int_{a}^{b} |f|^p d\alpha \right)^{1/p} \left( \int_{a}^{b} |g|^q d\alpha \right)^{1/q}.
+    \]
+    This is H\"older's inequality. When $p = q = 2$, it is usually called the Schwarz inequality. 
+    (Note that Theorem 1.35 is a very special case of this.)
+
+    \begin{proof}
+      Put $F = \int_{a}^{b} |f|^p d\alpha$, $G = \int_{a}^{b} |g|^p d\alpha$. Since $f, g \in
+      \mathscr{R}(\alpha)$, $|f|, |g| < M \in \R$. Note that $F = 0$ implies $\int_{a}^{b} |f|
+      d\alpha = 0$. Thus
+      \[
+        0 = M\int_{a}^{b} |f| \, d\alpha \geq \int_{a}^{b} |f||g| \, d\alpha \geq  \left| \int_{a}^{b} fg d\alpha \right|,
+      \]
+      and the inequality holds.
+
+      Hence, we may assume $F, G > 0$. Substituting $f$ as $\frac{|f|}{F^{1/p}}$ and $g$ as
+      $\frac{|g|}{G^{1/q}}$, we get
+      \[
+        \int^{b}_a \frac{|f||g|}{F^{1/p}G^{1/q}} \, d\alpha \leq= 1.
+      \]
+      But then
+      \[
+        \left|\int^{b}_a |fg| \, d\alpha\right|\leq \int^{b}_a |f||g| \, d\alpha \leq F^{1/p}G^{1/q}.
+      \]
+    \end{proof}
+    
+    \item Show that H\"older's inequality is also true for the ``improper'' integrals described in
+    Exercises 6.7 and 6.8.
+
+    \begin{proof}
+      Since the equality holds for any finite interval, and thus the inequality also holds if the
+      improper integrals converge. 
+
+      Suppose the improper integral of $f$ or $g$ diverge, the right-hand side of the inequality
+      tends to infinity, and thus the inequality still holds.
+    \end{proof}
+    \end{enumerate}
+  \end{homeworkProblem}      
+\end{document}
