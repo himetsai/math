@@ -277,7 +277,10 @@
     converges. (This is the so-called ``integral test'' for convergence of series.)
 
     \begin{proof}
-      Consider the partition $P = \{1, \dots, n\}$. Since $f$ is monotonically decreasing,
+      Consider the partition $P = \{1, \dots, n\}$. Note that as $f \geq 0$, both the $\int_1^n f(x)
+      \, dx$ and $\sum_{k = 1}^n f(k)$ are monotonically increasing with respect to $n$. Hence, it
+      suffices to show that the integral and summation are bounded together. Since $f$ is
+      monotonically decreasing,
       \[
         U(P, f) = \sum_{k = 1}^{n - 1} f(k), \quad L(P, f) = \sum_{k = 2}^n f(k).
       \]
