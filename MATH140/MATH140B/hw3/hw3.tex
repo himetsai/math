@@ -188,14 +188,20 @@
   1]$ which is continuous at every point outside $P$. Prove that $f \in \mathscr{R}$ on $[0, 1]$.
 
   \begin{proof}
-    Note that $P$ can be covered by finitely many segments whose total length can be made as small
-    as desired. Pick $\epsilon > 0$ and let $M = \sup |f(x)|$. Take finitely many disjoint intervals
-    $[u_i, v_i] \subset [0, 1]$ such that $\bigcup_{i = 0}^{n} (u_i, v_i) \supset P$ and $\sum_{i =
-    0}^n (v_i - u_i) < \epsilon$. Put $K = [0, 1] \backslash \bigcup_{i = 0}^{n} (u_i, v_i)$. Since
-    $K$ is compact, $f$ is uniformly continuous on $K$. Hence, there exists $\delta > 0$ such that
-    $|f(s) - f(t)| < \epsilon$ whenever $s, t \in K$ and $|s - t| < \delta$. 
+    We first show that $P$ can be covered by finitely many segments whose total length can be made
+    as small as desired. Pick $\epsilon > 0$. Note that $P = \bigcap_{n = 1}^{\infty} E_n$, where
+    $E_n$ is the union of $2^n$ intervals, each of length $3^{-n}$. Pick $n$ large enough such that
+    $\frac{2^n}{3^n} < \epsilon$. We know $P$ can be covered by $E_n$. Put $\nu \in (0, \epsilon -
+    \frac{2^n}{3^n})$. Let $C$ be the union of segments, where each segment corresponds to an
+    interval in $E_n$ with both endpoints extended by $\frac{\nu}{2^{n + 1}}$. Then, $C$ is a open
+    cover of $P$ and the total length of all segments in $C$ is $\frac{2^n}{3^n} + \nu < \epsilon$. 
     
-    Now consider a partition $\rho = \{x_0, x_1, \dots, x_n\}$ of $[0, 1]$ such that each $u_i, v_i$
+    We may assume that $C = \bigcup_{i = 1}^{2^n} (u_i, v_i)$ and the intervals $[u_i, v_i]$ are
+    pairwise disjoint. Let $M = \sup |f(x)|$. Put $K = [0, 1] \backslash C$. Since $K$ is compact,
+    $f$ is uniformly continuous on $K$. Hence, there exists $\delta > 0$ such that $|f(s) - f(t)| <
+    \epsilon$ whenever $s, t \in K$ and $|s - t| < \delta$. 
+    
+    Now consider a partition $\rho = \{x_0, x_1, \dots, x_k\}$ of $[0, 1]$ such that each $u_i, v_i$
     occurs in $\rho$ and no point of any segment $(u_i, v_i)$ occurs in $\rho$. Additionally, if
     $x_{i - 1}$ is not one of the $u_j$, then $\Delta x_i < \delta$. 
 
@@ -203,8 +209,8 @@
     1}$ is one of the $u_j$. Hence, 
     \begin{align*}
       U(\rho, f) - L(\rho, f) 
-      &= \sum_{i = 1}^n (M_i - m_i) \Delta x_i \\
-      &= \sum_{x_{i - 1} = u_j}^n (M_i - m_i) \Delta x_i + \sum_{x_{i - 1} \neq u_j}^n (M_i - m_i) \Delta x_i \\
+      &= \sum_{i = 1}^k (M_i - m_i) \Delta x_i \\
+      &= \sum_{x_{i - 1} = u_j}^k (M_i - m_i) \Delta x_i + \sum_{x_{i - 1} \neq u_j}^k (M_i - m_i) \Delta x_i \\
       &< 2M\epsilon + \epsilon = (2M + 1)\epsilon, \\
     \end{align*}
     and the result follows from Theorem 6.6.
