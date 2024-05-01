@@ -1,0 +1,435 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{May 3, 2024}
+\newcommand{\hmwkClass}{MATH 140B}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{{#1}}
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Show that integration by parts can sometimes be applied to the ``improper'' integrals defined in
+  Exercises 6.7 and 6.8. (State the appropriate hypotheses, formulate a theorem, and prove it.) For
+  instance, show that
+  \[
+    \int_0^{\infty} \frac{\cos x}{1 + x} \, dx = \int_0^{\infty} \frac{\sin x}{(1 + x)^2} \, dx.
+  \]
+  Show that one of these integrals converges absolutely, but that the other does not.
+
+  \textbf{Theorem } Let $F, G$ be differentiable functions on $[a, \infty)$, where $F' = f \in
+  \mathscr{R}$ and $G' = g \in \mathscr{R}$. Suppose both $\lim_{x \to \infty} F(x)G(x)$ and
+  $\int_{a}^{\infty} f(x)G(x) \, dx$ exist. Then
+  \[
+    \int_{a}^{\infty} F(x)g(x) \, dx = \lim_{x \to \infty} F(x)G(x) - F(a)G(a) - \int_{a}^{\infty} f(x)G(x) \, dx.
+  \] 
+
+  \begin{proof}
+    Put $H(x) = F(x)G(x)$. By Theorem 6.13, we know $H' \in \mathscr{R}$. For finite $b > a$,
+    applying Theorem 6.21 to $H$ and its derivative yields
+    \[
+      H(b) - H(a) = \int_a^b F(x)g(x) + f(x)G(x) \, dx,
+    \]
+    that is,
+    \[
+      \int_a^b F(x)g(x) \, dx = F(b)G(b) - F(a)G(a) - \int_a^b f(x)G(x) \, dx.
+    \]
+    But then by assumption, $\lim_{x \to \infty} F(x)G(x)$ and $\int_{a}^{\infty} f(x)G(x) \, dx$
+    exist, and thus $\int_a^{\infty} F(x)g(x) \, dx$ also converges.
+  \end{proof}
+
+  Put $F(x) = \frac{1}{1 + x}$ and $G(x) = \sin x$. We know $f(x) = -\frac{1}{(1 + x)^2} \in
+  \mathscr{R}$, $g(x) = \cos x$. Note that
+  \[
+    \lim_{x \to \infty} |F(x)G(x)| = \lim_{x \to \infty} \left|\frac{\sin x}{1 + x}\right| \leq \lim_{x \to \infty} \left|\frac{1}{1 + x}\right| = 0 = F(0)G(0).
+  \]
+  In addition, by Theorem 6.13,
+  \[
+    \left|\int_0^{\infty} \frac{\sin x}{(1 + x)^2} \, dx\right| \leq \int_0^{\infty} \left|\frac{\sin x}{(1 + x)^2}\right| \, dx \leq \int_0^{\infty} \frac{1}{(1 + x)^2} \, dx.
+  \]
+  But then by exercise 8, $\int_0^{\infty} \frac{1}{(1 + x)^2} \, dx$ converges, as $\sum_{n =
+  0}^{\infty} \frac{1}{(1 + x)^2}$ converges. and then idk.
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\alpha$ be a fixed increasing function on $[a, b]$. For $u \in \mathscr{R}(\alpha)$, define
+  \[
+    \|u\|_2 = \left(\int_a^b |u|^2 \right)^{1/2}.
+  \]
+  Suppose $f, g, h \in \mathscr{R}(\alpha)$, and prove the triangle inequality
+  \[
+    \|f-h\|_2 \leq \|f-g\|_2 + \|g-h\|_2
+  \]
+  as a consequence of the Schwarz inequality, as in the proof of Theorem 1.37.
+
+  \begin{proof}
+    \begin{align*}
+      \|f-h\|_2
+      &= \|f - g + g - h\|_2 \\
+      &= \left(\int_a^b |f - g + g - h|^2\right)^{1/2} \\
+      &= \left(\int_a^b |f - g|^2 + 2\int_a^b |(f - g)(g - h)| + \int_a^b |g - h|^2\right)^{1/2} \\
+      &\leq \left(\int_a^b |f - g|^2 + 2\int_a^b |f - g| \int_a^b|g - h| + \int_a^b |g - h|^2\right)^{1/2} \\
+      &= \left(\int_a^b |f - g|^2\right)^{1/2} + \left(\int_a^b |g - h|^2\right)^{1/2} \\
+      &= \|f-g\|_2 + \|g-h\|_2.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  With the notations of Exercise 6.11, suppose $f \in \mathscr{R}(\alpha)$ and $\epsilon > 0$. Prove
+  that there exists a continuous function $g$ on $[a, b]$ such that $\|f - g\|_2 < \epsilon$.
+
+  \begin{proof}
+    Pick $\epsilon > 0$. Since $f \in \mathscr{R}(\alpha)$, there exists a partition $P = \{x_0,
+    \ldots, x_n\}$ on $[a, b]$ such that
+    \[
+      U(P, f, \alpha) - L(P, f, \alpha) < \epsilon^2/2M.
+    \]
+    Suppose $|f| < M$. Define 
+    \[
+      g(t) = \frac{x_i - t}{\Delta x_i} f(x_{i-1}) + \frac{t - x_{i-1}}{\Delta x_i} f(x_i).
+    \]
+    if $x_{i-1} \leq t \leq x_i$. Note that $g$ is defined to be linear on every interval $[x_i,
+    x_{i + 1}]$, and $g$ remains continuous between neighboring intervals. Hence, $g$ is continuous
+    on $[a, b]$. In addition, on every interval $[x_1, x_{i + 1}]$, since $f(x_1) \leq g(t) \leq
+    f(x_{i + 1})$, we have $m_i \leq g(t) \leq M_i$ for all $t \in [x_1, x_{i + 1}]$.
+    But then
+    \begin{align*}
+      \|f - g\|_2^2
+      &= \int_a^b |f - g|^2 \\
+      &\leq U(P, |f - g|^2, \alpha) \\
+      &= \sum_{i = 1}^n \sup_{x \in [x_i, x_{i + 1}]} (f(x) - g(x))^2 \Delta \alpha_i \\
+      &\leq \sum_{i = 1}^n (M_i - m_i)^2 \Delta \alpha_i \\
+      &\leq 2M[U(P, f, \alpha) - L(P, f, \alpha)] < \epsilon^2,
+    \end{align*}
+    and thus $\|f - g\|_2 < \epsilon$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Define
+  \[
+    f(x) = \int_x^{x+1} \sin(t^2) \, dt.
+  \]
+  \begin{enumerate}[(a)]
+    \item Prove that $|f(x)| < \frac{1}{x}$ if $x > 0$.
+
+    \begin{proof}
+      By Theorem 6.17 and 6.19, we may substitute $t^2$ by $u$ and get 
+      \[
+        f(x) = \int_{x^2}^{(x+1)^2} \sin(u) \, du^{1/2} = \int_{x^2}^{(x+1)^2} \frac{\sin(u)}{2u^{1/2}} \, du.
+      \]
+      Put $F(x) = \frac{1}{2u^{1/2}}$ and $G(x) = -\cos(x)$. Applying Theorem 6.22 then yields
+      \[
+        f(x) = \frac{\cos(x^2)}{2x} - \frac{\cos[(x + 1)^2]}{2(x + 1)} - \frac{1}{2}\int_{x^2}^{(x+1)^2} \frac{\cos u}{2u^{3/2}} \, du.
+      \]
+      But then notice 
+      \[
+        \left|\int_{x^2}^{(x+1)^2} \frac{\cos u}{2u^{3/2}} \, du\right| \leq \int_{x^2}^{(x+1)^2}
+        \left|\frac{\cos u}{2u^{3/2}}\right| \, du < \int_{x^2}^{(x+1)^2} \frac{1}{2u^{3/2}} =
+        \frac{1}{x} - \frac{1}{x + 1}.
+      \]
+      Hence,
+      \begin{align*}
+        |f(x)| 
+        &\leq  \left|\frac{\cos(x^2)}{2x} \right| + \left|\frac{\cos[(x + 1)^2]}{2(x + 1)}\right| + \left|\frac{1}{2}\int_{x^2}^{(x+1)^2} \frac{\cos u}{2u^{3/2}} \, du\right| \\
+        &< \frac{1}{2x} + \frac{1}{2(x + 1)} + \frac{1}{2}\left(\frac{1}{x} - \frac{1}{x + 1}\right) = \frac{1}{x}.
+      \end{align*}
+    \end{proof}
+
+    \item Prove that
+    \[
+      2xf(x) = \cos(x^2) - \cos[(x + 1)^2] + r(x)
+    \]
+    where $|r(x)| < \frac{c}{x}$ and $c$ is a constant.
+
+    \begin{proof}
+      By (a),
+      \begin{align*}
+        2xf(x) 
+        &= \left(\frac{\cos(x^2)}{2x} - \frac{\cos[(x + 1)^2]}{2(x + 1)} - \frac{1}{2}\int_{x^2}^{(x+1)^2} \frac{\cos u}{2u^{3/2}} \, du\right) \\
+        &= \cos(x^2) - \frac{x}{(x + 1)} \cdot \cos[(x + 1)^2] - x\int_{x^2}^{(x+1)^2} \frac{\cos u}{2u^{3/2}} \, du \\
+        &< \cos(x^2) - \cos[(x + 1)^2] + \frac{\cos[(x + 1)^2]}{x + 1} + \frac{1}{x + 1},
+      \end{align*}
+      and thus
+      \[
+        |r(x)| < \left|\frac{\cos[(x + 1)^2] + 1}{x + 1}\right| < \frac{2}{x}.
+      \]
+    \end{proof}
+
+    \break
+
+    \item Does $\int_0^\infty \sin(t^2) \, dt$ converge?
+    \begin{proof}
+      \begin{align*}
+        \int_0^\infty \sin(t^2) \, dt
+        &= \sum_{x = 0}^{\infty} f(x) \\
+        &= f(0) + \sum_{x = 1}^{\infty} \frac{\cos(x^2)}{2x} - \sum_{x = 1}^{\infty} \frac{\cos[(x + 1)^2]}{2x} + \sum_{x = 1}^{\infty} \frac{r(x)}{2x} \\
+        &= f(0) + \sum_{x = 1}^{\infty} \frac{\cos(x^2)}{2x} - \sum_{x = 1}^{\infty} \frac{x + 1}{x} \cdot \frac{\cos[(x + 1)^2]}{2(x + 1)} + \sum_{x = 1}^{\infty} \frac{r(x)}{2x} \\
+        &= f(0) + \sum_{x = 1}^{\infty} \frac{\cos(x^2)}{2x} - \sum_{x = 2}^{\infty} \frac{x}{x - 1} \cdot \frac{\cos(x^2)}{2x} + \sum_{x = 1}^{\infty} \frac{r(x)}{2x} \\
+        &= f(0) + \frac{\cos 1}{2} + \sum_{x = 2}^{\infty} \frac{\cos(x^2)}{2x(1 - x)} + \sum_{x = 1}^{\infty} \frac{r(x)}{2x}.
+      \end{align*}
+      But then 
+      \[
+        \sum_{x = 1}^{\infty} \frac{|r(x)|}{2x} < \sum_{x = 1}^{\infty} \frac{1}{x^2},
+      \]
+      \begin{align*}
+        \sum_{x = 2}^{\infty} \left| \frac{\cos(x^2)}{2x(1 - x)} \right| 
+        &< \sum_{x = 2}^{\infty} \left| \frac{1}{2x(1 - x)} \right| \\
+        &= \frac{1}{2}\sum_{x = 2}^{\infty} \frac{1}{x(x - 1)}\\
+        &< \frac{1}{2}\sum_{x = 1}^{\infty} \frac{1}{x^2},
+      \end{align*}
+      and thus both series converge by comparison test. Since all terms of $f(0) + \frac{\cos 1}{2}
+      + \sum_{x = 2}^{\infty} \frac{\cos(x^2)}{2x(1 - x)} + \sum_{x = 1}^{\infty} \frac{r(x)}{2x}$
+      converge, $\int_0^\infty \sin(t^2) \, dt$ converges.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f$ is a real, continuously differentiable function on $[a, b]$, $f(a) = f(b) = 0$, and
+  \[
+    \int_a^b f^2(x) \, dx = 1.
+  \]
+  Prove that
+  \[
+    \int_a^b xf(x)f'(x) \, dx = -\frac{1}{2}
+  \]
+  and that
+  \[
+    \int_a^b [f'(x)]^2 \, dx \cdot \int_a^b x^2f^2(x) \, dx > \frac{1}{4}.
+  \]
+
+  \begin{proof}
+    By Theorem 6.22,
+    \begin{align*}
+      \int_a^b xf(x)f'(x) \, dx
+      &= bf(b) - af(a) - \int_a^b f(x)(f(x) + xf'(x)) \\
+      &= bf(b) - af(a) - \int_a^b f^2(x) \, dx - \int_a^bxf(x)f'(x) \, dx.
+    \end{align*}
+    But then
+    \[
+      2\int_a^b xf(x)f'(x) \, dx = bf(b) - af(a) - 1 = -1,
+    \]
+    and the result follows.
+
+    By Hölder's inequality,
+    \begin{align*}
+      \int_a^b [f'(x)]^2 \, dx \cdot \int_a^b x^2f^2(x) \, dx
+      &\geq \left(\int_a^b xf(x)f'(x) \, dx\right)^2 = \frac{1}{4}.
+    \end{align*}
+    It remains to show that equality cannot hold in this case. Suppose that it does. By exercise
+    10(a), we have 
+    \[
+      \frac{[f'(t)]^2}{\int_a^b [f'(x)]^2 \, dx} = \frac{(tf(t))^2}{\int_a^b (xf(x))^2 \, dx},
+    \]
+    for all $t \in [a, b]$. idk.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $\alpha$ increases monotonically on $[a, b]$, $g$ is continuous, and $g(x) = G'(x)$ for $a
+  \leq x \leq b$. Prove that
+  \[
+  \int_a^b \alpha(x)g(x) \, dx = G(b)\alpha(b) - G(a)\alpha(a) - \int_a^b G \, d\alpha.
+  \]
+
+  \begin{proof}
+    Let $P = \{x_0, x_1, \ldots, x_n\}$ be any partition on $[a, b]$. For each segment $(x_{i-1},
+    x_i)$, the mean value theorem furnishes some $t \in (x_{i-1}, x_i)$ such that $g(t_i)\Delta x_i
+    = G(x_i) - G(x_{i-1})$. Since $\alpha$ increases monotonically,
+    \begin{align*}
+      \sum_{i=1}^n \alpha(x_i)g(t_i) \Delta x_i
+      &= \sum_{i=1}^n \alpha(x_i)(G(x_i) - G(x_{i-1})) \\
+      &= G(b)\alpha(b) - G(a)\alpha(a) + \sum_{i=1}^n \alpha(x_{i - 1})G(x_{i - 1}) - \sum_{i=1}^n \alpha(x_i)G(x_{i - 1}) \\
+      &= G(b)\alpha(b) - G(a)\alpha(a) - \sum_{i=1}^n G(x_{i-1}) \Delta \alpha_i,
+    \end{align*}
+    for any partition $P$, and thus both sides converge to the same integral.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\gamma_1$ be a curve in $\mathbb{R}^k$ defined on $[a, b]$, let $\phi$ be a continuous 1-1
+  mapping of $[c, d]$ into $[a, b]$ such that $\phi(c) = a$; and define $\gamma_2(s) =
+  \gamma_1(\phi(s))$. Prove that $\gamma_2$ is an arc, a closed curve, or a rectifiable curve if and
+  only if the same is true of $\gamma_1$. Prove that $\gamma_2$ and $\gamma_1$ have the same length.
+
+  \begin{proof}
+    Since $\phi$ is a continuous 1-1 mapping on a compact space, its inverse mapping $\psi$ from
+    $[a, b]$ into $[c, d]$ is also a continuous mapping, by Theorem 4.17. But then $\gamma_2(s) =
+    \gamma_1(\phi(s))$ and $\gamma_2(\psi(t)) = \gamma_1(t)$, so $\gamma_1$ is 1-1 if and only if
+    $\gamma_2$ is. Additionally, since $\phi$ is a continuous bijection with $\phi(a) = c$, we know
+    $\phi(d) = b$, and thus $\gamma_2(c) = \gamma_1(\phi(c)) = \gamma_1(\phi(d)) = \gamma_2(d)$ if
+    and only if $\gamma_1(a) = \gamma_1(b)$. Given a partition $P = \{x_0, \dots, x_n\}$ on $[c,
+    d]$, $\gamma_1$ yields a partition $P' = \{y_0, \dots, y_n\}$ on $[a, b]$, with $[x_i, x_{i +
+    1}]$ corresponding to $[y_i, y_{i + 1}]$ for all $i$. But then,
+    \[
+      \Lambda(P, \gamma_1) = \sum_{i = 1}^n |\gamma_1(x_i) - \gamma_1(x_{i - 1})| = \sum_{i = 1}^n |\gamma_2(\psi(x_i)) - \gamma_2(\psi(x_{i - 1}))| = \sum_{i = 1}^n |\gamma_2(y_i) - \gamma_2(y_{i - 1})| = \Lambda(P', \gamma_2).
+    \]
+    Therefore, $\gamma_1$ is a rectifiable curve if and only if $\gamma_2$ is, and 
+    \[
+      \Lambda(\gamma_1) = \sup \Lambda(P, \gamma_1) = \sup \Lambda(P', \gamma_2) = \Lambda(\gamma_2). 
+    \]
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
