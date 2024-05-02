@@ -410,10 +410,11 @@
 
   \begin{proof}
     Notice that the first appearance of any $j \in [n]$ in the tuple determines $j$'s existence in
-    all $S_i$'s, as all subsequent sets in the tuple would also contain $j$. Since each $j \in [n]$
-    can either first appear in one of the $k$ sets or never appear, there are $k + 1$ choices for
-    each element in $[n]$, and thus there are $(k + 1)^n$ $k$-tuples of subsets $(S_1, \ldots, S_k)$
-    of $[n]$ such that $S_i \subseteq S_{i+1}$.
+    any $S_i$, as all subsequent sets in the tuple would also contain $j$. Since each $j \in [n]$
+    can either first appear in one of the $k$ sets or never appear, there are $k + 1$ possible
+    distributions of $j$ in a $k$-tuple, for each $j$ in $[n]$. Since there are $n$ elements in
+    total, there are $(k + 1)^n$ $k$-tuples of subsets $(S_1, \ldots, S_k)$ of $[n]$ such that $S_i
+    \subseteq S_{i+1}$.
   \end{proof}
 \end{homeworkProblem}
 
