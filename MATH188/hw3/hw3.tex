@@ -237,7 +237,36 @@
   \]
 
   \begin{proof}
+    Let $P(n)$ be the set of length $n$ strings consisting of parentheses and $*$ such that the
+    result of deleting all of the $*$'s is a balanced set of parentheses. For $n \geq 2$, notice
+    that the end of any string $w \in P(n)$ must either be $*$ or $)$, so $P(n) = P(n - 1) \sqcup
+    P_)(n)$, where $P_)(n)$ is the set of set of $w \in P(n)$ which ends with $)$. 
     
+    I claim that $|P_)(n)| = \sum_{k = 0}^{n - 2} a_ka_{n - k - 2}$. Let $w \in P_)(n)$. $w$ ends
+    with $)$. Consider the $($ that pairs with it. To the left of them is a string in $P(k)$ and in
+    between the two of them is another string in $P(n - k - 2)$, where $0 \leq k \leq n - 2$. These
+    strings can be chosen independently, so there are $a_ka_{n - k - 2}$ ways for this to happen.
+    Since the cases with different $k$ don't overlap, we sum over all possibilities to get 
+    \[
+      |P_)(n)| = \sum_{k = 0}^{n - 2} |P(k)| \cdot |P(n - k - 2)| = \sum_{k = 0}^{n - 2} a_ka_{n - k - 2}.,
+    \]
+    and thus for $n \geq 2$,
+    \[
+      a_n = a_{n - 1} + \sum_{k = 0}^{n - 2} a_ka_{n - k - 2}.
+    \]
+    Note that $a_0 = a_1 = 1$. It now follows that
+    \begin{align*}
+      A(x)
+      &= \sum_{n \geq 0} a_nx^n \\
+      &= a_0 + a_1x + \sum_{n \geq 2} a_{n - 1}x^n + \sum_{n \geq 2} \left(\sum_{k = 0}^{n - 2} a_ka_{n - k - 2}\right) x^n \\
+      &= 1 + x + x\sum_{n \geq 1} a_{n}x^{n} + x^2\sum_{n \geq 0} \left(\sum_{k = 0}^{n} a_ka_{n - k - 2}\right) x^{n} \\
+      &= 1 + x + x(A(x) - 1) + x^2A^2(x).
+    \end{align*}
+    Rearranged, we get
+    \[
+      x^2A^2(x) + (x - 1)A(x) + 1 = 0,
+    \]
+    and the result now follows.
   \end{proof}
 \end{homeworkProblem}
 
