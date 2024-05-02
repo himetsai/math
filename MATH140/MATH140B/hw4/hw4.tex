@@ -191,12 +191,23 @@
   \[
     \lim_{x \to \infty} |F(x)G(x)| = \lim_{x \to \infty} \left|\frac{\sin x}{1 + x}\right| \leq \lim_{x \to \infty} \left|\frac{1}{1 + x}\right| = 0 = F(0)G(0).
   \]
-  In addition, by Theorem 6.13,
+  By exercise 6.8, we know that $\int_0^{\infty} \left|\frac{\sin x}{(1 + x)^2}\right| \, dx$
+  converges as $\sum_{n = 0}^{\infty} \frac{|\sin x|}{(1 + n)^2}$ converges by comparison test with
+  $\sum_{n = 0}^{\infty} \frac{1}{(1 + n)^2}$. Hence, again by exercise 6.8, $\int_0^{\infty}
+  \frac{\sin x}{(1 + x)^2} \, dx$ also converges, as $\sum_{n = 0}^{\infty} \frac{\sin x}{(1 +
+  n)^2}$ converges absolutely. Since the hypothesis holds, we may apply our theorem stated above and
+  get
   \[
-    \left|\int_0^{\infty} \frac{\sin x}{(1 + x)^2} \, dx\right| \leq \int_0^{\infty} \left|\frac{\sin x}{(1 + x)^2}\right| \, dx \leq \int_0^{\infty} \frac{1}{(1 + x)^2} \, dx.
+    \int_0^{\infty} \frac{\cos x}{1 + x} \, dx = \lim_{x \to \infty} \frac{\sin x}{1 + x} - \frac{\sin 0}{1} + \int_0^{\infty}
+    \frac{\sin x}{(1 + x)^2} \, dx = \int_0^{\infty} \frac{\sin x}{(1 + x)^2} \, dx.
   \]
-  But then by exercise 8, $\int_0^{\infty} \frac{1}{(1 + x)^2} \, dx$ converges, as $\sum_{n =
-  0}^{\infty} \frac{1}{(1 + x)^2}$ converges. and then idk.
+
+  To see that $\int_0^{\infty} \frac{\cos x}{1 + x} \, dx$ does not converge absolutely, we again
+  apply exercise 6.8. Since
+  \[
+    \sum_{n \geq 0} \left|\frac{\cos x}{1 + x}\right| \geq \sum_{n \geq 0} \frac{1}{1 + x}
+  \]
+  diverges, $\int_0^{\infty} \left|\frac{\cos x}{1 + x}\right| \, dx$ also diverges.
 \end{homeworkProblem}
 
 \newpage
@@ -243,9 +254,8 @@
     \]
     if $x_{i-1} \leq t \leq x_i$. Note that $g$ is defined to be linear on every interval $[x_i,
     x_{i + 1}]$, and $g$ remains continuous between neighboring intervals. Hence, $g$ is continuous
-    on $[a, b]$. In addition, on every interval $[x_1, x_{i + 1}]$, since $f(x_1) \leq g(t) \leq
-    f(x_{i + 1})$, we have $m_i \leq g(t) \leq M_i$ for all $t \in [x_1, x_{i + 1}]$.
-    But then
+    on $[a, b]$. In addition, on every interval $[x_1, x_{i + 1}]$, since $g(t)$ is between $f(x_1)$
+    and $f(x_{i + 1})$, we have $m_i \leq g(t) \leq M_i$ for all $t \in [x_1, x_{i + 1}]$. But then
     \begin{align*}
       \|f - g\|_2^2
       &= \int_a^b |f - g|^2 \\
@@ -353,7 +363,7 @@
   \]
   and that
   \[
-    \int_a^b [f'(x)]^2 \, dx \cdot \int_a^b x^2f^2(x) \, dx > \frac{1}{4}.
+    \int_a^b [f'(x)]^2 \, dx \cdot \int_a^b x^2f^2(x) \, dx \geq \frac{1}{4}.
   \]
 
   \begin{proof}
@@ -369,17 +379,11 @@
     \]
     and the result follows.
 
-    By Hölder's inequality,
+    It now follows from Hölder's inequality that
     \begin{align*}
       \int_a^b [f'(x)]^2 \, dx \cdot \int_a^b x^2f^2(x) \, dx
       &\geq \left(\int_a^b xf(x)f'(x) \, dx\right)^2 = \frac{1}{4}.
     \end{align*}
-    It remains to show that equality cannot hold in this case. Suppose that it does. By exercise
-    10(a), we have 
-    \[
-      \frac{[f'(t)]^2}{\int_a^b [f'(x)]^2 \, dx} = \frac{(tf(t))^2}{\int_a^b (xf(x))^2 \, dx},
-    \]
-    for all $t \in [a, b]$. idk.
   \end{proof}
 \end{homeworkProblem}
 
