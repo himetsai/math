@@ -406,14 +406,14 @@
       &= G(b)\alpha(b) - G(a)\alpha(a) + \sum_{i=1}^n \alpha(x_{i - 1})G(x_{i - 1}) - \sum_{i=1}^n \alpha(x_i)G(x_{i - 1}) \\
       &= G(b)\alpha(b) - G(a)\alpha(a) - \sum_{i=1}^n G(x_{i-1}) \Delta \alpha_i,
     \end{align*}
-    for any partition $P$. Pick $\epsilon > 0$. There exists $P_1, P_2$ such that 
+    for any partition $P$. Pick $\epsilon > 0$. There exist partitions $P_1, P_2$ such that 
     \[
       U(P_1, \alpha(x_i) g(t_i)) - L(P_1, \alpha(x_i) g(t_i)) < \epsilon/2,
     \]
     \[
       U(P_2, G, \alpha) - L(P_2, G, \alpha) < \epsilon/2.
     \]
-    Let $P = P_1 \cup P_2$. By Theorem 6.7,
+    Let $P = \{x_0, \dots, x_n\} = P_1 \cup P_2$. By Theorem 6.7,
     \begin{align*}
       &\left|G(b)\alpha(b) - G(a)\alpha(a) - \int_a^b G \, d\alpha - \int_a^b \alpha(x)g(x) \, dx\right| \\
       &\leq \left|\sum_{i=1}^n G(x_{i-1}) \Delta \alpha_i - \int_a^b G \, d\alpha\right| + \left|\sum_{i=1}^n \alpha(x_i)g(t_i) \Delta x_i - \int_a^b \alpha(x)g(x) \, dx\right| < \epsilon.
