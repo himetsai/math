@@ -339,7 +339,7 @@
     \begin{proof}
       Note that
       \begin{align*}
-        \frac{x^n}{(1 - x)^{-2n}}
+        \frac{x^n}{(1 - x)^{2n}}
         &= xD\left(\sum_{a_1 \geq 0} x^{a_1}\right)\cdots xD\left(\sum_{a_1 \geq 0} x^{a_1}\right) \\
         &= \left(x\sum_{a_1 \geq 1} a_1x^{a_1 - 1}\right)\cdots\left(x\sum_{a_n \geq 1} a_nx^{a_n - 1}\right) \\
         &= \left(\sum_{a_1 \geq 1} a_1x^{a_1}\right)\cdots\left(\sum_{a_n \geq 1} a_nx^{a_n}\right) \\
@@ -347,7 +347,7 @@
       \end{align*}
       Hence, 
       \[
-        \sum_{\substack{(a_1,\ldots,a_n) \in \Z_{\geq 1}^n \\ a_1 + \cdots + a_n = k}} a_1a_2 \cdots a_n = [x^k]\frac{x^n}{(1 - x)^{-2n}} = [x^{k - n}]\frac{1}{(1 - x)^{-2n}} = \binom{n+k-1}{k-n}.
+        \sum_{\substack{(a_1,\ldots,a_n) \in \Z_{\geq 1}^n \\ a_1 + \cdots + a_n = k}} a_1a_2 \cdots a_n = [x^k]\frac{x^n}{(1 - x)^{2n}} = [x^{k - n}]\frac{1}{(1 - x)^{2n}} = \binom{n+k-1}{k-n}.
       \]
     \end{proof}
     \item Show that

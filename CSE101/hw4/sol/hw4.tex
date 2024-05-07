@@ -163,7 +163,7 @@
   cost.
 
   \begin{proof}
-    
+
   \end{proof}
 \end{homeworkProblem}
 
@@ -182,25 +182,18 @@
   Design an algorithm that achieves this goal.
 
   \begin{proof}
-    Consider running Kruskal's algorithm and return the edge set $X$.
+    Consider running Kruskal's algorithm on the network graph and return the resulting MST $T$.
 
-    We already know Kruskal's algorithm takes $O(|E|\log |V|)$ time.
+    We already know Kruskal's algorithm takes $O(|E|\log |V|)$ time. But since $|E| = O(V)$, this
+    algorithm only takes $O(|V|\log |V|)$ time.
 
-    We now give a justification for the correctness of the algorithm. Kruskal's algorithm furnishes
-    a connected network, so it remains to show that $X$ is optimal. Let $G_n$ be the graph formed
-    by the edge set at the end of the $n$th iteration, and let $A_n$ be the graph formed by the
-    edges considered in the first $n$ iterations. We show that $A_n$ is disconnected if $G_n$ is
-    disconnected. Suppose for the sake of contradiction that $A_n$ is connected but not $G_n$.
-    Notice that $G_n$ is a subgraph of $A_n$. Consider the set of edges $S$ in $A_n$ but not in
-    $G_n$. For all $e \in S$, $e$ does not connect any components in $G_n$, otherwise $e$ would have
-    been added to $G_n$ by the algorithm. But then adding all edges in $S$ to $G_n$ yields a
-    connencted graph $A_n$, contradiction. 
-    
-    Now suppose for sake of contradiction that there exists a network of a smaller initialization
-    time. That is, there exists an edge set $E$ which forms a connect graph and $\max E < \max X$.
-    Let $H$ be the graph formed by all edges at most $\max E$. We know $H = A_n$ for some $n$ and
-    $H$ is connected. By our result above, $G_n \subset A_n = H$ is connected. But then $\max X =
-    \max E(G_n) \leq \max E$, contradiction. 
+    We now give a justification for the correctness of the algorithm, particularly the optimality of
+    $T$. Let $e$ be the last edge added to $T$. Say $e$ has weight $w(e)$. We know $e$ is the
+    heaviest edge in $T$. Consider $T - \{e\}$. Since $T$ is a tree, $T - \{e\}$ has two components,
+    which splits the vertex set $V$ into two subsets, say $X$ and $V - X$. Note that by the choice
+    of Kruskal's algorithm, $e$ is the lightest edge which connects $X$ and $V - X$. But then any
+    spanning graph of $G$ must contain an edge which connects $X$ and $V - X$. Hence, $w(e)$ is a
+    lower bound of initialization time of any connected network, which is achieved by $T$. 
   \end{proof}
 \end{homeworkProblem}
 
@@ -266,52 +259,52 @@
     
     We now show that
     \begin{gather}
-      |A[k] - B[l]| + |A[l] - B[l]| \geq |A[k] - B[k]| + |A[k] - B[k]|
+      |A[k] - B[\sigma(k)]| + |A[l] - B[k]| \geq |A[k] - B[k]| + |A[l] - B[\sigma(k)]|.
     \end{gather}
-    by considering the following 6 possible cases:
+    Since $A[k] < A[l]$ and $B[k] < B[\sigma(k)]$, there are \textit{only} 6 possible cases:
 
-    \textbf{Case 1: } $A[k] \leq A[l] \leq B[k] \leq B[l]$.
+    \textbf{Case 1: } $A[k] \leq A[l] \leq B[k] \leq B[\sigma(k)]$.
     \[
-      (B[l] - A[k]) + (B[k] - A[l]) = (B[k] - A[k]) + (B[l] - A[l]).
+      (B[\sigma(k)] - A[k]) + (B[k] - A[l]) = (B[k] - A[k]) + (B[\sigma(k)] - A[l]).
     \]
     
-    \textbf{Case 2: } $A[k] \leq B[k] \leq A[l] \leq B[l]$.
+    \textbf{Case 2: } $A[k] \leq B[k] \leq A[l] \leq B[\sigma(k)]$.
     \begin{align*}
-      (B[l] - A[k]) + (A[l] - B[k]) 
-      &= (B[k] - A[k]) + (B[l] - A[l]) + 2(A[l] - B[k]) \\
-      &\geq (B[k] - A[k]) + (B[l] - A[l]) 
+      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
+      &= (B[k] - A[k]) + (B[\sigma(k)] - A[l]) + 2(A[l] - B[k]) \\
+      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
     \end{align*}
     
 
-    \textbf{Case 3: } $A[k] \leq B[k] \leq B[l] \leq A[l]$.
+    \textbf{Case 3: } $A[k] \leq B[k] \leq B[\sigma(k)] \leq A[l]$.
     \begin{align*}
-      (B[l] - A[k]) + (A[l] - B[k]) 
-      &= (B[k] - A[k]) + (A[l] - B[l]) + 2(A[l] - B[l]) \\
-      &\geq (B[k] - A[k]) + (B[l] - A[l]) 
+      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
+      &= (B[k] - A[k]) + (A[l] - B[\sigma(k)]) + 2(A[l] - B[\sigma(k)]) \\
+      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
     \end{align*}
 
-    \textbf{Case 4: } $B[k] \leq A[k] \leq A[l] \leq B[l]$.
+    \textbf{Case 4: } $B[k] \leq A[k] \leq A[l] \leq B[\sigma(k)]$.
     \begin{align*}
-      (B[l] - A[k]) + (A[l] - B[k]) 
-      &= (A[k] - B[k]) + (B[l] - A[l]) + 2(A[l] - A[k]) \\
-      &\geq (B[k] - A[k]) + (B[l] - A[l]) 
+      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
+      &= (A[k] - B[k]) + (B[\sigma(k)] - A[l]) + 2(A[l] - A[k]) \\
+      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
     \end{align*}
 
-    \textbf{Case 5: } $B[k] \leq A[k] \leq B[l] \leq A[l]$.
+    \textbf{Case 5: } $B[k] \leq A[k] \leq B[\sigma(k)] \leq A[l]$.
     \begin{align*}
-      (B[l] - A[k]) + (A[l] - B[k]) 
-      &= (A[k] - B[k]) + (A[l] - B[l]) + 2(B[l] - A[k]) \\
-      &\geq (B[k] - A[k]) + (B[l] - A[l]) 
+      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
+      &= (A[k] - B[k]) + (A[l] - B[\sigma(k)]) + 2(B[\sigma(k)] - A[k]) \\
+      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
     \end{align*}
 
-    \textbf{Case 6: } $B[k] \leq B[l] \leq A[k] \leq A[l]$.
+    \textbf{Case 6: } $B[k] \leq B[\sigma(k)] \leq A[k] \leq A[l]$.
     \begin{align*}
-      (A[k] - B[l]) + (A[l] - B[k]) &= (A[k] - B[k]) + (A[l] - B[l])
+      (A[k] - B[\sigma(k)]) + (A[l] - B[k]) &= (A[k] - B[k]) + (A[l] - B[\sigma(k)])
     \end{align*}
-    Hence, by (1), we may achieve a lower objective value by swapping the value of $k$ and $l$ from
-    $\sigma$. But then a lower objective value can be obtained wheneverthe permutation is
-    non-trivial. Therefore, by repeating the swapping process above, the permutation will eventually
-    become a trivial permutation, and thus 
+    Hence, by (1), we may achieve a lower objective value by the value of $\sigma(k)$ and
+    $\sigma(l)$. But then a lower objective value can be obtained whenever the permutation is
+    non-trivial. Therefore, by inductively applying the swapping process to the smallest deviating
+    index starting from $1$, $\sigma$ eventually becomes a trivial permutation, and thus 
     \[
       \sum_{k=1}^n |A[k] - B[k]| \leq \sum_{k=1}^n |A[k] - B[\sigma(k)]|.
     \]
@@ -358,8 +351,10 @@
   \item
   {\bf Constraints:} For all $k \in X$,
   \[
-    \sum_{\substack{i \in X \\ i < k}} x[i] \geq D[k].
+    x[k] \geq D[k] - D[l],
   \]
+  where $l \in X$ is the largest index smaller than $k$.
+  \item
   {\bf Objective:} Minimize $|X|$.
   \end{itemize}
 
@@ -389,10 +384,12 @@
   that it is not always optimal.
 
   \begin{proof}
-    Consider $D = [0, 1, 2]$ and $x = [2, 1, 0]$. The strategy would first stop at station 1 then
-    arrive at the destination. However, the initial battery $x[0]$ is sufficient to reach the
-    destination, so no intermediate stops are required. Thus, this strategy is not optimal.
+    Consider $D = [0, 1, 3, 4]$ and $x = [3, 2, 1, 0]$. The strategy would first stop at station 1
+    then station 2 and finally arrive at the destination. However, there exists solution $X = \{2,
+    3\}$, which reaches the destination with lesser stops, so this strategy is not optimal.
   \end{proof}
+
+  \break
 
   \item
   {\bf Candidate Greedy Strategy III:} 
@@ -405,10 +402,7 @@
   that it is not always optimal.
 
   \begin{proof}
-    Consider $D = [0, 1, 2]$ and $x = [2, 3, 0]$. Since $D[2] + x[2] < D[1] + x[1]$, the strategy
-    would stop at station 1 first before arriving at station $2$. But then the initial battery
-    $x[0]$ is sufficient to reach the destination, so no intermediate stops are required. Thus, this
-    strategy is not optimal.
+    This strategy is correct. 
   \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
