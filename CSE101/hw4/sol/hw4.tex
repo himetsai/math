@@ -164,6 +164,41 @@
 
   \begin{proof}
 
+    Consider the following algorithm on $G$:
+
+    Set the cost of $T$ to $\infty$. For each vertex $v \in V$, run Kruskal's algorithm on $G - v$
+    and get $T_v$. If $T_v$ has exactly $n$ edges $cost(T_v) \leq cost(T)$, update $T$ to $T_v$.
+    After all iterations, return $T$.
+
+    \textbf{Runtime Analysis: }
+
+    Running Kruskal takes $O(|E|\log |V|)$ time. Note that we don't actually need to remove $v$ from
+    $G$, as we may just ignore $v$ while running Kruskal. Checking the the connectedness and and the
+    minimality of $T_v$ only takes constant time. Hence, each iteration takes $O(|E|\log |V|)$ time.
+    Since the algorithm runs Kruskal's algorithm $|V|$ times, it takes $O(|V||E|\log |E|)$ time in
+    total.
+
+    \textbf{Justification for correctness: }
+
+    We show that $T$ is the  MST of $n - 1$ vertices with minimum total cost. 
+    
+    We first show that $T = T_v$ for some $v$. In particular, we need to show that $T$ is guaranteed
+    to be updated. Note that $G$ is a connected graph, which contains a spanning tree $S$. Remove
+    any leaf $u$ from $S$ yields a spanning tree of $n - 1$ vertices, which ensures that $G$
+    contains a connected subgraph with $n - 1$ vertices. But then running Kruskal on $G - u$ gives a
+    spanning tree on $n - 1$ vertices, and this guarantees $T$ to be updated to some $T_u$.
+    Additionally, $T$ is only updated to $T_v$ if $T_v$ has $n$ edges. Since Kruskal ensures $T_v$
+    has no cycles, $T_v$ is a connected tree of $n - 1$ vertices. Therefore, $T$ is a MST of some $n
+    - 1$ vertices at the end of the algorithm.
+
+    Now we show that $T$ is optimal. Let $T'$ be a connected subgraph of $G$ of $n - 1$ vertices
+    such that $cost(T') < cost(T)$. Say $T = T_v$ is a MST on $V \backslash \{v\}$ and $T'$ is a
+    subgraph on $V \backslash \{u\}$, for some $v, u \in V$. Since Kruskal gives an MST $T_u$ on $G
+    - u$, we know $cost(T_u) \leq cost(T')$. But then the algorithm picked $T_v$ over $T_u$, so
+    \[
+      cost(T') > cost(T_v) \geq cost(T_u) \geq cost(T'),
+    \]
+    contradiction. Hence, $T$ is optimal.
   \end{proof}
 \end{homeworkProblem}
 
@@ -347,15 +382,14 @@
   {\bf Input:} A sorted list of $n$ battery station positions and a list of $n + 1$ distances of the
   batteries. 
   \item
-  {\bf Solution Format:} A set of indices $X \subseteq \{1, \dots, n\}$. 
+  {\bf Solution Format:} An increasing list of indices $X = \{x_1, \dots, x_k\}$. 
   \item
-  {\bf Constraints:} For all $k \in X$,
+  {\bf Constraints:} Let $x_0 = 0$. For all $x_i \in X$,
   \[
-    x[k] \geq D[k] - D[l],
+    x[x_{i - 1}] + D[x_{i - 1}] \geq D[x_i].
   \]
-  where $l \in X$ is the largest index smaller than $k$.
   \item
-  {\bf Objective:} Minimize $|X|$.
+  {\bf Objective:} Reach $D[n]$ and minimize $|X|$.
   \end{itemize}
 
   \item
@@ -402,7 +436,38 @@
   that it is not always optimal.
 
   \begin{proof}
-    This strategy is correct. 
+    This strategy is correct. We show that the solution $X = \{x_1, \dots, x_k\}$ given by the
+    strategy is correct and optimal. Since the strategy picks the next $reachable$ battery station
+    with the largest $D[i] + x[i]$ value, the constraint is satisfied. 
+    
+    Assume that $D[n]$ is reachable from $D[0]$. Let $Y = \{y_1, \dots, y_{m} = n\}$ be any solution
+    which reaches $D[n]$. Suppose for the sake of contradiction that $D[y_i] + x[y_i] > D[x_i] +
+    x[x_i]$ for some $i$. Let $l$ be the smallest such index. We then have
+    \begin{gather*}
+      D[y_l] + x[y_l] > D[x_l] + x[x_l], \\
+      D[x_{l - 1}] + x[x_{l - 1}] \geq D[y_{l - 1}] + x[y_{l - 1}].
+    \end{gather*}
+    Suppose $y_l \geq x_l$. Then $D[y_l] \geq D[x_l]$. Since station $y_l$ is reachable from station
+    $y_{l - 1}$, we have $D[y_l] \leq D[y_{l - 1}] + x[y_{l - 1}]$. But then
+    \[
+      D[x_{l - 1}] \leq D[x_l] \leq D[y_l] \leq D[y_{l - 1}] + x[y_{l - 1}] \leq D[x_{l - 1}] + x[x_{l - 1}].
+    \]
+    Thus, station $y_l$ is between $D[x_{l - 1}]$ and $D[x_{l - 1}] + x[x_{l - 1}]$, so the choice
+    of the strategy yields $D[y_l] + x[y_l] \leq D[x_l] + x[x_l]$. But then this contradicts our
+    assumption that $D[y_l] + x[y_l] > D[x_l] + x[x_l]$. 
+
+    Hence, we know $x_{j - 1} \leq y_l < x_j$ for some $j \leq l$. But then station $y_l$ is between
+    $D[x_{j - 1}]$ and $D[x_{j - 1}] + x[x_{j - 1}]$, so $D[y_l] + x[y_l] \leq D[x_j] + x[x_j]$, by
+    the choice of the algorithm. Notice that $D[x_i] + x[x_i] \geq D[x_{i - 1}] + x[x_{i - 1}]$ for
+    all $i$, as the worst case we may just stay at station $x_{i - 1}$. But then combining the
+    inequalities,
+    \[
+      D[x_l] + x[x_l] < D[y_l] + x[y_l] \leq D[x_j] + x[x_j] \leq D[x_l] + x[x_l],
+    \]
+    contradiction. Hence, $D[x_i] + x[x_i] \geq D[y_i] + x[y_i]$ for all $i$, which makes $X$ a
+    valid solution as $Y$ is able to reach station $n$. But then $D[x_{k - 1}] + x[x_{k - 1}] \geq
+    D[y_{k - 1}] + x[y_{k - 1}]$, so $X$ reaches $n$ in no more stops than $Y$. Therefore, $|X| \leq
+    |Y|$, and this completes the proof.
   \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
