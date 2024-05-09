@@ -287,10 +287,14 @@
   that it is not always optimal.
 
   \begin{proof}
-    This algorithm is correct. Let $\sigma$ be a non-trivial permutation of $B$. There exists some
-    $i$ such that $\sigma(i) \neq i$. Let $k$ be the smallest such index. We know $\sigma(k) > k$.
-    Let $l = \sigma^{-1}(k)$. Since $k$ is the smallest index which deviates, $l$ must be larger
-    than $k$. 
+    This algorithm is correct. Given input $A, B$, suppose $\sigma$ be a non-trivial permutation of
+    $B$. We show that there exists a permutation $\sigma'$ such that
+    \[
+      \sum_{k=1}^n |A[k] - B[\sigma'(k)]| < \sum_{k=1}^n |A[k] - B[\sigma(k)]|.
+    \]
+    Since $\sigma$ is non-trivial, there exists some $i$ such that $\sigma(i) \neq i$. Let $k$ be
+    the smallest such index. We know $\sigma(k) > k$. Let $l = \sigma^{-1}(k)$. Since $k$ is the
+    smallest index which deviates, $l$ must be larger than $k$. 
     
     We now show that
     \begin{gather}
@@ -336,13 +340,33 @@
     \begin{align*}
       (A[k] - B[\sigma(k)]) + (A[l] - B[k]) &= (A[k] - B[k]) + (A[l] - B[\sigma(k)])
     \end{align*}
-    Hence, by (1), we may achieve a lower objective value by the value of $\sigma(k)$ and
-    $\sigma(l)$. But then a lower objective value can be obtained whenever the permutation is
-    non-trivial. Therefore, by inductively applying the swapping process to the smallest deviating
-    index starting from $1$, $\sigma$ eventually becomes a trivial permutation, and thus 
+    Hence, let $\sigma'$ be $\sigma$ after swapping the values of $\sigma(k)$ and $\sigma(l)$.
+    By (1),
+    \begin{align*}
+      \sum_{i=1}^n &|A[i] - B[\sigma(i)]| - \sum_{i=1}^n |A[i] - B[\sigma'(i)]| \\
+      &= |A[k] - B[\sigma(k)]| + |A[l] - B[k]| - |A[k] - B[k]| - |A[l] - B[\sigma(k)]| > 0,
+    \end{align*}
+    and thus $\sigma'$ achieves a lower cost value.
+
+    We now show that the greedy solution is optimal for any input of size $n \geq 1$ by induction on
+    $n$. The base case is trivial, as there is only one possible solution. Suppose $n \geq 2$.
+    Assume that the greedy strategy is optimal for all inputs of size less than $n$. Consider an
+    input $A, B$ of size $n$. Let $OS$ be any arbitrary solution of $A, B$. We may assume that
+    $OS(A, B)$ mismatches some terms of $A, B$, otherwise $OS = GS$ and we are done. Say the first
+    mismatch in $OS(A, B)$ happens at index $k$, with $A[k]$ paired with $B[k']$ and $A[l]$ paired
+    with $B[k]$, for some $l, k' > k$. By our claim at the start, there exists a better solution
+    $OS'$ which agrees with all terms of $OS(A, B)$ except that it swaps the first mismatch of $OS$.
+    Let $A' = A \backslash \{A[k]\}$ and $B' = B \backslash \{B[k]\}$. Define
     \[
-      \sum_{k=1}^n |A[k] - B[k]| \leq \sum_{k=1}^n |A[k] - B[\sigma(k)]|.
+      C([(A[1],B[i_1]), \dots, (A[n], B[i_n])]) = \sum_{k=1}^n |A[k] - B[i_k]|.
     \]
+    By induction,
+    \begin{align*}
+      C(OS(A, B)) > C(OS'(A, B)) 
+      &= C(\{(A[k], B[k])\} \cup S(A', B')) \\
+      &\geq C(\{(A[k], B[k])\} \cup GS(A', B')) \\
+      &= C(GS(A, B)).
+    \end{align*}
   \end{proof}
 
   \item
@@ -382,7 +406,7 @@
   {\bf Input:} A sorted list of $n$ battery station positions and a list of $n + 1$ distances of the
   batteries. 
   \item
-  {\bf Solution Format:} An increasing list of indices $X = \{x_1, \dots, x_k\}$. 
+  {\bf Solution Format:} An increasing list of indices $X = [x_1, \dots, x_k]$, where $1 \leq x_i \leq n$.
   \item
   {\bf Constraints:} Let $x_0 = 0$. For all $x_i \in X$,
   \[
@@ -436,13 +460,9 @@
   that it is not always optimal.
 
   \begin{proof}
-    This strategy is correct. We show that the solution $X = \{x_1, \dots, x_k\}$ given by the
-    strategy is correct and optimal. Since the strategy picks the next $reachable$ battery station
-    with the largest $D[i] + x[i]$ value, the constraint is satisfied. 
-    
-    Assume that $D[n]$ is reachable from $D[0]$. Let $Y = \{y_1, \dots, y_{m} = n\}$ be any solution
-    which reaches $D[n]$. Suppose for the sake of contradiction that $D[y_i] + x[y_i] > D[x_i] +
-    x[x_i]$ for some $i$. Let $l$ be the smallest such index. We then have
+    Assume that $D[n]$ is reachable from $D[0]$. Let $OS = \{y_1, \dots, y_{m} = n\}$ be any
+    solution which reaches $D[n]$. Suppose for the sake of contradiction that $D[y_i] + x[y_i] >
+    D[x_i] + x[x_i]$ for some $i$. Let $l$ be the smallest such index. We then have
     \begin{gather*}
       D[y_l] + x[y_l] > D[x_l] + x[x_l], \\
       D[x_{l - 1}] + x[x_{l - 1}] \geq D[y_{l - 1}] + x[y_{l - 1}].
@@ -468,6 +488,51 @@
     valid solution as $Y$ is able to reach station $n$. But then $D[x_{k - 1}] + x[x_{k - 1}] \geq
     D[y_{k - 1}] + x[y_{k - 1}]$, so $X$ reaches $n$ in no more stops than $Y$. Therefore, $|X| \leq
     |Y|$, and this completes the proof.
+
+    \newpage
+
+    Given input $D$ and $x$ where $D$ is increasing, Let $OS = [y_1, \dots, y_{m}]$ be some
+    solution which contains some index $y_i$ such that station $y_i$ does not have the largest
+    $D[y_i] + x[y_i]$ value reachable from station $y_{i - 1}$. We show that there exists solution
+    $OS' = [z_1, \dots, z_{k}]$ such that $z_{k} \geq y_{m}$ and $k \leq m$.
+
+    Let $y_i$ be the smallest index in $OS$ such that station $y_i$ does not have the largest
+    $D[y_i] + x[y_i]$ value reachable from station $y_{i - 1}$. Construct $OS' = [z_1, \dots,
+    z_{k}]$ such that $y_j = z_j$ for all $j \neq i$ and make $z_i$ the station with the largest
+    $D[s] + x[s]$ value reachable from station $z_{i - 1}$. Replace all stations in $OS'$ after
+    $z_i$ with $n$ if $D[z_i] + x[z_i] \geq D[n]$. Note that since $D[z_i] + x[z_i] > D[y_i] +
+    x[y_i]$, station $y_{i + 1}$ is reachable from station $z_i$, and thus $OS'$ is a valid
+    solution. 
+    
+    If $D[z_i] + x[z_i] \geq D[n]$, then obviously $z_{k} \geq y_{m}$ and $k \leq m$. Otherwise,
+    $OS$ and $OS'$ agree with all terms except for the $i$th one, so obviously $z_{k} \geq y_{m}$
+    and $k \leq m$. Hence, $OS'$ is at least as good a solution as $OS$.
+
+    We now show that for any input of size $n \geq 2$, the greedy solution is optimal. When $n = 2$,
+    there is only one possible solution, so the base case is done. Suppose $n \geq 3$. Assume that
+    the greedy straregy is optimal for all valid inputs of size less than $n$. Given input $D$ and
+    $x$ of size $n$, let $OS = [y_1, \dots, y_{m}]$ be any solution. We may assume that some
+    stations in $OS$ does not have the station with the largest $D + x$ value reachable from the
+    previous station, otherwise $OS = GS$ and we are done. Let $y_i$ be the first such. The argument
+    at the start yields a just as good or better solution $OS' = [z_1, \dots, z_{k}]$. Let $D'$ be
+    the list of the first $z_i + 1$ entries of $D$ and let $D''$ be the list such that $D''[k] = 0$
+    and $D''[k] = D[z_i + k] - D[z_i + k - 1]$ for $1 \leq k \leq n - z_i$. Additionally, let $x'$
+    be the list of the first $z_i + 1$ entries of $x$ and let $x''$ be the rest of $x$. Then, by the
+    construction of $OS'$ and induction,
+    \begin{align*}
+      |OS(D, x)| \geq |OS'(D, x)| 
+      &= |GS(D', x') \circ S(D'', x'')| \\
+      &\geq |GS(D', x') \circ GS(D'', x'')| \\
+      &= |GS(D, x)|.
+    \end{align*}
+    Define $last(L)$ to be the last element of a list $L$. Then, again by the construction of $OS'$
+    and induction
+    \begin{align*}
+      last(OS(D, x)) \leq last(OS'(D, x))
+      &= last(S(D'', x'')) + z_i \\
+      &\leq last(GS(D'', x'')) + z_i \\
+      &= last(GS(D, x)).
+    \end{align*}
   \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
