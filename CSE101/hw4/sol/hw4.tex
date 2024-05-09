@@ -460,37 +460,6 @@
   that it is not always optimal.
 
   \begin{proof}
-    Assume that $D[n]$ is reachable from $D[0]$. Let $OS = \{y_1, \dots, y_{m} = n\}$ be any
-    solution which reaches $D[n]$. Suppose for the sake of contradiction that $D[y_i] + x[y_i] >
-    D[x_i] + x[x_i]$ for some $i$. Let $l$ be the smallest such index. We then have
-    \begin{gather*}
-      D[y_l] + x[y_l] > D[x_l] + x[x_l], \\
-      D[x_{l - 1}] + x[x_{l - 1}] \geq D[y_{l - 1}] + x[y_{l - 1}].
-    \end{gather*}
-    Suppose $y_l \geq x_l$. Then $D[y_l] \geq D[x_l]$. Since station $y_l$ is reachable from station
-    $y_{l - 1}$, we have $D[y_l] \leq D[y_{l - 1}] + x[y_{l - 1}]$. But then
-    \[
-      D[x_{l - 1}] \leq D[x_l] \leq D[y_l] \leq D[y_{l - 1}] + x[y_{l - 1}] \leq D[x_{l - 1}] + x[x_{l - 1}].
-    \]
-    Thus, station $y_l$ is between $D[x_{l - 1}]$ and $D[x_{l - 1}] + x[x_{l - 1}]$, so the choice
-    of the strategy yields $D[y_l] + x[y_l] \leq D[x_l] + x[x_l]$. But then this contradicts our
-    assumption that $D[y_l] + x[y_l] > D[x_l] + x[x_l]$. 
-
-    Hence, we know $x_{j - 1} \leq y_l < x_j$ for some $j \leq l$. But then station $y_l$ is between
-    $D[x_{j - 1}]$ and $D[x_{j - 1}] + x[x_{j - 1}]$, so $D[y_l] + x[y_l] \leq D[x_j] + x[x_j]$, by
-    the choice of the algorithm. Notice that $D[x_i] + x[x_i] \geq D[x_{i - 1}] + x[x_{i - 1}]$ for
-    all $i$, as the worst case we may just stay at station $x_{i - 1}$. But then combining the
-    inequalities,
-    \[
-      D[x_l] + x[x_l] < D[y_l] + x[y_l] \leq D[x_j] + x[x_j] \leq D[x_l] + x[x_l],
-    \]
-    contradiction. Hence, $D[x_i] + x[x_i] \geq D[y_i] + x[y_i]$ for all $i$, which makes $X$ a
-    valid solution as $Y$ is able to reach station $n$. But then $D[x_{k - 1}] + x[x_{k - 1}] \geq
-    D[y_{k - 1}] + x[y_{k - 1}]$, so $X$ reaches $n$ in no more stops than $Y$. Therefore, $|X| \leq
-    |Y|$, and this completes the proof.
-
-    \newpage
-
     Given input $D$ and $x$ where $D$ is increasing, Let $OS = [y_1, \dots, y_{m}]$ be some
     solution which contains some index $y_i$ such that station $y_i$ does not have the largest
     $D[y_i] + x[y_i]$ value reachable from station $y_{i - 1}$. We show that there exists solution
