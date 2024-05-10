@@ -222,8 +222,10 @@
     We already know Kruskal's algorithm takes $O(|E|\log |V|)$ time. But since $|E| = O(V)$, this
     algorithm only takes $O(|V|\log |V|)$ time.
 
-    We now give a justification for the correctness of the algorithm, particularly the optimality of
-    $T$. Let $e$ be the last edge added to $T$. Say $e$ has weight $w(e)$. We know $e$ is the
+    We now give a justification for the correctness of the algorithm. Since Kruskal's algorithm
+    furnishes a connected tree which spans the network, it remains to show the optimality of $T$.
+    
+    Let $e$ be the last edge added to $T$. Say $e$ has weight $w(e)$. We know $e$ is the
     heaviest edge in $T$. Consider $T - \{e\}$. Since $T$ is a tree, $T - \{e\}$ has two components,
     which splits the vertex set $V$ into two subsets, say $X$ and $V - X$. Note that by the choice
     of Kruskal's algorithm, $e$ is the lightest edge which connects $X$ and $V - X$. But then any
@@ -246,20 +248,24 @@
 
   You wish to pair them up in such a way to minimize:
 
-  $$\sum_{k=1}^n |A[k] - B[i_k]|$$
+  $$\sum_{k=1}^n |A[1] - B[i_k]|$$
 
   \begin{enumerate}[(a)]
   \item
   Describe this problem as we have done in class in terms of:
   \begin{itemize}
   \item
-  {\bf Input:} Arrays $A, B$ of size $n$ in increasing order and all values are distinct.
+  {\bf Input:} Two lists $(A[1], \dots, A[n]), (B[1], \dots, B[n])$ of size $n$ in increasing order
+  and all values are distinct.
   \item
   {\bf Solution Format:} $[(A[1],B[i_1]), (A[2],B[i_2]),\dots, (A[n], B[i_n])]$. 
   \item
   {\bf Constraints:} $i_{\alpha} \neq i_{\beta}$ if $\alpha \neq \beta$.
   \item
-  {\bf Objective:} Minimize cost value $\sum_{k=1}^n |A[k] - B[i_k]|$.
+  {\bf Objective:} Minimize cost value
+  \[
+    C([(A[1],B[i_1]),\dots, (A[n], B[i_n])]) = \sum_{k=1}^n |A[1] - B[i_k]|
+  \]
   \end{itemize}
 
   \item
@@ -287,84 +293,81 @@
   that it is not always optimal.
 
   \begin{proof}
-    This algorithm is correct. Given input $A, B$, suppose $\sigma$ be a non-trivial permutation of
-    $B$. We show that there exists a permutation $\sigma'$ such that
-    \[
-      \sum_{k=1}^n |A[k] - B[\sigma'(k)]| < \sum_{k=1}^n |A[k] - B[\sigma(k)]|.
-    \]
-    Since $\sigma$ is non-trivial, there exists some $i$ such that $\sigma(i) \neq i$. Let $k$ be
-    the smallest such index. We know $\sigma(k) > k$. Let $l = \sigma^{-1}(k)$. Since $k$ is the
-    smallest index which deviates, $l$ must be larger than $k$. 
+    This algorithm is correct. 
     
+    \textbf{ExArg Claim:}
+    Given input $A, B$, suppose $OS$ is a valid solution which doesn't pair $A[1]$ with $B[1]$. We
+    show that there exists a better solution $OS'$ which pairs up $A[1]$ and $B[1]$ but with lower
+    cost. 
+
+    \textbf{ExArg Proof:} Suppose $OS$ pairs $A[1]$ with $B[k]$ and $A[l]$ with $B[1]$. Let
+    \[
+      OS' \cup \{(A[1], B[1]), (A[l], B[k])\} \backslash \{(A[1], B[k]), (A[l], B[1])\}.
+    \]
     We now show that
     \begin{gather}
-      |A[k] - B[\sigma(k)]| + |A[l] - B[k]| \geq |A[k] - B[k]| + |A[l] - B[\sigma(k)]|.
+      |A[1] - B[k]| + |A[l] - B[1]| \geq |A[1] - B[1]| + |A[l] - B[k]|.
     \end{gather}
-    Since $A[k] < A[l]$ and $B[k] < B[\sigma(k)]$, there are \textit{only} 6 possible cases:
+    Since $A[1] < A[l]$ and $B[1] < B[k]$, there are \textit{only} 6 possible cases:
 
-    \textbf{Case 1: } $A[k] \leq A[l] \leq B[k] \leq B[\sigma(k)]$.
+    \textbf{Case 1: } $A[1] \leq A[l] \leq B[1] \leq B[k]$.
     \[
-      (B[\sigma(k)] - A[k]) + (B[k] - A[l]) = (B[k] - A[k]) + (B[\sigma(k)] - A[l]).
+      (B[k] - A[1]) + (B[1] - A[l]) = (B[1] - A[1]) + (B[k] - A[l]).
     \]
     
-    \textbf{Case 2: } $A[k] \leq B[k] \leq A[l] \leq B[\sigma(k)]$.
+    \textbf{Case 2: } $A[1] \leq B[1] \leq A[l] \leq B[k]$.
     \begin{align*}
-      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
-      &= (B[k] - A[k]) + (B[\sigma(k)] - A[l]) + 2(A[l] - B[k]) \\
-      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
+      (B[k] - A[1]) + (A[l] - B[1]) 
+      &= (B[1] - A[1]) + (B[k] - A[l]) + 2(A[l] - B[1]) \\
+      &\geq (B[1] - A[1]) + (B[k] - A[l]) 
     \end{align*}
     
 
-    \textbf{Case 3: } $A[k] \leq B[k] \leq B[\sigma(k)] \leq A[l]$.
+    \textbf{Case 3: } $A[1] \leq B[1] \leq B[k] \leq A[l]$.
     \begin{align*}
-      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
-      &= (B[k] - A[k]) + (A[l] - B[\sigma(k)]) + 2(A[l] - B[\sigma(k)]) \\
-      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
+      (B[k] - A[1]) + (A[l] - B[1]) 
+      &= (B[1] - A[1]) + (A[l] - B[k]) + 2(A[l] - B[k]) \\
+      &\geq (B[1] - A[1]) + (B[k] - A[l]) 
     \end{align*}
 
-    \textbf{Case 4: } $B[k] \leq A[k] \leq A[l] \leq B[\sigma(k)]$.
+    \textbf{Case 4: } $B[1] \leq A[1] \leq A[l] \leq B[k]$.
     \begin{align*}
-      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
-      &= (A[k] - B[k]) + (B[\sigma(k)] - A[l]) + 2(A[l] - A[k]) \\
-      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
+      (B[k] - A[1]) + (A[l] - B[1]) 
+      &= (A[1] - B[1]) + (B[k] - A[l]) + 2(A[l] - A[1]) \\
+      &\geq (A[1] - B[1]) + (B[k] - A[l]) 
     \end{align*}
 
-    \textbf{Case 5: } $B[k] \leq A[k] \leq B[\sigma(k)] \leq A[l]$.
+    \textbf{Case 5: } $B[1] \leq A[1] \leq B[k] \leq A[l]$.
     \begin{align*}
-      (B[\sigma(k)] - A[k]) + (A[l] - B[k]) 
-      &= (A[k] - B[k]) + (A[l] - B[\sigma(k)]) + 2(B[\sigma(k)] - A[k]) \\
-      &\geq (B[k] - A[k]) + (B[\sigma(k)] - A[l]) 
+      (B[k] - A[1]) + (A[l] - B[1]) 
+      &= (A[1] - B[1]) + (A[l] - B[k]) + 2(B[k] - A[1]) \\
+      &\geq (A[1] - B[1]) + (A[l] - B[k]) 
     \end{align*}
 
-    \textbf{Case 6: } $B[k] \leq B[\sigma(k)] \leq A[k] \leq A[l]$.
+    \textbf{Case 6: } $B[1] \leq B[k] \leq A[1] \leq A[l]$.
     \begin{align*}
-      (A[k] - B[\sigma(k)]) + (A[l] - B[k]) &= (A[k] - B[k]) + (A[l] - B[\sigma(k)])
+      (A[1] - B[k]) + (A[l] - B[1]) &= (A[1] - B[1]) + (A[l] - B[k])
     \end{align*}
-    Hence, let $\sigma'$ be $\sigma$ after swapping the values of $\sigma(k)$ and $\sigma(l)$.
-    By (1),
+    Hence, by (1),
     \begin{align*}
-      \sum_{i=1}^n &|A[i] - B[\sigma(i)]| - \sum_{i=1}^n |A[i] - B[\sigma'(i)]| \\
-      &= |A[k] - B[\sigma(k)]| + |A[l] - B[k]| - |A[k] - B[k]| - |A[l] - B[\sigma(k)]| > 0,
+      C(OS) - C(OS')
+      &= |A[1] - B[k]| + |A[l] - B[1]| - |A[1] - B[1]| - |A[l] - B[k]| > 0,
     \end{align*}
-    and thus $\sigma'$ achieves a lower cost value.
+    and thus $OS'$ achieves a lower cost value.
+
+    \textbf{Induction Part: }
 
     We now show that the greedy solution is optimal for any input of size $n \geq 1$ by induction on
     $n$. The base case is trivial, as there is only one possible solution. Suppose $n \geq 2$.
     Assume that the greedy strategy is optimal for all inputs of size less than $n$. Consider an
-    input $A, B$ of size $n$. Let $OS$ be any arbitrary solution of $A, B$. We may assume that
-    $OS(A, B)$ mismatches some terms of $A, B$, otherwise $OS = GS$ and we are done. Say the first
-    mismatch in $OS(A, B)$ happens at index $k$, with $A[k]$ paired with $B[k']$ and $A[l]$ paired
-    with $B[k]$, for some $l, k' > k$. By our claim at the start, there exists a better solution
-    $OS'$ which agrees with all terms of $OS(A, B)$ except that it swaps the first mismatch of $OS$.
-    Let $A' = A \backslash \{A[k]\}$ and $B' = B \backslash \{B[k]\}$. Define
-    \[
-      C([(A[1],B[i_1]), \dots, (A[n], B[i_n])]) = \sum_{k=1}^n |A[k] - B[i_k]|.
-    \]
-    By induction,
+    input $A, B$ of size $n$. Let $OS$ be any arbitrary solution of $A, B$. By the Exange Arguemnt,
+    there exists an as good or better solution $OS'$ which pairs $A[1]$ with $B[1]$ and $C(OS'(A,
+    B)) \leq C(OS(A, B))$. Let $A' = A \backslash \{A[1]\}$ and $B' = B \backslash \{B[1]\}$. Since
+    $|A| = |B| < n$, by induction,
     \begin{align*}
-      C(OS(A, B)) > C(OS'(A, B)) 
-      &= C(\{(A[k], B[k])\} \cup S(A', B')) \\
-      &\geq C(\{(A[k], B[k])\} \cup GS(A', B')) \\
+      C(OS(A, B)) \leq C(OS'(A, B)) 
+      &= C(\{(A[1], B[1])\} \cup S(A', B')) \\
+      &\geq C(\{(A[1], B[1])\} \cup GS(A', B')) \\
       &= C(GS(A, B)).
     \end{align*}
   \end{proof}
@@ -460,11 +463,17 @@
   that it is not always optimal.
 
   \begin{proof}
-    Given input $D$ and $x$ where $D$ is increasing, Let $OS = [y_1, \dots, y_{m}]$ be some
-    solution which contains some index $y_i$ such that station $y_i$ does not have the largest
-    $D[y_i] + x[y_i]$ value reachable from station $y_{i - 1}$. We show that there exists solution
-    $OS' = [z_1, \dots, z_{k}]$ such that $z_{k} \geq y_{m}$ and $k \leq m$.
+    This argument is correct.
 
+    \textbf{ExArg Claim:}
+    Given input $D$ and $x$ where $D$ is increasing, Let $OS = [y_1, \dots, y_{m}]$ be some solution
+    which contains some index $y_i$ such that station $y_i$ does not have the largest $D[y_i] +
+    x[y_i]$ value reachable from station $y_{i - 1}$. Let $OS' = [z_1, \dots, z_{k}]$ be another
+    solution such that $y_j = z_j$ for all $j < i$ but $z_i$ is the reachable battery station from
+    $z_{i - 1}$ that can take you the farthest down the road. Then, $z_{k} \geq y_{m}$ and $k \leq
+    m$.
+
+    \textbf{ExArg Proof:}
     Let $y_i$ be the smallest index in $OS$ such that station $y_i$ does not have the largest
     $D[y_i] + x[y_i]$ value reachable from station $y_{i - 1}$. Construct $OS' = [z_1, \dots,
     z_{k}]$ such that $y_j = z_j$ for all $j \neq i$ and make $z_i$ the station with the largest
@@ -477,17 +486,20 @@
     $OS$ and $OS'$ agree with all terms except for the $i$th one, so obviously $z_{k} \geq y_{m}$
     and $k \leq m$. Hence, $OS'$ is at least as good a solution as $OS$.
 
+    \textbf{Induction Part:}
+
     We now show that for any input of size $n \geq 2$, the greedy solution is optimal. When $n = 2$,
-    there is only one possible solution, so the base case is done. Suppose $n \geq 3$. Assume that
-    the greedy straregy is optimal for all valid inputs of size less than $n$. Given input $D$ and
-    $x$ of size $n$, let $OS = [y_1, \dots, y_{m}]$ be any solution. We may assume that some
-    stations in $OS$ does not have the station with the largest $D + x$ value reachable from the
-    previous station, otherwise $OS = GS$ and we are done. Let $y_i$ be the first such. The argument
-    at the start yields a just as good or better solution $OS' = [z_1, \dots, z_{k}]$. Let $D'$ be
-    the list of the first $z_i + 1$ entries of $D$ and let $D''$ be the list such that $D''[k] = 0$
-    and $D''[k] = D[z_i + k] - D[z_i + k - 1]$ for $1 \leq k \leq n - z_i$. Additionally, let $x'$
-    be the list of the first $z_i + 1$ entries of $x$ and let $x''$ be the rest of $x$. Then, by the
-    construction of $OS'$ and induction,
+    there is only one possible solution, so the base case is done. 
+    
+    Suppose $n \geq 3$. Assume that the greedy straregy is optimal for all valid inputs of size less
+    than $n$. Given input $D$ and $x$ of size $n$, let $OS = [y_1, \dots, y_{m}]$ be any solution.
+    We may assume that some stations in $OS$ does not have the station with the largest $D + x$
+    value reachable from the previous station, otherwise $OS = GS$ and we are done. Let $y_i$ be the
+    first such. The argument at the start yields a just as good or better solution $OS' = [z_1,
+    \dots, z_{k}]$. Let $D'$ be the list of the first $z_i + 1$ entries of $D$ and let $D''$ be the
+    list such that $D''[k] = 0$ and $D''[k] = D[z_i + k] - D[z_i + k - 1]$ for $1 \leq k \leq n -
+    z_i$. Additionally, let $x'$ be the list of the first $z_i + 1$ entries of $x$ and let $x''$ be
+    the rest of $x$. Then, by the construction of $OS'$ and induction,
     \begin{align*}
       |OS(D, x)| \geq |OS'(D, x)| 
       &= |GS(D', x') \circ S(D'', x'')| \\
