@@ -215,7 +215,62 @@
   series converges? Is $f$ bounded?
   
   \begin{proof}
-    idk bro.
+    Notice that when $x = 0$, $f(x) = \sum_{n = 1}^{\infty} 1$ diverges. Additionally, when $x =
+    -\frac{1}{n^2}$ for some $n$, the $n$th term in $f(x)$ is not well-defined, and thus the
+    infinite sum is also not well-defined. For $x \neq 0$ and $x \neq -\frac{1}{n^2}$ for all $n$,
+    \[
+      \sum_{n=1}^{\infty} \left|\frac{1}{1 + n^2 x}\right| \leq \sum_{n=1}^{\infty} \left|\frac{1}{xn^2}\right| = \frac{1}{|x|}\sum_{n=1}^{\infty} \frac{1}{n^2},
+    \]
+    which converges as $\sum_{n=1}^{\infty} \frac{1}{n^2}$ converges. Hence, $f(x)$ converges
+    absolutely if and only of $x \neq 0$ and $x \neq -\frac{1}{n^2}$ for any $n$.
+
+    Let $E = \R \backslash (\{0\} \cup \{-\frac{1}{n^2} \, | \, n \in \N\})$. We show that $f(x)$
+    converges uniformly on $E_{\delta} = E \backslash (-\delta, \delta)$, for any $\delta > 0$. Pick
+    $\epsilon > 0$. Let $M_n = \frac{2}{\delta n^2}$. For $x > 0$, 
+    \[
+      \left|\frac{1}{1 + n^2x}\right| \leq \frac{1}{n^2} \cdot \frac{1}{\delta} < M_n.
+    \]
+    For $x < 0$, 
+    \[
+      \left|\frac{1}{1 + n^2x}\right| < \frac{1}{\frac{1}{2}|x|} \cdot \frac{1}{n^2} \leq \frac{1}{\frac{1}{2}\delta} \cdot \frac{1}{n^2} = M_n,
+    \]
+    when $n \geq N$ for some $N$. Hence, each term of $f(x)$ is bounded by $M_n$ when $n \geq N$.
+    Define $f'(x) = \sum_{n = N}^{\infty} \frac{1}{1 + n^2x}$. Since each term of $f'(x)$ is bounded
+    by $M_n$ and $\sum M_n$ converges, $f'(x)$ converges uniformly on $E_{\delta}$, and thus $f(x) =
+    \sum_{n = 1}^{N - 1} \frac{1}{1 + n^2x} + f'(x)$ also converges uniformly on $E_{\delta}$.
+
+
+
+    $f(x)$ trivially fails to converge uniformly on any interval which contains either $0$ or
+    $-\frac{1}{n^2}$ for some $n$. We now show that $f(x)$ fails to converge uniformly on $(0,
+    \delta]$ for any $\delta > 0$. Let $f_m(x) = \sum_{n = 1}^m \frac{1}{1 + n^2 x}$. Suppose for
+    the sake of contradiction that there eixsts $M$ such that for all $m \geq M$, 
+    \[
+      \left|f(x) - f_m(x)\right| < \frac{1}{4}.
+    \]
+    Pick $x_0 \in (0, \delta]$ small enough such that $\lceil \frac{1}{\sqrt{x_0}} \rceil > M$. Let
+    $N = \lceil \frac{1}{\sqrt{x_0}} \rceil$. Then, $N^2 \geq \frac{1}{x} \geq (N - 1)^2$. But then
+    \begin{align*}
+      |f(x) - f_{N - 1}(x)|
+      &= \left|\sum_{n = N}^{\infty} \frac{1}{1 + n^2x}\right| \\
+      &\geq \left|\sum_{n = N}^{\infty} \frac{1}{2n^2x}\right| \\
+      &= \frac{1}{2x}\sum_{n = N}^{\infty} \frac{1}{n^2} \\
+      &\geq \frac{(N - 1)^2}{2N^2} \geq \frac{1}{4},
+    \end{align*}
+    contradiction.
+
+    Since $\frac{1}{1 + n^2x}$ is continuous on $E$ for all $n \in \N$, the partial sums of $f(x)$
+    is continuous on $E$. Given any point $x \in E$, pick $\delta \in (0, |x|)$. By Theorem 7.12,
+    since $f$ uniformly converges on $E_{\delta}$, $f$ is continuous on $E_{\delta}$, and thus $f$
+    is continuous on $x$. Hence, $f$ is continuous whenever the series converges.
+
+    $f$ is not bounded. Given any $M > 0$, pick $x = \frac{1}{4M^2}$. Then,
+    \begin{align*}
+      |f(x)|
+      &= \left|\sum_{n = 1}^{\infty} \frac{1}{1 + n^2x}\right| \\
+      &= \left|\sum_{n = 1}^{2M} \frac{1}{1 + n^2x} + \sum_{n = 2M + 1}^{\infty} \frac{1}{1 + n^2x}\right| \\
+      &> 2M\left(\frac{1}{1 + (2M)^2x}\right) = M.
+    \end{align*}
   \end{proof}
 \end{homeworkProblem}
 
@@ -320,8 +375,10 @@
     f_q(x) - f(x)$ is discontinuous on $x$, so $f(x)$ is discontinuous on $x$. Hence, $f(x)$ is
     discontinuous on $x$ if and only if $x \in \Q$.
 
-    Since the partial sums of $f(x)$ converges uniformly on any given bounded interval, $f$ is
-    Riemann-integrable on every bounded interval, by Theorem 7.16.
+    Since $(nx)/n^2$ is piece-wise continuous, $(nx)/n^2 \in \mathscr{R}$, and thus $\sum_{n = 1}^m
+    (nx)/n^2 \in \mathscr{R}$. It now follows that the partial sums of $f(x)$ converges uniformly on
+    any given bounded interval, so $f$ is Riemann-integrable on every bounded interval, by Theorem
+    7.16.
   \end{proof}
 \end{homeworkProblem}
 
