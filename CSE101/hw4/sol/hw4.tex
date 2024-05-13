@@ -406,7 +406,10 @@
   Describe this problem as we have done in class in terms of:
   \begin{itemize}
   \item
-  {\bf Input:} A sorted list of $n$ battery station positions and a list of $n + 1$ distances of the
+  {\bf Input:} Two lists $(D[0], D[1], \dots, D[n]), (x[0], x[1], \dots, x[n])$, where $D$ is in
+  sorted order.
+  
+  A sorted list of $n$ battery station positions and a list of $n + 1$ distances of the
   batteries. 
   \item
   {\bf Solution Format:} An increasing list of indices $X = [x_1, \dots, x_k]$, where $1 \leq x_i \leq n$.
@@ -466,12 +469,11 @@
     This argument is correct.
 
     \textbf{ExArg Claim:}
-    Given input $D$ and $x$ where $D$ is increasing, Let $OS = [y_1, \dots, y_{m}]$ be some solution
-    which contains some index $y_i$ such that station $y_i$ does not have the largest $D[y_i] +
-    x[y_i]$ value reachable from station $y_{i - 1}$. Let $OS' = [z_1, \dots, z_{k}]$ be another
-    solution such that $y_j = z_j$ for all $j < i$ but $z_i$ is the reachable battery station from
-    $z_{i - 1}$ that can take you the farthest down the road. Then, $z_{k} \geq y_{m}$ and $k \leq
-    m$.
+    Given input $D$ and $x$, Let $OS = [y_1, \dots, y_{m}]$ be some solution which contains some
+    index $y_i$ such that station $y_i$ does not have the largest $D[y_i] + x[y_i]$ value reachable
+    from station $y_{i - 1}$. Let $OS' = [z_1, \dots, z_{k}]$ be another solution such that $y_j =
+    z_j$ for all $j < i$ but $z_i$ is the reachable battery station from $z_{i - 1}$ that can take
+    you the farthest down the road. Then, $z_{k} \geq y_{m}$ and $k \leq m$.
 
     \textbf{ExArg Proof:}
     Let $y_i$ be the smallest index in $OS$ such that station $y_i$ does not have the largest
@@ -488,18 +490,19 @@
 
     \textbf{Induction Part:}
 
-    We now show that for any input of size $n \geq 2$, the greedy solution is optimal. When $n = 2$,
+    We now show that for any input where $n \geq 1$, the greedy solution is optimal. When $n = 1$,
     there is only one possible solution, so the base case is done. 
     
-    Suppose $n \geq 3$. Assume that the greedy straregy is optimal for all valid inputs of size less
-    than $n$. Given input $D$ and $x$ of size $n$, let $OS = [y_1, \dots, y_{m}]$ be any solution.
-    We may assume that some stations in $OS$ does not have the station with the largest $D + x$
-    value reachable from the previous station, otherwise $OS = GS$ and we are done. Let $y_i$ be the
-    first such. The argument at the start yields a just as good or better solution $OS' = [z_1,
-    \dots, z_{k}]$. Let $D'$ be the list of the first $z_i + 1$ entries of $D$ and let $D''$ be the
-    list such that $D''[k] = 0$ and $D''[k] = D[z_i + k] - D[z_i + k - 1]$ for $1 \leq k \leq n -
-    z_i$. Additionally, let $x'$ be the list of the first $z_i + 1$ entries of $x$ and let $x''$ be
-    the rest of $x$. Then, by the construction of $OS'$ and induction,
+    Suppose $n \geq 2$. Assume that the greedy straregy is optimal for all valid inputs of size less
+    than $n$. Given input $(D[0], D[1], \dots, D[n])$ and $(x[0], x[1], \dots, x[n])$, let $OS =
+    [y_1, \dots, y_{m}]$ be any solution. We may assume that some stations in $OS$ does not have the
+    station with the largest $D + x$ value reachable from the previous station, otherwise $OS = GS$
+    and we are done. Let $y_i$ be the first such. The argument at the start yields a just as good or
+    better solution $OS' = [z_1, \dots, z_{k}]$. Let $D'$ be the list of the first $z_i + 1$ entries
+    of $D$ and let $D''$ be the list such that $D''[k] = 0$ and $D''[k] = D[z_i + k] - D[z_i + k -
+    1]$ for $1 \leq k \leq n - z_i$. Additionally, let $x'$ be the list of the first $z_i + 1$
+    entries of $x$ and let $x''$ be the rest of $x$. Then, by the construction of $OS'$ and
+    induction,
     \begin{align*}
       |OS(D, x)| \geq |OS'(D, x)| 
       &= |GS(D', x') \circ S(D'', x'')| \\
