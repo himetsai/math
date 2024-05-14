@@ -179,6 +179,15 @@
 
 
   Disprove the correctness of this algorithm by giving a counterexample.
+
+  \begin{proof}
+    Consider $G = C_4$, where the edge $\{v_3, v_4\}$ has weight $2$ and the remaining edges each
+    has weight $1$. The algorithm recurses on subgraph $G''$ with vertex set $V'' = [v_3, v_4]$, so
+    the resulting spanning tree $T$ contains the edge $\{v_3, v_4\}$. Since the resulting spanning
+    tree has $3$ edges with an edges of weight $2$, the total cost of $T$ is $4$. But then $\{\{2,
+    v_i\}: i \neq 2\} \subset E$ spans $G$ with a total weight of $3$, as it only uses edges of
+    weight 1.
+  \end{proof}
 \end{homeworkProblem}
 
 \newpage
@@ -226,13 +235,13 @@
     $L_l$, $L_r$, it will take time proportional to $max(v - 1, n - v)$. Note that if
     $\frac{n}{4}\leq v - 1 \leq \frac{3}{4}n$, then $max(v - 1, n - v) \leq \frac{3}{4}n$.
     Otherwise, $\frac{3}{4}n \leq max(v - 1, n - v) < n$. Let $ET(n)$ denote the expected runtime
-    for selection on a list of $n$ elements. It now follows that
+    for $Selection$ on a list of length $n$. It now follows that
     \[
-      ET(n) \leq \frac{1}{2}ET\left(\frac{3}{4}n\right) + \frac{1}{2}ET(n) + O(n),
+      ET(n) \leq \frac{1}{2}ET\left(\frac{3}{4}n\right) + \frac{1}{2}ET(n) + cn,
     \]
-    where the $O(n)$ term derived from the splitting process of $L$. But then 
+    where the $cn$ term derived from the splitting process of $L$. But then 
     \[
-      ET(n) \leq ET\left(\frac{3}{4}n\right) + O(n),
+      ET(n) \leq ET\left(\frac{3}{4}n\right) + cn,
     \]
     and thus
     \[
@@ -254,7 +263,7 @@
     \begin{proof}
       We first note that
       \[
-        T(n) = 6T(n/4) + O(n^{1.5}).
+        T(n) = 6T(n/4) + cn^{1.5}.
       \]
       By the Master Theorem, 
       \[
@@ -270,20 +279,20 @@
     \begin{proof}
       We first note that
       \[
-        R(n) = R(n/2) + O(\log n).
+        R(n) = R(n/2) + c\log n.
       \]
       Consider the levels of recurrence of this algorithm. Since the algorithm has $1$ recursive
-      call of size $n/2$, there are $\log_2 n$ levels of recurrence, with $1$ recursive call per
+      call of size $n/2$, there are $\log n$ levels of recurrence, with $1$ recursive call per
       level. It now follows that
       \begin{align*}
         R(n) 
-        &= R(n/2) + O(\log n) \\
-        &= \left(R(n/4) + O(\log \frac{n}{2})\right) + O(\log n) \\
-        &= O\left(\sum_{k = 0}^{\log n} \log \frac{n}{2^k}\right) \\
-        &= O\left(\sum_{k = 0}^{\log n} (\log n - k)\right) \\
-        &= O\left(\log^2 n - \sum_{k = 0}^{\log n} k\right) \\
-        &= O\left(\log^2 n - \frac{(\log n + 1)\log n}{2}\right) \\
-        &= O\left(\log^2 n\right).
+        &= R(n/2) + c\log n \\
+        &= \left(R(n/4) + c\log \frac{n}{2}\right) + c\log n \\
+        &= c\sum_{k = 0}^{\log n} \log \frac{n}{2^k} \\
+        &= c\sum_{k = 0}^{\log n} (\log n - k) \\
+        &= c\log^2 n - c\sum_{k = 0}^{\log n} k \\
+        &= c\log^2 n - \frac{c(\log n + 1)\log n}{2} \\
+        &\in O\left(\log^2 n\right).
       \end{align*}
       \end{proof}
     
@@ -294,7 +303,7 @@
     \begin{proof}
       We first note that
       \[
-        S(n) = 2T(2n/3) + O(n).
+        S(n) = 2T(2n/3) + cn.
       \]
       By the Master Theorem, 
       \[
