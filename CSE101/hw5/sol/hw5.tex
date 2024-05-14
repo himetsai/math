@@ -97,7 +97,7 @@
 %
 
 \newcommand{\hmwkTitle}{Homework\ \#5}
-\newcommand{\hmwkDueDate}{Apr 12, 2024}
+\newcommand{\hmwkDueDate}{May 16, 2024}
 \newcommand{\hmwkClass}{CSE 101}
 \newcommand{\hmwkClassInstructor}{Professor Jones}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai, Kevin Yu}}
@@ -268,16 +268,24 @@
     algorithm has $1$ recursive call of size $n/2$ and the non-recursive part takes $O(\log n)$
     time. Find the best Big-Oh runtime.
     \begin{proof}
-      Pick $d > 0$. Note that $O(1) < O(\log n) < O(n^d)$. Hence, 
+      We first note that
       \[
-        R(n) = R(n/2) + O(\log n) < R(n/2) + O(n^d).
+        R(n) = R(n/2) + O(\log n).
       \]
-      By the Master Theorem, for arbitrary $d > 0$,
-      \[
-        R(n) \in O(n^d),
-      \]
-      as $1 < 2^d$.
-    \end{proof}
+      Consider the levels of recurrence of this algorithm. Since the algorithm has $1$ recursive
+      call of size $n/2$, there are $\log_2 n$ levels of recurrence, with $1$ recursive call per
+      level. It now follows that
+      \begin{align*}
+        R(n) 
+        &= R(n/2) + O(\log n) \\
+        &= \left(R(n/4) + O(\log \frac{n}{2})\right) + O(\log n) \\
+        &= O\left(\sum_{k = 0}^{\log n} \log \frac{n}{2^k}\right) \\
+        &= O\left(\sum_{k = 0}^{\log n} (\log n - k)\right) \\
+        &= O\left(\log^2 n - \sum_{k = 0}^{\log n} k\right) \\
+        &= O\left(\log^2 n - \frac{(\log n + 1)\log n}{2}\right) \\
+        &= O\left(\log^2 n\right).
+      \end{align*}
+      \end{proof}
     
     \item
     Let $S(n)$ be the runtime of a divide and conquer algorithm on an input of size $n$. The
