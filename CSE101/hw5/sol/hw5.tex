@@ -1,0 +1,299 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage[margin=1in]{geometry}
+
+\newcommand{\st}{~\mid~}
+\newcommand{\ind}{$~~~$}
+\usepackage{xcolor}
+
+\graphicspath{ {./../images} }
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{Apr 12, 2024}
+\newcommand{\hmwkClass}{CSE 101}
+\newcommand{\hmwkClassInstructor}{Professor Jones}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai, Kevin Yu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Consider the following divide and conquer algorithm that claims to find an MST when the input is a
+  complete graph $G$ with positive edge weights:
+
+  {\bf Algorithm Description:} Given an undirected complete graph $G=(V,E)$ with positive edge
+  weights where $V=[v_1,\dots,v_n]$,
+  \begin{itemize}
+  \item If $n=1$ then return the empty set of edges. 
+  \item
+  Otherwise, split the set of vertices into two sets: $V' = [v_1,\dots,v_{\lfloor n/2\rfloor}]$ and
+  $V'' = [v_{\lfloor n/2\rfloor}+1,\dots,v_n]$.
+  \item
+  Create two new graphs $G' = (V',E')$ and $G'' = (V'',E'')$ where $E'\subseteq E$ is the set of
+  edges with both endpoints in $V'$ and $E''\subseteq E$ is the set of edges with both endpoints in
+  $V''$.
+  \item
+  Recursively run the algorithm on $G'$ and $G''$ to get $T'$ and $T''$, respectively. Find the
+  lightest edge that connects a vertex in $T'$ to a vertex in $T''$ and call that edge $e$.
+  \item
+  Return $T' \cup T'' \cup \{e\}$.
+  \end{itemize}
+
+
+  Disprove the correctness of this algorithm by giving a counterexample.
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  You are given an increasing sequence of integers: $(A[1],A[2],\dots,A[n])$. Design an algorithm
+  that determines (returns TRUE or FALSE) if there exists an index $i$ such that $A[i]=i$.
+
+  Your algorithm should run in $O(\log n)$ time.
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  You are given a list of $n$ ordered pairs $[(x_1,f_1),\dots,(x_n,f_n)]$. This list describes a
+  list of length $\sum f_i$ that contains $f_1$ copies of the value $x_1$, $f_2$ copies of the value
+  $x_2$ and so on.
+
+  You wish to find the median value of this list in expected runtime of $O(n)$. (You can assume that
+  $\sum f_i$ is odd.)
+
+  \begin{proof}
+    We give a description of the algorithm:
+
+    Let $\ell([(x_1,f_1),\dots,(x_u,f_u)])$ denote the length of the list described by
+    $[(x_1,f_1),\dots,(x_u,f_u)]$, namely $\sum_{i = 1}^u f_i$.
+
+    We first define $Selection(L = [(x_1,f_1),\dots,(x_m,f_m)], k)$, which takes in a list $L$ of
+    ordered pairs and an integer $k$, and outputs the $k$th smallest number in the list described in
+    $L$:
+
+    If $|L| = 1$, return $x_1$. Otherwise, pick $x_v$ randomly from $L$. Split $L$ into $L_l$,
+    $[(x_v, f_v)]$, and $L_r$, where $L_l$ contains all the ordered pairs with $x_i$ less than $x_v$
+    and $L_r$ contains the ordered pairs with $x_i$ greater than $x_v$. If $k \leq \ell(L_l)$,
+    return $Selection(L_l, k)$. Else, if $k \leq \ell(L_l) + f_v$, return $x_v$. Otherwise, return
+    $Selection(L_r, k - \ell(L_l) - f_v)$.
+
+    Now for finding the median value of the list described in $L$, we simply run $Selection(L,
+    \lceil \frac{n}{2} \rceil)$.
+
+    We now show that the expected runtime for $Selection$ is $O(n)$.
+
+    Since we select the pivot $x_v$ uniformly at random, the input list $L$ will be split into a
+    list $L_l$ of length $v - 1$ and a list $L_r$ of length $n - v$. Hence, when we recurse on
+    $L_l$, $L_r$, it will take time proportional to $max(v - 1, n - v)$. Note that if
+    $\frac{n}{4}\leq v - 1 \leq \frac{3}{4}n$, then $max(v - 1, n - v) \leq \frac{3}{4}n$.
+    Otherwise, $\frac{3}{4}n \leq max(v - 1, n - v) < n$. Let $ET(n)$ denote the expected runtime
+    for selection on a list of $n$ elements. It now follows that
+    \[
+      ET(n) \leq \frac{1}{2}ET\left(\frac{3}{4}n\right) + \frac{1}{2}ET(n) + O(n),
+    \]
+    where the $O(n)$ term derived from the splitting process of $L$. But then 
+    \[
+      ET(n) \leq ET\left(\frac{3}{4}n\right) + O(n),
+    \]
+    and thus
+    \[
+      ET(n) \in O(n).
+    \]
+    by the Master Theorem.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item
+    Let $T(n)$ be the runtime of a divide and conquer algorithm on an input of size $n$. The
+    algorithm has $6$ recursive calls each of size $n/4$ and the non-recursive part takes
+    $O(n^{1.5})$ time. Use the Master theorem to find the best Big-Oh runtime.
+
+    \begin{proof}
+      We first note that
+      \[
+        T(n) = 6T(n/4) + O(n^{1.5}).
+      \]
+      By the Master Theorem, 
+      \[
+        T(n) \in O(n^{1.5}),
+      \]
+      as $6 < 4^{1.5} = 8$.
+    \end{proof}
+    
+    \item
+    Let $R(n)$ be the runtime of a divide and conquer algorithm on an input of size $n$. The
+    algorithm has $1$ recursive call of size $n/2$ and the non-recursive part takes $O(\log n)$
+    time. Find the best Big-Oh runtime.
+    \begin{proof}
+      Pick $d > 0$. Note that $O(1) < O(\log n) < O(n^d)$. Hence, 
+      \[
+        R(n) = R(n/2) + O(\log n) < R(n/2) + O(n^d).
+      \]
+      By the Master Theorem, for arbitrary $d > 0$,
+      \[
+        R(n) \in O(n^d),
+      \]
+      as $1 < 2^d$.
+    \end{proof}
+    
+    \item
+    Let $S(n)$ be the runtime of a divide and conquer algorithm on an input of size $n$. The
+    algorithm has $2$ recursive calls each of size $2n/3$ and the non-recursive part takes $O(n)$
+    time. Find the best Big-Oh runtime.
+    \begin{proof}
+      We first note that
+      \[
+        S(n) = 2T(2n/3) + O(n).
+      \]
+      By the Master Theorem, 
+      \[
+        S(n) \in O(n^{\log_{3/2} 2}) = O(n^{\frac{\log 2}{\log 3 - \log 2}}) \approx O(n^{1.71}),
+      \]
+      as $2 > 3/2$.
+    \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+\end{document}
