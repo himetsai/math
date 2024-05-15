@@ -279,6 +279,8 @@
   \begin{proof}
     We give a description of the algorithm:
 
+    \textbf{Algorithm Description:}
+
     Let $\ell([(x_1,f_1),\dots,(x_u,f_u)])$ denote the length of the list described by
     $[(x_1,f_1),\dots,(x_u,f_u)]$, namely $\sum_{i = 1}^u f_i$.
 
@@ -295,7 +297,7 @@
     Now for finding the median value of the list described in $L$, we simply run $Selection(L,
     \lceil \frac{n}{2} \rceil)$.
 
-    We now show that the expected runtime for $Selection$ is $O(n)$.
+    \textbf{Runtime Analysis:}
 
     Since we select the pivot $x_v$ uniformly at random, the input list $L$ will be split into a
     list $L_l$ of length $v - 1$ and a list $L_r$ of length $n - v$. Hence, when we recurse on
