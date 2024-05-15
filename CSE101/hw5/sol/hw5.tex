@@ -203,7 +203,7 @@
     \textbf{Algorithm Description:}
 
     Let $l = 1$ and $r = n$. While $l < r$: put $m = \lfloor(l + r)/2\rfloor$. If $A[m] = m$, return
-    TRUE. If $A[m] < m$, put $l = m + 1$. Otherwise, put $r = m - 1$. After the loop, if $A[l] = l$,
+    TRUE. If $A[m] < m$, put $l = m + 1$. Otherwise, put $r = m$. After the loop, if $A[l] = l$,
     return TRUE. Otherwise, return FALSE.
 
     \textbf{Justification of Correctness:}
@@ -240,17 +240,17 @@
 
     \textbf{Case 3: } $A[m] > m$. 
 
-    $r_k$ is set to $m - 1$ and $l_k = l_{k - 1}$. By induction, $A[i] < i$ for all $i < l_{k - 1} =
-    l_k$, so it remains to show that $A[j] < j$ for all $j \geq m$. Since the sequence of integers
+    $r_k$ is set to $m$ and $l_k = l_{k - 1}$. By induction, $A[i] < i$ for all $i < l_{k - 1} =
+    l_k$, so it remains to show that $A[j] < j$ for all $j > m$. Since the sequence of integers
     $(A[1],A[2],\dots,A[n])$ is strictly increasing, we may observe that
     \[
       A[j] \geq A[m] + (j - m),
     \]
-    for all $j \geq m$. But then $A[m] - m > 0$, so indeed
+    for all $j > m$. But then $A[m] - m > 0$, so indeed
     \[
       A[j] \geq A[m] + (j - m) = (A[m] - m) + j > j,
     \]
-    for all $j \geq m$.
+    for all $j > m$.
 
     And this completes the induction. Note that the loop breaks half way only if there exists some
     $A[m] = m$ and the algorithm returns TRUE. Now suppose the loop is terminated by the natural
@@ -262,7 +262,7 @@
 
     Since every iteration of the loop cuts out half the current list, the loop will iterate at most
     $\log n$ times until $l$ meets $r$, given an input list of size $n$. Checking and updating $l$
-    or $r$ only takes constant time. Hence, in total, the algorithm has a runtime of $O(\log n)$.
+    or $r$ only take constant time. Hence, in total, the algorithm has a runtime of $O(\log n)$.
   \end{proof}
 \end{homeworkProblem}
 
