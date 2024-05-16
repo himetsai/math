@@ -181,15 +181,154 @@
       &\leq \int_{1/\beta}^{1/\alpha} |f(x) - f_n(x)| \, dx +  \int_{1/\beta}^{1/\alpha} g(x) \, dx \\
       &< \epsilon/2 + \epsilon/2 = \epsilon,
     \end{align*}
-    and thus $h_k$ converges uniformly by Cauchy criterion. Let $I_n = \int_0^\infty f_n(x) \, dx$
-    and let $I = \int_0^\infty f_n(x) \, dx$. 
+    Thus, $h_k$ converges uniformly by Cauchy criterion, and so $\int_t^\infty f(x) \, dx$ exists
+    for $t \in (0, \infty)$.
     
-    It remains to show that $\int_0^\infty
-    f(x) \, dx$ converges to $\lim_{n \to \infty} \int_0^\infty f_n(x) \, dx$.
+    Let $I_n(t) = \int_t^\infty f_n(x) \, dx$ and let $I(t) = \int_t^\infty f(x) \, dx$. We show
+    that $I_n \to I$ uniformly on $(0, \infty)$. Again, pick $\epsilon > 0$. There exists $t_1, t_2
+    \in (0, \infty)$, $t_2 > t_1$, such that $\int_0^{t_1} g(x) \, dx < \epsilon/6$ and
+    $\int_{t_2}^{\infty} g(x) \, dx < \epsilon/6$. Since $f_n$ converges to $f$ uniformly, there
+    exists $N$ such that $|f_n(x) - f(x)| < \epsilon/3(t_2 - t_1)$ for all $n \geq N$ and $x \in
+    [t_1, t_2]$. Hence, for all $n \geq N$ and $t \in (0, \infty)$, let $t' \in (0, \min(t, t_1))$
+    and we have
+    \begin{align*}
+      \left|I(t) - I_n(t)\right|
+      &\leq \int_{t'}^{\infty} |f(x) - f_n(x)| \, dx \\
+      &= \int_{t'}^{t_1} |f(x) - f_n(x)| \, dx + \int_{t_1}^{t_2} |f(x) - f_n(x)| \, dx + \int_{t_2}^{\infty} |f(x) - f_n(x)| \, dx \\
+      &\leq 2\int_{0}^{t_1} g(x) \, dx + \int_{t_1}^{t_2} |f(x) - f_n(x)| \, dx + 2\int_{t_2}^{\infty} g(x) \, dx \\
+      &< \epsilon/3 + \epsilon/3 + \epsilon/3 = \epsilon.
+    \end{align*}
+    Hence, $I_n \to I$ uniformly on $(0, \infty)$. By Theorem 7.11, 
     \[
-      \left|\int_0^\infty f_n(x) - f(x) \, dx\right| < \epsilon,
+      \lim_{n \to \infty} \lim_{t \to 0} I_n(t) = \lim_{t \to 0} I(t).
     \]
-    for large enough $n$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Assume that $(f_n)$ is a sequence of monotonically increasing functions on $\mathbb{R}$ with $0
+  \leq f_n(x) \leq 1$ for all $x$ and all $n$. 
+
+  Prove that there is a function $f$ and a sequence $(n_k)$ such that
+  \[
+    f(x) = \lim_{k \to \infty} f_{n_k}(x)
+  \]
+  for every $x \in \mathbb{R}^1$. (The existence of such a pointwise convergent subsequence is
+  usually called \textit{Helly's selection theorem}.) 
+
+  \begin{proof}
+    
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f$ is a real continuous function on $\mathbb{R}$, $f_n(t) = f(nt)$ for $n = 1, 2, 3,
+  \ldots$, and $(f_n)$ is equicontinuous on $[0, 1]$. What conclusion can you draw about $f$?
+
+  \begin{proof}
+    Pick $\epsilon > 0$. Since $(f_n)$ is equicontinuous on $[0, 1]$, there exists $\delta > 0$ such
+    that
+    \[
+      |f(nx) - f(ny)| < \epsilon,
+    \]
+    whenever $|x - y| < \delta$, for all $n$ and $x, y \in [0, 1]$. Let $s, t \in [0, \infty]$. Put
+    integer $n > \max(|s - t|/\delta, s, t)$. Since $|\frac{s}{n} - \frac{t}{n}| = |s - t|/n <
+    \delta$ and $\frac{s}{n}, \frac{t}{n} \in [0, 1]$, we have 
+    \[
+      |f(s) - f(t)| < \epsilon.
+    \]
+    But then $\epsilon$ is arbitrary, so $f$ is constant on $[0, \infty]$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $(f_n)$ be a uniformly bounded sequence of functions which are Riemann-integrable on $[a, b]$,
+  and put
+  \[
+  F_n(x) = \int_a^x f_n(t) \, dt \quad (a \leq x \leq b).
+  \]
+  Prove that there exists a subsequence $(F_{n_k})$ which converges uniformly on $[a, b]$.
+
+  \begin{proof}
+    We show that $(F_{n})$ is point-wise bounded and equicontinuous on $[a, b]$. 
+    
+    Since $(f_n)$ is uniformly bounded, there exists $K$ such that $|f_n(x)| < K$ for all $x$ and
+    $n$. Hence,
+    \[
+      |F_n(x)| \leq \int_a^x |f_n(t)| \, dt < K(x - a),
+    \]
+    and so $F_n$ is point-wise bounded. 
+
+    Pick $\epsilon > 0$. Let $\delta = \epsilon/K(b - a)$. Then,
+    \[
+      |F_n(x) - F_n(y)| \leq \int_{x}^y |f_n(t)| \, dt \leq K(y - x) < \epsilon,
+    \]
+    for all $n \in \N$ and $x, y \in [a, b]$ such that $\delta > y - x > 0$. Hence, $(F_n)$ is
+    equicontinuous. 
+    
+    The result now follows from Theorem 7.25.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $K$ be a compact metric space, let $S$ be a subset of $\mathscr{C}(K)$. Prove that $S$ is
+  compact (with respect to the metric defined in Definition 7.14) if and only if $S$ is uniformly
+  closed, pointwise bounded, and equicontinuous. (If $S$ is not equicontinuous, then $S$ contains a
+  sequence which has no equicontinuous subsequence, hence has no subsequence that converges
+  uniformly on $K$.)
+
+  \begin{proof}
+    Suppose $S$ is compact. $S$ is closed so $S$ is uniformly closed by definition. 
+    
+    Pick $\epsilon > 0$ and pick $\nu \in (0, \epsilon/2)$. Consider the open cover $\{B_{\nu}
+    (f)\}_{f \in S}$. There exists $\{f_i\}_{i = 1}^n$ such that $\bigcup_{i = 1}^n B_{\nu} (f_i)
+    \supset S$. Since $K$ is compact, $f$ is uniformly continuous for all $f \in \mathscr{C}(K)$.
+    Hence, for each $f_i$, there exists $\delta_i$ such that $|f_i(x) - f_i(y)| < \epsilon - 2\nu$
+    for all $x, y \in K$ such that $d(x, y) < \delta_i$. Put $\delta = \min_{1 \leq i \leq n}
+    \delta_i$. Let $g \in S$. Then $\sup_{x \in K} |g(x) - f_i(x)| < \nu$ for some $f_i$. But then 
+    \begin{align*}
+      |g(x) - g(y)| 
+      &\leq |g(x) - f_i(x)| + |f_i(x) - f_i(y)| + |f_i(y) - g(y)| \\
+      &< \nu + \epsilon - 2\nu + \nu = \epsilon.
+    \end{align*}
+    Define $\Phi(x) = \nu + \max_{1 \leq i \leq n} |f_i(x)|$. Then, $f(x) < \Phi(x)$ for all $f \in
+    S$, so $S$ is pointwise bounded. 
+
+    Now suppose that $S$ is uniformly closed, pointwise bounded, and equicontinuous. Let $T \subset
+    S$ be an infinite subset of $S$. By Theorem 7.25, $T$ contains a uniformly convergent sequence,
+    which converges to some $f \in S$ as $S$ is uniformly closed. Hence, every infinite subset of
+    $S$ has a limit point in $S$, and thus $S$ is compact.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If $f$ is continuous on $[0,1]$ and if
+  \[
+    \int_0^1 f(x) x^n \, dx = 0 \quad (n = 0, 1, 2, \ldots),
+  \]
+  prove that $f(x) = 0$ on $[0,1]$. 
+
+  \begin{proof}
+    By the Weierstrass Theorem, there exists a sequence of polynomials $P_n$ which converges to $f$
+    uniformly on $[0, 1]$. By the given identity,
+    \[
+      \int_0^1 f(x) P_n(x) \, dx = 0.
+    \]
+    But then
+    \begin{align*}
+      \int_0^1 f^2(x) \, dx = \lim_{n \to \infty} \int_0^1 f(x) P_n(x) \, dx = 0,
+    \end{align*}
+    and the result now follows.
   \end{proof}
 \end{homeworkProblem}
 \end{document}
