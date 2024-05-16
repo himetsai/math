@@ -155,19 +155,59 @@
     \item Let $r$ be a fixed nonnegative integer. Show that both $S(n+r, n)$ and $c(n+r, n)$ are
     polynomial functions of $n$ of degree $2r$ for $n \geq 0$.
     \begin{proof}
-      We proceed by induction on $r$. Since $S(n, n) = 1$ the base case $r = 0$ is done. Suppose $r
-      \geq 1$. Consider the generating function $\sum_{n \geq 0} S  (n+r, n) x^n$. We know
-      \begin{align*}
-        \sum_{n \geq 0} S(n + r, n) x^n 
-        &= 1 + \sum_{n \geq 1} S((n - 1) + r, n - 1) x^n + \sum_{n \geq 1} nS(n + (r - 1), n) x^n \\
-        &= 1 + x\sum_{n \geq 0} S(n + r, n) x^n +  \sum_{n \geq 0} nS(n + (r - 1), n) x^n \\
-        &= \frac{1}{1 - x} + \frac{1}{1 - x}\sum_{n \geq 0} nS(n + (r - 1), n) x^n \\
-        &= \sum_{n \geq 0} \left(1 + \sum_{m \geq 0}^n mS(m + (r - 1), m)\right) x^{n}.
-      \end{align*}
-      Hence, $S(n + r, n) = 1 + \sum_{m \geq 0}^n mS(m + (r - 1), m)$, and this ia only a polynomial
-      of degree $2r - 1$ :(
+      We first prove the case for $S(n + r, n)$. Consider the number $k$ of non-singleton blocks in
+      a partition of $[n + r]$ with $n$ blocks. To count the number of partitions with exactly $k$
+      non-singleton blocks, we first pick the $n - k$ elements from $[n + r]$ that are in
+      singletons, and then we calculate the number $a_{k, r}$ of possible orientations of the
+      remaining $k + r$ elements. Note that $a_{k, r}$ is not dependent on $n$. Hence, summing over
+      all possible $k$, we have
+      \[
+        S(n + r, n) = \sum_{k = 1}^{r} \binom{n + r}{n - k}a_{k, r} = \sum_{k = 1}^{r} \binom{n + r}{r + k}a_{k, r}.
+      \]
+      But then $\binom{n + r}{r + k}a_{k, r}$ is a polynomial of $n$ of degree $r + k$. Since $r +
+      k$ goes up to $2r$ exactly once, $S(n + r, n)$ is a polynomial of $n$ of degree $2r$.
+      
+      The similar argument works for $c(n + r, n)$. Consider the number $k$ of non-trivial cycles in
+      a permutation of size $n + r$ with $n$ disjoint cycles. To count the number of permutation
+      with exactly $k$ non-trivial cycles, we first pick the $n - k$ elements from $[n + r]$ such
+      that each of them are cycles on its own, and then we calculate the number $a_{k, r}$ of
+      possible cycle formations of the remaining $k + r$ elements. Note that $b_{k, r}$ is not
+      dependent on $n$. Hence, summing over all possible $k$, we have
+      \[
+        c(n + r, n) = \sum_{k = 1}^{r} \binom{n + r}{n - k}b_{k, r} = \sum_{k = 1}^{r} \binom{n + r}{r + k}b_{k, r}.
+      \]
+      But then $\binom{n + r}{r + k}b_{k, r}$ is a polynomial of $n$ of degree $r + k$. Since $r +
+      k$ goes up to $2r$ exactly once, $c(n + r, n)$ is a polynomial of $n$ of degree $2r$.
     \end{proof}
     \item Compute these polynomials for $r = 2, 3$.
+    \begin{proof}
+      We first compute $S(n + r, n)$ for $r = 2, 3$. When $r = 2$, there are either $1$ or $2$ non-singleton blocks. If there is only one
+      non-singleton block, then $3$ elements are in a block and the remaining elements each form a
+      singleton, which has $\binom{n + 2}{3}$ possibilities. If there are $2$ non-singleton blocks,
+      then there are $2$ blocks of size 2 and $n - 2$ singletons, which has $3\binom{n + 2}{4}$
+      possibilities. Hence, $S(n + 2, n) = \binom{n + 2}{3} + 3\binom{n + 2}{4}$.When $r = 3$, the number of non-singleton blocks ranges from $1$ to $3$. If there is only one
+      non-singleton block, then $4$ elements are in a block and the remaining elements each form a
+      singleton, which has $\binom{n + 3}{4}$ possibilities. If there are $2$ non-singleton blocks,
+      then there is a block of size 2, a block of size 3, and $n - 2$ singletons, which has
+      $\binom{5}{2}\binom{n + 3}{5} = 10\binom{n + 3}{5}$ possibilities. If there are $3$
+      non-singleton blocks, then there are 3 blocks of size 2 and all singletons for the rest, which
+      has $\frac{1}{3!}\binom{6}{2}\binom{4}{2}\binom{n + 3}{6} = 15\binom{n + 3}{6}$ possibilities.
+      Hence, $S(n + 3, n) = \binom{n + 3}{4} + 10\binom{n + 3}{5} + 15\binom{n + 3}{6}$.
+
+      We now compute $c(n + r, n)$ for $r = 2, 3$. When $r = 2$, there are either $1$ or $2$
+      non-trivial cycles. If there is only one non-trivial cycle, then there is a $3$-cycle and $n -
+      1$ singletons, which has $2\binom{n + 2}{3}$ possibilities. If there are $2$ non-trivial
+      cycles, then there are $2$ transpositions and $n - 2$ singletons, which has $3\binom{n +
+      2}{4}$ possibilities. Hence, $c(n + 2, n) = 2\binom{n + 2}{3} + 3\binom{n + 2}{4}$. When $r =
+      3$, the number of non-trivial cycles ranges from $1$ to $3$. If there is only one non-trivial
+      cycle, then there is a $4$-cycle and $n - 1$ singletons, which has $3!\binom{n + 3}{4}$
+      possibilities. If there are $2$ non-trivial cycles, then there is a transposition, a
+      $3$-cycle, and $n - 2$ singletons, which has $2\binom{5}{2}\binom{n + 3}{5} = 20\binom{n +
+      3}{5}$ possibilities. If there are $3$ non-trivial cycles, then there are 3 transpositions and
+      all singletons for the rest, which has $\frac{1}{3!}\binom{6}{2}\binom{4}{2}\binom{n + 3}{6} =
+      15\binom{n + 3}{6}$ possibilities. Hence, $c(n + 3, n) = 6\binom{n + 3}{4} + 20\binom{n + 3}{5}
+      + 15\binom{n + 3}{6}$.
+    \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
 
@@ -381,7 +421,28 @@
   \]
 
   \begin{proof}
-    idk bro.
+    By the Jacobi triple product, 
+    \[
+      \prod_{n \geq 1} (1 - x^{2n})(1 + x^{2n - 1}y^2)(1 + x^{2n - 1}y^{-2}) = \sum_{n = -\infty}^{\infty} x^{n^2}y^{2n}.
+    \]
+    Hence, substituting $x$ as $\sqrt{x}$ and $y$ as $\sqrt[4]{x}$, we have
+    \begin{align*}
+      \prod_{n \geq 1} (1 - x^{n})(1 + x^{n})(1 + x^{n - 1}) 
+      &= \sum_{n = -\infty}^{\infty} x^{n(n + 1)/2} \\
+      &= 1 + \sum_{n \geq 1} x^{n(n + 1)/2} + x^{n(n - 1)/2} \\
+      &= \sum_{n \geq 0} x^{n(n + 1)/2} + \sum_{n \geq 1} x^{n(n - 1)/2} \\
+      &= 2\sum_{n \geq 0} x^{n(n + 1)/2}.
+    \end{align*}
+    It now follows that
+    \begin{align*}
+      \sum_{n \geq 0} x^{n(n + 1)/2}
+      &= \frac{1}{2}\prod_{n \geq 1} (1 - x^{n})(1 + x^{n})(1 + x^{n - 1}) \\
+      &= \frac{1}{2}\prod_{n \geq 1} (1 - x^{2n})(1 + x^{n - 1}) \\
+      &= \left(\prod_{n \geq 1} (1 - x^{2n})\right)\left(\frac{1}{2}\prod_{n \geq 0} (1 + x^{n})\right) \\
+      &= \left(\prod_{n \geq 1} (1 - x^{2n})\right)\left(\prod_{n \geq 1} (1 + x^{n})\right) \\
+      &= \prod_{n \geq 1} \frac{1 - x^{2n}}{1 - x^{2n - 1}},
+    \end{align*}
+    where the last step follows from Theorem 3.25.
   \end{proof}
 \end{homeworkProblem}
 
