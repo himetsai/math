@@ -432,11 +432,11 @@
       &= \sum_{n = -\infty}^{\infty} x^{n(n + 1)/2} \\
       &= 1 + \sum_{n \geq 1} x^{n(n + 1)/2} + x^{n(n - 1)/2} \\
       &= \sum_{n \geq 0} x^{n(n + 1)/2} + \sum_{n \geq 1} x^{n(n - 1)/2} \\
-      &= 2\sum_{n \geq 0} x^{n(n + 1)/2}.
+      &= 2\sum_{n \geq 1} x^{n(n - 1)/2}.
     \end{align*}
     It now follows that
     \begin{align*}
-      \sum_{n \geq 0} x^{n(n + 1)/2}
+      \sum_{n \geq 1} x^{n(n - 1)/2}
       &= \frac{1}{2}\prod_{n \geq 1} (1 - x^{n})(1 + x^{n})(1 + x^{n - 1}) \\
       &= \frac{1}{2}\prod_{n \geq 1} (1 - x^{2n})(1 + x^{n - 1}) \\
       &= \left(\prod_{n \geq 1} (1 - x^{2n})\right)\left(\frac{1}{2}\prod_{n \geq 0} (1 + x^{n})\right) \\

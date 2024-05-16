@@ -1,0 +1,195 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{May 17, 2024}
+\newcommand{\hmwkClass}{MATH 140B}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{{#1}}
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Suppose $g$ and $f_n$ ($n = 1, 2, 3, \ldots$) are defined on $(0, \infty)$, are Riemann-integrable
+  on $[t, T]$ whenever $0 < t < T < \infty$, $|f_n| \leq g$, $f_n \rightarrow f$ uniformly on every
+  compact subset of $(0, \infty)$, and
+  \[
+    \int_0^\infty g(x) \, dx < \infty.
+  \]
+  Prove that
+  \[
+    \lim_{n \to \infty} \int_0^\infty f_n(x) \, dx = \int_0^\infty f(x) \, dx.
+  \]
+  \begin{proof}
+    Since $|f_n| \leq g$ and $\int_t^\infty g(x) \, dx < \infty$, we know $\int_t^\infty f_n(x) \,
+    dx$ exists. Define $h_k = \int_{1/k}^\infty f(x) \, dx$. Pick $\epsilon > 0$. Since
+    $\int_0^\infty g(x) \, dx$ exists, there exists $N$ such that $\int_0^{1/n} g(x) \, dx <
+    \epsilon/2$ for all $n \geq N$. Let $\beta > \alpha \geq N$. There exists large enough $n$ such
+    that $|f(x) - f_n(x)| < \epsilon(\beta - \alpha)/2\alpha\beta$ for all $x \in [1/\beta,
+    1/\alpha]$. But then,
+    \begin{align*}
+      |h_\beta - h_\alpha|
+      &= \left|\int_{1/\beta}^{1/\alpha} f(x) \, dx\right| \\
+      &\leq \int_{1/\beta}^{1/\alpha} |f(x) - f_n(x)| + |f_n(x)| \, dx \\
+      &\leq \int_{1/\beta}^{1/\alpha} |f(x) - f_n(x)| \, dx +  \int_{1/\beta}^{1/\alpha} g(x) \, dx \\
+      &< \epsilon/2 + \epsilon/2 = \epsilon,
+    \end{align*}
+    and thus $h_k$ converges uniformly by Cauchy criterion. Let $I_n = \int_0^\infty f_n(x) \, dx$
+    and let $I = \int_0^\infty f_n(x) \, dx$. 
+    
+    It remains to show that $\int_0^\infty
+    f(x) \, dx$ converges to $\lim_{n \to \infty} \int_0^\infty f_n(x) \, dx$.
+    \[
+      \left|\int_0^\infty f_n(x) - f(x) \, dx\right| < \epsilon,
+    \]
+    for large enough $n$.
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
