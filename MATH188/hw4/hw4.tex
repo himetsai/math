@@ -11,6 +11,7 @@
 \usepackage{enumerate}
 \usepackage{amssymb}
 \usepackage{dsfont}
+\usepackage{hyperref}
 
 \usetikzlibrary{automata,positioning}
 
@@ -423,9 +424,9 @@
   \begin{proof}
     By the Jacobi triple product, 
     \[
-      \prod_{n \geq 1} (1 - x^{2n})(1 + x^{2n - 1}y^2)(1 + x^{2n - 1}y^{-2}) = \sum_{n = -\infty}^{\infty} x^{n^2}y^{2n}.
+      \prod_{n \geq 1} (1 - x^{2n})(1 + x^{2n - 1}y)(1 + x^{2n - 1}y^{-1}) = \sum_{n = -\infty}^{\infty} x^{n^2}y^{n}.
     \]
-    Hence, substituting $x$ as $\sqrt{x}$ and $y$ as $\sqrt[4]{x}$, we have
+    Hence, substituting both $x$ and $y$ as $\sqrt{x}$, we have
     \begin{align*}
       \prod_{n \geq 1} (1 - x^{n})(1 + x^{n})(1 + x^{n - 1}) 
       &= \sum_{n = -\infty}^{\infty} x^{n(n + 1)/2} \\
@@ -444,6 +445,7 @@
     \end{align*}
     where the last step follows from Theorem 3.25.
   \end{proof}
+  Source cited: \url{https://www.math.uwaterloo.ca/~dmjackso/CO630/JTPID.pdf}
 \end{homeworkProblem}
 
 \newpage
