@@ -168,22 +168,26 @@
     \lim_{n \to \infty} \int_0^\infty f_n(x) \, dx = \int_0^\infty f(x) \, dx.
   \]
   \begin{proof}
-    Since $|f_n| \leq g$ and $\int_t^\infty g(x) \, dx < \infty$, we know $\int_t^\infty f_n(x) \,
-    dx$ exists. Define $h_k = \int_{1/k}^\infty f(x) \, dx$. Pick $\epsilon > 0$. Since
-    $\int_0^\infty g(x) \, dx$ exists, there exists $N$ such that $\int_0^{1/n} g(x) \, dx <
-    \epsilon/2$ for all $n \geq N$. Let $\beta > \alpha \geq N$. There exists large enough $n$ such
-    that $|f(x) - f_n(x)| < \epsilon(\beta - \alpha)/2\alpha\beta$ for all $x \in [1/\beta,
-    1/\alpha]$. But then,
-    \begin{align*}
-      |h_\beta - h_\alpha|
-      &= \left|\int_{1/\beta}^{1/\alpha} f(x) \, dx\right| \\
-      &\leq \int_{1/\beta}^{1/\alpha} |f(x) - f_n(x)| + |f_n(x)| \, dx \\
-      &\leq \int_{1/\beta}^{1/\alpha} |f(x) - f_n(x)| \, dx +  \int_{1/\beta}^{1/\alpha} g(x) \, dx \\
-      &< \epsilon/2 + \epsilon/2 = \epsilon,
-    \end{align*}
-    Thus, $h_k$ converges uniformly by Cauchy criterion, and so $\int_t^\infty f(x) \, dx$ exists
-    for $t \in (0, \infty)$.
-    
+    We first show that $\int_{0}^T f_n(x) \, dx$ converges for all $n$. Define $h_{n, k} =
+    \int_{1/k}^T f_n(x) \, dx$. Pick $\epsilon > 0$. Since $\int_0^{T} g(x) \, dx$ exists, there
+    exists $N$ such that $\int_0^{1/n} g(x) \, dx < \epsilon$ for all $n \geq N$. Let $\beta >
+    \alpha \geq N$. Then,
+    \[
+      |h_{n, \beta} - h_{n, \alpha}| = \left|\int_{1/\beta}^{1/\alpha} f_n(x) \, dx\right| \leq \int_{1/\beta}^{1/\alpha} |f_n(x)| \, dx \leq \int_{1/\beta}^{1/\alpha} g(x) \, dx < \epsilon,
+    \]
+    and so $h_{n, k}$ converges. Since $|f|$ is also bounded by $g$, we may apply the same argument
+    to show that $\int_0^T f(x) \, dx$ converges. 
+
+    We now show that $\int_{0}^{\infty} f_n(x) \, dx$ converges for all $n$. Define $u_{n, k} =
+    \int_{0}^k f_n(x) \, dx$. Pick $\epsilon > 0$. Since $\int_0^{\infty} g(x) \, dx$ exists, there
+    exists $N$ such that $\int_n^{\infty} g(x) \, dx < \epsilon$ for all $n \geq N$. Let $\beta >
+    \alpha \geq N$. Then,
+    \[
+      |u_{n, \beta} - u_{n, \alpha}| = \left|\int_\alpha^\beta f_n(x) \, dx\right| \leq \int_\alpha^\beta |f_n(x)| \, dx \leq \int_\alpha^\beta g(x) \, dx < \epsilon,
+    \]
+    and so $u_{n, k}$ converges. Since $|f|$ is also bounded by $g$, we may apply the same argument
+    to show that $\int_0^{\infty} f(x) \, dx$ converges. 
+
     Let $I_n(t) = \int_t^\infty f_n(x) \, dx$ and let $I(t) = \int_t^\infty f(x) \, dx$. We show
     that $I_n \to I$ uniformly on $(0, \infty)$. Again, pick $\epsilon > 0$. There exists $t_1, t_2
     \in (0, \infty)$, $t_2 > t_1$, such that $\int_0^{t_1} g(x) \, dx < \epsilon/6$ and
@@ -198,7 +202,7 @@
       &\leq 2\int_{0}^{t_1} g(x) \, dx + \int_{t_1}^{t_2} |f(x) - f_n(x)| \, dx + 2\int_{t_2}^{\infty} g(x) \, dx \\
       &< \epsilon/3 + \epsilon/3 + \epsilon/3 = \epsilon.
     \end{align*}
-    Hence, $I_n \to I$ uniformly on $(0, \infty)$. By Theorem 7.11, 
+    Thus, $I_n \to I$ uniformly on $(0, \infty)$. By Theorem 7.11, 
     \[
       \lim_{n \to \infty} \lim_{t \to 0} I_n(t) = \lim_{t \to 0} I(t).
     \]
@@ -219,7 +223,44 @@
   usually called \textit{Helly's selection theorem}.) 
 
   \begin{proof}
-    
+    Since $(f_n)$ is pointwise bounded, Theorem 7.23 yields a subsequence $(f_{n_k})$ such that
+    $(f_{n_k}(q))$ converges for every $q \in \Q$. Define $f: \Q \to \R$ such that 
+    \[
+      f(x) = \lim_{k \to \infty} f_{n_k}(x),
+    \]
+    and we extend $f$ to $\R \to \R$ by defining
+    \[
+      f(x) = \sup_{q \leq x} f(q), \quad (q \in \Q).
+    \]
+    We first show that $f$ is monotonically increasing. Since $f_{n_k}$ is monotonically increasing,
+    $f$ is monotonically increasing on $\Q$. Let $x, y \in \R$. There eixsts rational $s \in (x,
+    y)$. Then, for any $r, t \in \Q$ such that $r < x < s < y < t$, $f(r) < f(s) < f(t)$, and thus
+    \[
+      f(x) = \sup_{q \leq x} f(q) \leq f(s) \leq \sup_{q \leq y} f(q) = f(y).
+    \]
+    By Theorem 4.30, $f$ has at most countably many discontinuous points. We show that $f$ pointwise
+    converges on every continuous point. Let $x \in \R$ be a continuous point of $f$. Pick $\epsilon
+    > 0$. There exists $\delta > 0$ such that $|f(x) - f(y)| < \epsilon/10$ for all $|x - y| <
+    \delta$. Let $s, t \in (x - \delta, x + \delta)$ be rationals such that $s < x < t$. Then $|f(t)
+    - f(s)| < \epsilon/5$. There exists $N_1, N_2$ such that $|f(t) - f_{n_k}(t)| < \epsilon/5$ for
+    all $k \geq N_1$ and $|f(s) - f_{n_k}(s)| < \epsilon/5$ for all $k \geq N_2$. Put $N = \max(N_1,
+    N_2)$. It now follows that
+    \begin{align*}
+      |f(x) - f_{n_k}(x)|
+      &\leq |f(x) - f(t)| + |f(t) - f_{n_k}(t)| + |f_{n_k}(t) - f_{n_k}(x)| \\
+      &\leq |f(x) - f(t)| + |f(t) - f_{n_k}(t)| + |f_{n_k}(t) - f_{n_k}(s)| \\ 
+      &\leq |f(x) - f(t)| + |f(t) - f_{n_k}(t)| + |f_{n_k}(t) - f(t)| + |f(t) - f(s)| + |f(s) - f_{n_k}(s)| \\ 
+      &< \epsilon/10 + \epsilon/5 + \epsilon/5 + \epsilon/5 + \epsilon/5 < \epsilon,
+    \end{align*}
+    for all $k \geq N$, and thus $f(x) = \lim_{k \to \infty} f_{n_k}(x)$.
+
+    It remains to guarantee the pointwise convergence of the discontinuous points of $f$. Again by
+    Theorem 7.23, there exists a subsequence $(f_{n_{k_i}})$ which converges on every discontinuous
+    points of $f$, as there are at most countably many of them. Now we have 
+    \[
+      f(x) = \lim_{i \to \infty} f_{n_{k_i}}(x),
+    \]
+    for all $x \in \R$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -256,7 +297,7 @@
   Prove that there exists a subsequence $(F_{n_k})$ which converges uniformly on $[a, b]$.
 
   \begin{proof}
-    We show that $(F_{n})$ is point-wise bounded and equicontinuous on $[a, b]$. 
+    We show that $(F_{n})$ is pointwise bounded and equicontinuous on $[a, b]$. 
     
     Since $(f_n)$ is uniformly bounded, there exists $K$ such that $|f_n(x)| < K$ for all $x$ and
     $n$. Hence,
