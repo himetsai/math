@@ -256,9 +256,16 @@
 
     It remains to guarantee the pointwise convergence of the discontinuous points of $f$. Again by
     Theorem 7.23, there exists a subsequence $(f_{n_{k_i}})$ which converges on every discontinuous
-    points of $f$, as there are at most countably many of them. Now we have 
+    points of $f$, as there are at most countably many of them. Now define $f': \R \to \R$,
     \[
-      f(x) = \lim_{i \to \infty} f_{n_{k_i}}(x),
+      f'(x) = \begin{cases}
+        \lim_{i \to \infty} f_{n_{k_i}}(x), & \text{if } f \text{ is discontinuous at }x \\
+        f(x), & \text{otherwise}
+      \end{cases}.
+    \]
+    Then, 
+    \[
+      f'(x) = \lim_{i \to \infty} f_{n_{k_i}}(x),
     \]
     for all $x \in \R$.
   \end{proof}
