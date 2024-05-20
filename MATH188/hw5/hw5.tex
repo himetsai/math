@@ -315,15 +315,18 @@
       Let $\delta(S)$ be the set of ways to paint the tables either white or yellow according to our
       rules, so $|\delta(S)| = 2^{|S|}$ if $|S|$ is even and $|\delta(S)| = 0$ otherwise. Hence,
       \[
-        E_{\delta}(x) = \sum_{n \geq 0} \frac{2^nx^n}{n!} = e^{2x}.
+        E_{\delta}(x) = \sum_{n \geq 0} \frac{(2x)^{2n}}{(2n)!} = (e^{2x} + e^{-2x})/2.
       \]
       It now follows that
-      \[
-        E_{\alpha \cdot \beta \cdot \gamma \cdot \delta}(x) = E_{\alpha \cdot \beta \cdot \gamma}(x)E_{\delta}(x) = \frac{1}{4}(e^{5x} - e^{x}) = \frac{1}{4}\sum_{n \geq 0} \frac{(5^n - 1)x^n}{n!}.
-      \]
+      \begin{align*}
+        E_{\alpha \cdot \beta \cdot \gamma \cdot \delta}(x) 
+        &= E_{\alpha \cdot \beta \cdot \gamma}(x)E_{\delta}(x) \\ 
+        &= \frac{1}{8}(e^{3x} - e^{-x})(e^{2x} + e^{-2x}) \\
+        &= \frac{1}{8}(e^{5x} - e^{-3x}) = \frac{1}{8}\sum_{n \geq 0} \frac{(5^n - (-3)^n)x^n}{n!}.
+      \end{align*}
       Hence, there are
       \[
-        n![x^n]E_{\alpha \cdot \beta \cdot \gamma \cdot \delta}(x) = \frac{5^n - 1}{4}
+        n![x^n]E_{\alpha \cdot \beta \cdot \gamma \cdot \delta}(x) = \frac{5^n - (-3)^n}{8}
       \]
       ways to color $n$ tables with our rules.
     \end{proof}
