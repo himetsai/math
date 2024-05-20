@@ -553,29 +553,29 @@
       \end{bmatrix}_q a_ib_{n - 1}\right) \frac{x^n}{[n]_q!}.
     \end{gather}
     Define $q$-structure $\alpha_q$, which takes as input a finite vector space $V$ of
-    $\textbf{F}_q$ and outputs a finite set $\alpha_q(V)$, with the property that $|\alpha_q(V)| =
-    |\alpha_q(U)|$ whenever $|V| = |U|$. Let $\alpha_q, \beta_q$ be $q$-structures. Define the
-    addition and multiplication of $q$-structures to be
+    $\textbf{F}_q$ and outputs a finite vector space $\alpha_q(V)$, with the property that $\dim
+    \alpha_q(V) = \dim \alpha_q(U)$ whenever $\dim V = \dim U$. Let $\alpha_q, \beta_q$ be
+    $q$-structures. Define the addition and multiplication of $q$-structures to be
     \begin{gather*}
-      (\alpha_q + \beta_q)(V) = \alpha_q(V) \sqcup \beta_q(V) \\
-      (\alpha_q \cdot \beta_q)(V) = \bigsqcup_{S \text{ subspace of } V} \alpha_q(S) \times \beta_q(S^{\bot}). 
+      (\alpha_q + \beta_q)(V) = \alpha_q(V) \oplus \beta_q(V) \\
+      (\alpha_q \cdot \beta_q)(V) = \bigoplus_{S \text{ subspace of } V} \alpha_q(S) \otimes \beta_q(S^{\bot}). 
     \end{gather*}
     Define the $q$-EGF associated to structure $\alpha_q$ to be
     \[
-      E_{q_{\alpha}}(x) = \sum_{n \geq 0} |\alpha(\textbf{F}_q^n)|\frac{x^n}{[n]_q!}.
+      E_{q_{\alpha}}(x) = \sum_{n \geq 0} \dim \alpha_q(\textbf{F}_q^n) \frac{x^n}{[n]_q!}.
     \]
     We show that
     \[
       E_{\alpha_q + \beta_q}(x) = E_{\alpha_q}(x) + E_{\beta_q}(x), \quad E_{\alpha_q \cdot \beta_q}(x) = E_{\alpha_q}(x)E_{\beta_q}(x).
     \]
-    For the sum, we have $|(\alpha + \beta)(\textbf{F}_q^n)| = |(\alpha)(\textbf{F}_q^n)| +
-    |(\beta)(\textbf{F}_q^n)|$, which is the coefficient of $E_{\alpha_q}(x) + E_{\beta_q}(x)$ by (5). On
-    the other hand , we have 
+    For the sum, we have $\dim (\alpha_q + \beta_q)(\textbf{F}_q^n) = \dim \alpha_q(\textbf{F}_q^n)
+    + \dim \beta_q(\textbf{F}_q^n)$, which is the coefficient of $E_{\alpha_q}(x) + E_{\beta_q}(x)$
+    by (5). On the other hand , we have 
     \[
-      |(\alpha \cdot \beta)(\textbf{F}_q^n)| = \sum_{S \text{ subspace of } \textbf{F}_q^n} |\alpha(S)| \cdot |\beta(S^{\bot})| = \sum_{i = 0}^n \begin{bmatrix}
+      |(\alpha_q \cdot \beta_q)(\textbf{F}_q^n)| = \sum_{S \text{ subspace of } \textbf{F}_q^n} \dim \alpha_q(S) \cdot \dim \beta_q(S^{\bot}) = \sum_{i = 0}^n \begin{bmatrix}
         n \\
         i
-      \end{bmatrix}_q |\alpha(\textbf{F}_q^i)| \cdot |\beta(\textbf{F}_q^{n - i})|.
+      \end{bmatrix}_q \dim \alpha_q(\textbf{F}_q^i) \cdot \dim \beta_q(\textbf{F}_q^{n - i}).
     \]
     for the product, which is the coefficient of $E_{\alpha_q}(x)E_{\beta_q}(x)$ by (6).
   \end{proof}
