@@ -485,7 +485,7 @@
       \begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=1cm, semithick]
         \def\n{8}
     
-        \def\radius{7}
+        \def\radius{3}
     
         \node (v0) at ({2*360/\n}:\radius) {$000$};
         \node (v1) at ({3*360/\n}:\radius) {$001$};
@@ -496,37 +496,22 @@
         \node (v6) at ({8*360/\n}:\radius) {$110$};
         \node (v7) at ({1*360/\n}:\radius) {$111$};
 
-        \path (v0) edge [loop above] node {} (v0)
-              (v0) edge [bend left=5] node {} (v1)
-              (v0) edge [bend left=5] node {} (v2)
-              (v0) edge [bend left=5] node {} (v3)
+        \path (v0) edge [bend left=5] node {} (v1)
               (v0) edge [bend left=5] node {} (v4)
-              (v0) edge [bend left=5] node {} (v5)
-              (v0) edge [bend left=5] node {} (v6)
               (v0) edge [bend left=5] node {} (v7)
 
               (v1) edge [bend left=5] node {} (v0)
-              (v1) edge [bend left=5] node {} (v2)
-              (v1) edge [bend left=5] node {} (v4)
               (v1) edge [bend left=5] node {} (v6)
 
-              (v2) edge [bend left=5] node {} (v0)
-              (v2) edge [bend left=5] node {} (v1)
-              (v2) edge [bend left=5] node {} (v4)
               (v2) edge [bend left=5] node {} (v5)
 
-              (v3) edge [bend left=5] node {} (v0)
               (v3) edge [bend left=5] node {} (v4)
 
               (v4) edge [bend left=5] node {} (v0)
-              (v4) edge [bend left=5] node {} (v1)
-              (v4) edge [bend left=5] node {} (v2)
               (v4) edge [bend left=5] node {} (v3)
 
-              (v5) edge [bend left=5] node {} (v0)
               (v5) edge [bend left=5] node {} (v2)
 
-              (v6) edge [bend left=5] node {} (v0)
               (v6) edge [bend left=5] node {} (v1)
 
               (v7) edge [bend left=5] node {} (v0)
@@ -598,11 +583,21 @@
     \[
       \alpha(S) = S
     \]
-    which outputs the possible leader of a committee $S$. Then, $e^{\alpha}$ can be interpreted as
-    the set of possible committee divisions of $n$ people, with each committee having a leader.
-    Hence,
+    which outputs the ways to pick an element from the input set $S$. Hence, if $S$ is the set of
+    committee members, $\alpha(S)$ is the set of ways to select a leader from $S$. On the other
+    hand, if $S$ is the set of committees, $\alpha(S)$ is the set of ways to choose a leading
+    committee. 
+
+    According to our rules, for each partition of $n$ people, we apply the $\alpha$ structure to
+    each block of people to choose a leader, then we apply $\alpha$ to the partition as a whole to
+    choose the leading committee. But then this is just $\alpha \circ \alpha([n])$, and so $H(x) =
+    E_{\alpha \circ \alpha}$. Since
     \[
-      H(x) = E_{e^{\alpha}} = \exp(E_{\alpha}(x)) = \exp\left(\sum_{n \geq 0} \frac{nx^n}{n!}\right) = \exp\left(\sum_{n \geq 1} \frac{x^n}{(n - 1)!}\right) = \exp(xe^x).
+      E_{\alpha}(x) = \sum_{n \geq 0} \frac{nx^n}{n!} = \sum_{n \geq 1} \frac{x^n}{(n - 1)!} = xe^x,
+    \]
+    it now follows that
+    \[
+      H(x) = E_{\alpha \circ \alpha} = E_{\alpha}\left(xe^x\right) = xe^xe^{xe^x} = xe^{x(1 + e^x)}.
     \]
   \end{proof}
 \end{homeworkProblem}
