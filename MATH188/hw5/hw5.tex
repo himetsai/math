@@ -242,7 +242,28 @@
     interpretation works, including how the length of the walk relates to the length of the binary
     string.
     \begin{proof}
+      Consider a directed graph $G$ where the vertex set $V = [k + 1]$ and the edge set
+      \[
+        E = \{(i, j) : j \geq i \text{ and } i, j \in [k + 1]\}.
+      \]
+      We show that 
+      \[
+        \# \text{binary strings with exactly } k \text{ zeros and } n + 1 \text{ ones} = \# \text{walks on } G \text{ of length $n$}.
+      \]
+      Given a binary strings $S$ with exactly $k$ zeros and $n + 1$ ones, we may construct an
+      increase sequence $W$ of integers in $[k + 1]$, where the number of $i$'s in $W$ is the number
+      of 1's between the after the $(i - 1)$th 0 or before the $i$th 0 of $S$ (they are the same
+      unless $i = 1$ or $k + 1$). Since $W$ is increasing, each consecutive pair of numbers in $W$
+      corresponds to precisely one edge in $G$, and thus $W$ is a well-defined walk on $G$. Since
+      $W$ is a sequence of length $n + 1$, it corresponds to a walk of length $n$.
       
+      Now suppose we have a walk $W'$ of length $n$ on $G$. We may consider $W'$ as a increasing
+      sequence with length $n + 1$ of integers in $[k + 1]$. Since $W'$ is an increasing sequence,
+      there is a unique binary string $S'$ with $k$ zeros and $n + 1$ ones, where the number of 1's
+      after the $(i - 1)$th 0 or before the $i$th 0 of $S$ is the number of $i$'s in $W$. 
+      
+      Since the two described operations are inverses of each other, the equality above holds, and a
+      walk of length $n$ corresponds to a binary string of length $n + k + 1$.
     \end{proof}
     \item Construct a directed graph for which walks (between certain vertices) can be interpreted
     as binary strings in which no symbol ever appears 3 times in a row. Explain clearly how this
@@ -252,25 +273,48 @@
       Consider the following graph $G$:
       \begin{center}
         \begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=2cm, semithick]
-      
-        \node (A)          {$v_0$};
-        \node (B) [right of=A, xshift=20pt] {$v_1$};
-        \node (A') [below of=A, yshift=-20pt] {$v_0'$};
-        \node (B') [below of=B, yshift=-20pt] {$v_1'$};
+
+        \node (A)          {$0$};
+        \node (B) [below of=A, yshift=-20pt] {$1$};
+        \node (A') [right of=A, xshift=20pt] {$00$};
+        \node (B') [below of=A', yshift=-20pt] {$11$};
       
         \path (A) edge [left=20, above, bend left=10] node {} (B)
               (B) edge [left=20, above, bend left=10] node {} (A)
-              (A) edge [left=20, above] node {} (A')
-              (B) edge [left=20, above] node {} (B')
-              (A') edge [left=20, above] node {} (B)
-              (B') edge [left=20, above] node {} (A)
+              (A') edge [left=20, above, bend left=10] node {} (B)
+              (B) edge [left=20, above, bend left=10] node {} (A')
+              (B') edge [left=20, above, bend left=10] node {} (A)
+              (A) edge [left=20, above, bend left=10] node {} (B')
+              (A') edge [left=20, above, bend left=10] node {} (B')
+              (B') edge [left=20, above, bend left=10] node {} (A')
         ;
         \end{tikzpicture}
       \end{center}
-      We now show a bijection between the walks in $G$ and the binary strings in which no symbol
-      ever appears 3 times in a row. 
+      We show that 
+      \[
+        \# \text{binary strings without $000$ and $111$} = \# \text{walks on } G.
+      \]
+      Suppose we have a binary string $S$ without $000$ and $111$, say $s_1s_2 \ldots s_n$. We
+      inductively construct a walk $W = w_1w_2, \dots w_m$ on $G$ in the following way: Put $w_1 =
+      s_1$. Suppose we obtain a walk $W' = w_1\ldots w_l$ after going through $s_1, \dots, s_{k -
+      1}$, for some $k \geq 2$. If $w_l = s_k$, replace $w_l$ with the vertex $s_ks_k$. Notice that
+      since $S$ does not contain $s_ks_ks_k$, $w_{l - 1} \neq s_k$ in this case, as thus $(w_{l -
+      1}, w_l)$ is an edge in $G$. Otherwise, of $w_l \neq s_k$, append a new vertex $w_{l + 1} =
+      s_k$ to $W$, and obviously $(w_{l}, w_{l + 1})$ is an edge in $G$. Since each choice of edge
+      in the inductive step is unique and valid, $W$ is a well-defined walk on $G$. In each
+      inductive step $k$, we only extend the length of $W$ by one when $s_k \neq s_{k - 1}$, and
+      thus $W$ contains $n - r$ vertices, where $r$ is the number of $00$ and $11$ in $S$. 
 
-      Given a walk in $G$, 
+      Now suppose we have a walk $X$ with $n - r$ vertices on $G$, where $r$ is the number of $00$
+      and $11$'s in $X$. We may convert $X$ to a binary string $T$ by concatenating the
+      corresponding of each vertex in $X$. Since $X$ does not contain edges $(0, 00), (00, 0), (1,
+      11), (11, 1)$, $T$ is unique and does not contain $000$ and $111$, and thus $T$ is well
+      defined. Since $X$ contains $r$ number of vertices $00$ and $11$'s, $T$ has length $(n - r) +
+      r = n$.
+
+      The two described operations are obvisouly inverses of each other, so the equality holds and a
+      walk of length $n - r - 1$ corresponds to a binary string of length $n$ without $000$ and
+      $111$.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -431,7 +475,16 @@
   interpreted as balanced sets of $n$ pairs of parentheses.
 
   \begin{proof}
-    
+    Suppose not. We have a graph $G$ for which the number of walks of length $2n$ equals to $C_n$,
+    the $n$th Catalan number. Let $A$ be the transition matrix of $G$. The number of length $2n$
+    walks on $G$ is the sum of all entries of $A^{2n}$. Hence, the generating function for walks of
+    even length is 
+    \[
+      W(x) = \sum_{i, j} \sum_{k \geq 0} (A^{2k})_{i, j}x^k = \sum_{i, j} F_{A^2; i, j}(x).
+    \]
+    By Theorem 4.9, $F_{A^2; i, j}(x)$ is a rational generating function, which makes $W(x)$ also
+    rational. But then by Remark 2.30, $C(x) = \sum_{n \geq 0} C_nx^n$ is not a rational generating
+    function, contradiction.
   \end{proof}
 \end{homeworkProblem}
 
@@ -484,6 +537,8 @@
     \begin{center}
       \begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=1cm, semithick]
         \def\n{8}
+
+        \def\c{5}
     
         \def\radius{3}
     
@@ -496,25 +551,25 @@
         \node (v6) at ({8*360/\n}:\radius) {$110$};
         \node (v7) at ({1*360/\n}:\radius) {$111$};
 
-        \path (v0) edge [bend left=5] node {} (v1)
-              (v0) edge [bend left=5] node {} (v4)
-              (v0) edge [bend left=5] node {} (v7)
+        \path (v0) edge [bend left=\c] node {} (v1)
+              (v0) edge [bend left=\c] node {} (v4)
+              (v0) edge [bend left=\c] node {} (v7)
 
-              (v1) edge [bend left=5] node {} (v0)
-              (v1) edge [bend left=5] node {} (v6)
+              (v1) edge [bend left=\c] node {} (v0)
+              (v1) edge [bend left=\c] node {} (v6)
 
-              (v2) edge [bend left=5] node {} (v5)
+              (v2) edge [bend left=\c] node {} (v5)
 
-              (v3) edge [bend left=5] node {} (v4)
+              (v3) edge [bend left=\c] node {} (v4)
 
-              (v4) edge [bend left=5] node {} (v0)
-              (v4) edge [bend left=5] node {} (v3)
+              (v4) edge [bend left=\c] node {} (v0)
+              (v4) edge [bend left=\c] node {} (v3)
 
-              (v5) edge [bend left=5] node {} (v2)
+              (v5) edge [bend left=\c] node {} (v2)
 
-              (v6) edge [bend left=5] node {} (v1)
+              (v6) edge [bend left=\c] node {} (v1)
 
-              (v7) edge [bend left=5] node {} (v0)
+              (v7) edge [bend left=\c] node {} (v0)
         ;
       \end{tikzpicture}
     \end{center}
