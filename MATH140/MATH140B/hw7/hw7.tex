@@ -1,0 +1,401 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{May 29, 2024}
+\newcommand{\hmwkClass}{MATH 140B}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{{#1}}
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Let $K$ be the unit circle in the complex plane (i.e., the set of all $z$ with $|z| = 1$), and let
+  $\mathscr{A}$ be the algebra of all functions of the form
+  \[
+    f(e^{i\theta}) = \sum_{n=0}^N c_n e^{in\theta} \quad (\theta \text{ real}).
+  \]
+  Then $\mathscr{A}$ separates points on $K$ and $\mathscr{A}$ vanishes at no point of $K$, but
+  nevertheless there are continuous functions on $K$ which are not in the uniform closure of
+  $\mathscr{A}$.
+
+  \textbf{Hint:} For every $f \in \mathscr{A}$
+  \[
+    \int_0^{2\pi} f(e^{i\theta}) e^{i\theta} \, d\theta = 0,
+  \]
+  and this is also true for every $f$ in the closure of $\mathscr{A}$.
+
+  \begin{proof}
+    Since $\mathscr{A}$ contains the identity function, $\mathscr{A}$ seperate points and vanishes
+    at no points of $K$. We now show that there exists functions not in the uniform closure of
+    $\mathscr{A}$. Suppose
+    \[
+      f(e^{i\theta}) = \sum_{n=0}^N c_n e^{in\theta}.
+    \]
+    Then, 
+    \begin{align*}
+      \int_0^{2\pi} f(e^{i\theta}) e^{i\theta} \, d\theta
+       &= \sum_{n=0}^N c_n \int_0^{2\pi} e^{in\theta} e^{i\theta} \, d\theta \\
+       &= \sum_{n=0}^N c_n \int_0^{2\pi} e^{(n + 1)i\theta} \, d\theta \\
+       &= \sum_{n=0}^N c_n \int_0^{2\pi} \cos((n + 1)\theta)  \, d\theta + \sum_{n=0}^N ic_n \int_0^{2\pi} \sin((n + 1)\theta)  \, d\theta \\
+       &= \sum_{n=0}^N \frac{c_n}{n + 1} \int_0^{2\pi(n + 1)} \cos(u)  \, du + \sum_{n=0}^N \frac{ic_n}{n + 1} \int_0^{2\pi(n + 1)} \sin(u)  \, du = 0.
+    \end{align*}
+    Now suppose $g$ is in the uniform closure of $\mathscr{A}$. There exists a sequence $\{f_m\}$ of
+    functions from $\mathscr{A}$ which converges to $g$ uniformly. Then,
+    \begin{align*}
+      \int_0^{2\pi} g(e^{i\theta}) e^{i\theta} \, d\theta
+       &= \lim_{m \to \infty} \int_0^{2\pi} f_m(e^{i\theta}) e^{i\theta} \, d\theta = 0.
+    \end{align*}
+    Now consider $g(e^{i\theta}) = e^{-i\theta}$. We have
+    \[
+      \int_0^{2\pi} g(e^{i\theta}) e^{i\theta} \, d\theta = \int_0^{2\pi} e^{-i\theta} e^{i\theta} \, d\theta = \int_0^{2\pi} d\theta = 2\pi.
+    \]
+    But then $g$ is not in the uniform closure of $\mathscr{A}$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Define
+  \[
+    f(x) = \begin{cases} 
+      e^{-1/x^2} & \text{if } x \neq 0, \\ 
+      0 & \text{if } x = 0.
+    \end{cases}
+  \]
+  Prove that $f$ has derivatives of all orders at $x = 0$ and that $f^{(n)}(0) = 0$ for $n = 1, 2, 3,
+  \dots$.
+
+  \begin{proof}
+    We proceed by induction on $n$ to show that
+    \[
+      f^{(n)}(x) = \begin{cases} 
+        p_n(1/x)e^{-1/x^2} & \text{if } x \neq 0, \\ 
+        0 & \text{if } x = 0,
+      \end{cases}
+    \]
+    where $p_n(1/x)$ is some polynomial function on $\frac{1}{x}$. Suppose $n = 1$. By
+    Theorem 8.6(f),
+    \[
+      f'(0) = \lim_{h \to 0} h^{-1}e^{-1/h^2} = 0.
+    \]
+    On the other hand, 
+    \[
+      f'(x) = 2x^{-3}e^{-1/x^2}
+    \]
+    if $x \neq 0$, and the base case is done. Now suppose $n \geq 2$. If $x = 0$,
+    \begin{align*}
+      f^{(n)}(0)
+      &= \lim_{h \to 0} h^{-1}(f^{(n - 1)}(h) - f^{(n - 1)}(0)) \\
+      &= \lim_{h \to 0} (h^{-1}p_{n - 1}(1/h))e^{-1/h^2} = 0,
+    \end{align*}
+    by induction and Theorem 8.6(f). If $n \neq 0$, by induction,
+    \begin{align*}
+      f^{(n)}(x)
+      &= (p_{n - 1}(1/x)e^{-1/x^2})' \\
+      &= (p_{n - 1}(1/x))'e^{-1/x^2} + p_{n - 1}(1/x)(e^{-1/x^2})' \\
+      &= \frac{1}{x}p'_{n - 1}(1/x)e^{-1/x^2} + 2x^{-3}p_{n - 1}(1/x)e^{-1/x^2} \\
+      &= p_{n}(1/x)e^{-1/x^2},
+    \end{align*}
+    for some polynomial $p_{n}(1/x)$.
+
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove the following limit relations:
+  \begin{enumerate}[(a)]
+    \item $\lim_{x \to 0} \frac{b^x - 1}{x} = \log b \quad (b > 0).$
+    \begin{proof}
+      By L'Hopital's rule,
+      \[
+        \lim_{x \to 0} \frac{b^x - 1}{x} = \lim_{x \to 0} \frac{e^{x\log b} - 1}{x} = \lim_{x \to 0} e^{x\log b}\log b = \log b.
+      \]
+    \end{proof}
+    \item $\lim_{x \to 0} \frac{\log(1 + x)}{x} = 1.$
+    \begin{proof}
+      By L'Hopital's rule,
+      \[
+        \lim_{x \to 0} \frac{\log(1 + x)}{x} = \lim_{x \to 0} \frac{1}{1 + x} = 1.
+      \]
+    \end{proof}
+    \item $\lim_{x \to 0} (1 + x)^{1/x} = e.$
+    \begin{proof}
+      By (b),
+      \[
+        \lim_{x \to 0} (1 + x)^{1/x} = \lim_{x \to 0} e^{\frac{\log (1 + x)}{x}} = e.
+      \]
+    \end{proof}
+    \item $\lim_{n \to \infty} \left(1 + \frac{x}{n}\right)^n = e^x.$
+    \begin{proof}
+      Fix $x$. Put $y = \left(1 + \frac{x}{n}\right)^n$. Then,
+      \[
+        \lim_{n \to \infty} \log y = \lim_{n \to \infty} n\log\left(1 + \frac{x}{n}\right).
+      \]
+      By L'Hopital's rule,
+      \begin{align*}
+        \lim_{n \to \infty} n\log\left(1 + \frac{x}{n}\right) 
+        &= \lim_{n \to \infty} \frac{\log\left(1 + \frac{x}{n}\right)}{\frac{1}{n}} \\
+        &= \lim_{a \to 0} \frac{\log\left(1 + ax\right)}{a} \\
+        &= \lim_{a \to 0} \frac{x}{1 + ax} = x.
+      \end{align*}
+      It now follows that
+      \[
+        \lim_{n \to \infty} \left(1 + \frac{x}{n}\right)^n = e^{\log y} = e^x.
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item $\lim_{x \to 0} \frac{e -(1 + x)^{1/x}}{x}.$
+    \begin{proof}
+      Exercise 4(c) shows that $\lim_{x \to 0} (1 + x)^{1/x} = e$, and so we may apply L'Hopital's
+      rule, and get
+      \[
+        \lim_{x \to 0} \frac{e -(1 + x)^{1/x}}{x} = \lim_{x \to 0} -\left(\frac{1}{x}\log(1 + x)\right)'(1 + x)^{1/x} = e\lim_{x \to 0} \frac{\log(1 + x) - \frac{x}{1 + x}}{x^2}.
+      \]
+      Again by L'Hopital's rule
+      \[
+        e\lim_{x \to 0} \frac{\log(1 + x) - \frac{x}{1 + x}}{x^2} = e\lim_{x \to 0} \frac{1}{2(1 + x)^2} = e/2.
+      \]
+    \end{proof}
+    \item $\lim_{n \to \infty} \frac{n}{\log n} \left(n^{1/n} - 1\right).$
+    \begin{proof}
+      We first note that $\frac{\log n}{n} \to 0$ as $n \to \infty$. Hence,
+      \[
+        \lim_{n \to \infty} \frac{n}{\log n} \left(n^{1/n} - 1\right) = \lim_{n \to \infty} \frac{e^{\frac{\log n}{n}} - 1}{\frac{\log n}{n}} = \lim_{a \to 0} \frac{e^{a} - 1}{a}.
+      \]
+      But then this is just the derivative of $e^x$ at $x = 0$, which is $1$.
+    \end{proof}
+    \item $\lim_{x \to 0} \frac{\tan x - x}{x(1 - \cos x)}.$
+    \begin{proof}
+      We apply L'Hopital's rule three times and get,
+      \begin{align*}
+        \lim_{x \to 0} \frac{\tan x - x}{x(1 - \cos x)}
+        &= \lim_{x \to 0} \frac{\sin x - x\cos x}{x\cos x(1 - \cos x)} \\
+        &= \lim_{x \to 0} \frac{x\sin x}{(\cos x - x\sin x)(1 - \cos x) + x\cos x\sin x} \\
+        &= \lim_{x \to 0} \frac{\sin x+x\cos x}{-2x\sin^2 x +\left(4\cos x - 2\right)\sin x +2x\cos^2 x -x\cos x} \\
+        &= \lim_{x \to 0} \frac{2\cos x -x\sin x}{-6\sin^2 x +\left(x-8x\cos x\right)\sin x +6\cos^2 x -3\cos x} \\
+        &= \frac{2}{3}.
+      \end{align*}
+    \end{proof}
+    \item $\lim_{x \to 0} \frac{x - \sin x}{\tan x - x}.$
+    \begin{proof}
+      We apply L'Hopital's rule three times and get,
+      \begin{align*}
+        \lim_{x \to 0} \frac{x - \sin x}{\tan x - x}
+        &= \lim_{x \to 0} \frac{x\cos x - \cos x \sin x}{\sin x - x\cos x} \\
+        &= \lim_{x \to 0} \frac{\sin^2 x -x\sin x -\cos^2 x +\cos x}{x \sin x} \\
+        &= \lim_{x \to 0} \frac{(4 \cos x - 2)\sin x - x \cos x}{\sin x + x \cos x} \\
+        &= \lim_{x \to 0} \frac{-4\sin^2 x +x\sin x +4\cos^2 x -3\cos x}{2\cos x -x\sin x} = \frac{1}{2}.
+      \end{align*}
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f(x)f(y) = f(x + y)$ for all real $x$ and $y$.
+  \begin{enumerate}[(a)]
+      \item Assuming that $f$ is differentiable and not zero, prove that
+      \[
+        f(x) = e^{cx},
+      \]
+      where $c$
+      is a constant.
+      \begin{proof}
+        It is obvious that for $x \neq 0$, $f(x) = f(x)f(0)$, so $f(0) = 1$. We also note that
+        \[
+          f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} = f(x)\lim_{h \to 0} \frac{f(h) - 1}{h} = f'(0)f(x).
+        \]
+        Let $c = f'(0)$ and consider $g(x) = e^{cx}f(-x)$. Since $g(0) = 1$ and
+        \[
+          g'(x) = ce^{cx}f(-x) - e^{cx}f'(0)f(-x) = e^{cx}f(-x)(c - f'(0)) = 0,
+        \]
+        we have $g(x) = 1$ for all $x$. But then
+        \[
+          e^{cx}f(-x) = f(0) = f(x)f(-x).
+        \]
+        Since $f$ is non zero,
+        \[
+          e^{-cx} = f(x).
+        \]
+      \end{proof}
+      \item Prove the same thing, assuming only that $f$ is continuous.
+      \begin{proof}
+        Given $r = p/q \in \Q$, we have 
+        \[
+          f(r) = f\left(p \cdot \frac{1}{q}\right) = (f(1/q))^n = (f(1)^{1/q})^p = (f(1))^r.
+        \]
+        Hence, 
+        \[
+          \log f(r) = r \log f(1).
+        \]
+        Put $c = \log f(1)$. Then,
+        \[
+          f(r) = e^{\log f(r)} = e^{cr},
+        \]
+        so $f(r) = e^{cr}$ for $r \in \Q$. Now for $x \in \R$, we have
+        \[
+          e^{cx} = \sup e^{cr} = \sup f(r) = f(x) \quad (r < x, r \in \Q)
+        \]
+        as $\Q$ is dense in $\R$ and $f$ is continuous.
+      \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+\end{document}
