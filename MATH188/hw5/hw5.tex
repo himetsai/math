@@ -424,46 +424,18 @@
   \begin{proof}
     For each $f: [n] \to [n]$, we associate a directed graph $G_f$ with vertex set $[n]$ and edge
     set $\{(i, j) : f(i) = j\}$. Suppose $f \circ f = f$. Say we have $i, j \in [n]$ such that $f(i)
-    = j$. Then, $f(j) = f(f(i)) = f(i) = j$. But then each connected component in $G$ are of either
-    of the following form:
-    \begin{multicols}{2}
-      \begin{center}
-        \begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=1cm, semithick]
-  
-          \node (A)          {$i$};
-        
-          \path (A) edge [loop above] node {} (A)
-          ;
-        \end{tikzpicture}
-  
-        \columnbreak
-  
-        \begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=1cm, semithick]
-    
-          \node (A)          {$i$};
-          \node (B) [right of=A, xshift=20pt] {$j$};
-        
-          \path (A) edge [left=20, above] node {} (B)
-                (B) edge [loop above] node {} (B)
-          ;
-        \end{tikzpicture}
-      \end{center}
-    \end{multicols}
-    Hence, $G_f$ is partitioned into components of sizes 1 or 2. Note that given a component of
-    $G_f$ of size 2, there are 2 possible orientations. Now define structure
-    \[
-      \alpha(S) = \begin{cases}
-        S & \text{if } |S| = 1 \text{ or } 2 \\
-        \emptyset & \text{otherwise}
-      \end{cases},
-    \]
-    which picks out the components which could be in $G_f$, with each element in $\alpha(S)$ being
-    the vertex in the component which self-loops. Then, $e^{\alpha}([n])$ can be interpreted as the
+    = j$. Then, $f(j) = f(f(i)) = f(i) = j$. That is, any vertex with an incoming edge cannot have
+    an outgoing edge to another vertex. Hence, given a component $C \subseteq G_f$ of size $n$, $C$
+    is of the form of a star, where all vertex points in the component point to a $sink$ vertex.
+    Since there are $n$ vertices in $C$, there are $n$ ways to pick the $sink$ vertex, and thus $C$
+    has $n$ possible configurations. This allows us to define structure $\alpha(S) = |S|$, which
+    picks out the components that could be in $G_f$, with each element in $\alpha(S)$ being the
+    $sink$ vertex of a component of size $|S|$. Then, $e^{\alpha}([n])$ can be interpreted as the
     set of possible graphs $G_f$, where $f: [n] \to [n]$ such that $f \circ f = f$. Thus,
     $e^{\alpha}([n])$ is also interpreted as the set of $f: [n] \to [n]$ such that $f \circ f = f$.
     It now follows that
     \[
-      A(x) = E_{e^{\alpha}}(x) = \exp(E_{\alpha}(x)) = \exp\left(x^2 + x\right) = e^{x^2}e^x.
+      A(x) = E_{e^{\alpha}}(x) = \exp(E_{\alpha}(x)) = \exp\left(\sum_{n \geq 1} \frac{x^n}{(n - 1)}\right) = e^{xe^x}.
     \]
   \end{proof}
 \end{homeworkProblem}
