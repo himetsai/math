@@ -307,13 +307,13 @@ return $A[n]$. \\
 	Suppose $n = 1$. Since 1 is a square number, $A[1] = 1$, which is obviously equal to $\delta(1)$.
 
 	Now suppose $n \geq 2$. Assume that $A[i] = \delta(i)$ for all $i < n$. We may also assume that
-	$i$ is not a square number, otherwise $A[i] = 1 = \delta(i)$ and we are done. Let $c_1, \dots,
-	c_{\delta(n)}$ such that each $c_j$ is a square number and $c_1 + \cdots + c_{\delta(n)} = n$. By
-	induction, $A[n - c_{\delta(n)}] = \delta(n - c_{\delta(n)})$. But then note that $\delta(n) \geq
-	\delta(n - c_{\delta(n)}) + 1$, otherwise $c_1, \cdots, c_{\delta(n) - 1}$ sums up to $n -
-	c_{\delta(n)}$ with less than $\delta(n - c_{\delta(n)})$ coins, contradiction. Since $A[n]$ is
-	the minimum of $A[n - s]$ for all square number $s$, we have $A[n] \leq A[n - c_1] + 1$. Combining
-	all inequalities, we get
+	$n$ is not a square number, otherwise $A[n] = 1 = \delta(n)$ and we are done. Hence, we have
+	$\delta(n) > 1$. Let $c_1, \dots, c_{\delta(n)}$ such that each $c_j$ is a square number and $c_1
+	+ \cdots + c_{\delta(n)} = n$. By induction, $A[n - c_{\delta(n)}] = \delta(n - c_{\delta(n)})$.
+	But then note that $\delta(n) \geq \delta(n - c_{\delta(n)}) + 1$, otherwise $c_1, \cdots,
+	c_{\delta(n) - 1}$ sums up to $n - c_{\delta(n)}$ with less than $\delta(n - c_{\delta(n)})$
+	coins, contradiction. Since $A[n]$ is the minimum of $A[n - s]$ for all square number $s$, we have
+	$A[n] \leq A[n - c_1] + 1$. Combining all inequalities, we get
 	\[
 		A[n] \leq A[n - c_1] + 1 = \delta(n - c_1) + 1 \leq \delta(n) \leq A[n],
 	\]
