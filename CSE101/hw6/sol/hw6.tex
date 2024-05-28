@@ -1,0 +1,362 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage[margin=1in]{geometry}
+
+\newcommand{\st}{~\mid~}
+\newcommand{\ind}{$~~~$}
+\usepackage{xcolor}
+
+\graphicspath{ {./../images} }
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{May 30, 2024}
+\newcommand{\hmwkClass}{CSE 101}
+\newcommand{\hmwkClassInstructor}{Professor Jones}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Let $G$ be an directed acyclic graph with vertex set $V$ and edge set $E$.
+
+	Design a (recursive) backtracking algorithm that counts the number of topological orderings of the
+	vertices in $V$. \\
+
+	\textbf{Algorithm Description:} 
+		
+	First initialize set $T$ which would store the resulting orderings. If $|V| = 0$, return an empty
+	set. Construct a list $in$ such that $in[v]$ is the indegree of vertex $v$ in $G$, for all $v \in
+	V$. For each $v \in V$ with $in[v] = 0$, recurse on the graph $G - \{v\}$ to obtain a set of
+	topological orderings $T_v$. Then, for each ordering $S$ in $T_v$, add $[v] + S$ to $T$. Return
+	$T$ after we have iterated through all possible $v$'s. \\
+
+	\textbf{Proof of Correctness:} 
+
+	\begin{proof}
+		Let $Top(G)$ denote the result of the algorithm after running on graph $G$, and let
+		$\mathcal{T}(G)$ denote the set of all topological orderings of $G$. We proceed by induction on
+		$n$ to show that $Top(H) = \mathcal{T}(H)$, for all subgraph $H \subseteq G$ with $n$ vertices. 
+		
+		The base case is trivial, as $Top(H)$ simply returns the empty list when $H$ has no vertices,
+		which is obviously $\mathcal{T}(H)$.
+		
+		Suppose $n \geq 1$. Assume that for all subgraph $H' \subseteq G$ with less than $n$ vertices,
+		$Top(H') = \mathcal{T}(H')$. Let $H$ be a subgraph of $G$ with $n$ vertices. 
+		
+		For all $L \in Top(H)$, we have $L = v + L'$, where $v$ is an vertex of $H$ and $L' \in Top(H -
+		\{v\})$. By induction, $L' \in \mathcal{T}(H - \{v\})$, and thus $L \in \mathcal{T}(H)$, as $v$
+		has indegree 0 in $H$.
+		
+		Now suppose $S \in \mathcal{T}(H)$. $S$ starts with a vertex $u \in H$ with indegree 0 in $H$.
+		By induction, $S - [u] \in \mathcal{T}(H - \{u\}) = Top(H - \{u\})$. Since $in[u] = 0$ in $H$,
+		the outer loop in the algorithm runs through $u$, which then includes $S = [u] + (S - [u])$ in
+		the outputing set during the inner loop. Hence, $S \in Top(G)$. 
+		
+		It now follows that $\mathcal{T}(H) = Top(H)$, and this completes the induction. Obviously, $G$
+		is a subgraph of $G$, and hence the result.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Recall the electric car problem but this time, each battery also has a price $p[i]$ to replace:
+
+	\begin{quote}
+	Suppose you are driving along a road in an electric car. The battery of the electric car can bring
+	you $x[0]$ miles. There are battery stations along the way at positive positions $D[1],\dots D[n]$
+	(in sorted order.) Each battery station can  \emph{replace} your battery and give you a new
+	battery that can bring you a certain number of miles. The distances of the batteries are given in
+	the array $x[0],x[1],\dots,x[n-1]$ and the price of each battery to replace is
+	$p[1],\dots,p[n-1]$.
+
+	You wish to start at position $0$ with a full battery and end at position $D[n]$ by replacing
+	batteries with the minimum total cost.
+	\end{quote}
+
+
+	\begin{enumerate}[(a)]
+	\item Recall the following greedy algorithm that worked in homework 4:
+
+	\begin{quote}
+	{\bf Candidate Greedy Strategy III:} 
+
+	Travel to the battery station with the largest $D[i] + x[i]$ value (in other words, the battery
+	that can take you the farthest down the road.) Replace the battery at that station and repeat the
+	process starting from that station until you can reach position $D[n]$ and then go directly there.
+	\end{quote}
+
+	Give a counterexample as to why this does not always give you the optimal solution.
+
+	\item Design a \emph{reduction} algorithm that uses Dijkstra's algorithm. Compute the time
+	analysis in terms of the number of battery stations $n$.
+
+	4 points for correct high level algorithm.\\
+	3 points for runtime analysis.\\
+	(No proof of correctness)
+
+	(Your algorithm should run in $O(n^2)$ time.)
+
+
+	\item Design a DP tabulation algorithm by ordering the subproblems from $n$ to $0$: (step 1 and 4 have been done for you)
+
+	\begin{quote}
+	1: Define the subproblems:
+	\begin{quote}
+	Let $G[k]$ be defined to be the minimum price it takes to get to battery station $n$ assuming you
+	start at battery station $k$ with the battery from battery station $k$.
+	\end{quote}
+
+	2: Define and evaluate the base cases
+
+	3: Establish the recurrence for the tabulation.
+
+	4: Determine the order of subproblems:
+	\begin{quote}
+	Order the subproblems from $n$ to $0$.
+	\end{quote}
+
+	5: Final form of output.
+
+	6: Put it all together as pseudocode
+
+	7: Runtime analysis
+	\end{quote}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	In the kingdom of Dynamoprogamia, a law was passed that the currency used in the Kingdom would be
+	in the denominations of perfect square numbers (i.e. in denominations of 1, 4, 9, 16, 25 and so
+	on). You can assume the denominations can go as large as you want it to go as long as it's a
+	perfect square number. Let's call this currency Square-Dollars. A money lender in this Kingdom
+	wants to lend money to his customers in such a way that he gives them the least number of coins
+	possible. 
+\begin{enumerate}[(a)]
+\item The greedy strategy for this: “Pick the maximum denomination that's less than \emph{or equal
+to} the amount you need to lend and subtract it from the amount you need to lend. Continue this
+process until you're left with nothing else to lend.” Provide a counter example for this.
+
+\begin{proof}
+	Consider the case 18. The algorithm picks $16$ first, which leaves us $18 - 16 = 2$. But then $2$
+	is not a square number, so in total this strategy uses more than 2 coins to lend 18
+	Square-Dollars. But then $18$ can be lent with two 9-dollar coins.
+\end{proof}
+
+\item Devise a Dynamic programming-based algorithm that returns the minimum number of coins needed
+to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})$ time.) \\
+
+\textbf{Algorithm Description:}
+
+Initialize a list $[A[1], \dots, A[n]]$ such that $A[i] = \begin{cases} 
+	1 & \text{if } \sqrt{i} \in \N \\
+	i & \text{otherwise} 
+\end{cases}$, for all $1 \leq i \leq n$. For each positive integer $i \leq n$, loop through each
+square number $s \leq i$, and make $A[i] = \min(A[i - s] + 1, A[i])$. At the end of the algorithm,
+return $A[n]$. \\
+
+\textbf{Proof of Correctness:}
+
+\begin{proof}
+	Let $\delta(n)$ denote the minimum number of coins needed to lend $n$ Square-Dollars. We proceed
+	by induction on $n$ to show that $A[n] = \delta(n)$.
+
+	Suppose $n = 1$. Since 1 is a square number, $A[1] = 1$, which is obviously equal to $\delta(1)$.
+
+	Now suppose $n \geq 2$. Assume that $A[i] = \delta(i)$ for all $i < n$. We may also assume that
+	$i$ is not a square number, otherwise $A[i] = 1 = \delta(i)$ and we are done. Let $c_1, \dots,
+	c_{\delta(n)}$ such that each $c_j$ is a square number and $c_1 + \cdots + c_{\delta(n)} = n$. By
+	induction, $A[n - c_{\delta(n)}] = \delta(n - c_{\delta(n)})$. But then note that $\delta(n) \geq
+	\delta(n - c_{\delta(n)}) + 1$, otherwise $c_1, \cdots, c_{\delta(n) - 1}$ sums up to $n -
+	c_{\delta(n)}$ with less than $\delta(n - c_{\delta(n)})$ coins, contradiction. Since $A[n]$ is
+	the minimum of $A[n - s]$ for all square number $s$, we have $A[n] \leq A[n - c_1] + 1$. Combining
+	all inequalities, we get
+	\[
+		A[n] \leq A[n - c_1] + 1 = \delta(n - c_1) + 1 \leq \delta(n) \leq A[n],
+	\]
+	which yields $A[n] = \delta(n)$.
+\end{proof}
+
+\textbf{Runtime Analysis:}
+
+\begin{proof}
+	Initializing $A$ takes $O(n)$ time. Note that there are at most $\sqrt{i}$ square number $s \leq
+	i$, for all $i \in \Z^+$. Hence, for each positive integer $i \leq n$, looping through all square
+	number takes $O(\sqrt{n})$ time, and thus the outer loop which iterates through all $i \leq n$
+	takes $O(n^{1.5})$ time. In total, the algorithm takes $O(n^{1.5} + n) = O(n^{1.5})$ time.
+\end{proof}
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	You are given an $n\times n$ matrix of 0's and 1's: $(A_{i,j})_{1\leq i \leq n,~1\leq j \leq n}$
+
+	Design a DP tabulation algorithm that finds the length of a side of the largest square entirely
+	made of 1's: (step 1 has been done for you)
+
+	\begin{quote}
+	1: Define the subproblems:
+	\begin{quote}
+	Let $S[i,j]$ be defined to be the length of the side of the largest square entirely made of 1's
+	with bottom right corner at entry $[i,j]$
+	\end{quote}
+
+	2: Define and evaluate the base cases
+
+	3: Establish the recurrence for the tabulation.
+
+	4: Determine the order of subproblems:
+
+	5: Final form of output.
+
+	6: Put it all together as pseudocode
+
+	7: Runtime analysis
+\end{quote}
+\end{homeworkProblem}
+\end{document}
