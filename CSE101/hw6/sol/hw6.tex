@@ -268,7 +268,9 @@
 
 	2: Define and evaluate the base cases
 	\begin{quote}
-		$G[n] = 0$.
+		\[
+			G[n] = 0.
+		\]
 	\end{quote}
 
 	3: Establish the recurrence for the tabulation.
@@ -287,7 +289,9 @@
 
 	5: Final form of output.
 	\begin{quote}
-		$G[0]$.
+		\[
+			G[0].
+		\]
 	\end{quote}
 
 	6: Put it all together as pseudocode
@@ -408,7 +412,7 @@ return $A[n]$. \\
 
 	2: Define and evaluate the base cases
 	\begin{quote}
-		When $i$ or $j$ is 1,
+		If $i$ or $j$ is 1,
 		\[
 			S[i, j] = A_{i, j}.
 		\]
@@ -417,7 +421,7 @@ return $A[n]$. \\
 
 	3: Establish the recurrence for the tabulation.
 	\begin{quote}
-		Suppose $i, j \geq 2$. 
+		If $i, j \geq 2$,
 		\[
 			S[i, j] = A_{i, j}[\min(S[i - 1, j - 1], S[i - 1, j], S[i, j - 1]) + 1].
 		\]
@@ -432,7 +436,9 @@ return $A[n]$. \\
 
 	5: Final form of output.
 	\begin{quote}
-		$\max_{[i, j]} S[i, j]$.
+		\[
+			\max_{[i, j]} S[i, j].
+		\]
 	\end{quote}
 
 	6: Put it all together as pseudocode
@@ -457,7 +463,7 @@ return $A[n]$. \\
 		\item
 		\ind\ind $maxLen = \max(maxLen, S[i][j])$.
 		\item 
-		{\bf return} $maxLen$.
+		{\bf return} $maxLen$
 		\end{enumerate}
 	\end{quote}
 	7: Runtime analysis
