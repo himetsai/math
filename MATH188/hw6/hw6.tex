@@ -1,0 +1,570 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{ \nobreak\extramarks{}{Problem \arabic{#1} continued on next
+    page\ldots}\nobreak{} \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1}
+    continued on next page\ldots}\nobreak{} }
+
+\newcommand{\exitProblemHeader}[1]{ \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem
+    \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{Jun 3, 2024}
+\newcommand{\hmwkClass}{MATH 188}
+\newcommand{\hmwkClassInstructor}{Professor Kunnawalkam Elayavalli}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\p}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  The following exercise gives another proof of Cayley's formula, and at the same time provides new
+  information that our proof doesn't give.
+
+  Let $n \geq 1$ and let $x_1, \dots, x_n$ be variables. Given a labeled tree $T$ with vertices $1,
+  \dots, n$, define the monomial $x(T) = x_1^{d_1} \cdots x_n^{d_n}$ where $d_i$ is the degree of
+  vertex $i$, i.e., the number of edges containing $i$. Define $\textbf{C}_n = \sum_T x(T)$ where
+  the sum is over all labeled trees $T$ with vertices $1, \dots, n$. Also define
+  \[
+    \textbf{D}_n = x_1 x_2 \cdots x_n (x_1 + x_2 + \cdots + x_n)^{n-2}.
+  \]
+
+  \begin{enumerate}[(a)]
+    \item Given a polynomial $p(x_1, \dots, x_n)$, let $p^{(i)}$ be the result of plugging in $x_i =
+    0$ into the partial derivative $\frac{\partial p}{\partial x_i}$, i.e., the coefficient of $x_i$
+    if you think of the other variables as constants. If $n \geq 2$, show that
+    \[
+      \textbf{C}_n^{(n)} = (x_1 + x_2 + \cdots + x_{n-1})\textbf{C}_{n-1},
+    \]
+    \[
+      \textbf{D}_n^{(n)} = (x_1 + x_2 + \cdots + x_{n-1})\textbf{D}_{n-1}.
+    \]
+    \begin{proof}
+      Since a tree is connected, all vertices has positive degree. Hence, we have
+      \begin{gather}
+        \textbf{C}_n^{(n)} = \left.\frac{\partial}{\partial x_n} \sum_{T} x(T)\right|_{x_n = 0} = \sum_{T} \left.d_nx_1^{d_1} \cdots x_n^{d_n - 1}\right|_{x_n = 0} = \sum_{T; d_n = 1} x_1^{d_1} \cdots x_{n - 1}^{d_{n - 1}}.
+      \end{gather}
+      But then given a $T$ with $d_n = 1$, suppose $j$ is the only neighbor of $n$. Then, $x(T) =
+      x_jx(T_{n - 1})$, where $T_{n - 1} = T - \{n\}$ a labeled tree with vertex set $[n - 1]$. On
+      the other hand, given a labeled tree $T_{n - 1}$ with vertex set $[n - 1]$, we may choose a
+      vertex which connects to $n$ and get $T$ with $d_n = 1$, with $x(T) = x_jx(T_{n - 1})$. It now
+      follows that
+      \begin{align*}
+        \sum_{T; d_n = 1} x_1^{d_1} \cdots x_{n - 1}^{d_{n - 1}} 
+        &= \sum_{j = 1}^{n - 1}\sum_{\substack{T; d_n = 1, \\ \{j, n\} \in e(T)}} x_1^{d_1} \cdots x_{n - 1}^{d_{n - 1}} \\
+        &= \sum_{j = 1}^{n - 1} x_j\sum_{T_{n - 1}} x(T_{n - 1}) = \sum_{j = 1}^{n - 1} x_j\textbf{C}_{n-1}.
+      \end{align*}
+
+      On the other hand,
+      \begin{align*}
+        \textbf{D}_n^{(n)}
+        = x_1 x_2 \cdots x_{n - 1} &(x_1 + x_2 + \cdots + x_n)^{n-2} \\
+        &+ (n - 2)x_1 x_2 \cdots x_{n} (x_1 + x_2 + \cdots + x_n)^{n-3} |_{x_n = 0} \\
+        &= x_1 x_2 \cdots x_{n - 1} (x_1 + x_2 + \cdots + x_{n - 1})^{n-2} \\
+        &= (x_1 + x_2 + \cdots + x_{n - 1})\textbf{D}_{n - 1}.
+      \end{align*}
+    \end{proof}
+
+    \break
+
+    \item Assuming that $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ show that $\textbf{C}_n^{(i)} =
+    \textbf{D}_n^{(i)}$ for all $i = 1, \dots, n$.
+    \begin{proof}
+      Define $\textbf{C}_{n - i} = \sum_T x(T)$, where the sum is over all labeled trees $T$ with
+      vertex set $[n] - \{i\}$. Using the exact same argument in (a), we may show that
+      \[
+        \textbf{C}_n^{(i)} = (x_1 + x_2 + \cdots + x_{n} - x_i)\textbf{C}_{n-i},
+      \]
+      \[
+        \textbf{D}_n^{(n)} = (x_1 + x_2 + \cdots + x_{n} - x_i)\textbf{D}_{n-i},
+      \]
+      for all $i \in [n]$. Hence, for all $i \in [n]$,
+      \[
+        \textbf{C}_n^{(i)} = (x_1 + x_2 + \cdots + x_{n-1} - x_i)\textbf{C}_{n-i} = (x_1 + x_2 + \cdots + x_{n-1} - x_i)\textbf{D}_{n-1} = \textbf{D}_n^{(i)}.
+      \]
+    \end{proof}
+    \item Conclude that $\textbf{C}_n = \textbf{D}_n$ for all $n \geq 1$.
+    \begin{proof}
+      We proceed by induction on $n$. When $n = 1$, there are only one label tree, which is a
+      singleton. Hence, $\textbf{C}_1 = 1 = x_1x_1^{-1} = \textbf{D}_1$. Suppose $n \geq 2$. By
+      induction and (b), we have $\textbf{C}_{n - 1}^{(i)} = \textbf{D}_{n - 1}^{(i)}$ for all $i
+      \in [n]$. But then by (1),
+      \begin{align*}
+        \textbf{C}_n
+        &= \sum_{T} x(T) \\
+        &= \sum_{i = 1}^{n} \sum_{T; d_i = 1} x(T) \\
+        &= \sum_{i = 1}^{n} \textbf{C}_n^{(i)} \\
+        &= \sum_{i = 1}^{n} \textbf{D}_n^{(i)} \\
+        &= 
+      \end{align*}
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  How many ways are there to list the letters of the word MATHEMATICS so that no two consecutive
+  letters are the same?
+
+  \begin{proof}
+    The repeated characters in the word MATHEMATICS are A, M, and T. Let $S_A, S_M, S_T$ each be the
+    set of ways to list MATHEMATICS with consecutive A, M, T, respectively. By inclusion-exclusion,
+    the number of arrangements of MATHEMATICS with consecutive same characters is
+    \[
+      |S_A \cup S_M \cup S_T| = |S_A| + |S_M| + |S_T| - |S_A \cap S_M| - |S_A \cap S_T| - |S_T \cap S_T| + |S_A \cap S_M \cap S_T|.
+    \]
+    Since A, M, and T each appears exactly twice in MATHEMATICS, 
+    \[
+      |S_A \cup S_M \cup S_T| = 3|S_A| - 3|S_A \cap S_M| + |S_A \cap S_M \cap S_T|,
+    \]
+    by symmetry. Notice that to count elements in $S_A$, we may view $AA$ as a single character, and
+    \[
+      |S_A| = \frac{10!}{2!2!}.
+    \]
+    Similarily, to count elements in $S_A \cap S_M$, we may $AA$ and $MM$ as characters and get
+    \[
+      |S_A \cap S_M| = \frac{9!}{2!}.
+    \]
+    Using the same idea, we get
+    \[
+      |S_A \cap S_M \cap S_T| = 8!.
+    \]
+    Hence, 
+    \[
+      |S_A \cup S_M \cup S_T| = 3 \cdot \frac{10!}{2!2!} - 3 \cdot \frac{9!}{2!} + 8!.
+    \]
+    In total there are $\frac{11!}{2!2!2!}$ arrangements of MATHEMATICS, so the number of
+    arrangements of MATHEMATICS with no consecutive repeated characters is
+    \[
+      \frac{11!}{2!2!2!} - 3 \cdot \frac{10!}{2!2!} + 3 \cdot \frac{9!}{2!} - 8! = 2772000.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $n \geq 2$ be an integer. We have $n$ married couples ($2n$ people in total).
+  \begin{enumerate}[(a)]
+    \item How many ways can we have the $2n$ people stand in a line so that no person is standing
+    next to their spouse?
+    \begin{proof}
+      Let $L$ be the set of all arrangements of $2n$ people in a line. Put $A = A_1 \cup \cdots \cup
+      A_n$, where $A_i$ is set of ways to line up $n$ couples with the $i$th couple standing next to
+      each other. Let $S \subseteq [n]$. Define
+      \begin{gather*}
+        f(S) = |\{x \in A  \mid x \in A_i \text{ if and only if } i \in S\}|, \\
+        g(S) = |\{x \in A \mid x \in A_i \text{ if } i \in S\}|.
+      \end{gather*}
+      Note that $g(\emptyset) = |A|$ and $f(\emptyset) = 0$. To calculate $g(S) = |\cap_{i \in S}
+      A_i|$, we may view each couple in $S$ as a unit of people and account the ordering of each
+      unit. Then, we would have $2n - |S|$ unit of people, with $|S|$ units each having 2
+      arrangements, so
+      \[
+        g(S) = (2n - |S|)!2^{|S|}.
+      \]
+      By inclusion-exclusion,
+      \[
+        |A| = \sum_{\substack{S \subseteq [n] \\ S \neq \emptyset}} (-1)^{|S| - 1} (2n - |S|)!2^{|S|} = \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k}
+      \]
+      Since we are calculating the case where no person stands next to their spouse, we have
+      \[
+        |L \backslash A| = |L| - |A| = (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k} = \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k)!2^{k}.
+      \]
+    \end{proof}
+    \item Same as (a), but replace ``line'' by ``circle''.
+    \begin{proof} 
+      Let $L$ be the set of all arrangements of $2n$ people in a line. Put $A = A_1 \cup \cdots \cup
+      A_n$, where $A_i$ is set of ways to line up $n$ couples with the $i$th couple standing next to
+      each other. Let $S \subseteq [n]$. Define
+      \begin{gather*}
+        f(S) = |\{x \in A  \mid x \in A_i \text{ if and only if } i \in S\}|, \\
+        g(S) = |\{x \in A \mid x \in A_i \text{ if } i \in S\}|.
+      \end{gather*}
+      Note that $g(\emptyset) = |A|$ and $f(\emptyset) = 0$. To calculate $g(S) = |\cap_{i \in S}
+      A_i|$, we may view each couple in $S$ as a unit of people and account the ordering of each
+      unit. Then, we would have $2n - |S|$ unit of people, with $|S|$ units each having 2
+      arrangements, so
+      \[
+        g(S) = \frac{1}{2n - |S|} \cdot (2n - |S|)!2^{|S|} = (2n - |S| - 1)!2^{|S|}.
+      \]
+      Note that we divide by $2n - |S|$ to disregard shifting the circle. By inclusion-exclusion,
+      \[
+        |A| = \sum_{\substack{S \subseteq [n] \\ S \neq \emptyset}} (-1)^{|S| - 1} (2n - |S| - 1)!2^{|S|} = \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k}
+      \]
+      Hence, the number of ways to have $n$ couples stand in a circle with no person standign next
+      to their spouse is
+      \[
+        |L \backslash A| = \frac{1}{2n} \cdot (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k} = \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k - 1)!2^{k}.
+      \]
+
+
+      % Let $L$ be the set of all arrangements of $2n$ people in a circle. Put $A = A_1 \cup \cdots
+      % \cup A_n$, where $A_i$ is set of arrangements $n$ couples in a circle with the $i$th couple
+      % standing next to each other. Let $S \subseteq [n]$. Define $f(S)$, $g(S)$ the same way as in
+      % (a). Let $p, p'$ be the $n$th couple. Note that each arrangement of $2n$ people in a circle
+      % can be viewed as an arrangement of $2n - 1$ people, as we may remove $p$ from the circle and
+      % line up the rest of $2n - 1$ people starting from the person on the left of $p$ to the one on
+      % the right. If $n \notin S$, calculating $g(S)$, is equivalent to counting the ways to line up
+      % $2n - 1$ people with no couples standing side-by-side. If $n \in S$, then $p'$ must be next to
+      % $p$. Thus, we may first decide whether $p'$ should be at the left of right of $p$, then count
+      % the ways to line up $n - 1$ couples with no couples standing side-by-side. Hence, we get
+      % \[
+      %   g(S) = \begin{cases}
+      %     (2n - 1 - |S|)!2^{|S|} & \text{if } n \notin S \\
+      %     2(2(n - 1) - (|S| - 1))!2^{|S| - 1} & \text{if } n \in S
+      %   \end{cases} = (2n - 1 - |S|)!2^{|S|}
+      % \]
+      
+      % we may view each couple in $S$ as a unit of
+      % people and account the ordering of each unit. Then, we would have $2n - |S|$ unit of people,
+      % with $|S|$ units each having 2 arrangements, so
+      % \[
+      %   g(S) =  \frac{1}{2n - |S|}\left[(2n)!2^{|S|} + |S|\right]
+      % \]
+      % Note that we divide by $2n$ to disregard shifting the circle. By inclusion-exclusion,
+      % \[
+      %   |A| = \sum_{\substack{S \subseteq [n] \\ S \neq \emptyset}} \frac{(-1)^{|S| - 1}}{2n} (2n - |S|)!2^{|S|} = \frac{1}{2n}\sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k}
+      % \]
+      % Since we are calculating the case where no person stands next to their spouse, we have
+      % \[
+      %   |L \backslash A| = |L| - |A| = \frac{(2n)!}{2n} - \frac{1}{2n}\sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k} = \frac{1}{2n}\sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k)!2^{k}.
+      % \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $q$ be a prime power and $n$ a positive integer. Let $V$ be an $n$-dimensional
+  $\textbf{F}_q$-vector space and let $P$ be the poset whose elements are linear subspaces of $V$
+  with the ordering $X \leq Y$ if $X$ is contained in $Y$. Show that the Möbius function of $P$ is
+  given by
+  \[
+    \mu(X, Y) = (-1)^d q^{\binom{d}{2}}
+  \]
+  where $d = \dim Y - \dim X$. 
+
+  \begin{proof}
+    For $X \leq Y$, it suffices to show that 
+    \[
+      \delta_{X, Y} = \sum_{U \in [X, Y]} (-1)^{d_u} q^{\binom{d_u}{2}},
+    \]
+    where $d_u = \dim U - \dim X$. Put $x = \dim X$ and $y = \dim Y$. The number of vector spaces of
+    dimension $k$ in the interval $[X, Y]$ is $\begin{bmatrix} d \\
+      k - x
+    \end{bmatrix}_q$. It now follows that
+    \begin{align*}
+      \sum_{U \in [X, Y]} (-1)^{d_u} q^{\binom{d_u}{2}} 
+      &= \sum_{k = x}^y \begin{bmatrix} 
+        d \\
+        k - x
+      \end{bmatrix}_q (-1)^{k - x} q^{\binom{k - x}{2}} \\
+      &= \sum_{i = 0}^{d} \begin{bmatrix} 
+        d \\
+        i
+      \end{bmatrix}_q (-1)^{i} q^{\binom{i}{2}}.
+    \end{align*}
+    By Theorem 3.2.4 from Sagen,
+    \[
+      \sum_{i = 0}^{d} \begin{bmatrix} 
+        d \\
+        i
+      \end{bmatrix}_q (-1)^{i} q^{\binom{i}{2}} = \begin{cases}
+        \prod_{i = 0}^{d - 1} (1 - q^{i}) & d > 0 \\
+        1 & d = 0
+      \end{cases} = \delta_{X, Y}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\Pi_n$ be the poset of set partitions of $[n]$ and let $\mu$ be its Möbius function. Write a
+  formula for the number of connected labeled graphs with vertex set $[n]$ using $\mu$.
+
+  \begin{proof}
+    Let $\mathcal{G}$ be the set of all labeled graphs with vertex set $[n]$, and let $P \in \Pi_n$.
+    Define  
+    \begin{gather*}
+      f(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ if and only if } i, j \text{ belong to the same block in } P\}|, \\
+      g(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ if } i, j \text{ belong to the same block in } P\}|.
+    \end{gather*}
+    Note that $g(\{[n]\})$ is the number of connected labeled graphs with vertex set $[n]$ and $g(P)
+    = \sum_{Q \geq P} f(Q)$. By the dual version of the Möbius inversion,
+    \[
+      f(\{[n]\}) = \sum_{P}
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  $F(x) = \sum_{n \geq 0} f_n x^n$ is a formal power series that satisfies the following identity:
+  \[
+    F(x) = \exp\left(\frac{x}{2} (F(x) + 1)\right).
+  \]
+  Find a formula for $f_n$.
+  \begin{proof}
+    We first note that $f_0 = F(0) = 1$. Adding 1 then multiplying $\frac{x}{2}$ on both sides of
+    the given identity yields
+    \[
+      \frac{x}{2}(F(x) + 1) = \frac{x}{2}\left[\exp\left(\frac{x}{2} (F(x) + 1)\right) + 1\right].
+    \]
+    Take $G(x) = \frac{1}{2}(e^x + 1)$ and $A(x) = \frac{x}{2}(F(x) + 1)$. Since $A(0) = 0$ and
+    $G(0) \neq 0$, the Lagrange inversion formula gives
+    \begin{align*}
+      \frac{n + 1}{2}[x^{n}]F(x) 
+      &= (n + 1)[x^{n + 1}]A(x) \\
+      &= [x^{n}](G(x)^{n + 1}) \\
+      &= [x^n]\frac{1}{2^{n + 1}}(e^x + 1)^{n + 1} \\
+      &= [x^n]\frac{1}{2^{n + 1}}\sum_{k = 0}^{n + 1} \binom{n + 1}{k} e^{kx} \\
+      &= \frac{1}{2^{n + 1}}\sum_{k = 0}^{n + 1} \binom{n + 1}{k} \frac{k^n}{n!}
+    \end{align*}
+    That is, for $n \geq 1$,
+    \[
+      f_n = \frac{1}{(n + 1)!}\sum_{k = 0}^{n + 1} \binom{n + 1}{k} \left(\frac{k}{2}\right)^n.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Reminder: Lagrange's version of the Taylor remainder theorem says this: if $f(x)$ is an infinitely differentiable function whose Taylor series at 0 converges at $x = r$, then there exists $\xi$ between 0 and $r$ such that
+  \[
+    f(r) - \sum_{i=0}^n \frac{f^{(i)}(0)}{i!} r^i = \frac{f^{(n+1)}(\xi)}{(n+1)!} r^{n+1}.
+  \]
+  Use the Taylor remainder theorem to show that
+  \[
+    \left| \frac{1}{e} - \sum_{i=0}^n \frac{(-1)^i}{i!} \right| \leq \frac{1}{(n+1)!}
+  \]
+  and conclude from this that the number of derangements of $n$ objects is inside the closed interval
+  \[
+    \left[ \frac{n!}{e} - \frac{1}{n+1}, \frac{n!}{e} + \frac{1}{n+1} \right].
+  \]
+  In particular, show that it is the closest integer to $n!/e$.
+
+  \begin{proof}
+    Consider $f(r) = e^{-r}$. When $r = 1$, Taylor remainder theorem yields 
+    \[
+      e^{-1} - \sum_{i=0}^n \frac{(-1)^{i}}{i!} = \frac{(-1)^{n + 1}e^{-\xi}}{(n+1)!},
+    \]
+    for some $\xi$ between $0$ and $1$. But then $|e^{-\xi}| \leq 1$, so 
+    \[
+      \left|\frac{1}{e} - \sum_{i=0}^n \frac{(-1)^{i}}{i!}\right| = \left|\frac{(-1)^{n + 1}e^{-\xi}}{(n+1)!}\right| \leq \frac{1}{(n + 1)!}.
+    \]
+    Let $D(n)$ be the number of derangements of size $n$. It now follows from Theorem 6.14 that
+    \[
+      \frac{n!}{e} - \frac{1}{n + 1} \leq D(n) = n!\sum_{i=0}^n \frac{(-1)^{i}}{i!} \leq \frac{n!}{e} + \frac{1}{n + 1}.
+    \]
+    Obviously $\frac{n!}{e}$ is not an integer. Since $D(n)$ is an integer and $\frac{1}{n + 1} \leq
+    \frac{1}{2}$ for all $n \geq 1$, $D(n)$ is the closest integer to $\frac{n!}{e}$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $d_n$ be the number of derangements of $[n]$, and let
+  \[
+    D(x) = \sum_{n \geq 0} \frac{d_n}{n!} x^n.
+  \]
+  \begin{enumerate}[(a)]
+    \item Using the structure interpretation for products of EGF, show that
+    \[
+      D(x)e^x = \frac{1}{1 - x}.
+    \]
+    \begin{proof}
+      Let $D(S)$ denote the set of derangements of $S$. Define structures $\alpha(S) = D(S)$ and
+      $\beta(S) = \{0\}$. Hte product of two structures is
+      \[
+        (\alpha \cdot \beta)(S) = \bigsqcup_{T \subseteq S} D(T) \times \{0\} \simeq \bigsqcup_{T \subseteq S} D(T).
+      \]
+      But then given a derangement of some subset $T \subseteq S$, we get a permutation $\sigma$ of
+      $S$ with $\sigma(i) = i$ if and only if $i \in S \backslash T$. On the other hand, given a permutation $\sigma$ of
+      $S$, we get a derangement of $T = \{i \in S \mid \sigma(i) \neq i\} \subseteq S$. Hence,
+      $\bigsqcup_{T \subseteq S} D(T) \simeq S_n$, the symmetry group of degree $n$. It now follows
+      that $(\alpha \cdot \beta)(S) = |S|!$, and so
+      \[
+        D(x)e^x = E_{\alpha \cdot \beta}(x) = \sum_{n \geq 0} x^n = \frac{1}{1 - x}.
+      \]
+    \end{proof}
+    \item Show how this implies the formula we previously obtained:
+    \[
+      d_n = \sum_{i=0}^n (-1)^i \frac{n!}{i!}.
+    \]
+    \begin{proof}
+      Rearranging the result of (a), we get
+      \[
+        D(x) = \frac{1}{1 - x}e^{-x},
+      \]
+      and so
+      \[
+        d_n = n![x^n]\frac{1}{1 - x}e^{-x} = \sum_{i = 0}^n (-1)^i\frac{n!}{i!}.
+      \]
+    \end{proof}
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For a positive integer $n$, define
+  \[
+    f(n) = |\{ i \in \mathbb{Z} \mid 1 \leq i \leq n, \gcd(n, i) = 1 \}|.
+  \]
+  \begin{enumerate}[(a)]
+    \item Show that
+    \[
+      n = \sum_{d|n} f(d)
+    \]
+    where the sum is over all positive integers $d$ that divide $n$.
+    \begin{proof}
+      
+    \end{proof}
+    \item Use Möbius inversion to show that
+    \[
+      f(n) = n \prod_{p|n} \left( 1 - \frac{1}{p} \right)
+    \]
+    where the product is over the primes $p$ that divide $n$.
+  \end{enumerate}
+\end{homeworkProblem}
+\end{document}

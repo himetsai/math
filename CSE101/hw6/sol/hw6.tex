@@ -229,39 +229,100 @@
 
 	Give a counterexample as to why this does not always give you the optimal solution.
 
+	\begin{proof}
+		Consider the input $D = [0, 1, 2, 3], x = [2, 2, 2, 2], P = [0, 0, 1, 0]$. Since station $2$ has
+		the highest $D[i] + x[i]$ value ($2 + 2 = 4$) among all reachable stations from the start, the
+		strategy picks $2$, which costs 1 dollar. But then we may change battery at station 1 then go
+		directly to the destination, which costs nothing.
+	\end{proof}
+
 	\item Design a \emph{reduction} algorithm that uses Dijkstra's algorithm. Compute the time
-	analysis in terms of the number of battery stations $n$.
+	analysis in terms of the number of battery stations $n$. \\
 
-	4 points for correct high level algorithm.\\
-	3 points for runtime analysis.\\
-	(No proof of correctness)
+	\textbf{Algorithm Description:}
 
-	(Your algorithm should run in $O(n^2)$ time.)
+	Construct a weighted directed graph $G = (V, E, w)$, with $V = \{0, 1, \dots, n\}$ being the set
+	of all stations. For distinct vertex $u, v \in V$, we add an edge $(u, v)$ if $v$ is reachable
+	from $u$. For each edge $(u, v) \in E$, assign weight $w(u, v) = p[v]$ if $v \neq n$, and put
+	$w(u, v) = 0$ if $v = n$. We now run Dijkstra's algorithm on $G$ starting on vertex 0. Let $P$ be
+	the resulting path which ends on vertex $n$ and return the vertex set of $P$. \\
 
+	\textbf{Runtime Analysis:}
 
-	\item Design a DP tabulation algorithm by ordering the subproblems from $n$ to $0$: (step 1 and 4 have been done for you)
+	$G$ has $O(n)$ vertices and $O(n^2)$ edges, so constructing $G$ takes $O(n^2)$ time. Running
+	Dijkstra on $G$ using array as a priority queue takes $O(n^2)$ time. Since Dijkstra also yields
+	the cheapest path to a given vertex, we may obtain path $P$ by
+	tracing back the precding vertices starting from vertex $n$, which takes $O(n)$ time. In total,
+	the algorithm runs in $O(n^2)$ time.
+
+	\newpage
+
+	\item Design a DP tabulation algorithm by ordering the subproblems from $n$ to $0$: (step 1 and 4
+	have been done for you)
 
 	\begin{quote}
 	1: Define the subproblems:
 	\begin{quote}
-	Let $G[k]$ be defined to be the minimum price it takes to get to battery station $n$ assuming you
-	start at battery station $k$ with the battery from battery station $k$.
+		Let $G[k]$ be defined to be the minimum price it takes to get to battery station $n$ assuming
+		you start at battery station $k$ with the battery from battery station $k$.
 	\end{quote}
 
 	2: Define and evaluate the base cases
+	\begin{quote}
+		$G[n] = 0$.
+	\end{quote}
 
 	3: Establish the recurrence for the tabulation.
+	\begin{quote}
+		Suppose $0 \leq k < n$. Let $S = \{i \in [n] \mid D[k] < D[i] \leq D[k] + x[k]\}$, which is the
+		set of all reachable stations from station $k$. Then,
+		\[
+			G[k] = \min_{i \in S} G[i] + P[k].
+		\]
+	\end{quote}
 
 	4: Determine the order of subproblems:
 	\begin{quote}
-	Order the subproblems from $n$ to $0$.
+		Order the subproblems from $n$ to $0$.
 	\end{quote}
 
 	5: Final form of output.
+	\begin{quote}
+		$G[0]$.
+	\end{quote}
 
 	6: Put it all together as pseudocode
-
+	\begin{quote}
+	\begin{enumerate}[1.]
+		\item
+		Initialize array $G$ of size $n + 1$
+		\item
+		$G[n] = 0$
+		\item
+		{\bf for} $k$ from $n - 1$ to $0$
+		\item
+		\ind {\bf for} $i$ from $k + 1$ to $n$
+		\item
+		\ind\ind {\bf if} $D[i] \leq D[k] + x[k]$ 
+		\item
+		\ind\ind\ind $G[k] = \min(G[k], G[i] + P[k])$
+		\item 
+		{\bf return} $G[0]$
+		\end{enumerate}
+	\end{quote}
+	
 	7: Runtime analysis
+	\begin{quote}
+		Each iteration of the inner loop takes constant time. Since the outer loop iterates through $0
+		\leq k \leq n - 1$ and the inner loop iterates through $k + 1 \leq i \leq n$, it takes 
+		\begin{align*}
+			O\left(\sum_{k = 0}^{n - 1} \sum_{i = k + 1}^{n} c\right) 
+			&= O\left(c\sum_{k = 0}^{n - 1} (n - k)\right) \\
+			&= O\left(n^2 - \frac{n(n - 1)}{2}\right) \\
+			&= O(n^2)
+		\end{align*}
+		time.
+	\end{quote}
 	\end{quote}
 	\end{enumerate}
 \end{homeworkProblem}
