@@ -403,21 +403,69 @@ return $A[n]$. \\
 	\begin{quote}
 	1: Define the subproblems:
 	\begin{quote}
-	Let $S[i,j]$ be defined to be the length of the side of the largest square entirely made of 1's
-	with bottom right corner at entry $[i,j]$
+		Let $S[i,j]$ be defined to be the length of the side of the largest square entirely made of 1's
+		with bottom right corner at entry $[i,j]$
 	\end{quote}
 
 	2: Define and evaluate the base cases
+	\begin{quote}
+		When $i$ or $j$ is 1,
+		\[
+			S[i, j] = A_{i, j}.
+		\]
+		
+	\end{quote}
 
 	3: Establish the recurrence for the tabulation.
+	\begin{quote}
+		Suppose $i, j \geq 2$. 
+		\[
+			S[i, j] = A_{i, j}[\min(S[i - 1, j - 1], S[i - 1, j], S[i, j - 1]) + 1].
+		\]
+	\end{quote}
 
 	4: Determine the order of subproblems:
+	\begin{quote}
+		Order the subproblems in row-major order. That is, we are traversing through $S$ one row at a
+		time, from left to right, and top to bottom. Each row is completed before moving on to the next
+		row.
+	\end{quote}
 
 	5: Final form of output.
+	\begin{quote}
+		$\max_{[i, j]} S[i, j]$.
+	\end{quote}
 
 	6: Put it all together as pseudocode
-
+	\begin{quote}
+		\begin{enumerate}[1.]
+		\item
+		Initialize two dimensional array $S$ of size $n \times n$ \quad (with 1-based indexing)
+		\item
+		$maxLen = 0$
+		\item
+		{\bf for} $i$ from $1$ to $n$
+		\item
+		\ind {\bf for} $j$ from $1$ to $n$
+		\item
+		\ind\ind {\bf if} $i = 1$ or $j = 1$
+		\item
+		\ind\ind\ind $S[i][j] = A_{i, j}$
+		\item
+		\ind\ind {\bf else}
+		\item
+		\ind\ind\ind $S[i][j] = A_{i, j}[\min(S[i - 1, j - 1], S[i - 1, j], S[i, j - 1]) + 1]$
+		\item
+		\ind\ind $maxLen = \max(maxLen, S[i][j])$.
+		\item 
+		{\bf return} $maxLen$.
+		\end{enumerate}
+	\end{quote}
 	7: Runtime analysis
+	\begin{quote}
+		The algorithm is simply a nested loop iterating through each entry of the $n \times n$ array,
+		with each iteration running in constant time. Hence, the total runtime is $O(n^2)$.
+	\end{quote}
 \end{quote}
 \end{homeworkProblem}
 \end{document}
