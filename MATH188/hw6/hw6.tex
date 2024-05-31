@@ -203,25 +203,38 @@
     \item Assuming that $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ show that $\textbf{C}_n^{(i)} =
     \textbf{D}_n^{(i)}$ for all $i = 1, \dots, n$.
     \begin{proof}
-      Define $\textbf{C}_{n - i} = \sum_T x(T)$, where the sum is over all labeled trees $T$ with
-      vertex set $[n] - \{i\}$. Using the exact same argument in (a), we may show that
+      Define $\textbf{C}_{[n] - \{i\}} = \sum_{T_{[n] - \{i\}}} x(T_{[n] - \{i\}})$, where the sum
+      is over all labeled trees $T_{[n] - \{i\}}$ with vertices $[n] - \{i\}$. Also define
+      $\textbf{D}_{[n] - \{i\}} = x_1 x_2 \cdots x_nx^{-1}_i(x_1 + x_2 + \cdots + x_n - x_i)^{n-3}$.
+      
+      Using the same
+      argument in (a), we may show that
       \[
-        \textbf{C}_n^{(i)} = (x_1 + x_2 + \cdots + x_{n} - x_i)\textbf{C}_{n-i},
+        \textbf{C}_n^{(i)} = \sum_{T; d_i = 1} \prod_{j \neq i} x_j^{d_j} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{C}_{[n] - \{i\}},
       \]
+      for all $i$. On the other hand, for all $i$,
+      \begin{align*}
+        \textbf{D}_n^{(i)}
+        = x_i^{-1}x_1 x_2 \cdots x_{n} &(x_1 + x_2 + \cdots + x_n)^{n-2} \\
+        &+ (n - 2)x_1 x_2 \cdots x_{n} (x_1 + x_2 + \cdots + x_n)^{n-3} |_{x_i = 0} \\
+        &= x_1 x_2 \cdots x_{n}x_i^{-1} (x_1 + x_2 + \cdots + x_{n} - x_i)^{n-2} \\
+        &= (x_1 + x_2 + \cdots + x_{n} - x_i)\textbf{D}_{[n] - \{i\}}.
+      \end{align*}
+      Note that the only differences between $\textbf{C}_{n-1}, \textbf{C}_{[n] - \{i\}}$ and
+      between $\textbf{D}_{n-1}, \textbf{D}_{[n] - \{i\}}$ are the indexing of the variables. Hence,
+      $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ also implies that $\textbf{C}_{[n] - \{i\}} =
+      \textbf{D}_{[n] - \{i\}}$. It now follows that
       \[
-        \textbf{D}_n^{(n)} = (x_1 + x_2 + \cdots + x_{n} - x_i)\textbf{D}_{n-i},
-      \]
-      for all $i \in [n]$. Hence, for all $i \in [n]$,
-      \[
-        \textbf{C}_n^{(i)} = (x_1 + x_2 + \cdots + x_{n-1} - x_i)\textbf{C}_{n-i} = (x_1 + x_2 + \cdots + x_{n-1} - x_i)\textbf{D}_{n-1} = \textbf{D}_n^{(i)}.
-      \]
+        \textbf{C}_n^{(i)} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{C}_{[n] - \{i\}} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{D}_{[n] - \{i\}} = \textbf{D}_n^{(i)}.
+      \],
+      for all $i$.
     \end{proof}
     \item Conclude that $\textbf{C}_n = \textbf{D}_n$ for all $n \geq 1$.
     \begin{proof}
       We proceed by induction on $n$. When $n = 1$, there are only one label tree, which is a
       singleton. Hence, $\textbf{C}_1 = 1 = x_1x_1^{-1} = \textbf{D}_1$. Suppose $n \geq 2$. By
       induction and (b), we have $\textbf{C}_{n - 1}^{(i)} = \textbf{D}_{n - 1}^{(i)}$ for all $i
-      \in [n]$. But then by (1),
+      \in [n]$. But then 
       \begin{align*}
         \textbf{C}_n
         &= \sum_{T} x(T) \\
@@ -420,16 +433,17 @@
   formula for the number of connected labeled graphs with vertex set $[n]$ using $\mu$.
 
   \begin{proof}
-    Let $\mathcal{G}$ be the set of all labeled graphs with vertex set $[n]$, and let $P \in \Pi_n$.
-    Define  
+    Let $\mathcal{G}$ be the set of all labeled graphs with vertex set $[n]$, and let $P = \{S_1,
+    \dots, S_m\} \in \Pi_n$. Define  
     \begin{gather*}
-      f(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ if and only if } i, j \text{ belong to the same block in } P\}|, \\
-      g(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ if } i, j \text{ belong to the same block in } P\}|.
+      f(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ if and only if } i, j \in S_k \text{ for some } k\}|, \\
+      g(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ only if } i, j \in S_k \text{ for some } k\}| = \prod_{k = 1}^m 2^{\binom{|S_k|}{2}} = 2^{\sum_{k = 1}^m \binom{|S_k|}{2}}.
     \end{gather*}
-    Note that $g(\{[n]\})$ is the number of connected labeled graphs with vertex set $[n]$ and $g(P)
-    = \sum_{Q \geq P} f(Q)$. By the dual version of the Möbius inversion,
+    Note that $f(\{[n]\})$ is the number of connected labeled graphs with vertex set $[n]$ and
+    $g(\{[n]\}) = 2^{\binom{n}{2}}$. By definition, $g(P) = \sum_{Q \leq P} f(Q)$. It now follows by
+    the Möbius inversion that
     \[
-      f(\{[n]\}) = \sum_{P}
+      f(\{[n]\}) = \sum_{P \in \Pi_n}\mu(P, \{[n]\})g(P) = \sum_{P \in \Pi_n}\mu(P, \{[n]\}) 2^{\sum_{S \in P} \binom{|S|}{2}}.
     \]
   \end{proof}
 \end{homeworkProblem}
@@ -558,13 +572,110 @@
     \]
     where the sum is over all positive integers $d$ that divide $n$.
     \begin{proof}
-      
+      \begin{align*}
+        \sum_{d|n} f(d) 
+        &= \sum_{d|n} f(n/d) \\
+        &= \sum_{d|n} |\{i \in \mathbb{Z} \mid 1 \leq i \leq n/d, \gcd(n/d, i) = 1\}| \\
+        &= \sum_{d|n} |\{i \in \mathbb{Z} \mid 1 \leq i \leq n, \gcd(n, i) = d\}| \\
+        &= n.
+      \end{align*}
     \end{proof}
     \item Use Möbius inversion to show that
     \[
       f(n) = n \prod_{p|n} \left( 1 - \frac{1}{p} \right)
     \]
     where the product is over the primes $p$ that divide $n$.
+
+    \begin{proof}
+      Define $g(n) = n$, for $n \in \N$. In (a), we already established that $g(n) = \sum_{d|n}
+      f(d)$. By the Möbius inversion formula,
+      \begin{align*}
+        f(n) 
+        &= \sum_{d|n} g(d)\mu(d, n) \\
+        &= \sum_{d|n} d\mu(d, n) \\
+        &= \sum_{d|n} \frac{n}{d}\mu\left(\frac{n}{d}, n\right) \\
+        &= n\sum_{d|n} \frac{1}{d}\mu\left(\frac{n}{d}, n\right) \\
+        &= n\sum_{\substack{d = p_1\cdots p_k \\ p_i | n \text{ and distinct}}} \frac{(-1)^k}{d} \\
+        &= n\sum_{\substack{d = p_1\cdots p_k \\ p_i | n \text{ and distinct}}} \left(-\frac{1}{p_1}\right) \cdots \left(-\frac{1}{p_k}\right) \\
+        &= n\prod_{p|n} \left( 1 - \frac{1}{p} \right).
+      \end{align*}
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  There are $n$ people sitting at a circular table. How many ways can they rearrange seats so that
+  no one sits next to someone they were sitting next to before?
+
+  \begin{proof}
+    idk.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $q$ be a prime power and let $N_n$ be the number of monic irreducible polynomials of degree
+  $n$ with coefficients in $\textbf{F}_q$:
+  \begin{enumerate}[(a)]
+    \item Using that polynomials over a field satisfy unique factorization, show that
+    \[
+      (1 - q x)^{-1} = \prod_{d \geq 1} (1 - x^d)^{-N_d}
+    \]
+    \begin{proof}
+      By the binomial theorem,
+      \[
+        (1 - x^d)^{-N_d} = \sum_{k \geq 0} \binom{-N_d}{k}(x^{d})^k.
+      \]
+      Note that $\binom{-N_d}{k}$ is the number of ways to pick a multiset of size $k$ from $N_d$
+      elements. Given a monic polynomial, we may view its factorization as a multiset of irreducible
+      polynomials. Hence, $[x^{dk}](1 - x^d)^{-N_d}$ is the number of ways to pick a monic
+      polynomial whose factorization is $k$ irreducible polynomials of degree $d$. But then
+      \[
+        [x^n]\prod_{d \geq 1} (1 - x^d)^{-N_d} = [x^n]\prod_{d \geq 1} \sum_{k \geq 0} \binom{-N_d}{k}(x^{d})^k
+      \]
+      is just the number monic polynomials of degree $n$. Since there are $n$ undetermined
+      coefficients in a monic polynomial of degree $n$, there are $q^n$ monic polynomials of degree
+      $n$. In other words,
+      \[
+        \prod_{d \geq 1} (1 - x^d)^{-N_d} = (1 + qx + q^2x^2 + \cdots) = (1 - q x)^{-1}.
+      \]
+    \end{proof}
+    \item Take the logarithmic derivative of (a) and compare the coefficient of $x^{n-1}$ to get
+    \[
+    q^n = \sum_{d|n} d N_d.
+    \]
+    \begin{proof}
+      \[
+        \mathcal{L}((1 - qx)^{-1}) = q(1 - qx)(1 - qx)^{-2} = q(1 - qx)^{-1}.
+      \]
+      \begin{align*}
+        \mathcal{L}\left(\prod_{d \geq 1} (1 - x^d)^{-N_d}\right) 
+        &= \sum_{d \geq 1} N_d\mathcal{L}((1 - x^d)^{-1}) \\
+        &= \sum_{d \geq 1} dN_dx^{d - 1}(1 - x^d)^{-1} \\
+        &= \sum_{d \geq 1} dN_d(x^{d - 1} + x^{2d - 1} + x^{3d - 1} + \cdots).
+      \end{align*}
+      Hence,
+      \begin{align*}
+        q^n 
+        &= [x^{n - 1}]q(1 - qx)^{-1} \\
+        &= [x^{n - 1}]\sum_{d \geq 1} dN_dx^{d - 1}(1 - x^d)^{-1} \\
+        &= [x^{n}]\sum_{d \geq 1} dN_d(x^{d} + x^{2d} + x^{3d} + \cdots) \\
+        &= \sum_{d|n} dN_d.
+      \end{align*}
+    \end{proof}
+    \item Use Möbius inversion to get a formula for $N_n$.
+    \begin{proof}
+      Since $q^n = \sum_{d|n} dN_d$, by Möbius inversion,
+      \begin{align*}
+        nN_d
+        &= \sum_{d|n} q^d\mu(d, n) \\
+        &= \sum_{d|n} q^{n/d}\mu(n/d, n) \\
+        &= \sum_{\substack{d = p_1\cdots p_k \\ p_i | n \text{ and distinct}}} (-1)^kq^{n/d}
+      \end{align*}
+    \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
 \end{document}
