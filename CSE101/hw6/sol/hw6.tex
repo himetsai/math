@@ -243,16 +243,14 @@
 	Construct a weighted directed graph $G = (V, E, w)$, with $V = \{0, 1, \dots, n\}$ being the set
 	of all stations. For distinct vertex $u, v \in V$, we add an edge $(u, v)$ if $v$ is reachable
 	from $u$. For each edge $(u, v) \in E$, assign weight $w(u, v) = p[v]$ if $v \neq n$, and put
-	$w(u, v) = 0$ if $v = n$. We now run Dijkstra's algorithm on $G$ starting on vertex 0. Let $P$ be
-	the resulting path which ends on vertex $n$ and return the vertex set of $P$. \\
+	$w(u, v) = 0$ if $v = n$. We now run Dijkstra's algorithm on $G$ starting on vertex 0 and return
+	the resulting price at vertex $n$. \\
 
 	\textbf{Runtime Analysis:}
 
 	$G$ has $O(n)$ vertices and $O(n^2)$ edges, so constructing $G$ takes $O(n^2)$ time. Running
-	Dijkstra on $G$ using array as a priority queue takes $O(n^2)$ time. Since Dijkstra also yields
-	the cheapest path to a given vertex, we may obtain path $P$ by
-	tracing back the precding vertices starting from vertex $n$, which takes $O(n)$ time. In total,
-	the algorithm runs in $O(n^2)$ time.
+	Dijkstra on $G$ using array as a priority queue takes $O(n^2)$ time. In total, the algorithm runs
+	in $O(n^2)$ time.
 
 	\newpage
 
@@ -357,12 +355,12 @@ to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})
 	
 	2: Define and evaluate the base cases
 	\[
-		SD[1] = 1.
+		SD[0] = 0.
 	\]
 	
 	3: Establish the recurrence for the tabulation.
 	\begin{quote}
-		Suppose $i \geq 2$. Let $S$ be the set of all square numbers less than $i$. Then,
+		Suppose $i \geq 1$. Let $S$ be the set of all square numbers less than $i$. Then,
 		\[
 			SD[i] = \begin{cases}
 				1 &\text{ if } \sqrt{i} \in \N \\
@@ -373,7 +371,7 @@ to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})
 	
 	4: Determine the order of subproblems:
 	\begin{quote}
-		Order the subproblems from $1$ to $n$.
+		Order the subproblems from $0$ to $n$.
 	\end{quote}
 	
 	5: Final form of output.
@@ -385,7 +383,7 @@ to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})
 	\begin{quote}
 		\begin{enumerate}[1.]
 		\item
-		Initialize array $SD$ of size $n$, with $A[i] = i$ \quad (with 1-based indexing)
+		Initialize array $SD$ of size $n$, with $A[i] = i$
 		\item
 		{\bf for} $i$ from $1$ to $n$
 		\item
