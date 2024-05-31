@@ -1,0 +1,316 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#8}
+\newcommand{\hmwkDueDate}{Jun 3, 2024}
+\newcommand{\hmwkClass}{MATH 140B}
+\newcommand{\hmwkClassInstructor}{Professor Seward}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% define norm \norm{...}:
+\DeclarePairedDelimiterX\norm[1]\lVert\rVert{{#1}}
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  If $0 < x < \frac{\pi}{2}$, prove that
+  \[
+    \frac{2}{\pi} < \frac{\sin x}{x} < 1.
+  \]
+  \begin{proof}
+    Consider the function $f(x) = x - \sin x$. Since $\cos x < 1 = (x)'$ in $(0, \pi/2)$, $f'(x) = x
+    - \cos x > 0$ in $(0, \pi/2)$, so $f$ is strictly increasing in $(0, \pi/2)$. But then $f(x) >
+    f(0) = 0$ for all $x \in (0, \pi/2)$. It now follows that $\frac{\sin x}{x} < 1$.
+
+    Now consider $g(x) = \frac{\sin x}{x}$. $g'(x) = \frac{x\cos x - \sin x}{x^2}$. We now show that
+    $x < \tan x = \frac{\sin x}{\cos x}$ in $(0, \pi/2)$. Put $h(x) = \tan x - x$. Since $|\cos x| <
+    1$ in $(0, \pi/2)$, $h'(x) = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} - 1 = \frac{1}{\cos^2 x} - 1 >
+    1$. But then $h(0) = 0$ and $h$ is strictly increasing, so $\tan x - x > 0$ in $(0, \pi/2)$. It
+    now follows that $g'(x) < \frac{\tan x\cos x - \sin x}{x^2} = 0$ and $g(\pi/2) = \frac{2}{\pi}$,
+    and thus $\frac{2}{\pi} < \frac{\sin x}{x}$ for all $0 < x < \frac{\pi}{2}$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For $n = 0, 1, 2, \ldots$ and $x$ real, prove that
+  \[
+    |\sin nx| \leq n |\sin x|.
+  \]
+  \begin{proof}
+    We proceed by indcution on $n$. The base case $n = 0$ is trivial. Suppose $n \geq 1$.
+    \begin{align*}
+      |\sin nx|
+      &= \left|\frac{1}{2i}(e^{nix} - e^{-nix})\right| \\
+      &= \left|\frac{1}{2i}[(e^{(n - 1)ix} - e^{-(n - 1)ix})(e^{ix} + e^{-ix}) + (e^{(n - 1)ix} + e^{-(n - 1)ix})(e^{ix} - e^{-ix})]\right| \\
+      &= [\sin (n - 1)x \cdot \cos x + \cos (n - 1)x \cdot \sin x] \\
+      &\leq |\sin (n - 1)x \cdot \cos x| + |\cos (n - 1)x \cdot \sin x| \\
+      &\leq |\sin(n - 1)x| + |\sin x|
+    \end{align*}
+    By induction,
+    \begin{align*}
+      |\sin nx| = |\sin(n - 1)x| + |\sin x| \leq (n - 1)|\sin x| + |\sin x| = n|\sin x|.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Put $s_N = 1 + \left(\frac{1}{2}\right) + \cdots + \left(\frac{1}{N}\right)$. Prove that
+  \[
+  \lim_{N \to \infty} (s_N - \log N)
+  \]
+  exists. (The limit, often denoted by $\gamma$, is called Euler's constant. Its numerical value
+  is 0.5772.... It is not known whether $\gamma$ is rational or not.)
+  \begin{proof}
+    Let $f_n = s_n - \log n$. Since $\frac{1}{x}$ is a decreasing function, $\int_{n}^{n + 1} \frac{1}{x} \, \dx \geq
+    \frac{1}{n + 1}$. Thus,
+    \[
+      f_{n + 1} - f_n = \frac{1}{n + 1} - (\log (n + 1) - \log n) = \frac{1}{n + 1} - \int_{n}^{n + 1} \frac{1}{x} \, \dx \leq 0,
+    \]
+    and so $\{f_n\}$ is a monotonically decreasing sequence. But then $\int_{1}^n \frac{1}{x} \,
+    dx \leq \sum_{k = 1}^{n - 1} \frac{1}{k}$. Hence,
+    \[
+      f_n = \sum_{k = 1}^n \frac{1}{k} - \int_{1}^n \frac{1}{x} \, dx \geq \frac{1}{n} > 0,
+    \]
+    so $f_n$ is bounded below. The result now follows from Theorem 3.14.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove that $\sum 1/p$ diverges; the sum extends over all primes.
+
+  \begin{proof}
+    Given $N$, let $p_1, \ldots , p_k$ be those primes that divide at least one integer at most $N$.
+    Each $n \leq N$ is a product of powers of $p_j$'s. Since $\prod_{j = 1}^k \left(1 +
+    \frac{1}{p_j} + \frac{1}{p^2} + \cdots\right)$ is the sum of all inverses of numbers whose
+    factorization consists of only powers of $p_j$'s, 
+    \begin{align*}
+      \sum_{n = 1}^N \frac{1}{n}
+      &= \sum_{n = 1}^N \frac{1}{p_1^{l_1}p_2^{l_2}\cdots p_k^{l_k}} \\
+      &\leq \prod_{j = 1}^k \left(1 + \frac{1}{p_j} + \frac{1}{p^2} + \cdots\right) \\
+      &= \prod_{j = 1}^k \left(1 - \frac{1}{p_j}\right)^{-1}.
+    \end{align*}
+    We now show that $e^{2x} \geq (1 - x)^{-1}$ for $x \in (0, 1/2)$. Put $f(x) = (1 - x)e^{2x}$.
+    Since $f'(x) = (1 - 2x)e^{2x} > 0$ for $x \in (0, 1/2)$ and $f(0) = 1$, we have $f(x) \geq 1$ in
+    $(0, 1/2)$, and thus $e^{2x} \geq (1 - x)^{-1}$. Hence, we have
+    \[
+      \prod_{j = 1}^k \left(1 - \frac{1}{p_j}\right)^{-1} \leq \exp \sum_{j = 1}^k \frac{2}{p_j}.
+    \]
+    The logarithmic function is monotonically increasing, so we get
+    \[
+      \frac{1}{2}\log \left(\sum_{n = 1}^N \frac{1}{n}\right) \leq \sum_{j = 1}^k \frac{1}{p_j}.
+    \]
+    Since $k \to \infty$ as $N \to \infty$ and $\sum_{n = 1}^N \frac{1}{n}$ diverges, $\sum_{j =
+    1}^k \frac{1}{p_j}$ diverges.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f \in \mathscr{R}$ on $[0, A]$ for all $A < \infty$, and $f(x) \to 1$ as $x \to \infty$.
+  Prove that
+  \[
+    \lim_{t \to 0} t \int_0^\infty e^{-tx} f(x) \, dx = 1 \quad (t > 0).
+  \]
+  \begin{proof}
+    Pick $\epsilon > 0$. There exists $A$ such that $|f(x) - 1| < \epsilon$ for all $x \geq A$.
+    Since $|e^{-tx}| < 1$ for all $t > 0$, 
+    \[
+      \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx\right| \leq \lim_{t \to 0^+} t\int_0^A |f(x)| \, dx = 0.
+    \]
+    On the other hand, for $t > 0$,
+    \[
+      e^{-At}(1 - \epsilon) \leq \left|\int_A^{\infty} te^{-tx}(1 - \epsilon) \, dx\right| \leq t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| \leq \left|\int_A^{\infty} te^{-tx}(1 + \epsilon) \, dx\right| \leq e^{-At}(1 + \epsilon).
+    \]
+    Thus, $t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| = e^{-At}$, as $\epsilon$ is
+    arbitrary. It now follows that
+    \begin{align*}
+      \lim_{t \to 0^+} t \left|\int_0^{\infty} e^{-tx} f(x) \, dx\right|
+      &= \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx + \int_0^{\infty} e^{-tx} f(x) \, dx\right| \\
+      &\leq \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx\right| + \lim_{t \to 0^+} t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| \\
+      &= \lim_{t \to 0^+} t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| \\
+      &= \lim_{t \to 0^+} e^{-At} \\
+      &= 1.
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If $\alpha$ is real and $-1 < x < 1$, prove Newton's binomial theorem
+  \[
+    (1 + x)^\alpha = 1 + \sum_{n=1}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n+1)}{n!} x^n.
+  \]
+  \begin{proof}
+    Since
+    \[
+      \lim_{n \to \infty} \left|\frac{\frac{\alpha(\alpha-1) \cdots (\alpha-n)}{(n + 1)!} x^{n + 1}}{\frac{\alpha(\alpha-1) \cdots (\alpha-n+1)}{n!} x^n}\right| = \lim_{n \to \infty} \frac{n - \alpha}{n + 1}|x| < 1,
+    \]
+    the series on the right converges in $(-1, 1)$ by the ratio test. Let $f(x)$ denote the function
+    on the right-hand side. By Theorem 8.1, $f(x)$ is differentiable. Note that
+    \[
+      f'(x) = \sum_{n=1}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n+1)}{(n - 1)!} x^{n - 1} = \sum_{n=0}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n)}{n!} x^{n}.
+    \]
+    Hence, we have
+    \begin{align*}
+      (1 + x)f'(x)
+      &= \sum_{n=0}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n)}{n!} x^{n} + \sum_{n=0}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n)}{n!} x^{n + 1} \\
+      &= \alpha + \sum_{n=1}^\infty \left(\frac{\alpha(\alpha-1) \cdots (\alpha-n)}{n!} + \frac{\alpha(\alpha-1) \cdots (\alpha-n + 1)}{(n - 1)!}\right) x^{n} \\
+      &= \alpha + \sum_{n=1}^\infty (n + \alpha - n)\frac{\alpha(\alpha-1) \cdots (\alpha-n + 1)}{n!} x^{n} \\
+      &= \alpha + \alpha\sum_{n=1}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n + 1)}{n!} x^{n} \\
+      &= \alpha f(x).
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
