@@ -267,11 +267,9 @@
 	\end{quote}
 
 	2: Define and evaluate the base cases
-	\begin{quote}
-		\[
-			G[n] = 0.
-		\]
-	\end{quote}
+	\[
+		G[n] = 0.
+	\]
 
 	3: Establish the recurrence for the tabulation.
 	\begin{quote}
@@ -288,11 +286,9 @@
 	\end{quote}
 
 	5: Final form of output.
-	\begin{quote}
-		\[
-			G[0].
-		\]
-	\end{quote}
+	\[
+		G[0].
+	\]
 
 	6: Put it all together as pseudocode
 	\begin{quote}
@@ -351,47 +347,71 @@ process until you're left with nothing else to lend.” Provide a counter exampl
 \end{proof}
 
 \item Devise a Dynamic programming-based algorithm that returns the minimum number of coins needed
-to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})$ time.) \\
+to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})$ time.)
 
-\textbf{Algorithm Description:}
-
-Initialize a list $[A[1], \dots, A[n]]$ such that $A[i] = \begin{cases} 
-	1 & \text{if } \sqrt{i} \in \N \\
-	i & \text{otherwise} 
-\end{cases}$, for all $1 \leq i \leq n$. For each positive integer $i \leq n$, loop through each
-square number $s \leq i$, and make $A[i] = \min(A[i - s] + 1, A[i])$. At the end of the algorithm,
-return $A[n]$. \\
-
-\textbf{Proof of Correctness:}
-
-\begin{proof}
-	Let $\delta(n)$ denote the minimum number of coins needed to lend $n$ Square-Dollars. We proceed
-	by induction on $n$ to show that $A[n] = \delta(n)$.
-
-	Suppose $n = 1$. Since 1 is a square number, $A[1] = 1$, which is obviously equal to $\delta(1)$.
-
-	Now suppose $n \geq 2$. Assume that $A[i] = \delta(i)$ for all $i < n$. We may also assume that
-	$n$ is not a square number, otherwise $A[n] = 1 = \delta(n)$ and we are done. Hence, we have
-	$\delta(n) > 1$. Let $c_1, \dots, c_{\delta(n)}$ such that each $c_j$ is a square number and $c_1
-	+ \cdots + c_{\delta(n)} = n$. By induction, $A[n - c_{\delta(n)}] = \delta(n - c_{\delta(n)})$.
-	But then note that $\delta(n) \geq \delta(n - c_{\delta(n)}) + 1$, otherwise $c_1, \cdots,
-	c_{\delta(n) - 1}$ sums up to $n - c_{\delta(n)}$ with less than $\delta(n - c_{\delta(n)})$
-	coins, contradiction. Since $A[n]$ is the minimum of $A[n - s]$ for all square number $s$, we have
-	$A[n] \leq A[n - c_1] + 1$. Combining all inequalities, we get
+\begin{quote}
+	1: Define the subproblems:
+	\begin{quote}
+	Let $SD[i]$ be defined to be the minimum number of coins needed to make change for $i$ Square-Dollars.
+	\end{quote}
+	
+	2: Define and evaluate the base cases
 	\[
-		A[n] \leq A[n - c_1] + 1 = \delta(n - c_1) + 1 \leq \delta(n) \leq A[n],
+		A[1] = 1.
 	\]
-	which yields $A[n] = \delta(n)$.
-\end{proof}
-
-\textbf{Runtime Analysis:}
-
-\begin{proof}
-	Initializing $A$ takes $O(n)$ time. Note that there are at most $\sqrt{i}$ square number $s \leq
-	i$, for all $i \in \Z^+$. Hence, for each positive integer $i \leq n$, looping through all square
-	number takes $O(\sqrt{n})$ time, and thus the outer loop which iterates through all $i \leq n$
-	takes $O(n^{1.5})$ time. In total, the algorithm takes $O(n^{1.5} + n) = O(n^{1.5})$ time.
-\end{proof}
+	
+	3: Establish the recurrence for the tabulation.
+	\begin{quote}
+		Suppose $i \geq 2$. Let $S$ be the set of all square numbers less than $i$. Then,
+		\[
+			A[i] = \begin{cases}
+				1 &\text{ if } \sqrt{i} \in \N \\
+				1 + \min_{s \in S} A[i - s] &\text{ otherwise}
+			\end{cases}.
+		\]
+	\end{quote}
+	
+	4: Determine the order of subproblems:
+	\begin{quote}
+		Order the subproblems from $1$ to $n$.
+	\end{quote}
+	
+	5: Final form of output.
+	\[
+		A[n].
+	\]
+	
+	6: Put it all together as pseudocode
+	\begin{quote}
+		\begin{enumerate}[1.]
+		\item
+		Initialize array $A$ of size $n$, with $A[i] = i$ \quad (with 1-based indexing)
+		\item
+		{\bf for} $i$ from $1$ to $n$
+		\item
+		\ind {\bf if} $\lfloor\sqrt{i}\rfloor^2 = i$
+		\item
+		\ind\ind $A[i] = 1$
+		\item
+		\ind {\bf else}
+		\item
+		\ind\ind {\bf for} $s$ from $1$ to $\lfloor\sqrt{i}\rfloor$
+		\item
+		\ind\ind\ind $A[i] = 1 + \min(A[i], A[i - s^2])$
+		\item 
+		{\bf return} $A[n]$
+		\end{enumerate}
+	\end{quote}
+	
+	7: Runtime analysis
+	\begin{quote}
+		Initializing $A$ takes $O(n)$ time. Note that there are at most $\sqrt{i}$ square number $s \leq
+		i$, for all $i \in \Z^+$. Hence, for each positive integer $i \leq n$, looping through all
+		square number takes $O(\sqrt{n})$ time, and thus the outer loop which iterates through all $i
+		\leq n$ takes $O(n^{1.5})$ time. In total, the algorithm takes $O(n^{1.5} + n) = O(n^{1.5})$
+		time.
+	\end{quote}
+	\end{quote}
 \end{enumerate}
 \end{homeworkProblem}
 
@@ -416,7 +436,6 @@ return $A[n]$. \\
 		\[
 			S[i, j] = A_{i, j}.
 		\]
-		
 	\end{quote}
 
 	3: Establish the recurrence for the tabulation.
@@ -435,11 +454,9 @@ return $A[n]$. \\
 	\end{quote}
 
 	5: Final form of output.
-	\begin{quote}
-		\[
-			\max_{[i, j]} S[i, j].
-		\]
-	\end{quote}
+	\[
+		\max_{[i, j]} S[i, j].
+	\]
 
 	6: Put it all together as pseudocode
 	\begin{quote}
