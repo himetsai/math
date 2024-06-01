@@ -250,7 +250,7 @@
       \frac{1}{2}\log \left(\sum_{n = 1}^N \frac{1}{n}\right) \leq \sum_{j = 1}^k \frac{1}{p_j}.
     \]
     Since $k \to \infty$ as $N \to \infty$ and $\sum_{n = 1}^N \frac{1}{n}$ diverges, $\sum_{j =
-    1}^k \frac{1}{p_j}$ diverges.
+    1}^k \frac{1}{p_j}$ diverges, by comparison test.
   \end{proof}
 \end{homeworkProblem}
 
@@ -295,7 +295,7 @@
   \begin{proof}
     Since
     \[
-      \lim_{n \to \infty} \left|\frac{\frac{\alpha(\alpha-1) \cdots (\alpha-n)}{(n + 1)!} x^{n + 1}}{\frac{\alpha(\alpha-1) \cdots (\alpha-n+1)}{n!} x^n}\right| = \lim_{n \to \infty} \frac{n - \alpha}{n + 1}|x| < 1,
+      \lim_{n \to \infty} \left|\frac{\frac{\alpha(\alpha-1) \cdots (\alpha-n)}{(n + 1)!} x^{n + 1}}{\frac{\alpha(\alpha-1) \cdots (\alpha-n+1)}{n!} x^n}\right| = \lim_{n \to \infty} \left|\frac{n - \alpha}{n + 1}\right||x| < 1,
     \]
     the series on the right converges in $(-1, 1)$ by the ratio test. Let $f(x)$ denote the function
     on the right-hand side. By Theorem 8.1, $f(x)$ is differentiable. Note that
@@ -311,6 +311,20 @@
       &= \alpha + \alpha\sum_{n=1}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n + 1)}{n!} x^{n} \\
       &= \alpha f(x).
     \end{align*}
+    Since $f(0) = 1$ and $f$ is continuous, there exists $R \in (0, 1)$ such that $f(x) > 0$ in
+    $(-R, R)$. Hence, $(\log f(x))' = \frac{f'(x)}{f(x)} = \frac{\alpha}{1 + x}$ in $(-R, R)$, which
+    shares the same derivative with $\log (1 + x)^{\alpha}$. But then for $x \in (-R, R)$,
+    \[
+      \log f(x) = \log f(x) - \log f(0) = \int_{0}^x \frac{\alpha}{1 + t} \, dt = \alpha \log(1 + x) = \log(1 + x)^{\alpha},
+    \]
+    and so $f(x) = \exp(\log f(x)) = \exp(\log (1 + x)^{\alpha}) = (1 + x)^{\alpha}$. Now let $S =
+    \{K \in (0, 1) \mid f(x) > 0 \text{ if } x \in [-K, K]\}$. Suppose for contradiction that
+    $A = \sup S < 1$. We know $f(x) = (1 + x)^{\alpha}$ in $(-A, A)$. But then 
+    \[
+      \lim_{x \to A} f(x) = (1 + A)^{\alpha} > 0 \text{ and } \lim_{x \to -A} f(x) = (1 + -A)^{\alpha} > 0.
+    \]
+    By continuity, there exists $\delta$ such that $f(x) > 0$ in $(-A - \delta, A + \delta)$,
+    contradiction. Hence, $f(x) = (1 + x)^{\alpha}$ in $(-1, 1)$. 
   \end{proof}
 \end{homeworkProblem}
 \end{document}
