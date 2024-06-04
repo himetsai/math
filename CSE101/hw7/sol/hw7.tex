@@ -1,0 +1,266 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage[margin=1in]{geometry}
+
+\newcommand{\st}{~\mid~}
+\newcommand{\ind}{$~~~$}
+\usepackage{xcolor}
+
+\graphicspath{ {./../images} }
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Jun 7, 2024}
+\newcommand{\hmwkClass}{CSE 101}
+\newcommand{\hmwkClassInstructor}{Professor Jones}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  You are given a rooted binary tree $T$ on $n$ vertices named $0,\dots, n-1$. The rooted tree is
+  given to you as an adjacency list of children. (You can assume that the vertices are ordered by
+  levels starting from the lowest level (i.e., that vertex $n-1$ is the root.)
+
+  Each vertex $i$ has a positive value $v[i]$.
+
+  You wish to find the path with maximum total sum of vertex values.
+
+  \begin{quote}
+    1: Define the subproblems:
+    \begin{quote}
+      % Let $IN[i]$ be the maximum total sum of vertex values of a path that {\bf includes} vertex $i$ and
+      % consists only of vertices hanging from the tree rooted at $i$.
+    
+      Let $PATH[i]$ be the maximum total sum of vertex values of a path consists only of vertices
+      hanging from the tree rooted at $i$.
+
+      Let $HEIGHT[i]$ be the maximum total sum of vertex values of a path that starts at $i$ and
+      goes to a leaf node in the subtree hanging from $i$.
+      \end{quote}
+    
+    2: Define and evaluate the base cases.
+    \begin{quote}
+      For each vertex $i$ with no children, 
+      \[
+        PATH[i] = v[i], \quad HEIGHT[i] = v[i].
+      \]
+    \end{quote}
+    
+    3: Establish the recurrence for the tabulation.
+    \begin{quote}
+      For vertex $i$ with list of children $C$,
+      \begin{gather*}
+        PATH[i] = \max\left(\max_{c \in C} PATH[i], v[i] + \sum_{c \in C} HEIGHT[c]\right) \\
+        HEIGHT[i] = v[i] + \max_{c \in C} HEIGHT[c]
+      \end{gather*}
+    \end{quote}
+    
+    4: Determine the order of subproblems:
+    \begin{quote}
+      Order the subproblems from 0 to $n - 1$.
+    \end{quote}
+    
+    5: Final form of output.
+    \[
+      PATH[n - 1].
+    \]
+    \end{quote}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  There is a long straight road with $n$ houses located at positions $x_1,x_2,\dots,x_n$ (measured
+  in miles from the start of the road.) You can assume that $x_1<x_2<\dots < x_n$.
+
+  You have a budget to build $F$ firestations along the road. You want to find positions of the $F$
+  firestations that minimizes the total distance from each house to its nearest firestation. (You
+  can build a firestation anywhere along the road. You can even build a firestation at the same
+  location of a house.)
+
+  Complete the setup for a DP tabulation algorithm for this problem where the output is the minimum
+  total distance from each house to its nearest firestation.
+
+  \begin{quote}
+  1: Define the subproblems:
+  \begin{quote}
+  Let $c[i,k]$ be defined to be minimum total distance of all houses $\{x_1,\dots,x_i\}$ with a
+  budget of $k$ firestations.
+  \end{quote}
+
+  2: Define and evaluate the base cases.
+
+  \begin{quote}
+  Notice that the solution to the problem with only 1 firestation is to put the firestation at the
+  location of the middle house.
+  $$c[i,1] = \sum_{k=1}^i |x_k-x_{\lceil i/2\rceil}|.$$
+  Since we can just put a firestation at the location of the house when there is only one house,
+  $$c[1,j] = 0.$$
+  \end{quote}
+
+  3: Establish the recurrence for the tabulation.
+  \begin{quote}
+    For $i, j > 1$
+    \[
+      c[i, j] = \min_{l < i}\left(c[l, j - 1] + \sum_{k=l + 1}^i |x_k-x_{\lceil i/2\rceil}|\right)
+    \]
+  \end{quote}
+  
+
+  4: Determine the order of subproblems:
+  \begin{quote}
+    Order the subproblems in row-major order. That is, we are traversing through $c$ one row $i$ at
+		a time, from $1$ to $n$, and within row $i$ we traverse through the columns from $1$ to $F$.
+		Each row is completed before moving on to the next row.
+  \end{quote}
+
+  5: Final form of output.
+  \[
+    c[n, F].
+  \]
+
+  \end{quote}
+
+\end{homeworkProblem}
+\end{document}

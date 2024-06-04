@@ -231,7 +231,7 @@
   \begin{proof}
     Given $N$, let $p_1, \ldots , p_k$ be those primes that divide at least one integer at most $N$.
     Each $n \leq N$ is a product of powers of $p_j$'s. Since $\prod_{j = 1}^k \left(1 +
-    \frac{1}{p_j} + \frac{1}{p^2} + \cdots\right)$ is the sum of all inverses of numbers whose
+    \frac{1}{p_j} + \frac{1}{p_j^2} + \cdots\right)$ is the sum of all inverses of numbers whose
     factorization consists of only powers of $p_j$'s, 
     \begin{align*}
       \sum_{n = 1}^N \frac{1}{n}
@@ -249,8 +249,8 @@
     \[
       \frac{1}{2}\log \left(\sum_{n = 1}^N \frac{1}{n}\right) \leq \sum_{j = 1}^k \frac{1}{p_j}.
     \]
-    Since $k \to \infty$ as $N \to \infty$ and $\sum_{n = 1}^N \frac{1}{n}$ diverges, $\sum_{j =
-    1}^k \frac{1}{p_j}$ diverges, by comparison test.
+    Since $k \to \infty$ as $N \to \infty$ and $\sum_{n = 1}^{\infty} \frac{1}{n}$ diverges,
+    $\sum_{j = 1}^{\infty} \frac{1}{p_j}$ diverges, by comparison test.
   \end{proof}
 \end{homeworkProblem}
 

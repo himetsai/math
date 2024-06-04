@@ -1,0 +1,83 @@
+
+\documentclass[10pt,letterpaper,unboxed,cm]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{enumerate}
+
+\newcommand{\st}{~\mid~}
+\newcommand{\ind}{$~~~$}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+
+\begin{document}
+
+
+\hfill{CSE 101 Spring 2024}
+\hfill{Homework 7 {\color{blue} updated}}
+\hfill{Due: Thursday 6/6 at 11:59pm}
+
+
+
+
+
+
+\begin{enumerate}
+\item (12 points)
+You are given a rooted binary tree $T$ on $n$ vertices named $0,\dots, n-1$. The rooted tree is given to you as an adjacency list of children. (You can assume that the vertices are ordered by levels starting from the lowest level (i.e., that vertex $n-1$ is the root.)
+
+{\color{blue} Assume that the tree is undirected.}
+
+Each vertex $i$ has a positive value $v[i]$.
+
+You wish to find the path with maximum total sum of vertex values.
+
+
+Complete the setup for a DP tabulation algorithm for this problem. (You only need to do steps 2-5. You do not need to include a pseudocode and you do not need to include a runtime analysis. The descriptions of subproblems (Step 1:) are given below:)
+
+
+Note that this problem requires two arrays to fill:
+\begin{quote}
+Let $IN[i]$ be the maximum total sum of vertex values of a path that {\bf includes} vertex $i$ and consists only of vertices hanging from the tree rooted at $i$.
+
+Let $OUT[i]$ be the maximum total sum of vertex values of a path that {\bf excludes} vertex $i$ and consists only of vertices hanging from the tree rooted at $i$.
+\end{quote}
+
+\sout{{\color{blue} hint: you will need to be able to access the height of a vertex for the $IN$ part.}}\\
+\sout{{\color{blue} You can assume that accessing the height of a vertex as constant time.}}
+
+{\color{purple} Additional help: It will be useful to keep track of another array (called $HEIGHT[k]$) such that $HEIGHT[k]$ is the maximum total sum of vertex values of a path that starts at $k$ and goes to a leaf node in the subtree hanging from $k$.}
+
+
+
+\item (8 points) [graded on fair effort completeness.]
+There is a long straight road with $n$ houses located at positions $x_1,x_2,\dots,x_n$ (measured in miles from the start of the road.) You can assume that $x_1<x_2<\dots < x_n$.
+
+You have a budget to build $F$ firestations along the road. You want to find positions of the $F$ firestations that minimizes the total distance from each house to its nearest firestation. (You can build a firestation anywhere along the road. You can even build a firestation at the same location of a house.)
+
+Complete the setup for a DP tabulation algorithm for this problem where the output is the minimum total distance from each house to its nearest firestation.  The description of subproblems (Step 1:) and base cases (Step 2:) are given below:)
+
+\begin{quote}
+1: Define the subproblems:
+\begin{quote}
+Let $c[i,k]$ be defined to be minimum total distance of all houses $\{x_1,\dots,x_i\}$ with a budget of $k$ firestations.
+\end{quote}
+
+2: Define and evaluate the base cases.
+
+\begin{quote}
+Notice that the solution to the problem with only 1 firestation is to put the firestation at the location of the middle house: $x_{\lceil i/2\rceil}$.
+
+{\color{blue} $$c[i,1] = \sum_{k=1}^i |x_k-x_{\lceil i/2\rceil}|$$}
+\end{quote}
+
+3: Establish the recurrence for the tabulation.
+
+4: Determine the order of subproblems:
+
+5: Final form of output.
+
+\end{quote}
+
+\end{enumerate}
+
+\end{document}
