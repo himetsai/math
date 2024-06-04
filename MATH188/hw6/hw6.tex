@@ -225,24 +225,26 @@
       $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ also implies that $\textbf{C}_{[n] - \{i\}} =
       \textbf{D}_{[n] - \{i\}}$. It now follows that
       \[
-        \textbf{C}_n^{(i)} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{C}_{[n] - \{i\}} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{D}_{[n] - \{i\}} = \textbf{D}_n^{(i)}.
-      \],
+        \textbf{C}_n^{(i)} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{C}_{[n] - \{i\}} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{D}_{[n] - \{i\}} = \textbf{D}_n^{(i)},
+      \]
       for all $i$.
     \end{proof}
     \item Conclude that $\textbf{C}_n = \textbf{D}_n$ for all $n \geq 1$.
     \begin{proof}
       We proceed by induction on $n$. When $n = 1$, there are only one label tree, which is a
       singleton. Hence, $\textbf{C}_1 = 1 = x_1x_1^{-1} = \textbf{D}_1$. Suppose $n \geq 2$. By
-      induction and (b), we have $\textbf{C}_{n - 1}^{(i)} = \textbf{D}_{n - 1}^{(i)}$ for all $i
+      induction and (b), we have $\textbf{C}_{n}^{(i)} = \textbf{D}_{n}^{(i)}$ for all $i
       \in [n]$. But then 
       \begin{align*}
         \textbf{C}_n
         &= \sum_{T} x(T) \\
         &= \sum_{i = 1}^{n} \sum_{T; d_i = 1} x(T) \\
-        &= \sum_{i = 1}^{n} \textbf{C}_n^{(i)} \\
-        &= \sum_{i = 1}^{n} \textbf{D}_n^{(i)} \\
-        &= 
+        &= \sum_{i = 1}^{n} x_i\textbf{C}_n^{(i)} \quad (\text{by } (1))\\
+        &= \sum_{i = 1}^{n} x_i\textbf{D}_n^{(i)} \\
+        &= x_1\cdots x_n\sum_{i = 1}^{n} (x_1 + x_2 + \cdots + x_n - x_i)^{n-2}
       \end{align*}
+      Note that expanding $\sum_{i = 1}^{n} (x_1 + x_2 + \cdots + x_n - x_i)^{n-2}$ gives the sum of
+      all monomials $x_1^{e_1} \cdots x_n^{e_n}$ with $\sum e_i = n - 2$. and then idk.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -316,7 +318,7 @@
       \]
       Since we are calculating the case where no person stands next to their spouse, we have
       \[
-        |L \backslash A| = |L| - |A| = (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k} = \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k)!2^{k}.
+        |L \backslash A| = |L| - |A| = (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k} = (2n)! - \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k)!2^{k}.
       \]
     \end{proof}
     \item Same as (a), but replace ``line'' by ``circle''.
@@ -342,41 +344,8 @@
       Hence, the number of ways to have $n$ couples stand in a circle with no person standign next
       to their spouse is
       \[
-        |L \backslash A| = \frac{1}{2n} \cdot (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k} = \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k - 1)!2^{k}.
+        |L \backslash A| = \frac{1}{2n} \cdot (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k} = (2n - 1)! - \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k - 1)!2^{k}.
       \]
-
-
-      % Let $L$ be the set of all arrangements of $2n$ people in a circle. Put $A = A_1 \cup \cdots
-      % \cup A_n$, where $A_i$ is set of arrangements $n$ couples in a circle with the $i$th couple
-      % standing next to each other. Let $S \subseteq [n]$. Define $f(S)$, $g(S)$ the same way as in
-      % (a). Let $p, p'$ be the $n$th couple. Note that each arrangement of $2n$ people in a circle
-      % can be viewed as an arrangement of $2n - 1$ people, as we may remove $p$ from the circle and
-      % line up the rest of $2n - 1$ people starting from the person on the left of $p$ to the one on
-      % the right. If $n \notin S$, calculating $g(S)$, is equivalent to counting the ways to line up
-      % $2n - 1$ people with no couples standing side-by-side. If $n \in S$, then $p'$ must be next to
-      % $p$. Thus, we may first decide whether $p'$ should be at the left of right of $p$, then count
-      % the ways to line up $n - 1$ couples with no couples standing side-by-side. Hence, we get
-      % \[
-      %   g(S) = \begin{cases}
-      %     (2n - 1 - |S|)!2^{|S|} & \text{if } n \notin S \\
-      %     2(2(n - 1) - (|S| - 1))!2^{|S| - 1} & \text{if } n \in S
-      %   \end{cases} = (2n - 1 - |S|)!2^{|S|}
-      % \]
-      
-      % we may view each couple in $S$ as a unit of
-      % people and account the ordering of each unit. Then, we would have $2n - |S|$ unit of people,
-      % with $|S|$ units each having 2 arrangements, so
-      % \[
-      %   g(S) =  \frac{1}{2n - |S|}\left[(2n)!2^{|S|} + |S|\right]
-      % \]
-      % Note that we divide by $2n$ to disregard shifting the circle. By inclusion-exclusion,
-      % \[
-      %   |A| = \sum_{\substack{S \subseteq [n] \\ S \neq \emptyset}} \frac{(-1)^{|S| - 1}}{2n} (2n - |S|)!2^{|S|} = \frac{1}{2n}\sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k}
-      % \]
-      % Since we are calculating the case where no person stands next to their spouse, we have
-      % \[
-      %   |L \backslash A| = |L| - |A| = \frac{(2n)!}{2n} - \frac{1}{2n}\sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k} = \frac{1}{2n}\sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k)!2^{k}.
-      % \]
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -474,7 +443,7 @@
     \end{align*}
     That is, for $n \geq 1$,
     \[
-      f_n = \frac{1}{(n + 1)!}\sum_{k = 0}^{n + 1} \binom{n + 1}{k} \left(\frac{k}{2}\right)^n.
+      f_n = \frac{1}{2^n(n + 1)!}\sum_{k = 0}^{n + 1} \binom{n + 1}{k} k^n.
     \]
   \end{proof}
 \end{homeworkProblem}
@@ -610,7 +579,7 @@
   no one sits next to someone they were sitting next to before?
 
   \begin{proof}
-    idk.
+    idk bro.
   \end{proof}
 \end{homeworkProblem}
 
@@ -671,10 +640,12 @@
       Since $q^n = \sum_{d|n} dN_d$, by Möbius inversion,
       \begin{align*}
         nN_d
-        &= \sum_{d|n} q^d\mu(d, n) \\
-        &= \sum_{d|n} q^{n/d}\mu(n/d, n) \\
-        &= \sum_{\substack{d = p_1\cdots p_k \\ p_i | n \text{ and distinct}}} (-1)^kq^{n/d}
+        &= \sum_{d|n} q^d\mu(d, n),
       \end{align*}
+      and so 
+      \[
+        N_d = \frac{1}{n}\sum_{d|n} q^d\mu(d, n).
+      \]
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}

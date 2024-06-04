@@ -263,20 +263,32 @@
     \lim_{t \to 0} t \int_0^\infty e^{-tx} f(x) \, dx = 1 \quad (t > 0).
   \]
   \begin{proof}
-    Pick $\epsilon > 0$. There exists $A$ such that $|f(x) - 1| < \epsilon$ for all $x \geq A$.
-    Since $|e^{-tx}| < 1$ for all $t > 0$, 
+    We first show that the improper integral is well-defined. Pick $\epsilon > 0$. There exists $A$
+    such that $|f(x) - 1| < \epsilon$ for all $x \geq A$. For $n > A$, 
+    \[
+      \frac{1 - \epsilon}{t}[e^{-tA} - e^{-tn}] = \int_A^n e^{-tx} (1 - \epsilon) \, dx < \int_A^n e^{-tx} f(x) \, dx < \int_A^n e^{-tx} (1 + \epsilon) \, dx = \frac{1 + \epsilon}{t}[e^{-tA} - e^{-tn}].
+    \]
+    Since $\lim_{n \to \infty} e^{-tn} = 0$,
+    \[
+      \frac{1 - \epsilon}{t}e^{-tA} \leq \lim_{n \to \infty} \int_A^n e^{-tx} f(x) \, dx \leq \frac{1 + \epsilon}{t}e^{-tA}.
+    \]
+    As $\epsilon$ is arbitrary,
+    \[
+      \int_A^{\infty} e^{-tx} f(x) \, dx = \frac{1}{t}e^{-tA},
+    \]
+    and so $\int_0^{\infty} e^{-tx} f(x) \, dx = \int_0^{A} e^{-tx} f(x) \, dx + \int_A^{\infty}
+    e^{-tx} f(x) \, dx$ exists. Since $|e^{-tx}| < 1$ for all $t > 0$, 
     \[
       \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx\right| \leq \lim_{t \to 0^+} t\int_0^A |f(x)| \, dx = 0.
     \]
     On the other hand, for $t > 0$,
     \[
-      e^{-At}(1 - \epsilon) \leq \left|\int_A^{\infty} te^{-tx}(1 - \epsilon) \, dx\right| \leq t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| \leq \left|\int_A^{\infty} te^{-tx}(1 + \epsilon) \, dx\right| \leq e^{-At}(1 + \epsilon).
+      t\left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| = t\left|\frac{1}{t}e^{-tA}\right| = e^{-tA}.
     \]
-    Thus, $t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| = e^{-At}$, as $\epsilon$ is
-    arbitrary. It now follows that
+    It now follows that
     \begin{align*}
       \lim_{t \to 0^+} t \left|\int_0^{\infty} e^{-tx} f(x) \, dx\right|
-      &= \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx + \int_0^{\infty} e^{-tx} f(x) \, dx\right| \\
+      &= \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx + \int_A^{\infty} e^{-tx} f(x) \, dx\right| \\
       &\leq \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx\right| + \lim_{t \to 0^+} t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| \\
       &= \lim_{t \to 0^+} t \left|\int_A^{\infty} e^{-tx} f(x) \, dx\right| \\
       &= \lim_{t \to 0^+} e^{-At} \\
