@@ -318,7 +318,7 @@
       \]
       Since we are calculating the case where no person stands next to their spouse, we have
       \[
-        |L \backslash A| = |L| - |A| = (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k} = (2n)! - \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k)!2^{k}.
+        |L \backslash A| = |L| - |A| = (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k)!2^{k} = \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k)!2^{k}.
       \]
     \end{proof}
     \item Same as (a), but replace ``line'' by ``circle''.
@@ -344,7 +344,7 @@
       Hence, the number of ways to have $n$ couples stand in a circle with no person standign next
       to their spouse is
       \[
-        |L \backslash A| = \frac{1}{2n} \cdot (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k} = (2n - 1)! - \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k - 1)!2^{k}.
+        |L \backslash A| = \frac{1}{2n} \cdot (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k} = \sum_{k = 0}^{n} (-1)^{k}\binom{n}{k}(2n - k - 1)!2^{k}.
       \]
     \end{proof}
   \end{enumerate}
