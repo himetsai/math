@@ -216,35 +216,89 @@
       \[
         \nu(1 - \epsilon) \leq \int_0^{\nu} \left(\frac{\sin x}{x}\right)^2 \, dx \leq \nu(1 + \epsilon),
       \]
-      and so the the improper integral $\int_0^{A} \left(\frac{\sin x}{x}\right)^2 \, dx$ exists. On
+      and so the the improper integral $\int_0^{1} \left(\frac{\sin x}{x}\right)^2 \, dx$ exists. On
       the other hand, 
       \[
-        \left|\int_{A}^n \left(\frac{\sin x}{x}\right)^2 \, dx\right| \leq \int_{A}^n \frac{1}{x^2} \, dx = \frac{1}{A} - \frac{1}{n},
+        \left|\int_{1}^n \left(\frac{\sin x}{x}\right)^2 \, dx\right| \leq \int_{1}^n \frac{1}{x^2} \, dx = 1 - \frac{1}{n},
       \] 
-      and thus $\int_{A}^n \left(\frac{\sin x}{x}\right)^2 \, dx \to \frac{1}{A}$ as $n \to \infty$.
+      and thus $\int_{1}^n \left(\frac{\sin x}{x}\right)^2 \, dx \to 1$ as $n \to \infty$.
 
-      Since the improper integral exists, there exists large enough $A$, such that
+      Pick $\epsilon > 0$. Since the improper integral exists, there exists $A > 0, B > \max(A,
+      3/\epsilon)$, such that
       \[
-        \left|\int_{A}^{\infty} \left(\frac{\sin x}{x}\right)^2 \, dx\right| < \epsilon/3.
+        \left|\int_{0}^{\infty} \left(\frac{\sin x}{x}\right)^2 \, dx - \int_{a}^{b} \left(\frac{\sin x}{x}\right)^2 \, dx\right| < \epsilon/3,
       \]
-      There exists small enough $\delta' \in (0, \delta)$ such that $A/\delta' \in \Z^+$ and the
-      partition $P = \{n\delta' \mid n \in \Z, 0 \leq n \leq A/\delta'\}$, yields 
+      for all $a \in (0, A]$ and $b \geq B$. 
+
+      We now prove 2 lemmas:
+
+      \textbf{Lemma 1 } Let $f: [a, b] \to \R$ be continuous. For all $\epsilon > 0$, there exists
+      $\delta_1 > 0$ such that, for any partition $P = \{x_1, \dots, x_r\}$ on $[a, b]$ with $\max_i
+      \Delta x_i < \delta_1$, we have 
+      \begin{itemize}
+        \item[(i)] $U(P, f) - L(P, f) < \epsilon$ \\
+        \item[(ii)] $\left|\int_a^b f - \sum_{i = 1}^n f(s_i) \Delta x_i\right| < \epsilon$, for any
+        $s_i \in [x_{i - 1}, x_i]$.
+      \end{itemize}
+
+      \begin{proof}
+        (a) immediately follows from the proof of Theorem 6.8. (b) is by Theorem 6.7(c).
+      \end{proof}
+
+      \textbf{Lemma 2 } With the setups of Lemma, let $[c, d] \subseteq [a, b]$. For any partition
+      $Q = \{y_1, \ldots, y_m\}$ on $[c, d]$ with $\max_i \Delta y_i < \delta_1$,
+      \begin{enumerate}[(i)]
+        \item $U(Q, f|_{[c, d]}) - L(Q, f|_{[c, d]}) < \epsilon$ \\
+        \item $\left|\int_c^d f - \sum_{i = 1}^n f(s_i) \Delta y_i\right| < \epsilon$, for any
+        $s_i \in [y_{i - 1}, y_i]$.
+      \end{enumerate}
+      \begin{proof}
+        Consider the partition $Q^+ = Q \cup Q'$ on $[a, b]$, where the length of every interval in
+        $Q'$ is also lesser than $\delta_1$. By Lemma 1, $U(Q, f|_{[c, d]}) - L(Q, f|_{[c, d]}) \leq
+        U(Q^+, f) - L(Q^+, f) < \epsilon$. (b) again follows from Theorem 6.7(c).
+      \end{proof}
+
+      Now consider $g:[0, B + 1] \to \R$ with $g(x) = \begin{cases}
+        \left(\frac{\sin x}{x}\right)^2 & x > 0 \\
+        1 & x = 0
+      \end{cases}$. Note that $g$ is continuous on $[0, B + 1]$. For $T \in (0, B +
+      1]$, we have
+      \begin{align*}
+        \left|\int_0^T g(x) \, dx - \int^T_0 \left(\frac{\sin x}{x}\right)^2 \, dx\right|
+        &\leq \int_0^T \left|g(x) - \left(\frac{\sin x}{x}\right)^2\right| \, dx \\
+        &= \int_0^{\eta} \left|g(x) - \left(\frac{\sin x}{x}\right)^2\right| \, dx
+      \end{align*}
+      for arbitrary $\eta > 0$. Since $\left(\frac{\sin x}{x}\right)^2$ is bounded, we have
+      $\int_0^T g(x) \, dx = \int^T_0 \left(\frac{\sin x}{x}\right)^2 \, dx$ for all $T \in (0, B +
+      1]$. Applying Lemma 1 with $\epsilon/3$ gives a $\delta_1$ for $g$. Let $\delta_0 = \min(A,
+      \delta_1, 1)$. 
       
-      By (c), given $\delta > 0$, there exists large enough $N_1$ such that for all $N \geq N_1$,
+      Fix arbitrary $\delta \in (0, \delta_0)$. Let $N = \lfloor \frac{B}{\delta} \rfloor$. Note
+      that $\frac{B}{\delta} \leq N < \frac{B}{\delta} + 1$, and so $B \leq N \delta < B + \delta
+      \leq B + 1$. 
+
+      Since $\delta < \delta_0 \leq A$ and $N \delta \geq B$, we have
       \[
-        \left|\sum_{n=1}^{N} \frac{\sin^2(n\delta)}{n^2\delta} - \frac{\pi - \delta}{2}\right| < \epsilon/3.
+        \left|\int_{0}^{\infty} \left(\frac{\sin x}{x}\right)^2 \, dx - \int_{\delta}^{N\delta} \left(\frac{\sin x}{x}\right)^2 \, dx\right| < \epsilon/3.
       \]
-      Since the improper integral exists, there exists large enough $N_2$, such that
+      Since $[\delta, N\delta] \subseteq [0, B + 1]$, Lemma 2 tells us
       \[
-        \left|\int_{N_2}^{\infty} \left(\frac{\sin x}{x}\right)^2 \, dx\right| < \epsilon/3.
+        \left|\int_{\delta}^{N\delta} \left(\frac{\sin x}{x}\right)^2 \, dx - \sum_{n = 1}^N \frac{\sin(n\delta)}{(n\delta)^2}\delta\right| < \epsilon/3.
       \]
-      Since the improper integral exists, there exists large enough $N_3$ such that for all $N \geq
-      N_3$, the paritition $P = \{n\delta \mid n \in \Z, 0 \leq n \leq N\}$ on $[0, N_2]$ yields
-      \[
-        \left|\int_{0}^{A} \left(\frac{\sin x}{x}\right)^2 \, dx - \sum_{n=1}^{N} \frac{\sin^2(n\delta)}{n^2\delta}\right| < \epsilon/3.
-      \]
-      Put $N = \max(N_1, N_2)$, and 
-      
+      Since
+      \begin{align*}
+        \left|\sum_{n = 1}^N \frac{\sin(n\delta)}{(n\delta)^2}\delta - \sum_{n = 1}^{\infty} \frac{\sin(n\delta)}{n^2\delta}\right|
+        &\leq \sum_{n = N + 1}^{\infty} \frac{|\sin(n\delta)|}{n^2\delta} \\
+        &\leq \frac{1}{\delta}\sum_{n = N + 1}^{\infty} \frac{1}{n^2} \\
+        &\leq \frac{1}{\delta} \int_{N}^{\infty} \frac{1}{x^2} \, dx = \frac{1}{N\delta} \leq \frac{1}{B} < \epsilon/3.
+      \end{align*}
+
+      Therefore,
+      \begin{align*}
+        &\left|\int_0^\infty \left(\frac{\sin x}{x}\right)^2 \, dx - \frac{\pi - \delta}{2}\right| \\
+        &\leq \left|\int_{0}^{\infty} \left(\frac{\sin x}{x}\right)^2 \, dx - \int_{\delta}^{N\delta} \left(\frac{\sin x}{x}\right)^2 \, dx\right| \\
+        &\quad + \left|\int_{\delta}^{N\delta} \left(\frac{\sin x}{x}\right)^2 \, dx - \sum_{n = 1}^N \frac{\sin(n\delta)}{(n\delta)^2}\delta\right| + \left|\sum_{n = 1}^N \frac{\sin(n\delta)}{(n\delta)^2}\delta - \sum_{n = 1}^{\infty} \frac{\sin(n\delta)}{n^2\delta}\right| < \epsilon.
+      \end{align*}
     \end{proof}
     \item Put $\delta = \frac{\pi}{2}$ in (c). What do you get?
     \begin{proof}
@@ -289,6 +343,161 @@
     Hence, we get
     \[
       \sum_{n = 1}^{\infty} \frac{1}{n^2} = \frac{1}{6} \left(\frac{4\pi^2}{3} - \pi^2\right) = \frac{\pi^2}{6}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  If $f(x) = (\pi - |x|)^2$ on $[-\pi, \pi]$, prove that
+  \[
+  f(x) = \frac{\pi^2}{3} + \sum_{n=1}^\infty \frac{4}{n^2} \cos nx
+  \]
+  and deduce that
+  \[
+  \sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}, \quad \sum_{n=1}^\infty \frac{1}{n^4} = \frac{\pi^4}{90}.
+  \]
+  \begin{proof}
+    Let $x, t \in [-\pi, \pi]$. By MVT, 
+    \[
+      |f(x + t) - f(x)| = |f'(s)||t| = 2|t||\pi - |s|| \leq 2\pi|t|,
+    \]
+    for some $s \in (-\pi, \pi)$. Hence, the Fourier series converges to $f$ for all $x$, by Theorem
+    8.14. The Fourier coefficients of $f(x)$ for $n = 0$ is
+    \[
+      c_0 = \frac{1}{2\pi}\int_{-\pi}^{\pi} (\pi - |x|)^2 \, dx = \frac{1}{\pi}\int_{-\pi}^{0} x^2 \, dx = \frac{\pi^2}{3},
+    \]
+    and for $n \neq 0$ is
+    \[
+      c_n = \frac{1}{2\pi}\int_{-\pi}^{\pi} (\pi - |x|)^2e^{-inx} \, dx = \frac{1}{2\pi}\left(\pi^2\int_{-\pi}^{\pi} e^{-inx} \, dx - 2\pi\int_{-\pi}^{\pi} |x|e^{-inx} \, dx + \int_{-\pi}^{\pi} x^2e^{-inx} \, dx\right).
+    \]
+    We calculate each integral separately:
+    \begin{gather*}
+      \int_{-\pi}^{\pi} e^{-inx} \, dx = \frac{1}{in}(e^{in\pi} - e^{-in\pi}) = \frac{2}{n}\sin(n\pi) = 0. \\
+      \int_{-\pi}^{\pi} |x|e^{-inx} \, dx = \int_{-\pi}^{\pi} |x|\cos(nx) \, dx - i\int_{-\pi}^{\pi} |x|\sin(nx) \, dx = 2\int_{0}^{\pi} x\cos(nx) \, dx = \frac{2(\cos(nx) - 1)}{n^2}. \\
+      \int_{-\pi}^{\pi} x^2e^{-inx} \, dx = \int_{-\pi}^{\pi} x^2\cos(nx) \, dx - i\int_{-\pi}^{\pi} x^2\sin(nx) \, dx = 2\int_{0}^{\pi} x^2\cos(nx) \, dx = \frac{4\pi\cos(nx)}{n^2}.
+    \end{gather*}
+    Hence, $c_n = \frac{2 - 2\cos(nx)}{n^2} + \frac{2\cos(nx)}{n^2} = \frac{2}{n^2}$. It now follows
+    that 
+    \[
+      f(x) = \frac{\pi^2}{3} + \sum_{n \neq 0} \frac{2}{n^2}e^{-inx} = \frac{\pi^2}{3} + \sum_{n = 1}^{\infty} \frac{2}{n^2}(e^{-inx} + e^{-inx}) = \frac{\pi^2}{3} + \sum_{n=1}^\infty \frac{4}{n^2} \cos nx.
+    \]
+    When $x = 0$, we have
+    \[
+      \pi^2 = \frac{\pi^2}{3} + 4\sum_{n=1}^\infty \frac{1}{n^2} \Rightarrow \sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}.
+    \]
+    By Parseval's Theorem, 
+    \[
+      \frac{1}{2\pi}\int_{-\pi}^{\pi} |f(x)|^2 \, dx = \sum_{-\infty}^{\infty} |c_n|^2,
+    \]
+    and thus
+    \[
+      \frac{1}{\pi} \int_{0}^{\pi} (x - \pi)^4 \, dx = \frac{\pi^4}{5} = \frac{\pi^4}{9} + 8\sum_{n = 1}^{\infty} \frac{1}{n^4} \Rightarrow \sum_{n=1}^\infty \frac{1}{n^4} = \frac{\pi^4}{90}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\gamma$ be a continuously differentiable closed curve in the complex plane, with parameter
+  interval $[a, b]$, and assume that $\gamma(t) \neq 0$ for every $t \in [a, b]$. Define the
+  \textit{index} of $\gamma$ to be
+  \[
+  \text{Ind}(\gamma) = \frac{1}{2\pi i} \int_a^b \frac{\gamma'(t)}{\gamma(t)} \, dt.
+  \]
+
+  Prove that $\text{Ind}(\gamma)$ is always an integer. Compute $\text{Ind}(\gamma)$ when $\gamma(t)
+  = e^{int}$, $a = 0$, $b = 2\pi$. Explain why $\text{Ind}(\gamma)$ is often called the winding
+  number of $\gamma$ around $0$.
+
+  \begin{proof}
+    Define $\phi(x) = \int_a^x \frac{\gamma'(t)}{\gamma(t)} \, dt$. Since $\phi' =
+    \frac{\gamma'}{\gamma}$ and $\phi(a) = 0$, 
+    \[
+      (\gamma(x) \exp(-\phi(x)))' = \gamma'(x) \exp(-\phi(x)) - \gamma(x)\phi'(x) \exp(-\phi(x)) = 0,
+    \]
+    and thus $\gamma(x) \exp(-\phi(x)) = \gamma(a)$. Since $\gamma(a) = \gamma(b)$, we have $\exp
+    \phi(b) = \frac{\gamma(b)}{\gamma(a)} = 1$, and so $\phi(b) = 2n\pi i$. But then $\phi(b) =
+    \int_a^b \frac{\gamma'(t)}{\gamma(t)} \, dt = 2\pi i\text{Ind}(\gamma)$, an thus
+    $\text{Ind}(\gamma) = n$ for some integer $n$.
+
+    Now consider $\text{Ind}(\gamma)$ when $\gamma(t) = e^{int}$, $a = 0$, $b = 2\pi$. 
+    \[
+      \text{Ind}(\gamma) = \frac{1}{2\pi i} \int_0^{2\pi} \frac{ine^{int}}{e^{int}} \, dt = \frac{1}{2\pi i} \int_0^{2\pi} in \, dt = n.
+    \]
+    Since $\text{Ind}(\gamma)$ represents the number of rotations $\gamma(t)$ goes around 0, it
+    makes sense to call $\text{Ind}(\gamma)$ the winding number of $\gamma$ around 0.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\gamma$ be as in Exercise 8.23, and assume in addition that the range of $\gamma$ does not
+  intersect the negative real axis. Prove that $\text{Ind}(\gamma) = 0$. 
+
+  \begin{proof}
+    For any $c \geq 0$, define $\gamma_c(t) = \gamma(t) + c$. Consider the function
+    \[
+    f(c) = \text{Ind}(\gamma_c) = \frac{1}{2\pi i} \int_a^b \frac{\gamma'(t)}{\gamma(t) + c} \, dt
+    \]
+    on $[0, \infty)$. We show that $f(c)$ is continuous and integer-valued. Since $\gamma'$ is
+    continuous on $[-\pi, \pi]$, $|\gamma'| < M$ for some $M$. Since $\gamma$ does not intersect the
+    negative real axis, $\gamma_c \neq 0$. But then $|\gamma_c|$ is continuous on compact set, so
+    $\min_t |\gamma_c(t)|$ exists for all $c \geq 0$. Consider $\min_{c, t} |\gamma_c(t)| =
+    |\gamma(t) + c|$. If $\text{Re}(\gamma(t)) > 0$, then $|\gamma_c(t)| = |(\text{Re}(\gamma(t)) +
+    c) + i\text{Im}(\gamma(t))| \geq |\gamma(t)| > 0$. If $\text{Re}(\gamma(t)) \leq 0$, then
+    $\text{Im}(\gamma(t)) \neq 0$ by assumption, and thus $|\gamma_c(t)| > 0$. Hence, we know
+    $\min_{c, t} |\gamma_c(t)| \geq m > 0$ for some $m$. Pick $\epsilon > 0$. Let $\delta =
+    \frac{2\pi\epsilon m^2}{(b - a)M}$. Then,
+    \begin{align*}
+      |f(x) - f(y)| 
+      &\leq \frac{1}{2\pi}\int_a^b \left|\frac{\gamma'(t)}{\gamma(t) + x} - \frac{\gamma'(t)}{\gamma(t) + y}\right| \, dt \\
+      &\leq \frac{1}{2\pi}\int_a^b \frac{M|y - x|}{|\gamma(t) + x||\gamma(t) + y|} \, dt \\
+      &\leq \frac{(b - a)M|y - x|}{2\pi m^2} < \epsilon,
+    \end{align*}
+    whenever $x, y \geq 0$ and $|x - y| < \delta$, and so $f$ is continuous. 
+
+    Put $\phi_c(x) = \int_a^x \frac{\gamma'(t)}{\gamma_c(t)} \, dt$. With the exact same argument
+    as in Exercise 8.23, we get that $f(c) = \text{Ind}(\gamma_c)$ is integer valued.
+
+    Given sequence of function $\left\{\frac{\gamma'}{\gamma_n}\right\}_{n \in \N}$, for all $n \geq
+    \frac{M}{\epsilon} - m$, we have
+    \[
+      \left|\frac{\gamma'(t)}{\gamma_n(t)}\right| = \frac{M}{m + n} < \epsilon,
+    \]
+    for all $t \in [a, b]$. Hence, $\frac{\gamma'}{\gamma_n} \to 0$ uniformly. By Theorem 7.16, 
+    \[
+      \lim_{c \to \infty} \text{Ind}(\gamma_c) = \frac{1}{2\pi i} \int_a^b \lim_{c \to \infty} \frac{\gamma'(t)}{\gamma(t) + c} \, dt = 0.
+    \]
+    Since $\text{Ind}(\gamma_c)$ is integer-valued and continuous, it now follows that
+    $\text{Ind}(\gamma_c) = 0$, for all $c$, which includes $c = 0$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $\gamma_1$ and $\gamma_2$ are curves as in Exercise 8.23, and $|\gamma_1(t) - \gamma_2(t)|
+  < |\gamma_1(t)|$ for $a \leq t \leq b$. Prove that $\text{Ind}(\gamma_1) = \text{Ind}(\gamma_2)$.
+
+  \begin{proof}
+    Put $\gamma = \frac{\gamma_2}{\gamma_1}$. Note that $\gamma$ is well-defined, as $\gamma_1 \neq
+    0$. Then $|1 - \gamma| = \frac{|\gamma_1(t) - \gamma_2(t)|}{|\gamma_1(t)|} < 1$, and so $\gamma$
+    does not intersect with the negative real axis. By Exercise 8.24, $\text{Ind}(\gamma) = 0$.
+    Also,
+    \[
+    \frac{\gamma'}{\gamma} = \frac{\frac{\gamma'_2\gamma_1 - \gamma'_1\gamma_2}{\gamma_1^2}}{\frac{\gamma_2}{\gamma_1}} = \frac{\gamma'_2\gamma_1 - \gamma'_1\gamma_2}{\gamma_1\gamma_2} = \frac{\gamma'_2}{\gamma_2} - \frac{\gamma'_1}{\gamma_1}.
+    \]
+    Hence,
+    \[
+      \text{Ind}(\gamma) = \frac{1}{2\pi i}\int_a^b \frac{\gamma'(t)}{\gamma(t)} \, dt = \frac{1}{2\pi i}\int_a^b \frac{\gamma'_2(t)}{\gamma_2(t)} \, dt - \frac{1}{2\pi i}\int_a^b \frac{\gamma'_1(t)}{\gamma_1(t)} \, dt = 0,
+    \]
+    and thus
+    \[
+      \text{Ind}(\gamma_1) = \frac{1}{2\pi i}\int_a^b \frac{\gamma'_2(t)}{\gamma_2(t)} \, dt = \frac{1}{2\pi i}\int_a^b \frac{\gamma'_1(t)}{\gamma_1(t)} \, dt = \text{Ind}(\gamma_2).
     \]
   \end{proof}
 \end{homeworkProblem}

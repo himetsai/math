@@ -177,14 +177,18 @@
       \begin{gather}
         \textbf{C}_n^{(n)} = \left.\frac{\partial}{\partial x_n} \sum_{T} x(T)\right|_{x_n = 0} = \sum_{T} \left.d_nx_1^{d_1} \cdots x_n^{d_n - 1}\right|_{x_n = 0} = \sum_{T; d_n = 1} x_1^{d_1} \cdots x_{n - 1}^{d_{n - 1}}.
       \end{gather}
-      But then given a $T$ with $d_n = 1$, suppose $j$ is the only neighbor of $n$. Then, $x(T) =
-      x_jx(T_{n - 1})$, where $T_{n - 1} = T - \{n\}$ a labeled tree with vertex set $[n - 1]$. On
-      the other hand, given a labeled tree $T_{n - 1}$ with vertex set $[n - 1]$, we may choose a
-      vertex which connects to $n$ and get $T$ with $d_n = 1$, with $x(T) = x_jx(T_{n - 1})$. It now
-      follows that
+      But then 
+      
+      A tree must contains a vertex of degree 1. Given a $T$ with $d_n = 1$, suppose $j$ is the
+      only neighbor of $n$. Then, $x(T) = x_nx_jx(T_{n - 1})$, where $T_{n - 1} = T - \{n\}$ a
+      labeled tree with vertex set $[n - 1]$. On the other hand, given a labeled tree $T_{n - 1}$
+      with vertex set $[n - 1]$, we may choose a vertex which connects to $n$ and get $T$ with $d_n
+      = 1$, with $x(T) = x_nx_jx(T_{n - 1})$. It now follows that
       \begin{align*}
-        \sum_{T; d_n = 1} x_1^{d_1} \cdots x_{n - 1}^{d_{n - 1}} 
-        &= \sum_{j = 1}^{n - 1}\sum_{\substack{T; d_n = 1, \\ \{j, n\} \in e(T)}} x_1^{d_1} \cdots x_{n - 1}^{d_{n - 1}} \\
+        \textbf{C}_n^{(n)} 
+        &= \left.\frac{\partial}{\partial x_n} \sum_{T} x(T)\right|_{x_n = 0} \\
+        &= \left.\frac{\partial}{\partial x_n} \sum_{T; d_n = 1} x(T)\right|_{x_n = 0} + \left.\frac{\partial}{\partial x_n} \sum_{T; d_n \neq 1} x(T)\right|_{x_n = 0}\\
+        &= \left.\sum_{j = 1}^{n - 1}\sum_{\substack{T; d_n = 1, \\ \{j, n\} \in e(T)}} \frac{\partial}{\partial x_n} x_nx_jx(T_{n - 1})\right|_{x_n = 0} \\
         &= \sum_{j = 1}^{n - 1} x_j\sum_{T_{n - 1}} x(T_{n - 1}) = \sum_{j = 1}^{n - 1} x_j\textbf{C}_{n-1}.
       \end{align*}
 
