@@ -292,13 +292,14 @@
         &\leq \frac{1}{\delta}\sum_{n = N + 1}^{\infty} \frac{1}{n^2} \\
         &\leq \frac{1}{\delta} \int_{N}^{\infty} \frac{1}{x^2} \, dx = \frac{1}{N\delta} \leq \frac{1}{B} < \epsilon/3.
       \end{align*}
-
       Therefore,
       \begin{align*}
         &\left|\int_0^\infty \left(\frac{\sin x}{x}\right)^2 \, dx - \frac{\pi - \delta}{2}\right| \\
         &\leq \left|\int_{0}^{\infty} \left(\frac{\sin x}{x}\right)^2 \, dx - \int_{\delta}^{N\delta} \left(\frac{\sin x}{x}\right)^2 \, dx\right| \\
         &\quad + \left|\int_{\delta}^{N\delta} \left(\frac{\sin x}{x}\right)^2 \, dx - \sum_{n = 1}^N \frac{\sin(n\delta)}{(n\delta)^2}\delta\right| + \left|\sum_{n = 1}^N \frac{\sin(n\delta)}{(n\delta)^2}\delta - \sum_{n = 1}^{\infty} \frac{\sin(n\delta)}{n^2\delta}\right| < \epsilon.
       \end{align*}
+      But then $\delta$ is arbitrary, so $\int_0^\infty \left(\frac{\sin x}{x}\right)^2 \, dx =
+      \frac{\pi}{2}$.
     \end{proof}
     \item Put $\delta = \frac{\pi}{2}$ in (c). What do you get?
     \begin{proof}
