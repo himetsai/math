@@ -5,3 +5,5 @@ Instructor: Brandon Seward
 Material: *Principles of Mathematical Analysis*, by Walter Rudin; 3rd edition.
 
 Term: SP24
+
+Grade: A+
