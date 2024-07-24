@@ -40,7 +40,7 @@ some graph $F$ for all distinct $i, j$.
   \begin{itemize}
     \item The case $F = K_3$.
     \item Color-critical $F$.
-    \item Generalize to any $F$.
+    \item Generalize to any non-bipartite $F$.
   \end{itemize}
   \item Examine the non-induced case
   \begin{itemize}
@@ -160,10 +160,9 @@ extremal graph for $K_r$.
 \end{lemma}
 
 \begin{proof}
-  Since $T(n, r - 1)$ is only $r - 1$ colorable, $T(n, r - 1)$ is also $F$-free, and thus
-  $\textnormal{ex}(n, F) \geq \textnormal{ex}(n, K_{r})$. Suppose for sake of contradiction that
-  there exists a $n$ vertex $F$-free graph $H$ with $e(H) > \textnormal{ex}(n, K_{r})$. 
-  \textcolor{red}{TODO: show $H$ contains $F$.}
+  Since $T(n, r - 1)$ is $r - 1$ colorable, $T(n, r - 1)$ is $F$-free, and thus $\textnormal{ex}(n,
+  F) \geq \textnormal{ex}(n, K_{r})$. Suppose some $F$-free graph $H$ has $\textnormal{ex}(n, K_r)$
+  edges. \textcolor{red}{TODO: complete the proof.}
 \end{proof}
 
 \textcolor{red}{Is the Turan graph the only extremal graph for color critical $F$?}
@@ -222,49 +221,80 @@ extremal graph for $K_r$.
   \begin{gather}
     e(G_1) + e(G_2) \leq 2 \cdot \textnormal{ex}(n, K_r).
   \end{gather}
-  If $c = n$, the equality for (4) holds $G_1 = G_2$ are $n$-vertex extramal graphs for $F$. Suppose
-  $c = n - 1$ and the equality holds. Observe that the equation (3) is equal to zero only when $r =
-  3$ and $n$ is odd. Hence, if $c = n - 1$, the equality for (4) could only be achieved when $r =
-  3$, $n$ is odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 = \mathcal{T}(G_1)$.
+  If $c = n$, the equality for (4) holds only if $G_1 = G_2$ are $n$-vertex extramal graphs for $F$.
+  Suppose $c = n - 1$ and the equality holds. Observe that the equation (3) is equal to zero only
+  when $r = 3$ and $n$ is odd. Hence, if $c = n - 1$, the equality for (4) could only be achieved
+  when $r = 3$, $n$ is odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 =
+  \mathcal{T}(G_1)$.
 \end{proof}
 
-Theorem 3.3 now follows from Lemma 3.5 and the same arument used in the proof of Theorem 3.1.
+Theorem 3.3 now follows from Lemma 3.5 and the same arument as in Theorem 3.1.
 
-\subsection{Generalize to any $F$}
+\subsection{Generalize to any non-bipartite $F$}
 
 \begin{theorem}
-  Suppose that $E(G_i) \cap E(G_j)$ does not include $F$ for distinct $i, j$. For $n \geq 2$,
+  Let $F$ be a non-bipartite graph. Suppose that $E(G_i) \cap E(G_j)$ is $F$-free for distinct $i,
+  j$. Then
   \[
     \sum_{i = 1}^n e(G_i) \leq n \cdot \textnormal{ex}(n, F),
   \]
-  with equality if and only if $G_1 = G_2 = \cdots = G_n$ are equal to an extremal $F$-free graph.
+  with equality if and only if $G_1 = G_2 = \cdots = G_n$ are $n$-vertex extremal graphs for $F$.
 \end{theorem}
 
-By the same argument as in Theorem 3.1, it suffices to show the statement holds for $m = 2$. 
+By the same argument as in Theorem 3.1, it suffices to prove the following lemma:
 
-\begin{proof}[Proof for m = 2]
+\begin{lemma}
+  Let $F$ be a non-bipartite graph. Suppose $E(G_1) \cap E(G_2)$ does not include $F$. Then
+  \[
+    e(G_1) + e(G_2) \leq 2 \cdot \textnormal{ex}(n, F),
+  \]
+  with equality if and only if $G_1 = G_2$ are $n$-vertex extremal graphs for $F$, unless $n$ is
+  odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 = \mathcal{T}(G_1)$. 
+\end{lemma}
+
+\begin{proof}
   Let $C = V(G_1) \cap V(G_2)$, the set of vertices in both $G_1$ and $G_2$. Let $A = V(G_1)
-  \backslash C$, and let $B = V(G_2) \backslash C$. For simplicity, put $a = |A|$, $b = |B|$, and $c
-  = |C|$. 
+  \backslash C$, and let $B = V(G_2) \backslash C$. For simplicity, put $a = |A|$, $b = |B|$, $c
+  = |C|$, and $r = \chi(F)$.
 
   We now find an upper bound of $e(G_1) + e(G_2)$ with respect to $a, b, c$. Since $G_1, G_2$ are
   induced graphs, we have $E(G_1[C]) = E(G_2[C]) = E(G[C]) = E(G_i) \cap E(G_j)$, which is $F$-free.
   Hence, we may write
-  \[
+  \begin{gather}
     e(G_1) + e(G_2) \leq \binom{a + c}{2} +  \binom{b + c}{2} - 2\left[\binom{c}{2} - \textnormal{ex}(c, F)\right].
-  \]
+  \end{gather}
   Define $f(a, b, c)$ as the function on the right-hand-side. We show that $f(a, b, c)$ attains its
   maximum at $a = b = 0$ and $c = n$. By a theorem of Simonovits, if $F$ is $r$-colorable, then
   $\text{ex}(c, F) = \text{ex}(c, K_r) + \text{ex}(c, \tilde{F})$, where $\tilde{F}$ is the family
   of residue subgraphs of $F$ after $F$ is embedded into $K_r$. Hence, we may write
   \begin{align*}
-    f(a, b - 1, c + 1) - f(a, b, c)
-    &= a - c + 2[\text{ex}(c + 1, F) - \text{ex}(c, F)] \\
-    &= a - c + 2\left[(c + 1) - \left\lceil \frac{c + 1}{r - 1} \right\rceil \right. \\
-    &\qquad\qquad \left. + \text{ex}(c + 1, \tilde{F}) - \text{ex}(c, \tilde{F})\right] \\
-    &\geq a - c + 2\left\lfloor \frac{c + 1}{2} \right\rfloor \geq a.
+    f(a, b - 2, c + 2) - f(a, b, c)
+    &= \binom{a + c + 2}{2} - \binom{a + c}{2} \\
+    &\;\; - 2\left[\binom{c + 2}{2} - \binom{c}{2} - \textnormal{ex}(c + 2, F) + \textnormal{ex}(c, F)\right] \\
+    &\geq 2a - 2c - 1 + 2[\textnormal{ex}(c + 2, K_r) - \textnormal{ex}(c, K_r)] > 0,
   \end{align*}
-  \textcolor{red}{TODO: try to generalize the color-critical case.}
+  as shown in the proof of Lemma 3.5. By symmetry, we also have $f(a - 2, b, c + 2) > f(a, b, c)$.
+  Thus, $f$ attains its maximum when $c$ is $n - 1$ or $n$. Equation (5) now yields, 
+  \begin{align*}
+    e(G_1) + e(G_2) \leq \max\left[2 \cdot \textnormal{ex}(n, F), 2 \cdot \textnormal{ex}(n - 1, F) + n - 1\right].
+  \end{align*}
+  Assume that $a = 0$. Since
+  \begin{align}
+    2 \cdot \textnormal{ex}(n, F) - [2 \cdot \textnormal{ex}(n - 1, F) + n - 1]
+    &\geq 2[\textnormal{ex}(n, K_r) - \textnormal{ex}(n - 1, K_r)] \\
+    &\qquad\qquad\qquad\qquad - n + 1 \\
+    &= 2\left(n - \left\lceil \frac{n}{r - 1} \right\rceil\right) - n + 1 \\
+    &\geq n + 1 - 2\left\lceil \frac{n}{2} \right\rceil \geq 0, \nonumber
+  \end{align}
+  we have
+  \begin{gather}
+    e(G_1) + e(G_2) \leq 2 \cdot \textnormal{ex}(n, F).
+  \end{gather}
+  If $c = n$, the equality for (9) holds only if $G_1 = G_2$ are $n$-vertex extramal graphs for $F$.
+  Suppose $c = n - 1$ and the equality holds. Observe that equation (6) is equal to zero only when
+  $r = 3$ and $n$ is odd. Hence, if $c = n - 1$, the equality for (9) could only be achieved when $r
+  = 3$, $n$ is odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 =
+  \mathcal{T}(G_1)$.
 \end{proof}
 
 \section{Non-induced Case}
