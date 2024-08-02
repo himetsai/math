@@ -105,17 +105,33 @@ Show that $\texttt{SUCCINCT SET-COVER} \in \Sigma_2^p$.
 
 This problem studies the Vapnik-Chervonenkis (VC) dimensions, an important concept in machine
 learning. If $\mathcal{S} = \{S_1, S_2, \ldots, S_m\}$ is a collection of subsets of a finite set
-$U$, the \textit{VC dimension} of $\mathcal{S}$, denoted $VC(S)$, is the size of the largest set $X
-\subseteq U$ such that for every $X' \subseteq X$, there is an $i$ for which $S_i \cap X = X'$. (We
-say that $X$ is shattered by $S$.)
+$U$, the \textit{VC dimension} of $\mathcal{S}$, denoted $VC(\mathcal{S})$, is the size of the
+largest set $X \subseteq U$ such that for every $X' \subseteq X$, there is an $i$ for which $S_i
+\cap X = X'$. (We say that $X$ is shattered by $S$.)
 
 A Boolean circuit $C$ succinctly represents collection $\mathcal{S}$ if $S_i$ consists of exactly
 those elements $x \in U$ for which $C(i, x) = 1$. Finally, the
 \[
-  \text{VC-DIMENSION} = \{\langle C, k \rangle : C \text{ represents a collection } \mathcal{S} \text{ s.t. } V(S) \geq k\}
+  \text{VC-DIMENSION} = \{\langle C, k \rangle : C \text{ represents a collection } \mathcal{S} \text{ s.t. } VC(\mathcal{S}) \geq k\}
 \]
 \begin{enumerate}[(a)]
   \item Show that VC-DIMENSION $\in \Sigma_3^p$.
+  \begin{proof}
+    Let $U$ be a set. $\langle C, k \rangle \in \text{VC-DIMENSION}$ if and only if
+    \begin{gather}
+      \exists X \subseteq U \; \forall X' \subseteq X \; \exists i \in [m], X \geq k \text{ and } \forall x \in X, x \in X' \Leftrightarrow C(i, x) = 1.
+    \end{gather}
+    Note that a collection $\mathcal{S}$ of $2^m$ subsets of $U$ can shatter a subset $X \subseteq
+    U$ of size at most $m$, as each subset $X'$ of $X$ corresponds an $S_i \in S$ such that $S_i
+    \cap X = X'$. Hence, the VC dimension of $\mathcal{S}$ is at most $m$. Suppose circuit $C$
+    represents $\mathcal{S}$. Since $m \leq |C|$, $|X|$, $|X'|$, and $|i|$ are bounded by $|C|$, and
+    thus (1) can be computed in polynomial time with respect to $|C|$. Therefore,
+    $\text{VC-DIMENSION} \in \Sigma_3^p$.
+  \end{proof}
   \item Show that VC-DIMENSION is $\Sigma_3^p$-complete.
+  \begin{proof}
+    It suffices to show an polynomial-time reduction $\Sigma_3\text{SAT}$ to VC-DIMENSION. idk how
+    tho :( 
+  \end{proof}
 \end{enumerate}
 \end{document}

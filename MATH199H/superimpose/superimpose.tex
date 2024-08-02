@@ -138,103 +138,87 @@ We now give the proof for Theorem 3.1:
 
 \subsection{Color-Critical Case}
 
-We may generalize the triangle case to any color-critical $F$ in the same manner. 
+We may generalize the triangle case to any color-critical $F$ in the same manner. Let Turán graph
+$T_r(n)$ denote the the complete balanced $r$-partite graph. We know for a fact that, for large
+enough $n$, if $F$ is a $(r + 1)$-color-critical graph with $r \geq 2$, then $\textnormal{ex}(n, F)
+= \textnormal{ex}(n, K_{r + 1})$, and the extremal graph is $T_r(n)$.
 
 \begin{theorem}
-  Let $F$ be a $r$-color-critical graph with $r \geq 3$. Suppose that $E(G_i) \cap E(G_j)$ is
-  $F$-free for distinct $i, j$. Then
+  Let $F$ be a $(r + 1)$-color-critical graph with $r \geq 2$. Suppose that $E(G_i) \cap E(G_j)$ is
+  $F$-free for distinct $i, j$. For large enough $n$,
   \[
     \sum_{i = 1}^n e(G_i) \leq n \cdot \textnormal{ex}(n, F),
   \]
-  with equality if and only if $G_1 = G_2 = \cdots = G_n$ are $n$-vertex extremal graphs for $F$.
+  with equality if and only if $G_1 = G_2 = \cdots = G_n = T_r(n)$.
 \end{theorem}
 
-Let $T(n, r)$ denote the Turán graph of $n$ vertices and $r$ parts. Note that $T(n, r)$ is the
-extremal graph for $K_r$. 
-
 \begin{lemma}
-  If $F$ is an $r$-color-critical graph, then
-  \[
-    \textnormal{ex}(n, F) = \textnormal{ex}(n, K_{r}).
-  \]
-\end{lemma}
-
-\begin{proof}
-  Since $T(n, r - 1)$ is $r - 1$ colorable, $T(n, r - 1)$ is $F$-free, and thus $\textnormal{ex}(n,
-  F) \geq \textnormal{ex}(n, K_{r})$. Suppose some $F$-free graph $H$ has $\textnormal{ex}(n, K_r)$
-  edges. \textcolor{red}{TODO: complete the proof.}
-\end{proof}
-
-\textcolor{red}{Is the Turan graph the only extremal graph for color critical $F$?}
-
-\begin{lemma}
-  Let $F$ be a $r$-color-critical graph with $r \geq 3$. Suppose $E(G_1) \cap E(G_2)$ does not
-  include $F$. Then
+  Let $F$ be a $(r + 1)$-color-critical graph with $r \geq 2$. Suppose $E(G_1) \cap E(G_2)$ does not
+  include $F$. For large enough $n$,
   \[
     e(G_1) + e(G_2) \leq 2 \cdot \textnormal{ex}(n, F),
   \]
-  with equality if and only if $G_1 = G_2$ are $n$-vertex extremal graphs for $F$, unless $r = 3$,
-  $n$ is odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 = \mathcal{T}(G_1)$. 
+  with equality if and only if $G_1 = G_2 = T_r(n)$, unless $r = 2$, $n$ is odd, $G_1$ is an $(n -
+  1)$-vertex extremal graph for $F$, and $G_2 = \mathcal{T}(G_1)$. 
 \end{lemma}
 
 \begin{proof}
   Let $C = V(G_1) \cap V(G_2)$, the set of vertices in both $G_1$ and $G_2$. Let $A = V(G_1)
   \backslash C$, and let $B = V(G_2) \backslash C$. For simplicity, put $a = |A|$, $b = |B|$, and $c
   = |C|$. We may assume that $a + b + c = n$. By the same argument in Lemma 3.2, $E(G_1[C]) =
-  E(G_2[C]) = E(G_i) \cap E(G_j)$, which is $F$-free. Let $r = \chi(F)$. By Lemma 3.3, 
+  E(G_2[C]) = E(G_i) \cap E(G_j)$, which is $F$-free. Thus, 
   \[
-    E(G_1[C]) \leq \textnormal{ex}(n, F) = \textnormal{ex}(n, K_r),
+    E(G_1[C]) \leq \textnormal{ex}(n, F) = \textnormal{ex}(n, K_{r + 1}),
   \]
-  with equality if and only if $G_1[C]$ is the extremal graph for $F$. Hence, 
+  with equality if and only if $G_1[C] = T_r(c)$. Hence, 
   \begin{align}
     e(G_1) + e(G_2) 
-    &\leq \binom{a + c}{2} + \binom{b + c}{2} - 2\left[\binom{c}{2} - \textnormal{ex}(c, K_r)\right].
+    &\leq \binom{a + c}{2} + \binom{b + c}{2} - 2\left[\binom{c}{2} - \textnormal{ex}(c, K_{r + 1})\right].
   \end{align}
   Define $f(a, b, c)$ as the function on the right-hand-side of (2). We show that $f(a, b, c)$
   attains its maximum at $a = b = 0$ and $c = n$. Note that
   \begin{align*}
     f(a, b - 2, c + 2) - f(a, b, c)
     &= \binom{a + c + 2}{2} - \binom{a + c}{2} \\
-    &\;\; - 2\left[\binom{c + 2}{2} - \binom{c}{2} - \textnormal{ex}(c + 2, K_r) + \textnormal{ex}(c, K_r)\right] \\
-    &= 2a - 2c - 1 + 2[\textnormal{ex}(c + 2, K_r) - \textnormal{ex}(c, K_r)].
+    &- 2\left[\binom{c + 2}{2} - \binom{c}{2} - \textnormal{ex}(c + 2, K_{r + 1}) + \textnormal{ex}(c, K_{r + 1})\right] \\
+    &= 2a - 2c - 1 + 2[\textnormal{ex}(c + 2, K_{r + 1}) - \textnormal{ex}(c, K_{r + 1})].
   \end{align*}
-  Since $r \geq 3$,
+  Since $r \geq 2$,
   \begin{align*}
-    \textnormal{ex}(c + 2, K_r) - \textnormal{ex}(c, K_r) &= \textnormal{ex}(c + 2, K_r) - \textnormal{ex}(c + 1, K_r) \\
-    &\qquad\qquad + \textnormal{ex}(c + 1, K_r) - \textnormal{ex}(c, K_r) \\
-    &= \left(c + 2 - \left\lceil \frac{c + 2}{r - 1} \right\rceil\right) + \left(c + 1 - \left\lceil \frac{c + 1}{r - 1} \right\rceil\right) \\
+    \textnormal{ex}(c + 2, K_{r + 1}) - \textnormal{ex}(c, K_{r + 1}) &= \textnormal{ex}(c + 2, K_{r + 1}) - \textnormal{ex}(c + 1, K_{r + 1}) \\
+    &\qquad\qquad + \textnormal{ex}(c + 1, K_{r + 1}) - \textnormal{ex}(c, K_{r + 1}) \\
+    &= \left(c + 2 - \left\lceil \frac{c + 2}{r} \right\rceil\right) + \left(c + 1 - \left\lceil \frac{c + 1}{r} \right\rceil\right) \\
     &\geq 2c + 3 - \left(\left\lceil \frac{c + 2}{2} \right\rceil + \left\lceil \frac{c + 1}{2} \right\rceil\right) = c + 1,
   \end{align*}
   so $f(a, b - 2, c + 2) - f(a, b, c) \geq 2a + 1 > 0$. By symmetry, $f(a - 2, b, c + 2) > f(a, b,
   c)$, and thus $f$ attains its maximum when $c$ is $n - 1$ or $n$, that is, $a + b \leq 1$.
   Equation (2) now yields, 
   \begin{align*}
-    e(G_1) + e(G_2) \leq \max\left[2 \cdot \textnormal{ex}(n, K_r), 2 \cdot \textnormal{ex}(n - 1, K_r) + n - 1\right].
+    e(G_1) + e(G_2) \leq \max\left[2 \cdot \textnormal{ex}(n, K_{r + 1}), \, 2 \cdot \textnormal{ex}(n - 1, K_{r + 1}) + n - 1\right].
   \end{align*}
   Assume that $a = 0$. Since
   \begin{align}
-    2 \cdot \textnormal{ex}(n, K_r) - [2 \cdot \textnormal{ex}(n - 1, K_r) + n - 1]
-    &= 2\left(n - \left\lceil \frac{n}{r - 1} \right\rceil\right) - n + 1 \\
+    2 \cdot \textnormal{ex}(n, K_{r + 1}) - [2 \cdot \textnormal{ex}(n - 1, K_{r + 1}) + n - 1]
+    &= 2\left(n - \left\lceil \frac{n}{r} \right\rceil\right) - n + 1 \\
     &\geq n + 1 - 2\left\lceil \frac{n}{2} \right\rceil \geq 0, \nonumber
   \end{align}
   we have
   \begin{gather}
-    e(G_1) + e(G_2) \leq 2 \cdot \textnormal{ex}(n, K_r).
+    e(G_1) + e(G_2) \leq 2 \cdot \textnormal{ex}(n, K_{r + 1}).
   \end{gather}
-  If $c = n$, the equality for (4) holds only if $G_1 = G_2$ are $n$-vertex extramal graphs for $F$.
-  Suppose $c = n - 1$ and the equality holds. Observe that the equation (3) is equal to zero only
-  when $r = 3$ and $n$ is odd. Hence, if $c = n - 1$, the equality for (4) could only be achieved
-  when $r = 3$, $n$ is odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 =
-  \mathcal{T}(G_1)$.
+  If $c = n$, the equality for (4) holds only if $G_1 = G_2 = T_r(n)$. Suppose $c = n - 1$ and the
+  equality holds. Observe that the equation (3) is equal to zero only when $r = 2$ and $n$ is odd.
+  Hence, if $c = n - 1$, the equality for (4) could only be achieved when $r = 2$, $n$ is odd, $G_1
+  = T_r(n - 1)$, and $G_2 = \mathcal{T}(G_1)$.
 \end{proof}
 
 Theorem 3.3 now follows from Lemma 3.5 and the same arument as in Theorem 3.1.
 
-\subsection{Generalize to any non-bipartite $F$}
+\subsection{Non-bipartite Case}
 
 \begin{theorem}
-  Let $F$ be a non-bipartite graph. Suppose that $E(G_i) \cap E(G_j)$ is $F$-free for distinct $i,
-  j$. Then
+  Let $F$ be $(r + 1)$-colorable, with $r \geq 2$. Suppose that $E(G_i) \cap E(G_j)$ is $F$-free for
+  distinct $i, j$. For large enough $n$,
   \[
     \sum_{i = 1}^n e(G_i) \leq n \cdot \textnormal{ex}(n, F),
   \]
@@ -244,7 +228,8 @@ Theorem 3.3 now follows from Lemma 3.5 and the same arument as in Theorem 3.1.
 By the same argument as in Theorem 3.1, it suffices to prove the following lemma:
 
 \begin{lemma}
-  Let $F$ be a non-bipartite graph. Suppose $E(G_1) \cap E(G_2)$ does not include $F$. Then
+  Let $F$ be $(r + 1)$-colorable, with $r \geq 2$. Suppose $E(G_1) \cap E(G_2)$ does not include
+  $F$. For large enough $n$,
   \[
     e(G_1) + e(G_2) \leq 2 \cdot \textnormal{ex}(n, F),
   \]
@@ -264,16 +249,16 @@ By the same argument as in Theorem 3.1, it suffices to prove the following lemma
     e(G_1) + e(G_2) \leq \binom{a + c}{2} +  \binom{b + c}{2} - 2\left[\binom{c}{2} - \textnormal{ex}(c, F)\right].
   \end{gather}
   Define $f(a, b, c)$ as the function on the right-hand-side. We show that $f(a, b, c)$ attains its
-  maximum at $a = b = 0$ and $c = n$. By a theorem of Simonovits, if $F$ is $r$-colorable, then
-  $\text{ex}(c, F) = \text{ex}(c, K_r) + \text{ex}(c, \tilde{F})$, where $\tilde{F}$ is the family
-  of residue subgraphs of $F$ after $F$ is embedded into $K_r$. Hence, we may write
+  maximum at $a = b = 0$ and $c = n$. By a theorem of Simonovits, for large enough $c$,
+  $\text{ex}(c, F) = \text{ex}(c, K_{r + 1}) + \text{ex}(c, \tilde{F})$, where $\tilde{F}$ is the
+  family of residue subgraphs of $F$ after $F$ is embedded into $T_r(c)$. Hence, we may write
   \begin{align*}
     f(a, b - 2, c + 2) - f(a, b, c)
     &= \binom{a + c + 2}{2} - \binom{a + c}{2} \\
     &\;\; - 2\left[\binom{c + 2}{2} - \binom{c}{2} - \textnormal{ex}(c + 2, F) + \textnormal{ex}(c, F)\right] \\
-    &\geq 2a - 2c - 1 + 2[\textnormal{ex}(c + 2, K_r) - \textnormal{ex}(c, K_r)] > 0,
+    &\geq 2a - 2c - 1 + 2[\textnormal{ex}(c + 2, K_{r + 1}) - \textnormal{ex}(c, K_{r + 1})] > 0,
   \end{align*}
-  as shown in the proof of Lemma 3.5. By symmetry, we also have $f(a - 2, b, c + 2) > f(a, b, c)$.
+  as shown in the proof of Lemma 3.4. By symmetry, we also have $f(a - 2, b, c + 2) > f(a, b, c)$.
   Thus, $f$ attains its maximum when $c$ is $n - 1$ or $n$. Equation (5) now yields, 
   \begin{align*}
     e(G_1) + e(G_2) \leq \max\left[2 \cdot \textnormal{ex}(n, F), 2 \cdot \textnormal{ex}(n - 1, F) + n - 1\right].
@@ -281,9 +266,9 @@ By the same argument as in Theorem 3.1, it suffices to prove the following lemma
   Assume that $a = 0$. Since
   \begin{align}
     2 \cdot \textnormal{ex}(n, F) - [2 \cdot \textnormal{ex}(n - 1, F) + n - 1]
-    &\geq 2[\textnormal{ex}(n, K_r) - \textnormal{ex}(n - 1, K_r)] \\
+    &\geq 2[\textnormal{ex}(n, K_{r + 1}) - \textnormal{ex}(n - 1, K_{r + 1})] \\
     &\qquad\qquad\qquad\qquad - n + 1 \\
-    &= 2\left(n - \left\lceil \frac{n}{r - 1} \right\rceil\right) - n + 1 \\
+    &= 2\left(n - \left\lceil \frac{n}{r} \right\rceil\right) - n + 1 \\
     &\geq n + 1 - 2\left\lceil \frac{n}{2} \right\rceil \geq 0, \nonumber
   \end{align}
   we have
@@ -292,8 +277,8 @@ By the same argument as in Theorem 3.1, it suffices to prove the following lemma
   \end{gather}
   If $c = n$, the equality for (9) holds only if $G_1 = G_2$ are $n$-vertex extramal graphs for $F$.
   Suppose $c = n - 1$ and the equality holds. Observe that equation (6) is equal to zero only when
-  $r = 3$ and $n$ is odd. Hence, if $c = n - 1$, the equality for (9) could only be achieved when $r
-  = 3$, $n$ is odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 =
+  $r = 2$ and $n$ is odd. Hence, if $c = n - 1$, the equality for (9) could only be achieved when $r
+  = 2$, $n$ is odd, $G_1$ is an $(n - 1)$-vertex extremal graph for $F$, and $G_2 =
   \mathcal{T}(G_1)$.
 \end{proof}
 
