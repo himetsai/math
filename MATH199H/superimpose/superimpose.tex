@@ -334,13 +334,11 @@ The natural extremal construction is to simply put $G_1 = K_n$ and the rest as
   \end{theorem}
 
   \begin{proof}
-    Compressing $G_1, G_2, G_3$ yields
     \begin{align*}
       e(G_1) + e(G_2) + e(G_3) 
-      &= e(G_1) + e(G_1 \cap G_2) + e(G_1 \cap G_3) \\
-      &\qquad\qquad + 2[e(G_2 \cap G_3) - e(G_1 \cap G_2 \cap G_3)] \\
-      &\leq \textcolor{red}{e(G_1) + e(G_1 \cap G_2) + e(G_1 \cap G_3) \quad \text{(should be lowerbound)}} \\
-      &\leq \binom{n}{2} + 2\left\lfloor\frac{n^2}{4}\right\rfloor,
+      &= e(G_1 \cup G_2 \cup G_3) + e(G_1 \cap G_2) + e(G_1 \cap G_3) \\
+      &\qquad\qquad + e(G_2 \cap G_3) - e(G_1 \cap G_2 \cap G_3) \\
+      &\leq e(G_1 \cup G_2 \cup G_3) + e(G_1 \cap G_2) + e(G_1 \cap G_3)
     \end{align*}
     with equality if and only if $G_1 = K_n$ and $G_1 \cap G_2, G_1 \cap G_3 =
     K_{\left\lceil\frac{n}{2}\right\rceil, \left\lfloor\frac{n}{2}\right\rfloor}$. The result now

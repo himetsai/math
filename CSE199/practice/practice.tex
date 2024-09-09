@@ -130,8 +130,31 @@ those elements $x \in U$ for which $C(i, x) = 1$. Finally, the
   \end{proof}
   \item Show that VC-DIMENSION is $\Sigma_3^p$-complete.
   \begin{proof}
-    It suffices to show an polynomial-time reduction $\Sigma_3\text{SAT}$ to VC-DIMENSION. idk how
-    tho :( 
+    Let $\phi(x, y, z)$ be an instance of $\Sigma_3$SAT. We may assume $|x| = |y| = |z| = n$. Let $U
+    = \{0, 1\}^n \times [n]$. Define collection $\mathcal{S}$ to contain the sets
+    \[
+      S_{x, y, z} = \begin{cases}
+        \{x\} \times y & \text{if } \phi(x, y, z) \\
+        \emptyset & \text{otherwise}
+      \end{cases},
+    \]
+    for all $x, y, z$. Given $(x', k) \in U$ and $(x, y, z)$, $(x', k) \in S_{x, y, z}$ if and only
+    if $\phi(x, y, z)$ and $x = x'$ and $y_k = 1$. Hence, there exists a circuit $C$ which
+    succinctly represents $\mathcal{S}$. 
+
+    Suppose $\exists x \, \forall y \, \exists z$ such that $\phi(x, y, z)$. Consider the set $U_x =
+    \{x\} \times [n]$. Let $U_x' \subseteq U_x$. Since the set $\{x\} \times y \in \mathcal{S}$ for
+    all $y$, $U_x' = U_x \cap S_{x, y, z}$ for some $y$ and $z$ such that $\phi(x, y, z) = 1$. Thus,
+    $U_x$ is shattered by $\mathcal{S}$, and so the VC-dimension of $\mathcal{S}$ is at least $n$.
+
+    Conversely, suppose the VC-dimension of $\mathcal{S}$ is at least $n$. That is, there exists a
+    set $X$ of size $n$ which is shattered by $\mathcal{S}$. Since $S_{x, y, z} \cap X \subseteq
+    U_x$ for all $x$, $X \subseteq U_x$ for some $x$. But then $|X| \geq n = |U_x|$, so $X = U_x$.
+    But then $U_x$ being shattered by $\mathcal{S}$ implies that $\phi(x, y, z) = 1$ for all $y$ and
+    for some $z$. 
+
+    Therefore, we conclude that $(C, n)$ is in VC-DIMENSION if and only if $\exists x \, \forall y
+    \, \exists z \, \phi(x, y, z)$. 
   \end{proof}
 \end{enumerate}
 \end{document}
