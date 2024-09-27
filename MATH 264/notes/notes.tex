@@ -1,0 +1,133 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\setlength{\topmargin}{-0.5in}
+\setlength{\headsep}{10pt}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+
+\addto{\captionsenglish}{\renewcommand{\abstractname}{}}
+
+\graphicspath{ {./images} }
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+
+\title{\textsc{MATH 264A Lecture Notes}}
+
+\author{Instructor: Lutz Warnke \\ \small{Compiled by Ray Tsai}}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  This note is for the graduate combinatorics course MATH 264A at UC San Diego, taught by Professor
+  Lutz Warnke in 2024 Fall. The proofs below are merely my attempts of recreating the contents in
+  lectures, which might not be accurate representations of what was actually taught. 
+\end{abstract}
+
+\section*{Some Basic Tools}
+
+Here we introduce some simple but powerful tools.
+
+\subsection*{Inductive Approaches}
+
+This method is done by changing the size of the problem, e.g. adding an vertex or an edge in a
+graph.
+
+\begin{example}
+  Every $n$-vertex graph with maximum degree $\Delta$ has $\geq \beta^n$ valid vertex colorings with
+  $\leq \lceil \Delta + \beta \rceil$ colors.
+\end{example}
+
+\begin{proof}
+  Color the vertices $v_1, v_2, \ldots, v_n$ sequentially. Since $v_i$ has $\leq \Delta$ neighbors
+  already colored, there are $\geq \lceil \Delta + \beta \rceil - \Delta \geq \beta$ choices to
+  color $v_i$. Define $N_i$ as $\#$ valid colorings of $v_1, \ldots, v_i$. Then, the
+  \textit{Telescoping Product} now yields
+  \[
+    N_n = \frac{N_n}{N_{n - 1}} \cdot \frac{N_{n - 2}}{N_{n - 1}} \cdots \frac{N_{1}}{N_{0}} \cdot N_0 \geq \beta^n,
+  \]
+  as $N_0 = 1$.
+\end{proof}
+
+Despite being an extremely basic technique, induction can prove several advanced theorems if used
+artfully. The following are some exciting theorems which can be proven by induction:
+
+\begin{enumerate}
+  \item Strengthen Lovász Local Lemma (LLL)
+  \item Chromatic number of triangle-free graph with max-degree $\Delta$ is $\leq (1 +
+  o(1))\frac{\Delta}{\log \Delta}$ as $\Delta \to \infty$.
+  \item Almost all triangle-free graphs are bipartite.
+\end{enumerate}
+
+\subsection*{Double Counting/Switching}
+
+Also known as the Pertubation method, e.g. change of location of edges.
+
+\begin{example}
+  Find the $\# \Pi \in S_n$ without fix-points, i.e. $\Pi(i) \neq i$ for all $i$.
+\end{example}
+
+\begin{proof}
+  We prove this by a basic approach which consists of several steps:
+
+  \textbf{Step 1: Define the ``Switching Operation.''} Let $S_{n, k}$ be the set of permutations
+  with $k$ fix-points. Define the switching operation to transform $\pi \in S$ to $\pi' \in S_{n,
+  1}$.
+
+  \textbf{Step 2: Consider the auxiliary bipartite graph.} Let $S_{n, 0}, S_{n, 1}$ be parts of
+  the bipartite graph. Connect $\pi \in S_{n, 0}$ with $\pi' \in S_{n, 1}$ if $\pi'$ results from
+  $\pi$ through the switching operation.
+
+  \textbf{Step 3: Double count the degrees.}
+  \[
+    \sum_{\pi \in S_{n, 0}} \deg \pi = \sum_{\pi' \in S_{n, 1}} \deg \pi'
+  \]
+
+  \textbf{Step 4: Degree essentially transfers to ratio.} Suppose $\deg \pi \approx a$ and $\deg
+  \pi' \approx b$, for all $\pi \in S_{n, 0}$ and $\pi' \in S_{n, 1}$. Then,
+  \[
+    \frac{|S_{n, 0}|}{|S_{n, 1}|} \approx \frac{b}{a}.
+  \]
+\end{proof}
+
+This method can be applied to count $d$-regular graphs with certain properties, i.e. random model
+without independence.
+
+\subsection*{Asymptotic Methods}
+
+Rather than finding the close form of a discrete function, sometimes it is significantly easier to
+approximate the function in asymptotic settings.
+
+\subsubsection*{Bootstrapping}
+
+Suppose we have an equation $w(z)e^{w(z)} = z$ and we try to extract $w(z)$. By bootstrapping, $w(z)
+= \ln z - \ln \ln z + o(1)$.
+
+\subsubsection*{Integral-Approximation}
+
+As the title suggests, this method estimates a summation $\sum_{k \in I} f(k)$ with its integral
+counterpart $\int_I f(x) \, dx$. For example, the the summation derived from the Fibonacci Tiliing
+Problem can be estimated by the Laplace-Method, i.e.
+\[
+  \sum_{0 \leq k \leq \frac{n}{2}} \binom{n - k}{k} \sim \frac{1}{\sqrt{5}}\left(\frac{1 + \sqrt{5}}{2}\right)^{n + 1} \quad n \to \infty.
+\]
+
+\end{document}
