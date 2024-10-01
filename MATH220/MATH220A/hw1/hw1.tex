@@ -1,0 +1,275 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{Oct 4, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Let $\Lambda$ be a circle lying in $S$. Then there is a unique plane $P$ in $\mathbb{R}^3$ such
+  that $P \cap S = \Lambda$. Recall from analytic geometry that
+
+	\[
+	P = \{(x_1, x_2, x_3) : x_1\beta_1 + x_2\beta_2 + x_3\beta_3 = l \}
+	\]
+
+	where $(\beta_1, \beta_2, \beta_3)$ is a vector orthogonal to $P$ and $l$ is some real number. It
+	can be assumed that $\beta_1^2 + \beta_2^2 + \beta_3^2 = 1$. Use this information to show that if
+	$\Lambda$ contains the point $N$, then its projection on $\mathbb{C}$ is a straight line.
+	Otherwise, $\Lambda$ projects onto a circle in $\mathbb{C}$.
+
+	\begin{proof}
+		Suppose $N \in \Lambda$. Then the stereographic projection line for every $x \in \Lambda$ is in
+		$P$, and thus the projection of all $x \in \Lambda$ is in $P \cap \C$. On the other hand, for
+		all $z \in P \cap \C$, stereographic projection line for $z$ contains some point in $\Lambda
+		\backslash \{N\}$. Therefore, the projection of $\Lambda$ on $\C$ is $P \cap \C$, which is a
+		straight line.
+
+		Suppose $N \notin \Lambda$, namely $\beta \neq l$. Let $x \in \Lambda$. By representing $x =
+		(x_1, x_2, x_3)$ in terms of its complex plane projection $z$, we get 
+		\[
+			x_1\beta_1 + x_2\beta_2 + x_3\beta_3 = \frac{(z + \bar{z})\beta_1}{|z|^2 + 1} + \frac{-i(z - \bar{z})\beta_2}{|z|^2 + 1} + \frac{(|z|^2 - 1)\beta_3}{|z|^2 + 1} = l.
+		\]
+		Rearranged, 
+		\[
+			\frac{l + \beta_3}{\beta_3 - l} = |z|^2 - \frac{\beta_1 - i\beta_2}{l - \beta_3}z - \frac{\beta_1 + i\beta_2}{l - \beta_3}\bar{z}.
+		\]
+		But then circles in $\C$ are of the form
+		\[
+			r^2 = (z - a)\overline{(z - a)} = |z|^2 - \bar{a}z - a\bar{z} + |a|^2,
+		\]
+		for $r \in \R$ and $z, a \in \C$. Hence we are done.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Prove that a set $G \subseteq X$ is open if and only if $X - G$ is closed.
+
+	\begin{proof}
+		If $G$ is open, then its complement $X - G$ is closed, by definition. If $X - G$ is closed, it's
+		complement $X - (X - G) = G$ is open, by definition.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $(X, d)$ be a metric space and $Y \subseteq X$. Suppose $G \subseteq X$ is open; show that $G
+	\cap Y$ is open in $(Y, d)$. Conversely, show that if $G_1 \subseteq Y$ is open in $(Y, d)$, there
+	is an open set $G \subseteq X$ such that $G_1 = G \cap Y$.
+
+	\begin{proof}
+		Let $B_{X}(x; \epsilon)$ denote the open ball in metric space $(X, d)$ centered at $x$ with
+		radius $\epsilon$. 
+		
+		Let $x \in G \cap Y$. If $G$ is open, then there exists $\epsilon > 0$ such that $B_{X}(x;
+		\epsilon) \subseteq G$. But then $B_{Y}(x; \epsilon) = B_{X}(x; \epsilon) \cap Y \subseteq G
+		\cap Y$, so $G \cap Y$ is open in $(Y, d)$. 
+
+		Suppose $G_1 \subseteq Y$ is open in $(Y, d)$. For all $x \in G_1$, there exists $\epsilon_x >
+		0$ such that $B_Y(x; \epsilon) \subseteq G_1$. Put $G = \bigcup_{x \in G_1} B_X(x; \epsilon)$.
+		$G$ is open in $X$, as it is an union of open sets. Since $x \in B_X(x; \epsilon)$ for all $x
+		\in G_1$, $G_1 \subseteq G \cap Y$. Since $B_X(x; \epsilon) \cap Y = B_Y(x; \epsilon) \subseteq
+		G_1$ for all $x \in G_1$, $G \cap Y = \bigcup_{x \in G_1} Y \cap B_X(x; \epsilon) \subseteq
+		G_1$, and hence the equality.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	The purpose of this exercise is to show that a connected subset of $\mathbb{R}$ is an interval.
+	\begin{itemize}
+		\item[(a)] Show that a set $A \subseteq \mathbb{R}$ is an interval if and only if for any two
+		points $a$ and $b$ in $A$ with $a < b$, the interval $[a, b] \subseteq A$.
+
+		\begin{proof}
+			Suppose $A \subset \R$ is an interval. Let $a, b \in A$, with $b > a$. By definition of an
+			interval, $x \in A$ for all $a < x < b$, and thus $[a, b] \subseteq A$.
+
+			Suppose that $[a, b] \subseteq A$ for all $a, b \in A$ with $b > a$. We may assume that $A
+			\neq \R$, otherwise we are done. If $A$ is bounded both above and below, then $m = \inf A$ and
+			$M = \sup A$ exist. Pick $\epsilon > 0$. Since $M - \epsilon, m + \epsilon \in A$, $[m +
+			\epsilon, M - \epsilon]$ is contained in $A$. Hence, for all $\epsilon > 0$, $x \in A$ for all
+			$m + \epsilon \leq x \leq M - \epsilon$, that is, $(m, M) \subseteq A$. But then $x \notin A$
+			for all $x > M$ or $x < m$, so $A$ is either $[m, M], [m, M), (m ,M],$ or $(m, M)$. Suppose
+			WLOG that $A$ is not bounded below. Then $M = \sup A$ exists as $A \neq \R$. Let $x < M$.
+			Since the interval $[x, (x + M)/2] \subseteq A$, we know $x \in A$, and thus $(-\infty, M)
+			\subseteq A$. But then $x \notin A$ for all $x > M$, so $A$ is either $(-\infty, M]$ or
+			$(-\infty, M)$. 
+		\end{proof}
+		\item[(b)] Use part (a) to show that if a set $A \subseteq \mathbb{R}$ is connected then it is
+		an interval.
+
+		\begin{proof}
+			Let $a, b \in A$, with $b > a$. Suppose for the sake of contradiction that $[a, b]$ is not a
+			subset of $A$. There exists $x \notin A$ such that $a < x < b$. But then by the last exercise,
+			$(-\infty, x) \cap A$ and $(x, \infty) \cap A$ are open sets in $(A, d)$, and their union is
+			$A$. Hence, $A$ is disconnected, contradiction. The result now follows from (a).
+		\end{proof}
+	\end{itemize}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Prove the following generalization of Lemma 2.6. If $\{D_j : j \in J\}$ is a collection of
+	connected subsets of $X$ and if for each $j$ and $k$ in $J$ we have $D_j \cap D_k \neq \emptyset$
+	then $\mathcal{D} = \bigcup \{D_j : j \in J\}$ is connected.
+
+	\begin{proof}
+		Let $A$ be a nonempty subset of the metric space $(\mathcal{D}, d)$ which is both open and
+		closed. Then $A \cap D_j$ is both open and closed in $(D_j, d)$ for all $j$. Since $A \neq
+		\emptyset$ and $D_j$ is connected for all $j$, $A \cap D_j = D_j$ for some $j$. But then $D_j
+		\cap D_k = A \cap D_k \neq \emptyset$ for all $k$, so $A \cap D_k = D_k$, as $D_k$ is connected.
+		Therefore, $\mathcal{D} = A$.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
