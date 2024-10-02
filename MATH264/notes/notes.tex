@@ -17,12 +17,14 @@
 \setlength{\textwidth}{6.5in}
 \setlength{\oddsidemargin}{0pt}
 \setlength{\evensidemargin}{0pt}
+\setlength{\parskip}{5pt}
 
 \addto{\captionsenglish}{\renewcommand{\abstractname}{}}
 
 \graphicspath{ {./images} }
 
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{example}[theorem]{Example}
@@ -43,9 +45,9 @@
   lectures, which might not be accurate representations of what was actually taught. 
 \end{abstract}
 
-\section*{Some Basic Tools}
+\section{Some Basic Tools}
 
-Here we introduce some simple but powerful tools.
+This lecture introduces some simple but powerful tools.
 
 \subsection*{Inductive Approaches}
 
@@ -130,5 +132,107 @@ Problem can be estimated by the Laplace-Method, i.e.
 \[
   \sum_{0 \leq k \leq \frac{n}{2}} \binom{n - k}{k} \sim \frac{1}{\sqrt{5}}\left(\frac{1 + \sqrt{5}}{2}\right)^{n + 1} \quad n \to \infty.
 \]
+
+\newpage
+
+\section{Inductive Counting}
+
+This lecture introduces two exmaples the on inductive counting approach, which often improves the
+Lovász Local Lemma. The basic approach of this method is to first generalize the problem then use
+structural induction on, say, the number of vertices or edges. It often involves extending from
+smaller cases then counting the number of ``bad" extensions based on some observed patterns of them.
+
+\subsection*{Non-repetitive Words}
+
+A word $w$ is defined as a sequence of symbols from alphabet $\mathcal{A}$. A word $w$ is
+non-repetitive if no word appears twice in $w$ consecutively. For example,
+$\underline{ab}\underline{ab}$ and $b\underline{abc}\underline{abc}$ are repetitive words, while
+$ab$ and $aba$ are non-repetitive words.
+
+The following Theorem is proven by Thue in 1906:
+\begin{theorem}
+  Let $\mathcal{A}$ be a $3$-symbol alphabet. Then for all $n \geq 1$, there exists a non-repetitive
+  word $a_1\ldots a_n$, with $a_i \in \mathcal{A}$ for all $i$.
+\end{theorem}
+
+A conjecture on non-repetitive words is that
+
+\begin{conjecture}
+  Let $L_1, \ldots, L_n$ be subsets of an alphabet $\mathcal{A}$, with $|L_i| = 3$ for all $i$. Then
+  for $n \geq 1$, there exists a non-repetitive word $a_1\ldots a_n$, with $a_i \in L_i$ for all
+  $i$.
+\end{conjecture}
+
+This conjecture remains open till this day (2024), but we can prove a slightly weaker version of it
+using induction:
+
+\begin{theorem}
+  Let $L_1, \ldots, L_n$ be subsets of an alphabet $\mathcal{A}$, with $|L_i| = 4$ for all $i$. Then
+  for $n \geq 1$, there exists are at least $2^n$ non-repetitive words $a_1\ldots a_n$, with $a_i
+  \in L_i$ for all $i$.
+\end{theorem}
+
+\begin{proof}
+  We first generalize the problem. Define $N_k$ as the number of non-repetitive words of $a_1\ldots
+  a_k$, with $a_i \in L_i$ for all $i \in [k]$. It suffices to show $N_k \geq 2^k$. Put $\beta = 2$.
+  We proceed by induction on $k \geq 1$ to show that $\frac{N_k}{N_{k - 1}} \geq \beta$.
+  
+  \textbf{Base Case:} We already know $N_0 = 1$. Since there are $|L_1| = 4$ choices for the first
+  symbol, $\frac{N_1}{N_0} = N_1 = 4 \geq \beta$, so the base case is done.
+
+  \textbf{Inductive Step:} Suppose $k \geq 2$. Here we use symbols from $L_k$ to (try to) extend
+  each $N_{k - 1}$ non-repetitive words of length $k - 1$. Hence we may write
+  \[
+    \# \text{all extensions} = N_{k - 1} \cdot |L_k| = N_k + B,
+  \]
+  where $B$ is the number of repetitive (bad) extensions . By construction, repetition must happen
+  at the end of the extension, say the last $j$ symbols. But then those $j$ symbols uniquely
+  determines the $j$ symbols preceeding them. Summing over all possible $j$'s, we get $B \leq
+  \sum_{j \in [k/2]} N_{k - j}$. By induction, $N_{k - j} \leq N_{k - 1} \left(\frac{1}{2}\right)^{j
+  - 1}$, and thus
+  \[
+    B \leq N_{k - 1}\sum_{j \in [k/2]} \left(\frac{1}{\beta}\right)^{j - 1} \leq N_{k - 1} \cdot \frac{\beta}{\beta - 1}.
+  \]
+  It immediately follows that when $\beta = 2$
+  \[
+    N_k = N_{k - 1} \cdot |L_k| - B \geq N_{k - 1} \cdot |L_i| - \frac{\beta}{\beta - 1} \cdot N_{k - 1} \geq \beta N_{k - 1},
+  \]
+  and this completes the induction.
+\end{proof}
+
+\newpage
+
+\subsection*{Lower Bound on Size of Intependent Sets}
+
+\begin{theorem}
+  Let $V_1, \ldots, V_s \subseteq V$ be disjoint sets of size $|V_{i}| \geq 4\Delta$. Then there
+  exist $(2\Delta)^s$ intependent sets $I \subseteq V$ which contains one vertex from each $V_i$.
+\end{theorem}
+
+\begin{proof}
+  Again, we first generalize the problem for $T \subseteq [s]$. Define $N_T$ as the number of
+  independent sets $I \subseteq V_T = \bigcup_{j \in T} V_j$ that contains one vertex from each
+  $V_j$. It suffices to show that $N_T \geq (2\Delta)^{|T|}$. Put $\beta = 2\Delta$. We proceed by
+  induction on $|T|$ to show that for all $x \in T$, $\frac{N_T}{N_{T - \{x\}}} \geq \beta$. 
+
+  \textbf{Base Case:} Trivial, as $\frac{N_1}{N_1} = N_1 = |V_i| \geq 4\Delta \geq \beta$.
+
+  \textbf{Inductive Step:} Suppose $|T| \geq 2$. Here we try to use vertex from $V_x$ to extend the
+  $N_{T - \{x\}}$ many valid independent sets for $V_{T - \{x\}}$. Hence we write
+  \[
+    N_{T - \{x\}} \cdot |V_x| = N_T + B,
+  \]
+  where $B$ is again the number of invalid (bad) extensions. In particular, we need to count the
+  number of possible ways that our extension contains an edge from $V_x$ to an independent set in
+  $V_{T - \{x\}}$. Hence,
+  \[
+    B \leq |V_x| \cdot \Delta \cdot \max_{z \in T - \{x, z\}} N_{T - \{x, z\}} \leq \frac{4\Delta^2}{\beta} \cdot N_{T - \{x\}},
+  \]
+  by induction. It now follows that when $\beta = 2\Delta$,
+  \[
+    N_T = N_{T - \{x\}} \cdot |V_x| - B \geq 4\Delta \left(1 - \frac{\Delta}{\beta}\right)N_{T - \{x\}} \geq \beta N_{T - \{x\}},
+  \]
+  and this completes the induction.
+\end{proof}
 
 \end{document}
