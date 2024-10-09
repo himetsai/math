@@ -334,38 +334,20 @@ The natural extremal construction is to simply put $G_1 = K_n$ and the rest as
   \end{theorem}
 
   \begin{proof}
-    \begin{align*}
-      e(G_1) + e(G_2) + e(G_3) 
-      &= e(G_1 \cup G_2 \cup G_3) + e(G_1 \cap G_2) + e(G_1 \cap G_3) \\
-      &\qquad\qquad + e(G_2 \cap G_3) - e(G_1 \cap G_2 \cap G_3) \\
-      &\leq e(G_1 \cup G_2 \cup G_3) + e(G_1 \cap G_2) + e(G_1 \cap G_3)
-    \end{align*}
-    with equality if and only if $G_1 = K_n$ and $G_1 \cap G_2, G_1 \cap G_3 =
-    K_{\left\lceil\frac{n}{2}\right\rceil, \left\lfloor\frac{n}{2}\right\rfloor}$. The result now
-    follows.
+    See Chase Wilson's proof.
   \end{proof}
 
   \textcolor{red}{TODO: solve $m = 4$.}
 
-  % \begin{theorem}
-  %   Suppose that $E(G_i) \cap E(G_j)$ does not include $K_3$ for distinct $i, j$. Then,
-  %   \[
-  %     \sum_{i = 1}^4 e(G_i) \leq \binom{n}{2} + 3\left\lfloor\frac{n^2}{4}\right\rfloor,
-  %   \]
-  %   with equality if and only if $G_1 = K_n$ and $G_i = K_{\left\lceil\frac{n}{2}\right\rceil,
-  %   \left\lfloor\frac{n}{2}\right\rfloor}$ for $i > 1$ after compression.
-  % \end{theorem}
+  \begin{theorem}
+    Suppose that $E(G_i) \cap E(G_j)$ does not include $K_3$ for distinct $i, j$. Then,
+    \[
+      \sum_{i = 1}^m e(G_i) \leq (1 + o_m(1))m\left\lfloor\frac{n^2}{4}\right\rfloor,
+    \]
+    as $m \to \infty$.
+  \end{theorem}
 
-  % \begin{proof}
-  %   Compress $G_1, \ldots, G_m$. Put $m + 1 = 1$. By inclusion-exclusion,
-  %   \begin{align*}
-  %     e(G_i)
-  %     &= \sum_{j \neq i} e(G_i \cap G_j) - \sum_{\substack{j, k \neq i \\ k > j}} e(G_i \cap G_j \cap G_k) + e(G_1 \cap G_2 \cap G_3 \cap G_4) \\
-  %     &= \sum_{j \neq i} [e(G_i \cap G_j) - e(G_i \cap G_j)]
-  %   \end{align*}
-  %   for $i > 1$. Hence,
-  %   \[
-  %     \sum_{i = 1}^4 e(G_i) = e(G_1) + \sum_{i = 2}^{m}\sum_{k = 2}^{4} (-1)^{k}\sum_{\substack{I \subseteq [m] \\ i \in I, |I| = k}} e\left(\bigcap_{j \in I} G_j\right)
-  %   \]
-  % \end{proof}
+  \begin{proof}
+    forgot...
+  \end{proof}
 \end{document}

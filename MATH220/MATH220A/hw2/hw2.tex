@@ -1,0 +1,269 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{Oct 11, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Show that if $F \subset X$ is closed and connected, then for every pair of points $a, b$ in $F$
+	and each $\epsilon > 0$, there are points $z_0, z_1, \ldots, z_n$ in $F$ with $z_0 = a$, $z_n =
+	b$, and $d(z_{k-1}, z_k) < \epsilon$ for $1 \leq k \leq n$. Is the hypothesis that $F$ be closed
+	needed? If $F$ is a set which satisfies this property, then $F$ is not necessarily connected, even
+	if $F$ is closed. Give an example to illustrate this.
+
+	\begin{proof}
+		We give a proof without assuming that $F$ is closed. Suppose there exists $a, b \in F$ and
+		$\epsilon > 0$ such that there do not exist $z_0, z_1, \ldots, z_n \in F$ with $z_0 = a$, $z_n =
+		b$, and $d(z_{k-1}, z_k) < \epsilon$ for $1 \leq k \leq n$. Define
+		\begin{gather*}
+			A \coloneq \{z \in F \mid \exists z_0 = a, z_1, \ldots, z_n = z, d(z_{k-1}, z_k) < \epsilon, \forall 1 \leq k \leq n\}, \\
+			B \coloneq \{z \in F \mid \exists z_0 = b, z_1, \ldots, z_n = z, d(z_{k-1}, z_k) < \epsilon, \forall 1 \leq k \leq n\}.
+		\end{gather*}
+		Then $A \cap B = \emptyset$ and $A, B \neq \emptyset$, as $a \in A$ and $b \in B$. Let $x \in A$.
+		There exists $z_0 = a, z_1, \ldots, z_n = x$ such that $d(z_{k-1}, z_k) < \epsilon$ for all $1
+		\leq k \leq n$. For any point $y \in B(x, \epsilon)$, putting $z_{n + 1} \in y$ shows that $y \in
+		A$. Same argument applies to $B$, and so $A$ and $B$ are open sets. Hence, we may assume that $C =
+		F \backslash (A \cup B)$ is nonempty, otherwise $F$ is disconnected. Let $x \in C$. If there
+		exists $z_0 = a, z_1, \ldots, z_n = y, d(z_{k-1}, z_k) < \epsilon, \forall 1 \leq k \leq n$ for
+		some $y \in B(x, \epsilon)$, then putting $z_{n + 1} \in x$ shows that $x \in A$, contradiction.
+		Same argument works for $B$. Thus, $B(x, \epsilon) \subset C$, $C$ is open. But then $C$ and $A
+		\cup B$ are open sets that separates $F$, so $F$ is disconnected, contradiction. The result now
+		follows.
+
+		We now give an counter example to the converse of the statement. Counterexample??
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $z_n, z$ be points in $\mathbb{C}$ and let $d$ be the metric on $\mathbb{C}_\infty$. Show that
+	$|z_n - z| \to 0$ if and only if $d(z_n, z) \to 0$. Also show that if $|z_n| \to \infty$ then
+	$\{z_n\}$ is Cauchy in $\mathbb{C}_\infty$. (Must $\{z_n\}$ converge in $\mathbb{C}_\infty$?)
+
+	\begin{proof}
+		For $z_n, z \in \C$, the distance function on $\mathbb{C}_\infty$ is defined as 
+		\[
+			d(z_n, z) \coloneq \frac{2|z - z_n|}{\sqrt{(1 + |z|^2)(1 + |z_n|^2)}}.
+		\]
+		Since $|z_n - z'| \to 0$, we have $d(z_n, z) \to 0$ as the numerator goes to $0$ and the
+		demominator is at least 1. Conversely, suppose for sake of contradiction that $|z_n - z|$ does
+		not converge to $0$ as $d(z_n, n) \to 0$. Since the numerator of $d(z_n, z)$ is not $0$, $d(z_n,
+		n) \to 0$ converges to $0$ only if the demominator $\sqrt{(1 + |z|^2)(1 + |z_n|^2)}$ has
+		approaches $\infty$. But then $|z_n| \to \infty$, contradiction.
+
+		Fix $\epsilon > 0$. Note that $d(z_n, \infty) = \frac{2}{\sqrt{(1 + |z_n|^2)}} \to 0$ as $|z_n|
+		\to \infty$. Hence, there exists large enough $n_0$ such that for all $n, m > n_0$, $d(z_n,
+		\infty), d(z_m, \infty) < \epsilon/2$. The result now follows that
+		\[
+			d(z_n, z_m) \leq d(z_n, \infty) + d(z_m, \infty) < \epsilon,
+		\] 
+		for all $n, m > n_0$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Put a metric $d$ on $\mathbb{R}$ such that $|x_n - x| \to 0$ if and only if $d(x_n, x) \to 0$, but
+	that $\{x_n\}$ is a Cauchy sequence in $(\mathbb{R}, d)$ when $|x_n| \to \infty$. (Hint: Take
+	inspiration from $\mathbb{C}_\infty$.)
+
+	\begin{proof}
+		Define
+		\[
+			d(x, y) \coloneq \frac{2|x - y|}{\sqrt{(1 + x^2)(1 + y^2)}},
+		\]
+		for real $x, y$. Since $d$ is merely the real number case of the metric on $\C_{\infty}$, $d$ is
+		a metric on $\R$ and the statement ``$|x_n - x| \to 0$ if and only if $d(x_n, x) \to 0$''
+		follows from the same argument as the previous problem. Now, suppose $|x_n| \to \infty$. Fix
+		$\epsilon > 0$. Pick $N > 4/\epsilon$. There exists $n_0$ such that for all $n > n_0$, $|x_n| >
+		N$. But then
+		\[
+			d(x_n, x_m) = \frac{2|x_n - x_m|}{\sqrt{(1 + x_n^2)(1 + x_m^2)}} \leq \frac{2|x_n| + |x_m|}{\sqrt{x_n^2x_m^2}} = 2\left(\frac{1}{|x_n|} + \frac{1}{|x_m|}\right) < \frac{4}{N} < \epsilon,
+		\]
+		for all $n, m > n_0$. The result now follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Prove the converse of proposition 4.4: A set $K \subset X$ is compact if every collection
+	$\mathscr{F}$ of closed subsets of $K$ with the finite intersection property has nonempty
+	intersection.
+
+	\begin{proof}
+		We prove the contrapositive. Suppose $K$ is not compact. There exists an open cover
+		$\{U_{\alpha}\}$ of $K$ such that no finite subcover exists. Let $\mathscr{F}$ be the collection
+		of closed subsets $\{K \backslash U_\alpha\}$. Given any finite subcollection $\{K \backslash
+		U_{\alpha_i}\}_{i = 1}^n$, the intersection $\bigcap_{i = 1}^n K \backslash U_i = K \backslash
+		\left(\bigcup_{i = 1}^n U_{\alpha_i}\right) \neq \emptyset$, and so $\mathscr{F}$ has the finite
+		interseciton property. But then $\bigcap_{\alpha} K \backslash U_\alpha = K \backslash
+		\left(\bigcup_{\alpha} U_{\alpha}\right) = \emptyset$. 
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that the union of a finite number of compact sets is compact.
+
+	\begin{proof}
+		Let $K_1, K_2, \ldots, K_n$ be compact sets. Let $\{U_{\alpha}\}$ be an open cover of $K_1 \cup
+		K_2 \cup \ldots \cup K_n$. Since $K_1$ is compact, there exists a finite subcover $\{U_{\alpha_1},
+		\ldots, U_{\alpha_{n_1}}\}$ of $K_1$. Similarly, there exists a finite subcover $\{U_{\alpha_{n_1
+		+ 1}}, \ldots, U_{\alpha_{n_2}}\}$ of $K_2$, and so on. The union of these finite subcovers is a
+		finite subcover of $K_1 \cup K_2 \cup \ldots \cup K_n$, and so $K_1 \cup K_2 \cup \ldots \cup K_n$
+		is compact.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}

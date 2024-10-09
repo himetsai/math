@@ -1,0 +1,311 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Inductive Counting Problems}
+\newcommand{\hmwkDueDate}{Oct 5, 2024}
+\newcommand{\hmwkClass}{MATH 264A}
+\newcommand{\hmwkClassInstructor}{Professor Warnke}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item Let $G = (V, E)$ be an $n$-vertex graph and suppose that each vertex $v \in V$ is
+    associated with a list $S(v)$ of colors of size at least $4r$, where $r$ is a positive integer.
+    Suppose also that for each $v \in V$ and each $c \in S(v)$, there are at most $r$ neighbors $u$
+    of $v$ such that $c \in S(u)$. Using induction, prove that there are at least $(2r)^n$ proper
+    colorings of $G$ under which each vertex $v$ receives a color from its list $S(v)$.
+
+    \textit{Remark}: a proof using the classical Lovász Local Lemma (LLL) requires $2e r \approx
+    5.44r$ instead of $4r$.
+
+    \begin{proof}
+      For $S \subseteq V$, define $N_S$ as the number of proper colorings of $G$ under which $v$
+      receives a color from its list $S(v)$ for all $v \in S$. It suffices to show that for all $T
+      \subseteq V$ and $x \in T$, $N_T/N_{T\backslash \{x\}} \geq 2r$. We proceed by induction on
+      $|T|$. When $T = \{x\}$, $N_T = S(x)$ and $N_{T\backslash \{x\}} = N_{\emptyset} = 1$, we have
+      $N_T/N_{T\backslash \{x\}} \geq 4r \geq 2r$. Suppose $|T| > 2$. Then,
+      \[
+        |S(x)| \cdot N_{T\backslash \{x\}} = N_T + B,
+      \]
+      where $B$ is the number of improper colorings of $T$ which becomes proper if we ignore the
+      color of $x$. Notice that any element counted by $B$ contains a vertex $u$ which is a neighbor
+      of $v$ that shares the same color $c$ as $x$ and a proper coloring of $T \backslash \{u, x\}$.
+      This yields the upper bound
+      \[
+        B \leq |S(x)| \cdot (\# \text{choice of vertex $u$}) \cdot N_{T \backslash \{u, x\}} \leq 4r \cdot r \cdot N_{T \backslash \{u, x\}}.
+      \]
+      By induction, $N_{T \backslash \{u, x\}} \leq \frac{1}{2r} \cdot N_{T \backslash \{x\}}$, and
+      thus 
+      \[
+        N_T = |S(x)| \cdot N_{T\backslash \{x\}} - B \geq 4r N_{T\backslash \{x\}} - 4r \cdot r \cdot \frac{1}{2r} \cdot N_{T\backslash \{x\}} = 2r N_{T\backslash \{x\}},
+      \]
+      and this completes the induction.
+    \end{proof}
+
+    \item A $k$-SAT formula is an expression such as
+    \[
+    (x_1 \text{ OR } x_4 \text{ OR } \overline{x_6}) \text{ AND } (x_1 \text{ OR } \overline{x_2} \text{ OR } x_5),
+    \]
+    where the variables $x_i$ take values true or false, $\overline{x_i}$ means not $x_i$, and $k$
+    distinct variables or their negations are OR-ed together in each clause. A formula is called
+    satisfiable if there is an assignment of values to the variables making the expression true.
+    Suppose that in a given $k$-SAT formula $\Phi$ no variable lies in more than $2^k / (ek)$
+    clauses. Using induction, prove that $\Phi$ has at least $(2 - 2/k)^n$ many satisfying
+    assignments (which in fact remains true if we relax the assumed $2^k / (ek)$ upper bound to $2^k
+    / k \cdot (1 - 1/k)^{k-1}$).
+
+    \begin{proof}
+      Let $\Phi_i$ denote the $k$-SAT formula which AND's together all the clauses of $\Phi$ that
+      involve only the first $i$ variables. Define $N_i$ as the number of satisfying assignments of
+      $\Phi_i$. We show that $N_i\geq (2 - 2/k)^i$ by induction on $i \geq k$. 
+    \end{proof}
+
+    \item Let $\mathcal{A}$ be an alphabet, and let $\mathcal{F}$ be a set of forbidden strings.
+    Assume that there exists $\beta > 0$ such that 
+    \[
+    |\mathcal{A}| - \sum_{f \in \mathcal{F}} \beta^{1 - |f|} \geq \beta.
+    \]
+    Using induction, prove that there exists at least $\beta^n$ words of length $n$ over alphabet
+    $\mathcal{A}$ that avoid all the substrings in $\mathcal{F}$.
+
+    \begin{proof}
+      Define $N_k$ to be the set of words of length $n$ over alphabet $\mathcal{A}$ that avoid all
+      the substrings in $\mathcal{F}$. We show that $|N_k|/|N_{k - 1}| \geq \beta$ by induciton on $k
+      \geq 1$. Since $|N_0| = 1$, 
+      \[
+        \frac{|N_1|}{|N_0|} = |N_1| \geq |\mathcal{A}| - |\{f \in F \mid |f| = 1\}| \geq \beta,
+      \]
+      as $|\{f \in F \mid |f| = 1\}| \leq \sum_{f \in \mathcal{F}} \beta^{1 - |f|}$. Hence, the base
+      case holds. Suppose $k > 1$. Let $B$ denote the set of words over $\mathcal{A}$ of the form
+      $a_1\ldots a_k$ that contains some substring in $F$, with $a_1\ldots a_{k - 1} \in N_{k - 1}$.
+      Then
+      \[
+        |\mathcal{A}| \cdot |N_{k - 1}| = |N_k| + |B|.
+      \]
+      By construction, any word in $B$ consists of a forbidden string $f$ at the end and some word
+      in $N_{k - |f|}$ at the beginning. Summing over all $f$, we have the bound
+      \[
+        |B| \leq \sum_{f \in \mathcal{F}} N_{k - |f|}.
+      \]
+      By induction, $N_{k - |f|} \leq \beta^{1 - |f|} \cdot |N_{k - 1}|$, and thus
+      \[
+        |B| \leq |N_{k - 1}|\sum_{f \in \mathcal{F}} \beta^{1 - |f|}.
+      \]
+      Therefore, 
+      \[
+        |N_k| = |\mathcal{A}| \cdot |N_{k - 1}| - B \geq |N_{k - 1}|\left(|\mathcal{A}| - \sum_{f \in \mathcal{F}} \beta^{1 - |f|}\right) \geq \beta |N_{k - 1}|,
+      \]
+      and this completes the induction. It now follows that 
+      \[
+        |N_n| = \frac{|N_n|}{|N_{n - 1}|} \cdot \frac{|N_{n - 1}|}{|N_{n - 2}|} \cdots \frac{|N_1|}{|N_0|} \geq \beta^n.
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  In the inductive proof of the `almost all triangle-free graphs are 2-colorable' result, we defined
+  the following sets (using $\Gamma(v)$ and $\Gamma(S)$ to denote the set of neighbors of a vertex
+  $v$ or set of vertices $S$):
+
+  \begin{itemize}
+    \item $\mathcal{C}ol_2(n)$ is the set of all 2-colorable graphs on $n$ vertices.
+    \item $\mathcal{T}(n)$ is the set of all triangle-free graphs on $n$ vertices.
+    \item $\mathcal{A}(n) \subseteq \mathcal{T}(n)$ is the subset of graphs containing a vertex $v$
+    such that $|\Gamma(v)| \leq \log_2 n$.
+    \item $\mathcal{B}(n) \subseteq \mathcal{T}(n)$ is the subset of graphs containing a vertex set
+    $Q$ of size $|Q| = \log_2 n$, such that $|\Gamma(Q)| \leq (1/2 - 1/1000)n$.
+    \item $\mathcal{D}(n) \subseteq \mathcal{T}(n) \setminus (\mathcal{A}(n) \cup \mathcal{B}(n))$
+    is the subset of graphs containing an edge $\{x, y\}$ and vertex sets $Q_x \subseteq \Gamma(x)$
+    and $Q_y \subseteq \Gamma(y)$, such that $|Q_x| = \log_2 n$, $|Q_y| = \log_2 n$, and
+    $|\Gamma(Q_x) \cap \Gamma(Q_y)| \geq n/100$.
+  \end{itemize}
+
+  \begin{enumerate}[(a)]
+    \item Prove that $|\mathcal{D}(n)| / |\mathcal{T}(n - 2)| \leq 2^{(1 - 1/2000)n}$ for all
+    sufficiently large $n \geq n_0$.
+    \begin{proof}
+      To generate a graph in $\mathcal{D}(n)$, we first pick two vertices $x, y$ to be adjacent and
+      then place a triangle free graph on the remaining $n - 2$ vertices. Lastly, we pick two
+      subsets from the $n - 2$ vertices to be $x$ and $y$'s neighbors respectively. Since the graph
+      is not in $\mathcal{A}(n)$, $|\Gamma(x)|, |\Gamma(y)| > \log_2 n$. But then the graph is also
+      not in $\mathcal{B}(n)$, so $\Gamma(\Gamma(x)), \Gamma(\Gamma(y))$ each have size greater than
+      $(1/2 - 1/1000)n$. Since the graph is triangle-free, $x$ cannot be adjacent to any vertex in
+      $\Gamma(\Gamma(x))$ and similarly for $y$, and thus $|\Gamma(x)|, |\Gamma(y)| \leq (1/2 +
+      1/1000)n$. This yields the bound
+      \[
+        B(n) \leq \binom{n}{2} \cdot |\mathcal{T}(n - 2)| \cdot 2^{(1/2 - 1/1000)n} \cdot 2^{(1/2 - 1/1000)n} \leq 2^{(1 - 1/2000)n + } \cdot |\mathcal{T}(n - 2)|,
+      \]
+    \end{proof}
+    \item Prove that $|\mathcal{C}ol_2(n)| / |\mathcal{C}ol_2(n - 1)| \geq 2^{\frac{1}{2}(n - 1)}$
+    for all sufficiently large $n \geq n_0$.
+    \begin{proof}
+      Each graph in $\mathcal{C}ol_2(n)$ consists of vertex $n$, a graph $H \in \mathcal{C}ol_2(n -
+      1)$, and edges between $n$ and $H$. Since $H$ is bipartite, $H$ contains an independent set
+      $I_H$ of size at least $2^{\frac{1}{2}(n - 1)}$. By picking a graph $H$ from
+      $\mathcal{C}ol_2(n - 1)$ and adding some edges between $n$ and $I_H$, we may uniquely generate
+      a graph in $\mathcal{C}ol_2(n)$. Therefore,
+      \[
+        |\mathcal{C}ol_2(n)| \geq |\mathcal{C}ol_2(n - 1)| \cdot 2^{\frac{1}{2}(n - 1)},
+      \]
+      and the result now follows.
+    \end{proof}
+    \item Prove $\mathcal{T}(n) \subseteq \mathcal{C}ol_2(n) \cup \mathcal{A}(n) \cup \mathcal{B}(n)
+    \cup \mathcal{D}(n)$, by showing that $\mathcal{T}(n) \setminus [\mathcal{A}(n) \cup
+    \mathcal{B}(n) \cup \mathcal{D}(n)] \subseteq \mathcal{C}ol_2(n)$.
+    \begin{proof}
+      Let $G \in \mathcal{T}(n) \setminus [\mathcal{A}(n) \cup \mathcal{B}(n) \cup \mathcal{D}(n)]$.
+    \end{proof}
+    \item Prove that there is a small constant $\alpha > 0$ such that the inductive proof still
+    works if one replaces $\mathcal{A}(n) \subseteq \mathcal{T}(n)$ by the subset of graphs
+    containing a vertex $v$ with $|\Gamma(v)| \leq \alpha n$ (this establishes that almost all
+    triangle-free graphs have a minimum degree that is linear in $n$).
+  \end{enumerate}
+
+\end{homeworkProblem}
+\end{document}
