@@ -1,0 +1,384 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{Oct 15, 2024}
+\newcommand{\hmwkClass}{MATH 173A}
+\newcommand{\hmwkClassInstructor}{Professor Cloninger}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Use the definition of convex functions to answer the following:
+
+	\begin{enumerate}[(a)]
+		\item Show that $f : \mathbb{R}^d \to \mathbb{R}$ given by $f(x_1, \ldots, x_d) = \|x\|_2^2 =
+		\sum_{i=1}^{d} x_i^2$ is convex.
+
+    \begin{proof}
+      $f$ is continuously differentiable, with $\nabla f(x) = 2x$. But then, for any $x, y \in
+      \mathbb{R}^d$, 
+      \[
+        f(x) + \nabla f(x)^T(y - x) = x^Tx + 2x^T(y - x) = 2x^Ty - x^Tx = \|y\|^2_2 -\|x - y\|_2^2 \leq f(y),
+      \]
+      so $f$ is convex.
+    \end{proof}
+		
+		\item Show that $f : \mathbb{R} \to \mathbb{R}$ given by $f(x) = |x|$ is convex.
+
+    \begin{proof}
+      Let $x, y \in \R$. By the triangle inequality, 
+      \[
+        f(tx + (1 - t)y) = |tx + (1 - t)y| \leq t|x| + (1 - t)|y| = tf(x) + (1 - t)f(y),
+      \]
+      for any $t \in [0, 1]$. The result now follows.
+    \end{proof}
+		
+		\item For (b), show that $f$ is not strictly convex.
+
+		\begin{proof}
+      Consider $x, y \geq 0$. Then,
+      \[
+        f(tx + (1 - t)y) = tx + (1 - t)y = tf(x) + (1 - t)f(y),
+      \]
+      for all $t \in [0, 1]$. Hence, $f$ is not strictly convex.
+    \end{proof}
+		
+		\item Show that $f : \mathbb{R} \to \mathbb{R}$ given by $f(x) = \sqrt{|x|}$ is not convex.
+		\begin{proof}
+      Let $x = 1, y = 4$. Take $t = \frac{1}{2}$. Then,
+      \[
+        f\left(t \cdot 1 + (1 - t) \cdot 4\right) = f\left(\frac{5}{2}\right) = \sqrt{\frac{5}{2}},
+      \]
+      but
+      \[
+        tf(1) + (1 - t)f(4) = \frac{1}{2} + 1 = \frac{3}{2} < \sqrt{\frac{5}{2}}.
+      \]
+      Hence, $f$ is not convex.
+    \end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Use the definition of convex sets to answer the following:
+
+  \begin{enumerate}[(a)]
+    \item Show that if the sets $S$ and $T$ are convex, then $S \cap T$ is convex.
+    \begin{proof}
+      Let $x, y \in S \cap T$. Since $S$ and $T$ are convex, for any $t \in [0, 1]$, $tx + (1 - t)y
+      \in S$ and $tx + (1 - t)y \in T$. But then $tx + (1 - t)y \in S \cap T$, so $S \cap T$ is
+      convex.
+    \end{proof}
+    
+    \item Show that the intersection of any number of convex sets is convex.
+    \begin{proof}
+      Let $S_1, S_2, \ldots, S_n$ be convex sets. We proceed by induction on $n \geq 2$. (a) yields
+      the base case. For $n > 2$, $S_1 \cap S_2 \cap \ldots \cap S_{n - 1}$ is convex by induction,
+      and thus $S_1 \cap S_2 \cap \ldots \cap S_{n - 1} \cap S_n$ is convex by (a).
+    \end{proof}
+    
+    \item A hyperplane in $\mathbb{R}^d$ is a set of points of the form $\{x : a^T x = b\}$ where $a
+    \in \mathbb{R}^d$ and $b \in \mathbb{R}$. Show that hyperplanes are convex.
+
+    \begin{proof}
+      Let $\Gamma$ be a hyperplane $\{x : a^T x = b\}$ in $\R^d$. Let $x, y \in \Gamma$. Then, for
+      any $t \in [0, 1]$, 
+      \[
+        a^T(tx + (1 - t)y) = t(a^Tx) + (1 - t)(a^Ty) = tb + (1 - t)b = b,
+      \]
+      so $tx + (1 - t)y \in \Gamma$. Hence, $\Gamma$ is convex.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Use the definition of convex functions and sets to answer the following. Let $f : \mathbb{R}^n \to
+  \mathbb{R}$ be a function and define the set
+
+  \[
+    E_f = \{(x, w) \in \mathbb{R}^{n+1} \mid x \in \mathbb{R}^n, \, w \in \mathbb{R}, \, f(x) \leq w\}.
+  \]
+
+  \begin{enumerate}[(a)]
+    \item Show that for all $x \in \mathbb{R}^n$, $(x, f(x)) \in E_f$.
+    \begin{proof}
+      Put $w = f(x)$. Since $w = f(x) \geq f(x)$, $(x, f(x)) \in E_f$.
+    \end{proof}
+    
+    \item Show that if $f$ is a convex function, then $E_f$ is a convex set.
+    \begin{proof}
+      Let $(x_1, w_1), (x_2, w_2) \in E_f$. Since $f$ is convex, for $t \in [0, 1]$.
+      \[
+        f(tx_1 + (1 - t)x_2) \leq tf(x_1) + (1 - t)f(x_2) \leq tw_1 + (1 - t)w_2,
+      \]
+      But then $(tx_1 + (1 - t)x_2, tw_1 + (1 - t)w_2) \in E_f$, so $E_f$ is convex.
+    \end{proof}
+    
+    \item Show conversely that if $E_f$ is a convex set, then $f$ is a convex function.
+
+    \begin{proof}
+      Let $x_1, x_2 \in \R^n$. Since $E_f$ is convex, 
+      \[
+        t(x_1, f(x_1)) + (1 - t)(x_2, f(x_2)) = (tx_1 + (1 - t)x_2, tf(x_1) + (1 - t)f(x_2)) \in E_f
+      \]
+      for all $t \in [0, 1]$. But then $f(tx_1 + (1 - t)x_2) \leq tf(x_1) + (1 - t)f(x_2)$, so $f$
+      is convex.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the gradient and Hessian of the following functions, and determine whether the functions are
+  convex.
+
+  \begin{enumerate}[(a)]
+      \item $f : \mathbb{R}^2 \to \mathbb{R}$ given by $f(x_1, x_2) = \frac{1}{2}x_1^4 + x_1x_2 -
+      e^{x_2}$.
+      \begin{proof}
+        \[
+          \nabla f(x) = (2x_1^3 + x_2, x_1 - e^{x_2}), \quad
+          \nabla^2 f(x) = \begin{bmatrix}
+            6x_1^2 & 1 \\
+            1 & -e^{x_2}
+          \end{bmatrix}.
+        \]
+        Since $\det(\nabla^2 f(0, 0)) = -1 < 0$, $\nabla^2 f(x)$ is not positive semidefinite. It
+        now follows that $f$ is not convex, as $f$ is twice continuously differentiable.
+      \end{proof}
+      
+      \item $f : \mathbb{R}^d \to \mathbb{R}$ given by $f(x) = \langle a, x \rangle^2 + \langle b, x
+      \rangle$.
+
+      \begin{proof}
+        Since $f(x) = (a^Tx)^2 + b^Tx$, using the chain rule we have
+        \[
+          \nabla f(x) = 2a^Txa + b, \quad \nabla^2 f(x) = 2aa^T.
+        \]
+        Since $x^T\nabla^2 f(x)x^T = (a^Tx)^T(a^Tx) = \|a^Tx\|^2 \geq 0$ for all $x \in \R^d$,
+        $\nabla^2 f(x)$ is positive semidefinite, so $f$ is convex. It now follows that $f$ is not
+        convex, as $f$ is twice continuously differentiable.
+      \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For each problem below, find the gradient and show your work.
+  \begin{enumerate}[(a)]
+    \item $f:\mathbb{R}^n\rightarrow\mathbb{R}$ for $f(x) = \|x\|_2^2$.
+    \begin{proof}
+      Since $f(x) = x^Tx$,
+      \[
+        \nabla f(x) = x^T(I + I^T) = 2x.
+      \]
+    \end{proof}
+
+    \item $f:\mathbb{R}^n\rightarrow\mathbb{R}$ for $f(x) = \|Ax\|_2^2$ where
+    $A\in\mathbb{R}^{m\times n}$. 
+
+    \begin{proof}
+      Since $f(x) = x^T(A^TA)x$,
+      \[
+        \nabla f(x) = 2x^T(A^TA) = 2(Ax)^TA = 2A^TAx.
+      \]
+    \end{proof}
+
+    \item $f:\mathbb{R}^n\rightarrow\mathbb{R}$ for $f(x) = \|Ax-b\|_2^2$ for
+    $A\in\mathbb{R}^{m\times n}$ and $b\in \mathbb{R}^m$.
+
+    \begin{proof}
+      Since $f(x) = (Ax - b)^T(Ax - b) = \|Ax\|^2_2 - 2b^TAx + \|b\|^2_2$, by (b)
+      \[
+        \nabla f(x) = 2A^TAx - 2A^Tb = 2A^T(Ax - b).
+      \]
+    \end{proof}
+
+    \item $f:\mathbb{R}^n\rightarrow\mathbb{R}$ for $f(x) = \|Ax-b\|_2^2 + \gamma \|x\|
+    _2^2$ for $A\in\mathbb{R}^{m\times n}$ and $b\in \mathbb{R}^m$ and $\gamma>0$.
+
+    \begin{proof}
+      By (a) and (c),
+      \[
+        \nabla f(x) = 2A^T(Ax - b) + 2\gamma x = 2(A^TA + \gamma I)x - 2A^Tb. 
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  This problem builds on the results from problem 5.
+  \begin{enumerate}[(a)]
+    \item For part 5(c), use the Hessian of $f(x)$ to show that $f$ is convex. Under
+    what conditions is $f$ strictly convex?
+    \begin{proof}
+      By chain rule, $\nabla^2 f = 2A^TA$. But then
+      \[
+        x^T(\nabla^2 f)x = 2(Ax)^TAx = 2\|Ax\|^2_2 \geq 0
+      \]
+      for all $x \in \R^n$, so $\nabla^2 f(x)$ is positive semidefinite, and thus $f$ is convex. $f$
+      strictly convex when $x^T\nabla^2 f(x)x = 2\|Ax\|^2_2 > 0$ for all $x \neq 0$. This is true
+      when $A$ has full rank.
+    \end{proof}
+    \item For 5(d), show that $f(x)$ is always strictly convex.
+    \begin{proof}
+      It suffices to show that $\nabla^2 f = 2(A^TA + \gamma I)$ is positive definite. Since $\gamma > 0$
+      \[
+        x^T(\nabla^2 f)x = 2(Ax)^TAx + \gamma x^Tx = 2\|Ax\|^2_2 + \gamma \|x\|_2^2 > 0,
+      \]
+      for all $x \neq 0$. The result now follows.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+\end{document}
