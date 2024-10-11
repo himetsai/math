@@ -178,7 +178,23 @@
 		\cup B$ are open sets that separates $F$, so $F$ is disconnected, contradiction. The result now
 		follows.
 
-		We now give an counter example to the converse of the statement. Counterexample??
+		We now give an counter example of a closed set $F$ that satisfies the property but is
+		disconnected. Put $F_1 = \{(x, 1/x) \mid x \in \R^+\}$ and $F_2 = \{(x, -1/x) \mid x \in
+		\R^{-}\}$. Consider $F = F_1 \cup F_2 \in \R^2$. $F$ is closed as its complement $\R^2
+		\backslash F$ is obviously open. For $a = (x, 1/x) \in F_1$, $B_{|x|}(a) \cap F \subset F_1$ and
+		so $F_1$ is open. But then $F_1, F_2$ are symmetric about the $y$ axis, so the same argument
+		applies for $F_2$. Hence, $F$ is disconnected. We now show that $F$ is closed. Let $a = (x, y)
+		\in \R^2 \backslash F$. 
+
+		It remains to show that for all pair of points $a, b$ in $F$ and each $\epsilon > 0$, there are
+		points $z_0, z_1, \ldots, z_n$ in $F$ with $z_0 = a$, $z_n = b$, and $d(z_{k-1}, z_k) <
+		\epsilon$ for $1 \leq k \leq n$. Let $a, b \in F$ and fix $\epsilon > 0$. Since $F_1$ and $F_2$
+		are each connected, we may assume that $a \in F_1$ and $b \in F_2$. Let $x \in (0, \epsilon/2)$
+		and put $a' = (x, 1/x) \in F_1$, $b' = (x, -\frac{1}{x}) \in F_2$. Since $d(a', b') < \epsilon$,
+		there exists $z_0 = a, z_1, \ldots, z_m = a' \in F_1$ and $z_{m + 1} = b', z_{m + 2}, \ldots,
+		z_n = b \in F_2$ that satisfies the property.
+		
+		
 	\end{proof}
 \end{homeworkProblem}
 
@@ -194,11 +210,11 @@
 		\[
 			d(z_n, z) \coloneq \frac{2|z - z_n|}{\sqrt{(1 + |z|^2)(1 + |z_n|^2)}}.
 		\]
-		Since $|z_n - z'| \to 0$, we have $d(z_n, z) \to 0$ as the numerator goes to $0$ and the
+		Since $|z_n - z| \to 0$, we have $d(z_n, z) \to 0$ as the numerator goes to $0$ and the
 		demominator is at least 1. Conversely, suppose for sake of contradiction that $|z_n - z|$ does
 		not converge to $0$ as $d(z_n, n) \to 0$. Since the numerator of $d(z_n, z)$ is not $0$, $d(z_n,
-		n) \to 0$ converges to $0$ only if the demominator $\sqrt{(1 + |z|^2)(1 + |z_n|^2)}$ has
-		approaches $\infty$. But then $|z_n| \to \infty$, contradiction.
+		n) \to 0$ converges to $0$ only if the demominator $\sqrt{(1 + |z|^2)(1 + |z_n|^2)}$ approaches
+		$\infty$. But then $|z_n| \to \infty$, contradiction.
 
 		Fix $\epsilon > 0$. Note that $d(z_n, \infty) = \frac{2}{\sqrt{(1 + |z_n|^2)}} \to 0$ as $|z_n|
 		\to \infty$. Hence, there exists large enough $n_0$ such that for all $n, m > n_0$, $d(z_n,
