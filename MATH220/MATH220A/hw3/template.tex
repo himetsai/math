@@ -1,0 +1,303 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{Oct 18, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Show that the closure of a totally bounded set is totally bounded.
+
+  \begin{proof}
+    Suppose not. Let $X$ be a totally bounded set. Let $\epsilon > 0$. There exist finite number of
+    points $x_1, \ldots, x_n \in X$ such that $X \subset \bigcup_{i = 1}^n B_{\epsilon/2}(x_i)$. But
+    then
+    \[
+      \overline{X} \subset \overline{\bigcup_{i = 1}^n B_{\epsilon/2}(x_i)} \subset \bigcup_{i = 1}^n \overline{B_{\epsilon/2}(x_i)} \subset \bigcup_{i = 1}^n B_{\epsilon}(x_i).
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  We say that $f: X \to \mathbb{C}$ is bounded if there is a constant $M > 0$ with $|f(x)| \leq M
+  \text{ for all } x \in X. $ Show that if $f$ and $g$ are bounded uniformly continuous (Lipschitz)
+  functions from $X$ into $\mathbb{C}$, then so is $fg$.
+
+  \begin{proof}
+    Since there exist $M, N$ such that $|f(x)| \leq M$ and $|g(x)| \leq N$ for all $x \in X$, 
+    \[
+      |fg(x)| = |f(x)g(x)| \leq |f(x)||g(x)| \leq MN
+    \]
+    for all $x \in X$, and thus $fg$ is bounded. Now, let $\epsilon > 0$. Since $f$ and $g$ are
+    uniformly continuous, there exists $\nu$ such that $|f(x) - f(y)| < \epsilon/(M + N)$ and $|g(x)
+    - g(y)| < \epsilon/(M + N)$ whenever $d(x, y) < \delta$. Then,
+    \begin{align*}
+      |fg(x) - fg(y)| 
+      &= |f(x)g(x) + f(x)g(y) - f(x)g(y) - f(y)g(y)| \\
+      &= |f(x)(g(x) - g(y)) + g(y)(f(x) - f(y))| \\
+      &\leq |f(x)||(g(x) - g(y))| + |g(y)||(f(x) - f(y))| \\
+      &< \epsilon M/(M + N) + \epsilon N/(M + N) < \epsilon,
+    \end{align*}
+    whenever $d(x, y) < \delta$. Thus, $fg$ is uniformly continuous.
+
+    Suppose that $f$ and $g$ are Lipschitz functions. Then, there exists $K$ such that $|f(x) -
+    f(y)|, |g(x) - g(y)| \leq Kd(x, y)$ for all $x, y \in X$. Through the same calculation as above,
+    we have 
+    \[
+      |fg(x) - fg(y)| \leq |f(x)||(g(x) - g(y))| + |g(y)||(f(x) - f(y))| \leq K(M + N)d(x, y),
+    \]
+    and thus $fg$ is Lipschitz.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $f: X \to \Omega$ is uniformly continuous; show that if $\{x_n\}$ is a Cauchy sequence in
+  $X$, then $\{f(x_n)\}$ is a Cauchy sequence in $\Omega$. Is this still true if we only assume that
+  $f$ is continuous? (Prove or give a counterexample.)
+
+  \begin{proof}
+    Let $d$ and $\rho$ each denote the metric on $X$ and $\Omega$, respectively. Pick $\epsilon >
+    0$. Since $f$ is uniformly continuous, there exists $\delta > 0$ such that $d(x, y) < \delta$
+    implies $\rho(f(x), f(y)) < \epsilon$. Since $\{x_n\}$ is Cauchy, there exists $N$ such that
+    $d(x_n, x_m) < \delta$ whenever $n, m \geq N$. But then $\rho(f(x_n), f(x_m)) < \epsilon$
+    whenever $n, m \geq N$, and thus $\{f(x_n)\}$ is Cauchy.
+
+    If $f$ is only continuous, then the statement is not necessarily true. Consider the sequence
+    $\{\frac{1}{n}\}_{n \in \N}$ and function $f: (0, 1) \to \R$ defined by $f(x) = \frac{1}{x}$.
+    $\{\frac{1}{n}\}_{n \in \N}$ is Cauchy as it converges to $0$. We also know that $f$ is
+    continuous. But then $\{f(n)\}_{n \in \N} \to \infty$ so it is not Cauchy.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Recall the definition of a dense set (1.14). Suppose that $\Omega$ is a complete metric space and
+  that $f: (D, d) \to (\Omega, \rho)$ is uniformly continuous, where $D$ is dense in $(X, d)$. Use
+  the last problem to show that there is a uniformly continuous function $g: X \to \Omega$ with
+  $g(x) = f(x)$ for every $x$ in $D$.
+
+  \begin{proof}
+    Let $x \in X$. Since $D$ is dense in $X$, there exists a sequence $\{x_n\} \subseteq D$ such
+    that $x_n \to x$, and so $\{x_n\}$ is Cauchy. Since $f$ is uniformly continuous, $\{f(x_n)\}$ is
+    also Cauchy, by the result of the previous problem. Since $\Omega$ is complete, $\{f(x_n)\}$
+    converges to some $y \in \Omega$. Define $g: X \to \Omega$ by $g(x) = y$. Note that $g(x) =
+    f(x)$ for all $x \in D$, as $g(x) = \lim_{n \to \infty} f(x_n) = f(x)$. 
+    
+    We claim that $g$ is uniformly continuous. Pick $\epsilon > 0$. Since $f$ is uniformly
+    continuous, there exists $\delta$ such that $\rho(f(x), f(y)) < \frac{\epsilon}{3}$ whenever
+    $d(x, y) < \delta$. Suppose $x, y \in X$ with $d(x, y) < \frac{\delta}{3}$. There exist
+    sequences $\{x_n\}, \{y_n\} \subseteq D$ with $x_n \to x$ and $y_n \to y$, and thus there exists
+    $N_1$ such that $d(x_n, x), d(y_n, y) < \frac{\delta}{3}$ whenever $n \geq N_1$. Since $d(x_n,
+    y_n) \leq d(x_n, x) + d(x, y) + d(y, y_n) < \delta$, we have $\rho(f(x_n), f(y_n)) <
+    \frac{\epsilon}{3}$ for all $n \geq N_1$. Since $f(x_n) \to g(x)$ and $f(y_n) \to g(y)$, there
+    exists $N_2$ such that $\rho(f(x_n), g(x)), \rho(f(y_n), g(y)) < \frac{\epsilon}{3}$ whenever $n
+    \geq N_2$. It now follows that for all $d(x, y) < \frac{\delta}{3}$, we may find $n \geq
+    \max(N_1, N_2)$ such that
+    \[
+      \rho(g(x), g(y)) \leq \rho(g(x), f(x_n)) + \rho(f(x_n), f(y_n)) + \rho(f(y_n), g(y)) < \epsilon.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $G$ be an open subset of $\mathbb{C}$ and let $P$ be a polygon in $G$ from $a$ to $b$. Use
+  Theorems 5.15 and 5.17 to show that there is a polygon $Q \subseteq G$ from $a$ to $b$ which is
+  composed of line segments that are parallel to either the real or imaginary axes.
+
+  \begin{proof}
+    We may denote $P = [z_1, z_2] \cup \cdot [z_{n}, z_{n + 1}]$, where $z_1 = a, z_2, \ldots, z_n,
+    z_{n + 1} = b \in G$. Note that $P$ is compact, as it is the union of finitely many intervals.
+    By theorem 5.17, we have $d(G \backslash \C, P) > 0$. For $k \in [n]$, define $f_k: [z_k, z_{k +
+    1}] \to \R$ as $f_k(z) = |Re(z) - Re(z_k)| + |Im(z) - Im(z_k)|$, the Manhattan distance between
+    $z$ and $z_k$ on the complex plane. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\{f_n\}$ be a sequence of uniformly continuous functions from $(X, d)$ into $(\Omega, \rho)$
+  and suppose that $f = u-\lim f_n$ exists. Prove that $f$ is uniformly continuous. If each $f_n$ is
+  a Lipschitz function with constant $M_n$ and $\sup M_n < \infty$, show that $f$ is a Lipschitz
+  function. If $\sup M_n = \infty$, show that $f$ may fail to be Lipschitz.
+
+  \begin{proof}
+    Pick $\epsilon > 0$. There exists $n$ such that $\rho(f_n(x), f(x)) < \epsilon/3$ for all $x \in
+    X$. Since $f_n$ is uniformly continuous, there exists $\delta$ such that $\rho(f_n(x), f_n(y)) <
+    \epsilon/3$ whenever $d(x, y) < \delta$. Then, whenever $d(x, y) < \delta$,
+    \[
+      \rho(f(x), f(y)) \leq \rho(f(x), f_n(x)) + \rho(f_n(x), f_n(y)) + \rho(f_n(y), f(y)) < \epsilon,
+    \]
+    and thus $f$ is uniformly continuous.
+
+    Suppose that each $f_n$ is Lipschitz with constant $M_n$ and $\sup M_n < \infty$. Given $x, y
+    \in X$, there exists $n$ such that $\rho(f_n(z), f(z)) < d(x, y)$ for all $z \in X$. It now
+    follows that
+    \[
+      \rho(f(x), f(y)) \leq \rho(f(x), f_n(x)) + \rho(f_n(x), f_n(y)) + \rho(f_n(y), f(y)) < (M_n + 2) d(x, y).
+    \]
+
+    However, this does not work in the general case. Given any real function $f$ on interval $[a,
+    b]$ which is not Lipschitz, there exists a sequence of polynomials $\{p_n\}$ on $[a, b]$ such
+    that $p_n \to f$ uniformly, by the Weierstrass approximation theorem. Since $\sup_{x \in [a, b]}
+    |p_n'(x)| < \infty$ for all $n$, 
+    \[
+      |p_n(x) - p_n(y)| < 2|p_n'(x)||x - y|
+    \]
+    for all $x, y \in [a, b]$, which makes $p_n$ Lipschitz.
+
+  \end{proof}
+\end{homeworkProblem}
+\end{document}
