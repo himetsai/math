@@ -12,6 +12,10 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{float}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\graphicspath{ {./img} }
 
 \usetikzlibrary{automata,positioning}
 
@@ -181,9 +185,9 @@
           -4 & 24 \cdot 2^{-3/4}
         \end{bmatrix}.
       \end{gather*}
-      Since the eigenvalues of $\nabla^2 f(0, 0)$ are $\pm 4$, it is a saddle point. Since $\det
-      \nabla^2 f(\pm 2^{-1/8}, \pm 2^{-3/8}) = 128 > 0$ amd $\frac{\partial^2 f}{\partial x_1^2} >
-      0$, the critical points $(\pm 2^{-1/8}, \pm 2^{-3/8})$ are local minima.
+      Since the eigenvalues of $\nabla^2 f(0, 0)$ are $\pm 4$, $(0, 0)$ is a saddle point. Since
+      $\det \nabla^2 f(\pm 2^{-1/8}, \pm 2^{-3/8}) = 128 > 0$ amd $\frac{\partial^2 f}{\partial
+      x_1^2} > 0$, the critical points $(\pm 2^{-1/8}, \pm 2^{-3/8})$ are local minima.
     \end{proof}
 
     \item $f: \mathbb{R}^3 \to \mathbb{R}$ for $f(\vec{x}) = \vec{x}^T A \vec{x} + b^T \vec{x}$,
@@ -241,16 +245,11 @@
       \nabla f(x) = 2A^T(Ax - b).
     \]
     Thus, the gradient descent algorithm is
-
-    \begin{algorithm}
-      \begin{algorithmic}[1]
-      \State Pick $x^{(0)} \in \R^n$
-      \For{$t = 0, 1, 2, \dots$}
-        \State Set $x^{(t+1)} = x^{(t)} - \alpha \nabla f(x^{(t)}) = x^{(t)} - 2\alpha A^T(Ax^{(t)} - b)$
-      \EndFor
-      \State \Return the last $x^{(t)}$.
-    \end{algorithmic}
-    \end{algorithm}
+    \begin{align*}
+      x^{(0)} &= \text{any vector from } \R^n \\
+      x^{(t+1)} &= x^{(t)} - \mu^{(t)} \nabla f(x^{(t)}) = x^{(t)} - 2\mu^{(t)} A^T(Ax^{(t)} - b) \\
+    \end{align*}
+    where $\mu^{(t)} > 0$ and the terminating condition is of our choice.
   \end{proof}
 \end{homeworkProblem}
 
@@ -275,12 +274,123 @@
     \begin{proof}
       Note that
       \begin{gather*}
-        \nabla F(w) = \frac{1}{N} \sum_{i=1}^N \frac{-x_i y_i e^{-\langle w, x_i \rangle y_i}}{1 + e^{-\langle w, x_i \rangle y_i}} \\
-        \nabla^2 F(w) = \frac{1}{N} \sum_{i=1}^N \frac{x_i^2 y_i^2 e^{-\langle w, x_i \rangle y_i}}{(1 + e^{-\langle w, x_i \rangle y_i})^2}.
+        \nabla F(w) = \frac{1}{N} \sum_{i=1}^N \frac{-y_i e^{-\langle w, x_i \rangle y_i}}{1 + e^{-\langle w, x_i \rangle y_i}} x_i  \\
+        \nabla^2 F(w) = \frac{1}{N} \sum_{i=1}^N \frac{y_i^2 e^{-\langle w, x_i \rangle y_i}}{(1 + e^{-\langle w, x_i \rangle y_i})^2} x_ix_i^T.
       \end{gather*}
       Since the Hessian is positive semidefinite, $F(w)$ is convex.
     \end{proof}
     \item Find a gradient descent algorithm for minimizing $F$.
+    \begin{proof}
+      The gradient descent algorithm is
+      \begin{align*}
+        w^{(0)} &= \text{any vector from } \R^d \\
+        w^{(t+1)} &= w^{(t)} - \mu^{(t)} \nabla F(w^{(t)}) = w^{(t)} - \frac{\mu^{(t)}}{N} \sum_{i=1}^N \frac{-x_i y_i e^{-\langle w^{(t)}, x_i \rangle y_i}}{1 + e^{-\langle w^{(t)}, x_i \rangle y_i}} \\
+      \end{align*}
+      where $\mu^{(t)}> 0$ and the terminating condition is of our choice.
+    \end{proof}
   \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \textbf{Coding Question:} Recall that the equation for an ellipse in $\mathbb{R}^2$ is
+  \[
+    a_1x^2 + a_2y^2 = 1.
+  \]
+  Given data $\{(x_i, y_i)\}_{i=1}^N \subset \mathbb{R}^2$ that lie on (or near) the ellipse, you
+  can find the best fit ellipse by solving
+  \[
+    \min_{\mathbf{a} \in \mathbb{R}^2} f(\mathbf{a})
+  \]
+  where
+  \[
+    f(\mathbf{a}) = \sum_{i=1}^{N} \left( a_1 x_i^2 + a_2 y_i^2 - 1 \right)^2.
+  \]
+
+  \begin{enumerate}[(a)]
+    \item Find an $A \in \mathbb{R}^{N \times 2}$ and $b \in \mathbb{R}^N$ such that $f(\mathbf{a})
+    = \|A \mathbf{a} - b\|_2^2$. What is $A$ in terms of $(x_i, y_i)$?
+
+    \begin{proof}
+      Put $A = \begin{bmatrix}
+        x_1^2 & y_1^2 \\
+        \vdots & \vdots \\
+        x_N^2 & y_N^2
+      \end{bmatrix}$ and $b = \begin{bmatrix}
+        1 \\
+        \vdots \\
+        1
+      \end{bmatrix}$ and we have
+      \begin{align*}
+        f(\mathbf{a}) &= \sum_{i=1}^{N} \left( a_1 x_i^2 + a_2 y_i^2 - 1 \right)^2 \\
+        &= \sum_{i=1}^{N} \left( \begin{bmatrix}
+          x_i^2 & y_i^2
+        \end{bmatrix} \begin{bmatrix}
+          a_1 \\
+          a_2
+        \end{bmatrix} - 1 \right)^2 \\
+        &= \|A \mathbf{a} - b\|_2^2.
+      \end{align*}
+    \end{proof}
+
+    \item Download the data provided on the HW page (called \texttt{HW2.ellipse.csv}), and create a
+    scatter plot of the points (submit your code and the plot).
+
+    \begin{center}
+      \includegraphics[width=.95\textwidth]{ellipse.png}
+    \end{center}
+
+    \textbf{Code:}
+
+    \begin{lstlisting}[language=Python]
+      ellipse = pd.read_csv('HW2_ellipse.csv', header=None)
+      ellipse.columns = ['x', 'y']
+      fig = plt.figure(figsize=(24, 12))
+      ax = fig.add_subplot(1, 1, 1)  
+      ax.plot(ellipse['x'], ellipse['y'], '.', color='black')
+    \end{lstlisting}
+
+
+
+    \item Using Problem 3, create computer code to compute the gradient descent algorithm on this
+    $f(\mathbf{a})$. The code must include a stopping condition. Use a step-size of $\mu =
+    \frac{1}{2 \|\mathbf{A}^T \mathbf{A}\|}$. Note, you cannot use a built-in gradient descent
+    algorithm; it must be written with a while or for loop. Also note, the norm of a matrix
+    $\|\mathbf{X}\| = \lambda_{\text{max}}(\mathbf{X})$ is the largest eigenvalue of $\mathbf{X}$,
+    and can be computed using \texttt{norm(X,2)} in MATLAB or \texttt{np.linalg.norm(X,2)} in
+    Python. (Submit the code)
+
+    \textbf{Code:}
+
+    \begin{lstlisting}[language=Python]
+      A = ellipse.values * ellipse.values
+      b = np.ones((A.shape[0], 1))
+      mu = 1/(2 * np.linalg.norm(A.T @ A, 2))
+      a = np.random.rand(2, 1)
+
+      def df(x):
+          return 2 * A.T @ (A @ x - b)
+
+      for i in range(1000):
+          a = a - mu * df(a)
+    \end{lstlisting}
+
+
+    \item Using the data provided and your gradient descent code, estimate the solution
+    $\mathbf{a}$. Report $\mathbf{a}$ and $f(\mathbf{a})$. Given $f(\mathbf{a})$ and $N$, do you
+    think you fit the data well or poorly? Given the convexity of $f$, do you think this is the
+    optimal $\mathbf{a}$?
+
+    \begin{proof}[Solution]
+      The solution estimated by the code is $\mathbf{a} \approx \begin{bmatrix}
+        0.5001 \\
+        1.9946 \end{bmatrix}$, with $f(\mathbf{a}) \approx 0.4641$. Since we are given $N = 1000$
+      points, on average each point is only off by $f(\mathbf{a})/N \approx 0.0004641$, which I
+      think is borderline acceptable. Given that I believe $\mathbf{a}$ has reached a local minimum,
+      $\mathbf{a}$ is a global minimum as $f$ is convex.
+    \end{proof}
+  \end{enumerate}
+
 \end{homeworkProblem}
 \end{document}
