@@ -266,19 +266,19 @@
     and let $z \in [z_k, z_{k + 1}]$. Let $\nu \in (0, \epsilon/\pi)$. Since every point in $[z_k,
     z_{k + 1}]$ are on the same line, $Re(w) - Re(z_k)$ have the same sign for all $w \in [z_k, z_{k
     + 1}]$, and thus $\left||Re(z) - Re(z_k)| - |Re(w) - Re(z_k)|\right| = |Re(z) - Re(w)|$. Hence,
-    for all $w \in B_{\nu}(z)$,
+    for all $w \in B_{\nu}(z) \cap [z_k, z_{k + 1}]$,
     \begin{align*}
       |f_k(z) - f_k(w)| &= |(|Re(z) - Re(z_k)| + |Im(z) - Im(z_k)|) - (|Re(w) - Re(z_k)| + |Im(w) - Im(z_k)|)| \\
       &\leq |(|Re(z) - Re(z_k)| - |Re(w) - Re(z_k)|)| + |(|Im(z) - Im(z_k)| - |Im(w) - Im(z_k)|)| \\
       &= |Re(z) - Re(w)| + |Im(z) - Im(w)| < \pi d(z, w) < \epsilon,
     \end{align*}
     where the last inequality follows from the fact that the perimeter of a triangle inscribed in a
-    circle is less than the circumference of the circle. Hence, $f_k$ is continuous for all $k$. By
-    theorem 5.15, $f_k$ is uniformly continuous, so there exists $\delta$ such that for all $d(z, w)
-    < \delta$, we have $|f_k(z) - f_k(w)| < d(\C \backslash G, P)$. We may now partition $[z_k, z_{k
-    + 1}]$ into finitely many intervals of length less than $\delta$, with endpoints $z_k = w_0,
-    w_1, \ldots, w_m = z_{k + 1}$. Since $|f_k(w_i) - f_k(w_{i + 1})| < d(\C \backslash G, P)$ for
-    all $i$,
+    circle is less than the circumference of the circle. Thus, $f_k$ is continuous for all $k$. By
+    theorem 5.15, $f_k$ is uniformly continuous, so there exists $\delta$ such that for all $z, w
+    \in [z_k, z_{k + 1}]$ with $d(z, w) < \delta$, we have $|f_k(z) - f_k(w)| < d(\C \backslash G,
+    P)$. We may now partition $[z_k, z_{k + 1}]$ into finitely many intervals of length less than
+    $\delta$, with endpoints $z_k = w_0, w_1, \ldots, w_m = z_{k + 1}$. Since $|f_k(w_i) - f_k(w_{i
+    + 1})| < d(\C \backslash G, P)$ for all $i$,
     \[
       [Re(w_i), Re(w_{i + 1})] \cup [Im(w_i), Im(w_{i + 1})] \subset G.
     \]
