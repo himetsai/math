@@ -310,10 +310,14 @@
       \rho(f(x), f(y)) \leq \rho(f(x), f_n(x)) + \rho(f_n(x), f_n(y)) + \rho(f_n(y), f(y)) < (M_n + 2) d(x, y).
     \]
 
-    However, this does not work in the general case. Given any real function $f$ on interval $[a,
-    b]$ which is not Lipschitz, there exists a sequence of polynomials $\{p_n\}$ on $[a, b]$ such
-    that $p_n \to f$ uniformly, by the Weierstrass approximation theorem. Since $\sup_{x \in [a, b]}
-    |p_n'(x)| < \infty$ for all $n$, 
+    However, this does not work in the general case. Consider $f: [0, 1] \to \R$ defined by $f(x) =
+    \sqrt{|x|}$. Given any $K \in \R$, pick $\epsilon \in (0, \frac{1}{K^2})$ and we have
+    \[
+      |f(\epsilon) - f(0)| = \left|\sqrt{\epsilon} - 0\right| = \sqrt{\epsilon} > K\epsilon.
+    \]
+    Hence, $f$ is not Lipschitz. But then by the Weierstrass approximation theorem, there exists a
+    sequence of polynomials $\{p_n\}$ on $[a, b]$ such that $p_n \to f$ uniformly. Since $\sup_{x
+    \in [a, b]} |p_n'(x)| < \infty$ for all $n$, 
     \[
       |p_n(x) - p_n(y)| < 2|p_n'(x)||x - y|
     \]
