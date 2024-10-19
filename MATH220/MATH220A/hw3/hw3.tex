@@ -316,12 +316,13 @@
       |f(\epsilon) - f(0)| = \left|\sqrt{\epsilon} - 0\right| = \sqrt{\epsilon} > K\epsilon.
     \]
     Hence, $f$ is not Lipschitz. But then by the Weierstrass approximation theorem, there exists a
-    sequence of polynomials $\{p_n\}$ on $[a, b]$ such that $p_n \to f$ uniformly. Since $\sup_{x
-    \in [a, b]} |p_n'(x)| < \infty$ for all $n$, 
+    sequence of polynomials $\{p_n\}$ on $[0, 1]$ such that $p_n \to f$ uniformly. Since $p_n'$ is
+    continuous on a compact set, $\sup_{x \in [a, b]} |p_n'(x)| < \infty$. Put $M_n = 2\sup_{x \in
+    [a, b]} |p_n'(x)|$ and we have
     \[
-      |p_n(x) - p_n(y)| < 2|p_n'(x)||x - y|
+      |p_n(x) - p_n(y)| < M_n|x - y|
     \]
-    for all $x, y \in [a, b]$, which makes $p_n$ Lipschitz.
+    for all $x, y \in [0, 1]$, which makes $p_n$ Lipschitz.
 
   \end{proof}
 \end{homeworkProblem}
