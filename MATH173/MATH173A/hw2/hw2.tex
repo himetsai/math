@@ -383,8 +383,9 @@
         0.5001 \\
         1.9946 \end{bmatrix}$, with $f(\mathbf{a}) \approx 0.4641$. Since we are given $N = 1000$
       points, on average each point is only off by $f(\mathbf{a})/N \approx 0.0004641$, which is a
-      small enough number to me. Given that I believe $\mathbf{a}$ has reached a local minimum,
-      $\mathbf{a}$ is a global minimum as $f$ is convex.
+      small enough number to me. Given that $\Delta f(\mathbf{a}) \approx 0$, I believe $\mathbf{a}$
+      has reached a local minimum up to some computational error. Since  $f$ is convex, $\mathbf{a}$
+      is extremely close to the theoretical optimal solution.
     \end{proof}
   \end{enumerate}
 
