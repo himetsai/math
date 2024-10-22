@@ -173,21 +173,22 @@
           -4 & 24x_2^2
         \end{bmatrix}.
       \end{gather*}
-      Thus, the critical points are $x^* = (0, 0)$ or $(\pm 2^{-1/8}, \pm 2^{-3/8})$. We can then
+      Thus, the critical points are $x^* = (0, 0)$ or $\pm(2^{-1/8}, 2^{-3/8})$. We can then
       check
       \begin{gather*}
         \nabla^2 f(0, 0) = \begin{bmatrix}
           0 & -4 \\
           -4 & 0
         \end{bmatrix} \\
-        \nabla^2 f(\pm 2^{-1/8}, \pm 2^{-3/8}) = \begin{bmatrix}
+        \nabla^2 f(2^{-1/8}, 2^{-3/8}) = \nabla^2 f(-2^{-1/8}, -2^{-3/8}) = \begin{bmatrix}
           12 \cdot 2^{-1/4} & -4 \\
           -4 & 24 \cdot 2^{-3/4}
         \end{bmatrix}.
       \end{gather*}
       Since the eigenvalues of $\nabla^2 f(0, 0)$ are $\pm 4$, $(0, 0)$ is a saddle point. Since
-      $\det \nabla^2 f(\pm 2^{-1/8}, \pm 2^{-3/8}) = 128 > 0$ amd $\frac{\partial^2 f}{\partial
-      x_1^2} > 0$, the critical points $(\pm 2^{-1/8}, \pm 2^{-3/8})$ are local minima.
+      $\det \nabla^2 f(2^{-1/8}, 2^{-3/8}) = \det \nabla^2 f(-2^{-1/8}, -2^{-3/8}) = 128 > 0$ and
+      $\frac{\partial^2 f}{\partial x_1^2} > 0$, the critical points $\pm (2^{-1/8}, 2^{-3/8})$
+      are local minima.
     \end{proof}
 
     \item $f: \mathbb{R}^3 \to \mathbb{R}$ for $f(\vec{x}) = \vec{x}^T A \vec{x} + b^T \vec{x}$,
@@ -218,8 +219,8 @@
           \frac{4}{3}
         \end{bmatrix}.
       \]
-      Since the eigenvalues of $A$ are $-\frac{1}{2}, -1, -\frac{3}{2}$, we know $A \prec 0$ and the
-      critical point is a local maximum.
+      Since the eigenvalues of $\nabla^2 f(\vec{x}) = 2A$ are $-1, -2, -3$, we know $\nabla^2
+      f(\vec{x}) \prec 0$ and the critical point is a local maximum.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -231,13 +232,6 @@
   \[
   \min_{x \in \mathbb{R}^n} f(x).
   \]
-  This doesn't have to be a computer program, just something of the form
-  \begin{align*}
-    x^{(0)} &= \dots \\
-    x^{(t+1)} &= \dots (\text{where the right hand side is in terms of } x^{(t)}).
-  \end{align*}
-
-  
 
   \begin{proof}
     We already know $f$ is convex and the gradient of $f$ is
@@ -272,19 +266,21 @@
   \begin{enumerate}[(a)]
     \item Is $F(w)$ a convex function?
     \begin{proof}
-      Note that
+      By the chain rule, 
       \begin{gather*}
         \nabla F(w) = \frac{1}{N} \sum_{i=1}^N \frac{-y_i e^{-\langle w, x_i \rangle y_i}}{1 + e^{-\langle w, x_i \rangle y_i}} x_i  \\
         \nabla^2 F(w) = \frac{1}{N} \sum_{i=1}^N \frac{y_i^2 e^{-\langle w, x_i \rangle y_i}}{(1 + e^{-\langle w, x_i \rangle y_i})^2} x_ix_i^T.
       \end{gather*}
-      Since the Hessian is positive semidefinite, $F(w)$ is convex.
+      Since $x_ix_i^T \succeq 0$, $\frac{y_i^2 e^{-\langle w, x_i \rangle y_i}}{(1 + e^{-\langle w,
+      x_i \rangle y_i})^2} \geq 0$, and the sum of positive semidefinite matrices is positive
+      semidefinite, $\nabla^2 F(w) \succeq 0$. Thus, $F(w)$ is convex.
     \end{proof}
     \item Find a gradient descent algorithm for minimizing $F$.
     \begin{proof}
       The gradient descent algorithm is
       \begin{align*}
         w^{(0)} &= \text{any vector from } \R^d \\
-        w^{(t+1)} &= w^{(t)} - \mu^{(t)} \nabla F(w^{(t)}) = w^{(t)} - \frac{\mu^{(t)}}{N} \sum_{i=1}^N \frac{-x_i y_i e^{-\langle w^{(t)}, x_i \rangle y_i}}{1 + e^{-\langle w^{(t)}, x_i \rangle y_i}} \\
+        w^{(t+1)} &= w^{(t)} - \mu^{(t)} \nabla F(w^{(t)}) = w^{(t)} + \frac{\mu^{(t)}}{N} \sum_{i=1}^N \frac{y_i e^{-\langle w^{(t)}, x_i \rangle y_i}}{1 + e^{-\langle w^{(t)}, x_i \rangle y_i}}x_i \\
       \end{align*}
       where $\mu^{(t)}> 0$ and the terminating condition is of our choice.
     \end{proof}
@@ -386,8 +382,8 @@
       The solution estimated by the code is $\mathbf{a} \approx \begin{bmatrix}
         0.5001 \\
         1.9946 \end{bmatrix}$, with $f(\mathbf{a}) \approx 0.4641$. Since we are given $N = 1000$
-      points, on average each point is only off by $f(\mathbf{a})/N \approx 0.0004641$, which I
-      think is acceptable. Given that I believe $\mathbf{a}$ has reached a local minimum,
+      points, on average each point is only off by $f(\mathbf{a})/N \approx 0.0004641$, which is a
+      small enough number to me. Given that I believe $\mathbf{a}$ has reached a local minimum,
       $\mathbf{a}$ is a global minimum as $f$ is convex.
     \end{proof}
   \end{enumerate}
