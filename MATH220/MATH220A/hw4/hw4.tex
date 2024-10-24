@@ -245,12 +245,17 @@
 
 		When $z = i$, since $n(n + 1)$ is even
 		\[
-			\sum_{n=1}^{\infty} \frac{(-1)^n}{n} z^{n(n+1)} = \sum_{n=1}^{\infty} \frac{(-1)^{n + \frac{n(n + 1)}{2}}}{n} = \sum_{n=1}^{\infty} \frac{(-1)^{\frac{n(n + 3)}{2}}}{n}.
+			\sum_{n=1}^{\infty} \frac{(-1)^n}{n} z^{n(n+1)} = \sum_{n=1}^{\infty} \frac{(-1)^{n + \frac{n(n + 1)}{2}}}{n} = \sum_{n=1}^{\infty} \frac{(-1)^{\frac{n(n + 3)}{2}}}{n} = \sum_{n=1}^{\infty} a_n.
 		\]
-		Put $a_n = \frac{(-1)^{\frac{n(n + 3)}{2}}}{n} = \begin{cases}
-			\frac{1}{n} & \text{if } n \equiv 0, 3 \pmod{4} \\
-			-\frac{1}{n} & \text{if } n \equiv 1, 2 \pmod{4}
-		\end{cases}$. 
+		where
+		\[
+			a_{n} = \frac{(-1)^{\frac{n(n + 3)}{2}}}{n} = \begin{cases}
+				\frac{1}{n} & \text{if } n \equiv 0, 1 \pmod{4} \\
+				-\frac{1}{n} & \text{if } n \equiv 2, 3 \pmod{4} \end{cases}.
+		\] 	
+		Put $b_0 = a_1$, $b_k = a_{2k} + a_{2k + 1} = (-1)^{k}\left(\frac{1}{2k} + \frac{1}{2k + 1}\right)$ for $k \geq 1$. Then
+		$\sum_{n = 1}^{\infty} a_n = \sum_{k = 0}^{\infty} b_k$. But then $|b_k|$ decreases
+		monotonically and $\lim b_k = 0$, so the series converges by the alternating test.
 	\end{proof}
 \end{homeworkProblem}
 
