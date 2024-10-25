@@ -89,8 +89,8 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Inductive Counting Problems}
-\newcommand{\hmwkDueDate}{Oct 5, 2024}
+\newcommand{\hmwkTitle}{Homework}
+\newcommand{\hmwkDueDate}{Nov 2, 2024}
 \newcommand{\hmwkClass}{MATH 264A}
 \newcommand{\hmwkClassInstructor}{Professor Warnke}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
@@ -295,17 +295,25 @@
       \]
       and the result now follows.
     \end{proof}
-    \item Prove $\mathcal{T}(n) \subseteq \mathcal{C}ol_2(n) \cup \mathcal{A}(n) \cup \mathcal{B}(n)
-    \cup \mathcal{D}(n)$, by showing that $\mathcal{T}(n) \setminus [\mathcal{A}(n) \cup
-    \mathcal{B}(n) \cup \mathcal{D}(n)] \subseteq \mathcal{C}ol_2(n)$.
-    \begin{proof}
-      Let $G \in \mathcal{T}(n) \setminus [\mathcal{A}(n) \cup \mathcal{B}(n) \cup \mathcal{D}(n)]$.
-    \end{proof}
-    \item Prove that there is a small constant $\alpha > 0$ such that the inductive proof still
-    works if one replaces $\mathcal{A}(n) \subseteq \mathcal{T}(n)$ by the subset of graphs
-    containing a vertex $v$ with $|\Gamma(v)| \leq \alpha n$ (this establishes that almost all
-    triangle-free graphs have a minimum degree that is linear in $n$).
   \end{enumerate}
+\end{homeworkProblem}
 
+\newpage
+
+\begin{homeworkProblem}
+  In this problem we discuss in more detail one calculation in the proof of the Bregman's Theorem from class. Given a bipartite graph \( G = (L \cup R, E) \) with \( |L| = |R| = n \), fix a perfect matching \( M \) of \( G \). For each vertex \( i \in L \), there thus is a unique vertex \( X_i \) such that \( \{i, X_i\} \in M \) is a matching edge. Now write \( R_i \) for the set of \( j \in L \) for which \( \{j, X_j\} \in M \) and \( \{i, X_j\} \in E \), i.e., the set of vertices \( j \in L \) for which there is a matching edge in \( M \) that contains \( j \) and a neighbor of \( i \). By construction, we have \( |R_i| = \deg_G(i) \). Using a (permutation) counting argument, show that for each vertex \( i \in L \) and \( 1 \leq j \leq \deg_G(i) \) we have
+
+  \[
+    \mathbb{P}(\text{vertex } i \text{ appears in } \pi \text{ in the } j\text{th position among the vertices in } R_i) = \frac{1}{\deg_G(i)}.
+  \]
+
+  \begin{proof}
+    \begin{align*}
+      &\mathbb{P}(\text{vertex } i \text{ in the } j\text{th position among the vertices in } R_i \text{ in } \pi ) \\
+      &= \frac{\# \{\text{permutations of $R_i$ with $i$ appearing in the $j$th position}\}}{\# \{\text{permutations of $R_i$}\}} \\
+      &= \frac{\# \{\text{permutations of $R_i \backslash \{i\}$}\}}{\# \{\text{permutations of $R_i$}\}} \\
+      &= \frac{(|R_i| - 1)!}{|R_i|!} = \frac{1}{\deg_G(i)}.
+    \end{align*}
+  \end{proof}
 \end{homeworkProblem}
 \end{document}
