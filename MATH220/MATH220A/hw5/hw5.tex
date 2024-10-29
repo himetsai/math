@@ -1,0 +1,217 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{Nov 1, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Suppose $f: G \to \mathbb{C}$ is analytic and that $G$ is connected. Show that if $f(z)$ is real
+	for all $z$ in $G$ then $f$ is constant.
+
+	\begin{proof}
+		Put $f(x + iy) = u(x, y) + iv(x, y)$, where $u, v$ are real-valued functions. Since $f$ is
+		real-valued, $v(x, y) = 0$ for all $x, y \in G$. By the Cauchy-Riemann equations,
+		\[
+			u_x = v_y = 0 \quad \quad u_y = -v_y = 0.
+		\]
+		But then $u$ is constant, and thus $f$ is constant.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Find an open connected set $G \subset \mathbb{C}$ and two continuous functions $f$ and $g$ defined
+	on $G$ such that $f(z)^2 = g(z)^2 = 1 - z^2$ for all $z$ in $G$. Can you make $G$ maximal? Are $f$
+	and $g$ analytic?
+
+	\begin{proof}
+		Let $G = (\C \backslash \R) \cup [-1, 1]$. Consider $f(z) = \exp(\frac{1}{2}Log(1 - z^2))$ and
+		$g(z) = \exp(\frac{1}{2}Log(1 - z^2))$. Then $f(z)^2 = g(z)^2 = 1 - z^2$ for all $z \in G$.
+		Notice that $G$ is maximal in $\C$, as any larger set would contain points where $Log(1 - z^2)$
+		is undefined. Since $f, g$ are compositions of analytic functions, they are analytic.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $G$ be a region and define $G^* = \{ z : \overline{z} \in G \}$. If $f : G \rightarrow
+	\mathbb{C}$ is analytic, prove that $f^* : G^* \rightarrow \mathbb{C}$, defined by $f^*(z) =
+	\overline{f(\overline{z})}$, is also analytic.
+
+	\begin{proof}
+		Let $z = x + iy$ and $f(z) = u(x, y) + iv(x, y)$. Then $f^*(z) = u(x, -y) - iv(x, -y)$.
+		By the Cauchy-Riemann equations, $u_x = v_y$ and $u_y = -v_x$, and so
+		\[
+			\partial_x u(x, -y) = -\partial_y v(x, -y) = \partial_y [-v(x, -y)], \quad \partial_y u(x, -y) = \partial_x v(x, -y) = -\partial_x [-v(x, -y)].
+		\]
+		Thus, $f^*$ is analytic.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Prove that there is no branch of the logarithm defined on $G = \mathbb{C} \setminus \{ 0 \}$.
+	(Hint: Suppose such a branch exists and compare this with the principal branch.)
+
+	\begin{proof}
+		Denote $Log$ as the principal branch of the logarithm and let $H$ be its domain. Suppose there
+		exists a branch of the logarithm $f$ defined on $G$. There exists $k \in \Z$ such that $f(z) =
+		Log(z) + i2\pi k$, for all $z \in H$. Consider the limit of $Log$ at $z = -1$. Approaching from
+		above and below the real axis, we get
+		\[
+			\lim_{\theta \to \pi} \log |z| + i\theta = i\pi \neq -i\pi = \lim_{\theta \to -\pi} \log |z| + i\theta,
+		\]
+		so $\lim_{z \to -1} Log(z)$ does not exist. But then $\lim_{z \to -1} f(z)$ does not exist,
+		contradicting the continuity of $f$.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
