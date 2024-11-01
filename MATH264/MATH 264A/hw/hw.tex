@@ -361,24 +361,27 @@
       \[
         \E_A[\log_2 N_{ij}(A, X) \mid X] \leq \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]].
       \]
-      For $m \in [n]$, notice
+      Note that each row and column of a given $X$ is a fixed permutation of $[n]$, so each $m \in
+      [n]$ must be assigned to some square in a given row or column. Let $m \in [n]$. Since we are
+      conditioning on $a_{ij}$, if $m = X_{ij}$, then $\prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] =
+      1$. Otherwise, if $m \neq X_{ij}$,
       \[
         \prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] = \prob(m \notin R_{ij}(A))\prob(m \notin C_{ij}(A)) = (1 - a_{ij})^2,
       \]
       and thus
       \[
-        \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}] = \sum_{m \in [n]} \prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] = n(1 - a_{ij})^2.
+        \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}] = \sum_{m \in [n]} \prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] = 1 + (n - 1)(1 - a_{ij})^2.
       \]
-      Hence,
+      This yields
       \[
-        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 n(1 - x^2) \, dx = \log_2(n) - 2.
+        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 n(1 - x)^2 \, dx \leq \log_2(n) - 2 + o(1).
       \]
 
       It now follows that
       \[
-        H(X) \leq \E_X \sum_{i, j \in [n]} \E_{a_{ij}}[\log_2 n(1 - a_{ij}^2)] \leq n^2(\log_2(n) - 2),
+        H(X) \leq \E_X \sum_{i, j \in [n]} \E_{a_{ij}}[\log_2(n) - 2 + o(1)] \leq n^2(\log_2(n) - 2 + o(1)),
       \]
-      and thus the result. (I don't know where I lost the $o(1)$ term.)
+      and thus the result.
     \end{proof}
 
     \newpage
@@ -397,7 +400,7 @@
       \begin{itemize}
         \item $R_{ij}(A) = \{X_{il}: a_{il} < a_{ij}\}$ 
         \item $C_{ij}(A) = \{X_{kj}: a_{kj} < a_{ij}\}$
-        \item $S_{ij}(A) = \{X_{kl}: a_{kl} < a_{ij} \text{ and } X_{kl} \text{ in the same square
+        \item $B_{ij}(A) = \{X_{kl}: a_{kl} < a_{ij} \text{ and } X_{kl} \text{ in the same block
         as } X_{ij}\}$.
       \end{itemize}
       Note that $\prob(a_{ij} = a_{kl}) = 0$ for all $(i, j) \neq (k, l)$. By the Chain
@@ -405,7 +408,7 @@
       \[
         \log_2 L(n) = H(X) = \E_A\sum_{i, j \in [n]} H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}).
       \]
-      Let $N_{ij}(A, X) = |[N] - R_{ij}(A) \cup C_{ij}(A) \cup S_{ij}(A)|$. Rewriting the entropy in
+      Let $N_{ij}(A, X) = |[N] - R_{ij}(A) \cup C_{ij}(A) \cup B_{ij}(A)|$. Rewriting the entropy in
       expectation form, 
       \[
         H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}) = \E_X[\log_2 N_{ij}(A, X)],
@@ -418,24 +421,27 @@
       \[
         \E_A[\log_2 N_{ij}(A, X) \mid X] \leq \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]].
       \]
-      For $m \in [N]$, notice
+      Note that each row, column, and block of a given $X$ is a fixed permutation of $[n]$, so each
+      $m \in [n]$ must be assigned to some square in a given row, column, or block. Let $m \in [n]$.
+      Since we are conditioning on $a_{ij}$, if $m = X_{ij}$, then $\prob[m \notin (R_{ij}(A) \cup
+      C_{ij}(A) \cup B_{ij}(A))] = 1$. Otherwise, if $m \neq X_{ij}$,
       \[
-        \prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup S_{ij}(A))] = \prob(m \notin R_{ij}(A))\prob(m \notin C_{ij}(A))\prob(m \notin S_{ij}(A)) = (1 - a_{ij})^3,
+        \prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup B_{ij}(A))] = \prob(m \notin R_{ij}(A))\prob(m \notin C_{ij}(A))\prob(m \notin B_{ij}(A)) = (1 - a_{ij})^3,
       \]
       and thus
       \[
-        \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}] = \sum_{m \in [N]} \prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup S_{ij}(A))] = N(1 - a_{ij})^3.
+        \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}] = \sum_{m \in [N]} \prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup B_{ij}(A))] = 1 + (N - 1)(1 - a_{ij})^3.
       \]
       Hence,
       \[
-        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 N(1 - x^2) \, dx = \log_2(N) - 3.
+        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 N(1 - x)^3 \, dx \leq \log_2(N) - 3 + o(1).
       \]
 
       It now follows that
       \[
-        H(X) \leq \E_X \sum_{i, j \in [n]} \E_{a_{ij}}[\log_2 n(1 - a_{ij}^2)] \leq N^2(\log_2(N) - 3),
+        H(X) \leq \E_X \sum_{i, j \in [n]} \E_{a_{ij}}[\log_2 (1 + (N - 1)(1 - a_{ij})^3)] \leq N^2(\log_2(N) - 3) + o(1),
       \]
-      and thus the result. (I don't know where I lost the $o(1)$ term.)
+      and thus the result. 
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
