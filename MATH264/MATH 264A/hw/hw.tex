@@ -10,6 +10,7 @@
 \usepackage{algpseudocode}
 \usepackage{enumerate}
 \usepackage{amssymb}
+\usepackage{dsfont}
 
 \usetikzlibrary{automata,positioning}
 
@@ -200,7 +201,7 @@
     \begin{proof}
       Let $\Phi_i$ denote the $k$-SAT formula which AND's together all the clauses of $\Phi$ that
       involve only the first $i$ variables. Define $N_i$ as the number of satisfying assignments of
-      $\Phi_i$. We show that $N_i\geq (2 - 2/k)^i$ by induction on $i \geq k$. 
+      $\Phi_i$. We show that $N_i\geq (2 - 2/k)^i$ by induction on $i \geq k$. And then I'm stuck.
     \end{proof}
 
     \item Let $\mathcal{A}$ be an alphabet, and let $\mathcal{F}$ be a set of forbidden strings.
@@ -279,8 +280,9 @@
       $\Gamma(\Gamma(x))$ and similarly for $y$, and thus $|\Gamma(x)|, |\Gamma(y)| \leq (1/2 +
       1/1000)n$. This yields the bound
       \[
-        B(n) \leq \binom{n}{2} \cdot |\mathcal{T}(n - 2)| \cdot 2^{(1/2 - 1/1000)n} \cdot 2^{(1/2 - 1/1000)n} \leq 2^{(1 - 1/2000)n + } \cdot |\mathcal{T}(n - 2)|,
+        \mathcal{D}(n) \leq \binom{n}{2} \cdot |\mathcal{T}(n - 2)| \cdot 2^{(1/2 - 1/1000)n} \cdot 2^{(1/2 - 1/1000)n} \leq 2^{(1 - 1/2000)n} \cdot |\mathcal{T}(n - 2)|,
       \]
+      for large enough $n$.
     \end{proof}
     \item Prove that $|\mathcal{C}ol_2(n)| / |\mathcal{C}ol_2(n - 1)| \geq 2^{\frac{1}{2}(n - 1)}$
     for all sufficiently large $n \geq n_0$.
@@ -301,7 +303,15 @@
 \newpage
 
 \begin{homeworkProblem}
-  In this problem we discuss in more detail one calculation in the proof of the Bregman's Theorem from class. Given a bipartite graph \( G = (L \cup R, E) \) with \( |L| = |R| = n \), fix a perfect matching \( M \) of \( G \). For each vertex \( i \in L \), there thus is a unique vertex \( X_i \) such that \( \{i, X_i\} \in M \) is a matching edge. Now write \( R_i \) for the set of \( j \in L \) for which \( \{j, X_j\} \in M \) and \( \{i, X_j\} \in E \), i.e., the set of vertices \( j \in L \) for which there is a matching edge in \( M \) that contains \( j \) and a neighbor of \( i \). By construction, we have \( |R_i| = \deg_G(i) \). Using a (permutation) counting argument, show that for each vertex \( i \in L \) and \( 1 \leq j \leq \deg_G(i) \) we have
+  In this problem we discuss in more detail one calculation in the proof of the Bregman's Theorem
+  from class. Given a bipartite graph \( G = (L \cup R, E) \) with \( |L| = |R| = n \), fix a
+  perfect matching \( M \) of \( G \). For each vertex \( i \in L \), there thus is a unique vertex
+  \( X_i \) such that \( \{i, X_i\} \in M \) is a matching edge. Now write \( R_i \) for the set of
+  \( j \in L \) for which \( \{j, X_j\} \in M \) and \( \{i, X_j\} \in E \), i.e., the set of
+  vertices \( j \in L \) for which there is a matching edge in \( M \) that contains \( j \) and a
+  neighbor of \( i \). By construction, we have \( |R_i| = \deg_G(i) \). Using a (permutation)
+  counting argument, show that for each vertex \( i \in L \) and \( 1 \leq j \leq \deg_G(i) \) we
+  have
 
   \[
     \mathbb{P}(\text{vertex } i \text{ appears in } \pi \text{ in the } j\text{th position among the vertices in } R_i) = \frac{1}{\deg_G(i)}.
@@ -315,5 +325,118 @@
       &= \frac{(|R_i| - 1)!}{|R_i|!} = \frac{1}{\deg_G(i)}.
     \end{align*}
   \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item An order $n$ Latin square is an $n \times n$ matrix in which each row and column is a
+    permutation of $[n]$. Using the entropy method, prove that the number of order $n$ Latin squares
+    is at most 
+    \[
+    L(n) \leq \left( (1 + o(1)) \frac{n}{e^2} \right)^{n^2} 
+    \]
+    as $n \to \infty$.
+
+    \begin{proof}
+      Choose $X$ uniformly at random from all order $n$ Latin squares. Let $X_{i}$ denote the $i$th
+      row and let $X_{ij}$ denote the $i$th row $j$th column of $X$. Independently and uniformly
+      take a random $a_{ij}$ from $[0, 1]$ for all $i, j \in [n]$, and denote $A = (a_{ij})$. Let
+      $R_{ij}(A) = \{X_{il}: a_{il} < a_{ij}\}$ and $C_{ij}(A) = \{X_{kj}: a_{kj} < a_{ij}\}$. Note
+      that $\prob(a_{ij} = a_{kl}) = 0$ for all $(i, j) \neq (k, l)$. By the Chain rule,
+      \[
+        \log_2 L(n) = H(X) = \E_A\sum_{i, j \in [n]} H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}).
+      \]
+      Let $N_{ij}(A, X) = |[n] - R_{ij}(A) \cup C_{ij}(A)|$. Rewriting the entropy in expectation
+      form, 
+      \[
+        H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}) = \E_X[\log_2 N_{ij}(A, X)],
+      \]
+      and thus
+      \[
+        H(X) = \E_A\sum_{i, j \in [n]} \E_X[\log_2 N_{ij}(A, X)] = \E_X \sum_{i, j \in [n]} \E_A[\log_2 N_{ij}(A, X) \mid X].
+      \]
+      By Jensen's inequality,
+      \[
+        \E_A[\log_2 N_{ij}(A, X) \mid X] \leq \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]].
+      \]
+      For $m \in [n]$, notice
+      \[
+        \prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] = \prob(m \notin R_{ij}(A))\prob(m \notin C_{ij}(A)) = (1 - a_{ij})^2,
+      \]
+      and thus
+      \[
+        \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}] = \sum_{m \in [n]} \prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] = n(1 - a_{ij})^2.
+      \]
+      Hence,
+      \[
+        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 n(1 - x^2) \, dx = \log_2(n) - 2.
+      \]
+
+      It now follows that
+      \[
+        H(X) \leq \E_X \sum_{i, j \in [n]} \E_{a_{ij}}[\log_2 n(1 - a_{ij}^2)] \leq n^2(\log_2(n) - 2),
+      \]
+      and thus the result. (I don't know where I lost the $o(1)$ term.)
+    \end{proof}
+
+    \newpage
+    
+    \item Sudoku puzzles are order 9 Latin squares, divided into 9 smaller $3 \times 3$ blocks, with the additional constraint that each block must contain all the symbols $\{1, \ldots, 9\}$. Sudoku squares of order $N$ can be defined similarly for any square number $N = n^2$ (to clarify: normal Sudoku puzzles are simply order 9 Sudoku squares). Using the entropy method, prove that the number of order $N$ Sudoku squares is at most 
+    \[
+    S(n) \leq \left( (1 + o(1)) \frac{N}{e^3} \right)^{N^2} 
+    \]
+    as $N \to \infty$.
+
+    \begin{proof}
+      Choose $X$ uniformly at random from all order $n$ Latin squares. Let $X_{i}$ denote the $i$th
+      row and let $X_{ij}$ denote the $i$th row $j$th column of $X$. Independently and uniformly
+      take a random $a_{ij}$ from $[0, 1]$ for all $i, j \in [n]$, and denote $A = (a_{ij})$. 
+      Define
+      \begin{itemize}
+        \item $R_{ij}(A) = \{X_{il}: a_{il} < a_{ij}\}$ 
+        \item $C_{ij}(A) = \{X_{kj}: a_{kj} < a_{ij}\}$
+        \item $S_{ij}(A) = \{X_{kl}: a_{kl} < a_{ij} \text{ and } X_{kl} \text{ in the same square
+        as } X_{ij}\}$.
+      \end{itemize}
+      Note that $\prob(a_{ij} = a_{kl}) = 0$ for all $(i, j) \neq (k, l)$. By the Chain
+      rule,
+      \[
+        \log_2 L(n) = H(X) = \E_A\sum_{i, j \in [n]} H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}).
+      \]
+      Let $N_{ij}(A, X) = |[N] - R_{ij}(A) \cup C_{ij}(A) \cup S_{ij}(A)|$. Rewriting the entropy in
+      expectation form, 
+      \[
+        H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}) = \E_X[\log_2 N_{ij}(A, X)],
+      \]
+      and thus
+      \[
+        H(X) = \E_A\sum_{i, j \in [n]} \E_X[\log_2 N_{ij}(A, X)] = \E_X \sum_{i, j \in [n]} \E_A[\log_2 N_{ij}(A, X) \mid X].
+      \]
+      By Jensen's inequality,
+      \[
+        \E_A[\log_2 N_{ij}(A, X) \mid X] \leq \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]].
+      \]
+      For $m \in [N]$, notice
+      \[
+        \prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup S_{ij}(A))] = \prob(m \notin R_{ij}(A))\prob(m \notin C_{ij}(A))\prob(m \notin S_{ij}(A)) = (1 - a_{ij})^3,
+      \]
+      and thus
+      \[
+        \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}] = \sum_{m \in [N]} \prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup S_{ij}(A))] = N(1 - a_{ij})^3.
+      \]
+      Hence,
+      \[
+        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 N(1 - x^2) \, dx = \log_2(N) - 3.
+      \]
+
+      It now follows that
+      \[
+        H(X) \leq \E_X \sum_{i, j \in [n]} \E_{a_{ij}}[\log_2 n(1 - a_{ij}^2)] \leq N^2(\log_2(N) - 3),
+      \]
+      and thus the result. (I don't know where I lost the $o(1)$ term.)
+    \end{proof}
+  \end{enumerate}
 \end{homeworkProblem}
 \end{document}
