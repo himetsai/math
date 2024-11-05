@@ -374,7 +374,7 @@
       \]
       This yields
       \[
-        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 n(1 - x)^2 \, dx \leq \log_2(n) - 2 + o(1).
+        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 (1 + (n - 1)(1 - x)^2) \, dx \leq \log_2(n) - 2 + o(1).
       \]
 
       It now follows that
@@ -434,7 +434,7 @@
       \]
       Hence,
       \[
-        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 N(1 - x)^3 \, dx \leq \log_2(N) - 3 + o(1).
+        \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]] = \int_{0}^1 \log_2 (1 + (N - 1)(1 - x)^3) \, dx \leq \log_2(N) - 3 + o(1).
       \]
 
       It now follows that
