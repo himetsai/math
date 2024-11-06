@@ -170,22 +170,35 @@
 	\Gamma$ where $\Gamma$ is the unit circle $\{ z : |z| = 1 \}$.
 
 	\begin{proof}
-		Let $z \in \C$. Note that $|T(z)|^2 = (\frac{az + b}{cz + d})(\frac{\bar{a}\bar{z} +
-		\bar{b}}{\bar{c}\bar{z} + \bar{d}}) = 1$ if and only if 
+		Note that $T(\Gamma) = \Gamma$ if and only if $T^{-1}(\Gamma) = \Gamma$, and thus $T^{-1}$
+		perseves the symmetry between $0$ and $\infty$. Let $k = T^{-1}(0) \notin \Gamma$. By the
+		calculation in the textbook, $k$ is symmetric to $\frac{1}{\bar{k}}$. That is, $T(\frac{1}{k}) =
+		\infty$. Solving
 		\[
-			|z|^2(|a|^2 - |c|^2) + (a\bar{b} - c\bar{d})z + (b\bar{a} - d\bar{c})\bar{z} + |b|^2 - |d|^2 = 0.
+			\begin{cases}
+				\frac{ak + b}{ck + d} = 0, \\
+				\frac{\frac{a}{\bar{k}} + b}{\frac{c}{\bar{k}} + d} = \infty
+			\end{cases},
 		\]
-		Suppose $|z| = 1$. Then 
+		we have $b = -ak, d = -\frac{c}{\bar{k}}$. Put $m = \frac{a}{c}$ and $T$ is of the form
 		\[
-			|a|^2 - |c|^2 = |d|^2 - |b|^2 = 1 \text{ and } \quad a\bar{b} - c\bar{d} = 0
+			Tz = \frac{m(z - k)}{z - \frac{1}{\bar{k}}}.
 		\]
-		is a sufficient condition so that $|T(z)| = 1$. 
+		If $k = 0$ or $\infty$, then $Tz = mz$ or $Tz = \frac{m}{z}$, so $T(\Gamma) = \Gamma$ if and
+		only if $m \in \Gamma$. Suppose otherwise. Notice
+		\begin{align*}
+			|Tz|^2
+			&= |m\bar{k}|^2\left(\frac{z - k}{\bar{k}z - 1}\right)\left(\frac{\bar{z} - \bar{k}}{k\bar{z} - 1}\right) \\
+			&= |m\bar{k}|^2\left(\frac{|z|^2 + |k|^2 - 2Re(z\bar{k})}{|k|^2|z|^2 + 1 - 2Re(z\bar{k})}\right).
+		\end{align*}
+		But then when $z \in \Gamma$, $|Tz|^2 = |m\bar{k}|^2$. Thus in this case, $T(\Gamma) = \Gamma$
+		if and only if $k \notin \Gamma$ and $m\bar{k} \in \Gamma$. 
 		
-		Now suppose $|T(z)|^2 = 1$. Then $|z|^2 = 1$ if
-
-		By Proposition 3.6, $T$ is a composition of translations, rotations, dilations, and the
-		inversion. Note also that $T$ maps circles to circles. Thus, $T(\Gamma) = \Gamma$ if and only
-		$Tz = $
+		Cominbing the two cases, we have $T(\Gamma) = \Gamma$ if and only if 
+		\[
+			Tz = \frac{m(z - k)}{z - \frac{1}{\bar{k}}},
+		\]
+		where $k \notin \Gamma$, $m \in \Gamma$ if $k = 0, \infty$ and $m\bar{k} \in \Gamma$ otherwise.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -195,7 +208,23 @@
 	Let $D = \{ z : |z| < 1 \}$ and find all Möbius transformations $T$ such that $T(D) = D$.
 
 	\begin{proof}
-		
+		We show that $T(D) = D$ if and only if $T^{-1}(0) \in D$. Obviously if $T(D) = D$ we have
+		$T^{-1}(0) \in D$. Now suppose $k = T^{-1}(0) \in D$. Since $T$ is continuous, $T(\partial D) =
+		\partial D$, where $\partial D = \Gamma$ is the unit circle. By the previous problem, $T$ is of
+		the form
+		\[
+			Tz = \frac{m(z - k)}{z - \frac{1}{\bar{k}}}.
+		\]
+		Suppose $z \in D$. If $k = 0$ then $Tz = mz$ and $|Tz| = |mz| < 1$, so $Tz \in D$. Suppose $k
+		\neq 0$. By the previous problem,
+		\[
+			|Tz|^2 = |m\bar{k}|^2\left(\frac{|z|^2 + |k|^2 - 2Re(z\bar{k})}{|k|^2|z|^2 + 1 - 2Re(z\bar{k})}\right).
+		\]
+		Since $|k|^2(1 - |z|^2) < 1 - |z|^2$ for $k, z \in D$, 
+		\[
+			|k|^2 + |z|^2 < 1 + |z|^2,
+		\]
+		and so $|Tz|^2 < 1$. 
 	\end{proof}
 \end{homeworkProblem}
 
