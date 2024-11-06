@@ -1,0 +1,236 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{Nov 8, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	If $Tz = \frac{az + b}{cz + d}$, find $z_2, z_3, z_4$ (in terms of $a, b, c, d$) such that $Tz =
+	(z, z_2, z_3, z_4)$.
+
+	\begin{proof}
+		Solving
+		\[
+			Tz_2 = \frac{az_2 + b}{cz_2 + d} = 1, \quad Tz_3 = \frac{az_3 + b}{cz_3 + d} = 0, \quad Tz_4 = \frac{az_4 + b}{cz_4 + d} = \infty,
+		\]
+		we get $z_2 = \frac{d - b}{a - c}$, $z_3 = \frac{-b}{a}$, and $z_4 = -\frac{d}{c}$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	If $Tz = \frac{az + b}{cz + d}$, find necessary and sufficient conditions that $T(\Gamma) =
+	\Gamma$ where $\Gamma$ is the unit circle $\{ z : |z| = 1 \}$.
+
+	\begin{proof}
+		Let $z \in \C$. Note that $|T(z)|^2 = (\frac{az + b}{cz + d})(\frac{\bar{a}\bar{z} +
+		\bar{b}}{\bar{c}\bar{z} + \bar{d}}) = 1$ if and only if 
+		\[
+			|z|^2(|a|^2 - |c|^2) + (a\bar{b} - c\bar{d})z + (b\bar{a} - d\bar{c})\bar{z} + |b|^2 - |d|^2 = 0.
+		\]
+		Suppose $|z| = 1$. Then 
+		\[
+			|a|^2 - |c|^2 = |d|^2 - |b|^2 = 1 \text{ and } \quad a\bar{b} - c\bar{d} = 0
+		\]
+		is a sufficient condition so that $|T(z)| = 1$. 
+		
+		Now suppose $|T(z)|^2 = 1$. Then $|z|^2 = 1$ if
+
+		By Proposition 3.6, $T$ is a composition of translations, rotations, dilations, and the
+		inversion. Note also that $T$ maps circles to circles. Thus, $T(\Gamma) = \Gamma$ if and only
+		$Tz = $
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $D = \{ z : |z| < 1 \}$ and find all Möbius transformations $T$ such that $T(D) = D$.
+
+	\begin{proof}
+		
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $G$ be a region and suppose that $f: G \rightarrow \C$ is analytic such that $f(G)$ is a
+	subset of a circle. Show that $f$ is constant.
+
+	\begin{proof}
+		Let $z_2, z_3, z_4 \in G$ such that $f(z_2), f(z_3), f(z_4)$ are distinct. Let $T$ be a Möbius
+		transformation such that $Tz = \frac{az + b}{cz + d} = (z, f(z_2), f(z_3), f(z_4))$. Since $T$
+		is analytic and $T(f(z)) \in \R_{\infty}$ for all $z \in G$, $T(f(z))$ is constant by exercise
+		3.2.14. Thus,
+		\[
+			(T(f(z)))' = T'(f(z))f'(z) = \frac{ad - bc}{(cf(z) + d)^2}f'(z) = 0.
+		\]
+		Since $ad - bc \neq 0$, $f'(z) = 0$ for all $z \in G$. Hence, $f$ is constant.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that a Möbius transformation $T$ satisfies $T(0) = \infty$ and $T(\infty) = 0$ iff $Tz =
+	kz^{-1}$ for some $k$ in $\mathbb{C}$.
+
+	\begin{proof}
+		Let $Tz = \frac{az + b}{cz + d}$. The converse is trivial. Suppose $T(0) = \infty$, and
+		$T(\infty) = 0$. Then $Tz = (z, z_2, \infty, 0)$ for some $k$. By the first problem of this
+		homework, 
+		\[
+			\frac{-b}{a} = \infty, \quad \frac{-d}{c} = 0,
+		\]
+		which implies $a = d = 0$. Hence, $T = \frac{b}{c}z^{-1}$.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
