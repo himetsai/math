@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage[colorinlistoftodos]{todonotes}
+\geometry{letterpaper, margin=1in}
+
+\newtheorem{proposition}{Proposition}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead[L]{Ray Tsai}
+
+\begin{proposition}
+  Let $G_1, G_2, G_3$ be graphs such that no $K_4$ is contained in two graphs. Then, $\delta(G_i)
+  \leq \frac{7}{9}n$ for some $i$ and this bound is tight.
+\end{proposition}
+
+\begin{proof}
+  Suppose $\delta(G_i) > \frac{7}{9}n$ for all $i$. Since $|E(G_1)| + |E(G_2)| + |E(G_3)| >
+  \binom{n}{2} + \frac{n^2}{2}$, there exists a triangle $T$ that is contained in two $G_i$'s, say
+  $G_1$ and $G_2$. Let $N_i(v)$ denote the neighborhood of vertex $v$ in $G_i$, and let $v_1, v_2,
+  v_3$ be the vertices of $T$. Notice
+  \begin{align*}
+    |N_i(v_1) \cap N_i(v_2) \cap N_i(v_3)| 
+    &\geq |N_i(v_1) \cap N_i(v_2)| + |N_i(v_3)| - n \\
+    &\geq |N_i(v_1)| + |N_i(v_2)| + |N_i(v_3)| - 2n \\
+    &> \frac{7}{3}n - 2n = \frac{n}{3}.
+  \end{align*}
+  For simplicity, denote $C_i(T) = N_i(v_1) \cap N_i(v_2) \cap N_i(v_3)$. Since $|C_1(T)| + |C_2(T)|
+  + |C_3(T)| > n$, there exists a vertex $u$ in two $C_i(T)$'s. If $u \in C_1(T) \cap C_2(T)$ then
+  we are done. Assume without loss of generality that $u \in C_1(T) \cap C_3(T)$. \textcolor{red}{It
+  seems like we need $T$ to be a fat triangle to make this work.} 
+  
+  We now show that the bound is tight. Fix a Turán graph $T_3(n)$ in complete graph $K_n$, with
+  parts $V_1, V_2, V_3$. Equally partition the edges in each $V_i$ into three sets and label the
+  edges in each set $1$, $2$, $3$, respectively. Let $G_i = T_3(n)$ plus the edges labelled $i$.
+  Since no edge is labelled twice in each $V_i$, no $K_4$ is contained in two $G_i$'s. The minimum
+  degree of each $G_i$ is at least $\frac{7}{9}n$.
+\end{proof}
+
+\end{document}

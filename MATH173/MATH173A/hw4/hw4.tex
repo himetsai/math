@@ -1,0 +1,293 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{Nov 10, 2024}
+\newcommand{\hmwkClass}{MATH 173A}
+\newcommand{\hmwkClassInstructor}{Professor Cloninger}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+		\item Find an expression for the orthogonal projection of a point $x\in\mathbb{R}^n$ onto the
+		convex set
+		\begin{align*}
+			B = \{z\in\mathbb{R}^n : 0\le z_i \le 1 \textnormal{ for
+			each } i=1, ..., n\}.
+		\end{align*}
+		You need to show your work, and justify your answer. The expression can be written piecewise,
+		and per dimension if it's easier / more compact. {\bf Hint:} It might be helpful to sketch $B$,
+		when $n = 2$ (i.e., in 2 dimensions), and use the sketch to help you figure out what the
+		projection should be.
+
+		\begin{proof}
+			For $x \in \R^n$, we need to find $\Pi_B(x) = \underset{z \in B}{\arg\min} \|z - x\| =
+			\underset{z \in B}{\arg\min} \sum_i (z_i - x_i)^2$. Notice that we may decouple this
+			minimization problem across $n$ dimension by minimizing each $z_i$ independently. That is, for
+			all $i$
+			\[
+				z_i = \underset{a \in [0, 1]}{\arg\min} (a - x_i)^2 = \min(\max(0, x_i), 1).
+			\]
+		\end{proof}
+
+		\item Let $f:\mathbb{R}^n\rightarrow\mathbb{R}$ be given by
+		\begin{align*}
+		f(x) = \|Ax\|_2^2 + a^T x
+		\end{align*}
+		where $A\in\mathbb{R}^{n\times n}$ is a positive definite matrix, and $a\in\mathbb{R}^n$. Write
+		a projected gradient descent algorithm to solve
+		\begin{align*}
+		\min_{x\in\Omega} f(x)
+		\end{align*}
+		for $\Omega = B$, with $B$ from part (a). You do not need to specify the step size for this
+		problem.
+
+		\begin{proof}
+			Note that
+			\[
+				\nabla f(x) = 2A^TAx + a,
+			\]
+			and thus the projected gradient descent algorithm is
+			\[
+				x^{(k+1)} = \Pi_\Omega\left(x^{(k)} - \mu \nabla f(x^{(k)})\right) = \Pi_B\left(x^{(k)} - \mu (2A^TAx^{(k)} + a)\right).
+			\]
+			More explicitly, for all $i$,
+			\[
+				x^{(k+1)}_i = \min\left(\max\left(0, x^{(k)}_i - 2\mu (A^TAx^{(k)} + a)_i\right), 1\right).
+			\]
+		\end{proof}
+
+		\item Repeat part (b) but for $\Omega = B_2^n = \{z\in \mathbb{R}^n : \|z\|_2 \le 1\}$.
+		\begin{proof}
+			Notice
+			\[
+				\Pi_\Omega(x) = \begin{cases}
+					\frac{x}{\|x\|_2} & \textnormal{if } \|x\| > 1, \\
+					x & \textnormal{if } \|x\| \le 1.
+				\end{cases}
+			\]
+			Hence, the projected gradient descent algorithm is
+			\[
+				x^{(k+1)} = \Pi_\Omega\left(x^{(k)} - \mu \nabla f(x^{(k)})\right) = \Pi_B\left((I - 2\mu A^TA)x^{(k)} - \mu a\right),
+			\]
+			which is $\frac{(I - 2\mu A^TA)x^{(k)} - \mu a}{\|(I - 2\mu A^TA)x^{(k)} - \mu a\|_2}$ if
+			$\|x\| > 1$ and $(I - 2\mu A^TA)x^{(k)} - \mu a$ otherwise.
+		\end{proof}
+		\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Consider the \emph{hollow} sphere $S$ in $\mathbb{R}^n$, i.e., the set $S := \{x \in \mathbb{R}^n
+	: \|x\|_2^2 = 1\}$. Consider the function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ given by
+	\begin{align*}
+	f(x) = x^T Qx
+	\end{align*}
+	where $Q$ is an $n\times n$ symmetric matrix. For this problem you may use the fact that $\nabla
+	f(x) = 2Qx$.
+
+	\begin{enumerate}[(a)]
+		\item For an arbitrary point $y\in\mathbb{R}^n$, $\Pi(y)$ be the projection of $y$ onto $S$.
+		Find an expression for $\Pi(y)$ and give a short argument (i.e., proof) for why this is the
+		correct expression. Make sure to handle the case $y = 0$ (i.e., the zero vector).
+
+		\begin{proof}
+			I claim that $\Pi(y) = \frac{y}{\|y\|_2}$ if $y \neq 0$ and $\Pi(0)$ can be any point in $S$.
+			Note that the reverse triangle-inequality yields a lower bound
+			\[
+				\|x - y\|_2 \ge \left|\|x\|_2 - \|y\|_2\right| = \left|1 - \|y\|_2\right|,
+			\]
+			for $x \in \Omega$. Obvisouly, any $x \in \Omega$ achieves the lower bound when $y = 0$.
+			Suppose $y \neq 0$. Obviously $\frac{y}{\|y\|_2} \in \Omega$. Since 
+			\[
+				\left\|\frac{y}{\|y\|_2} - y\right\| = \left\|\left(\frac{1}{\|y\|_2} - 1\right)y\right\| = \|y\|_2\left|\frac{1}{\|y\|_2} - 1\right| = |1 - \|y\|_2|
+			\]
+			achieves the lower bound, $\Pi(y) = \frac{y}{\|y\|_2}$.
+		\end{proof}
+
+		\item Is $S$ a convex set?
+
+		\begin{proof}
+			$S$ is not a convex set. Consider $x = (1, 0)$ and $y = (-1, 0)$. Then $0 = \frac{1}{2}(1, 0)
+			+ \frac{1}{2}(-1, 0) \notin S$.
+		\end{proof}
+
+		\item Write a projected gradient descent algorithm, with constant step size $\mu$, for
+		\begin{align*}
+		\min_{x\in\mathbb{R}^n} x^T Q x \qquad \textnormal{ subject
+		to } \qquad \|x\|^2_2 = 1.
+		\end{align*}
+
+		\begin{proof}
+			Note that $\nabla f(x) = 2Qx$, and thus the projected gradient descent algorithm is
+			\[
+				x^{(k+1)} = \Pi_S\left((I - 2\mu Q)x^{(k)}\right),
+			\]
+			which is equal to $\frac{(I - 2\mu Q)x^{(k)}}{\|(I - 2\mu Q)x^{(k)}\|}$ if $x^{(k)} \neq 0$
+			and any point in $S$ if $x^{(k)} = 0$.
+		\end{proof}
+
+		\item Is the projected gradient descent algorithm guaranteed to converge to the solution for
+		small enough $\mu$? If not, can you give an example of $Q$ and an initialization $x^{(0)}$ where
+		the algorithm won't converge?
+
+		\begin{proof}
+			Consider $Q = \text{diag}(1, 0)$ and $x^{(0)} = (1, 0)$. Then $x^{(k + 1)} =
+				\Pi_S\left(\begin{bmatrix} 1 - 2\mu & 0 \\ 
+				0 & 1 
+			\end{bmatrix}x^{(k)}\right)$. Since $x^{(0)}$ only have the first entry non-zero, 
+			\[
+				x^{(k + 1)} = \frac{1 - 2\mu}{|1 - 2\mu|}x^{(k)} = \left(\frac{1 - 2\mu}{|1 - 2\mu|}\right)^{k + 1}x^{(0)},
+			\]
+			which is equal to $x^{(0)}$ for small enough $\mu$. But then $f(x^{(0)}) = 1$ and
+				$f\left(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\right) = 0$, so the algorithm fails to
+				converge.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}
