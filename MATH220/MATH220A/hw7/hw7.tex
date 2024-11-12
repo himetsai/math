@@ -1,0 +1,306 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Nov 15, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Let $I(r) = \int_\gamma \frac{e^{iz}}{z} \, dz$ where $\gamma: [0, \pi] \to \mathbb{C}$ is defined
+	by $\gamma(t) = re^{it}$. Show that $\lim_{r \to \infty} I(r) = 0$.
+
+	\begin{proof}
+		Note that $\gamma'(t) = ire^{it}$ and so
+		\[
+			|I(r)| = \left|\int_0^\pi \frac{e^{ire^{it}}}{re^{it}} \cdot ire^{it} \, dt\right| = \left|i\int_0^\pi e^{ire^{it}} \, dt\right| \leq \int_0^\pi \left|e^{ire^{it}}\right| \, dt = \int_0^\pi \left|e^{r(i\cos(t) - \sin(t))}\right| \, dt = \int_0^\pi e^{-r\sin(t)} \, dt.
+		\]
+		Pick $\epsilon > 0$. There exists integer $N > -\log(\epsilon)$ such that for all $r > N$ and $t
+		\in [0, \pi]$,
+		\[
+			\left|e^{-r\sin(t)}\right| \leq e^{-r} < e^{-N} < \epsilon.
+		\]
+		Hence, $e^{-r\sin(t)}$ uniformly converges to 0 on $[0, \pi]$, and thus
+		\[
+			\lim_{r \to \infty} \int_0^\pi e^{-r\sin(t)} \, dt = 0.
+		\]
+		The result now follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $\gamma(t) = 2e^{it}$ for $-\pi \leq t \leq \pi$ and find $\int_\gamma (z^2 - 1)^{-1} \, dz$.
+
+	\begin{proof}
+		Note that $\gamma'(t) = 2ie^{it}$. We then have
+		\[
+			\int_\gamma (z^2 - 1)^{-1} \, dz = \int_{-\pi}^\pi \frac{2ie^{it}}{(2e^{it})^2 - 1} \, dt = \int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt.
+		\]
+		Let $u = 2e^{it} + 1$, then $du = 2ie^{it} \, dt$ and so
+		\[
+			\int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt = \int_{1}^1 \frac{1}{u(u - 2)} \, dt = 0.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that if $F_1$ and $F_2$ are primitives for $f: G \to \mathbb{C}$ and $G$ is connected, then
+	there is a constant $c$ such that $F_1(z) = c + F_2(z)$ for each $z$ in $G$.
+
+	\begin{proof}
+		Suppose $F_1' = F_2' = f$. Then
+		\[
+			\frac{d}{dz} (F_1(z) - F_2(z)) = F_1'(z) - F_2'(z) = 0,
+		\]
+		so the function $F_1(z) - F_2(z)$ is constant, and the result now follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that the function defined by (2.2) is continuous.
+
+	\begin{proof}
+		Pick $\epsilon > 0$. Since $\varphi$ is continuous in a compact set, $\varphi$ is uniformly
+		continuous. Thus, there exists $\delta > 0$ such that for all $s \in [a, b]$, $|\varphi(s, t) -
+		\varphi(s, x)| < \frac{\epsilon}{b - a}$ for all $x, t \in [c, d]$ and $|x - t| < \delta$. It now
+		follows that for all $s \in [a, b]$ and $|t - x| < \delta$,
+		\[
+			|g(t) - g(x)| = \left|\int_{a}^b \varphi(s, t) - \varphi(s, x) \, ds\right| \leq \int_{a}^b |\varphi(s, t) - \varphi(s, x)| \, ds < \frac{\epsilon}{b - a} \cdot (b - a) < \epsilon.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Prove the following analogue of Leibniz's rule (this exercise will be frequently used in the later
+	sections.) Let $G$ be an open set and let $\gamma$ be a rectifiable curve in $G$. Suppose that
+	$\varphi: \{\gamma\} \times G \to \mathbb{C}$ is a continuous function and define $g: G \to
+	\mathbb{C}$ by
+	\[
+		g(z) = \int_\gamma \varphi(w, z) \, dw
+	\]
+	then $g$ is continuous. If $\frac{\partial \varphi}{\partial z}$ exists for each $(w, z)$ in
+	$\{\gamma\} \times G$ and is continuous, then $g$ is analytic and
+	\begin{gather}
+		g'(z) = \int_\gamma \frac{\partial \varphi}{\partial z}(w, z) \, dw.
+	\end{gather}
+
+	\begin{proof}
+		Fix $z_0 \in G$. Pick $\epsilon > 0$. Note that $\gamma: [a, b] \to G$, for some interval $[a,
+		b]$. We first show that $g$ is continuous. Put $L = \int_\gamma |dw|$. Since $\gamma$ is
+		continuous on a compact set, its image $\{\gamma\}$ is compact. For $r > 0$ such that the closed
+		ball $\overline{B_{r}(z_0)} \subset G$, $\varphi$ is uniformly continuous on $\{\gamma\} \times
+		\overline{B_{r}(z_0)}$. Thus, there exists $\delta_r > 0$ such that $|\varphi(s, z) - \varphi(s,
+		w)| < \frac{\epsilon}{L}$ for all $s \in \{\gamma\}$ and $z, w \in \overline{B_{r}(z_0)}$ with
+		$d(z, w) < \delta_r$. It now follows that for all $s \in \{\gamma\}$ and $z \in
+		\overline{B_{r}(z_0)}$ with $d(z, z_0) < \delta_r$, 
+		\[
+			|g(z) - g(z_0)| = \left|\int_{\gamma} \varphi(s, z) - \varphi(s, z_0) \, ds\right| \leq \int_{\gamma} |\varphi(s, z) - \varphi(s, z_0)| \, |ds| < \frac{\epsilon}{L} \cdot L = \epsilon.
+		\]
+
+		Now suppose that $\varphi' = \frac{\partial \varphi}{\partial z}$ exists for each $(w, z)$ in
+		$\{\gamma\}$ and is continuous. It suffices to verify (1), as the continuity of $g'$ follows
+		from (1) and the first part of the proof. Since $\varphi'$ is uniformly continuous on
+		$\{\gamma\} \times \overline{B_{r}(z_0)}$, there exists $\delta'_r > 0$ such that $|\varphi'(s,
+		w) - \varphi'(s, z)| < \epsilon/L$ for all $s \in \{\gamma\}$ and $w, z \in
+		\overline{B_{r}(z_0)}$ with $d(w, z) < \delta'_r$. This implies that for all for $s \in
+		\{\gamma\}$ and $d(z, z_0) < \delta'_r$, 
+		\begin{gather}
+			\left|\int_{z_0}^z [\varphi'(s, w) - \varphi'(s, z_0)] \, dw\right| \leq \frac{\epsilon(z - z_0)}{L}.
+		\end{gather}
+		Given a fixed $s \in \{\gamma\}$, $\Phi(z) = \varphi(s, z) - z\varphi'(s, z_0)$ is a primitive
+		of $\varphi'(s, z) - \varphi'(s, z_0)$. It now follows from (2) and the funamental theorem of
+		calculus that 
+		\[
+			|\varphi(s, z) - \varphi(s, z_0) - (z - z_0)\varphi'(s, z_0)| \leq \frac{\epsilon(z - z_0)}{L}.
+		\]
+		By the definition of $g$, we have
+		\[
+			\left|\frac{g(z) - g(z_0)}{z - z_0} - \int_\gamma \varphi'(s, z_0) \, ds\right| \leq \int_{\gamma} \left|\frac{\varphi(s, z) - \varphi(s, z_0)}{z - z_0} - \varphi'(s, z_0)\right| \, |ds| < \frac{\epsilon}{L} \cdot L = \epsilon,
+		\]
+		for $d(z, z_0) < \delta'_r$. 
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose that $\gamma$ is a rectifiable curve in $\mathbb{C}$ and $\varphi$ is defined and
+	continuous on $\{\gamma\}$. Use Exercise 2 to show that
+	\[
+		g(z) = \int_\gamma \frac{\varphi(w)}{w - z} \, dw
+	\]
+	is analytic on $\mathbb{C} - \{\gamma\}$ and
+	\begin{gather}
+		g^{(n)}(z) = n! \int_\gamma \frac{\varphi(w)}{(w - z)^{n+1}} \, dw.
+	\end{gather}
+
+	\begin{proof}
+		Define $\phi(w, z) = \frac{\varphi(w)}{w - z}$ for $w \in \{\gamma\}$ and $z \in \mathbb{C} -
+		\gamma$. Note that $\phi$ is continuous on $\{\gamma\} \times (\mathbb{C} - \gamma)$, as
+		$\varphi$ and $\frac{1}{w - z}$ are continuous. Since $\frac{\partial \phi}{\partial z} =
+		\frac{\varphi(w)}{(w - z)^2}$ exists and is continuous, $g$ is analytic on $\mathbb{C} - \gamma$
+		and $g'(z) = \int_\gamma \frac{\varphi(w)}{(w - z)^2} \, dw$, by the previous exercise. We now
+		proceed by induction on $n$ to show (3). The base case is done. Suppose $n > 1$. By induction,
+		\[
+			g^{(n)}(z) = \frac{\partial}{\partial z} \left[(n - 1)!\int_\gamma \frac{\varphi(w)}{(w - z)^{n}} \, dw\right].
+		\]
+		Since $\frac{\partial}{\partial z} \frac{\varphi(w)}{(w - z)^{n}} = \frac{n\varphi(w)}{(w - z)^{n
+		+ 1}}$ exists and is continuous, 
+		\[
+			g^{(n)}(z) = (n - 1)!\int_\gamma \frac{\partial}{\partial z} \frac{\varphi(w)}{(w - z)^{n}} \, dw = n! \int_\gamma \frac{\varphi(w)}{(w - z)^{n + 1}} \, dw.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
