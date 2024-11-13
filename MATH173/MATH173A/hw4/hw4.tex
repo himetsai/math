@@ -170,7 +170,11 @@
 			minimization problem across $n$ dimension by minimizing each $z_i$ independently. That is, for
 			all $i$
 			\[
-				z_i = \underset{a \in [0, 1]}{\arg\min} (a - x_i)^2 = \min(\max(0, x_i), 1).
+				z_i = \underset{a \in [0, 1]}{\arg\min} (a - x_i)^2 = \begin{cases}
+					0 & \textnormal{if } x_i < 0, \\
+					x_i & \textnormal{if } 0 \le x_i \le 1, \\
+					1 & \textnormal{if } x_i > 1.
+				\end{cases} = \min(\max(0, x_i), 1).
 			\]
 		\end{proof}
 
@@ -277,16 +281,20 @@
 		the algorithm won't converge?
 
 		\begin{proof}
-			Consider $Q = \text{diag}(1, 0)$ and $x^{(0)} = (1, 0)$. Then $x^{(k + 1)} =
-				\Pi_S\left(\begin{bmatrix} 1 - 2\mu & 0 \\ 
-				0 & 1 
-			\end{bmatrix}x^{(k)}\right)$. Since $x^{(0)}$ only have the first entry non-zero, 
+			Fix $\mu \in (0, 0.5)$. Consider $Q = \text{diag}(1, 0)$ and $x^{(0)} = (1, 0)$. Then
 			\[
-				x^{(k + 1)} = \frac{1 - 2\mu}{|1 - 2\mu|}x^{(k)} = \left(\frac{1 - 2\mu}{|1 - 2\mu|}\right)^{k + 1}x^{(0)},
+				x^{(k + 1)} = \Pi_S\left(\begin{bmatrix} 1 - 2\mu & 0 \\ 
+						0 & 1 
+				\end{bmatrix}x^{(k)}\right) = \frac{1}{\sqrt{(1 - 2\mu)^2(x^{(k)}_1)^2 + (x^{(k)}_2)^2}}\begin{bmatrix} (1 - 2\mu)x^{(k)}_1 \\ x^{(k)}_2 \end{bmatrix}.
+			\] 
+			
+			Since $x^{(0)}$ only have the first entry non-zero, $x_2^{(k)} = 0$ for all $k$ by induction
+			and thus
+			\[
+				x^{(k + 1)} = \frac{1}{(1 - 2\mu)x^{(k)}_1}\begin{bmatrix} (1 - 2\mu)x^{(k)}_1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}.
 			\]
-			which is equal to $x^{(0)}$ for small enough $\mu$. But then $f(x^{(0)}) = 1$ and
-				$f\left(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\right) = 0$, so the algorithm fails to
-				converge.
+			But then $f\left(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\right) = 1$ and $f\left(\begin{bmatrix} 0 \\ 1
+				\end{bmatrix}\right) = 0$, so the algorithm fails to converge to a minimum.
 		\end{proof}
 	\end{enumerate}
 \end{homeworkProblem}
