@@ -174,22 +174,20 @@
 
 \newpage
 
-\begin{homeworkProblem}
-	Let $\gamma(t) = 2e^{it}$ for $-\pi \leq t \leq \pi$ and find $\int_\gamma (z^2 - 1)^{-1} \, dz$.
+% \begin{homeworkProblem}
+% 	Let $\gamma(t) = 2e^{it}$ for $-\pi \leq t \leq \pi$ and find $\int_\gamma (z^2 - 1)^{-1} \, dz$.
 
-	\begin{proof}
-		Note that $\gamma'(t) = 2ie^{it}$. We then have
-		\[
-			\int_\gamma (z^2 - 1)^{-1} \, dz = \int_{-\pi}^\pi \frac{2ie^{it}}{(2e^{it})^2 - 1} \, dt = \int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt.
-		\]
-		Let $u = 2e^{it} + 1$, then $du = 2ie^{it} \, dt$ and so
-		\[
-			\int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt = \int_{1}^1 \frac{1}{u(u - 2)} \, dt = 0.
-		\]
-	\end{proof}
-\end{homeworkProblem}
-
-\newpage
+% 	\begin{proof}
+% 		Note that $\gamma'(t) = 2ie^{it}$. We then have
+% 		\[
+% 			\int_\gamma (z^2 - 1)^{-1} \, dz = \int_{-\pi}^\pi \frac{2ie^{it}}{(2e^{it})^2 - 1} \, dt = \int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt.
+% 		\]
+% 		Let $u = 2e^{it} + 1$, then $du = 2ie^{it} \, dt$ and so
+% 		\[
+% 			\int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt = \int_{1}^1 \frac{1}{u(u - 2)} \, dt = 0.
+% 		\]
+% 	\end{proof}
+% \end{homeworkProblem}
 
 \begin{homeworkProblem}
 	Show that if $F_1$ and $F_2$ are primitives for $f: G \to \mathbb{C}$ and $G$ is connected, then
@@ -201,6 +199,21 @@
 			\frac{d}{dz} (F_1(z) - F_2(z)) = F_1'(z) - F_2'(z) = 0,
 		\]
 		so the function $F_1(z) - F_2(z)$ is constant, and the result now follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $\gamma$ be a closed rectifiable curve in an open set $G$ and $a \notin G$. Show that for $n
+	\geq 2$, $\int_{\gamma} (z - a)^{-n} \, dz = 0$.
+
+	\begin{proof}
+		Let $\alpha$ be the start/end point of $\gamma$. Since $a \notin G$, the primitive of $(z -
+		a)^{-n}$ is $\frac{1}{n - 1}(z - a)^{-(n - 1)}$. By theorem 1.18, 
+		\[
+			\int_{\gamma} (z - a)^{-n} \, dz = \frac{1}{n - 1}(\alpha - a)^{-(n - 1)} - \frac{1}{n - 1}(\alpha - a)^{-(n - 1)} = 0.
+		\]
 	\end{proof}
 \end{homeworkProblem}
 
@@ -254,20 +267,22 @@
 		from (1) and the first part of the proof. Since $\varphi'$ is uniformly continuous on
 		$\{\gamma\} \times \overline{B_{r}(z_0)}$, there exists $\delta'_r > 0$ such that $|\varphi'(s,
 		w) - \varphi'(s, z)| < \epsilon/L$ for all $s \in \{\gamma\}$ and $w, z \in
-		\overline{B_{r}(z_0)}$ with $d(w, z) < \delta'_r$. This implies that for all for $s \in
-		\{\gamma\}$ and $d(z, z_0) < \delta'_r$, 
+		\overline{B_{r}(z_0)}$ with $d(w, z) < \delta'_r$. Define path $\sigma_z: [0, 1] \to
+		\overline{B_{r}(z_0)}$ as $\sigma_z(t) = tz + (1 - t)z_0$ and note that $\sigma_z$ is
+		rectifiable, with $\int_{\sigma_z} |dw| = z - z_0$. Then for all for $s \in \{\gamma\}$ and
+		$d(z, z_0) < \delta'_r$, 
 		\begin{gather}
-			\left|\int_{z_0}^z [\varphi'(s, w) - \varphi'(s, z_0)] \, dw\right| \leq \frac{\epsilon(z - z_0)}{L}.
+			\left|\int_{\sigma_z} [\varphi'(s, w) - \varphi'(s, z_0)] \, dw\right| \leq \int_{\sigma_z} |\varphi'(s, w) - \varphi'(s, z_0)| \, |dw| \leq \frac{\epsilon (z - z_0)}{L}.
 		\end{gather}
 		Given a fixed $s \in \{\gamma\}$, $\Phi(z) = \varphi(s, z) - z\varphi'(s, z_0)$ is a primitive
 		of $\varphi'(s, z) - \varphi'(s, z_0)$. It now follows from (2) and the funamental theorem of
 		calculus that 
 		\[
-			|\varphi(s, z) - \varphi(s, z_0) - (z - z_0)\varphi'(s, z_0)| \leq \frac{\epsilon(z - z_0)}{L}.
+			|\varphi(s, z) - \varphi(s, z_0) - (z - z_0)\varphi'(s, z_0)| \leq \frac{\epsilon (z - z_0)}{L}.
 		\]
 		By the definition of $g$, we have
 		\[
-			\left|\frac{g(z) - g(z_0)}{z - z_0} - \int_\gamma \varphi'(s, z_0) \, ds\right| \leq \int_{\gamma} \left|\frac{\varphi(s, z) - \varphi(s, z_0)}{z - z_0} - \varphi'(s, z_0)\right| \, |ds| < \frac{\epsilon}{L} \cdot L = \epsilon,
+			\left|\frac{g(\sigma_z(t)) - g(z_0)}{z - z_0} - \int_\gamma \varphi'(s, z_0) \, ds\right| \leq \int_{\gamma} \left|\frac{\varphi(s, z) - \varphi(s, z_0)}{z - z_0} - \varphi'(s, z_0)\right| \, |ds| < \frac{\epsilon}{L} \cdot L = \epsilon,
 		\]
 		for $d(z, z_0) < \delta'_r$. 
 	\end{proof}
