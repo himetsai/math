@@ -1,0 +1,16 @@
+\begin{thebibliography}{1}
+
+\bibitem{arora2009computational}
+Sanjeev Arora and Boaz Barak.
+\newblock {\em Computational complexity: a modern approach}.
+\newblock Cambridge University Press, 2009.
+
+\bibitem{doi:10.1137/1.9781611977554.ch151}
+Soheil Behnezhad, Mohammad Roghani, Aviad Rubinstein, and Amin Saberi.
+\newblock {\em Beating Greedy Matching in Sublinear Time}, pages 3900--3945.
+
+\bibitem{blanc2024samplecomplexitysmoothboosting}
+Guy Blanc, Alexandre Hayderi, Caleb Koch, and Li-Yang Tan.
+\newblock The sample complexity of smooth boosting and the tightness of the hardcore theorem, 2024.
+
+\end{thebibliography}

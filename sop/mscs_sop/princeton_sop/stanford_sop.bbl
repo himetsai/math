@@ -1,0 +1,12 @@
+\begin{thebibliography}{1}
+
+\bibitem{arora2009computational}
+Sanjeev Arora and Boaz Barak.
+\newblock {\em Computational complexity: a modern approach}.
+\newblock Cambridge University Press, 2009.
+
+\bibitem{blanc2024samplecomplexitysmoothboosting}
+Guy Blanc, Alexandre Hayderi, Caleb Koch, and Li-Yang Tan.
+\newblock The sample complexity of smooth boosting and the tightness of the hardcore theorem, 2024.
+
+\end{thebibliography}

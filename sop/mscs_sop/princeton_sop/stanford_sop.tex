@@ -7,6 +7,7 @@
 \usepackage{parskip}
 \usepackage{mathpazo}
 \usepackage{titling}
+\usepackage{cite}  
 
 \setlength{\droptitle}{-0.5in}
 
@@ -36,33 +37,30 @@ mathematics for its own sake. I instead looked for a field in mathematics with i
 to the real world and turned to graph theory, the study of relationships that can model a wide range
 of practical problems effectively.
 
-During my sophomore year, I began research with Professor Verstraete in extremal graph theory,
-exploring a range of open problems and conjectures. My first focus was on a problem involving long
-paths in Eulerian digraphs, specifically seeking a lower bound for the longest directed path based
-on average degree. This problem extends the well-known Erdős-Gallai theorem and holds relevance in
-algorithmic studies. Although I didn't achieve a concrete result after a quarter of trial and error,
-this experience gave me firsthand insight into the perseverance and challenges integral to research.
+During my sophomore year, I began my research journey by undertaking independent study under
+Professor Jacques Verstraete, exploring the extensive literature on extremal graph theory. Through
+the readings, I was exposed to a variety of powerful techniques for tackling extremal graph
+problems, such as probabilistic methods, stability, and finite geometric constructions, which laid
+the groundwork for my future research. Currently, I am working on my honors thesis centering on the
+Double Turán problem, which asks for the maximum possible number of edges across $n$ subgraphs of a
+complete graph $K_n$ such that no pairwise intersection of these subgraphs contain a specified
+forbidden structure. After dedicating my summer to studying the triangle-free case, I established a
+tight upper bound on the number of edges under the stricter condition that each subgraph is induced.
+Specifically, I showed that the extremal condition is uniquely achieved when all subgraphs are
+complete bipartite graphs, by recursively expanding the intersection of all subgraphs. This case
+serves as a stepping stone for the project, and I am currently working on the general triangle-free
+case. 
 
-My spirit, however, was not dampened by the failure, and I continued to explore other open problems
-after gaining more mathematical maturity through my coursework. My honors thesis now centers on the
-Double Turán problem, which asks for the maximum possible number of edges in $n$ subgraphs of a
-complete graph $K_n$, with no pairwise intersection of these subgraphs containing a certain
-forbidden structure. Through this work, I have developed a toolkit that ranges from the
-probabilistic method to construction techniques. After dedicating my last summer to studying the
-triangle-free case, I completed the proof with a tighter condition that each subgraph is induced,
-which serves as a stepping stone for the general case. 
-
-As I advanced in my studies, I grew interest in computational complexity theory, which studies
-combinatorial problems with a computational lens grounded in real-world problems. After a quarter
-spent working through Sanjeev Arora and Boaz Barak's \textit{Computational Complexity: A Modern
-Approach}, I joined Professor Impagliazzo's research group, studying Multicalibration to address
-unintended bias in learning models from the perspective of complexity theory. The project opened my
-eyes to the unexpected connection between theoretical computer science and combinatorics. Apart from
-the already commonly used combinatorial tools like the probabilistics method, the project brought
-the application of combinatorics to a new level by modeling the fairness of algorithms with the
-random-like structures yielded by the Szemeredi's Regularity Lemma. This experience reinforced my
-interest in the interplay between the two discplines and prompted me to pursue further studies in
-theoretical computer science.
+As I advanced in my studies, I also grew interested in computational complexity theory, which
+studies combinatorial problems with a computational lens grounded in real-world problems. After a
+quarter spent working through Sanjeev Arora and Boaz Barak's \textit{Computational Complexity: A
+Modern Approach}\cite{arora2009computational}, I joined Professor Russell Impagliazzo's research
+group, studying Multicalibration to address unintended bias in learning models from the perspective
+of complexity theory. The project opened my eyes to the unexpected connections between theoretical
+computer science and combinatorics, as it brought the application of combinatorics to a new level by
+modeling the fairness of algorithms with the random-like structures yielded by Szemeredi's
+Regularity Lemma. Through the project, I realized the boundless potential of real-world application
+of combinatorial tools and it adds another layer of meaning to my interest in combinatorics.
 
 With my mathematics-heavy background, I aim to build a deeper understanding of computer science
 concepts to support future Ph.D. work. Stanford's Master's program offers an ideal path for this,
@@ -76,11 +74,10 @@ computer science, and taking courses like Matching Theory (MS\&E 319), Combinato
 Moreover, I am excited about the research opportunities at Stanford and aim to pursue distinction in
 research, particularly under the guidance of Professor Li-Yang Tan on topics in Hardness
 Amplification. During my undergraduate research with Professor Impagliazzo, I encountered Professor
-Tan's work,
-\textit{``The Sample Complexity of Smooth Boosting and the Tightness of the Hardcore Theorem,''}
-which reveals that the circuit size loss in Impagliazzo's Hardcore Theorem is inherently necessary,
-regardless of the proof technique. I would like to investigate a parallel result for Yao's XOR lemma
-in collaboration with Professor Tan.
+Tan's work on the tightness of Impagliazzo's hardcore
+theorem\cite{blanc2024samplecomplexitysmoothboosting}, which reveals that the circuit size loss in
+the hardcore theorem is inherently necessary, regardless of the proof technique. I would like to
+investigate a parallel result for Yao's XOR lemma in collaboration with Professor Tan. 
 
 I have only begun to scratch the surface of theoretical computer science, and there are still a lot
 of topics to explore. I am excited about the prospect of joining Stanford's Master's in Computer
@@ -90,4 +87,8 @@ undergraduate studies, I am confident in my ability to excel in the program and 
 capable researcher. I look forward to contributing to the vibrant academic community at Stanford and
 bridging the worlds of mathematics and computer science.
 
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{references}
 \end{document}
