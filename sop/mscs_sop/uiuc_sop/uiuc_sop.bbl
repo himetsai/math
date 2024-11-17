@@ -5,8 +5,8 @@ Sanjeev Arora and Boaz Barak.
 \newblock {\em Computational complexity: a modern approach}.
 \newblock Cambridge University Press, 2009.
 
-\bibitem{blanc2024samplecomplexitysmoothboosting}
-Guy Blanc, Alexandre Hayderi, Caleb Koch, and Li-Yang Tan.
-\newblock The sample complexity of smooth boosting and the tightness of the hardcore theorem, 2024.
+\bibitem{chandrasekaran2019deterministicalgorithmslovaszlocal}
+Karthekeyan Chandrasekaran, Navin Goyal, and Bernhard Haeupler.
+\newblock Deterministic algorithms for the lovasz local lemma, 2019.
 
 \end{thebibliography}
