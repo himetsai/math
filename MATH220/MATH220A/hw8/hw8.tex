@@ -1,0 +1,292 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#8}
+\newcommand{\hmwkDueDate}{Nov 22, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+		\item Prove Abel's Theorem: Let $\sum a_n (z - a)^n$ have radius of convergence 1 and suppose
+		that $\sum a_n$ converges to $A$. Prove that
+		\[
+			\lim_{r \to 1^-} \sum a_n r^n = A.
+		\]
+		(Hint: Find a summation formula which is the analogue of integration by parts.)
+
+		\begin{proof}
+			We may assume that $a = 0$ and $\sum a_n = A = 0$, as we can always adjust the value of $a_0$.
+			Let $S_n = \sum_{k=0}^n a_k$. Then for $r \in (0, 1)$,
+			\begin{align}
+				\sum_{n = 0}^{\infty} a_n r^n
+				&= a_0 + \sum_{n = 1}^{\infty} (S_n - S_{n - 1}) r^n \\
+				&= a_0 + \sum_{n = 1}^{\infty} S_n r^n - \sum_{n = 1}^{\infty} S_{n - 1} r^n \\
+				&= \sum_{n = 0}^{\infty} S_n r^n - r\sum_{n = 0}^{\infty} S_n r^{n} \\
+				&= (1 - r)\sum_{n = 0}^{\infty} S_n r^n.
+			\end{align}
+			Pick $\epsilon > 0$. Since $\sum a_n \to 0$, there exists integer $N$ such that for all $k
+			\geq N$, $|S_k| < \epsilon/2$. Then
+			\[
+				\left|(1 - r)\sum_{n = N}^{\infty} S_n r^n\right| \leq (1 - r)\sum_{n = N}^{\infty} |S_n| r^n \leq \frac{\epsilon}{2} (1 - r)\sum_{n = N}^{\infty} r^n = \frac{\epsilon}{2} (1 - r)\frac{r^N}{1 - r} < \epsilon/2,
+			\]
+			for all $r \in (0, 1)$. Since $\sum_{n = N}^{N} S_n r^n = M$ for some constant $M$, pick $r <
+			(1 - \epsilon/2M, 1)$ and we have
+			\[
+				\left|(1 - r)\sum_{n = 0}^{N - 1} S_n r^n\right| = (1 - r)M < \epsilon/2.
+			\]
+			Therefore, 
+			\[
+				\sum a_nr^n < \epsilon
+			\]	 
+			for $r$ sufficiently close to 1, and the result now follows.
+		\end{proof}
+
+		\item Use Abel's Theorem to prove that $\log 2 = 1 - \frac{1}{2} + \frac{1}{3} - \cdots$.
+		\begin{proof}
+			Consider $\log(1 + z)$. The power series expansion of $\log(1 + z)$ is $\sum a_nz^n = \sum
+			\frac{(-1)^{n + 1}}{n}z^n$, which has radius of convergence 1, as $\lim_{n \to \infty}
+			\left|\frac{a_{n + 1}}{a_n}\right| = 1$. By Abel's Theorem, 
+			\[
+				\log 2 = \lim_{r \to 1^-} \sum \frac{(-1)^{n + 1}}{n}r^n = 1 - \frac{1}{2} + \frac{1}{3} - \cdots.
+			\]
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Give the power series expansion of $\log z$ about $z = i$ and find its radius of convergence.
+
+	\begin{proof}
+		Note that the $n$th derivative of $\log z$ is $(-1)^{n + 1}z^{-n}$. Let $a_n = \frac{(-1)^{n +
+		1}}{n!}i^{-n}$. Then the power series expansion of $\log z$ about $z = i$ is
+		\[
+			\sum a_n(z - i)^n = \sum \frac{(-1)^{n + 1}}{n!}i^{-n}(z - i)^n.
+		\]
+		The radius of convergence is
+		\[
+			R = \lim_{n \to \infty} \left|\frac{a_{n}}{a_{n + 1}}\right| = \lim_{n \to \infty} \left|\frac{n + 1}{i}\right| = \infty.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Evaluate 
+	\[
+		\int_\gamma \frac{z^2 + 1}{z(z^2 + 4)} \, dz
+	\]
+	where $\gamma(t) = re^{it}$, $0 \leq t \leq 2\pi$, for all possible values of $r$, $0 < r < 2$ and
+	$2 < r < \infty$.
+
+	\begin{proof}
+		Define $\phi(s, t) = \frac{i(r^2e^{2is} + t)}{r^2e^{2is} + 4t}$ for $t \in [0, 1]$ and $s \in [0,
+		2\pi]$. Note that $\phi$ is continuously differentiable, and thus $g(t) = \int_{0}^{2\pi}
+		\phi(s, t) \, ds$ is continuously differentiable. Notice
+		\[
+			g(1) = \int_0^{2\pi} \frac{i(r^2e^{2is} + 1)}{r^2e^{2is} + 4} \, ds = \int_0^{2\pi} \frac{r^2e^{2is} + 1}{re^{is}(r^2e^{2is} + 4)}ire^{is} \, ds = \int_\gamma \frac{z^2 + 1}{z(z^2 + 4)} \, dz.
+		\]
+		By Leibniz's Rule, 
+		\[
+			g'(t) = \int_{0}^{2\pi} \frac{\partial}{\partial t}\phi(s, t) \, ds = \int_{0}^{2\pi} \frac{-3ir^2e^{2is}}{(r^2e^{2is} + 4t)^2} \, ds.
+		\]
+		Define $\Phi(s) = \frac{3}{2}(r^2e^{2is} + 4t)^{-1}$. Since $\Phi'(s) =
+		\frac{-3ir^2e^{2is}}{(r^2e^{2is} + 4t)^2}$, we have $g'(t) = \Phi(2\pi) - \Phi(0) = 0$. That is,
+		$g(t)$ is constant for $t \in [0, 1]$. It now follows that
+		\[
+			\int_\gamma \frac{z^2 + 1}{z(z^2 + 4)} \, dz = g(1) = g(0) = \int_{0}^{2\pi} \frac{i(r^2e^{2is})}{r^2e^{2is}} \, ds = 2\pi i.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $f$ be an entire function and suppose there is a constant $M$, an $R > 0$, and an integer $n
+	\geq 1$ such that $|f(z)| \leq M|z|^n$ for $|z| > R$. Show that $f$ is a polynomial of degree
+	$\leq n$.
+
+	\begin{proof}
+		Since $f$ is entire, $f$ jas a power series expansion about $z = 0$ of the form
+		\[
+			f(z) = \sum_{n = 0}^{\infty} \frac{f^{(n)}(0)}{n!}z^n.
+		\]
+		Let $\gamma(t) = re^{it}$, with $r > R$ and $t \in [0, 2\pi]$. By Corollary 2.13,
+		\[
+			f^{(k)}(0) = \frac{k!}{2\pi i} \int_\gamma \frac{f(w)}{w^{k + 1}} \, dw.
+		\]
+		For $r > R$, $|f(z)| \leq M|z|^n$ and thus
+		\begin{align*}
+			|f^{(k)}(0)| 
+			&= \left|\frac{k!}{2\pi i} \int_\gamma \frac{f(w)}{w^{k + 1}} \, dw\right| \\
+			&\leq \frac{k!}{2\pi} \int_\gamma \frac{|f(w)|}{|w|^{k + 1}} \, |dw| \\
+			&\leq \frac{k!M}{2\pi} \int_\gamma |w|^{n - k - 1} \, |dw| \\
+			&= \frac{k!M}{2\pi}r^{n - k - 1} \int_\gamma |dw| = k!Mr^{n - k}.
+		\end{align*}
+		But then $r$ can be arbitrarily large, and thus $f^{(k)}(0) = 0$ for all $k > n$. Therefore,
+		\[
+			f(z) = \sum_{k = 0}^{n} \frac{f^{(k)}(0)}{k!}z^k
+		\]
+		is a polynomial of degree $\leq n$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Find all entire functions $f$ such that $f(x) = e^x$ for $x \in \mathbb{R}$.
+
+	\begin{proof}
+		Let $g(x) = f(x) - e^x$. Then $g(x) = 0$ for $x \in \mathbb{R}$. Since $g$ is entire and $\{z
+		\in \C : g(z) = 0\}$ has a limit point at $0$, $g(z) = 0$ for all $z \in \C$ by Theorem 3.7.
+		Therefore, $f(x) = e^x$ for all $x \in \C$.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
