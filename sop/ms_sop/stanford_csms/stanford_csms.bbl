@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{doi:10.1073/pnas.1421853112}
+Ross Anderson, Itai Ashlagi, David Gamarnik, and Alvin~E. Roth.
+\newblock Finding long chains in kidney exchange using the traveling salesman problem.
+\newblock {\em Proceedings of the National Academy of Sciences}, 112(3):663--668, 2015.
+
 \bibitem{arora2009computational}
 Sanjeev Arora and Boaz Barak.
 \newblock {\em Computational complexity: a modern approach}.
