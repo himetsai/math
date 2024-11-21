@@ -204,14 +204,14 @@
 	Give the power series expansion of $\log z$ about $z = i$ and find its radius of convergence.
 
 	\begin{proof}
-		Note that the $n$th derivative of $\log z$ is $(-1)^{n + 1}z^{-n}$. Let $a_n = \frac{(-1)^{n +
-		1}}{n!}i^{-n}$. Then the power series expansion of $\log z$ about $z = i$ is
+		Note that the $n$th derivative of $\log z$ is $(-1)^{n + 1}(n - 1)!z^{-n}$. Let $a_n =
+		\frac{(-1)^{n + 1}}{n}i^{-n}$. Then the power series expansion of $\log z$ about $z = i$ is
 		\[
-			\sum a_n(z - i)^n = \sum \frac{(-1)^{n + 1}}{n!}i^{-n}(z - i)^n.
+			\sum a_n(z - i)^n = \sum \frac{(-1)^{n + 1}}{n}i^{-n}(z - i)^n.
 		\]
 		The radius of convergence is
 		\[
-			R = \lim_{n \to \infty} \left|\frac{a_{n}}{a_{n + 1}}\right| = \lim_{n \to \infty} \left|\frac{n + 1}{i}\right| = \infty.
+			R = \lim_{n \to \infty} \left|\frac{a_{n}}{a_{n + 1}}\right| = \lim_{n \to \infty} \left|\frac{n + 1}{ni}\right| = 1.
 		\]
 	\end{proof}
 \end{homeworkProblem}
