@@ -1,0 +1,333 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#9}
+\newcommand{\hmwkDueDate}{Dec 2, 2024}
+\newcommand{\hmwkClass}{MATH 220A}
+\newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Let $G$ be a region and suppose that $f: G \to \mathbb{C}$ is analytic and $a \in G$ such that 
+	\[
+		|f(a)| \leq |f(z)|
+	\]
+	for all $z \in G$. Show that either $f(a) = 0$ or $f$ is constant.
+
+	\begin{proof}
+		Suppose $f(a) \neq 0$. Consider $g(z) = \frac{1}{f(z)}$. Since $g$ is analytic on $G$ and $g(a)
+		\geq g(z)$ for all $z \in G$, by the maximum modulus principle, $g$ is constant, which also
+		makes $f$ a constant.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $G$ be a region and let $f$ and $g$ be analytic functions on $G$ such that 
+	\[
+		f(z)g(z) = 0
+	\]
+	for all $z \in G$. Show that either $f \equiv 0$ or $g \equiv 0$.
+
+	\begin{proof}
+		If $f$ is constant, then etiher $f \equiv 0$ or $g \equiv 0$ and we are done. Suppose $f, g$ are
+		not constants. There exists a $a \in G$ such that $f(a) = 0$. By Corollary 3.10, there is an $R
+		> 0$ such that $B(a, R) \subset G$ and $f(z) \neq 0$ for all $z \in B(a, R) \backslash \{a\}$.
+		That is, $g(z) = 0$ for all $z \in B(a, R) \backslash \{a\}$. But then the set $\{z \in G: g(z)
+		= 0\}$ has a limit point at $a$, which implies that $g \equiv 0$ by theorem 3.7, contradiction.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that if $\gamma$ and $\sigma$ are closed rectifiable curves having the same
+	initial points, then
+	\begin{enumerate}[(a)]
+			\item $n(\gamma; a) = -n(-\gamma; a)$ for every $a \notin \{\gamma\}$.
+			\begin{proof}
+				By proposition 1.17,
+				\begin{align*}
+					n(-\gamma; a) = \frac{1}{2\pi i} \int_{-\gamma} \frac{dz}{z - a} = -\frac{1}{2\pi i} \int_{\gamma} \frac{dz}{z - a} = -n(\gamma; a).
+				\end{align*}
+			\end{proof}
+			\item $n(\gamma + \sigma; a) = n(\gamma; a) + n(\sigma; a)$ for every $a \notin \{\gamma\} \cup \{\sigma\}$.
+			\begin{proof}
+				\begin{align*}
+					n(\gamma + \sigma; a)
+					&= \frac{1}{2\pi i} \int_{\gamma + \sigma} \frac{dz}{z - a} \\
+					&= \frac{1}{2\pi i} \int_{0}^1 \frac{((\gamma + \sigma)(t))'}{(\gamma + \sigma)(t) - a} \, dt \\ 
+					&= \frac{1}{2\pi i} \left(\int_{0}^{\frac{1}{2}} \frac{(\gamma(2t))'}{\gamma(2t) - a} \, dt + \int_{\frac{1}{2}}^{1} \frac{(\sigma(2t - 1))'}{\sigma(2t - 1) - a} \, dt\right) 
+				\end{align*}
+				Since $\gamma(2t)$ on $[0, 1/2]$ is equivalent to $\gamma(t)$ on $[0, 1]$, and $\sigma(2t -
+				1)$ on $[1/2, 1]$ is equivalent to $\sigma(t)$ on $[0, 1]$, 
+				\[
+					\int_{0}^{\frac{1}{2}} \frac{(\gamma(2t))'}{\gamma(2t) - a} \, dt = \int_{\gamma} \frac{dz}{z - a}, \quad \int_{\frac{1}{2}}^{1} \frac{(\sigma(2t - 1))'}{\sigma(2t - 1) - a} \, dt = \int_{\sigma} \frac{dz}{z - a}.
+				\]
+			\end{proof}
+			The result now follows.
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $p(z)$ be a polynomial of degree $n$ and let $R > 0$ be sufficiently large so that $p$ never
+	vanishes in $\{z : |z| \geq R\}$. If $\gamma(t) = Re^{it}$, $0 \leq t \leq 2\pi$, show that
+	\[
+		\int_{\gamma} \frac{p'(z)}{p(z)} \, dz = 2\pi i n.
+	\]
+
+	\begin{proof}
+		Define $q(t) = p(\gamma(t))$ for $t \in [0, 1]$. Then,
+		\[
+			\int_{\gamma} \frac{p'(z)}{p(z)} \, dz  = \int_{0}^1 \frac{p'(\gamma(t))\gamma'(t)}{p(\gamma(t))} \, dt = \int_{0}^1 \frac{q'(t)}{q(t)} \, dt.
+		\]
+		Define
+		\[
+			g(s) = \int_{0}^s \frac{q'(t)}{q(t)} \, dt.
+		\]
+		Note that $g(0) = 0$, $g(1) = \int_{\gamma} \frac{p'(z)}{p(z)} \, dz,$ and $g'(s) =
+		\frac{q'(s)}{q(s)}$ for $s \in [0, 1]$. But this gives
+		\begin{align*}
+			\frac{d}{dt} e^{-g(t)}q(t) = e^{-g(t)}q'(t) - e^{-g(t)}g'(t)q(t) = e^{-g(t)}\left(q'(t) - \frac{q'(t)}{q(t)} \cdot q(t)\right) = 0,
+		\end{align*}
+		so $e^{-g(t)}q(t) = e^{-g(1)}q(1) = q(0) = p(R)$ for all $t$. Since $\gamma(0) = \gamma(1)$, we
+		have $q(0) = q(1)$ and thus $e^{-g(1)} = 1$. It now follows that $g(1) = 2\pi i k$ for some $k
+		\in \Z$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose $f: G \to \mathbb{C}$ is analytic and define $\varphi: G \times G \to \mathbb{C}$ by 
+	\[
+	\varphi(z, w) = \frac{f(z) - f(w)}{z - w} \quad \text{if } z \neq w \quad \text{and} \quad \varphi(z, z) = f'(z).
+	\]
+	Prove that $\varphi$ is continuous and for each fixed $w$, $z \mapsto \varphi(z, w)$ is analytic.
+
+	\begin{proof}
+		Fix $z_0, w_0 \in G$. Suppose $z_0 \neq w_0$. Since $f$ is continuous, and $z - w$ is nonzero
+		and continuous, $varphi$ is continuous. Suppose $z_0 = w_0$. Pick $\epsilon > 0$. Since $f$ is
+		analytic, there exists a $\delta_1 > 0$ such that $|w - z_0| < \delta_1$ implies 
+		\[
+			|f'(w) - f'(z_0)| < \epsilon/2.
+		\]
+		Since $f'$ exists, there exists $\delta_2 > 0$ such that for all $z, w \in G$,
+		\begin{gather}
+			\left|\frac{f(z) - f(w)}{z - w} - f'(w)\right| < \epsilon/2
+		\end{gather}
+		whenever $|z - w| < \delta_2$. Put $\delta \in (0, \min(\delta_1, \delta_2/2))$. Note that for
+		all $z, w \in B_{\delta}(z_0)$, $|z - w| < 2\delta \leq \delta_2$. Hence,
+		\[
+			\left|\frac{f(z) - f(w)}{z - w} - f'(z)\right| \leq \left|\frac{f(z) - f(w)}{z - w} - f'(w)\right| + |f'(w) - f'(z_0)| < \epsilon
+		\]
+		for all $z, w \in B_{\delta}(z_0)$, $z \neq w$. Thus, $\varphi$ is continuous at $(z_0, z_0)$.
+
+		We now show that for each fixed $w$, $z \mapsto \varphi(z, w)$ is analytic. If $z \neq w$,
+		$\varphi'(z, w) = \frac{f'(z)}{z - w}$ is continuous. Suppose $z = w$. We need to show that
+		\[
+			\lim_{x \to z} \frac{\varphi(x, w) - \varphi(z, w)}{x - z} = \lim_{x \to z} \frac{\frac{f(x) - f(z)}{x - z} - f'(z)}{x - z}
+		\]
+		exists and is continuous. Consider the power series expansion of $f$ at $z$.
+		\[
+			f(x) = f(z) + f'(z)(x - z) + \frac{f''(z)}{2!}(x - z)^2 + \cdots
+		\]
+		But then
+		\begin{align}
+			\lim_{x \to z} \frac{\frac{f(x) - f(z)}{x - z} - f'(z)}{x - z} 
+			&= \lim_{x \to z} \frac{[f'(z) + \frac{f''(z)}{2!}(x - z) + \cdots] - f'(z)}{x - z} \\
+			&= \lim_{x \to z} \frac{f''(z)}{2!} + \frac{f^{(3)}(z)}{3!}(x - z) + \cdots = \frac{f''(z)}{2!}.
+		\end{align}
+		The result now follows from the analyticity of $f$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Give the details of the proof of Theorem 5.6: Let $G$ be an open subset of the plane and $f: G \to
+	\mathbb{C}$ an analytic function. If $\gamma_1, \dots, \gamma_m$ are closed rectifiable curves in
+	$G$ such that 
+	\[
+	n(\gamma_1; w) + \cdots + n(\gamma_m; w) = 0 \quad \text{for all } w \in \mathbb{C} - G,
+	\]
+	then for $a \in G - \{\gamma\}$
+	\[
+	f(a) \sum_{k=1}^m n(\gamma_k; a) = \sum_{k=1}^m \frac{1}{2\pi i} \int_{\gamma_k} \frac{f(z)}{z - a} \, dz.
+	\]
+	\begin{proof}
+		We continue from the textbook. By assumption $H \cup G = \C$. Since $n(\gamma_1; w) + \cdots +
+		n(\gamma_m; w)$ is integer valued and continuous, $H$ is open. Define
+		\[
+			g(z) = \sum_{k=1}^m \int_{\gamma_i} \varphi(z, w) \, dw,
+		\]
+		if $z \in G$ and 
+		\[
+			g(z) = \sum_{k=1}^m \int_{\gamma_i} \frac{f(w)}{w - z} \, dw,
+		\]
+		if $z \in H$. By the proof of Theorem 5.4, $\int_{\gamma_i} \frac{dw}{w - z}$ is well defined
+		for all $i$ and $z \in G \cap H$, and so $g$ is well defined for $z \in G \cap H$. Following the
+		same argument as in the proof of Theorem 5.4, $g$ is entire as it is a finite sum of entire
+		functions. By Theorem 4.4, $H$ contains a neighborhood of $\infty$ in $\C_{\infty}$. Since $f$
+		is bounded on $\{\gamma\}$ and $\lim_{z \to \infty} (w - z)^{-1} = 0$ uniformly for $w \in
+		\{\gamma\}$, 
+		\[
+			\lim_{z \to \infty} g(z) = \sum_{k=1}^m \int_{\gamma_i} \lim_{z \to \infty}\frac{f(w)}{w - z} \, dw = 0.
+		\]
+		Hence there exists $R > 0$ such that $|g(z) \leq 1|$ for all $|z| \geq R$. Since $g$ is bounded
+		on $\overline{B}_R(0)$ it follows that $g$ is a bounded entire function and hence constant by
+		Liouville's Theorem. But then $\lim_{z \to \infty} g(z) = 0$ so $g \equiv 0$. Hence, for $a \in
+		G \backslash \{\gamma\}$, 
+		\[
+			0 = \sum_{k=1}^m \int_{\gamma_i} \frac{f(w) - f(a)}{w - a} \, dw = \sum_{k=1}^m \int_{\gamma_i} \frac{f(w)}{w - a} \, dw - f(a)\sum_{k=1}^m \int_{\gamma_i} \frac{dw}{w - a},
+		\]
+		and the result now follows from the definition of $n(\gamma_i; a)$.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
