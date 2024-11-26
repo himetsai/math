@@ -1,0 +1,283 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{Nov 26, 2024}
+\newcommand{\hmwkClass}{MATH 173A}
+\newcommand{\hmwkClassInstructor}{Professor Cloninger}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Perform the conjugate gradient method by hand on the problem
+	\begin{align*}
+	\Phi(x) = \frac{1}{2} x^T \begin{bmatrix} 2 & 0 \\0 & 1\end{bmatrix}x \quad - \quad
+	\sum_{i=1}^2 x_i,
+	\end{align*}
+	where $x\in\mathbb{R}^2$. Perform the algorithm either using version 0 or 1, where the conjugate
+	directions are initialized and chosen algorithmically.
+
+	\begin{proof}
+		Let $A = \begin{bmatrix} 2 & 0 \\0 & 1\end{bmatrix}, b = \begin{bmatrix}
+			1 \\ 1
+		\end{bmatrix}$ and we have
+		\[
+			\Phi(x) = \frac{1}{2} x^TAx - b^Tx,
+		\]
+		\textbf{Initialization}:
+		\[
+			x^{(0)} = \begin{bmatrix}
+				0 \\ 0
+			\end{bmatrix}, \quad r_0 = Ax^{(0)} - b = \begin{bmatrix}
+				-1 \\ -1
+			\end{bmatrix}, \quad p_0 = -r_0 = \begin{bmatrix}
+				1 \\ 1
+			\end{bmatrix}.
+		\]
+		\textbf{Iteration 1}:
+		\begin{gather*}
+			\alpha_0 = \frac{r_0^Tr_0}{p_0^TAp_0} = \frac{2}{3}, \\
+			x^{(1)} = x^{(0)} + \alpha_0p_0 = \begin{bmatrix}
+				\frac{2}{3} \\ \frac{2}{3}
+			\end{bmatrix}, \\
+			r_1 = r_0 + \alpha_0Ap_0 = \begin{bmatrix}
+				-1 \\ -1
+			\end{bmatrix} +\frac{2}{3} \begin{bmatrix}
+				2 \\ 1
+			\end{bmatrix} = \begin{bmatrix}
+				\frac{1}{3} \\ -\frac{1}{3}
+			\end{bmatrix}, \\
+			\beta_{1} = \frac{r_1^Tr_1}{r_0^Tr_0} = \frac{1}{9}, \\
+			p_1 = -r_1 + \beta_1p_0 = \begin{bmatrix}
+				-\frac{2}{9} \\ \frac{4}{9}.
+			\end{bmatrix}
+		\end{gather*}
+		\textbf{Iteration 2}:
+		\begin{gather*}
+			\alpha_1 = \frac{r_1^Tr_1}{p_1^TAp_1} = \frac{3}{4}, \\
+			x^{(2)} = x^{(1)} + \alpha_1p_1 = \begin{bmatrix}
+				\frac{1}{2} \\ 1
+			\end{bmatrix}, \\
+			r_2 = r_1 + \alpha_1Ap_1 = \begin{bmatrix}
+				\frac{1}{3} \\ -\frac{1}{3}
+			\end{bmatrix} + \frac{3}{4} \begin{bmatrix}
+				-\frac{4}{9} \\ \frac{4}{9}
+			\end{bmatrix} = \begin{bmatrix}
+				0 \\ 0
+			\end{bmatrix}, \\
+			\beta_{2} = 0, \\
+			p_1 = 0
+		\end{gather*}
+		Thus, the conjugate gradient method converges to the solution $x^* = \begin{bmatrix}
+			\frac{1}{2} \\ 1
+		\end{bmatrix}$ in 2 iterations.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Here, we will prove the inequality used in class to prove fast convergence for strongly convex
+	functions. Let $F(x)$ be a strongly convex function with constant $c$. Our goal is to show
+	\begin{align}\label{eq:stcon}
+	F(x) - F(x^*) \le \frac{1}{2c} \|\nabla F(x)\|^2 \qquad \textnormal{for all } x\in\mathbb{R}^d.
+	\end{align}
+	\begin{enumerate}[(a)]
+	\item Fix $x\in\mathbb{R}^d$ and define the quadratic function
+	\begin{align*}
+	q(y) = F(x) + \nabla F(x)^T(y-x) + \frac{c}{2} \|x-y\|^2.
+	\end{align*}
+	Find the $y^*$ that minimizes $q(y)$.
+	\begin{proof}
+		\begin{align*}
+			\nabla q(y) = \nabla F(x) - c(x - y) = 0 \implies y^* = x - \frac{1}{c}\nabla F(x).
+		\end{align*}
+	\end{proof}
+	\item Show that $q(y^*) = F(x) - \frac{1}{2c}\|\nabla F(x)\|^2$
+	\begin{proof}
+		\begin{align*}
+			q(y^*) = F(x) - \frac{1}{c}\|\nabla F(x)\|^2 + \frac{c}{2}\left\|\frac{1}{c}\nabla F(x)\right\|^2 = F(x) - \frac{1}{2c}\|\nabla F(x)\|^2.
+		\end{align*}
+	\end{proof}
+	\item Use the above to deduce \eqref{eq:stcon}.
+	\begin{proof}
+		Since $F(x)$ is strongly convex, $F(y) \geq q(y)$ for all $y \in \R^d$, and thus
+		\[
+			F(x^*) \geq q(x^*) \geq q(y^*) \geq F(x) - \frac{1}{2c}\|\nabla F(x)\|^2 \implies F(x) - F(x^*) \leq \frac{1}{2c}\|\nabla F(x)\|^2.
+		\]
+	\end{proof}
+	\item Explain the proof technique in your own words to demonstrate understanding of what we did.
+	\begin{proof}
+		The strong convexity property of $F$ yields $F \geq q$. Hence by minimizing $q$ we can obtain a
+		lower bound on $F$, and rearranging the equation yields the result.
+	\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Indicate whether the following functions are strongly convex. Justify your answer.
+	\begin{enumerate}[(a)]
+	\item $f(x) = x$
+	\begin{proof}
+		Since $\nabla^2 f(x) = 0$, $f$ is not strongly convex, as the Hessian is not positive definite.
+	\end{proof}
+	\item $f(x) = x^2$
+	\begin{proof}
+		Since $\nabla^2 f(x) = 2$, $f$ is strongly convex with constant $c = 2$.
+	\end{proof}
+	\item $f(x) = \log(1+e^x)$
+	\begin{proof}
+		\begin{align*}
+			f'(x) &= \frac{e^x}{1+e^x} = \frac{1}{1+e^{-x}}, \\
+			f''(x) &= \frac{e^x}{(1+e^x)^2}.
+		\end{align*}
+		But then $\inf f''(x) = 0$, so $f$ is not strongly convex.
+	\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}
