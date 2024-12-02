@@ -1,0 +1,276 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Dec 3, 2024}
+\newcommand{\hmwkClass}{MATH 173A}
+\newcommand{\hmwkClassInstructor}{Professor Cloninger}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Suppose a function $f : \mathbb{R}^d \to \mathbb{R}$ is $L$-smooth with $L = 4$ and satisfies the
+	PL-property with parameter $\mu = 2$, i.e., 
+	\[
+	\frac{1}{2} \|\nabla f(x)\|^2 \geq \mu (f - f^*).
+	\]
+	Consider the gradient descent method for minimizing $f$. Let $x^*$ be the global minimum and
+	suppose $x^{(0)}$ is the initialization such that 
+	\[
+	\|x^* - x^{(0)}\| \leq 5.
+	\]
+	Determine the step size $\eta$ and the number of steps needed to satisfy 
+	\[
+	|f(x^{(t)}) - f(x^*)| \leq 10^{-4}.
+	\]
+
+	\begin{proof}
+		The step size is $\eta = \frac{1}{L} = \frac{1}{4}$. The convergence rate is
+		\begin{align*}
+			f(x^{(t)}) - f(x^*) 
+			&\leq \left(1 - \frac{\mu}{L}\right)^t [f(x^{(0)}) - f(x^*)] \\
+			&= (0.5)^t [f(x^{(0)}) - f(x^*)].
+		\end{align*}
+		Since $f$ is $L$-smooth and $\|x^* - x^{(0)}\| \leq 5$,
+		\[
+			\|\nabla f(x^{(0)})\| = \|\nabla f(x^{(0)}) - f(x^{*})\| \leq L\|x^* - x^{(0)}\| \leq 4 \cdot 5 = 20.
+		\]
+		By the PL-condition,
+		\[
+			f(x^{(0)}) - f(x^{*}) \leq \frac{1}{2\mu}\|\nabla f(x^{(0)})\|^2 \leq \frac{1}{4} \times 400 = 100.
+		\]
+		Hence,
+		\[
+			f(x^{(t)}) - f(x^*) \leq (0.5)^t \times 100 \leq 10^{-4} \implies t \geq 6\log_2 10 \approx 20.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Consider the following set in $\mathbb{R}^n$ for an integer $s > 0$:
+
+	\[
+	B = \{x \in \mathbb{R}^n \mid x_i \geq 0, \text{ for } i = 1, \ldots, n \text{ and } x \text{ has at most } s \text{ nonzeros.}\}.
+	\]
+
+	\begin{enumerate}[(a)]
+		\item Find an expression for the orthogonal projection of a point $x \in \mathbb{R}^n$ onto $B$
+		(No need for justification).
+
+		\begin{proof}
+			Let $x^+_i = \max(x_i, 0)$, and let $I_s(x)$ be the index set of the $s$ largest components of
+			$x$. Note that $|I_s(x)| = s$. Define projection $\Pi_B(x)$ by sending
+			\[
+				x_i \mapsto \begin{cases}
+					x_i & \text{if } i \in I_s(x^+) \\
+					0 & \text{otherwise}.
+				\end{cases}
+			\]
+		\end{proof}
+
+		\item For the function 
+		\[
+		f(x) = \frac{1}{2}\|Ax - b\|^2,
+		\]
+		write a projected gradient descent algorithm to solve 
+		\[
+		\min_{x \in \Omega} f(x)
+		\]
+		for $\Omega = B$, with $B$ from part (a). You need to specify the gradient formula and the
+		projection formula. You do not need to specify the step size for this problem.
+
+		\begin{proof}
+			Let $x^{(0)} \in B$, and let $\mu$ be the step size. For $t = 1, \ldots$, 
+
+			\begin{enumerate}[1.]
+				\item Set $y^{(t + 1)} = x^{(t)} - \mu \nabla f(x^{(t)}) = x^{(t)} - \mu A^T(Ax^{(t)} - b) = (I - \mu A^TA)x^{(t)} + \mu A^Tb.$
+				\item Set $y^{(t + 1)}_i = \max(0, y^{(t + 1)}_i)$ for all $i$.
+				\item Calculate $I_s(y^{(t + 1)})$.
+				\item Set $x_i^{(t + 1)} = \begin{cases}
+					y^{(t + 1)}_i & \text{if } i \in I_s(y^{(t + 1)}) \\
+					0 & \text{otherwise}
+				\end{cases}.$
+			\end{enumerate}
+			
+		\end{proof}
+
+		\item Consider the function in (b) and suppose 
+		\[
+		A = \begin{bmatrix} 2 & 0 \\ 0 & 1 \end{bmatrix}, \quad b = \begin{bmatrix} 2 \\ 1 \end{bmatrix}, \quad s = 1
+		\]
+		for the set $B$ in (a). Does the projected gradient method converge to the global minimizer for
+		any initialization $x^{(0)}$ if the step size $\mu \leq \frac{1}{8}$? Justify your answer.
+
+		\begin{proof}
+			No. Consider initializations $x^{(0)} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $x^{(0)} =
+			\begin{bmatrix} 0 \\ 1 \end{bmatrix}$. 
+
+			\textbf{Case 1: $x^{(0)} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$.}
+
+			Following the steps in (b),
+			\[
+				y^{(1)} = \begin{bmatrix} 1 \\ \mu \end{bmatrix}.
+			\]
+			Since $\mu \leq 1$, $x^{(1)} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$, and thus the algorithm
+			converges to $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$.
+
+			\textbf{Case 2: $x^{(0)} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$.}
+
+			Following the steps in (b),
+			\[
+				y^{(1)} = \begin{bmatrix} 4\mu \\ 1 \end{bmatrix}.
+			\]
+			Since $4\mu \leq 0.5 \leq 1$, $x^{(1)} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$, and thus the algorithm
+			converges to $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.
+		\end{proof}
+
+		But then $f(1, 0) = 0.5$ and $f(0, 1) = 2$, so the algorithm does converge to the global
+		minimum for all initializations.
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}

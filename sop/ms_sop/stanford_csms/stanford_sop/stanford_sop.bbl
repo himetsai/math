@@ -14,6 +14,10 @@ Sanjeev Arora and Boaz Barak.
 Soheil Behnezhad, Mohammad Roghani, Aviad Rubinstein, and Amin Saberi.
 \newblock {\em Beating Greedy Matching in Sublinear Time}, pages 3900--3945.
 
+\bibitem{blackwell2023characterizationoptimalratelinearhomomorphic}
+Keller Blackwell and Mary Wootters.
+\newblock A characterization of optimal-rate linear homomorphic secret sharing schemes, and applications, 2023.
+
 \bibitem{blanc2024samplecomplexitysmoothboosting}
 Guy Blanc, Alexandre Hayderi, Caleb Koch, and Li-Yang Tan.
 \newblock The sample complexity of smooth boosting and the tightness of the hardcore theorem, 2024.
