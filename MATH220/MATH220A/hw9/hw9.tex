@@ -270,7 +270,7 @@
 		for all $z, w \in B_{\delta}(z_0)$, $z \neq w$. Thus, $\varphi$ is continuous at $(z_0, z_0)$.
 
 		We now show that for each fixed $w$, $z \mapsto \varphi(z, w)$ is analytic. If $z \neq w$,
-		$\varphi'(z, w) = \frac{f'(z)}{z - w}$ is continuous. Suppose $z = w$. We need to show that
+		$\varphi'(z, w) = \frac{f'(z)(z - w) - f(z) + f(w)}{(z - w)^2}$ is continuous. Suppose $z = w$. We need to show that
 		\[
 			\lim_{x \to z} \frac{\varphi(x, w) - \varphi(z, w)}{x - z} = \lim_{x \to z} \frac{\frac{f(x) - f(z)}{x - z} - f'(z)}{x - z}
 		\]
