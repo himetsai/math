@@ -5,13 +5,9 @@ Sanjeev Arora and Boaz Barak.
 \newblock {\em Computational complexity: a modern approach}.
 \newblock Cambridge University Press, 2009.
 
-\bibitem{bukh2021axisparallelboxes}
-Boris Bukh and Ting-Wei Chao.
-\newblock Empty axis-parallel boxes, 2021.
-
-\bibitem{bukh2022digitalnets}
-Boris Bukh and Ting-Wei Chao.
-\newblock Digital almost nets, 2022.
+\bibitem{bukh2017rationalexponentsextremalgraph}
+Boris Bukh and David Conlon.
+\newblock Rational exponents in extremal graph theory, 2017.
 
 \bibitem{dickerson2014price}
 John~P Dickerson, Ariel~D Procaccia, and Tuomas Sandholm.

@@ -1,0 +1,325 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{Jan 15, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Find all topologies on the set 
+  \[
+    X = \{a, b, c\}.
+  \]
+
+  \begin{proof}
+    The possible topologies on $X = \{a, b, c\}$ are:
+    \begin{enumerate}
+      \item $\{\emptyset, X\}$.
+      \item $\{\emptyset, X, \{a\}\}$.
+      \item $\{\emptyset, X, \{b\}\}$.
+      \item $\{\emptyset, X, \{c\}\}$.
+      \item $\{\emptyset, X, \{a, b\}\}$.
+      \item $\{\emptyset, X, \{a, c\}\}$.
+      \item $\{\emptyset, X, \{b, c\}\}$.
+      \item $\{\emptyset, X, \{a, b\}, \{a\}\}$.
+      \item $\{\emptyset, X, \{a, b\}, \{b\}\}$.
+      \item $\{\emptyset, X, \{a, b\}, \{a\}, \{b\}\}$.
+      \item $\{\emptyset, X, \{a, c\}, \{a\}\}$.
+      \item $\{\emptyset, X, \{a, c\}, \{c\}\}$.
+      \item $\{\emptyset, X, \{a, c\}, \{a\}, \{c\}\}$.
+      \item $\{\emptyset, X, \{b, c\}, \{b\}\}$.
+      \item $\{\emptyset, X, \{b, c\}, \{c\}\}$.
+      \item $\{\emptyset, X, \{b, c\}, \{b\}, \{c\}\}$.
+      \item $\{\emptyset, X, \{a, b\}, \{a, c\}, \{a\}\}$.
+      \item $\{\emptyset, X, \{a, b\}, \{b, c\}, \{b\}\}$.
+      \item $\{\emptyset, X, \{a, c\}, \{b, c\}, \{c\}\}$.
+      \item $\{\emptyset, X, \{a, b\}, \{a, c\}, \{b, c\}, \{a\}, \{b\}, \{c\}\}$.
+    \end{enumerate}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find a topology $\mathcal{T}$ on the set 
+  \[
+    X = \{a, b, c, d\}
+  \]
+  such that a subset is open if and only if it is closed and yet $(X, \mathcal{T})$ is neither the
+  trivial nor the discrete topology.
+
+  \begin{proof}
+    Consider $\T = \{\emptyset, \{a, b\}, \{c, d\}, X\}$. Note that for $S \subseteq X$, $S \in \T$
+    if and only if $\T \backslash S \in \T$. Hence, a subset of $\T$ is open if and only if it is
+    closed.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $X$ be a set and define the function 
+  \[
+    d: X \times X \to \mathbb{R}
+  \]
+  by the rule
+  \[
+    d(x, y) = \begin{cases} 
+      0 & \text{if } x = y, \\
+      1 & \text{otherwise}.
+    \end{cases}
+  \]
+  \begin{enumerate}[(i)]
+    \item Show that $(X, d)$ is a metric space.
+    \begin{proof}
+      Let $x, y, z \in X$. Obviously, $d(x, x) = 0$, $d(x, y) > 0$ if $x \neq y$, and $d(x, y) =
+      d(y, x)$. If $x = z$, then $d(x, z) \leq d(x, y) + d(y, z)$ is satisfied. If $x \neq z$, then
+      either $x \neq y$ or $y \neq z$, so $d(x, z) \leq d(x, y) + d(y, z)$ is satisfied. Hence, $(X,
+      d)$ is a metric space.
+    \end{proof}
+    \item What is the associated topology?
+    \begin{proof}
+      The associated topology is the set of all possible unions of open balls in $X$. Let $S
+      \subseteq X$. Since each singleton set is an open ball in $X$ and $S = \bigcup_{x \in S}
+      \{x\}$, $S$ is an open set in the associated topology. Therefore, the associated topology is
+      the discrete topology.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  True or false? If true, then give a proof and if false, then give a counterexample.
+    \begin{enumerate}[(i)]
+      \item Let $\mathcal{T}_1$ and $\mathcal{T}_2$ be two topologies on the same set $X$. Then we
+      can always compare $\mathcal{T}_1$ and $\mathcal{T}_2$ (that is, either $\mathcal{T}_1$ is
+      coarser than $\mathcal{T}_2$ or $\mathcal{T}_1$ is finer than $\mathcal{T}_2$).
+
+      \begin{proof}
+        False. Consider the set $X = \{a, b, c\}$ and topologies $T_1 = \{\emptyset, X, \{a\}\}$ and
+        $T_2 = \{\emptyset, X, \{b\}\}$. Since $\{a\} \notin T_2$ and $\{b\} \notin T_1$, we cannot
+        comapre $T_1$ and $T_2$.
+      \end{proof}
+      
+      \item The topology $(X, \mathcal{T})$ associated to a metric space $(X, d)$ is never the
+      trivial topology.
+
+      \begin{proof}
+        False. Consider $X = \{a\}$. Then the topology associated to the metric space $(X, d)$ is
+        the trivial topology.
+      \end{proof}
+      
+      \item If $(X, d_1)$ and $(X, d_2)$ are two metric spaces that give the same topology on $X$,
+      then $d_1 = d_2$.
+
+      \begin{proof}
+        False. Consider $X = \{a, b\}$, $d_1(a, b) = 1$ and $d_2(a, b) = 2$. Then the topologies of
+        both metric spaces are $\{\emptyset, X, \{a\}, \{b\}\}$.
+      \end{proof}
+      
+      \item The set $[a, b) \subset \mathbb{R}$ is open, in the Euclidean topology, where $a < b$.
+      \begin{proof}
+        False, as for all $\epsilon > 0$, $(a - \epsilon, a + \epsilon) \notin [a, b)$. 
+      \end{proof}
+      
+      \item The set $(a, \infty) \subset \mathbb{R}$ is open, in the Euclidean topology.
+      \begin{proof}
+        True, as for all $x \in (a, \infty)$, there exists $\epsilon = x - a > 0$ such that $(x -
+        \epsilon, x + \epsilon) \subseteq (a, \infty)$.
+      \end{proof}
+      
+      \item Let $X$ be any set. Then the set of all infinite subsets of $X$, union the empty set, is
+      a topology on $X$.
+
+      \begin{proof}
+        False. Consider $X = \Z$. $\{0\} = \Z_{\leq 0} \cap \Z_{\geq 0}$ is not in the topology.
+      \end{proof}
+      
+      \item The Euclidean topology on $\mathbb{R}$ and the topology on $\mathbb{R}$ given by the
+      metric $d(x, y) = |x - y|$ are the same.
+
+      \begin{proof}
+        True. Since the Euclidean topology is the set of all unions of open intervals and the metric
+        topology is the set of all unions of open balls, the two topologies are the same.
+      \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $X = \mathbb{R}$ and let 
+    \[
+    \mathcal{T} = \{(a, \infty) \mid a \in \mathbb{R} \cup \{-\infty, \infty\}\}.
+    \]
+    \begin{enumerate}[(i)]
+      \item Show that $\mathcal{T}$ is a topology on $\mathbb{R}$.
+      \begin{proof}
+        First note that $(\infty, \infty) = \emptyset \in \T$, $(-\infty, \infty) = X \in \T$. Let
+        $S = \{(a_i, \infty)\}_{i \in I}$ be a collection of open sets in $\T$. Let $a = \inf_{i \in
+        I} a_i$. Then $\bigcup_{U \in S} U = \bigcup_{i \in I} (a_i, \infty) = (a, \infty) \in \T$.
+        Now suppose $S = \{(a_i, \infty)\}_{i = 1}^n$. Then $\bigcap_{i = 1}^n (a_i, \infty) =
+        (\max_{1 \leq i \leq n} a_i, \infty) \in \T$. Hence, $\T$ is a topology on $\R$.
+      \end{proof}
+      \item Is this topology coarser or finer than the Euclidean topology?
+      \begin{proof}
+        Since for all $(a, \infty) \in \T$, $(a, \infty)$ is open in the Euclidean topology but
+        $(-1, 1) \notin \T$, $\T$ is coarser than the Euclidean topology.
+      \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+\end{document}
