@@ -155,16 +155,11 @@
   \begin{enumerate}[(a)]
       \item Prove that $\sum \frac{a_n}{(1 + a_n)}$ diverges.
       \begin{proof}
-        Note that if $a_n > 1$, then $\frac{a_n}{a_n + 1} = 1 - \frac{1}{a_n + 1} > \frac{1}{2}$. On
-        the other hand, if $a_n \leq 1$, we have $\frac{a_n}{a_n + 1} \geq \frac{a_n}{2}$. If there
-        are infinitely many $n$ such that $a_n > 1$, then the series obviously diverges, as it would
-        be greater than the sum of infinitely many $\frac{1}{2}$. Hence, we may assume there exists
-        $N \geq 0$ such that $a_n \leq 1$ for all $n \geq N$. But then
+        Note that if $a_n > 1$, then $\frac{a_n}{a_n + 1} = 1 - \frac{1}{a_n + 1} > \frac{1}{2}$. On the other hand, if $a_n \leq 1$, we have $\frac{a_n}{a_n + 1} \geq \frac{a_n}{2}$. If there are infinitely many $n$ such that $a_n > 1$, then the series obviously diverges, as it would be greater than the sum of infinitely many $\frac{1}{2}$. Hence, we may assume there exists $N \geq 0$ such that $a_n \leq 1$ for all $n \geq N$. But then
         \[
           \sum \frac{a_n}{(1 + a_n)} \geq \sum_{n = 1}^{N - 1} \frac{a_n}{(1 + a_n)} + \frac{1}{2}\sum_{n = N}^{\infty} a_n.
         \]
-        Since $\sum a_n$ diverges, $\frac{1}{2}\sum_{n = N}^{\infty} a_n$ diverges, by comparison
-        test. The result now follows.
+        Since $\sum a_n$ diverges, $\frac{1}{2}\sum_{n = N}^{\infty} a_n$ diverges, by comparison test. The result now follows.
       \end{proof}
       \item Prove that 
       \[
@@ -176,10 +171,7 @@
         \[
           \frac{a_{N+1}}{s_{N+1}} + \cdots + \frac{a_{N+k}}{s_{N+k}} \geq \frac{a_{N + 1} + \dots + a_{N + k}}{s_{N + k}} =  1 - \frac{s_N}{s_{N+k}}.
         \]
-        Fix $\epsilon \in (0, 1)$. Since $S_n$ is increasing and unbounded, $\frac{s_N}{s_{N+k}} \to
-        0$. Hence, we may find large enough $k$ such that $\frac{s_N}{s_{N+k}} < 1 - \epsilon$. But
-        then $\sum_{n = N + 1}^{N + k} \frac{a_n}{s_n} \geq \epsilon$, which fails to meet the
-        Cauchy criterion.
+        Fix $\epsilon \in (0, 1)$. Since $S_n$ is increasing and unbounded, $\frac{s_N}{s_{N+k}} \to 0$. Hence, we may find large enough $k$ such that $\frac{s_N}{s_{N+k}} < 1 - \epsilon$. But then $\sum_{n = N + 1}^{N + k} \frac{a_n}{s_n} \geq \epsilon$, which fails to meet the Cauchy criterion.
       \end{proof}
       \item Prove that 
       \[
@@ -191,9 +183,7 @@
         \[
           \frac{a_n}{s_n^2} \leq \frac{a_n}{s_{n - 1}s_n} = \frac{1}{s_{n-1}} - \frac{1}{s_n},
         \]
-        the consecutive terms cancel out, and we get $\sum_{n = 1}^N \frac{a_n}{s_n^2} \leq \sum_{n
-        = 2}^N \frac{1}{s_{n-1}} - \frac{1}{s_n} = \frac{1}{a_1} - \frac{1}{s_N}$. But then $s_n$ is
-        increasing and unbounded, and thus
+        the consecutive terms cancel out, and we get $\sum_{n = 1}^N \frac{a_n}{s_n^2} \leq \sum_{n = 2}^N \frac{1}{s_{n-1}} - \frac{1}{s_n} = \frac{1}{a_1} - \frac{1}{s_N}$. But then $s_n$ is increasing and unbounded, and thus
         \[
           \frac{1}{a_1} \leq \lim_{N \to \infty} \sum \frac{a_n}{s_n^2} \leq \lim_{N \to \infty} \frac{1}{a_1} - \frac{1}{s_N} = \frac{1}{a_1}.
         \]
@@ -216,13 +206,11 @@
     \]
     if $m < n$, and deduce that $\sum \frac{a_n}{r_n}$ diverges.
     \begin{proof}
-      Let $A = \sum_{n = 1}^{\infty} a_n$. We know $r_n = A - s_n$, where $s_n$ is the sum of the
-      first $n - 1$ terms of $a_n$. Note that $r_n < r_m$, as $s_{n} > s_m$. Hence,
+      Let $A = \sum_{n = 1}^{\infty} a_n$. We know $r_n = A - s_n$, where $s_n$ is the sum of the first $n - 1$ terms of $a_n$. Note that $r_n < r_m$, as $s_{n} > s_m$. Hence,
       \[
         \frac{a_m}{r_m} + \dots + \frac{a_n}{r_n} > \frac{a_m + \dots + a_{n - 1}}{r_m} = \frac{r_m - r_n}{r_m} = 1 - \frac{r_n}{r_m}.
       \]
-      Let $\epsilon \in (0, 1)$. Since $r_n \to 0$, for any integer $N$, we may find large enough $n
-      \geq N$, such that
+      Let $\epsilon \in (0, 1)$. Since $r_n \to 0$, for any integer $N$, we may find large enough $n \geq N$, such that
       \[
         \sum_{m = N}^{n} > 1 - \frac{r_n}{r_N} > \epsilon.
       \]
@@ -240,8 +228,7 @@
       \[
         0 < \frac{a_n}{\sqrt{r_n}} = \frac{2(r_n - r_{n + 1})}{2\sqrt{r_n}} < \frac{2(r_n - r_{n + 1})}{\sqrt{r_n} + \sqrt{r_{n + 1}}} = 2\left( \sqrt{r_n} - \sqrt{r_{n+1}} \right).
       \]
-      Note that $\sum_{n = 1}^N 2(\sqrt{r_n} - \sqrt{r_{n+1}}) = 2(\sqrt{r_1} - \sqrt{r_{N + 1}})$.
-      But then $r_n \to 0$, so
+      Note that $\sum_{n = 1}^N 2(\sqrt{r_n} - \sqrt{r_{n+1}}) = 2(\sqrt{r_1} - \sqrt{r_{N + 1}})$. But then $r_n \to 0$, so
       \[
         0 \leq \sum_{n = 1}^{\infty} \frac{a_n}{\sqrt{r_n}} \leq \sum_{n = 1}^{\infty} 2\left( \sqrt{r_n} - \sqrt{r_{n+1}} \right) = 2\sqrt{r_1}.
       \]
@@ -256,10 +243,7 @@
   Prove that the Cauchy product of two absolutely convergent series converges absolutely.
 
   \begin{proof}
-    Let $\sum a_n$ and $\sum b_n$ be two absolutely convergent series. Let $A_N = \sum^N_{n = 1}
-    |a_n|$ and $B_N = \sum^N_{n = 1} |b_n|$, and $C_N = \sum_{n = 1}^{N} |c_n| = \sum_{n = 1}^{N}
-    \left|\sum_{k = 1}^{n} a_kb_{n - k}\right|$. Since $|c_n|$ is nonnegative, it suffices to show
-    that that $C_n$ is bounded. Hence,
+    Let $\sum a_n$ and $\sum b_n$ be two absolutely convergent series. Let $A_N = \sum^N_{n = 1} |a_n|$ and $B_N = \sum^N_{n = 1} |b_n|$, and $C_N = \sum_{n = 1}^{N} |c_n| = \sum_{n = 1}^{N} \left|\sum_{k = 1}^{n} a_kb_{n - k}\right|$. Since $|c_n|$ is nonnegative, it suffices to show that that $C_n$ is bounded. Hence,
     \begin{align*}
       C_N
       &= \sum_{n = 1}^{N} \left|\sum_{k = 1}^{n} a_kb_{n - k}\right| \\
@@ -283,45 +267,18 @@
   Prove that the set of all $\chi(a)$ is precisely the Cantor set described in Theorem 2.44.
 
   \begin{proof}
-    We continue to use the notations $E_1, E_2, \dots$ and $P$ defined in Theorem 2.44. Given some
-    $a$, we first show that $\sum_{k=1}^{n} \frac{\alpha_k}{3^k} = \inf I_n$ for some interval $I_n$
-    of $E_n$ by induction on $n$. Since $a_1$ is either $0$ or $2$, $\frac{\alpha_1}{3}$ is
-    obviously the lower end point of some interval in $E_1$. Suppose $n > 1$. By induction, we know
-    $\sum_{k=1}^{n - 1} \frac{\alpha_k}{3^k} = \sup I_{n - 1}$ for some interval $I_{n - 1} \subset
-    E_n$. Since $I_{n - 1} \cap E_n$ is a union of 2 intervals, put $I_{n_1}$ to be the lower
-    interval of $I_{n - 1} \cap E_n$ and let $I_{n_2}$ be the upper one. Note that $\inf I_{n_1} =
-    \inf I_{n - 1}$ and $\sup I_{n_2} = \sup I_{n - 1}$. If $a_n = 0$, then $\sum_{k=1}^{n}
-    \frac{\alpha_k}{3^k} = \inf I_{n - 1} = \inf I_{n_1}$ and we are done. Suppose $a_n = 2$. Note
-    that the width of $I_{n - 1}$ is $3^{n - 1}$, and the width of $I_{n_2}$ is $3^{-n}$. Since
-    $\sup I_{n - 1} = \sup I_{n_2}$, we get $\inf I_{n_2} = \sup I_{n - 1} - 3^{-n} = \inf I_{n - 1}
-    + \frac{2}{3} \cdot 3^{-n}$. But then $\sum_{k=1}^{n} \frac{\alpha_k}{3^k} = \inf I_{n - 1} +
-    \frac{2}{3} \cdot 3^{-n} = \inf I_{n_2}$, and this completes the induction. Since all $E_n$ are
-    closed and $E_1 \supset E_2 \supset \dots$, we have $\sum_{k=1}^{n} \frac{\alpha_k}{3^k} \in
-    E_m$, for all positive integer $m \leq n$. Hence, we have $\chi(a) \in E_n$, for all $n$, and
-    thus $\chi(a) \in P$. 
+    We continue to use the notations $E_1, E_2, \dots$ and $P$ defined in Theorem 2.44. Given some $a$, we first show that $\sum_{k=1}^{n} \frac{\alpha_k}{3^k} = \inf I_n$ for some interval $I_n$ of $E_n$ by induction on $n$. Since $a_1$ is either $0$ or $2$, $\frac{\alpha_1}{3}$ is obviously the lower end point of some interval in $E_1$. Suppose $n > 1$. By induction, we know $\sum_{k=1}^{n - 1} \frac{\alpha_k}{3^k} = \sup I_{n - 1}$ for some interval $I_{n - 1} \subset E_n$. Since $I_{n - 1} \cap E_n$ is a union of 2 intervals, put $I_{n_1}$ to be the lower interval of $I_{n - 1} \cap E_n$ and let $I_{n_2}$ be the upper one. Note that $\inf I_{n_1} = \inf I_{n - 1}$ and $\sup I_{n_2} = \sup I_{n - 1}$. If $a_n = 0$, then $\sum_{k=1}^{n} \frac{\alpha_k}{3^k} = \inf I_{n - 1} = \inf I_{n_1}$ and we are done. Suppose $a_n = 2$. Note that the width of $I_{n - 1}$ is $3^{n - 1}$, and the width of $I_{n_2}$ is $3^{-n}$. Since $\sup I_{n - 1} = \sup I_{n_2}$, we get $\inf I_{n_2} = \sup
+    I_{n - 1} - 3^{-n} = \inf I_{n - 1} + \frac{2}{3} \cdot 3^{-n}$. But then $\sum_{k=1}^{n} \frac{\alpha_k}{3^k} = \inf I_{n - 1} + \frac{2}{3} \cdot 3^{-n} = \inf I_{n_2}$, and this completes the induction. Since all $E_n$ are closed and $E_1 \supset E_2 \supset \dots$, we have $\sum_{k=1}^{n} \frac{\alpha_k}{3^k} \in E_m$, for all positive integer $m \leq n$. Hence, we have $\chi(a) \in E_n$, for all $n$, and thus $\chi(a) \in P$. 
 
-    We now show the converse. Let $x \in P$. We construct a sequence $a = (\alpha_n)$ by putting
-    $a_n = 0$ if $x$ is in the lower interval of $I_{n - 1} \cap E_n$, where $I_{n - 1} \subset E_{n
-    - 1}$ is the interval which contains $x$. Otherwise, if $x$ is in the upper interval of $I_{n -
-    1} \cap E_n$, put $a_n = 2$. From the first part, we already know $\chi(a) \in P$. We show that
-    $\sum_{k = 1}^n \frac{\alpha_k}{3^k}$ is in the same interval $I_n \subset E_n$ that contains
-    $x$ by induction on $n$. The base case is trivial. Suppose $n > 1$. By induction, $\sum_{k =
-    1}^{n - 1} \frac{\alpha_k}{3^k} \in I_{n - 1}$. Note that $\sum_{k = 1}^{n}
-    \frac{\alpha_k}{3^k}$ will be in either the upper or lower interval of $I_{n - 1} \cap E_{n}$,
-    by the first part of the proof. But then by the construction of $\alpha_n$, $\sum_{k = 1}^{n}
-    \frac{\alpha_k}{3^k}$ will be in the upper interval if $x$ is in the upper one and vice versa,
-    and this completes the induction. It follows that $\chi(a)$ shares the same interval $I_n$ with
-    $x$, for all $n$. Fix $\epsilon > 0$. Since $P$ contains no segments, $I_n \subset
-    B_{\epsilon}(x)$ for large enough $n$, where $I_n \subset E_n$ is the interval that contains
-    $x$. But then $\chi(a) \in I_n$, and thus $|\chi(a) - x| < \epsilon$. The result now follows.
+    We now show the converse. Let $x \in P$. We construct a sequence $a = (\alpha_n)$ by putting $a_n = 0$ if $x$ is in the lower interval of $I_{n - 1} \cap E_n$, where $I_{n - 1} \subset E_{n - 1}$ is the interval which contains $x$. Otherwise, if $x$ is in the upper interval of $I_{n - 1} \cap E_n$, put $a_n = 2$. From the first part, we already know $\chi(a) \in P$. We show that $\sum_{k = 1}^n \frac{\alpha_k}{3^k}$ is in the same interval $I_n \subset E_n$ that contains $x$ by induction on $n$. The base case is trivial. Suppose $n > 1$. By induction, $\sum_{k = 1}^{n - 1} \frac{\alpha_k}{3^k} \in I_{n - 1}$. Note that $\sum_{k = 1}^{n} \frac{\alpha_k}{3^k}$ will be in either the upper or lower interval of $I_{n - 1} \cap E_{n}$, by the first part of the proof. But then by the construction of $\alpha_n$, $\sum_{k = 1}^{n} \frac{\alpha_k}{3^k}$ will be in the upper interval if $x$ is in the upper one and vice versa, and this completes the induction. It follows that $\chi(a)$ shares
+    the same interval $I_n$ with $x$, for all $n$. Fix $\epsilon > 0$. Since $P$ contains no segments, $I_n \subset B_{\epsilon}(x)$ for large enough $n$, where $I_n \subset E_n$ is the interval that contains $x$. But then $\chi(a) \in I_n$, and thus $|\chi(a) - x| < \epsilon$. The result now follows.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Suppose $(p_n)$ and $(q_n)$ are Cauchy sequences in a metric space $X$. Show that the sequence
-  $(d(p_n, q_n))$ converges. \textit{Hint}: For any $m, n$,
+  Suppose $(p_n)$ and $(q_n)$ are Cauchy sequences in a metric space $X$. Show that the sequence $(d(p_n, q_n))$ converges. \textit{Hint}: For any $m, n$,
   \[
     d(p_n, q_n) \leq d(p_n, p_m) + d(p_m, q_m) + d(q_m, q_n);
   \]
@@ -332,9 +289,7 @@
   is small if $m$ and $n$ are large.
 
   \begin{proof}
-    Fix $\epsilon > 0$. Since $(p_n)$ and  $(q_n)$ are Cauchy sequences, there exists integer $N$
-    such that $d(p_n, p_m) < \frac{\epsilon}{2}$ and $d(q_n, q_m) < \frac{\epsilon}{2}$, for $m, n
-    \geq N$. But then
+    Fix $\epsilon > 0$. Since $(p_n)$ and  $(q_n)$ are Cauchy sequences, there exists integer $N$ such that $d(p_n, p_m) < \frac{\epsilon}{2}$ and $d(q_n, q_m) < \frac{\epsilon}{2}$, for $m, n \geq N$. But then
     \[
       d(p_n, q_n) \leq d(p_n, p_m) + d(p_m, q_m) + d(q_m, q_n) < d(p_m, q_m) + \epsilon.
     \]
@@ -342,8 +297,7 @@
     \[
       |d(p_n, q_n) - d(p_m, q_m)| < \epsilon.
     \]
-    Hence, $(d(p_n, q_n))$ is also a Cauchy sequence. Since $(d(p_n, q_n))$ is in $\R$, the result
-    now follows from Theorem 3.11.
+    Hence, $(d(p_n, q_n))$ is also a Cauchy sequence. Since $(d(p_n, q_n))$ is in $\R$, the result now follows from Theorem 3.11.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

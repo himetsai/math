@@ -90,10 +90,13 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework}
-\newcommand{\hmwkDueDate}{Nov 2, 2024}
-\newcommand{\hmwkClass}{MATH 264A}
-\newcommand{\hmwkClassInstructor}{Professor Warnke}
+\newcommand{\hmwkTitle}{Homework\ \#0}
+\newcommand{\hmwkDueDate}{Jan 7, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
 \newcommand{\hmwkPID}{A16848188}
 
@@ -104,8 +107,11 @@
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
     \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
     \vspace{3in}
 }
 
@@ -153,33 +159,20 @@
 
 \begin{homeworkProblem}
   \begin{enumerate}[(a)]
-    \item Let $G = (V, E)$ be an $n$-vertex graph and suppose that each vertex $v \in V$ is
-    associated with a list $S(v)$ of colors of size at least $4r$, where $r$ is a positive integer.
-    Suppose also that for each $v \in V$ and each $c \in S(v)$, there are at most $r$ neighbors $u$
-    of $v$ such that $c \in S(u)$. Using induction, prove that there are at least $(2r)^n$ proper
-    colorings of $G$ under which each vertex $v$ receives a color from its list $S(v)$.
+    \item Let $G = (V, E)$ be an $n$-vertex graph and suppose that each vertex $v \in V$ is associated with a list $S(v)$ of colors of size at least $4r$, where $r$ is a positive integer. Suppose also that for each $v \in V$ and each $c \in S(v)$, there are at most $r$ neighbors $u$ of $v$ such that $c \in S(u)$. Using induction, prove that there are at least $(2r)^n$ proper colorings of $G$ under which each vertex $v$ receives a color from its list $S(v)$.
 
-    \textit{Remark}: a proof using the classical Lovász Local Lemma (LLL) requires $2e r \approx
-    5.44r$ instead of $4r$.
+    \textit{Remark}: a proof using the classical Lovász Local Lemma (LLL) requires $2e r \approx 5.44r$ instead of $4r$.
 
     \begin{proof}
-      For $S \subseteq V$, define $N_S$ as the number of proper colorings of $G$ under which $v$
-      receives a color from its list $S(v)$ for all $v \in S$. It suffices to show that for all $T
-      \subseteq V$ and $x \in T$, $N_T/N_{T\backslash \{x\}} \geq 2r$. We proceed by induction on
-      $|T|$. When $T = \{x\}$, $N_T = S(x)$ and $N_{T\backslash \{x\}} = N_{\emptyset} = 1$, we have
-      $N_T/N_{T\backslash \{x\}} \geq 4r \geq 2r$. Suppose $|T| > 2$. Then,
+      For $S \subseteq V$, define $N_S$ as the number of proper colorings of $G$ under which $v$ receives a color from its list $S(v)$ for all $v \in S$. It suffices to show that for all $T \subseteq V$ and $x \in T$, $N_T/N_{T\backslash \{x\}} \geq 2r$. We proceed by induction on $|T|$. When $T = \{x\}$, $N_T = S(x)$ and $N_{T\backslash \{x\}} = N_{\emptyset} = 1$, we have $N_T/N_{T\backslash \{x\}} \geq 4r \geq 2r$. Suppose $|T| > 2$. Then,
       \[
         |S(x)| \cdot N_{T\backslash \{x\}} = N_T + B,
       \]
-      where $B$ is the number of improper colorings of $T$ which becomes proper if we ignore the
-      color of $x$. Notice that any element counted by $B$ contains a vertex $u$ which is a neighbor
-      of $v$ that shares the same color $c$ as $x$ and a proper coloring of $T \backslash \{u, x\}$.
-      This yields the upper bound
+      where $B$ is the number of improper colorings of $T$ which becomes proper if we ignore the color of $x$. Notice that any element counted by $B$ contains a vertex $u$ which is a neighbor of $v$ that shares the same color $c$ as $x$ and a proper coloring of $T \backslash \{u, x\}$. This yields the upper bound
       \[
         B \leq |S(x)| \cdot (\# \text{choice of vertex $u$}) \cdot N_{T \backslash \{u, x\}} \leq 4r \cdot r \cdot N_{T \backslash \{u, x\}}.
       \]
-      By induction, $N_{T \backslash \{u, x\}} \leq \frac{1}{2r} \cdot N_{T \backslash \{x\}}$, and
-      thus 
+      By induction, $N_{T \backslash \{u, x\}} \leq \frac{1}{2r} \cdot N_{T \backslash \{x\}}$, and thus 
       \[
         N_T = |S(x)| \cdot N_{T\backslash \{x\}} - B \geq 4r N_{T\backslash \{x\}} - 4r \cdot r \cdot \frac{1}{2r} \cdot N_{T\backslash \{x\}} = 2r N_{T\backslash \{x\}},
       \]
@@ -190,44 +183,28 @@
     \[
     (x_1 \text{ OR } x_4 \text{ OR } \overline{x_6}) \text{ AND } (x_1 \text{ OR } \overline{x_2} \text{ OR } x_5),
     \]
-    where the variables $x_i$ take values true or false, $\overline{x_i}$ means not $x_i$, and $k$
-    distinct variables or their negations are OR-ed together in each clause. A formula is called
-    satisfiable if there is an assignment of values to the variables making the expression true.
-    Suppose that in a given $k$-SAT formula $\Phi$ no variable lies in more than $2^k / (ek)$
-    clauses. Using induction, prove that $\Phi$ has at least $(2 - 2/k)^n$ many satisfying
-    assignments (which in fact remains true if we relax the assumed $2^k / (ek)$ upper bound to $2^k
-    / k \cdot (1 - 1/k)^{k-1}$).
+    where the variables $x_i$ take values true or false, $\overline{x_i}$ means not $x_i$, and $k$ distinct variables or their negations are OR-ed together in each clause. A formula is called satisfiable if there is an assignment of values to the variables making the expression true. Suppose that in a given $k$-SAT formula $\Phi$ no variable lies in more than $2^k / (ek)$ clauses. Using induction, prove that $\Phi$ has at least $(2 - 2/k)^n$ many satisfying assignments (which in fact remains true if we relax the assumed $2^k / (ek)$ upper bound to $2^k / k \cdot (1 - 1/k)^{k-1}$).
 
     \begin{proof}
-      Let $\Phi_i$ denote the $k$-SAT formula which AND's together all the clauses of $\Phi$ that
-      involve only the first $i$ variables. Define $N_i$ as the number of satisfying assignments of
-      $\Phi_i$. We show that $N_i\geq (2 - 2/k)^i$ by induction on $i \geq k$. And then I'm stuck.
+      Let $\Phi_i$ denote the $k$-SAT formula which AND's together all the clauses of $\Phi$ that involve only the first $i$ variables. Define $N_i$ as the number of satisfying assignments of $\Phi_i$. We show that $N_i\geq (2 - 2/k)^i$ by induction on $i \geq k$. And then I'm stuck.
     \end{proof}
 
-    \item Let $\mathcal{A}$ be an alphabet, and let $\mathcal{F}$ be a set of forbidden strings.
-    Assume that there exists $\beta > 0$ such that 
+    \item Let $\mathcal{A}$ be an alphabet, and let $\mathcal{F}$ be a set of forbidden strings. Assume that there exists $\beta > 0$ such that 
     \[
     |\mathcal{A}| - \sum_{f \in \mathcal{F}} \beta^{1 - |f|} \geq \beta.
     \]
-    Using induction, prove that there exists at least $\beta^n$ words of length $n$ over alphabet
-    $\mathcal{A}$ that avoid all the substrings in $\mathcal{F}$.
+    Using induction, prove that there exists at least $\beta^n$ words of length $n$ over alphabet $\mathcal{A}$ that avoid all the substrings in $\mathcal{F}$.
 
     \begin{proof}
-      Define $N_k$ to be the set of words of length $n$ over alphabet $\mathcal{A}$ that avoid all
-      the substrings in $\mathcal{F}$. We show that $|N_k|/|N_{k - 1}| \geq \beta$ by induciton on $k
-      \geq 1$. Since $|N_0| = 1$, 
+      Define $N_k$ to be the set of words of length $n$ over alphabet $\mathcal{A}$ that avoid all the substrings in $\mathcal{F}$. We show that $|N_k|/|N_{k - 1}| \geq \beta$ by induciton on $k \geq 1$. Since $|N_0| = 1$, 
       \[
         \frac{|N_1|}{|N_0|} = |N_1| \geq |\mathcal{A}| - |\{f \in F \mid |f| = 1\}| \geq \beta,
       \]
-      as $|\{f \in F \mid |f| = 1\}| \leq \sum_{f \in \mathcal{F}} \beta^{1 - |f|}$. Hence, the base
-      case holds. Suppose $k > 1$. Let $B$ denote the set of words over $\mathcal{A}$ of the form
-      $a_1\ldots a_k$ that contains some substring in $F$, with $a_1\ldots a_{k - 1} \in N_{k - 1}$.
-      Then
+      as $|\{f \in F \mid |f| = 1\}| \leq \sum_{f \in \mathcal{F}} \beta^{1 - |f|}$. Hence, the base case holds. Suppose $k > 1$. Let $B$ denote the set of words over $\mathcal{A}$ of the form $a_1\ldots a_k$ that contains some substring in $F$, with $a_1\ldots a_{k - 1} \in N_{k - 1}$. Then
       \[
         |\mathcal{A}| \cdot |N_{k - 1}| = |N_k| + |B|.
       \]
-      By construction, any word in $B$ consists of a forbidden string $f$ at the end and some word
-      in $N_{k - |f|}$ at the beginning. Summing over all $f$, we have the bound
+      By construction, any word in $B$ consists of a forbidden string $f$ at the end and some word in $N_{k - |f|}$ at the beginning. Summing over all $f$, we have the bound
       \[
         |B| \leq \sum_{f \in \mathcal{F}} N_{k - |f|}.
       \]
@@ -250,48 +227,28 @@
 \newpage
 
 \begin{homeworkProblem}
-  In the inductive proof of the `almost all triangle-free graphs are 2-colorable' result, we defined
-  the following sets (using $\Gamma(v)$ and $\Gamma(S)$ to denote the set of neighbors of a vertex
-  $v$ or set of vertices $S$):
+  In the inductive proof of the `almost all triangle-free graphs are 2-colorable' result, we defined the following sets (using $\Gamma(v)$ and $\Gamma(S)$ to denote the set of neighbors of a vertex $v$ or set of vertices $S$):
 
   \begin{itemize}
     \item $\mathcal{C}ol_2(n)$ is the set of all 2-colorable graphs on $n$ vertices.
     \item $\mathcal{T}(n)$ is the set of all triangle-free graphs on $n$ vertices.
-    \item $\mathcal{A}(n) \subseteq \mathcal{T}(n)$ is the subset of graphs containing a vertex $v$
-    such that $|\Gamma(v)| \leq \log_2 n$.
-    \item $\mathcal{B}(n) \subseteq \mathcal{T}(n)$ is the subset of graphs containing a vertex set
-    $Q$ of size $|Q| = \log_2 n$, such that $|\Gamma(Q)| \leq (1/2 - 1/1000)n$.
-    \item $\mathcal{D}(n) \subseteq \mathcal{T}(n) \setminus (\mathcal{A}(n) \cup \mathcal{B}(n))$
-    is the subset of graphs containing an edge $\{x, y\}$ and vertex sets $Q_x \subseteq \Gamma(x)$
-    and $Q_y \subseteq \Gamma(y)$, such that $|Q_x| = \log_2 n$, $|Q_y| = \log_2 n$, and
-    $|\Gamma(Q_x) \cap \Gamma(Q_y)| \geq n/100$.
+    \item $\mathcal{A}(n) \subseteq \mathcal{T}(n)$ is the subset of graphs containing a vertex $v$ such that $|\Gamma(v)| \leq \log_2 n$.
+    \item $\mathcal{B}(n) \subseteq \mathcal{T}(n)$ is the subset of graphs containing a vertex set $Q$ of size $|Q| = \log_2 n$, such that $|\Gamma(Q)| \leq (1/2 - 1/1000)n$.
+    \item $\mathcal{D}(n) \subseteq \mathcal{T}(n) \setminus (\mathcal{A}(n) \cup \mathcal{B}(n))$ is the subset of graphs containing an edge $\{x, y\}$ and vertex sets $Q_x \subseteq \Gamma(x)$ and $Q_y \subseteq \Gamma(y)$, such that $|Q_x| = \log_2 n$, $|Q_y| = \log_2 n$, and $|\Gamma(Q_x) \cap \Gamma(Q_y)| \geq n/100$.
   \end{itemize}
 
   \begin{enumerate}[(a)]
-    \item Prove that $|\mathcal{D}(n)| / |\mathcal{T}(n - 2)| \leq 2^{(1 - 1/2000)n}$ for all
-    sufficiently large $n \geq n_0$.
+    \item Prove that $|\mathcal{D}(n)| / |\mathcal{T}(n - 2)| \leq 2^{(1 - 1/2000)n}$ for all sufficiently large $n \geq n_0$.
     \begin{proof}
-      To generate a graph in $\mathcal{D}(n)$, we first pick two vertices $x, y$ to be adjacent and
-      then place a triangle free graph on the remaining $n - 2$ vertices. Lastly, we pick two
-      subsets from the $n - 2$ vertices to be $x$ and $y$'s neighbors respectively. Since the graph
-      is not in $\mathcal{A}(n)$, $|\Gamma(x)|, |\Gamma(y)| > \log_2 n$. But then the graph is also
-      not in $\mathcal{B}(n)$, so $\Gamma(\Gamma(x)), \Gamma(\Gamma(y))$ each have size greater than
-      $(1/2 - 1/1000)n$. Since the graph is triangle-free, $x$ cannot be adjacent to any vertex in
-      $\Gamma(\Gamma(x))$ and similarly for $y$, and thus $|\Gamma(x)|, |\Gamma(y)| \leq (1/2 +
-      1/1000)n$. This yields the bound
+      To generate a graph in $\mathcal{D}(n)$, we first pick two vertices $x, y$ to be adjacent and then place a triangle free graph on the remaining $n - 2$ vertices. Lastly, we pick two subsets from the $n - 2$ vertices to be $x$ and $y$'s neighbors respectively. Since the graph is not in $\mathcal{A}(n)$, $|\Gamma(x)|, |\Gamma(y)| > \log_2 n$. But then the graph is also not in $\mathcal{B}(n)$, so $\Gamma(\Gamma(x)), \Gamma(\Gamma(y))$ each have size greater than $(1/2 - 1/1000)n$. Since the graph is triangle-free, $x$ cannot be adjacent to any vertex in $\Gamma(\Gamma(x))$ and similarly for $y$, and thus $|\Gamma(x)|, |\Gamma(y)| \leq (1/2 + 1/1000)n$. This yields the bound
       \[
         \mathcal{D}(n) \leq \binom{n}{2} \cdot |\mathcal{T}(n - 2)| \cdot 2^{(1/2 - 1/1000)n} \cdot 2^{(1/2 - 1/1000)n} \leq 2^{(1 - 1/2000)n} \cdot |\mathcal{T}(n - 2)|,
       \]
       for large enough $n$.
     \end{proof}
-    \item Prove that $|\mathcal{C}ol_2(n)| / |\mathcal{C}ol_2(n - 1)| \geq 2^{\frac{1}{2}(n - 1)}$
-    for all sufficiently large $n \geq n_0$.
+    \item Prove that $|\mathcal{C}ol_2(n)| / |\mathcal{C}ol_2(n - 1)| \geq 2^{\frac{1}{2}(n - 1)}$ for all sufficiently large $n \geq n_0$.
     \begin{proof}
-      Each graph in $\mathcal{C}ol_2(n)$ consists of vertex $n$, a graph $H \in \mathcal{C}ol_2(n -
-      1)$, and edges between $n$ and $H$. Since $H$ is bipartite, $H$ contains an independent set
-      $I_H$ of size at least $2^{\frac{1}{2}(n - 1)}$. By picking a graph $H$ from
-      $\mathcal{C}ol_2(n - 1)$ and adding some edges between $n$ and $I_H$, we may uniquely generate
-      a graph in $\mathcal{C}ol_2(n)$. Therefore,
+      Each graph in $\mathcal{C}ol_2(n)$ consists of vertex $n$, a graph $H \in \mathcal{C}ol_2(n - 1)$, and edges between $n$ and $H$. Since $H$ is bipartite, $H$ contains an independent set $I_H$ of size at least $2^{\frac{1}{2}(n - 1)}$. By picking a graph $H$ from $\mathcal{C}ol_2(n - 1)$ and adding some edges between $n$ and $I_H$, we may uniquely generate a graph in $\mathcal{C}ol_2(n)$. Therefore,
       \[
         |\mathcal{C}ol_2(n)| \geq |\mathcal{C}ol_2(n - 1)| \cdot 2^{\frac{1}{2}(n - 1)},
       \]
@@ -303,15 +260,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  In this problem we discuss in more detail one calculation in the proof of the Bregman's Theorem
-  from class. Given a bipartite graph \( G = (L \cup R, E) \) with \( |L| = |R| = n \), fix a
-  perfect matching \( M \) of \( G \). For each vertex \( i \in L \), there thus is a unique vertex
-  \( X_i \) such that \( \{i, X_i\} \in M \) is a matching edge. Now write \( R_i \) for the set of
-  \( j \in L \) for which \( \{j, X_j\} \in M \) and \( \{i, X_j\} \in E \), i.e., the set of
-  vertices \( j \in L \) for which there is a matching edge in \( M \) that contains \( j \) and a
-  neighbor of \( i \). By construction, we have \( |R_i| = \deg_G(i) \). Using a (permutation)
-  counting argument, show that for each vertex \( i \in L \) and \( 1 \leq j \leq \deg_G(i) \) we
-  have
+  In this problem we discuss in more detail one calculation in the proof of the Bregman's Theorem from class. Given a bipartite graph \( G = (L \cup R, E) \) with \( |L| = |R| = n \), fix a perfect matching \( M \) of \( G \). For each vertex \( i \in L \), there thus is a unique vertex \( X_i \) such that \( \{i, X_i\} \in M \) is a matching edge. Now write \( R_i \) for the set of \( j \in L \) for which \( \{j, X_j\} \in M \) and \( \{i, X_j\} \in E \), i.e., the set of vertices \( j \in L \) for which there is a matching edge in \( M \) that contains \( j \) and a neighbor of \( i \). By construction, we have \( |R_i| = \deg_G(i) \). Using a (permutation) counting argument, show that for each vertex \( i \in L \) and \( 1 \leq j \leq \deg_G(i) \) we have
 
   \[
     \mathbb{P}(\text{vertex } i \text{ appears in } \pi \text{ in the } j\text{th position among the vertices in } R_i) = \frac{1}{\deg_G(i)}.
@@ -331,25 +280,18 @@
 
 \begin{homeworkProblem}
   \begin{enumerate}[(a)]
-    \item An order $n$ Latin square is an $n \times n$ matrix in which each row and column is a
-    permutation of $[n]$. Using the entropy method, prove that the number of order $n$ Latin squares
-    is at most 
+    \item An order $n$ Latin square is an $n \times n$ matrix in which each row and column is a permutation of $[n]$. Using the entropy method, prove that the number of order $n$ Latin squares is at most 
     \[
     L(n) \leq \left( (1 + o(1)) \frac{n}{e^2} \right)^{n^2} 
     \]
     as $n \to \infty$.
 
     \begin{proof}
-      Choose $X$ uniformly at random from all order $n$ Latin squares. Let $X_{i}$ denote the $i$th
-      row and let $X_{ij}$ denote the $i$th row $j$th column of $X$. Independently and uniformly
-      take a random $a_{ij}$ from $[0, 1]$ for all $i, j \in [n]$, and denote $A = (a_{ij})$. Let
-      $R_{ij}(A) = \{X_{il}: a_{il} < a_{ij}\}$ and $C_{ij}(A) = \{X_{kj}: a_{kj} < a_{ij}\}$. Note
-      that $\prob(a_{ij} = a_{kl}) = 0$ for all $(i, j) \neq (k, l)$. By the Chain rule,
+      Choose $X$ uniformly at random from all order $n$ Latin squares. Let $X_{i}$ denote the $i$th row and let $X_{ij}$ denote the $i$th row $j$th column of $X$. Independently and uniformly take a random $a_{ij}$ from $[0, 1]$ for all $i, j \in [n]$, and denote $A = (a_{ij})$. Let $R_{ij}(A) = \{X_{il}: a_{il} < a_{ij}\}$ and $C_{ij}(A) = \{X_{kj}: a_{kj} < a_{ij}\}$. Note that $\prob(a_{ij} = a_{kl}) = 0$ for all $(i, j) \neq (k, l)$. By the Chain rule,
       \[
         \log_2 L(n) = H(X) = \E_A\sum_{i, j \in [n]} H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}).
       \]
-      Let $N_{ij}(A, X) = |[n] - R_{ij}(A) \cup C_{ij}(A)|$. Rewriting the entropy in expectation
-      form, 
+      Let $N_{ij}(A, X) = |[n] - R_{ij}(A) \cup C_{ij}(A)|$. Rewriting the entropy in expectation form, 
       \[
         H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}) = \E_X[\log_2 N_{ij}(A, X)],
       \]
@@ -361,10 +303,7 @@
       \[
         \E_A[\log_2 N_{ij}(A, X) \mid X] \leq \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]].
       \]
-      Note that each row and column of a given $X$ is a fixed permutation of $[n]$, so each $m \in
-      [n]$ must be assigned to some square in a given row or column. Let $m \in [n]$. Since we are
-      conditioning on $a_{ij}$, if $m = X_{ij}$, then $\prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] =
-      1$. Otherwise, if $m \neq X_{ij}$,
+      Note that each row and column of a given $X$ is a fixed permutation of $[n]$, so each $m \in [n]$ must be assigned to some square in a given row or column. Let $m \in [n]$. Since we are conditioning on $a_{ij}$, if $m = X_{ij}$, then $\prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] = 1$. Otherwise, if $m \neq X_{ij}$,
       \[
         \prob[m \notin (R_{ij}(A) \cup C_{ij}(A))] = \prob(m \notin R_{ij}(A))\prob(m \notin C_{ij}(A)) = (1 - a_{ij})^2,
       \]
@@ -393,23 +332,17 @@
     as $N \to \infty$.
 
     \begin{proof}
-      Choose $X$ uniformly at random from all order $n$ Latin squares. Let $X_{i}$ denote the $i$th
-      row and let $X_{ij}$ denote the $i$th row $j$th column of $X$. Independently and uniformly
-      take a random $a_{ij}$ from $[0, 1]$ for all $i, j \in [n]$, and denote $A = (a_{ij})$. 
-      Define
+      Choose $X$ uniformly at random from all order $n$ Latin squares. Let $X_{i}$ denote the $i$th row and let $X_{ij}$ denote the $i$th row $j$th column of $X$. Independently and uniformly take a random $a_{ij}$ from $[0, 1]$ for all $i, j \in [n]$, and denote $A = (a_{ij})$. Define
       \begin{itemize}
         \item $R_{ij}(A) = \{X_{il}: a_{il} < a_{ij}\}$ 
         \item $C_{ij}(A) = \{X_{kj}: a_{kj} < a_{ij}\}$
-        \item $B_{ij}(A) = \{X_{kl}: a_{kl} < a_{ij} \text{ and } X_{kl} \text{ in the same block
-        as } X_{ij}\}$.
+        \item $B_{ij}(A) = \{X_{kl}: a_{kl} < a_{ij} \text{ and } X_{kl} \text{ in the same block as } X_{ij}\}$.
       \end{itemize}
-      Note that $\prob(a_{ij} = a_{kl}) = 0$ for all $(i, j) \neq (k, l)$. By the Chain
-      rule,
+      Note that $\prob(a_{ij} = a_{kl}) = 0$ for all $(i, j) \neq (k, l)$. By the Chain rule,
       \[
         \log_2 L(n) = H(X) = \E_A\sum_{i, j \in [n]} H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}).
       \]
-      Let $N_{ij}(A, X) = |[N] - R_{ij}(A) \cup C_{ij}(A) \cup B_{ij}(A)|$. Rewriting the entropy in
-      expectation form, 
+      Let $N_{ij}(A, X) = |[N] - R_{ij}(A) \cup C_{ij}(A) \cup B_{ij}(A)|$. Rewriting the entropy in expectation form, 
       \[
         H(X_{ij} \mid X_{kl}: a_{kl} < a_{ij}) = \E_X[\log_2 N_{ij}(A, X)],
       \]
@@ -421,10 +354,7 @@
       \[
         \E_A[\log_2 N_{ij}(A, X) \mid X] \leq \E_{a_{ij}}[\log_2 \E_{A \backslash \{a_{ij}\}} [N_{ij}(A, X) \mid X, a_{ij}]].
       \]
-      Note that each row, column, and block of a given $X$ is a fixed permutation of $[n]$, so each
-      $m \in [n]$ must be assigned to some square in a given row, column, or block. Let $m \in [n]$.
-      Since we are conditioning on $a_{ij}$, if $m = X_{ij}$, then $\prob[m \notin (R_{ij}(A) \cup
-      C_{ij}(A) \cup B_{ij}(A))] = 1$. Otherwise, if $m \neq X_{ij}$,
+      Note that each row, column, and block of a given $X$ is a fixed permutation of $[n]$, so each $m \in [n]$ must be assigned to some square in a given row, column, or block. Let $m \in [n]$. Since we are conditioning on $a_{ij}$, if $m = X_{ij}$, then $\prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup B_{ij}(A))] = 1$. Otherwise, if $m \neq X_{ij}$,
       \[
         \prob[m \notin (R_{ij}(A) \cup C_{ij}(A) \cup B_{ij}(A))] = \prob(m \notin R_{ij}(A))\prob(m \notin C_{ij}(A))\prob(m \notin B_{ij}(A)) = (1 - a_{ij})^3,
       \]

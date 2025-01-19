@@ -157,13 +157,10 @@
 	\Phi(x) = \frac{1}{2} x^T \begin{bmatrix} 2 & 0 \\0 & 1\end{bmatrix}x \quad - \quad
 	\sum_{i=1}^2 x_i,
 	\end{align*}
-	where $x\in\mathbb{R}^2$. Perform the algorithm either using version 0 or 1, where the conjugate
-	directions are initialized and chosen algorithmically.
+	where $x\in\mathbb{R}^2$. Perform the algorithm either using version 0 or 1, where the conjugate directions are initialized and chosen algorithmically.
 
 	\begin{proof}
-		Let $A = \begin{bmatrix} 2 & 0 \\0 & 1\end{bmatrix}, b = \begin{bmatrix}
-			1 \\ 1
-		\end{bmatrix}$ and we have
+		Let $A = \begin{bmatrix} 2 & 0 \\0 & 1\end{bmatrix}, b = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ and we have
 		\[
 			\Phi(x) = \frac{1}{2} x^TAx - b^Tx,
 		\]
@@ -211,17 +208,14 @@
 			\beta_{2} = 0, \\
 			p_2 = 0
 		\end{gather*}
-		Thus, the conjugate gradient method converges to the solution $x^* = \begin{bmatrix}
-			\frac{1}{2} \\ 1
-		\end{bmatrix}$ in 2 iterations.
+		Thus, the conjugate gradient method converges to the solution $x^* = \begin{bmatrix} \frac{1}{2} \\ 1 \end{bmatrix}$ in 2 iterations.
 	\end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-	Here, we will prove the inequality used in class to prove fast convergence for strongly convex
-	functions. Let $F(x)$ be a strongly convex function with constant $c$. Our goal is to show
+	Here, we will prove the inequality used in class to prove fast convergence for strongly convex functions. Let $F(x)$ be a strongly convex function with constant $c$. Our goal is to show
 	\begin{align}\label{eq:stcon}
 	F(x) - F(x^*) \le \frac{1}{2c} \|\nabla F(x)\|^2 \qquad \textnormal{for all } x\in\mathbb{R}^d.
 	\end{align}
@@ -251,8 +245,7 @@
 	\end{proof}
 	\item Explain the proof technique in your own words to demonstrate understanding of what we did.
 	\begin{proof}
-		The strong convexity property of $F$ yields $F \geq q$. Hence by minimizing $q$ we can obtain a
-		lower bound on $F$, and rearranging the equation yields the result.
+		The strong convexity property of $F$ yields $F \geq q$. Hence by minimizing $q$ we can obtain a lower bound on $F$, and rearranging the equation yields the result.
 	\end{proof}
 	\end{enumerate}
 \end{homeworkProblem}

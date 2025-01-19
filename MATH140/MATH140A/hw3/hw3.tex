@@ -151,23 +151,17 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  A complex number $z$ is said to be \textit{algebraic} if there are integers $a_0, \ldots, a_n$,
-  not all zero, such that
+  A complex number $z$ is said to be \textit{algebraic} if there are integers $a_0, \ldots, a_n$, not all zero, such that
   \[
     a_0z^n + a_1z^{n-1} + \cdots + a_{n-1}z + a_n = 0.
   \]
-  Prove that the set of all algebraic numbers is countable. \textit{Hint}: For every positive
-  integer $N$ there are only finitely many equations with
+  Prove that the set of all algebraic numbers is countable. \textit{Hint}: For every positive integer $N$ there are only finitely many equations with
   \[
     n + |a_0| + |a_1| + \cdots + |a_n| = N.
   \]
 
   \begin{proof}
-    Let $p$ be a $n$-degree polynomial of integer coefficients. By the Fundamental Theorem of
-    Algebra, $p$ has $n$ complex roots. Notice that since $\Z^i$ is countable for all $i > 0$, $S =
-    \bigcup_{i = 1}^{\infty} \{i\} \times \Z^i$ is countable, by Theorem 2.12. This follows that for
-    $m \in \N$, each $(m, a_0, a_1, \ldots, a_m) \in S$, gives $m$ algebraic numbers and $S$
-    contains all possible tuples of integer coefficients, so the set
+    Let $p$ be a $n$-degree polynomial of integer coefficients. By the Fundamental Theorem of Algebra, $p$ has $n$ complex roots. Notice that since $\Z^i$ is countable for all $i > 0$, $S = \bigcup_{i = 1}^{\infty} \{i\} \times \Z^i$ is countable, by Theorem 2.12. This follows that for $m \in \N$, each $(m, a_0, a_1, \ldots, a_m) \in S$, gives $m$ algebraic numbers and $S$ contains all possible tuples of integer coefficients, so the set
    
     \[
       \bigcup_{(n, a_0, a_1, \ldots, a_n) \in S} \{z \mid a_0z^n + a_1z^{n-1} + \cdots + a_{n-1}z + a_n = 0\}
@@ -179,27 +173,14 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $E'$ be the set of all limit points of a set $E$. Prove that $E'$ is closed. Prove that $E$
-  and $\overline{E}$ have the same limit points. Do $E$ and $E'$ always have the same limit points?
+  Let $E'$ be the set of all limit points of a set $E$. Prove that $E'$ is closed. Prove that $E$ and $\overline{E}$ have the same limit points. Do $E$ and $E'$ always have the same limit points?
 
   \begin{proof}
-    Let $p$ be a limit point of $E'$. It suffices to show that there exists some $k \in E$ such that
-    $d(p, k) < r$, for all $r > 0$. Since $p$ is a limit point, there exists $q \in E'$ such that
-    $d(p, q) < \frac{r}{2}$. However, as $q \in E'$, $q$ is a limit point of $E$, so there exists $k
-    \in E$ such that $d(q, k) < \frac{r}{2}$. Hence, $d(p, k) < d(p, q) + d(q, k) < r$, so $p$ is a
-    limit point of $E$. It follows that $p \in E'$ so $E'$ is closed. 
+    Let $p$ be a limit point of $E'$. It suffices to show that there exists some $k \in E$ such that $d(p, k) < r$, for all $r > 0$. Since $p$ is a limit point, there exists $q \in E'$ such that $d(p, q) < \frac{r}{2}$. However, as $q \in E'$, $q$ is a limit point of $E$, so there exists $k \in E$ such that $d(q, k) < \frac{r}{2}$. Hence, $d(p, k) < d(p, q) + d(q, k) < r$, so $p$ is a limit point of $E$. It follows that $p \in E'$ so $E'$ is closed. 
 
-    We prove that $E$ and $\overline{E}$ have the same limit points. $E'$ is obviously contained in
-    the set of limit points of $\overline{E}$, so it suffices to show the converse. Let $x$ be a
-    limit point of $\overline{E}$. We show that $x \in E'$. Since $\overline{E}$ is closed, $x \in
-    \overline{E} = E \cup E'$. We may assume that $x \in E$, otherwise we are done. For $r > 0$, we
-    know that there exists $y \in \overline{E}$ such that $d(x, y) < \frac{r}{2}$. If $y \notin E$,
-    then $y$ is a limit point of $E$, so there exists $z \in E$ such that $d(y, z) < \frac{r}{2}$.
-    But then $d(x, z) < d(x, y) + d(y, z) < r$. Hence, there exists some elements in $E$ such that
-    its in $N_r(x)$, for any $r > 0$. Thus, $x$ is a limit point of $E$, so $x \in E'$.
+    We prove that $E$ and $\overline{E}$ have the same limit points. $E'$ is obviously contained in the set of limit points of $\overline{E}$, so it suffices to show the converse. Let $x$ be a limit point of $\overline{E}$. We show that $x \in E'$. Since $\overline{E}$ is closed, $x \in \overline{E} = E \cup E'$. We may assume that $x \in E$, otherwise we are done. For $r > 0$, we know that there exists $y \in \overline{E}$ such that $d(x, y) < \frac{r}{2}$. If $y \notin E$, then $y$ is a limit point of $E$, so there exists $z \in E$ such that $d(y, z) < \frac{r}{2}$. But then $d(x, z) < d(x, y) + d(y, z) < r$. Hence, there exists some elements in $E$ such that its in $N_r(x)$, for any $r > 0$. Thus, $x$ is a limit point of $E$, so $x \in E'$.
 
-    To see that $E$ and $E'$ do not always share the same limit points, consider $E = \{0, 1,
-    \frac{1}{2}, \ldots\}$. Since $E' = \{0\}$, $E'$ does not have any limit points.
+    To see that $E$ and $E'$ do not always share the same limit points, consider $E = \{0, 1, \frac{1}{2}, \ldots\}$. Since $E' = \{0\}$, $E'$ does not have any limit points.
   \end{proof}
 \end{homeworkProblem}
 
@@ -209,44 +190,25 @@
   Let \( A_1, A_2, A_3, \ldots \) be subsets of a metric space.
 
   \begin{enumerate}[(a)]
-      \item If \( B_n = \bigcup_{i=1}^{n} A_i \), prove that \( \overline{B}_n = \bigcup_{i=1}^{n}
-      \overline{A}_i \) for \( n = 1,2,3,\ldots \).
+      \item If \( B_n = \bigcup_{i=1}^{n} A_i \), prove that \( \overline{B}_n = \bigcup_{i=1}^{n} \overline{A}_i \) for \( n = 1,2,3,\ldots \).
       \begin{proof}
-        We first show that $M' \cup N' = (M \cup N)'$, for subsets $M, N$. Since $x \in M' \cup N'$
-       is a limit point of $M$ or $N$, we get $x \in (M \cup N)'$. Hence, it just need to show that
-       $(M \cup N)' \subseteq M' \cup N'$. Suppose $y \notin M' \cup N'$. Then, there exists $r, s >
-       0$ such that $N_r(y)$ does not contain any points in $M$ and $N_s(y)$ does not contain any
-       points in $N$. Hence, $N_{\min(r, s)}(y)$ does not contain any points in $M \cup N$, and thus
-       $y \notin (M \cup N)'$. By the contrapositive of the statement, we get $(M \cup N)' \subseteq
-       M' \cup N'$. Now that we have shown $M' \cup N' = (M \cup N)'$, we get $\overline{M} \cup
-       \overline{N} = \overline{M \cup N}$.
+        We first show that $M' \cup N' = (M \cup N)'$, for subsets $M, N$. Since $x \in M' \cup N'$ is a limit point of $M$ or $N$, we get $x \in (M \cup N)'$. Hence, it just need to show that $(M \cup N)' \subseteq M' \cup N'$. Suppose $y \notin M' \cup N'$. Then, there exists $r, s > 0$ such that $N_r(y)$ does not contain any points in $M$ and $N_s(y)$ does not contain any points in $N$. Hence, $N_{\min(r, s)}(y)$ does not contain any points in $M \cup N$, and thus $y \notin (M \cup N)'$. By the contrapositive of the statement, we get $(M \cup N)' \subseteq M' \cup N'$. Now that we have shown $M' \cup N' = (M \cup N)'$, we get $\overline{M} \cup \overline{N} = \overline{M \cup N}$.
 
-       We may now prove $\overline{B}_n = \bigcup_{i=1}^{n} \overline{A}_i$ by induction on $n$. The
-       base case is trivial. For $n > 1$, 
+       We may now prove $\overline{B}_n = \bigcup_{i=1}^{n} \overline{A}_i$ by induction on $n$. The base case is trivial. For $n > 1$, 
        \begin{align*}
         \overline{B}_n 
         &= \overline{\left(\bigcup_{i=1}^{n} A_i\right)} \\
         &= \overline{\left(A_n \cup \bigcup_{i=1}^{n - 1} A_i\right)} \\
         &= \overline{A_n} \cup \overline{\left(\bigcup_{i=1}^{n - 1} A_i\right)}.
        \end{align*}
-       Hence, $\overline{B}_n = \overline{A_n} \cup \overline{\left(\bigcup_{i=1}^{n - 1}
-       A_i\right)} = \overline{A_n} \cup \bigcup_{i=1}^{n - 1} \overline{A}_i =  \bigcup_{i=1}^{n}
-       \overline{A}_i$, by induction.
+       Hence, $\overline{B}_n = \overline{A_n} \cup \overline{\left(\bigcup_{i=1}^{n - 1} A_i\right)} = \overline{A_n} \cup \bigcup_{i=1}^{n - 1} \overline{A}_i =  \bigcup_{i=1}^{n} \overline{A}_i$, by induction.
       \end{proof}
-      \item If \( B = \bigcup_{i=1}^{\infty} A_i \), prove that \( \overline{B} \supset
-      \bigcup_{i=1}^{\infty} \overline{A}_i \). Show, by an example, that this inclusion can be
-      proper.
+      \item If \( B = \bigcup_{i=1}^{\infty} A_i \), prove that \( \overline{B} \supset \bigcup_{i=1}^{\infty} \overline{A}_i \). Show, by an example, that this inclusion can be proper.
 
       \begin{proof}
-        Let $x \in \bigcup_{i=1}^{\infty} \overline{A}_i$. Then, $x \in A_i \cup A_i'$, for some $i
-        \in \N$. Hence, we may assume that $x$ is the limit point of some $A_i$, otherwise $x \in
-        A_i \subset B \subset \overline{B}$ and we are done. However, $N_r(x)$ contains a point in
-        $A_i \subset B$ for $r > 0$, so $x$ is also a limit point of $B$, and thus $x \in
-        \overline{B}$.
+        Let $x \in \bigcup_{i=1}^{\infty} \overline{A}_i$. Then, $x \in A_i \cup A_i'$, for some $i \in \N$. Hence, we may assume that $x$ is the limit point of some $A_i$, otherwise $x \in A_i \subset B \subset \overline{B}$ and we are done. However, $N_r(x)$ contains a point in $A_i \subset B$ for $r > 0$, so $x$ is also a limit point of $B$, and thus $x \in \overline{B}$.
 
-        Let $A_i = \{\frac{1}{i}\}$, for $i \in \N$. Note that $A_i$ does not have a limit point.
-        But then $B = \{\frac{1}{k} \mid k \in \N\}$ has a limit point $0$. Therefore, $0 \in
-        \overline{B} \backslash \bigcup_{i=1}^{\infty} \overline{A}_i$.
+        Let $A_i = \{\frac{1}{i}\}$, for $i \in \N$. Note that $A_i$ does not have a limit point. But then $B = \{\frac{1}{k} \mid k \in \N\}$ has a limit point $0$. Therefore, $0 \in \overline{B} \backslash \bigcup_{i=1}^{\infty} \overline{A}_i$.
       \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -254,20 +216,12 @@
 \newpage
 
 \begin{homeworkProblem}
-  Is every point of every open set \( E \subseteq \mathbb{R}^2 \) a limit point of \( E \)? Answer
-  the same question for closed sets in \( \mathbb{R}^2 \).
+  Is every point of every open set \( E \subseteq \mathbb{R}^2 \) a limit point of \( E \)? Answer the same question for closed sets in \( \mathbb{R}^2 \).
 
   \begin{proof}
-    This is true. Let $x = (x_1, x_2) \in E$. Since $x$ is an interior point in $E$, there exists $r
-    > 0$ such that $N_r(x) \subseteq E$. Since $x \in \R^2$, there exists $k = (x_1 - \frac{r}{2},
-    x_2 - \frac{r}{2}) \in \R^2$ such that $d(x, k) = \sqrt{(x_1 - (x_1 - \frac{r}{2}))^2 + (x_2 -
-    (x_2 - \frac{r}{2}))^2} = \frac{r}{\sqrt{2}} < r$, so $N_r(x)$ is not empty. Hence, for any $t >
-    0$, if $t > r$ we can find $k \in N_r(x)$ such that $d(x, y) < r < t$. Otherwise, since $x \in
-    \R^2$, there exists $s = (x_1 - \frac{t}{2}, x_2 - \frac{t}{2}) \in \R^2$ such that $d(x, s) =
-    \frac{t}{\sqrt{2}} < t \leq r$. But then $s\in N_r(x)$. Therefore, $x$ is a limit point in $E$.
+    This is true. Let $x = (x_1, x_2) \in E$. Since $x$ is an interior point in $E$, there exists $r > 0$ such that $N_r(x) \subseteq E$. Since $x \in \R^2$, there exists $k = (x_1 - \frac{r}{2}, x_2 - \frac{r}{2}) \in \R^2$ such that $d(x, k) = \sqrt{(x_1 - (x_1 - \frac{r}{2}))^2 + (x_2 - (x_2 - \frac{r}{2}))^2} = \frac{r}{\sqrt{2}} < r$, so $N_r(x)$ is not empty. Hence, for any $t > 0$, if $t > r$ we can find $k \in N_r(x)$ such that $d(x, y) < r < t$. Otherwise, since $x \in \R^2$, there exists $s = (x_1 - \frac{t}{2}, x_2 - \frac{t}{2}) \in \R^2$ such that $d(x, s) = \frac{t}{\sqrt{2}} < t \leq r$. But then $s\in N_r(x)$. Therefore, $x$ is a limit point in $E$.
     
-    However, this does not hold true for closed sets. Consider any non-empty finite set $S$ in
-    $\R^2$. $S$ does not have any limit points.
+    However, this does not hold true for closed sets. Consider any non-empty finite set $S$ in $\R^2$. $S$ does not have any limit points.
   \end{proof}
 \end{homeworkProblem}
 
@@ -282,20 +236,12 @@
   0 & \text{if } p = q.
   \end{cases}
   \]
-  Prove that this is a metric. Which subsets of the resulting metric space are open? Which are
-  closed?
+  Prove that this is a metric. Which subsets of the resulting metric space are open? Which are closed?
 
   \begin{proof}
-    We first check that $d$ is a valid metric. By definition, we already know $d(p, q) = d(q, p)$ is
-    positive than $p \neq q$, otherwise it is $0$. Let $r \in X$. We show that $d(p, q) \leq d(p, r)
-    + d(r, q)$ holds. Since $d$ is nonnegative, we may assume that $p \neq q$, otherwise we are
-    done. Then, $r$ canot be equal to both $p$ and $q$, so at least one of $d(p, r)$, $d(r, q)$ is
-    $1$. Therefore, $d(p, q) \leq 1 \leq d(p, r) + d(r, q)$, and thus $d$ is a metric.
+    We first check that $d$ is a valid metric. By definition, we already know $d(p, q) = d(q, p)$ is positive than $p \neq q$, otherwise it is $0$. Let $r \in X$. We show that $d(p, q) \leq d(p, r) + d(r, q)$ holds. Since $d$ is nonnegative, we may assume that $p \neq q$, otherwise we are done. Then, $r$ canot be equal to both $p$ and $q$, so at least one of $d(p, r)$, $d(r, q)$ is $1$. Therefore, $d(p, q) \leq 1 \leq d(p, r) + d(r, q)$, and thus $d$ is a metric.
 
-    Let $E \subset X$ be finite and non-empty. Since for $e \in E$, $N_{\frac{1}{\pi}}(e) = \{e\}
-    \subset E$, so every point in $E$ is an interior point, which makes $E$ an open set. Since any
-    set in $X$ is an union of finite sets, all sets in $X$ is thus an open set. However, any set in
-    $X$ is also the complement of a set, so any set in $X$ is also closed.
+    Let $E \subset X$ be finite and non-empty. Since for $e \in E$, $N_{\frac{1}{\pi}}(e) = \{e\} \subset E$, so every point in $E$ is an interior point, which makes $E$ an open set. Since any set in $X$ is an union of finite sets, all sets in $X$ is thus an open set. However, any set in $X$ is also the complement of a set, so any set in $X$ is also closed.
   \end{proof}
 \end{homeworkProblem}
 
@@ -313,23 +259,17 @@
   Determine, for each of these, whether it is a metric or not.
 
   \begin{proof}
-    We first note that $d_i(x, x) = 0$ and $d_i(x, y) = d_i(y, x)$, for $i \in \{1, 2, 5\}$. $d_3$
-    is not a metric as $d(1, -1) = 0$. $d_4$ is not a metric as $d_4(1, 1) \neq 0$. Hence, we only
-    need to check the triangle inequality for each $d_i$. Let $z \in \R$.
+    We first note that $d_i(x, x) = 0$ and $d_i(x, y) = d_i(y, x)$, for $i \in \{1, 2, 5\}$. $d_3$ is not a metric as $d(1, -1) = 0$. $d_4$ is not a metric as $d_4(1, 1) \neq 0$. Hence, we only need to check the triangle inequality for each $d_i$. Let $z \in \R$.
 
-    For $d_1$, choose $x = 1$, $y = 0$, and $z = \frac{1}{2}$. Since $(x - y)^2 = 1 \geq \frac{1}{4}
-    = (x - z)^2 + (z - y)^2$, $d_1$ is not a matric.
+    For $d_1$, choose $x = 1$, $y = 0$, and $z = \frac{1}{2}$. Since $(x - y)^2 = 1 \geq \frac{1}{4} = (x - z)^2 + (z - y)^2$, $d_1$ is not a matric.
 
     For $d_2$, since $|x - y| \leq |x - z| + |z - y|$ and $2\sqrt{|x - z||z - y|} \geq 0$, we get
     \[
       |x - y| \leq |x - z| + |z - y| + 2\sqrt{|x - z||z - y|} = (\sqrt{\lvert x - y \rvert} + \sqrt{\lvert y - z \rvert})^2,
     \]
-    and thus the triangle equality is met by taking the square roots of both sides. Hence, $d_2$ is
-    a metric. 
+    and thus the triangle equality is met by taking the square roots of both sides. Hence, $d_2$ is a metric. 
 
-    For $d_5$, we show that $\frac{\lvert x - y \rvert}{1 + \lvert x - y \rvert} \leq \frac{\lvert x
-    - z \rvert}{1 + \lvert x - z \rvert} + \frac{\lvert y - z \rvert}{1 + \lvert y - z \rvert}$. By
-    multiplying both sides by the denominators and clearing the repeated terms on both sides, we get
+    For $d_5$, we show that $\frac{\lvert x - y \rvert}{1 + \lvert x - y \rvert} \leq \frac{\lvert x - z \rvert}{1 + \lvert x - z \rvert} + \frac{\lvert y - z \rvert}{1 + \lvert y - z \rvert}$. By multiplying both sides by the denominators and clearing the repeated terms on both sides, we get
     \begin{align*}
       |x - y| \leq |x - z| + |z - y| + 2|x - z||z - y| + 2|x - y||x - z||z - y|.
     \end{align*}
@@ -343,13 +283,7 @@
   Prove that the set of all injections from the set of natural numbers to itself is uncountable.
 
   \begin{proof}
-    Let $S$ be a countable set of injections from $\N$ to $\N$, and we index each function in $S$,
-    say $s_1, s_2, \ldots$. Note that we may view an injection from $\N$ to $\N$ as an infinite
-    sequence that does not have repeated numbers. We wish to construct an injection not already in
-    $S$. We start with some injection $f: \N \rightarrow \N$. Whenever $f(2k) = s_k(2k)$, we update
-    $f$ by swapping $f(2k)$ with $f(2k + 1)$, as $f(2k) \neq f(2k + 1)$. Note that we merely changed
-    the ordering of $f$, so $f$ remains to be an injection. Hence, $f(2k) \neq s_k(2k)$ for all $s_k
-    \in S$, so $f$ is an injection not in $S$. The result then follows.
+    Let $S$ be a countable set of injections from $\N$ to $\N$, and we index each function in $S$, say $s_1, s_2, \ldots$. Note that we may view an injection from $\N$ to $\N$ as an infinite sequence that does not have repeated numbers. We wish to construct an injection not already in $S$. We start with some injection $f: \N \rightarrow \N$. Whenever $f(2k) = s_k(2k)$, we update $f$ by swapping $f(2k)$ with $f(2k + 1)$, as $f(2k) \neq f(2k + 1)$. Note that we merely changed the ordering of $f$, so $f$ remains to be an injection. Hence, $f(2k) \neq s_k(2k)$ for all $s_k \in S$, so $f$ is an injection not in $S$. The result then follows.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

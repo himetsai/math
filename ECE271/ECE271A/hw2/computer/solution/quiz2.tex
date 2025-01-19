@@ -113,41 +113,29 @@
 
 \section*{Part A}
 
-Using the training data in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore8.mat} compute the histogram estimate of the prior
-$P_Y(i), i \in \{cheetah, grass\}$. Using the results of problem $2$ compute the maximum likelihood estimate
-for the prior probabilities. Compare the result with the estimates that you obtained last week. If they
-are the same, interpret what you did last week. If they are different, explain the differences.
-\\
+Using the training data in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore8.mat} compute the histogram estimate of the prior $P_Y(i), i \in \{cheetah, grass\}$. Using the results of problem $2$ compute the maximum likelihood estimate for the prior probabilities. Compare the result with the estimates that you obtained last week. If they are the same, interpret what you did last week. If they are different, explain the differences. \\
 
 \textbf{\large Solution}
 
-Let $n$ be the total sample size, $C_j$ be the count of samples for class $j$, and $\pi_j = P_Y(j)$.
-To derive the ML estamator for $P_{C_1,\dots,C_N}(c_1,\dots,c_N) = \frac{n!}{\prod_{k = 1}^N c_k!}\prod^N_{j = 1}\pi^{c_j}_j$, given the constraint $\sum^N_j \pi_j = 1$,
-we first take the logarithm of $P_{C_1,\dots,C_N}(c_1,\dots,c_N)$ and get
+Let $n$ be the total sample size, $C_j$ be the count of samples for class $j$, and $\pi_j = P_Y(j)$. To derive the ML estamator for $P_{C_1,\dots,C_N}(c_1,\dots,c_N) = \frac{n!}{\prod_{k = 1}^N c_k!}\prod^N_{j = 1}\pi^{c_j}_j$, given the constraint $\sum^N_j \pi_j = 1$, we first take the logarithm of $P_{C_1,\dots,C_N}(c_1,\dots,c_N)$ and get
 \[
   \ln P_{C_1,\dots,C_N}(c_1,\dots,c_N) = \ln \frac{n!}{\prod_{k = 1}^N c_k!} + \sum^N_{j = 1} c_j \ln \pi_j.
 \]
-Let $\theta = (\pi_1, \dots, \pi_N)^T$, and let $L(\theta, \lambda) = \ln P_{C_1,\dots,C_N}(c_1,\dots,c_N) + \lambda\left(\sum^N_j \pi_j - 1\right)$.
-Then,
+Let $\theta = (\pi_1, \dots, \pi_N)^T$, and let $L(\theta, \lambda) = \ln P_{C_1,\dots,C_N}(c_1,\dots,c_N) + \lambda\left(\sum^N_j \pi_j - 1\right)$. Then,
 \begin{gather*}
   \nabla_{\theta}L = \left(\frac{c_1}{\pi_1},\dots, \frac{c_N}{\pi_N}\right)^T + (\lambda, \dots, \lambda)^T = 0 \\
   \frac{\partial}{\partial \lambda}L = \sum_{j = 1}^N \pi_j - 1 = 0.
 \end{gather*}
-For $1 \leq j \leq N$, we get $\frac{c_j}{\pi_j} + \lambda = 0$, and so $c_j + \pi_j\lambda = 0$. 
-Then, $\sum^N_{j = 1} (c_j + \pi_j\lambda) = n + \lambda = 0$, and thus $ \lambda = -n$. 
-We also take the Hessian of $L$. Notice that 
+For $1 \leq j \leq N$, we get $\frac{c_j}{\pi_j} + \lambda = 0$, and so $c_j + \pi_j\lambda = 0$. Then, $\sum^N_{j = 1} (c_j + \pi_j\lambda) = n + \lambda = 0$, and thus $ \lambda = -n$. We also take the Hessian of $L$. Notice that 
 \[
     \frac{\partial^2 L}{\partial \pi_i \partial \pi_j} = \begin{cases}
         -\frac{c_j}{\pi_j^2}, & i = j \\
         0, & i \neq j
     \end{cases},
 \]
-and so $\nabla^2_{\theta} L = \text{diag}\left(-\frac{c_i}{\pi_i^2}, \dots, -\frac{c_N}{\pi_N^2}\right)$.
-Since the Hessian of $L$ is obviously negative definite, the critical point we are looking for is indeed a maximum point.
-Therefore, we obtain the ML estamator $\theta^* = \left(\frac{c_1}{n},\dots, \frac{c_N}{n}\right)$.
+and so $\nabla^2_{\theta} L = \text{diag}\left(-\frac{c_i}{\pi_i^2}, \dots, -\frac{c_N}{\pi_N^2}\right)$. Since the Hessian of $L$ is obviously negative definite, the critical point we are looking for is indeed a maximum point. Therefore, we obtain the ML estamator $\theta^* = \left(\frac{c_1}{n},\dots, \frac{c_N}{n}\right)$.
 
-In the case of {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore8.mat}, there are two classes in total, with $250$ samples of class \textit{cheetah} and $1053$ samples of class \textit{grass}.
-By our ML estamator, we get
+In the case of {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore8.mat}, there are two classes in total, with $250$ samples of class \textit{cheetah} and $1053$ samples of class \textit{grass}. By our ML estamator, we get
 \begin{align*}
   P_Y(cheetah) = \frac{c_{cheetah}}{n} = \frac{250}{1053 + 250} \approx 0.192 && P_Y(grass) = \frac{c_{grass}}{n} = \frac{1053}{1053 + 250} \approx 0.808.
 \end{align*}
@@ -157,16 +145,7 @@ This result surprisingly coincides with our estimation last week, implying that 
 
 \section*{Part B}
 
-Using the training data in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore8.mat}, compute the maximum likelihood estimates
-for the parameters of the class conditional densities $P_{X|Y}(x|cheetah)$ and $P_{X|Y}(x|grass)$ under the
-Gaussian assumption. Denoting by $X = \{X_1,\dots, X_{64}\}$ the vector of DCT coefficients, create $64$ plots
-with the marginal densities for the two classes - $P_{X_k|Y} (x_k|cheetah)$ and $P_{X_k|Y} (x_k|grass)$, $k = 1,\dots, 64$
-- on each. Use different line styles for each marginal. Select, by visual inspection, what you think are
-the best $8$ features for classification purposes and what you think are the worst $8$ features (you can use
-the subplot command to compare several plots at a time). Hand in the plots of the marginal densities
-for the best-8 and worst-8 features (once again you can use subplot, this should not require more than
-two sheets of paper). In each subplot indicate the feature that it refers to.
-\\
+Using the training data in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore8.mat}, compute the maximum likelihood estimates for the parameters of the class conditional densities $P_{X|Y}(x|cheetah)$ and $P_{X|Y}(x|grass)$ under the Gaussian assumption. Denoting by $X = \{X_1,\dots, X_{64}\}$ the vector of DCT coefficients, create $64$ plots with the marginal densities for the two classes - $P_{X_k|Y} (x_k|cheetah)$ and $P_{X_k|Y} (x_k|grass)$, $k = 1,\dots, 64$ - on each. Use different line styles for each marginal. Select, by visual inspection, what you think are the best $8$ features for classification purposes and what you think are the worst $8$ features (you can use the subplot command to compare several plots at a time). Hand in the plots of the marginal densities for the best-8 and worst-8 features (once again you can use subplot, this should not require more than two sheets of paper). In each subplot indicate the feature that it refers to. \\
 
 \textbf{\large Solution}
 
@@ -174,12 +153,7 @@ We know that the ML estamates for a multivariate Gaussian distribution of class 
 \begin{align*}
   \mu_i = \frac{1}{n}\sum_j x^{(i)}_j && \Sigma_i = \frac{1}{n}\sum_j (x^{(i)}_j - \mu_i)(x^{(i)}_j - \mu_i)^T.
 \end{align*}
-Suppose that $X \sim N(\mu_i, \Sigma_i)$. By applying the projection matrix, we can transform the $64$-dimension Gaussian distribution onto any desired dimension.
-Let $A_k = \frac{a_ka_k^T}{a_k^Ta_k}$ be the projection matrix to the $k$-th dimension unit vector $a_k = (0 \dots 1 \dots 0)$.
-Then, we know $A_kx \sim N(A_k\mu_i, A_k\Sigma_iA_k^T)$, and $N(A_k\mu_i, A_k\Sigma_iA_k^T)$ is the projection of the $64$-dimension Gaussian distribution onto the $k$-th unit vector.
-Notice that $A_k\mu_i$ simply extracts the $k$-th entry of $\mu_i$, namely $\mu_{i_k}$, which becomes our one dimension mean on the $k$-th dimention. 
-Similarly, $A_k\Sigma_iA_k^T$ extracts the entry on the $k$-th row $k$-th column, namely $\Sigma_{i_{kk}}$, which becomes our variance on the $k$-th dimension.
-Thus, we obtain the marginal density $P_{X_k|Y}(x_k|i) \sim N(\mu_{i_k}, \Sigma_{i_{kk}})$.
+Suppose that $X \sim N(\mu_i, \Sigma_i)$. By applying the projection matrix, we can transform the $64$-dimension Gaussian distribution onto any desired dimension. Let $A_k = \frac{a_ka_k^T}{a_k^Ta_k}$ be the projection matrix to the $k$-th dimension unit vector $a_k = (0 \dots 1 \dots 0)$. Then, we know $A_kx \sim N(A_k\mu_i, A_k\Sigma_iA_k^T)$, and $N(A_k\mu_i, A_k\Sigma_iA_k^T)$ is the projection of the $64$-dimension Gaussian distribution onto the $k$-th unit vector. Notice that $A_k\mu_i$ simply extracts the $k$-th entry of $\mu_i$, namely $\mu_{i_k}$, which becomes our one dimension mean on the $k$-th dimention. Similarly, $A_k\Sigma_iA_k^T$ extracts the entry on the $k$-th row $k$-th column, namely $\Sigma_{i_{kk}}$, which becomes our variance on the $k$-th dimension. Thus, we obtain the marginal density $P_{X_k|Y}(x_k|i) \sim N(\mu_{i_k}, \Sigma_{i_{kk}})$.
 
 The following are the plots for each of the $64$ features for each class:
 \begin{center}
@@ -199,11 +173,7 @@ Conversely, we pick $\{2, 3, 4, 59, 60, 62, 63, 64\}$ to be the worst $8$ featur
 
 \section*{Part C}
 
-Compute the Bayesian decision rule and classify the locations of the cheetah image using (i) the
-64-dimensional Gaussians, and (ii) the 8-dimensional Gaussians associated with the best 8 features. For
-the two cases, plot the classification masks and compute the probability of error by comparing with
-cheetah mask.bmp. Can you explain the results?
-\\
+Compute the Bayesian decision rule and classify the locations of the cheetah image using (i) the 64-dimensional Gaussians, and (ii) the 8-dimensional Gaussians associated with the best 8 features. For the two cases, plot the classification masks and compute the probability of error by comparing with cheetah mask.bmp. Can you explain the results? \\
 
 \textbf{\large Solution}
 
@@ -212,9 +182,7 @@ The following are the results of (i) and (ii).
   \includegraphics[width=\textwidth]{result}
 \end{center}
 
-Overall, (ii) exhibits a better performance comparing to (i). 
-The reason might be that we have removed ambiguous features that have highly overlapping distributions between the two classes, e.g. the worst 8 features listed in part B, which could cause confusion to our decision.
-In other words, we have filtered out the features that possibly possess high bayes risks, and thus we obtain an enhanced result.
+Overall, (ii) exhibits a better performance comparing to (i). The reason might be that we have removed ambiguous features that have highly overlapping distributions between the two classes, e.g. the worst 8 features listed in part B, which could cause confusion to our decision. In other words, we have filtered out the features that possibly possess high bayes risks, and thus we obtain an enhanced result.
 
 \pagebreak
 

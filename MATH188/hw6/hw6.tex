@@ -151,21 +151,15 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  The following exercise gives another proof of Cayley's formula, and at the same time provides new
-  information that our proof doesn't give.
+  The following exercise gives another proof of Cayley's formula, and at the same time provides new information that our proof doesn't give.
 
-  Let $n \geq 1$ and let $x_1, \dots, x_n$ be variables. Given a labeled tree $T$ with vertices $1,
-  \dots, n$, define the monomial $x(T) = x_1^{d_1} \cdots x_n^{d_n}$ where $d_i$ is the degree of
-  vertex $i$, i.e., the number of edges containing $i$. Define $\textbf{C}_n = \sum_T x(T)$ where
-  the sum is over all labeled trees $T$ with vertices $1, \dots, n$. Also define
+  Let $n \geq 1$ and let $x_1, \dots, x_n$ be variables. Given a labeled tree $T$ with vertices $1, \dots, n$, define the monomial $x(T) = x_1^{d_1} \cdots x_n^{d_n}$ where $d_i$ is the degree of vertex $i$, i.e., the number of edges containing $i$. Define $\textbf{C}_n = \sum_T x(T)$ where the sum is over all labeled trees $T$ with vertices $1, \dots, n$. Also define
   \[
     \textbf{D}_n = x_1 x_2 \cdots x_n (x_1 + x_2 + \cdots + x_n)^{n-2}.
   \]
 
   \begin{enumerate}[(a)]
-    \item Given a polynomial $p(x_1, \dots, x_n)$, let $p^{(i)}$ be the result of plugging in $x_i =
-    0$ into the partial derivative $\frac{\partial p}{\partial x_i}$, i.e., the coefficient of $x_i$
-    if you think of the other variables as constants. If $n \geq 2$, show that
+    \item Given a polynomial $p(x_1, \dots, x_n)$, let $p^{(i)}$ be the result of plugging in $x_i = 0$ into the partial derivative $\frac{\partial p}{\partial x_i}$, i.e., the coefficient of $x_i$ if you think of the other variables as constants. If $n \geq 2$, show that
     \[
       \textbf{C}_n^{(n)} = (x_1 + x_2 + \cdots + x_{n-1})\textbf{C}_{n-1},
     \]
@@ -177,11 +171,7 @@
       \begin{gather}
         \textbf{C}_n^{(n)} = \left.\frac{\partial}{\partial x_n} \sum_{T} x(T)\right|_{x_n = 0} = \sum_{T} \left.d_nx_1^{d_1} \cdots x_n^{d_n - 1}\right|_{x_n = 0} = \sum_{T; d_n = 1} x_1^{d_1} \cdots x_{n - 1}^{d_{n - 1}}.
       \end{gather}
-      A tree must contains a vertex of degree 1. Given a $T$ with $d_n = 1$, suppose $j$ is the
-      only neighbor of $n$. Then, $x(T) = x_nx_jx(T_{n - 1})$, where $T_{n - 1} = T - \{n\}$ a
-      labeled tree with vertex set $[n - 1]$. On the other hand, given a labeled tree $T_{n - 1}$
-      with vertex set $[n - 1]$, we may choose a vertex which connects to $n$ and get $T$ with $d_n
-      = 1$, with $x(T) = x_nx_jx(T_{n - 1})$. It now follows that
+      A tree must contains a vertex of degree 1. Given a $T$ with $d_n = 1$, suppose $j$ is the only neighbor of $n$. Then, $x(T) = x_nx_jx(T_{n - 1})$, where $T_{n - 1} = T - \{n\}$ a labeled tree with vertex set $[n - 1]$. On the other hand, given a labeled tree $T_{n - 1}$ with vertex set $[n - 1]$, we may choose a vertex which connects to $n$ and get $T$ with $d_n = 1$, with $x(T) = x_nx_jx(T_{n - 1})$. It now follows that
       \begin{align*}
         \textbf{C}_n^{(n)} 
         &= \left.\frac{\partial}{\partial x_n} \sum_{T} x(T)\right|_{x_n = 0} \\
@@ -202,15 +192,11 @@
 
     \break
 
-    \item Assuming that $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ show that $\textbf{C}_n^{(i)} =
-    \textbf{D}_n^{(i)}$ for all $i = 1, \dots, n$.
+    \item Assuming that $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ show that $\textbf{C}_n^{(i)} = \textbf{D}_n^{(i)}$ for all $i = 1, \dots, n$.
     \begin{proof}
-      Define $\textbf{C}_{[n] - \{i\}} = \sum_{T_{[n] - \{i\}}} x(T_{[n] - \{i\}})$, where the sum
-      is over all labeled trees $T_{[n] - \{i\}}$ with vertices $[n] - \{i\}$. Also define
-      $\textbf{D}_{[n] - \{i\}} = x_1 x_2 \cdots x_nx^{-1}_i(x_1 + x_2 + \cdots + x_n - x_i)^{n-3}$.
+      Define $\textbf{C}_{[n] - \{i\}} = \sum_{T_{[n] - \{i\}}} x(T_{[n] - \{i\}})$, where the sum is over all labeled trees $T_{[n] - \{i\}}$ with vertices $[n] - \{i\}$. Also define $\textbf{D}_{[n] - \{i\}} = x_1 x_2 \cdots x_nx^{-1}_i(x_1 + x_2 + \cdots + x_n - x_i)^{n-3}$.
       
-      Using the same
-      argument in (a), we may show that
+      Using the same argument in (a), we may show that
       \[
         \textbf{C}_n^{(i)} = \sum_{T; d_i = 1} \prod_{j \neq i} x_j^{d_j} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{C}_{[n] - \{i\}},
       \]
@@ -222,10 +208,7 @@
         &= x_1 x_2 \cdots x_{n}x_i^{-1} (x_1 + x_2 + \cdots + x_{n} - x_i)^{n-2} \\
         &= (x_1 + x_2 + \cdots + x_{n} - x_i)\textbf{D}_{[n] - \{i\}}.
       \end{align*}
-      Note that the only differences between $\textbf{C}_{n-1}, \textbf{C}_{[n] - \{i\}}$ and
-      between $\textbf{D}_{n-1}, \textbf{D}_{[n] - \{i\}}$ are the indexing of the variables. Hence,
-      $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ also implies that $\textbf{C}_{[n] - \{i\}} =
-      \textbf{D}_{[n] - \{i\}}$. It now follows that
+      Note that the only differences between $\textbf{C}_{n-1}, \textbf{C}_{[n] - \{i\}}$ and between $\textbf{D}_{n-1}, \textbf{D}_{[n] - \{i\}}$ are the indexing of the variables. Hence, $\textbf{C}_{n-1} = \textbf{D}_{n-1}$ also implies that $\textbf{C}_{[n] - \{i\}} = \textbf{D}_{[n] - \{i\}}$. It now follows that
       \[
         \textbf{C}_n^{(i)} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{C}_{[n] - \{i\}} = \sum_{j = 1, j \neq i}^{n} x_j\textbf{D}_{[n] - \{i\}} = \textbf{D}_n^{(i)},
       \]
@@ -233,14 +216,7 @@
     \end{proof}
     \item Conclude that $\textbf{C}_n = \textbf{D}_n$ for all $n \geq 1$.
     \begin{proof}
-      We proceed by induction on $n$. When $n = 1$, there are only one label tree, which is a
-      singleton. Hence, $\textbf{C}_1 = 1 = x_1x_1^{-1} = \textbf{D}_1$. Suppose $n \geq 2$. Since
-      each tree has at least a leaf, each term in $\textbf{C}_n$ has some $x_i$ with power 1. On the
-      other hand, note that each term in the expansion of $(x_1 + x_2 + \cdots + x_n)^{n-2}$ misses
-      at least one $x_i$, and thus each term in $\textbf{D}_n$ has some $x_i$ with degree 1. By
-      induction and (b), we have $\textbf{C}_{n}^{(i)} = \textbf{D}_{n}^{(i)}$ for all $i \in [n]$.
-      It follows that the terms with some single degree $x_i$ are equal in $\textbf{C}_n$ and
-      $\textbf{D}_n$, which entail every term. Hence, $\textbf{C}_n = \textbf{D}_n$.
+      We proceed by induction on $n$. When $n = 1$, there are only one label tree, which is a singleton. Hence, $\textbf{C}_1 = 1 = x_1x_1^{-1} = \textbf{D}_1$. Suppose $n \geq 2$. Since each tree has at least a leaf, each term in $\textbf{C}_n$ has some $x_i$ with power 1. On the other hand, note that each term in the expansion of $(x_1 + x_2 + \cdots + x_n)^{n-2}$ misses at least one $x_i$, and thus each term in $\textbf{D}_n$ has some $x_i$ with degree 1. By induction and (b), we have $\textbf{C}_{n}^{(i)} = \textbf{D}_{n}^{(i)}$ for all $i \in [n]$. It follows that the terms with some single degree $x_i$ are equal in $\textbf{C}_n$ and $\textbf{D}_n$, which entail every term. Hence, $\textbf{C}_n = \textbf{D}_n$.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -248,13 +224,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  How many ways are there to list the letters of the word MATHEMATICS so that no two consecutive
-  letters are the same?
+  How many ways are there to list the letters of the word MATHEMATICS so that no two consecutive letters are the same?
 
   \begin{proof}
-    The repeated characters in the word MATHEMATICS are A, M, and T. Let $S_A, S_M, S_T$ each be the
-    set of ways to list MATHEMATICS with consecutive A, M, T, respectively. By inclusion-exclusion,
-    the number of arrangements of MATHEMATICS with consecutive same characters is
+    The repeated characters in the word MATHEMATICS are A, M, and T. Let $S_A, S_M, S_T$ each be the set of ways to list MATHEMATICS with consecutive A, M, T, respectively. By inclusion-exclusion, the number of arrangements of MATHEMATICS with consecutive same characters is
     \[
       |S_A \cup S_M \cup S_T| = |S_A| + |S_M| + |S_T| - |S_A \cap S_M| - |S_A \cap S_T| - |S_T \cap S_T| + |S_A \cap S_M \cap S_T|.
     \]
@@ -278,8 +251,7 @@
     \[
       |S_A \cup S_M \cup S_T| = 3 \cdot \frac{10!}{2!2!} - 3 \cdot \frac{9!}{2!} + 8!.
     \]
-    In total there are $\frac{11!}{2!2!2!}$ arrangements of MATHEMATICS, so the number of
-    arrangements of MATHEMATICS with no consecutive repeated characters is
+    In total there are $\frac{11!}{2!2!2!}$ arrangements of MATHEMATICS, so the number of arrangements of MATHEMATICS with no consecutive repeated characters is
     \[
       \frac{11!}{2!2!2!} - 3 \cdot \frac{10!}{2!2!} + 3 \cdot \frac{9!}{2!} - 8! = 2772000.
     \]
@@ -291,20 +263,14 @@
 \begin{homeworkProblem}
   Let $n \geq 2$ be an integer. We have $n$ married couples ($2n$ people in total).
   \begin{enumerate}[(a)]
-    \item How many ways can we have the $2n$ people stand in a line so that no person is standing
-    next to their spouse?
+    \item How many ways can we have the $2n$ people stand in a line so that no person is standing next to their spouse?
     \begin{proof}
-      Let $L$ be the set of all arrangements of $2n$ people in a line. Put $A = A_1 \cup \cdots \cup
-      A_n$, where $A_i$ is set of ways to line up $n$ couples with the $i$th couple standing next to
-      each other. Let $S \subseteq [n]$. Define
+      Let $L$ be the set of all arrangements of $2n$ people in a line. Put $A = A_1 \cup \cdots \cup A_n$, where $A_i$ is set of ways to line up $n$ couples with the $i$th couple standing next to each other. Let $S \subseteq [n]$. Define
       \begin{gather*}
         f(S) = |\{x \in A  \mid x \in A_i \text{ if and only if } i \in S\}|, \\
         g(S) = |\{x \in A \mid x \in A_i \text{ if } i \in S\}|.
       \end{gather*}
-      Note that $g(\emptyset) = |A|$ and $f(\emptyset) = 0$. To calculate $g(S) = |\cap_{i \in S}
-      A_i|$, we may view each couple in $S$ as a unit of people and account the ordering of each
-      unit. Then, we would have $2n - |S|$ unit of people, with $|S|$ units each having 2
-      arrangements, so
+      Note that $g(\emptyset) = |A|$ and $f(\emptyset) = 0$. To calculate $g(S) = |\cap_{i \in S} A_i|$, we may view each couple in $S$ as a unit of people and account the ordering of each unit. Then, we would have $2n - |S|$ unit of people, with $|S|$ units each having 2 arrangements, so
       \[
         g(S) = (2n - |S|)!2^{|S|}.
       \]
@@ -319,17 +285,12 @@
     \end{proof}
     \item Same as (a), but replace ``line'' by ``circle''.
     \begin{proof} 
-      Let $L$ be the set of all arrangements of $2n$ people in a line. Put $A = A_1 \cup \cdots \cup
-      A_n$, where $A_i$ is set of ways to line up $n$ couples with the $i$th couple standing next to
-      each other. Let $S \subseteq [n]$. Define
+      Let $L$ be the set of all arrangements of $2n$ people in a line. Put $A = A_1 \cup \cdots \cup A_n$, where $A_i$ is set of ways to line up $n$ couples with the $i$th couple standing next to each other. Let $S \subseteq [n]$. Define
       \begin{gather*}
         f(S) = |\{x \in A  \mid x \in A_i \text{ if and only if } i \in S\}|, \\
         g(S) = |\{x \in A \mid x \in A_i \text{ if } i \in S\}|.
       \end{gather*}
-      Note that $g(\emptyset) = |A|$ and $f(\emptyset) = 0$. To calculate $g(S) = |\cap_{i \in S}
-      A_i|$, we may view each couple in $S$ as a unit of people and account the ordering of each
-      unit. Then, we would have $2n - |S|$ unit of people, with $|S|$ units each having 2
-      arrangements, so
+      Note that $g(\emptyset) = |A|$ and $f(\emptyset) = 0$. To calculate $g(S) = |\cap_{i \in S} A_i|$, we may view each couple in $S$ as a unit of people and account the ordering of each unit. Then, we would have $2n - |S|$ unit of people, with $|S|$ units each having 2 arrangements, so
       \[
         g(S) = \frac{1}{2n - |S|} \cdot (2n - |S|)!2^{|S|} = (2n - |S| - 1)!2^{|S|}.
       \]
@@ -337,8 +298,7 @@
       \[
         |A| = \sum_{\substack{S \subseteq [n] \\ S \neq \emptyset}} (-1)^{|S| - 1} (2n - |S| - 1)!2^{|S|} = \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k}
       \]
-      Hence, the number of ways to have $n$ couples stand in a circle with no person standign next
-      to their spouse is
+      Hence, the number of ways to have $n$ couples stand in a circle with no person standign next to their spouse is
       \[
         |L \backslash A| = \frac{1}{2n} \cdot (2n)! - \sum_{k = 1}^{n} (-1)^{k - 1}\binom{n}{k}(2n - k - 1)!2^{k} = \sum_{k = 0}^{n} (-2)^{k}\binom{n}{k}(2n - k - 1)!.
       \]
@@ -349,10 +309,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $q$ be a prime power and $n$ a positive integer. Let $V$ be an $n$-dimensional
-  $\textbf{F}_q$-vector space and let $P$ be the poset whose elements are linear subspaces of $V$
-  with the ordering $X \leq Y$ if $X$ is contained in $Y$. Show that the Möbius function of $P$ is
-  given by
+  Let $q$ be a prime power and $n$ a positive integer. Let $V$ be an $n$-dimensional $\textbf{F}_q$-vector space and let $P$ be the poset whose elements are linear subspaces of $V$ with the ordering $X \leq Y$ if $X$ is contained in $Y$. Show that the Möbius function of $P$ is given by
   \[
     \mu(X, Y) = (-1)^d q^{\binom{d}{2}}
   \]
@@ -363,10 +320,8 @@
     \[
       \delta_{X, Y} = \sum_{U \in [X, Y]} (-1)^{d_u} q^{\binom{d_u}{2}},
     \]
-    where $d_u = \dim U - \dim X$. Put $x = \dim X$ and $y = \dim Y$. The number of vector spaces of
-    dimension $k$ in the interval $[X, Y]$ is $\begin{bmatrix} d \\
-      k - x
-    \end{bmatrix}_q$. It now follows that
+    where $d_u = \dim U - \dim X$. Put $x = \dim X$ and $y = \dim Y$. The number of vector spaces of dimension $k$ in the interval $[X, Y]$ is $\begin{bmatrix} d \\
+      k - x \end{bmatrix}_q$. It now follows that
     \begin{align*}
       \sum_{U \in [X, Y]} (-1)^{d_u} q^{\binom{d_u}{2}} 
       &= \sum_{k = x}^y \begin{bmatrix} 
@@ -394,19 +349,15 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $\Pi_n$ be the poset of set partitions of $[n]$ and let $\mu$ be its Möbius function. Write a
-  formula for the number of connected labeled graphs with vertex set $[n]$ using $\mu$.
+  Let $\Pi_n$ be the poset of set partitions of $[n]$ and let $\mu$ be its Möbius function. Write a formula for the number of connected labeled graphs with vertex set $[n]$ using $\mu$.
 
   \begin{proof}
-    Let $\mathcal{G}$ be the set of all labeled graphs with vertex set $[n]$, and let $P = \{S_1,
-    \dots, S_m\} \in \Pi_n$. Define  
+    Let $\mathcal{G}$ be the set of all labeled graphs with vertex set $[n]$, and let $P = \{S_1, \dots, S_m\} \in \Pi_n$. Define  
     \begin{gather*}
       f(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ if and only if } i, j \in S_k \text{ for some } k\}|, \\
       g(P) = |\{G \in \mathcal{G} \mid i, j \text{ connected in } G \text{ only if } i, j \in S_k \text{ for some } k\}| = \prod_{k = 1}^m 2^{\binom{|S_k|}{2}} = 2^{\sum_{k = 1}^m \binom{|S_k|}{2}}.
     \end{gather*}
-    Note that $f(\{[n]\})$ is the number of connected labeled graphs with vertex set $[n]$ and
-    $g(\{[n]\}) = 2^{\binom{n}{2}}$. By definition, $g(P) = \sum_{Q \leq P} f(Q)$. It now follows by
-    the Möbius inversion that
+    Note that $f(\{[n]\})$ is the number of connected labeled graphs with vertex set $[n]$ and $g(\{[n]\}) = 2^{\binom{n}{2}}$. By definition, $g(P) = \sum_{Q \leq P} f(Q)$. It now follows by the Möbius inversion that
     \[
       f(\{[n]\}) = \sum_{P \in \Pi_n}\mu(P, \{[n]\})g(P) = \sum_{P \in \Pi_n}\mu(P, \{[n]\}) 2^{\sum_{S \in P} \binom{|S|}{2}}.
     \]
@@ -422,13 +373,11 @@
   \]
   Find a formula for $f_n$.
   \begin{proof}
-    We first note that $f_0 = F(0) = 1$. Adding 1 then multiplying $\frac{x}{2}$ on both sides of
-    the given identity yields
+    We first note that $f_0 = F(0) = 1$. Adding 1 then multiplying $\frac{x}{2}$ on both sides of the given identity yields
     \[
       \frac{x}{2}(F(x) + 1) = \frac{x}{2}\left[\exp\left(\frac{x}{2} (F(x) + 1)\right) + 1\right].
     \]
-    Take $G(x) = \frac{1}{2}(e^x + 1)$ and $A(x) = \frac{x}{2}(F(x) + 1)$. Since $A(0) = 0$ and
-    $G(0) \neq 0$, the Lagrange inversion formula gives
+    Take $G(x) = \frac{1}{2}(e^x + 1)$ and $A(x) = \frac{x}{2}(F(x) + 1)$. Since $A(0) = 0$ and $G(0) \neq 0$, the Lagrange inversion formula gives
     \begin{align*}
       \frac{n + 1}{2}[x^{n}]F(x) 
       &= (n + 1)[x^{n + 1}]A(x) \\
@@ -474,8 +423,7 @@
     \[
       \frac{n!}{e} - \frac{1}{n + 1} \leq D(n) = n!\sum_{i=0}^n \frac{(-1)^{i}}{i!} \leq \frac{n!}{e} + \frac{1}{n + 1}.
     \]
-    Obviously $\frac{n!}{e}$ is not an integer. Since $D(n)$ is an integer and $\frac{1}{n + 1} \leq
-    \frac{1}{2}$ for all $n \geq 1$, $D(n)$ is the closest integer to $\frac{n!}{e}$.
+    Obviously $\frac{n!}{e}$ is not an integer. Since $D(n)$ is an integer and $\frac{1}{n + 1} \leq \frac{1}{2}$ for all $n \geq 1$, $D(n)$ is the closest integer to $\frac{n!}{e}$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -492,16 +440,11 @@
       D(x)e^x = \frac{1}{1 - x}.
     \]
     \begin{proof}
-      Let $D(S)$ denote the set of derangements of $S$. Define structures $\alpha(S) = D(S)$ and
-      $\beta(S) = \{0\}$. Hte product of two structures is
+      Let $D(S)$ denote the set of derangements of $S$. Define structures $\alpha(S) = D(S)$ and $\beta(S) = \{0\}$. Hte product of two structures is
       \[
         (\alpha \cdot \beta)(S) = \bigsqcup_{T \subseteq S} D(T) \times \{0\} \simeq \bigsqcup_{T \subseteq S} D(T).
       \]
-      But then given a derangement of some subset $T \subseteq S$, we get a permutation $\sigma$ of
-      $S$ with $\sigma(i) = i$ if and only if $i \in S \backslash T$. On the other hand, given a permutation $\sigma$ of
-      $S$, we get a derangement of $T = \{i \in S \mid \sigma(i) \neq i\} \subseteq S$. Hence,
-      $\bigsqcup_{T \subseteq S} D(T) \simeq S_n$, the symmetry group of degree $n$. It now follows
-      that $(\alpha \cdot \beta)(S) = |S|!$, and so
+      But then given a derangement of some subset $T \subseteq S$, we get a permutation $\sigma$ of $S$ with $\sigma(i) = i$ if and only if $i \in S \backslash T$. On the other hand, given a permutation $\sigma$ of $S$, we get a derangement of $T = \{i \in S \mid \sigma(i) \neq i\} \subseteq S$. Hence, $\bigsqcup_{T \subseteq S} D(T) \simeq S_n$, the symmetry group of degree $n$. It now follows that $(\alpha \cdot \beta)(S) = |S|!$, and so
       \[
         D(x)e^x = E_{\alpha \cdot \beta}(x) = \sum_{n \geq 0} x^n = \frac{1}{1 - x}.
       \]
@@ -552,8 +495,7 @@
     where the product is over the primes $p$ that divide $n$.
 
     \begin{proof}
-      Define $g(n) = n$, for $n \in \N$. In (a), we already established that $g(n) = \sum_{d|n}
-      f(d)$. By the Möbius inversion formula,
+      Define $g(n) = n$, for $n \in \N$. In (a), we already established that $g(n) = \sum_{d|n} f(d)$. By the Möbius inversion formula,
       \begin{align*}
         f(n) 
         &= \sum_{d|n} g(d)\mu(d, n) \\
@@ -571,8 +513,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  There are $n$ people sitting at a circular table. How many ways can they rearrange seats so that
-  no one sits next to someone they were sitting next to before?
+  There are $n$ people sitting at a circular table. How many ways can they rearrange seats so that no one sits next to someone they were sitting next to before?
 
   \begin{proof}
     idk bro.
@@ -582,8 +523,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $q$ be a prime power and let $N_n$ be the number of monic irreducible polynomials of degree
-  $n$ with coefficients in $\textbf{F}_q$:
+  Let $q$ be a prime power and let $N_n$ be the number of monic irreducible polynomials of degree $n$ with coefficients in $\textbf{F}_q$:
   \begin{enumerate}[(a)]
     \item Using that polynomials over a field satisfy unique factorization, show that
     \[
@@ -594,16 +534,11 @@
       \[
         (1 - x^d)^{-N_d} = \sum_{k \geq 0} \binom{-N_d}{k}(x^{d})^k.
       \]
-      Note that $\binom{-N_d}{k}$ is the number of ways to pick a multiset of size $k$ from $N_d$
-      elements. Given a monic polynomial, we may view its factorization as a multiset of irreducible
-      polynomials. Hence, $[x^{dk}](1 - x^d)^{-N_d}$ is the number of ways to pick a monic
-      polynomial whose factorization is $k$ irreducible polynomials of degree $d$. But then
+      Note that $\binom{-N_d}{k}$ is the number of ways to pick a multiset of size $k$ from $N_d$ elements. Given a monic polynomial, we may view its factorization as a multiset of irreducible polynomials. Hence, $[x^{dk}](1 - x^d)^{-N_d}$ is the number of ways to pick a monic polynomial whose factorization is $k$ irreducible polynomials of degree $d$. But then
       \[
         [x^n]\prod_{d \geq 1} (1 - x^d)^{-N_d} = [x^n]\prod_{d \geq 1} \sum_{k \geq 0} \binom{-N_d}{k}(x^{d})^k
       \]
-      is just the number monic polynomials of degree $n$. Since there are $n$ undetermined
-      coefficients in a monic polynomial of degree $n$, there are $q^n$ monic polynomials of degree
-      $n$. In other words,
+      is just the number monic polynomials of degree $n$. Since there are $n$ undetermined coefficients in a monic polynomial of degree $n$, there are $q^n$ monic polynomials of degree $n$. In other words,
       \[
         \prod_{d \geq 1} (1 - x^d)^{-N_d} = (1 + qx + q^2x^2 + \cdots) = (1 - q x)^{-1}.
       \]

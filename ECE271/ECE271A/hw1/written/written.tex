@@ -150,27 +150,21 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  In this problem we will consider the traditional probability scenario of coin tossing. However, we
-  will consider two variations. First, the coin is not fair. Denoting by $S$ the outcome of the coin toss we
-  have
+  In this problem we will consider the traditional probability scenario of coin tossing. However, we will consider two variations. First, the coin is not fair. Denoting by $S$ the outcome of the coin toss we have
   \[
     P_S(heads) = \alpha, \alpha \in [0, 1].
   \]
-  Second, you do not observe the coin directly but have to rely on a friend that reports the outcome of
-  the toss. Unfortunately your friend is unreliable, he will sometimes report heads when the outcome was
-  tails and vice-versa. Denoting the report by $R$ we have
+  Second, you do not observe the coin directly but have to rely on a friend that reports the outcome of the toss. Unfortunately your friend is unreliable, he will sometimes report heads when the outcome was tails and vice-versa. Denoting the report by $R$ we have
   \begin{gather*}
     P_{R|S}(tails|heads) = \theta_1 \\
     P_{R|S}(heads|tails) = \theta_2
   \end{gather*}
-  where $\theta_1, \theta_2 \in [0, 1]$. Your job is to, given the report from your friend, guess the outcome of the toss.
-  \\
+  where $\theta_1, \theta_2 \in [0, 1]$. Your job is to, given the report from your friend, guess the outcome of the toss. \\
 
   \part
 
 
-  Given that your friend reports heads, what is the optimal decision function in the minimum probability of error sense. 
-  That is, when should you guess heads, and when should you guess tails? \\
+  Given that your friend reports heads, what is the optimal decision function in the minimum probability of error sense. That is, when should you guess heads, and when should you guess tails? \\
 
   \textbf{Solution}
 
@@ -186,31 +180,20 @@
   \part
 
 
-  Consider the case $\theta_1 = \theta_2$. 
-  Can you give an intuitive interpretation to the rule derived in part a?
-  \\
+  Consider the case $\theta_1 = \theta_2$. Can you give an intuitive interpretation to the rule derived in part a? \\
 
   \textbf{Solution}
 
-  Suppose that $\theta_1 = \theta_2 = \theta$, then we should pick heads if $\alpha > \theta$.
-  That is, given that the probability of my friend misreporting is independent to the outcome of the coin flip,
-  I should pick heads if the probability of flipping heads is greater than the chances of
-  my friend tripping me. \\
+  Suppose that $\theta_1 = \theta_2 = \theta$, then we should pick heads if $\alpha > \theta$. That is, given that the probability of my friend misreporting is independent to the outcome of the coin flip, I should pick heads if the probability of flipping heads is greater than the chances of my friend tripping me. \\
 
   \part
 
 
-  You figured out that if you ask your friend to report the outcome of the toss various times, he will
-  produce reports that are statistically independent. You then decide to ask him to report the outcome
-  $n$ times, in the hope that this will reduce the uncertainty. (Note: there is still only one coin toss, but
-  the outcome gets reported $n$ times). What is the new minimum probability of error decision rule?
-  \\
+  You figured out that if you ask your friend to report the outcome of the toss various times, he will produce reports that are statistically independent. You then decide to ask him to report the outcome $n$ times, in the hope that this will reduce the uncertainty. (Note: there is still only one coin toss, but the outcome gets reported $n$ times). What is the new minimum probability of error decision rule? \\
 
   \textbf{Solution}
 
-  Let $R_i$ be the $i$-th report of the outcome. 
-  Suppose that there are $k$ heads out of those $n$ reports.
-  Then, we should pick heads if 
+  Let $R_i$ be the $i$-th report of the outcome. Suppose that there are $k$ heads out of those $n$ reports. Then, we should pick heads if 
   \begin{align*}
     P_{S|R_1,R_2, \dots, R_n}(heads| r_1, r_2, \dots, r_n) &> P_{S|R_1,R_2, \dots, R_n}(tails| r_1, r_2, \dots, r_n) \\
     P_{R_1,R_2, \dots, R_n|S}(r_1, r_2, \dots, r_n | heads)P_S(heads) &> P_{R_1,R_2, \dots, R_n|S}(r_1, r_2, \dots, r_n | tails)P_S(tails) \\
@@ -221,35 +204,29 @@
   \part
 
 
-  Consider the case $\theta_1 = \theta_2$ and assume that the report sequence is all heads. Can you give an intuitive 
-  interpretation to the rule derived in part C? \\
+  Consider the case $\theta_1 = \theta_2$ and assume that the report sequence is all heads. Can you give an intuitive interpretation to the rule derived in part C? \\
 
   \textbf{Solution}
 
-  Suppose that $\theta_1 = \theta_2 = \theta$ and all reports are head.
-  From the result in part C, we should pick heads when
+  Suppose that $\theta_1 = \theta_2 = \theta$ and all reports are head. From the result in part C, we should pick heads when
   \[
       \alpha > \frac{\theta^n}{\theta^n + (1 - \theta)^n} = \frac{1}{\left(\frac{1 - \theta}{\theta}\right)^n + 1}.
   \]
-  Let $T = \frac{1}{\left(\frac{1 - \theta}{\theta}\right)^n + 1}$, and let $n \rightarrow \infty$. 
-  If $1 - \theta > \theta$, then $T \rightarrow 0$. If $1 - \theta < \theta$, then $T \rightarrow 1$. If $\theta = \frac{1}{2}$, then $T = \frac{1}{2}$.
+  Let $T = \frac{1}{\left(\frac{1 - \theta}{\theta}\right)^n + 1}$, and let $n \rightarrow \infty$. If $1 - \theta > \theta$, then $T \rightarrow 0$. If $1 - \theta < \theta$, then $T \rightarrow 1$. If $\theta = \frac{1}{2}$, then $T = \frac{1}{2}$.
   
-  This implies that if there's a one half chance that your friend will trip you, then you should ignore your friend's report and purely focus on your prior belief. 
-  Otherwise, the more report you get, the more you should base your decision on your friend's trustworthiness.
+  This implies that if there's a one half chance that your friend will trip you, then you should ignore your friend's report and purely focus on your prior belief. Otherwise, the more report you get, the more you should base your decision on your friend's trustworthiness.
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
 
-    Suppose two equally probable one-dimensional densities are of the form 
-    $p(x|w_i) \propto e^{-|x - a_i| / b_i}$ for $i = 1, 2$ and $0 < b_i$. \\
+    Suppose two equally probable one-dimensional densities are of the form $p(x|w_i) \propto e^{-|x - a_i| / b_i}$ for $i = 1, 2$ and $0 < b_i$. \\
     
     \part{A}
 
 
-    Write an analytic expression for each density, that is,
-    normalizes each function for arbitrary $a_i$ and positive $b_i$. \\
+    Write an analytic expression for each density, that is, normalizes each function for arbitrary $a_i$ and positive $b_i$. \\
 
     \textbf{Solution}
 
@@ -287,15 +264,7 @@
 
     \begin{center}
       \begin{tikzpicture}
-        \begin{axis}[
-            domain=-2:3,
-            samples=100,
-            smooth,
-            xlabel=\(x\),
-            ylabel=\(\frac{p(x|w_1)}{p(x|w_2)}\),
-            title={Graph of \( \frac{p(x|w_1)}{p(x|w_2)} = 2e^{\left| \frac{x - 1}{2} \right| - |x|} \)},
-            grid=major
-        ]
+        \begin{axis}[ domain=-2:3, samples=100, smooth, xlabel=\(x\), ylabel=\(\frac{p(x|w_1)}{p(x|w_2)}\), title={Graph of \( \frac{p(x|w_1)}{p(x|w_2)} = 2e^{\left| \frac{x - 1}{2} \right| - |x|} \)}, grid=major ]
             % For x > 1
             \addplot[black, domain=1:3]{2*exp(-0.5*(x + 1))};
             
@@ -339,10 +308,7 @@
   \part{B}
 
 
-  Construct the whitening transformation $A_{\omega}$. 
-  Compute the matrices representing eigenvectors and eigenvalues, $\Phi$ and $\Lambda$.
-  Next, convert the distribution to one centered on the origin with covariance matrix equal to the identity matrix, $p(x|\omega) \sim N(0, I)$.
-  \\
+  Construct the whitening transformation $A_{\omega}$. Compute the matrices representing eigenvectors and eigenvalues, $\Phi$ and $\Lambda$. Next, convert the distribution to one centered on the origin with covariance matrix equal to the identity matrix, $p(x|\omega) \sim N(0, I)$. \\
 
   \textbf{Solution}
 
@@ -360,8 +326,7 @@
       0 & 0 & 7 \\
     \end{pmatrix}.
   \]
-  Let $A_w = \Phi\Lambda^{-\frac{1}{2}} \approx \begin{pmatrix}
-    1.0000 & 0 & 0 \\
+  Let $A_w = \Phi\Lambda^{-\frac{1}{2}} \approx \begin{pmatrix} 1.0000 & 0 & 0 \\
     0 & -0.4082 & 0.2673 \\
     0 & 0.4082 & 0.2673 \\
   \end{pmatrix}$. Then $A_w^T\Sigma A_w = \Lambda^{-\frac{1}{2}}\Phi^T\Phi\Lambda\Phi^T\Phi\Lambda^{-\frac{1}{2}} = I$.
@@ -383,8 +348,7 @@
   \part{D}
 
 
-  By explicit calculation, confirm that the Mahalanobis distance from $x_0$ to the mean $\mu$
-  in the original distributionis the same as for $x_w$ to $0$ in the transformed distribution. \\
+  By explicit calculation, confirm that the Mahalanobis distance from $x_0$ to the mean $\mu$ in the original distributionis the same as for $x_w$ to $0$ in the transformed distribution. \\
 
   \textbf{Solution}
 
@@ -395,9 +359,7 @@
 
   \part{E}
 
-  Does the probability density remain unchanged under a general transformation?
-  In other words, is $p(x_0|N(\mu, \Sigma)) = p(T^tx_0|N(T^t\mu, T^t\Sigma T))$ for some linear transform $T$?
-  \\
+  Does the probability density remain unchanged under a general transformation? In other words, is $p(x_0|N(\mu, \Sigma)) = p(T^tx_0|N(T^t\mu, T^t\Sigma T))$ for some linear transform $T$? \\
   
   \textbf{Solution}
 
@@ -407,22 +369,16 @@
     &= (x_0 - \mu)^tTT^{-1}\Sigma^{-1} (T^t)^{-1}T^t(x_0 - \mu) \\
     &= (x_0 - \mu)^t\Sigma^{-1} (x_0 - \mu),
   \end{align*}
-  which remains the same. 
-  However, since the transformation changed the covariance matrix from $\Sigma$ to $T^t\Sigma T$,
-  the normalizing term of each distribution, $\frac{1}{|\Sigma|}$ and $\frac{1}{|T^t\Sigma T|}$, differs unless $|T| = \pm 1$.
-  Since normalization is not perserved, the transformed probability density is not unchanged in general. \\
+  which remains the same. However, since the transformation changed the covariance matrix from $\Sigma$ to $T^t\Sigma T$, the normalizing term of each distribution, $\frac{1}{|\Sigma|}$ and $\frac{1}{|T^t\Sigma T|}$, differs unless $|T| = \pm 1$. Since normalization is not perserved, the transformed probability density is not unchanged in general. \\
 
 
   \part{F}
 
-  Prove that the whitening transform $A_w = \Phi\Lambda^{-1/2}$ when applied to a Gaussian distribution ensures that the final distribution has covariance proportional to the identity matrix $I$.
-  Check whether normalization is perserved by the transformation.
-  \\
+  Prove that the whitening transform $A_w = \Phi\Lambda^{-1/2}$ when applied to a Gaussian distribution ensures that the final distribution has covariance proportional to the identity matrix $I$. Check whether normalization is perserved by the transformation. \\
 
   \textbf{Solution}
 
-  Let there be a distribution $p(x|N(\mu, \Sigma))$, and let $y = A_w^tx$. 
-  Then, 
+  Let there be a distribution $p(x|N(\mu, \Sigma))$, and let $y = A_w^tx$. Then, 
   \begin{align*}
     \Sigma_y
     &= E[(y - \mu_y)(y - \mu_y)^t] \\
@@ -438,8 +394,7 @@
   \[
     p(x|N(\mu, \Sigma)) = \frac{1}{\sqrt{(2\pi)^d |\Sigma|}}\exp\left(-\frac{1}{2}(x - \mu)^t\Sigma^{-1}(x - \mu)\right)
   \]
-  but
-  $p(y) = $
+  but $p(y) = $
   \begin{align*}
     p(y) 
     &= \frac{1}{\sqrt{(2\pi)^d |\Sigma_y|}}\exp\left(-\frac{1}{2}(y - \mu_y)^t\Sigma_y^{-1}(y - \mu_y)\right) \\
@@ -453,8 +408,7 @@
 \newpage
 
 \begin{homeworkProblem}
-    Let the components of the vector $x = (x_1, \dots, x_d)^t$ be binary valued and
-  $P(\omega_j)$ be the prior probability for the state of nature $\omega_j$ and $j = 1, \dots, c$. Now define
+    Let the components of the vector $x = (x_1, \dots, x_d)^t$ be binary valued and $P(\omega_j)$ be the prior probability for the state of nature $\omega_j$ and $j = 1, \dots, c$. Now define
   \[
     p_{ij} = Prob(x_i = 1|\omega_j) \quad i = 1, \dots , d \quad j = 1, \dots, c,
   \]
@@ -467,16 +421,14 @@
 
     $p_{ij}$ is the probability that $x_i$ is $1$ given the state of nature is $w_j$.
     
-    \item[(b)] Show that the minimum probability of error is achieved by the following decision
-    rule: Decide $\omega_k$ if $g_k(x) \geq g_j (x)$ for all $j$ and $k$, where
+    \item[(b)] Show that the minimum probability of error is achieved by the following decision rule: Decide $\omega_k$ if $g_k(x) \geq g_j (x)$ for all $j$ and $k$, where
     \[
       g_j(x) = \sum^d_{i = 1} x^i \ln{\frac{p_{ij}}{1 - p_{ij}}} + \sum^d_{i = 1} \ln(1 - p_{ij}) + \ln{P(\omega_j)}.
     \]
     
     \textbf{Solution}
 
-    Let $g^*(x)$ be the decision rule of minimum probability error. 
-    We first note that
+    Let $g^*(x)$ be the decision rule of minimum probability error. We first note that
 
     \[
       P_{X_i|Y}(x_i|\omega_j) = \begin{cases}

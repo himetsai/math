@@ -166,8 +166,7 @@
       \end{proof}
       \item Determine the conditional probability mass function for $U$ given that $Z = n$.
       \begin{proof}
-        Note that $p_Z(z) = \sum_{u = 0}^{z} p_U(u)p_U(z - u) = \sum_{u = 0}^{z} p_U(u)p_v(v) =
-        \sum_{u = 0}^{z} p^2(1 - p)^{z} = (z + 1)p^2(1 - p)^{z}$. Thus,
+        Note that $p_Z(z) = \sum_{u = 0}^{z} p_U(u)p_U(z - u) = \sum_{u = 0}^{z} p_U(u)p_v(v) = \sum_{u = 0}^{z} p^2(1 - p)^{z} = (z + 1)p^2(1 - p)^{z}$. Thus,
         \begin{align*}
           p_{U|Z}(u|n)
           &= \frac{p_{U,Z}(u,n)}{p_Z(n)} \\
@@ -181,9 +180,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $N$ have a Poisson distribution with parameter $\lambda = 1$. Conditioned on $N = n$, let $X$
-  have a uniform distribution over the integers $0, 1, \ldots, n+1$. What is the marginal
-  distribution for $X$?
+  Let $N$ have a Poisson distribution with parameter $\lambda = 1$. Conditioned on $N = n$, let $X$ have a uniform distribution over the integers $0, 1, \ldots, n+1$. What is the marginal distribution for $X$?
 
   \begin{proof}
     \begin{align*}
@@ -202,26 +199,17 @@
 \newpage
 
 \begin{homeworkProblem}
-  Suppose that upon striking a plate a single electron is transformed into a number $N$ of
-  electrons, where $N$ is a random variable with mean $\mu$ and standard deviation $\sigma$. Suppose
-  that each of these electrons strikes a second plate and releases further electrons, independently
-  of each other and each with the same probability distribution as $N$. Let $Z$ be the total number
-  of electrons emitted from the second plate. Determine the mean and variance of $Z$.
+  Suppose that upon striking a plate a single electron is transformed into a number $N$ of electrons, where $N$ is a random variable with mean $\mu$ and standard deviation $\sigma$. Suppose that each of these electrons strikes a second plate and releases further electrons, independently of each other and each with the same probability distribution as $N$. Let $Z$ be the total number of electrons emitted from the second plate. Determine the mean and variance of $Z$.
 
   \begin{proof}
-    Note that $Z = \xi_1 + \dots + \xi_N$, where $\xi_k$ is the number of electrons struck by the
-    $k$th electron from the first plate. $\xi_k$ shares the same distribution as $N$, for all $k$.
-    Thus, $$\E[Z] = \E[N]\E[N] = \mu^2,$$ $$Var(Z) = \E[N]Var(N) + \E[N]^2Var(N) = \mu\sigma^2 +
-    \mu^2\sigma^2 = \mu(\mu + 1)\sigma^2.$$
+    Note that $Z = \xi_1 + \dots + \xi_N$, where $\xi_k$ is the number of electrons struck by the $k$th electron from the first plate. $\xi_k$ shares the same distribution as $N$, for all $k$. Thus, $$\E[Z] = \E[N]\E[N] = \mu^2,$$ $$Var(Z) = \E[N]Var(N) + \E[N]^2Var(N) = \mu\sigma^2 + \mu^2\sigma^2 = \mu(\mu + 1)\sigma^2.$$
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  A six-sided die is rolled, and the number $N$ on the uppermost face is recorded. From a jar
-  containing 10 tags numbered $1, 2, \ldots, 10$ we then select $N$ tags at random without
-  replacement. Let $X$ be the smallest number on the drawn tags. Determine $\p(X = 2)$ and $\E[X]$.
+  A six-sided die is rolled, and the number $N$ on the uppermost face is recorded. From a jar containing 10 tags numbered $1, 2, \ldots, 10$ we then select $N$ tags at random without replacement. Let $X$ be the smallest number on the drawn tags. Determine $\p(X = 2)$ and $\E[X]$.
 
   \begin{proof}
     Note that $\p(X = x| N = n) = \frac{{10 - x \choose n - 1}}{{10 \choose n}}$. Thus,
@@ -248,9 +236,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Suppose that $\xi_1, \xi_2, \ldots$ are independent and identically distributed with $\p \{\xi_k =
-  \pm 1\} = \frac{1}{2}$. Let $N$ be independent of $\xi_1, \xi_2, \ldots$ and follow the geometric
-  probability mass function
+  Suppose that $\xi_1, \xi_2, \ldots$ are independent and identically distributed with $\p \{\xi_k = \pm 1\} = \frac{1}{2}$. Let $N$ be independent of $\xi_1, \xi_2, \ldots$ and follow the geometric probability mass function
 
   \[ p_N(k) = \alpha(1 - \alpha)^k \quad \text{for } k = 0, 1, \ldots, \]
 
@@ -269,8 +255,7 @@
         \[
           \E[\xi_i\xi_j\xi_k] = \E[\xi_i\xi_j\xi_k\xi_m] = \E[\xi_i^2\xi_j\xi_k] = \E[\xi_i^3\xi_j] = 0,
         \]
-        so we only need to care about $\E[\xi_i^2\xi_j^2]$ and $\E[\xi_i^4]$.
-        We thus get
+        so we only need to care about $\E[\xi_i^2\xi_j^2]$ and $\E[\xi_i^4]$. We thus get
         \begin{align*}
           \E[Z^3] 
           &= \E\left[\E\left[\sum_i\sum_j\sum_k \xi_i\xi_j\xi_k | N\right]\right] \\

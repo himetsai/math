@@ -89,8 +89,8 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework\ \#5}
-\newcommand{\hmwkDueDate}{Nov 1, 2024}
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Nov 15, 2024}
 \newcommand{\hmwkClass}{MATH 220A}
 \newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
@@ -151,12 +151,10 @@
 \pagebreak
 
 \begin{homeworkProblem}
-	Suppose $f: G \to \mathbb{C}$ is analytic and that $G$ is connected. Show that if $f(z)$ is real
-	for all $z$ in $G$ then $f$ is constant.
+	Suppose $f: G \to \mathbb{C}$ is analytic and that $G$ is connected. Show that if $f(z)$ is real for all $z$ in $G$ then $f$ is constant.
 
 	\begin{proof}
-		Put $f(x + iy) = u(x, y) + iv(x, y)$, where $u, v$ are real-valued functions. Since $f$ is
-		real-valued, $v(x, y) = 0$ for all $x, y \in G$. By the Cauchy-Riemann equations,
+		Put $f(x + iy) = u(x, y) + iv(x, y)$, where $u, v$ are real-valued functions. Since $f$ is real-valued, $v(x, y) = 0$ for all $x, y \in G$. By the Cauchy-Riemann equations,
 		\[
 			u_x = v_y = 0 \quad \quad u_y = -v_y = 0.
 		\]
@@ -167,29 +165,20 @@
 \newpage
 
 \begin{homeworkProblem}
-	Find an open connected set $G \subset \mathbb{C}$ and two continuous functions $f$ and $g$ defined
-	on $G$ such that $f(z)^2 = g(z)^2 = 1 - z^2$ for all $z$ in $G$. Can you make $G$ maximal? Are $f$
-	and $g$ analytic?
+	Find an open connected set $G \subset \mathbb{C}$ and two continuous functions $f$ and $g$ defined on $G$ such that $f(z)^2 = g(z)^2 = 1 - z^2$ for all $z$ in $G$. Can you make $G$ maximal? Are $f$ and $g$ analytic?
 
 	\begin{proof}
-		Let $G = (\C \backslash \R) \cup [-1, 1]$. Consider $f(z) = \exp(\frac{1}{2}Log(1 - z^2))$ and
-		$g(z) = -\exp(\frac{1}{2}Log(1 - z^2))$. Then $f(z)^2 = g(z)^2 = 1 - z^2$ for all $z \in G$.
-		Notice that $G$ is maximal in $\C$, as any larger set would make $1 - z^2 \in \R_{\leq 0}$,
-		which makes $Log(1 - z^2)$ undefined. Since $f, g$ are compositions of analytic functions, they
-		are analytic.
+		Let $G = (\C \backslash \R) \cup [-1, 1]$. Consider $f(z) = \exp(\frac{1}{2}Log(1 - z^2))$ and $g(z) = -\exp(\frac{1}{2}Log(1 - z^2))$. Then $f(z)^2 = g(z)^2 = 1 - z^2$ for all $z \in G$. Notice that $G$ is maximal in $\C$, as any larger set would make $1 - z^2 \in \R_{\leq 0}$, which makes $Log(1 - z^2)$ undefined. Since $f, g$ are compositions of analytic functions, they are analytic.
 	\end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-	Let $G$ be a region and define $G^* = \{ z : \overline{z} \in G \}$. If $f : G \rightarrow
-	\mathbb{C}$ is analytic, prove that $f^* : G^* \rightarrow \mathbb{C}$, defined by $f^*(z) =
-	\overline{f(\overline{z})}$, is also analytic.
+	Let $G$ be a region and define $G^* = \{ z : \overline{z} \in G \}$. If $f : G \rightarrow \mathbb{C}$ is analytic, prove that $f^* : G^* \rightarrow \mathbb{C}$, defined by $f^*(z) = \overline{f(\overline{z})}$, is also analytic.
 
 	\begin{proof}
-		Let $z = x + iy$ and $f(z) = u(x, y) + iv(x, y)$. Then $f^*(z) = u(x, -y) - iv(x, -y)$.
-		By the Cauchy-Riemann equations, $u_x = v_y$ and $u_y = -v_x$, and so
+		Let $z = x + iy$ and $f(z) = u(x, y) + iv(x, y)$. Then $f^*(z) = u(x, -y) - iv(x, -y)$. By the Cauchy-Riemann equations, $u_x = v_y$ and $u_y = -v_x$, and so
 		\[
 			\partial_x u(x, -y) = -\partial_y v(x, -y) = \partial_y [-v(x, -y)], \quad \partial_y u(x, -y) = \partial_x v(x, -y) = -\partial_x [-v(x, -y)].
 		\]
@@ -200,19 +189,14 @@
 \newpage
 
 \begin{homeworkProblem}
-	Prove that there is no branch of the logarithm defined on $G = \mathbb{C} \setminus \{ 0 \}$.
-	(Hint: Suppose such a branch exists and compare this with the principal branch.)
+	Prove that there is no branch of the logarithm defined on $G = \mathbb{C} \setminus \{ 0 \}$. (Hint: Suppose such a branch exists and compare this with the principal branch.)
 
 	\begin{proof}
-		Denote $Log$ as the principal branch of the logarithm and let $H$ be its domain. Suppose there
-		exists a branch of the logarithm $f$ defined on $G$. There exists $k \in \Z$ such that $f(z) =
-		Log(z) + i2\pi k$, for all $z \in H$. Consider the limit of $Log$ at $z = -1$. Approaching from
-		above and below the real axis, we get
+		Denote $Log$ as the principal branch of the logarithm and let $H$ be its domain. Suppose there exists a branch of the logarithm $f$ defined on $G$. There exists $k \in \Z$ such that $f(z) = Log(z) + i2\pi k$, for all $z \in H$. Consider the limit of $Log$ at $z = -1$. Approaching from above and below the real axis, we get
 		\[
 			\lim_{\theta \to \pi} \log |z| + i\theta = i\pi \neq -i\pi = \lim_{\theta \to -\pi} \log |z| + i\theta,
 		\]
-		so $\lim_{z \to -1} Log(z)$ does not exist. But then $\lim_{z \to -1} f(z)$ does not exist,
-		contradicting the continuity of $f$.
+		so $\lim_{z \to -1} Log(z)$ does not exist. But then $\lim_{z \to -1} f(z)$ does not exist, contradicting the continuity of $f$.
 	\end{proof}
 \end{homeworkProblem}
 \end{document}

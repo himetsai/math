@@ -158,27 +158,19 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  Are the following true or false? If true prove them; if false give
-  counterexamples.
+  Are the following true or false? If true prove them; if false give counterexamples.
   \begin{enumerate}[(i)]
     \item Every prime ideal is maximal.
     \begin{proof}
-      False. Consider $\langle x \rangle$ in $\Z[x]$. $\Z[x]/\langle x \rangle \simeq \Z$, so
-      $\langle x \rangle$ is a prime ideal but not maximal. 
+      False. Consider $\langle x \rangle$ in $\Z[x]$. $\Z[x]/\langle x \rangle \simeq \Z$, so $\langle x \rangle$ is a prime ideal but not maximal. 
     \end{proof}
     \item Every ring is a PID.
     \begin{proof}
-      False. Consider $\Z[x^2, x^3]$. Notice that since $x \notin \Z[x^2, x^3]$, $x^2$ and $x^3$ are
-      irreducible. But then $x^6 = (x^2)(x^2)(x^2) = (x^3)(x^3)$, so the factorization is not unique
-      in $\Z[x^2, x^3]$. It follows that $\Z[x^2, x^3]$ is not a UFD, and thus not a PID.
+      False. Consider $\Z[x^2, x^3]$. Notice that since $x \notin \Z[x^2, x^3]$, $x^2$ and $x^3$ are irreducible. But then $x^6 = (x^2)(x^2)(x^2) = (x^3)(x^3)$, so the factorization is not unique in $\Z[x^2, x^3]$. It follows that $\Z[x^2, x^3]$ is not a UFD, and thus not a PID.
     \end{proof}
     \item Every UFD is a PID.
     \begin{proof}
-      False. Consider $\Z[x]$. Since $\Z$ is a UFD, $\Z[x]$ is a UFD, by Gauss' Lemma. Let $I =
-      \langle x^2, 4 \rangle$. Note that $x \notin I$ so $I \neq \Z[x]$. Suppose for the sake of
-      contradiction that $I = \langle p(x) \rangle$ for some $p(x) \in \Z[x]$. We know $p(x) = a$
-      for some $a \in \Z$, otherwise $4 \notin I$. But then $a = 1$, otherwise $x^2 \notin I$. The
-      result now follows from the contradiction that $I = \Z[x]$.
+      False. Consider $\Z[x]$. Since $\Z$ is a UFD, $\Z[x]$ is a UFD, by Gauss' Lemma. Let $I = \langle x^2, 4 \rangle$. Note that $x \notin I$ so $I \neq \Z[x]$. Suppose for the sake of contradiction that $I = \langle p(x) \rangle$ for some $p(x) \in \Z[x]$. We know $p(x) = a$ for some $a \in \Z$, otherwise $4 \notin I$. But then $a = 1$, otherwise $x^2 \notin I$. The result now follows from the contradiction that $I = \Z[x]$.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -190,14 +182,10 @@
   \[
     N_1 \subseteq N_2 \subseteq N_3 \subseteq \cdots
   \]
-  is an ascending chain of submodules of an $R$-module $M$ then show that the union $N$ is a
-  submodule.
+  is an ascending chain of submodules of an $R$-module $M$ then show that the union $N$ is a submodule.
 
   \begin{proof}
-    Let $m, n \in N$. We know $m \in N_i$, $n \in N_j$, for some $i, j$. Let $k = \max(i, j)$. Since
-    $m, n \in N_k$, we have $m + n, m^{-1}, 0 \in N_k$ and $m + n = n + m$. Hence, $N$ is an abelian
-    group under addition. Since $m, n \in N_k$, $m, n$ follows all $4$ multiplicative conditions of
-    a module, and the result follows
+    Let $m, n \in N$. We know $m \in N_i$, $n \in N_j$, for some $i, j$. Let $k = \max(i, j)$. Since $m, n \in N_k$, we have $m + n, m^{-1}, 0 \in N_k$ and $m + n = n + m$. Hence, $N$ is an abelian group under addition. Since $m, n \in N_k$, $m, n$ follows all $4$ multiplicative conditions of a module, and the result follows
   \end{proof}
 \end{homeworkProblem}
 \end{document}

@@ -153,61 +153,27 @@
 
 \begin{homeworkProblem}
   \begin{enumerate}[(a)]
-    \item Let $r$ be a fixed nonnegative integer. Show that both $S(n+r, n)$ and $c(n+r, n)$ are
-    polynomial functions of $n$ of degree $2r$ for $n \geq 0$.
+    \item Let $r$ be a fixed nonnegative integer. Show that both $S(n+r, n)$ and $c(n+r, n)$ are polynomial functions of $n$ of degree $2r$ for $n \geq 0$.
     \begin{proof}
-      We first prove the case for $S(n + r, n)$. Consider the number $k$ of non-singleton blocks in
-      a partition of $[n + r]$ with $n$ blocks. To count the number of partitions with exactly $k$
-      non-singleton blocks, we first pick the $n - k$ elements from $[n + r]$ that are in
-      singletons, and then we calculate the number $a_{k, r}$ of possible orientations of the
-      remaining $k + r$ elements. Note that $a_{k, r}$ is not dependent on $n$. Hence, summing over
-      all possible $k$, we have
+      We first prove the case for $S(n + r, n)$. Consider the number $k$ of non-singleton blocks in a partition of $[n + r]$ with $n$ blocks. To count the number of partitions with exactly $k$ non-singleton blocks, we first pick the $n - k$ elements from $[n + r]$ that are in singletons, and then we calculate the number $a_{k, r}$ of possible orientations of the remaining $k + r$ elements. Note that $a_{k, r}$ is not dependent on $n$. Hence, summing over all possible $k$, we have
       \[
         S(n + r, n) = \sum_{k = 1}^{r} \binom{n + r}{n - k}a_{k, r} = \sum_{k = 1}^{r} \binom{n + r}{r + k}a_{k, r}.
       \]
-      But then $\binom{n + r}{r + k}a_{k, r}$ is a polynomial of $n$ of degree $r + k$. Since $r +
-      k$ goes up to $2r$ exactly once, $S(n + r, n)$ is a polynomial of $n$ of degree $2r$.
+      But then $\binom{n + r}{r + k}a_{k, r}$ is a polynomial of $n$ of degree $r + k$. Since $r + k$ goes up to $2r$ exactly once, $S(n + r, n)$ is a polynomial of $n$ of degree $2r$.
       
-      The similar argument works for $c(n + r, n)$. Consider the number $k$ of non-trivial cycles in
-      a permutation of size $n + r$ with $n$ disjoint cycles. To count the number of permutation
-      with exactly $k$ non-trivial cycles, we first pick the $n - k$ elements from $[n + r]$ such
-      that each of them are cycles on its own, and then we calculate the number $a_{k, r}$ of
-      possible cycle formations of the remaining $k + r$ elements. Note that $b_{k, r}$ is not
-      dependent on $n$. Hence, summing over all possible $k$, we have
+      The similar argument works for $c(n + r, n)$. Consider the number $k$ of non-trivial cycles in a permutation of size $n + r$ with $n$ disjoint cycles. To count the number of permutation with exactly $k$ non-trivial cycles, we first pick the $n - k$ elements from $[n + r]$ such that each of them are cycles on its own, and then we calculate the number $a_{k, r}$ of possible cycle formations of the remaining $k + r$ elements. Note that $b_{k, r}$ is not dependent on $n$. Hence, summing over all possible $k$, we have
       \[
         c(n + r, n) = \sum_{k = 1}^{r} \binom{n + r}{n - k}b_{k, r} = \sum_{k = 1}^{r} \binom{n + r}{r + k}b_{k, r}.
       \]
-      But then $\binom{n + r}{r + k}b_{k, r}$ is a polynomial of $n$ of degree $r + k$. Since $r +
-      k$ goes up to $2r$ exactly once, $c(n + r, n)$ is a polynomial of $n$ of degree $2r$.
+      But then $\binom{n + r}{r + k}b_{k, r}$ is a polynomial of $n$ of degree $r + k$. Since $r + k$ goes up to $2r$ exactly once, $c(n + r, n)$ is a polynomial of $n$ of degree $2r$.
     \end{proof}
     \item Compute these polynomials for $r = 2, 3$.
     \begin{proof}
-      We first compute $S(n + r, n)$ for $r = 2, 3$. When $r = 2$, there are either $1$ or $2$ non-singleton blocks. If there is only one
-      non-singleton block, then $3$ elements are in a block and the remaining elements each form a
-      singleton, which has $\binom{n + 2}{3}$ possibilities. If there are $2$ non-singleton blocks,
-      then there are $2$ blocks of size 2 and $n - 2$ singletons, which has $3\binom{n + 2}{4}$
-      possibilities. Hence, $S(n + 2, n) = \binom{n + 2}{3} + 3\binom{n + 2}{4}$.When $r = 3$, the number of non-singleton blocks ranges from $1$ to $3$. If there is only one
-      non-singleton block, then $4$ elements are in a block and the remaining elements each form a
-      singleton, which has $\binom{n + 3}{4}$ possibilities. If there are $2$ non-singleton blocks,
-      then there is a block of size 2, a block of size 3, and $n - 2$ singletons, which has
-      $\binom{5}{2}\binom{n + 3}{5} = 10\binom{n + 3}{5}$ possibilities. If there are $3$
-      non-singleton blocks, then there are 3 blocks of size 2 and all singletons for the rest, which
-      has $\frac{1}{3!}\binom{6}{2}\binom{4}{2}\binom{n + 3}{6} = 15\binom{n + 3}{6}$ possibilities.
-      Hence, $S(n + 3, n) = \binom{n + 3}{4} + 10\binom{n + 3}{5} + 15\binom{n + 3}{6}$.
+      We first compute $S(n + r, n)$ for $r = 2, 3$. When $r = 2$, there are either $1$ or $2$ non-singleton blocks. If there is only one non-singleton block, then $3$ elements are in a block and the remaining elements each form a singleton, which has $\binom{n + 2}{3}$ possibilities. If there are $2$ non-singleton blocks, then there are $2$ blocks of size 2 and $n - 2$ singletons, which has $3\binom{n + 2}{4}$ possibilities. Hence, $S(n + 2, n) = \binom{n + 2}{3} + 3\binom{n + 2}{4}$.When $r = 3$, the number of non-singleton blocks ranges from $1$ to $3$. If there is only one non-singleton block, then $4$ elements are in a block and the remaining elements each form a singleton, which has $\binom{n + 3}{4}$ possibilities. If there are $2$ non-singleton blocks, then there is a block of size 2, a block of size 3, and $n - 2$ singletons, which has $\binom{5}{2}\binom{n + 3}{5} = 10\binom{n + 3}{5}$ possibilities. If there are $3$ non-singleton blocks, then there are 3 blocks of size 2 and
+      all singletons for the rest, which has $\frac{1}{3!}\binom{6}{2}\binom{4}{2}\binom{n + 3}{6} = 15\binom{n + 3}{6}$ possibilities. Hence, $S(n + 3, n) = \binom{n + 3}{4} + 10\binom{n + 3}{5} + 15\binom{n + 3}{6}$.
 
-      We now compute $c(n + r, n)$ for $r = 2, 3$. When $r = 2$, there are either $1$ or $2$
-      non-trivial cycles. If there is only one non-trivial cycle, then there is a $3$-cycle and $n -
-      1$ singletons, which has $2\binom{n + 2}{3}$ possibilities. If there are $2$ non-trivial
-      cycles, then there are $2$ transpositions and $n - 2$ singletons, which has $3\binom{n +
-      2}{4}$ possibilities. Hence, $c(n + 2, n) = 2\binom{n + 2}{3} + 3\binom{n + 2}{4}$. When $r =
-      3$, the number of non-trivial cycles ranges from $1$ to $3$. If there is only one non-trivial
-      cycle, then there is a $4$-cycle and $n - 1$ singletons, which has $3!\binom{n + 3}{4}$
-      possibilities. If there are $2$ non-trivial cycles, then there is a transposition, a
-      $3$-cycle, and $n - 2$ singletons, which has $2\binom{5}{2}\binom{n + 3}{5} = 20\binom{n +
-      3}{5}$ possibilities. If there are $3$ non-trivial cycles, then there are 3 transpositions and
-      all singletons for the rest, which has $\frac{1}{3!}\binom{6}{2}\binom{4}{2}\binom{n + 3}{6} =
-      15\binom{n + 3}{6}$ possibilities. Hence, $c(n + 3, n) = 6\binom{n + 3}{4} + 20\binom{n + 3}{5}
-      + 15\binom{n + 3}{6}$.
+      We now compute $c(n + r, n)$ for $r = 2, 3$. When $r = 2$, there are either $1$ or $2$ non-trivial cycles. If there is only one non-trivial cycle, then there is a $3$-cycle and $n - 1$ singletons, which has $2\binom{n + 2}{3}$ possibilities. If there are $2$ non-trivial cycles, then there are $2$ transpositions and $n - 2$ singletons, which has $3\binom{n + 2}{4}$ possibilities. Hence, $c(n + 2, n) = 2\binom{n + 2}{3} + 3\binom{n + 2}{4}$. When $r = 3$, the number of non-trivial cycles ranges from $1$ to $3$. If there is only one non-trivial cycle, then there is a $4$-cycle and $n - 1$ singletons, which has $3!\binom{n + 3}{4}$ possibilities. If there are $2$ non-trivial cycles, then there is a transposition, a $3$-cycle, and $n - 2$ singletons, which has $2\binom{5}{2}\binom{n + 3}{5} = 20\binom{n + 3}{5}$ possibilities. If there are $3$ non-trivial cycles, then there are 3 transpositions and all singletons for the rest, which has $\frac{1}{3!}\binom{6}{2}\binom{4}{2}\binom{n +
+      3}{6} = 15\binom{n + 3}{6}$ possibilities. Hence, $c(n + 3, n) = 6\binom{n + 3}{4} + 20\binom{n + 3}{5} + 15\binom{n + 3}{6}$.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -215,23 +181,16 @@
 \newpage
 
 \begin{homeworkProblem}
-  For $n > 0$, let $a_n$ be the number of partitions of $n$ such that every part appears at most
-  twice, and let $b_n$ be the number of partitions of $n$ such that no part is divisible by $3$. Set
-  $a_0 = b_0 = 1$. Show that $a_n = b_n$ for all $n$.
+  For $n > 0$, let $a_n$ be the number of partitions of $n$ such that every part appears at most twice, and let $b_n$ be the number of partitions of $n$ such that no part is divisible by $3$. Set $a_0 = b_0 = 1$. Show that $a_n = b_n$ for all $n$.
 
   \begin{proof}
-    Let $A(x)$ be the generating function of $a_n$ and $B(x)$ be the generating function of $b_n$.
-    Since $a_n$ is the number of partitions of $n$ such that every part appears at most twice, 
+    Let $A(x)$ be the generating function of $a_n$ and $B(x)$ be the generating function of $b_n$. Since $a_n$ is the number of partitions of $n$ such that every part appears at most twice, 
     \[
       A(x) = \sum_{n \geq 0} a_nx^n = \prod_{i \geq 1} (1 + x^i + x^{2i}),
     \]
-    as we either choose 1, $x^i$, or $x^{2i}$ from the $i$th term, when multiplying out the right
-    side. What we get then is $x^N$ where $N$ where $N$ is the sum of the $i$ where we chose $x^i$
-    or $x^{2i}$. But we get $x^N$ one time for every partition of $N$ into parts which repeat at
-    most once, so the coefficient is $a_N$.
+    as we either choose 1, $x^i$, or $x^{2i}$ from the $i$th term, when multiplying out the right side. What we get then is $x^N$ where $N$ where $N$ is the sum of the $i$ where we chose $x^i$ or $x^{2i}$. But we get $x^N$ one time for every partition of $N$ into parts which repeat at most once, so the coefficient is $a_N$.
 
-    On the other hand, since $b_n$ is the number of partitions of $n$ such that no part is divisible
-    by $3$,
+    On the other hand, since $b_n$ is the number of partitions of $n$ such that no part is divisible by $3$,
     \[
       B(x) = \sum_{n \geq 0} b_nx^n = \prod_{i \geq 1, 3 \nmid i} \frac{1}{1 - x^i} = \frac{\prod_{i \geq 1} \frac{1}{1 - x^i}}{\prod_{i \geq 1} \frac{1}{1 - x^{3i}}} = \prod_{i \geq 1}\frac{1 - x^{3i}}{1 - x^{i}}.
     \]
@@ -252,19 +211,11 @@
   \]
 
   \begin{proof}
-    Notice that $[y^kx^n]\prod_{i \geq 0} (1 + x^{2i+1} y)$ is counting the number of partitions of
-    $n$ with $k$ distinct odd parts, as the exponent of the $y$ term indicates the number of times
-    we picked the $x^{2i + 1}y$ term when expanding the multiplication. On the other hand, from
-    Example 3.27 we know
+    Notice that $[y^kx^n]\prod_{i \geq 0} (1 + x^{2i+1} y)$ is counting the number of partitions of $n$ with $k$ distinct odd parts, as the exponent of the $y$ term indicates the number of times we picked the $x^{2i + 1}y$ term when expanding the multiplication. On the other hand, from Example 3.27 we know
     \[
       [y^kx^n]\sum_{r \geq 0} \frac{x^{r^2} y^r}{(1-x^2)(1-x^4) \cdots (1-x^{2r})} = [y^kx^n]\sum_{r \geq 0}  y^r \left(x^{r^2} \sum_{n \geq 0} p_{\leq r}(n)x^{2n}\right)
     \] 
-    is counting the number of self-conjugate partitions of $n$ with a Durfee square of
-    size $k$. We now show that there is a bijection between the set of self-conjugate partitions
-    with Durfee square of size $r$ and the set of partition with $r$ distinct odd parts. Given a
-    self-conjugate partition of $n$ which has a Durfee square of size $r$, we may use the reversible
-    transformation described in Theorem 3.26 to obtain a new partition of $n$ with $r$ distinct odd
-    parts, and thus the bijection. The result now follows from the bijection.
+    is counting the number of self-conjugate partitions of $n$ with a Durfee square of size $k$. We now show that there is a bijection between the set of self-conjugate partitions with Durfee square of size $r$ and the set of partition with $r$ distinct odd parts. Given a self-conjugate partition of $n$ which has a Durfee square of size $r$, we may use the reversible transformation described in Theorem 3.26 to obtain a new partition of $n$ with $r$ distinct odd parts, and thus the bijection. The result now follows from the bijection.
   \end{proof}
 \end{homeworkProblem}
 
@@ -295,11 +246,8 @@
     \]
 
     \begin{proof}
-      We proceed by induction on $d$. If $d = 0$, then $\sum_{n \geq 0} \begin{bmatrix} 
-        n \\
-        n
-      \end{bmatrix}_q x^n = \sum_{n \geq 0} x^n = \frac{1}{1-x},$
-      and the base case is done. Suppose $d \geq 1$. Then,
+      We proceed by induction on $d$. If $d = 0$, then $\sum_{n \geq 0} \begin{bmatrix} n \\
+        n \end{bmatrix}_q x^n = \sum_{n \geq 0} x^n = \frac{1}{1-x},$ and the base case is done. Suppose $d \geq 1$. Then,
       \begin{align*}
         \sum_{n \geq 0} \begin{bmatrix}
           n + d \\
@@ -328,26 +276,18 @@
       where the last equality follows from induction.
     \end{proof}
     
-    \item Give a direct explanation (i.e., independent of the Schubert decomposition explanation
-    from lecture) for why the coefficient of $x^n$ of the right side is the sum $\sum q^{|\lambda|}$
-    over all integer partitions $\lambda$ whose Young diagram fits in the $n \times d$ rectangle.
+    \item Give a direct explanation (i.e., independent of the Schubert decomposition explanation from lecture) for why the coefficient of $x^n$ of the right side is the sum $\sum q^{|\lambda|}$ over all integer partitions $\lambda$ whose Young diagram fits in the $n \times d$ rectangle.
     \begin{proof}
       Note that
       \begin{align*}
         [x^n]\prod_{i=0}^d (1-q^ix)^{-1} 
         &= \sum_{\substack{(a_0, \dots, a_d) \in \Z^d \\ a_0 + \cdots + a_d = n}} q^{a_1 + \cdots + da_d}.
       \end{align*}
-      We now show the bijection between the weak compositions of $n$ with $d + 1$ parts and the
-      integer partitions $\lambda$ whose Young diagram fits in the $n \times d$ rectangle. 
+      We now show the bijection between the weak compositions of $n$ with $d + 1$ parts and the integer partitions $\lambda$ whose Young diagram fits in the $n \times d$ rectangle. 
       
-      Given an integer partitions $\lambda$ whose Young diagram fits in the $n \times d$ rectangle,
-      let $a_i$ be the number of parts of $\lambda$ that are equal to $i \geq 1$ and put $a_0 = n -
-      a_1 - \cdots - a_d$. Then, $(a_0, a_1, \dots, a_d)$ is a weak composition of $n$.
+      Given an integer partitions $\lambda$ whose Young diagram fits in the $n \times d$ rectangle, let $a_i$ be the number of parts of $\lambda$ that are equal to $i \geq 1$ and put $a_0 = n - a_1 - \cdots - a_d$. Then, $(a_0, a_1, \dots, a_d)$ is a weak composition of $n$.
 
-      On the other hand, given a weak compositions $(a_0, \dots, a_d)$ of $n$, there is an integer
-      partition $\lambda$ with $a_i$ number of $i$'s for all $i \geq 1$. Since each part of
-      $\lambda$ is at most $d$ and $\ell(\lambda) \leq n$, the Young diagram of $\lambda$ fits in
-      the $n \times d$ rectangle. 
+      On the other hand, given a weak compositions $(a_0, \dots, a_d)$ of $n$, there is an integer partition $\lambda$ with $a_i$ number of $i$'s for all $i \geq 1$. Since each part of $\lambda$ is at most $d$ and $\ell(\lambda) \leq n$, the Young diagram of $\lambda$ fits in the $n \times d$ rectangle. 
 
       But then $a_1 + \cdots + da_d = |\lambda|$, and thus
       \[
@@ -364,38 +304,23 @@
   \begin{enumerate}[(a)]
     \item How many linear maps $V \rightarrow W$ are there?
     \begin{proof}
-      Consider the number of ways we can map the canonical basis vectors $e_1, \dots, e_n$ of $V$ to
-      some vectors in $W$. Since there are $q^m$ choices of vectors for each $e_i$ to be sent to,
-      there are $q^{mn}$ choices in total. Hence, there are $q^{mn}$ linear maps $V \to W$.
+      Consider the number of ways we can map the canonical basis vectors $e_1, \dots, e_n$ of $V$ to some vectors in $W$. Since there are $q^m$ choices of vectors for each $e_i$ to be sent to, there are $q^{mn}$ choices in total. Hence, there are $q^{mn}$ linear maps $V \to W$.
     \end{proof}
     \item Suppose $n \geq m$. How many surjective linear maps $V \rightarrow W$ are there?
     \begin{proof}
-      By the universal property of a quotient and the First Isomorphism Theorem, any surjective
-      linear map $\phi: V \to W$ corresponds to a unique induced isomorphism $u: V/ \text{Ker }\phi
-      \to W$. Note that $\text{Ker }\phi$ is of $(n - m)$-dimension and the number of isomorphisms
-      $V/ \text{Ker }\phi \to W$ is equal to $|\textbf{GL}_m(\textbf{F}_q)|$. Hence, there is a
-      bijection between the set of surjective linear maps $V \rightarrow W$ and $\textbf{Gr}_{n -
-      m}(\textbf{F}^n_q) \times \textbf{GL}_m(\textbf{F}_q)$. But then by Theorem 3.34 and 3.35,
+      By the universal property of a quotient and the First Isomorphism Theorem, any surjective linear map $\phi: V \to W$ corresponds to a unique induced isomorphism $u: V/ \text{Ker }\phi \to W$. Note that $\text{Ker }\phi$ is of $(n - m)$-dimension and the number of isomorphisms $V/ \text{Ker }\phi \to W$ is equal to $|\textbf{GL}_m(\textbf{F}_q)|$. Hence, there is a bijection between the set of surjective linear maps $V \rightarrow W$ and $\textbf{Gr}_{n - m}(\textbf{F}^n_q) \times \textbf{GL}_m(\textbf{F}_q)$. But then by Theorem 3.34 and 3.35,
       \[
         |\textbf{Gr}_{n - m}(\textbf{F}^n_q)| = \begin{bmatrix} 
           n \\
           m
         \end{bmatrix}_q, \quad |\textbf{GL}_m(\textbf{F}_q)| = \prod_{i = 0}^{m - 1} (q^m - q^i),
       \]
-      and thus there are $\begin{bmatrix} 
-        n \\
-        m \end{bmatrix}_q\prod_{i = 0}^{m - 1} (q^m - q^i) = \prod_{i = 0}^{m - 1} (q^n - q^i)$
-      surjective linear maps $V \to W$.
+      and thus there are $\begin{bmatrix} n \\
+        m \end{bmatrix}_q\prod_{i = 0}^{m - 1} (q^m - q^i) = \prod_{i = 0}^{m - 1} (q^n - q^i)$ surjective linear maps $V \to W$.
     \end{proof}
     \item Pick $k \leq \min(m, n)$. How many rank $k$ linear maps $V \rightarrow W$ are there?
     \begin{proof}
-      By the universal property of a quotient and the First Isomorphism Theorem, any linear map
-      $\phi: V \to W$ of rank $k$ corresponds to a unique induced isomorphism from $V/ K$ to some
-      $k$-dimensional subspace $U$ of $W$, where $K$ is the kernel of $\phi$. Note that $K$ is of
-      $(n - k)$-dimension and the number of isomorphisms $V/ K \to W$ is equal to
-      $|\textbf{GL}_k(\textbf{F}_q)|$. Since there are $|\textbf{Gr}_{n - k}(\textbf{F}^n_q)|$
-      choices for $K$, $|\textbf{Gr}_{k}(\textbf{F}^m_q)|$ choices for $U$, and
-      $|\textbf{GL}_k(\textbf{F}_q)|$ choices for isomorphisms $V/ K \to W$, there are 
+      By the universal property of a quotient and the First Isomorphism Theorem, any linear map $\phi: V \to W$ of rank $k$ corresponds to a unique induced isomorphism from $V/ K$ to some $k$-dimensional subspace $U$ of $W$, where $K$ is the kernel of $\phi$. Note that $K$ is of $(n - k)$-dimension and the number of isomorphisms $V/ K \to W$ is equal to $|\textbf{GL}_k(\textbf{F}_q)|$. Since there are $|\textbf{Gr}_{n - k}(\textbf{F}^n_q)|$ choices for $K$, $|\textbf{Gr}_{k}(\textbf{F}^m_q)|$ choices for $U$, and $|\textbf{GL}_k(\textbf{F}_q)|$ choices for isomorphisms $V/ K \to W$, there are 
       \[
         \begin{bmatrix} 
           n \\
@@ -451,29 +376,15 @@
 \newpage
 
 \begin{homeworkProblem}
-  Pick integers satisfying $1 \leq k_1 < k_2 < \cdots < k_r \leq n$. Let $X$ be the set of subspaces
-  $W_1, \dots, W_r$ of $F_q^n$ such that $\dim W_i = k_i$ for all $i$ and $W_i \subset W_{i+1}$ for
-  $i < r$.
+  Pick integers satisfying $1 \leq k_1 < k_2 < \cdots < k_r \leq n$. Let $X$ be the set of subspaces $W_1, \dots, W_r$ of $F_q^n$ such that $\dim W_i = k_i$ for all $i$ and $W_i \subset W_{i+1}$ for $i < r$.
   \begin{enumerate}[(a)]
-    \item Find a formula for $|X|$ by generalizing Example 3.39, i.e., use a $q$-analogue of a
-    multinomial coefficient.
+    \item Find a formula for $|X|$ by generalizing Example 3.39, i.e., use a $q$-analogue of a multinomial coefficient.
     \begin{proof}
-      For any $n \geq k_r > \cdots > k_1 \geq 1$, we show that there are $\begin{bmatrix} 
-        n \\
-        k_1, k_2 - k_1, \dots, n - k_r 
-      \end{bmatrix}_q$ ways of picking subspaces $W_1, \dots, W_r$
-      of $\textbf{F}^n_q$ by induction on $r$. If $r = 1$, it is obvious that there are
-      $\begin{bmatrix} 
-        n \\
-        k_1
-      \end{bmatrix}_q$ ways of picking $W_1$. Suppose $r \geq 2$. There are $\begin{bmatrix} 
-        n \\
-        k_r
-      \end{bmatrix}_q$ ways of picking $W_r$. But then by induction, there are $\begin{bmatrix} 
-        k_r \\
-        k_1, k_2 - k_1, \dots, k_r - k_{r - 1}
-      \end{bmatrix}_q$ ways of picking $W_1, \dots, W_{r - 1}$ which are contained in $W_r$. It now
-      follows that there are 
+      For any $n \geq k_r > \cdots > k_1 \geq 1$, we show that there are $\begin{bmatrix} n \\
+        k_1, k_2 - k_1, \dots, n - k_r \end{bmatrix}_q$ ways of picking subspaces $W_1, \dots, W_r$ of $\textbf{F}^n_q$ by induction on $r$. If $r = 1$, it is obvious that there are $\begin{bmatrix} n \\
+        k_1 \end{bmatrix}_q$ ways of picking $W_1$. Suppose $r \geq 2$. There are $\begin{bmatrix} n \\
+        k_r \end{bmatrix}_q$ ways of picking $W_r$. But then by induction, there are $\begin{bmatrix} k_r \\
+        k_1, k_2 - k_1, \dots, k_r - k_{r - 1} \end{bmatrix}_q$ ways of picking $W_1, \dots, W_{r - 1}$ which are contained in $W_r$. It now follows that there are 
       \[
         \begin{bmatrix} 
           n \\
@@ -488,8 +399,7 @@
       \]
       ways of picking $W_1, \dots, W_r$ of $\textbf{F}_q^n$.
     \end{proof}
-    \item $|X|$ is also a polynomial in $q$; find an explicit description of this polynomial using a
-    generalization of the Schubert decomposition of the Grassmannian.
+    \item $|X|$ is also a polynomial in $q$; find an explicit description of this polynomial using a generalization of the Schubert decomposition of the Grassmannian.
     \begin{proof}
       By the Schubert decomposition of $\textbf{Gr}_k(\textbf{F}_q^n)$, we have
       \[
@@ -499,8 +409,7 @@
         \end{bmatrix}_q = |\textbf{Gr}_k(\textbf{F}_q^n)| = \sum_{\lambda 
         \subseteq k \times (n - k)} q^{|\lambda|},
       \]
-      where $\lambda$ is any integer partition whose Young diagram fits into the $k \times (n - k)$
-      box. It now follows that,
+      where $\lambda$ is any integer partition whose Young diagram fits into the $k \times (n - k)$ box. It now follows that,
       \begin{align*}
         |X| 
         &= \begin{bmatrix} 

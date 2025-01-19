@@ -154,50 +154,36 @@
 \begin{homeworkProblem}
   A Markov chain $X_0, X_1, X_2, \ldots$ has the transition probability matrix
   \begin{center}
-    $P$ = \begin{tabular}{c ||c c c||} 
-      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-      \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} \\
+    $P$ = \begin{tabular}{c ||c c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} \\
       0 & 0.3 & 0.2 & 0.5 \\
       1 & 0.5 & 0.1 & 0.4 \\
       2 & 0.5 & 0.2 & 0.3 \\
     \end{tabular}
   \end{center}
 
-  Every period that the process spends in state 0 incurs a cost of \$2. Every period that the
-  process spends in state 1 incurs a cost of \$5. Every period that the process spends in state 2
-  incurs a cost of \$3. What is the long run cost per period associated with this Markov chain?
+  Every period that the process spends in state 0 incurs a cost of \$2. Every period that the process spends in state 1 incurs a cost of \$5. Every period that the process spends in state 2 incurs a cost of \$3. What is the long run cost per period associated with this Markov chain?
 
   \begin{proof}
-    Since $P$ is regular, $P$ has a limiting distribution $\pi = (\pi_0, \pi_1, \pi_2)^T$. We solve
-    for 
+    Since $P$ is regular, $P$ has a limiting distribution $\pi = (\pi_0, \pi_1, \pi_2)^T$. We solve for 
     \[
       \begin{cases}
         (I - P^T)\pi = 0 \\
         \sum_i \pi_i = 1
       \end{cases}
     \]
-    and get $\pi = (\frac{5}{12}, \frac{2}{11}, \frac{53}{132})$. Since $\pi_i$ can also be
-    interpreted as the long run mean fraction of time the process spent in state $i$, long run cost
-    per period is $\frac{5}{12} \cdot \$2 + \frac{2}{11} \cdot \$5 + \frac{53}{132} \cdot \$3 =
-    \$\frac{389}{132} \approx \$2.94697$.
+    and get $\pi = (\frac{5}{12}, \frac{2}{11}, \frac{53}{132})$. Since $\pi_i$ can also be interpreted as the long run mean fraction of time the process spent in state $i$, long run cost per period is $\frac{5}{12} \cdot \$2 + \frac{2}{11} \cdot \$5 + \frac{53}{132} \cdot \$3 = \$\frac{389}{132} \approx \$2.94697$.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Five balls are distributed between two urns, labeled A and B. Each period, an urn is selected at
-  random, and if it is not empty, a ball from that urn is removed and placed into the other urn. In
-  the long run what fraction of time is urn A empty?
+  Five balls are distributed between two urns, labeled A and B. Each period, an urn is selected at random, and if it is not empty, a ball from that urn is removed and placed into the other urn. In the long run what fraction of time is urn A empty?
 
   \begin{proof}
-    Let $\{X_n\}$ denote the number of balls in urn $A$ at step $n$. The transition probability
-    matrix for this process is
+    Let $\{X_n\}$ denote the number of balls in urn $A$ at step $n$. The transition probability matrix for this process is
     \begin{center}
-      $P$ = \begin{tabular}{c ||c c c c c c||} 
-        \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-        \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} &
-        \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
+      $P$ = \begin{tabular}{c ||c c c c c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} & \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
         0 & $\frac{1}{2}$ & $\frac{1}{2}$ & 0 & 0 & 0 & 0 \\
         1 & $\frac{1}{2}$ & 0 & $\frac{1}{2}$ & 0 & 0 & 0 \\
         2 & 0 & $\frac{1}{2}$ & 0 & $\frac{1}{2}$ & 0 & 0 \\
@@ -206,9 +192,7 @@
         5 & 0 & 0 & 0 & 0 & $\frac{1}{2}$ & $\frac{1}{2}$ \\
       \end{tabular}.
     \end{center}
-    Since $P_{00} > 0$ and every pair of states $i, j$ obviously communicates, $P$ is doubly
-    stochasatic and regular, and thus the long run mean fraction of time urn $A$ is empty is
-    $\frac{1}{6}$.
+    Since $P_{00} > 0$ and every pair of states $i, j$ obviously communicates, $P$ is doubly stochasatic and regular, and thus the long run mean fraction of time urn $A$ is empty is $\frac{1}{6}$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -217,10 +201,7 @@
 \begin{homeworkProblem}
   A Markov chain has the transition probability matrix
   \begin{center}
-    $P$ = \begin{tabular}{c ||c c c c c c||} 
-      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-      \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} &
-      \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
+    $P$ = \begin{tabular}{c ||c c c c c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} & \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
       0  & $\alpha_1$ & $\alpha_2$ & $\alpha_3$ & $\alpha_4$ & $\alpha_5$ & $\alpha_6$ \\
       1  & 1   & 0   & 0   & 0   & 0   & 0   \\
       2  & 0   & 1   & 0   & 0   & 0   & 0   \\
@@ -229,14 +210,10 @@
       5  & 0   & 0   & 0   & 0   & 1   & 0   \\
     \end{tabular}.
   \end{center}
-  where $\alpha_i \geq 0$, $i = 1, \ldots, 6$, and $\alpha_1 + \ldots + \alpha_6 = 1$. Determine the
-  limiting probability of being in state 0.
+  where $\alpha_i \geq 0$, $i = 1, \ldots, 6$, and $\alpha_1 + \ldots + \alpha_6 = 1$. Determine the limiting probability of being in state 0.
 
   \begin{proof}
-    Suppose $\alpha_6 = 0$, then we treast $P$ as a transition matrix for states $0$ to $4$. Then,
-    since $0$ communicates with every state, every pair of states $i, j$ are accessible. With
-    $P_{00} > 0$, we know $P$ has a limiting distribution $\pi = (\pi_0, \dots, \pi_5)$. We then get
-    the system of equations
+    Suppose $\alpha_6 = 0$, then we treast $P$ as a transition matrix for states $0$ to $4$. Then, since $0$ communicates with every state, every pair of states $i, j$ are accessible. With $P_{00} > 0$, we know $P$ has a limiting distribution $\pi = (\pi_0, \dots, \pi_5)$. We then get the system of equations
     \[
       \begin{cases}
         \pi_0 = \alpha_1\pi_0 + \pi_1 \\
@@ -258,8 +235,7 @@
         \pi_5 = \alpha_6\pi_0 \\
       \end{cases},
     \]
-    and thus the limiting probability of being in state 0 is $\pi_0 = (1 + \alpha_2 + 2\alpha_3 +
-    3\alpha_4 + 4\alpha_5 + 5\alpha_6)^{-1}$.
+    and thus the limiting probability of being in state 0 is $\pi_0 = (1 + \alpha_2 + 2\alpha_3 + 3\alpha_4 + 4\alpha_5 + 5\alpha_6)^{-1}$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -269,8 +245,7 @@
   Consider a Markov chain with transition probability matrix
 
   \begin{center}
-    $P$ = \begin{tabular}{||c c c c c||}
-      $p_0$ & $p_1$ & $p_{2}$ & $\cdots$ & $p_N$ \\
+    $P$ = \begin{tabular}{||c c c c c||} $p_0$ & $p_1$ & $p_{2}$ & $\cdots$ & $p_N$ \\
       $p_N$ & $p_0$ & $p_{1}$ & $\cdots$ & $p_{N-1}$ \\
       $p_{N-1}$ & $p_N$ & $p_{0}$ & $\cdots$ & $p_{N-2}$ \\
       $\vdots$ & $\vdots$ & $\vdots$ & & $\vdots$ \\
@@ -282,19 +257,14 @@
   where $0 < p_0 < 1$ and $p_0 + p_1 + \cdots + p_N = 1$. Determine the limiting distribution.
 
   \begin{proof}
-    We already know that $P$ is aperiodic, as $P_{ii} = p_0 > 0$. Since $p_0 + p_1 + \cdots + p_N =
-    1$ and $p_0 < 1$, there exsits $p_i > 0$ for some $i \neq 0$, there exists a directed
-    hamiltonian cycle in the state transition diagram, and thus $P$ is an irreducible stochastic
-    matrix. It follows that the limiting distribution of $P$ exists. Since $P$ is doubly stochastic,
-    the limiting distribution is $\left(\frac{1}{N + 1}, \dots, \frac{1}{N + 1}\right)$.
+    We already know that $P$ is aperiodic, as $P_{ii} = p_0 > 0$. Since $p_0 + p_1 + \cdots + p_N = 1$ and $p_0 < 1$, there exsits $p_i > 0$ for some $i \neq 0$, there exists a directed hamiltonian cycle in the state transition diagram, and thus $P$ is an irreducible stochastic matrix. It follows that the limiting distribution of $P$ exists. Since $P$ is doubly stochastic, the limiting distribution is $\left(\frac{1}{N + 1}, \dots, \frac{1}{N + 1}\right)$.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  A component of a computer has an active life, measured in discrete units, that is a random
-  variable $\xi$, where
+  A component of a computer has an active life, measured in discrete units, that is a random variable $\xi$, where
   \begin{center}
     \begin{tabular}{c|cccc}
       $k$ & 1 & 2 & 3 & 4 \\
@@ -303,19 +273,14 @@
     \end{tabular}
   \end{center}
 
-  Suppose that one starts with a fresh component, and each component is replaced by a new component
-  upon failure. Let $X_n$ be the \textit{remaining life} of the component in service at the
-  \textit{end} of period $n$. When $X_n = 0$, a new item is placed into service at the
-  \textit{start} of the next period.
+  Suppose that one starts with a fresh component, and each component is replaced by a new component upon failure. Let $X_n$ be the \textit{remaining life} of the component in service at the \textit{end} of period $n$. When $X_n = 0$, a new item is placed into service at the \textit{start} of the next period.
 
   \begin{enumerate}[(a)]
     \item Set up the transition probability matrix for $\{X_n\}$.
     \begin{proof}
       The transition probability matrix is 
       \begin{center}
-        $P$ = \begin{tabular}{c ||c c c c||} \multicolumn{1}{c}{\phantom{A}} &
-          \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} &
-          \multicolumn{1}{c}{$3$} \\
+        $P$ = \begin{tabular}{c ||c c c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
           0 & $0.1$ & $0.3$ & $0.2$ & $0.4$ \\
           1 & $1$ & $0$ & $0$ & $0$ \\
           2 & $0$ & $1$ & $0$ & $0$ \\
@@ -323,15 +288,9 @@
         \end{tabular}
       \end{center}
     \end{proof}
-    \item By showing that the chain is regular and solving for the limiting distribution, determine
-    the long run probability that the item in service at the end of a period has no remaining life
-    and therefore will be replaced.
+    \item By showing that the chain is regular and solving for the limiting distribution, determine the long run probability that the item in service at the end of a period has no remaining life and therefore will be replaced.
     \begin{proof}
-      $P$ is aperiodic, as $P_{00} > 0$. Notice that for all state $i > 0$, 0 is accessible from
-      state $i$ by following the path $i \to i - 1 \to \dots \to 0$. Since we also know that every
-      positive state is accessible from $0$, $P$ is irreducible.  It follows that $P$ is regular, so
-      the limiting distribution $\pi = (\pi_0, \dots, \pi_4)$ exists. We then get the system of
-      equations
+      $P$ is aperiodic, as $P_{00} > 0$. Notice that for all state $i > 0$, 0 is accessible from state $i$ by following the path $i \to i - 1 \to \dots \to 0$. Since we also know that every positive state is accessible from $0$, $P$ is irreducible.  It follows that $P$ is regular, so the limiting distribution $\pi = (\pi_0, \dots, \pi_4)$ exists. We then get the system of equations
       \[
         \begin{cases}
           \pi_0 = 0.1\pi_0 + \pi_1 \\
@@ -345,10 +304,7 @@
     \end{proof}
     \item Relate this to the mean life of a component.
     \begin{proof}
-      Notice that $E[\xi]\pi_0 = (1 \cdot 0.1 + 2 \cdot 0.3 + 3 \cdot 0.2 + 4 \cdot 0.4) \cdot
-      \frac{10}{29} = 1$. This implies that the number of periods that we make replacements of
-      component multiplied by the mean life of a component approaches the number of periods of the
-      process in the long run.
+      Notice that $E[\xi]\pi_0 = (1 \cdot 0.1 + 2 \cdot 0.3 + 3 \cdot 0.2 + 4 \cdot 0.4) \cdot \frac{10}{29} = 1$. This implies that the number of periods that we make replacements of component multiplied by the mean life of a component approaches the number of periods of the process in the long run.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -356,30 +312,18 @@
 \newpage
 
 \begin{homeworkProblem}
-  Consider a computer system that fails on a given day with probability $p$ and remains ``up'' with
-  probability $q = 1 - p$. Suppose the repair time is a random variable $N$ having the probability
-  mass function $p(k) = \beta(1 - \beta)^{k-1}$ for $k = 1, 2, \ldots$, where $0 < \beta < 1$. Let
-  $X_n = 1$ if the computer is operating on day $n$ and $X_1 = 0$ if not. Show that $\{X_n\}$ is a
-  Markov chain with transition matrix
+  Consider a computer system that fails on a given day with probability $p$ and remains ``up'' with probability $q = 1 - p$. Suppose the repair time is a random variable $N$ having the probability mass function $p(k) = \beta(1 - \beta)^{k-1}$ for $k = 1, 2, \ldots$, where $0 < \beta < 1$. Let $X_n = 1$ if the computer is operating on day $n$ and $X_1 = 0$ if not. Show that $\{X_n\}$ is a Markov chain with transition matrix
 
   \begin{center}
-    \begin{tabular}{c ||c c||} \multicolumn{1}{c}{\phantom{A}} &
-      \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} \\
+    \begin{tabular}{c ||c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} \\
       0 & $\alpha$ & $\beta$ \\
       1 & $p$ & $q$ \\
     \end{tabular}
   \end{center}
-  and $\alpha = 1 - \beta$. Determine the long run probability that the computer is operating in
-  terms of $\alpha, \beta, p$, and $q$.
+  and $\alpha = 1 - \beta$. Determine the long run probability that the computer is operating in terms of $\alpha, \beta, p$, and $q$.
 
   \begin{proof}
-    We already know $\p(X_n = i \mid X_{n - 1} = 1, \dots, X_0 = i_0) = \p(X_n = i \mid X_{n - 1} =
-    1)$. Notice that $p(k)$ is a geometric distribution. Hence, on any given day that our computer
-    is broken, the probability of it being repaired on that day is $\beta$ regardless of when the
-    repairment was incurred. Hence, $\{X_n\}$ is a Markov chain and has the above transition matrix.
-    Name that matrix $P$. Since $p, \beta > 0$ and $\beta < 1$, $P$ is irreducible and aperiodic,
-    and thus the limiting distribution $\pi = (\pi_0, \pi_1)^T$ exists. We then solve for $(I -
-    P^T)\pi = 0$ and get $\pi_0 = \frac{p}{\beta + p}$ and $\pi_1 = \frac{\beta}{\beta + p}$.
+    We already know $\p(X_n = i \mid X_{n - 1} = 1, \dots, X_0 = i_0) = \p(X_n = i \mid X_{n - 1} = 1)$. Notice that $p(k)$ is a geometric distribution. Hence, on any given day that our computer is broken, the probability of it being repaired on that day is $\beta$ regardless of when the repairment was incurred. Hence, $\{X_n\}$ is a Markov chain and has the above transition matrix. Name that matrix $P$. Since $p, \beta > 0$ and $\beta < 1$, $P$ is irreducible and aperiodic, and thus the limiting distribution $\pi = (\pi_0, \pi_1)^T$ exists. We then solve for $(I - P^T)\pi = 0$ and get $\pi_0 = \frac{p}{\beta + p}$ and $\pi_1 = \frac{\beta}{\beta + p}$.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

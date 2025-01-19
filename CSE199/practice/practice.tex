@@ -35,38 +35,19 @@ Prove that $\textbf{SPACE}(n) \neq \textbf{NP}$.
 \begin{proof}
   We prove that \textbf{NP} is closed under log-space reduction but $\textbf{SPACE}(n)$ is not. 
 
-  Given a log-space reduction from $L_1$ to $L_2$, there is a log-space turing machine $R$ which
-  performs the reduction. Since $\textbf{SPACE}(\log n) \subset P$, both the runtime and the output
-  length of $R$ is bounded by a polynomial. If $L_2 \in \textbf{NP}$, then there exists a
-  polynomial-time non-deterministic turning machine $M$ which decides $L_2$. Hence, a
-  non-deterministic turning machine which runs $R$ then $M$ decides $L_1$ in polynomial-time, and so
-  $L_1 \in \textbf{NP}$. 
+  Given a log-space reduction from $L_1$ to $L_2$, there is a log-space turing machine $R$ which performs the reduction. Since $\textbf{SPACE}(\log n) \subset P$, both the runtime and the output length of $R$ is bounded by a polynomial. If $L_2 \in \textbf{NP}$, then there exists a polynomial-time non-deterministic turning machine $M$ which decides $L_2$. Hence, a non-deterministic turning machine which runs $R$ then $M$ decides $L_1$ in polynomial-time, and so $L_1 \in \textbf{NP}$. 
 
-  We now show that $\textbf{SPACE}(n)$ is not closed under log-space reduction. Let $R$ be a
-  reduction which pads $n^2 - n$ $1$'s after an input of length $n$. Note that $R$ uses $O(\log n)$
-  space. Pick $L_1 \in \textbf{SPACE}(n^2) \backslash \textbf{SPACE}(n)$, and let $L_2$ be the
-  padded version of $L_1$. Consider a turing machine $M$ which checks the (1) input is of a square
-  number length, say $|x| = n^2$, (2) checks the first $n$ symbols are in $L_1$, and (3) checks the
-  remaining $n^2 - n$ symbols are all $1$'s. $M$ decides $L_2$. Since step (1) and (3) takes $O(\log
-  n)$ space, and (2) takes $O(|x|) = O(n^2)$ space, $M$ only uses linear space. But then $L_2 \in
-  \textbf{SPACE}(n)$ and $L_1 \notin \textbf{SPACE}(n)$. 
+  We now show that $\textbf{SPACE}(n)$ is not closed under log-space reduction. Let $R$ be a reduction which pads $n^2 - n$ $1$'s after an input of length $n$. Note that $R$ uses $O(\log n)$ space. Pick $L_1 \in \textbf{SPACE}(n^2) \backslash \textbf{SPACE}(n)$, and let $L_2$ be the padded version of $L_1$. Consider a turing machine $M$ which checks the (1) input is of a square number length, say $|x| = n^2$, (2) checks the first $n$ symbols are in $L_1$, and (3) checks the remaining $n^2 - n$ symbols are all $1$'s. $M$ decides $L_2$. Since step (1) and (3) takes $O(\log n)$ space, and (2) takes $O(|x|) = O(n^2)$ space, $M$ only uses linear space. But then $L_2 \in \textbf{SPACE}(n)$ and $L_1 \notin \textbf{SPACE}(n)$. 
 \end{proof}
 
 \section*{Polynomial Hierarchy}
 
 \subsection*{Problem 5.3}
 
-Show that if \texttt{3SAT} is polynomial-time reducible to $\overline{\texttt{3SAT}}$, then
-\textbf{PH} = \textbf{NP}.
+Show that if \texttt{3SAT} is polynomial-time reducible to $\overline{\texttt{3SAT}}$, then \textbf{PH} = \textbf{NP}.
 
 \begin{proof}
-  We show that $\Sigma_i^p, \Pi_i^p \subseteq NP$ for all $i \geq 1$, by induction on $i$. Since
-  \texttt{3SAT} is \textbf{NP}-complete, $\textbf{NP} \subseteq \textbf{coNP}$ by assumption. Let $L
-  \in \textbf{coNP}$. Since $\texttt{3SAT} \in \textbf{coNP}$, $\overline{\texttt{3SAT}} \in
-  \textbf{NP}$. But then $\overline{\texttt{3SAT}}$ is $\textbf{coNP}$-complete, and thus
-  $\textbf{coNP} \subseteq \textbf{NP}$. Hence, $\Pi_1^p = \textbf{NP}$. Suppose $i \geq 2$. Let $L
-  \in \Sigma_i^p$. There exists a polynomial-time turing maching $M$ and a polynomial $q$ such that
-  $x \in L$ if and only if
+  We show that $\Sigma_i^p, \Pi_i^p \subseteq NP$ for all $i \geq 1$, by induction on $i$. Since \texttt{3SAT} is \textbf{NP}-complete, $\textbf{NP} \subseteq \textbf{coNP}$ by assumption. Let $L \in \textbf{coNP}$. Since $\texttt{3SAT} \in \textbf{coNP}$, $\overline{\texttt{3SAT}} \in \textbf{NP}$. But then $\overline{\texttt{3SAT}}$ is $\textbf{coNP}$-complete, and thus $\textbf{coNP} \subseteq \textbf{NP}$. Hence, $\Pi_1^p = \textbf{NP}$. Suppose $i \geq 2$. Let $L \in \Sigma_i^p$. There exists a polynomial-time turing maching $M$ and a polynomial $q$ such that $x \in L$ if and only if
   \[
     \exists u_1 \in \{0, 1\}^{q(|x|)} \forall u_2 \in \{0, 1\}^{q(|x|)} \cdots Q_iu_i \in \{0, 1\}^{q(|x|)}, M(x, u_1, u_2, \ldots, u_i) = 1.
   \]
@@ -74,14 +55,11 @@ Show that if \texttt{3SAT} is polynomial-time reducible to $\overline{\texttt{3S
   \[
     \forall u_2 \in \{0, 1\}^{q(|x|)} \cdots Q_iu_i \in \{0, 1\}^{q(|x|)}, M(x, u_1, u_2, \ldots, u_i) = 1.
   \]
-  By induction, $L' \in \Pi_{i - 1}^p \subseteq \textbf{NP}$, so there exists a polynomial-time
-  turing machine $M'$ which verifies $L'$. Combining it into $L$, we get $x \in L$ if and only if
+  By induction, $L' \in \Pi_{i - 1}^p \subseteq \textbf{NP}$, so there exists a polynomial-time turing machine $M'$ which verifies $L'$. Combining it into $L$, we get $x \in L$ if and only if
   \[
     \exists (u_1, u_2) \in \{0, 1\}^{2q(|x|)}, M'(x, u_1, u_2) = 1.
   \]
-  Hence, $L \in \textbf{NP}$. By the same argument, we may also show that $\Pi_i^p \subseteq
-  \textbf{coNP}$. But then by the base case, $\textbf{coNP} = \textbf{NP}$, and this completes the
-  induction. 
+  Hence, $L \in \textbf{NP}$. By the same argument, we may also show that $\Pi_i^p \subseteq \textbf{coNP}$. But then by the base case, $\textbf{coNP} = \textbf{NP}$, and this completes the induction. 
 \end{proof}
 
 \subsection*{Problem 5.11}
@@ -89,28 +67,18 @@ Show that if \texttt{3SAT} is polynomial-time reducible to $\overline{\texttt{3S
 Show that $\texttt{SUCCINCT SET-COVER} \in \Sigma_2^p$. 
 
 \begin{proof}
-  Let $S = \{\varphi_1, \ldots, \varphi_m\}$ be a set of 3-DNF formulae on $n$ variables $V = \{v_1,
-  \ldots, v_n\}$. $\langle S, k \rangle \in \texttt{SUCCINCT SET-COVER}$ if and only if there exists
-  $I \subseteq [m]$ such that $|I| \leq k$ and for all assignments to $\bigvee_{i \in I} \varphi_i$
-  results in $1$. Hence, there exists a turing machine $M$ such that $\langle S, k \rangle \in
-  \texttt{SUCCINCT SET-COVER}$ if and only if
+  Let $S = \{\varphi_1, \ldots, \varphi_m\}$ be a set of 3-DNF formulae on $n$ variables $V = \{v_1, \ldots, v_n\}$. $\langle S, k \rangle \in \texttt{SUCCINCT SET-COVER}$ if and only if there exists $I \subseteq [m]$ such that $|I| \leq k$ and for all assignments to $\bigvee_{i \in I} \varphi_i$ results in $1$. Hence, there exists a turing machine $M$ such that $\langle S, k \rangle \in \texttt{SUCCINCT SET-COVER}$ if and only if
   \[
     \exists I \subseteq [m] \; \forall f: V \to \{0, 1\}, M(S, k, I, f) = 1.
   \]
-  Since calculating each $\varphi_i$ with assignment $f$ takes polynomial time and there are at most
-  $m$ of them, $M$ runs in polynomial time. Hence, $\texttt{SUCCINCT SET-COVER} \in \Sigma_2^p$. 
+  Since calculating each $\varphi_i$ with assignment $f$ takes polynomial time and there are at most $m$ of them, $M$ runs in polynomial time. Hence, $\texttt{SUCCINCT SET-COVER} \in \Sigma_2^p$. 
 \end{proof}
 
 \subsection*{Problem 5.13}
 
-This problem studies the Vapnik-Chervonenkis (VC) dimensions, an important concept in machine
-learning. If $\mathcal{S} = \{S_1, S_2, \ldots, S_m\}$ is a collection of subsets of a finite set
-$U$, the \textit{VC dimension} of $\mathcal{S}$, denoted $VC(\mathcal{S})$, is the size of the
-largest set $X \subseteq U$ such that for every $X' \subseteq X$, there is an $i$ for which $S_i
-\cap X = X'$. (We say that $X$ is shattered by $S$.)
+This problem studies the Vapnik-Chervonenkis (VC) dimensions, an important concept in machine learning. If $\mathcal{S} = \{S_1, S_2, \ldots, S_m\}$ is a collection of subsets of a finite set $U$, the \textit{VC dimension} of $\mathcal{S}$, denoted $VC(\mathcal{S})$, is the size of the largest set $X \subseteq U$ such that for every $X' \subseteq X$, there is an $i$ for which $S_i \cap X = X'$. (We say that $X$ is shattered by $S$.)
 
-A Boolean circuit $C$ succinctly represents collection $\mathcal{S}$ if $S_i$ consists of exactly
-those elements $x \in U$ for which $C(i, x) = 1$. Finally, the
+A Boolean circuit $C$ succinctly represents collection $\mathcal{S}$ if $S_i$ consists of exactly those elements $x \in U$ for which $C(i, x) = 1$. Finally, the
 \[
   \text{VC-DIMENSION} = \{\langle C, k \rangle : C \text{ represents a collection } \mathcal{S} \text{ s.t. } VC(\mathcal{S}) \geq k\}
 \]
@@ -121,40 +89,24 @@ those elements $x \in U$ for which $C(i, x) = 1$. Finally, the
     \begin{gather}
       \exists X \subseteq U \; \forall X' \subseteq X \; \exists i \in [m], X \geq k \text{ and } \forall x \in X, x \in X' \Leftrightarrow C(i, x) = 1.
     \end{gather}
-    Note that a collection $\mathcal{S}$ of $2^m$ subsets of $U$ can shatter a subset $X \subseteq
-    U$ of size at most $m$, as each subset $X'$ of $X$ corresponds an $S_i \in S$ such that $S_i
-    \cap X = X'$. Hence, the VC dimension of $\mathcal{S}$ is at most $m$. Suppose circuit $C$
-    represents $\mathcal{S}$. Since $m \leq |C|$, $|X|$, $|X'|$, and $|i|$ are bounded by $|C|$, and
-    thus (1) can be computed in polynomial time with respect to $|C|$. Therefore,
-    $\text{VC-DIMENSION} \in \Sigma_3^p$.
+    Note that a collection $\mathcal{S}$ of $2^m$ subsets of $U$ can shatter a subset $X \subseteq U$ of size at most $m$, as each subset $X'$ of $X$ corresponds an $S_i \in S$ such that $S_i \cap X = X'$. Hence, the VC dimension of $\mathcal{S}$ is at most $m$. Suppose circuit $C$ represents $\mathcal{S}$. Since $m \leq |C|$, $|X|$, $|X'|$, and $|i|$ are bounded by $|C|$, and thus (1) can be computed in polynomial time with respect to $|C|$. Therefore, $\text{VC-DIMENSION} \in \Sigma_3^p$.
   \end{proof}
   \item Show that VC-DIMENSION is $\Sigma_3^p$-complete.
   \begin{proof}
-    Let $\phi(x, y, z)$ be an instance of $\Sigma_3$SAT. We may assume $|x| = |y| = |z| = n$. Let $U
-    = \{0, 1\}^n \times [n]$. Define collection $\mathcal{S}$ to contain the sets
+    Let $\phi(x, y, z)$ be an instance of $\Sigma_3$SAT. We may assume $|x| = |y| = |z| = n$. Let $U = \{0, 1\}^n \times [n]$. Define collection $\mathcal{S}$ to contain the sets
     \[
       S_{x, y, z} = \begin{cases}
         \{x\} \times y & \text{if } \phi(x, y, z) \\
         \emptyset & \text{otherwise}
       \end{cases},
     \]
-    for all $x, y, z$. Given $(x', k) \in U$ and $(x, y, z)$, $(x', k) \in S_{x, y, z}$ if and only
-    if $\phi(x, y, z)$ and $x = x'$ and $y_k = 1$. Hence, there exists a circuit $C$ which
-    succinctly represents $\mathcal{S}$. 
+    for all $x, y, z$. Given $(x', k) \in U$ and $(x, y, z)$, $(x', k) \in S_{x, y, z}$ if and only if $\phi(x, y, z)$ and $x = x'$ and $y_k = 1$. Hence, there exists a circuit $C$ which succinctly represents $\mathcal{S}$. 
 
-    Suppose $\exists x \, \forall y \, \exists z$ such that $\phi(x, y, z)$. Consider the set $U_x =
-    \{x\} \times [n]$. Let $U_x' \subseteq U_x$. Since the set $\{x\} \times y \in \mathcal{S}$ for
-    all $y$, $U_x' = U_x \cap S_{x, y, z}$ for some $y$ and $z$ such that $\phi(x, y, z) = 1$. Thus,
-    $U_x$ is shattered by $\mathcal{S}$, and so the VC-dimension of $\mathcal{S}$ is at least $n$.
+    Suppose $\exists x \, \forall y \, \exists z$ such that $\phi(x, y, z)$. Consider the set $U_x = \{x\} \times [n]$. Let $U_x' \subseteq U_x$. Since the set $\{x\} \times y \in \mathcal{S}$ for all $y$, $U_x' = U_x \cap S_{x, y, z}$ for some $y$ and $z$ such that $\phi(x, y, z) = 1$. Thus, $U_x$ is shattered by $\mathcal{S}$, and so the VC-dimension of $\mathcal{S}$ is at least $n$.
 
-    Conversely, suppose the VC-dimension of $\mathcal{S}$ is at least $n$. That is, there exists a
-    set $X$ of size $n$ which is shattered by $\mathcal{S}$. Since $S_{x, y, z} \cap X \subseteq
-    U_x$ for all $x$, $X \subseteq U_x$ for some $x$. But then $|X| \geq n = |U_x|$, so $X = U_x$.
-    But then $U_x$ being shattered by $\mathcal{S}$ implies that $\phi(x, y, z) = 1$ for all $y$ and
-    for some $z$. 
+    Conversely, suppose the VC-dimension of $\mathcal{S}$ is at least $n$. That is, there exists a set $X$ of size $n$ which is shattered by $\mathcal{S}$. Since $S_{x, y, z} \cap X \subseteq U_x$ for all $x$, $X \subseteq U_x$ for some $x$. But then $|X| \geq n = |U_x|$, so $X = U_x$. But then $U_x$ being shattered by $\mathcal{S}$ implies that $\phi(x, y, z) = 1$ for all $y$ and for some $z$. 
 
-    Therefore, we conclude that $(C, n)$ is in VC-DIMENSION if and only if $\exists x \, \forall y
-    \, \exists z \, \phi(x, y, z)$. 
+    Therefore, we conclude that $(C, n)$ is in VC-DIMENSION if and only if $\exists x \, \forall y \, \exists z \, \phi(x, y, z)$. 
   \end{proof}
 \end{enumerate}
 \end{document}

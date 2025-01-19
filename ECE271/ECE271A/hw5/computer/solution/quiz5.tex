@@ -116,11 +116,7 @@
 
 \section*{Part A}
 
-For each class, learn 5 mixtures of $C = 8$ components, using a random initialization (recall that the
-mixture weights must add up to one). Plot the probability of error vs. dimension for each of the 25
-classifiers obtained with all possible mixture pairs. Comment the dependence of the probability of error
-on the initialization.
-\\
+For each class, learn 5 mixtures of $C = 8$ components, using a random initialization (recall that the mixture weights must add up to one). Plot the probability of error vs. dimension for each of the 25 classifiers obtained with all possible mixture pairs. Comment the dependence of the probability of error on the initialization. \\
 
 \textbf{\large Solution}
 \\
@@ -137,22 +133,15 @@ Hence, the updated parameters in the $M$-step are
 \[
     \mu_j^{(n + 1)} = \frac{\sum_i h_{ij}x_i}{\sum_i h_{ij}}, \quad \pi_j^{(n + 1)} = \frac{1}{n}\sum_i h_{ij}, \quad \Sigma_j^{(n + 1)} = \frac{\sum_i h_{ij} (x_i - \mu_j^{(n + 1)})(x_i - \mu_j^{(n + 1)})^T}{\sum_i h_{ij}}.
 \]
-For initialization, we simply take random vectors of some uniform distributions for each parameter.
-The following are the performance of the 25 ramdomly initialized mixure models:
+For initialization, we simply take random vectors of some uniform distributions for each parameter. The following are the performance of the 25 ramdomly initialized mixure models:
 \begin{center}
     \includegraphics[width=0.99\textwidth]{partA}
 \end{center}
-As shown in the above figures, the plots all show a similar overall trend, where the probability of error decreases as the dimension increases.
-However, the probability of errors accross each plot slightly differs, which is especially prominent in higher dimensions.
-This implies that the quality of our initial parameters affects the local maximum that the EM-algorithm converges to.
-\\
+As shown in the above figures, the plots all show a similar overall trend, where the probability of error decreases as the dimension increases. However, the probability of errors accross each plot slightly differs, which is especially prominent in higher dimensions. This implies that the quality of our initial parameters affects the local maximum that the EM-algorithm converges to. \\
 
 \section*{Part B}
 
-For each class, learn mixtures with $C \in \{1, 2, 4, 8, 16, 32\}$. 
-Plot the probability of error vs. dimension for each number of mixture components. 
-What is the effect of the number of mixture components on the probability of error?
-\\
+For each class, learn mixtures with $C \in \{1, 2, 4, 8, 16, 32\}$. Plot the probability of error vs. dimension for each number of mixture components. What is the effect of the number of mixture components on the probability of error? \\
 
 \textbf{\large Solution}
 \\
@@ -160,11 +149,7 @@ What is the effect of the number of mixture components on the probability of err
 \begin{center}
     \includegraphics[width=\textwidth]{partB}
 \end{center}
-From the above figure, we can tell that the increase of number of components does not necessarily increase the performance.
-Increasing the number of components of a smaller number, e.g. $C = 1, 2$, does exhibit a significant performance improvement.
-However, if the number of components is already large enough, e.g. $C = 8, 16$, increasing the number of components does not necessarily enhance the performance.
-This may be due to the difference in initialization, but the extent that it can affect the performace is limited if our initialization method is of a decent quality, as shown in part A.
-Therefore, increasing the number of components in the mixure model can only improve the performance to a certain extent, and the optimal number of components might not be the largest one.
+From the above figure, we can tell that the increase of number of components does not necessarily increase the performance. Increasing the number of components of a smaller number, e.g. $C = 1, 2$, does exhibit a significant performance improvement. However, if the number of components is already large enough, e.g. $C = 8, 16$, increasing the number of components does not necessarily enhance the performance. This may be due to the difference in initialization, but the extent that it can affect the performace is limited if our initialization method is of a decent quality, as shown in part A. Therefore, increasing the number of components in the mixure model can only improve the performance to a certain extent, and the optimal number of components might not be the largest one.
 
 \pagebreak
 

@@ -156,12 +156,10 @@
 \pagebreak
 
 \begin{homeworkProblem}
-    Find the order of all the elements of $U_{18}$. 
-    Is $U_{18}$ cyclic?
+    Find the order of all the elements of $U_{18}$. Is $U_{18}$ cyclic?
 
     \begin{proof}
-      We know that $18 = 2\cdot 3^2$, and so $U_{18} = \{[1], [5], [7], [11], [13], [17]\}$.
-      Notice that
+      We know that $18 = 2\cdot 3^2$, and so $U_{18} = \{[1], [5], [7], [11], [13], [17]\}$. Notice that
       \begin{align*}
         [5]^1 &= 5 \\
         [5]^2 &= 7 \\
@@ -170,9 +168,7 @@
         [5]^5 &= 11 \\
         [5]^6 &= 1.
       \end{align*}
-      Thus, we know that $U_{18}$ is a cyclic group.
-      Let $[5] = a$. We can represent each element in $U_{18}$ as $a^i$, for some $0 < i \leq \varphi(18) = 6$.
-      Hence, for all $a^i \in U_{18}$, the order of $a^i$ is equal to the least common multiple of $i$ and $\varphi(18) = 6$ divided by $i$, namely 
+      Thus, we know that $U_{18}$ is a cyclic group. Let $[5] = a$. We can represent each element in $U_{18}$ as $a^i$, for some $0 < i \leq \varphi(18) = 6$. Hence, for all $a^i \in U_{18}$, the order of $a^i$ is equal to the least common multiple of $i$ and $\varphi(18) = 6$ divided by $i$, namely 
       \[
         o(a^i) = \frac{\text{lcm}(i, 6)}{i} = \frac{6i}{i \cdot \gcd(i, 6)} = \frac{6}{\gcd(i, 6)}.
       \]
@@ -191,12 +187,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  Find the order of all the elements of $U_{20}$. 
-  Is $U_{20}$ cyclic?
+  Find the order of all the elements of $U_{20}$. Is $U_{20}$ cyclic?
 
   \begin{proof}
-    We know that $20 = 2^2\cdot 5$, and so $U_{20} = \{[1], [3], [7], [9], [11], [13], [17], [19]\}$.
-    Notice that
+    We know that $20 = 2^2\cdot 5$, and so $U_{20} = \{[1], [3], [7], [9], [11], [13], [17], [19]\}$. Notice that
     \begin{align*}
       [3]^1 &= [3] && [7]^1 = [7] && [17]^1 = [17] && [13]^1 = [13] && [9]^1 = [9] && [11]^1 = [11] && [19]^1 = [19] \\
       [3]^2 &= [9] && [7]^2 = [9] && [17]^2 = [9] && [13]^2 = [9] && [9]^2 = [1] && [11]^2 = [1] && [19]^2 = [1] \\
@@ -226,18 +220,11 @@
     x^2 \equiv -1 \mod p. 
   \]
   \begin{proof}
-    Suppose for the sake of contradiction that $x^2 \equiv -1 \mod p$ for some $x$. 
-    Then, $x^4 \equiv 1 \mod p$. 
-    Since $x^2 \equiv -1 \mod p$, we know $x \not\equiv \pm 1 \mod p$, and so $x^3 = x\cdot x^2 \not\equiv 1 \mod p$.
-    Therefore, we know that $[x]$ is of order $4$ in $U_p$. 
-    By Lagrange's Theorem, we know that $4 | \varphi(p) = p - 1 = 4n + 2$, contradiction.
-    Therefore, we cannot solve the above equation.
+    Suppose for the sake of contradiction that $x^2 \equiv -1 \mod p$ for some $x$. Then, $x^4 \equiv 1 \mod p$. Since $x^2 \equiv -1 \mod p$, we know $x \not\equiv \pm 1 \mod p$, and so $x^3 = x\cdot x^2 \not\equiv 1 \mod p$. Therefore, we know that $[x]$ is of order $4$ in $U_p$. By Lagrange's Theorem, we know that $4 | \varphi(p) = p - 1 = 4n + 2$, contradiction. Therefore, we cannot solve the above equation.
   \end{proof}
 
   \begin{proof}[Aliter]
-    We can assume that $p$ does not divide $x$, otherwise we get $x^2 \equiv 0 \mod p$.
-    Then, we know $x^{p - 1} \equiv 1 \mod p$, by Fermat's theorem.
-    We thus get $x^{4n + 2} = (x^2)^{2n + 1} \equiv 1 \mod p$, but $(-1)^{2n + 1} \equiv -1 \mod p$, and so the equation cannot be solved.
+    We can assume that $p$ does not divide $x$, otherwise we get $x^2 \equiv 0 \mod p$. Then, we know $x^{p - 1} \equiv 1 \mod p$, by Fermat's theorem. We thus get $x^{4n + 2} = (x^2)^{2n + 1} \equiv 1 \mod p$, but $(-1)^{2n + 1} \equiv -1 \mod p$, and so the equation cannot be solved.
   \end{proof}
 \end{homeworkProblem}
 
@@ -246,13 +233,9 @@
 \begin{homeworkProblem}
   Find the products:
   \begin{enumerate}[label=(\alph*)]
-    \item $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 & 6 \\
-      6 & 4 & 5 & 2 & 1 & 3
-    \end{pmatrix}\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 & 6 \\
-      2 & 3 & 4 & 5 & 6 & 1
-    \end{pmatrix}$.
+    \item $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 \\
+      6 & 4 & 5 & 2 & 1 & 3 \end{pmatrix}\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 \\
+      2 & 3 & 4 & 5 & 6 & 1 \end{pmatrix}$.
 
     \begin{proof}
       \[
@@ -269,13 +252,9 @@
       \]
     \end{proof}
 
-    \item $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 \\
-      2 & 1 & 3 & 4 & 5
-    \end{pmatrix}\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 \\
-      3 & 2 & 1 & 4 & 5
-    \end{pmatrix}$.
+    \item $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\
+      2 & 1 & 3 & 4 & 5 \end{pmatrix}\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\
+      3 & 2 & 1 & 4 & 5 \end{pmatrix}$.
     
     \begin{proof}
       \[
@@ -292,16 +271,10 @@
       \]
     \end{proof}
 
-    \item $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 \\
-      4 & 1 & 3 & 2 & 5
-    \end{pmatrix}^{-1}\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 \\
-      2 & 1 & 3 & 4 & 5
-    \end{pmatrix}\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 \\
-      4 & 1 & 3 & 2 & 5
-    \end{pmatrix}$.
+    \item $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\
+      4 & 1 & 3 & 2 & 5 \end{pmatrix}^{-1}\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\
+      2 & 1 & 3 & 4 & 5 \end{pmatrix}\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\
+      4 & 1 & 3 & 2 & 5 \end{pmatrix}$.
     
     \begin{proof}
       \[
@@ -329,24 +302,14 @@
   Find the order of the product you obtained in the previous problem.
 
   \begin{proof}
-    Since $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 & 6 \\
-      4 & 5 & 2 & 1 & 3 & 6
-    \end{pmatrix} = \begin{pmatrix}
-      1 & 4
-    \end{pmatrix}\begin{pmatrix}
-      5 & 3 & 2
-    \end{pmatrix}$, the order of it is the least common multiple of the size of the two cycles, namely $6$.
+    Since $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 \\
+      4 & 5 & 2 & 1 & 3 & 6 \end{pmatrix} = \begin{pmatrix} 1 & 4 \end{pmatrix}\begin{pmatrix} 5 & 3 & 2 \end{pmatrix}$, the order of it is the least common multiple of the size of the two cycles, namely $6$.
 
-    Since $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 \\
-      3 & 1 & 2 & 4 & 5
-    \end{pmatrix}$ is a $3$-cycle in $S_5$, the order of it is $3$.
+    Since $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\
+      3 & 1 & 2 & 4 & 5 \end{pmatrix}$ is a $3$-cycle in $S_5$, the order of it is $3$.
 
-    Since $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 \\
-      1 & 4 & 3 & 2 & 5
-    \end{pmatrix}$ is a $2$-cycle in $S_5$, the order of it is $2$.
+    Since $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \\
+      1 & 4 & 3 & 2 & 5 \end{pmatrix}$ is a $2$-cycle in $S_5$, the order of it is $2$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -356,10 +319,7 @@
   Show that if $\sigma, \tau$ are two disjoint cycles, then $\sigma\tau = \tau\sigma$.
 
   \begin{proof}
-    Let $\sigma, \tau \in S_n$, where $S = \{1, 2, \dots, n\}$. Let $i \in S$. 
-    If $i$ is not in $\sigma$ nor $\tau$, then $\sigma\tau(i) = \tau\sigma(i) = i$.
-    Since $\sigma, \tau$ are disjoint cycles, $i$ is not in cycle $\tau$ if it is already in $\sigma$, and thus $\sigma\tau(i) = \sigma(i) = \tau\sigma(i)$.
-    By symmetry, we also know that if $i$ is in $\tau$, we get $\tau\sigma(i) = \tau(i) = \sigma\tau(i)$, and we exausted all cases.
+    Let $\sigma, \tau \in S_n$, where $S = \{1, 2, \dots, n\}$. Let $i \in S$. If $i$ is not in $\sigma$ nor $\tau$, then $\sigma\tau(i) = \tau\sigma(i) = i$. Since $\sigma, \tau$ are disjoint cycles, $i$ is not in cycle $\tau$ if it is already in $\sigma$, and thus $\sigma\tau(i) = \sigma(i) = \tau\sigma(i)$. By symmetry, we also know that if $i$ is in $\tau$, we get $\tau\sigma(i) = \tau(i) = \sigma\tau(i)$, and we exausted all cases.
 
   \end{proof}
 \end{homeworkProblem}
@@ -370,10 +330,8 @@
   Find the cycle decomposition and order.
 
   \begin{enumerate}[label=(\alph*)]
-    \item $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
-      3 & 1 & 4 & 2 & 7 & 6 & 9 & 8 & 5
-    \end{pmatrix}$.
+    \item $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+      3 & 1 & 4 & 2 & 7 & 6 & 9 & 8 & 5 \end{pmatrix}$.
 
     \begin{proof}
       The above permutation can be decomposed into 
@@ -387,10 +345,8 @@
       and the order of it is the least common multiple of the size of the disjoint cycles, namely $12$.
     \end{proof}
 
-    \item $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 & 6 & 7 \\
-      7 & 6 & 5 & 4 & 3 & 2 & 1
-    \end{pmatrix}$.
+    \item $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      7 & 6 & 5 & 4 & 3 & 2 & 1 \end{pmatrix}$.
 
     \begin{proof}
       The above permutation can be decomposed into 
@@ -406,13 +362,9 @@
       and the order of it is the least common multiple of the size of the disjoint cycles, namely $2$.
     \end{proof}
 
-    \item $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 & 6 & 7 \\
-      7 & 6 & 5 & 3 & 4 & 2 & 1
-    \end{pmatrix}\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5 & 6 & 7 \\
-      2 & 3 & 1 & 5 & 6 & 7 & 4
-    \end{pmatrix}$.
+    \item $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      7 & 6 & 5 & 3 & 4 & 2 & 1 \end{pmatrix}\begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+      2 & 3 & 1 & 5 & 6 & 7 & 4 \end{pmatrix}$.
 
     \begin{proof}
       \begin{align*}
@@ -446,13 +398,7 @@
   Express as the product of disjoint cycles and find the order.
 
   \begin{enumerate}
-    \item[(c)] $\begin{pmatrix}
-      1 & 2 & 3 & 4 & 5
-    \end{pmatrix}\begin{pmatrix}
-      1 & 2 & 3 & 4 & 6
-    \end{pmatrix}\begin{pmatrix}
-      1 & 2 & 3 & 4 & 7
-    \end{pmatrix}$.
+    \item[(c)] $\begin{pmatrix} 1 & 2 & 3 & 4 & 5 \end{pmatrix}\begin{pmatrix} 1 & 2 & 3 & 4 & 6 \end{pmatrix}\begin{pmatrix} 1 & 2 & 3 & 4 & 7 \end{pmatrix}$.
 
     \begin{proof}
       \begin{align*}
@@ -470,11 +416,7 @@
       Since it's a $7$-cycle, the order of it is $7$.
     \end{proof}
 
-    \item[(d)] $\begin{pmatrix}
-      1 & 2 & 3
-    \end{pmatrix}\begin{pmatrix}
-      1 & 3 & 2
-    \end{pmatrix}$.
+    \item[(d)] $\begin{pmatrix} 1 & 2 & 3 \end{pmatrix}\begin{pmatrix} 1 & 3 & 2 \end{pmatrix}$.
 
     \begin{proof}
       \[
@@ -548,8 +490,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Find the conjugate of $\sigma = (1, 4, 7, 2)(3, 6, 5) \in S_7$ by $\tau = (1, 2, 3)(4, 7, 5)$.
-  What is the order of $\sigma$ and $\tau$?
+  Find the conjugate of $\sigma = (1, 4, 7, 2)(3, 6, 5) \in S_7$ by $\tau = (1, 2, 3)(4, 7, 5)$. What is the order of $\sigma$ and $\tau$?
 
   \begin{proof}
     \begin{align*}
@@ -573,8 +514,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Find an element $\tau \in S_7$ that carries $\sigma = (1, 2, 5)(3, 6, 7, 4)$ into
-  $\sigma' = (3, 1, 4)(2, 7, 6, 5)$, that is find $\tau \in S_7$ such that
+  Find an element $\tau \in S_7$ that carries $\sigma = (1, 2, 5)(3, 6, 7, 4)$ into $\sigma' = (3, 1, 4)(2, 7, 6, 5)$, that is find $\tau \in S_7$ such that
   \[
     \sigma' = \tau\sigma\tau^{-1}.
   \]

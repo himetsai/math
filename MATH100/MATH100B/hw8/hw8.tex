@@ -158,33 +158,15 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  Let $M$, $N$ and $P$ be $R$-modules and let $F$ be a free $R$-module of rank $n$. Show that there
-  are isomorphisms, which are all natural (except for the last):
+  Let $M$, $N$ and $P$ be $R$-modules and let $F$ be a free $R$-module of rank $n$. Show that there are isomorphisms, which are all natural (except for the last):
   \begin{enumerate}[(a)]
     \item $M \underset{R}{\otimes} N \simeq N \underset{R}{\otimes} M$.
     \begin{proof}
-      Let $v: N \times M \to N \underset{R}{\otimes} M$ be the bilinear map associated with $N
-      \underset{R}{\otimes} M$. Define $f: M \times N \to N \underset{R}{\otimes} M$ that sends $(m,
-      n)$ to $v(n, m)$. By the universal property of tensor product, there is an induced module
-      homomorphism $\phi: M \underset{R}{\otimes} N \to N \underset{R}{\otimes} M$. Similarly, there
-      exsits an induced module homomorphism $\psi: N \underset{R}{\otimes} M \to M
-      \underset{R}{\otimes} N$. By the universal property of tensor product, Hom($M \oplus N$, $M
-      \oplus N$) and Hom($N \oplus M$, $N \oplus M$) only contain the identities. But then $\phi
-      \circ \psi \in$ Hom($M \oplus N$, $M \oplus N$) and $\psi \circ \phi \in$ Hom($N \oplus M$, $N
-      \oplus M$), so $\phi$ and $\psi$ are inverses. It follows that $\phi$ is a module isomorphism,
-      so $M \underset{R}{\otimes} N \simeq N \underset{R}{\otimes} M$.
+      Let $v: N \times M \to N \underset{R}{\otimes} M$ be the bilinear map associated with $N \underset{R}{\otimes} M$. Define $f: M \times N \to N \underset{R}{\otimes} M$ that sends $(m, n)$ to $v(n, m)$. By the universal property of tensor product, there is an induced module homomorphism $\phi: M \underset{R}{\otimes} N \to N \underset{R}{\otimes} M$. Similarly, there exsits an induced module homomorphism $\psi: N \underset{R}{\otimes} M \to M \underset{R}{\otimes} N$. By the universal property of tensor product, Hom($M \oplus N$, $M \oplus N$) and Hom($N \oplus M$, $N \oplus M$) only contain the identities. But then $\phi \circ \psi \in$ Hom($M \oplus N$, $M \oplus N$) and $\psi \circ \phi \in$ Hom($N \oplus M$, $N \oplus M$), so $\phi$ and $\psi$ are inverses. It follows that $\phi$ is a module isomorphism, so $M \underset{R}{\otimes} N \simeq N \underset{R}{\otimes} M$.
     \end{proof}
-    \item $(M \underset{R}{\otimes} N)\underset{R}{\otimes} P \simeq M \underset{R}{\otimes}
-    (N\underset{R}{\otimes}P)$.
+    \item $(M \underset{R}{\otimes} N)\underset{R}{\otimes} P \simeq M \underset{R}{\otimes} (N\underset{R}{\otimes}P)$.
     \begin{proof}
-      For $m \in M$, define $\psi_m^B: N \times P \to (M \underset{R}{\otimes} N)
-      \underset{R}{\otimes} P$, which sends $(n, p)$ to $(m \otimes n) \otimes p$. Note that
-      $\psi_m^B$ is obvisouly bilinear and well-defined, and thus the universal property gives us a
-      linear mapping $\psi_m: N \otimes P \to (M \underset{R}{\otimes} N) \otimes P$. We now define
-      $\phi^B: M \times (N \otimes P) \to (M \underset{R}{\otimes} N) \otimes P$, which sends $(m, n
-      \otimes p)$ to $\psi_m(n, p)$. We check that $\phi^B$ is bilinear. Let $m, m' \in M$, $r \in
-      R$, and $v, v' \in N \underset{R}{\otimes} P$, say $v = \sum a_{ij} n_i \otimes p_j$ and $v' =
-      \sum b_{ij} n_i \otimes p_j$. Since
+      For $m \in M$, define $\psi_m^B: N \times P \to (M \underset{R}{\otimes} N) \underset{R}{\otimes} P$, which sends $(n, p)$ to $(m \otimes n) \otimes p$. Note that $\psi_m^B$ is obvisouly bilinear and well-defined, and thus the universal property gives us a linear mapping $\psi_m: N \otimes P \to (M \underset{R}{\otimes} N) \otimes P$. We now define $\phi^B: M \times (N \otimes P) \to (M \underset{R}{\otimes} N) \otimes P$, which sends $(m, n \otimes p)$ to $\psi_m(n, p)$. We check that $\phi^B$ is bilinear. Let $m, m' \in M$, $r \in R$, and $v, v' \in N \underset{R}{\otimes} P$, say $v = \sum a_{ij} n_i \otimes p_j$ and $v' = \sum b_{ij} n_i \otimes p_j$. Since
       \begin{align*}
         \phi^B(m + m', v) 
         &= \psi_{m + m'}(v) \\
@@ -211,31 +193,15 @@
       \begin{align*}
         \phi^B(m, rv) = \psi_{m}(rv) = r\psi_{m}(v) = r\phi^B(m, v),
       \end{align*}
-      $\phi^B$ is indeed bilinear, so we obtain a linear $\phi: M \underset{R}{\otimes} (N
-      \underset{R}{\otimes} P) \to (M \underset{R}{\otimes} N) \underset{R}{\otimes} P$, by the
-      universal property. We may repeat the above process to obtain an induced linear map $\varphi:
-      (M \underset{R}{\otimes} N) \underset{R}{\otimes} P \to M \underset{R}{\otimes} (N
-      \underset{R}{\otimes} P)$, and thus $\phi$ and $\varphi$ are inveres of each other, by the
-      standard uniqueness argument. The result now follows.
+      $\phi^B$ is indeed bilinear, so we obtain a linear $\phi: M \underset{R}{\otimes} (N \underset{R}{\otimes} P) \to (M \underset{R}{\otimes} N) \underset{R}{\otimes} P$, by the universal property. We may repeat the above process to obtain an induced linear map $\varphi: (M \underset{R}{\otimes} N) \underset{R}{\otimes} P \to M \underset{R}{\otimes} (N \underset{R}{\otimes} P)$, and thus $\phi$ and $\varphi$ are inveres of each other, by the standard uniqueness argument. The result now follows.
     \end{proof}
     \item $R \underset{R}{\otimes} M \simeq M$.
     \begin{proof}
-      Define mapping $f: R \times M \to M$ that sends $(r, m)$ to $rm$. Note that $f$ is obviously
-      bilinear. The universal property of tensor product gives us a $R$-linear mapping $\phi: R
-      \underset{R}{\otimes} M \to M$ which sends $r \otimes m$ to $f(rm)$, that is, $rm$. Since for
-      all $m \in M$, we have $1 \otimes m \in R \underset{R}{\otimes} M$ that is mapped to $m$ via
-      $\phi$, so $\phi$ is surjective. Suppose $r \otimes m$ is in the kernel of $\phi$. Then
-      $\phi(r \otimes m) = rm = 0$, so $r = 0$ or $m = 0$. But then $r \otimes m = 0$ in either
-      case, and thus the kernel of $\phi$ is trivial. The result now follows from the first
-      isomorphism theorem.
+      Define mapping $f: R \times M \to M$ that sends $(r, m)$ to $rm$. Note that $f$ is obviously bilinear. The universal property of tensor product gives us a $R$-linear mapping $\phi: R \underset{R}{\otimes} M \to M$ which sends $r \otimes m$ to $f(rm)$, that is, $rm$. Since for all $m \in M$, we have $1 \otimes m \in R \underset{R}{\otimes} M$ that is mapped to $m$ via $\phi$, so $\phi$ is surjective. Suppose $r \otimes m$ is in the kernel of $\phi$. Then $\phi(r \otimes m) = rm = 0$, so $r = 0$ or $m = 0$. But then $r \otimes m = 0$ in either case, and thus the kernel of $\phi$ is trivial. The result now follows from the first isomorphism theorem.
     \end{proof}
-    \item $M \underset{R}{\otimes} (N \oplus P) \simeq (M \underset{R}{\otimes} N) \oplus (M
-    \underset{R}{\otimes}P)$.
+    \item $M \underset{R}{\otimes} (N \oplus P) \simeq (M \underset{R}{\otimes} N) \oplus (M \underset{R}{\otimes}P)$.
     \begin{proof}
-      Define mapping $f: M \times (N \oplus P) \to (M \underset{R}{\otimes} N) \oplus (M
-      \underset{R}{\otimes}P)$, which maps $(m, (n \otimes p))$ to $(m \otimes n, m \otimes p)$.
-      This map is obviously well defined. We show that $f$ is bilinear. Suppose $m, m' \in M$, $n,
-      n' \in N$, $p, p' \in P$, and $r \in R$. We then have
+      Define mapping $f: M \times (N \oplus P) \to (M \underset{R}{\otimes} N) \oplus (M \underset{R}{\otimes}P)$, which maps $(m, (n \otimes p))$ to $(m \otimes n, m \otimes p)$. This map is obviously well defined. We show that $f$ is bilinear. Suppose $m, m' \in M$, $n, n' \in N$, $p, p' \in P$, and $r \in R$. We then have
       \begin{align*}
         f(m + m', (n, p)) 
         &= ((m + m') \otimes n, (m + m') \otimes p) \\
@@ -260,29 +226,15 @@
         &= (r(m \otimes n), r(m \otimes p)) \\
         &= r(m \otimes n, m \otimes p) = rf(m, (n, p)),
       \end{align*}
-      and thus $f$ is bilinear. The universal property of tensor product now gives us an induced
-      $R$-linear mapping
+      and thus $f$ is bilinear. The universal property of tensor product now gives us an induced $R$-linear mapping
       \[
         \phi: M \underset{R}{\otimes} (N \oplus P) \to (M \underset{R}{\otimes} N) \oplus (M \underset{R}{\otimes}P),
       \]
       which maps $m \otimes (n, p)$ to $f(m, (n, p))$. 
 
-      It remains to find the inverse of $\phi$. Define $\psi_1^B: M \times N \to M
-      \underset{R}{\otimes} (N \oplus P)$ by sending $(m, n)$ to $m \otimes (n, 0)$, and define
-      $\psi_2^B: M \times P \to M \underset{R}{\otimes} (N \oplus P)$ by sending $(m, p)$ to $m
-      \otimes (0, p)$. Note that both $\psi_1^B$ and $\psi_2^B$ are bilinear, so the universal
-      property gives us linear mappings $\psi_1: M \underset{R}{\otimes} N \to M
-      \underset{R}{\otimes} (N \oplus P)$ and $\psi_2: M \underset{R}{\otimes} P \to M
-      \underset{R}{\otimes} (N \oplus P)$. Now define $\psi: (M \underset{R}{\otimes} N) \oplus (M
-      \underset{R}{\otimes}P) \to M \underset{R}{\otimes} (N \oplus P)$ by sending $((m \otimes n),
-      (m' \otimes p))$ to $\psi_1(m \otimes n) + \psi_2(m' \otimes p)$. Note that $\psi$ is linear,
-      as both $\psi_1$ and $\psi_2$ are linear. 
+      It remains to find the inverse of $\phi$. Define $\psi_1^B: M \times N \to M \underset{R}{\otimes} (N \oplus P)$ by sending $(m, n)$ to $m \otimes (n, 0)$, and define $\psi_2^B: M \times P \to M \underset{R}{\otimes} (N \oplus P)$ by sending $(m, p)$ to $m \otimes (0, p)$. Note that both $\psi_1^B$ and $\psi_2^B$ are bilinear, so the universal property gives us linear mappings $\psi_1: M \underset{R}{\otimes} N \to M \underset{R}{\otimes} (N \oplus P)$ and $\psi_2: M \underset{R}{\otimes} P \to M \underset{R}{\otimes} (N \oplus P)$. Now define $\psi: (M \underset{R}{\otimes} N) \oplus (M \underset{R}{\otimes}P) \to M \underset{R}{\otimes} (N \oplus P)$ by sending $((m \otimes n), (m' \otimes p))$ to $\psi_1(m \otimes n) + \psi_2(m' \otimes p)$. Note that $\psi$ is linear, as both $\psi_1$ and $\psi_2$ are linear. 
 
-      We now show that $\phi$ and $\psi$ are inverses of each other. Suppose $v \in M
-      \underset{R}{\otimes} N$, $w \in M \underset{R}{\otimes} P$, and $x \in M
-      \underset{R}{\otimes} (N \oplus P)$, say $v = \sum a_{ij} m_i \otimes n_j$, $w = \sum b_{ij}
-      m_i \otimes p_j$, and $x = \sum c_{ijk} m_i \otimes (n_j, p_k)$. Since both $\phi$ and $\psi$
-      are linear,
+      We now show that $\phi$ and $\psi$ are inverses of each other. Suppose $v \in M \underset{R}{\otimes} N$, $w \in M \underset{R}{\otimes} P$, and $x \in M \underset{R}{\otimes} (N \oplus P)$, say $v = \sum a_{ij} m_i \otimes n_j$, $w = \sum b_{ij} m_i \otimes p_j$, and $x = \sum c_{ijk} m_i \otimes (n_j, p_k)$. Since both $\phi$ and $\psi$ are linear,
       \begin{align*}
         \phi \circ \psi(v, w) 
         &= \phi (\psi_1(v) + \psi_2(w)) \\
@@ -303,11 +255,7 @@
     \end{proof}
     \item $F \underset{R}{\otimes} M \simeq M^n$.
     \begin{proof}
-      Note that $F \simeq R^n$. We show that $R^n \underset{R}{\otimes} M \simeq M^n$ by induction
-      on $n$. The base case follows from (c). Suppose $n > 1$. By (d), we have $R^n
-      \underset{R}{\otimes} M \simeq (R \underset{R}{\otimes} M) \oplus (R^{n - 1}
-      \underset{R}{\otimes} M) \simeq M \oplus (R^{n - 1} \underset{R}{\otimes} M)$. The result now
-      follows from induction.
+      Note that $F \simeq R^n$. We show that $R^n \underset{R}{\otimes} M \simeq M^n$ by induction on $n$. The base case follows from (c). Suppose $n > 1$. By (d), we have $R^n \underset{R}{\otimes} M \simeq (R \underset{R}{\otimes} M) \oplus (R^{n - 1} \underset{R}{\otimes} M) \simeq M \oplus (R^{n - 1} \underset{R}{\otimes} M)$. The result now follows from induction.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -317,23 +265,15 @@
 \begin{homeworkProblem}
   Let $m$ and $n$ be integers. Identify $\Z_m \underset{\Z}{\otimes} \Z_n$.
   \begin{proof}
-    Let $d = \gcd(m, n)$. We show that $\Z_m \underset{\Z}{\otimes} \Z_n \simeq \Z_d$. Let $a, b \in
-    \Z$. We first note that $0 \otimes a = b \otimes 0 = 0$. In addition, since $(ab)(1 \otimes 1) =
-    a \otimes b$, all elements in $\Z_m \underset{\Z}{\otimes} \Z_n$ are multiples of $1 \otimes 1$,
-    so we have a cyclic group. 
+    Let $d = \gcd(m, n)$. We show that $\Z_m \underset{\Z}{\otimes} \Z_n \simeq \Z_d$. Let $a, b \in \Z$. We first note that $0 \otimes a = b \otimes 0 = 0$. In addition, since $(ab)(1 \otimes 1) = a \otimes b$, all elements in $\Z_m \underset{\Z}{\otimes} \Z_n$ are multiples of $1 \otimes 1$, so we have a cyclic group. 
     
-    Define $f: \Z_m \times \Z_n \to \Z_d$ that sends $(a, b)$ to $ab$. Suppose $(a, b) = (a', b')$.
-    We know $a' = a + km$ and $b' = b + ln$, for some $k, l \in \Z$. But then $d$ divides $m, n$, so
-    $a' = a$ and $b' = b$, mod $d$. Hence, $f(a, b) = ab = a'b' = f(a', b')$, so $f$ is
-    well-defined. Since $f$ is obviously bilinear, the universal property of tensor product gives us
-    an induced module homomorphism 
+    Define $f: \Z_m \times \Z_n \to \Z_d$ that sends $(a, b)$ to $ab$. Suppose $(a, b) = (a', b')$. We know $a' = a + km$ and $b' = b + ln$, for some $k, l \in \Z$. But then $d$ divides $m, n$, so $a' = a$ and $b' = b$, mod $d$. Hence, $f(a, b) = ab = a'b' = f(a', b')$, so $f$ is well-defined. Since $f$ is obviously bilinear, the universal property of tensor product gives us an induced module homomorphism 
     \[
       \phi: \Z_m \underset{\Z}{\otimes} \Z_n \to \Z_d,
     \]
     which sends $1 \otimes 1$ to $f(1, 1) = 1$. 
 
-    Consider $\psi: \Z_d \to \Z_m \underset{\Z}{\otimes} \Z_n$, which sends $k$ to $k \otimes 1$.
-    Suppose $k' = k + \alpha d$, for some $\alpha \in \Z$. Then,
+    Consider $\psi: \Z_d \to \Z_m \underset{\Z}{\otimes} \Z_n$, which sends $k$ to $k \otimes 1$. Suppose $k' = k + \alpha d$, for some $\alpha \in \Z$. Then,
     \[
       \psi(k') = (k + \alpha d) \otimes 1 = k(1 \otimes 1) + \alpha(d(1 \otimes 1)).
     \]
@@ -341,31 +281,22 @@
     \[
       d(1 \otimes 1) = (pm + qn)(1 \otimes 1) = p(m \otimes 1) + q(1 \otimes n) = 0,
     \]
-    so $\psi(k') = k(1 \otimes 1) = \psi(k)$, and thus $\psi$ is well defined. Note that $\psi$ is
-    obviously linear.
+    so $\psi(k') = k(1 \otimes 1) = \psi(k)$, and thus $\psi$ is well defined. Note that $\psi$ is obviously linear.
 
-    Since $\phi \circ \psi(k) = \phi(k(1 \otimes 1)) = k$ and $\psi \circ \phi(a \otimes b) =
-    \psi(ab) = (ab)(1 \otimes 1) = (a \otimes b)$, $\phi$ is an module isomorphism, and the result
-    follows.
+    Since $\phi \circ \psi(k) = \phi(k(1 \otimes 1)) = k$ and $\psi \circ \phi(a \otimes b) = \psi(ab) = (ab)(1 \otimes 1) = (a \otimes b)$, $\phi$ is an module isomorphism, and the result follows.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Show that if $M$ and $N$ are two finitely generated (respectively Noetherian) $R$-modules
-  (respectively and $R$ is Noetherian) then so is $M \underset{R}{\otimes} N$. 
+  Show that if $M$ and $N$ are two finitely generated (respectively Noetherian) $R$-modules (respectively and $R$ is Noetherian) then so is $M \underset{R}{\otimes} N$. 
   \begin{proof}
-    By Proposition 11.7., it suffices to show that $M \underset{R}{\otimes} N$ is finitely
-    generated. Suppose $m_1, m_2, \ldots, m_k$ and $n_1, n_2, \ldots, n_l$ are the generators of $M$
-    and $N$, respectively. Let $m \otimes n \in M \underset{R}{\otimes} N$. Since $m = \sum_i
-    a_im_i$ and $n = \sum_j b_jn_j$, for some $a_1, a_2, \ldots, a_k$, $b_1, b_2, \ldots, b_l \in R$
-    , we have
+    By Proposition 11.7., it suffices to show that $M \underset{R}{\otimes} N$ is finitely generated. Suppose $m_1, m_2, \ldots, m_k$ and $n_1, n_2, \ldots, n_l$ are the generators of $M$ and $N$, respectively. Let $m \otimes n \in M \underset{R}{\otimes} N$. Since $m = \sum_i a_im_i$ and $n = \sum_j b_jn_j$, for some $a_1, a_2, \ldots, a_k$, $b_1, b_2, \ldots, b_l \in R$ , we have
     \[
       m \otimes n = \sum_i a_i(m_i \otimes n) = \sum_i\sum_j a_ib_j(m_i \otimes n_j) = \sum_{i, j} c_{ij}(m_i \otimes n_j),
       \]
-      where $c_{ij} = a_ib_j$. Hence, $M \underset{R}{\otimes} N$ is generated by $m_i \otimes n_j$,
-      for finitely many $i, j$, and the result now follows.
+      where $c_{ij} = a_ib_j$. Hence, $M \underset{R}{\otimes} N$ is generated by $m_i \otimes n_j$, for finitely many $i, j$, and the result now follows.
     \end{proof}
   \end{homeworkProblem}
   

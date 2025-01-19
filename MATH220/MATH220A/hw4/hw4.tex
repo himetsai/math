@@ -89,8 +89,8 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework\ \#4}
-\newcommand{\hmwkDueDate}{Oct 25, 2024}
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Nov 15, 2024}
 \newcommand{\hmwkClass}{MATH 220A}
 \newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
@@ -151,19 +151,12 @@
 \pagebreak
 
 \begin{homeworkProblem}
-	Prove that $\limsup (a_n + b_n) \leq \limsup a_n + \limsup b_n$ and $\liminf (a_n + b_n) \geq
-	\liminf a_n + \liminf b_n$ for $\{a_n\}$ and $\{b_n\}$ sequences of real numbers.
+	Prove that $\limsup (a_n + b_n) \leq \limsup a_n + \limsup b_n$ and $\liminf (a_n + b_n) \geq \liminf a_n + \liminf b_n$ for $\{a_n\}$ and $\{b_n\}$ sequences of real numbers.
 
 	\begin{proof}
-		Let $A = \limsup a_n$ and $B = \limsup b_n$. Pick $\epsilon > 0$. Then there exists $N_1, N_2$
-		such that $a_n \leq A + \epsilon/2$ for all $n \geq N_1$, and $b_n \leq B + \epsilon/2$ for all
-		$n \geq N_2$. Put $N = \max (N_1, N_2)$. Then for all $n \geq N$, we have $a_n + b_n \leq A + B
-		+ \epsilon$. But then $\epsilon$ is arbitrary, and thus $\limsup (a_n + b_n) \leq A + B$. 
+		Let $A = \limsup a_n$ and $B = \limsup b_n$. Pick $\epsilon > 0$. Then there exists $N_1, N_2$ such that $a_n \leq A + \epsilon/2$ for all $n \geq N_1$, and $b_n \leq B + \epsilon/2$ for all $n \geq N_2$. Put $N = \max (N_1, N_2)$. Then for all $n \geq N$, we have $a_n + b_n \leq A + B + \epsilon$. But then $\epsilon$ is arbitrary, and thus $\limsup (a_n + b_n) \leq A + B$. 
 
-		Let $A = \liminf a_n$ and $B = \liminf b_n$. Pick $\epsilon > 0$. Then there exists $N_1, N_2$
-		such that $a_n \geq A - \epsilon/2$ for all $n \geq N_1$, and $b_n \geq B - \epsilon/2$ for all
-		$n \geq N_2$. Put $N = \max (N_1, N_2)$. Then for all $n \geq N$, we have $a_n + b_n \geq A + B
-		- \epsilon$. But then $\epsilon$ is arbitrary, and thus $\liminf (a_n + b_n) \geq A + B$.
+		Let $A = \liminf a_n$ and $B = \liminf b_n$. Pick $\epsilon > 0$. Then there exists $N_1, N_2$ such that $a_n \geq A - \epsilon/2$ for all $n \geq N_1$, and $b_n \geq B - \epsilon/2$ for all $n \geq N_2$. Put $N = \max (N_1, N_2)$. Then for all $n \geq N$, we have $a_n + b_n \geq A + B - \epsilon$. But then $\epsilon$ is arbitrary, and thus $\liminf (a_n + b_n) \geq A + B$.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -175,8 +168,7 @@
 	\begin{enumerate}[(a)]
 		\item $\sum_{n=0}^{\infty} a^n z^n$, $a \in \mathbb{C}$
 		\begin{proof}
-			By the comparison test, the radius of convergence is $R = \lim |a^n/a^{n + 1}| =
-			\frac{1}{|a|}$ when $a \neq 0$, and $R = \infty$ when $a = 0$.
+			By the comparison test, the radius of convergence is $R = \lim |a^n/a^{n + 1}| = \frac{1}{|a|}$ when $a \neq 0$, and $R = \infty$ when $a = 0$.
 		\end{proof}
 		\item $\sum_{n=0}^{\infty} a^{n^2} z^n$, $a \in \mathbb{C}$
 		\begin{proof}
@@ -191,8 +183,7 @@
 		\end{proof}
 		\item $\sum_{n=0}^{\infty} k^n z^n$, $k$ an integer $\neq 0$
 		\begin{proof}
-			By the comparison test, the radius of convergence is $R = \lim |k^n/k^{n + 1}| =
-			\frac{1}{|k|}$.
+			By the comparison test, the radius of convergence is $R = \lim |k^n/k^{n + 1}| = \frac{1}{|k|}$.
 		\end{proof}
 		\item $\sum_{n=0}^{\infty} z^{n!}$
 		\begin{proof}
@@ -200,8 +191,7 @@
 			\[
 				\sum_{n=0}^{\infty} z^{n!} = \sum_{k=0}^{\infty} a_kz^{k},
 			\]
-			where $a_1 = 2$, $a_k = 1$ if $k = n!$ for $n \in \Z_{\geq 2}$, and $a_k = 0$ otherwise. Then
-			by the root test, the radius of convergence is 
+			where $a_1 = 2$, $a_k = 1$ if $k = n!$ for $n \in \Z_{\geq 2}$, and $a_k = 0$ otherwise. Then by the root test, the radius of convergence is 
 			\[
 				R = \frac{1}{\limsup |a_k|^{1/k}} = 1.
 			\]
@@ -216,16 +206,14 @@
 	\[
 		\sum_{n=1}^{\infty} \frac{(-1)^n}{n} z^{n(n+1)}
 	\]
-	is 1, and discuss convergence for $z = 1$, $-1$, and $i$. (Hint: The $n$th coefficient of this
-	series is not $(-1)^n / n$.)
+	is 1, and discuss convergence for $z = 1$, $-1$, and $i$. (Hint: The $n$th coefficient of this series is not $(-1)^n / n$.)
 
 	\begin{proof}
 		Note that
 		\[
 			\sum_{n=1}^{\infty} \frac{(-1)^n}{n} z^{n(n+1)} = \sum_{k=0}^{\infty} a_kz^{k},
 		\]
-		where $a_k = \frac{(-1)^n}{n}$ if there exists $n$ such that $k = n(n + 1)$, otherwise $a_k =
-		0$. Then by the root test, 
+		where $a_k = \frac{(-1)^n}{n}$ if there exists $n$ such that $k = n(n + 1)$, otherwise $a_k = 0$. Then by the root test, 
 		\[
 			\frac{1}{R} = \limsup |a_k|^{1/k} = \limsup \left| \frac{(-1)^n}{n} \right|^{1/n(n+1)} = \limsup n^{-1/n(n+1)} = \limsup e^{-\ln n / n(n + 1)} = 1,
 		\]
@@ -253,9 +241,7 @@
 				\frac{1}{n} & \text{if } n \equiv 0, 1 \pmod{4} \\
 				-\frac{1}{n} & \text{if } n \equiv 2, 3 \pmod{4} \end{cases}.
 		\] 	
-		Put $b_0 = a_1$, $b_k = a_{2k} + a_{2k + 1} = (-1)^{k}\left(\frac{1}{2k} + \frac{1}{2k + 1}\right)$ for $k \geq 1$. Then
-		$\sum_{n = 1}^{\infty} a_n = \sum_{k = 0}^{\infty} b_k$. But then $|b_k|$ decreases
-		monotonically and $\lim b_k = 0$, so the series converges by the alternating test.
+		Put $b_0 = a_1$, $b_k = a_{2k} + a_{2k + 1} = (-1)^{k}\left(\frac{1}{2k} + \frac{1}{2k + 1}\right)$ for $k \geq 1$. Then $\sum_{n = 1}^{\infty} a_n = \sum_{k = 0}^{\infty} b_k$. But then $|b_k|$ decreases monotonically and $\lim b_k = 0$, so the series converges by the alternating test.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -277,8 +263,7 @@
 		\[
 			f'(z) = \lim_{n \to \infty} \frac{2Re(-zh_n)}{h_n} - h_n = \lim_{n \to \infty} \frac{2h_ny}{ih_n} = -2yi.
 		\]
-		Since $f'(z) = 2x = 2yi$, we must have $x = y = 0$, so $z = 0$. Thus $f'(z)$ only exists at the
-		origin.
+		Since $f'(z) = 2x = 2yi$, we must have $x = y = 0$, so $z = 0$. Thus $f'(z)$ only exists at the origin.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -289,43 +274,35 @@
 	\begin{enumerate}[(a)]
 		\item $\{z: e^z = i\}$
 		\begin{proof}
-			Put $z = x + iy$, where $x, y \in \R$. We have $e^z = e^{x + iy} = e^xe^{iy} = i$. Then $e^x =
-			1$ and $e^{iy} = \cos y + i\sin y = i$. Hence $x = 0$ and $y = \frac{\pi}{2} + 2\pi k$ for
-			some $k \in \Z$, which yields
+			Put $z = x + iy$, where $x, y \in \R$. We have $e^z = e^{x + iy} = e^xe^{iy} = i$. Then $e^x = 1$ and $e^{iy} = \cos y + i\sin y = i$. Hence $x = 0$ and $y = \frac{\pi}{2} + 2\pi k$ for some $k \in \Z$, which yields
 			\[
 				\{z: e^z = i\} = \left\{\frac{(4k + 1)i\pi}{2} \mid k \in \Z\right\}.
 			\]
 		\end{proof}
 		\item $\{z: e^z = -1\}$
 		\begin{proof}
-			Put $z = x + iy$, where $x, y \in \R$. We have $e^z = e^{x + iy} = e^xe^{iy} = -1$. Then $e^x =
-			1$ and $e^{iy} = \cos y + i\sin y = -1$. Hence $x = 0$ and $y = \pi + 2\pi k$ for some $k \in
-			\Z$, which yields
+			Put $z = x + iy$, where $x, y \in \R$. We have $e^z = e^{x + iy} = e^xe^{iy} = -1$. Then $e^x = 1$ and $e^{iy} = \cos y + i\sin y = -1$. Hence $x = 0$ and $y = \pi + 2\pi k$ for some $k \in \Z$, which yields
 			\[
 				\{z: e^z = -1\} = \left\{(2k + 1)i\pi \mid k \in \Z\right\}.
 			\]
 		\end{proof}
 		\item $\{z: e^z = -i\}$
 		\begin{proof}
-			Put $z = x + iy$, where $x, y \in \R$. We have $e^z = e^{x + iy} = e^xe^{iy} = -i$. Then $e^x =
-			1$ and $e^{iy} = \cos y + i\sin y = -i$. Hence $x = 0$ and $y = -\frac{\pi}{2} + 2\pi k$ for
-			some $k \in \Z$, which yields
+			Put $z = x + iy$, where $x, y \in \R$. We have $e^z = e^{x + iy} = e^xe^{iy} = -i$. Then $e^x = 1$ and $e^{iy} = \cos y + i\sin y = -i$. Hence $x = 0$ and $y = -\frac{\pi}{2} + 2\pi k$ for some $k \in \Z$, which yields
 			\[
 				\{z: e^z = -i\} = \left\{\frac{(4k - 1)i\pi}{2} \mid k \in \Z\right\}.
 			\]
 		\end{proof}
 		\item $\{z: \cos z = 0\}$
 		\begin{proof}
-			Put $z = x + iy$, where $x, y \in \R$. Since $\cos z = \frac{1}{2}(e^{iz} + e^{-iz}) = 0$, we
-			have $e^{2iz} = e^{-2y}e^{2ix} = -1$. Hence, $y = 0$ and $x = \frac{\pi}{2} + \pi k$. Thus,
+			Put $z = x + iy$, where $x, y \in \R$. Since $\cos z = \frac{1}{2}(e^{iz} + e^{-iz}) = 0$, we have $e^{2iz} = e^{-2y}e^{2ix} = -1$. Hence, $y = 0$ and $x = \frac{\pi}{2} + \pi k$. Thus,
 			\[
 				\{z: \cos z = 0\} = \left\{\frac{(2k + 1)\pi}{2} \mid k \in \Z\right\}.
 			\]
 		\end{proof}
 		\item $\{z: \sin z = 0\}$
 		\begin{proof}
-			Put $z = x + iy$, with $x, y \in \R$. Since $\sin z = \frac{1}{2i}(e^{iz} - e^{-iz}) = 0$, we
-			have $e^{2iz} = e^{-2y}e^{2ix} = 1$. Hence, $y = 0$ and $x = \pi k$ for some $k \in \Z$. Thus,
+			Put $z = x + iy$, with $x, y \in \R$. Since $\sin z = \frac{1}{2i}(e^{iz} - e^{-iz}) = 0$, we have $e^{2iz} = e^{-2y}e^{2ix} = 1$. Hence, $y = 0$ and $x = \pi k$ for some $k \in \Z$. Thus,
 			\[
 				\{z: \cos z = 0\} = \left\{k\pi \mid k \in \Z\right\}.
 			\]
@@ -336,15 +313,10 @@
 \newpage
 
 \begin{homeworkProblem}
-	Prove the following generalization of Proposition 2.20. Let $G$ and $\Omega$ be open in
-	$\mathbb{C}$ and suppose $f$ and $h$ are functions defined on $G$, $g: \Omega \to \mathbb{C}$ and
-	suppose that $f(G) \subseteq \Omega$. Suppose that $g$ and $h$ are analytic, $g'(\omega) \neq 0$
-	for any $\omega$, that $f$ is continuous, $h$ is one-to-one, and that they satisfy $h(z) =
-	g(f(z))$ for $z$ in $G$. Show that $f$ is analytic. Give a formula for $f'(z)$.
+	Prove the following generalization of Proposition 2.20. Let $G$ and $\Omega$ be open in $\mathbb{C}$ and suppose $f$ and $h$ are functions defined on $G$, $g: \Omega \to \mathbb{C}$ and suppose that $f(G) \subseteq \Omega$. Suppose that $g$ and $h$ are analytic, $g'(\omega) \neq 0$ for any $\omega$, that $f$ is continuous, $h$ is one-to-one, and that they satisfy $h(z) = g(f(z))$ for $z$ in $G$. Show that $f$ is analytic. Give a formula for $f'(z)$.
 
 	\begin{proof}
-		Let $z \in \C$. Since $h$ is injective, $g(f(z + k)) = h(z + k) \neq h(z) = g(f(z))$ for all
-		$k \neq 0$, and so $f(z + k) \neq f(z)$ for all $k \neq 0$. Since $h$ is analytic, 
+		Let $z \in \C$. Since $h$ is injective, $g(f(z + k)) = h(z + k) \neq h(z) = g(f(z))$ for all $k \neq 0$, and so $f(z + k) \neq f(z)$ for all $k \neq 0$. Since $h$ is analytic, 
 		\[
 			h'(z) = \lim_{k \to 0} \frac{h(z + k) - h(z)}{k} = \lim_{k \to 0} \frac{g(f(z + k)) - g(f(z))}{k} = \lim_{k \to 0} \frac{g(f(z + k)) - g(f(z))}{f(z + k) - f(z)} \cdot \frac{f(z + k) - f(z)}{k}.
 		\] 

@@ -154,38 +154,21 @@
   Prove that no order can be defined in the complex field that turns it into an ordered field.
 
   \begin{proof}
-    Consider $i^2$. Since $i^2$ is a square of nonzero element, $-1 = i^2 > 0$, contradiction.
-    Hence, no order can be defined in the complex field.
+    Consider $i^2$. Since $i^2$ is a square of nonzero element, $-1 = i^2 > 0$, contradiction. Hence, no order can be defined in the complex field.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Suppose $z = a + bi, w = c + di$. Define $z < w$ if $a < c$, and also if $a = c$ but $b < d$.
-  Prove that this turns the set of complex numbers into an ordered set. Does this ordered set have
-  the least-upper-bound property?
+  Suppose $z = a + bi, w = c + di$. Define $z < w$ if $a < c$, and also if $a = c$ but $b < d$. Prove that this turns the set of complex numbers into an ordered set. Does this ordered set have the least-upper-bound property?
 
   \begin{proof}
-    If $a > c$, then $z > w$. Suppose that $a = c$. If $b > d$, then $z > w$. If $b = d$, then $z =
-    w$. Thus, the order follows the law of trichotomy. 
+    If $a > c$, then $z > w$. Suppose that $a = c$. If $b > d$, then $z > w$. If $b = d$, then $z = w$. Thus, the order follows the law of trichotomy. 
     
-    We now show that the order is transitive. Let $x = g + hi$. Suppose that $z > w$ and $w > x$.
-    Since $z > w$, either $a > c$, or $a = c$ and $b > d$. Similarly, since $w > x$, either $c > g$,
-    or $c = g$ and $d > h$. We may assume that $a = c = g$, otherwise $a > g$ and we are done. Then,
-    $b > d > h$, so $z > x$, so the order is indeed transitive.
+    We now show that the order is transitive. Let $x = g + hi$. Suppose that $z > w$ and $w > x$. Since $z > w$, either $a > c$, or $a = c$ and $b > d$. Similarly, since $w > x$, either $c > g$, or $c = g$ and $d > h$. We may assume that $a = c = g$, otherwise $a > g$ and we are done. Then, $b > d > h$, so $z > x$, so the order is indeed transitive.
 
-    Note that this ordered set has the least-upper-bound property. Let $B \subset \C$ be non-empty.
-    Since $\R$ has the least-upper-bound property, we know there exists $\alpha = \sup \{k \in \R
-    \mid k + mi \in B\}$ and $\beta = \sup \{m \in \R \mid \alpha + mi \in B\}$. We show that
-    $\alpha + \beta i = \sup B$. Let $a + bi \in \C$. We know $\alpha \geq a$. We may assume that
-    $\alpha = a$. Then, since $\beta \geq b$, we know $\alpha + \beta i \geq a + bi$, so $\alpha +
-    \beta i$ is the upper bound of $B$. Let $w = c + di$, such that $w < \alpha + \beta i$. If $c <
-    \alpha$, then we may find $p \in \{k \in \R \mid k + mi \in B\}$ such that $p > c$, and thus
-    ther exists $p + qi \in B$ such that $p + qi > w$. If $c = \alpha$ and $d < \beta$, then we may
-    find $t \in \{m \in \R \mid \alpha + mi \in B\}$ such that $t > d$, and thus there exists $s +
-    ti \in B$, such that $s + ti > y$. Therefore, $\alpha + \beta i = \sup B$, so the ordered set
-    does have the least-upper-bound property.
+    Note that this ordered set has the least-upper-bound property. Let $B \subset \C$ be non-empty. Since $\R$ has the least-upper-bound property, we know there exists $\alpha = \sup \{k \in \R \mid k + mi \in B\}$ and $\beta = \sup \{m \in \R \mid \alpha + mi \in B\}$. We show that $\alpha + \beta i = \sup B$. Let $a + bi \in \C$. We know $\alpha \geq a$. We may assume that $\alpha = a$. Then, since $\beta \geq b$, we know $\alpha + \beta i \geq a + bi$, so $\alpha + \beta i$ is the upper bound of $B$. Let $w = c + di$, such that $w < \alpha + \beta i$. If $c < \alpha$, then we may find $p \in \{k \in \R \mid k + mi \in B\}$ such that $p > c$, and thus ther exists $p + qi \in B$ such that $p + qi > w$. If $c = \alpha$ and $d < \beta$, then we may find $t \in \{m \in \R \mid \alpha + mi \in B\}$ such that $t > d$, and thus there exists $s + ti \in B$, such that $s + ti > y$. Therefore, $\alpha + \beta i = \sup B$, so the ordered set does have the least-upper-bound property.
   \end{proof}
 \end{homeworkProblem}
 
@@ -196,8 +179,7 @@
   \[
   a = \left( \frac{|w| + u}{2} \right)^{1/2}, \quad b = \left( \frac{|w| - u}{2} \right)^{1/2}.
   \]
-  Prove that $z^2 = w$ if $v \geq 0$ and that $(\bar{z})^2 = w$ if $v \leq 0$. Conclude that every
-  complex number (with one exception!) has two complex square roots.
+  Prove that $z^2 = w$ if $v \geq 0$ and that $(\bar{z})^2 = w$ if $v \leq 0$. Conclude that every complex number (with one exception!) has two complex square roots.
 
   \begin{proof}
     If $v \geq 0$, then 
@@ -218,9 +200,7 @@
       &= u - 2\left( \frac{|w|^2 - u^2}{4} \right)^{1/2}i \\
       &= u - i|v| = u + iv = w.
     \end{align*}
-    Suppose that $w = 0$. Then, $a, b = 0$, so $z = \bar{z} = 0$, which means that $w = 0$ only has
-    one complex root. However, when $w \neq 0$, $w$ has $z$ and $\bar{z}$ as its complex roots.
-    Therefore, every nonzero complex number has two complex roots.
+    Suppose that $w = 0$. Then, $a, b = 0$, so $z = \bar{z} = 0$, which means that $w = 0$ only has one complex root. However, when $w \neq 0$, $w$ has $z$ and $\bar{z}$ as its complex roots. Therefore, every nonzero complex number has two complex roots.
   \end{proof}
 \end{homeworkProblem}
 
@@ -249,8 +229,7 @@
       &= |x|^2 + |y|^2 - (x\bar{y} + \overline{x\bar{y}}) \\
       &= |x|^2 + |y|^2 - 2\text{Re }x\bar{y}.
     \end{align*}
-    Since $|x\bar{y}| \geq \text{Re }x\bar{y}$, we have $||x| - |y||^2 \leq |x - y|^2$. Since $||x|
-    - |y||, |x - y| \geq 0$, the results follows.
+    Since $|x\bar{y}| \geq \text{Re }x\bar{y}$, we have $||x| - |y||^2 \leq |x - y|^2$. Since $||x| - |y||, |x - y| \geq 0$, the results follows.
   \end{proof}
 \end{homeworkProblem}
 
@@ -279,9 +258,7 @@
   Under what conditions does equality hold in the Schwarz inequality?
 
   \begin{proof}
-    From the proof of Theorem 1.35, the equality holds when $C^2 = AB$, which is equivalent to
-    $|Ba_j - Cb_j| = 0$, for all $j$. Hence, the equality holds when $a_j\sum_i^n |b_i|^2 =
-    b_j\sum_i^n a_i\bar{b_i}$, for all $j$.
+    From the proof of Theorem 1.35, the equality holds when $C^2 = AB$, which is equivalent to $|Ba_j - Cb_j| = 0$, for all $j$. Hence, the equality holds when $a_j\sum_i^n |b_i|^2 = b_j\sum_i^n a_i\bar{b_i}$, for all $j$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -292,8 +269,7 @@
   \[
     |x + y|^2 + |x - y|^2 = 2|x|^2 + 2|y|^2
   \]
-  if $x \in \R^k$ and $y \in \R^k$. Interpret this geometrically, as a statement about
-  parallelograms.
+  if $x \in \R^k$ and $y \in \R^k$. Interpret this geometrically, as a statement about parallelograms.
 
   \begin{proof}
     \begin{align*}
@@ -302,8 +278,7 @@
       &= 2(x \cdot x + y \cdot y) \\
       &= 2|x|^2 + 2|y|^2.
     \end{align*}
-    This implies that in a parallelogram, the square sum of the length of the diagonals equals the
-    the square sum of the length each side.
+    This implies that in a parallelogram, the square sum of the length of the diagonals equals the the square sum of the length each side.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

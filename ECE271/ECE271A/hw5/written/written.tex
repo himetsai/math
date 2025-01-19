@@ -156,20 +156,15 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  \textbf{BDR and nearest neighbors}:
-  Consider a classification problem with $c$ classes and uniform class probabilities, i.e. $P_Y(i) = \frac{1}{c}, \forall i$. 
-  Assume that the goal is to classify an iid sequence of observations $X = \{x_1, \dots , x_n\}$ as a whole (i.e. the samples are not classified one at a time).
-  \\
+  \textbf{BDR and nearest neighbors}: Consider a classification problem with $c$ classes and uniform class probabilities, i.e. $P_Y(i) = \frac{1}{c}, \forall i$. Assume that the goal is to classify an iid sequence of observations $X = \{x_1, \dots , x_n\}$ as a whole (i.e. the samples are not classified one at a time). \\
 
   \part{A}
 
-  Compute the BDR for this problem and show that it converges (in probability) to a nearest neighbor rule based on the class-conditional distributions and the distribution of the observations. 
-  Show that the distance function is the Kullback-Leibler divergence
+  Compute the BDR for this problem and show that it converges (in probability) to a nearest neighbor rule based on the class-conditional distributions and the distribution of the observations. Show that the distance function is the Kullback-Leibler divergence
   \[
     \D[p(\mathbf{x})\|q(\mathbf{x})] = \int p(\mathbf{x})\log \frac{p(\mathbf{x})}{q(\mathbf{x})}d{\mathbf{x}}.
   \]
-  This proves that the BDR for the classification of sequence is really just a nearest neighbor rule.
-  \\
+  This proves that the BDR for the classification of sequence is really just a nearest neighbor rule. \\
 
   \textbf{Solution}
   \begin{align*}
@@ -179,8 +174,7 @@
     &= \underset{i}{\arg \max} \sum_{k = 1}^n \log P_{\mathbf{X}|Y}(\mathbf{x_k} | i) \\
     &= \underset{i}{\arg \max} \, \frac{1}{n} \sum_{k = 1}^n \log P_{\mathbf{X}|Y}(\mathbf{x_k} | i).
   \end{align*}
-  Thus, when $n \rightarrow \infty$, $i^*(\mathbf{x}) \rightarrow \underset{i}{\arg \max} \, E_{\mathbf{X}}[\log P_{\mathbf{X}|Y}(\mathbf{x} | i)]$, by the Law of large numbers.
-  This immediately follows that
+  Thus, when $n \rightarrow \infty$, $i^*(\mathbf{x}) \rightarrow \underset{i}{\arg \max} \, E_{\mathbf{X}}[\log P_{\mathbf{X}|Y}(\mathbf{x} | i)]$, by the Law of large numbers. This immediately follows that
   \begin{align*}
     i^*(\mathbf{x})
     &= \underset{i}{\arg \min} \, - E_{\mathbf{X}}[\log P_{\mathbf{X}|Y}(\mathbf{x} | i)] \\
@@ -189,16 +183,13 @@
     &= \underset{i}{\arg \min} \, \int Q_{\mathbf{X}}(\mathbf{x}) \log \frac{Q_{\mathbf{X}}(\mathbf{x})}{P_{\mathbf{X}|Y}(\mathbf{x} | i)} \, dx \\
     &= \underset{i}{\arg \min} \, \D[Q_{\mathbf{X}}(\mathbf{x}) \| P_{\mathbf{X}|Y}(\mathbf{x} | i)],
   \end{align*}
-  where $Q_{\mathbf{X}}(\mathbf{x})$ is the density function from which $X$ was sampled.
-  Therefore, the BDR is equivalent to the nearest neighbor search for $P_{\mathbf{X}|Y}(\mathbf{x} | i)$ that's closest to $Q_{\mathbf{X}}(\mathbf{x})$, with the KL-divergence as the distance metric.
+  where $Q_{\mathbf{X}}(\mathbf{x})$ is the density function from which $X$ was sampled. Therefore, the BDR is equivalent to the nearest neighbor search for $P_{\mathbf{X}|Y}(\mathbf{x} | i)$ that's closest to $Q_{\mathbf{X}}(\mathbf{x})$, with the KL-divergence as the distance metric.
   
   \pagebreak
 
   \part{B}
 
-  Assuming that all densities are Gaussian with equal covariance $\mathbf{\Sigma}$, the class conditional densities have mean $\mu_i$ and the observation density has mean $\mu$ write down an expression for the decision rule as a function of the Gaussian parameters. 
-  Provide an interpretation for this new decision rule, by stating what are the items being compared and what is the distance function.
-  \\
+  Assuming that all densities are Gaussian with equal covariance $\mathbf{\Sigma}$, the class conditional densities have mean $\mu_i$ and the observation density has mean $\mu$ write down an expression for the decision rule as a function of the Gaussian parameters. Provide an interpretation for this new decision rule, by stating what are the items being compared and what is the distance function. \\
   
   \textbf{Solution}
 
@@ -217,19 +208,13 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  \textbf{Multinomial EM}: 
-  In this problem we consider an example where there is a closed-form solution to ML estimation from incomplete data. 
-  The goal is to compare with the EM solution and get some insight on how the steps of the latter can be substantially easier to derive than the former.
+  \textbf{Multinomial EM}: In this problem we consider an example where there is a closed-form solution to ML estimation from incomplete data. The goal is to compare with the EM solution and get some insight on how the steps of the latter can be substantially easier to derive than the former.
 
-  Consider our bridge example and let $U$ be the type of vehicle that crosses the bridge. 
-  $U$ that can take 4 values, (\textit{compact, sedan, station wagon, and pick-up truck}) that we denote by $U \in \{1, 2, 3, 4\}$. 
-  On a given day, an operator collects an iid sample of size $n$ from $U$ and the number of vehicles of each type is counted and stored in a vector $\D = (x_1, x_2, x_3, x_4)$. 
-  The resulting random variable $X$ (the histogram of vehicle classes) has a multinomial distribution
+  Consider our bridge example and let $U$ be the type of vehicle that crosses the bridge. $U$ that can take 4 values, (\textit{compact, sedan, station wagon, and pick-up truck}) that we denote by $U \in \{1, 2, 3, 4\}$. On a given day, an operator collects an iid sample of size $n$ from $U$ and the number of vehicles of each type is counted and stored in a vector $\D = (x_1, x_2, x_3, x_4)$. The resulting random variable $X$ (the histogram of vehicle classes) has a multinomial distribution
   \[
     P_{X_1, X_2, X_3, X_4}(x_1, x_2, x_3, x_4; \Psi) = \frac{n!}{x_1!x_2!x_3!x_4!}\left(\frac{1}{2} + \frac{1}{4}\Psi\right)^{x_1}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_2}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_3}\left(\frac{1}{4}\Psi\right)^{x_4}.
   \]
-  However, it is later realized that the operator included motorcycles in the compact class. 
-  It is established that bikes have probability $\frac{1}{4}\Psi$, which leads to a new model
+  However, it is later realized that the operator included motorcycles in the compact class. It is established that bikes have probability $\frac{1}{4}\Psi$, which leads to a new model
   \begin{align*}
     &P_{X_{11}, X_{11}, X_2, X_3, X_4}(x_{11}, x_{12}, x_2, x_3, x_4; \Psi) \\
     &= \frac{n!}{x_{11}!x_{12}!x_2!x_3!x_4!}\left(\frac{1}{2}\right)^{x_{11}}\left(\frac{1}{4}\Psi\right)^{x_{12}}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_2}\left(\frac{1}{4} - \frac{1}{4}\Psi\right)^{x_3}\left(\frac{1}{4}\Psi\right)^{x_4}.
@@ -238,8 +223,7 @@
   \[
     x_1 = x_{11} + x_{12}
   \]
-  but not for $x_{11}$ and $x_{12}$ independently.
-  \\
+  but not for $x_{11}$ and $x_{12}$ independently. \\
 
   \part{A}
 
@@ -247,8 +231,7 @@
   \[
     \Psi_i^* = \underset{\Psi}{\arg \max} \, P_{X_1, X_2, X_3, X_4}(\D; \Psi)
   \]
-  by  using standard ML estimation procedures.
-  \\
+  by  using standard ML estimation procedures. \\
 
   \textbf{Solution}
   \begin{align*}
@@ -257,8 +240,7 @@
     &= \underset{\Psi}{\arg \max} \, \log  P_{X_1, X_2, X_3, X_4}(\D; \Psi) \\
     &= \underset{\Psi}{\arg \max} \, x_1\log \left(\frac{1}{2} + \frac{1}{4}\Psi\right) + x_2\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_3\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_4\log \left(\frac{1}{4}\Psi\right).
   \end{align*}
-  Let $L = \log  P_{X_1, X_2, X_3, X_4}(\D; \Psi)$.
-  Since
+  Let $L = \log  P_{X_1, X_2, X_3, X_4}(\D; \Psi)$. Since
   \begin{align*}
     \frac{\partial L}{\partial \Psi} 
     &= \frac{1}{4} \left(\frac{x_1}{\frac{1}{2} + \frac{1}{4}\Psi} - \frac{x_2}{\frac{1}{4} - \frac{1}{4}\Psi} - \frac{x_3}{\frac{1}{4} - \frac{1}{4}\Psi} + \frac{x_4}{\frac{1}{4}\Psi}\right) \\
@@ -267,21 +249,15 @@
     &= \frac{\Psi(1 - \Psi)x_1 - \Psi(2 + \Psi)x_2 - \Psi(2 + \Psi)x_3 + (2 + \Psi)(1 - \Psi)x_4}{\Psi(2 + \Psi)(1 - \Psi)} \\
     &= \frac{-n\Psi^2 + (x_1 - 2x_2 - 2x_3 - x_4)\Psi + 2x_4}{\Psi(2 + \Psi)(1 - \Psi)} = 0, 
   \end{align*}
-  we get the solution $\Psi = \frac{-(x_1 - 2x_2 - 2x_3 - x_4) \pm \sqrt{(x_1 - 2x_2 - 2x_3 - x_4)^2 + 8nx_4}}{2n}$.
-  \\
+  we get the solution $\Psi = \frac{-(x_1 - 2x_2 - 2x_3 - x_4) \pm \sqrt{(x_1 - 2x_2 - 2x_3 - x_4)^2 + 8nx_4}}{2n}$. \\
 
   \part{B}
 
-  Assume that we have the complete data, i.e. $\D_c = (x_{11}, x_{12}, x_2, x_3, x_4)$. 
-  Determine the value of $\Psi$ that maximizes its likelihood, i.e.
+  Assume that we have the complete data, i.e. $\D_c = (x_{11}, x_{12}, x_2, x_3, x_4)$. Determine the value of $\Psi$ that maximizes its likelihood, i.e.
   \[
     \Psi^*_c = \underset{\Psi}{\arg \max} \, P_{X_{11}, X_{12}, X_2, X_3, X_4}(\D_c; \Psi),
   \]
-  by using standard ML estimation procedures.
-  Compare the difficuly of obtaining this solution vs. that
-  of obtaining the solution in part A.
-  Does this look like a problem where EM might be helpful?
-  \\
+  by using standard ML estimation procedures. Compare the difficuly of obtaining this solution vs. that of obtaining the solution in part A. Does this look like a problem where EM might be helpful? \\
 
   \textbf{Solution}
   \begin{align*}
@@ -290,8 +266,7 @@
     &= \underset{\Psi}{\arg \max} \, \log  P_{X_{11}, X_{12}, X_3, X_4}(\D; \Psi) \\
     &= \underset{\Psi}{\arg \max} \, x_{12}\log \left(\frac{1}{4}\Psi\right) + x_2\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_3\log \left(\frac{1}{4} - \frac{1}{4}\Psi\right) + x_4\log \left(\frac{1}{4}\Psi\right).
   \end{align*}
-  Let $L = \log  P_{X_{11}, X_{12}, X_3, X_4}(\D; \Psi)$.
-  Since
+  Let $L = \log  P_{X_{11}, X_{12}, X_3, X_4}(\D; \Psi)$. Since
   \begin{align*}
     \frac{\partial L}{\partial \Psi} 
     &= \frac{1}{4} \left(\frac{x_{12}}{\frac{1}{4}\Psi} - \frac{x_2}{\frac{1}{4} - \frac{1}{4}\Psi} - \frac{x_3}{\frac{1}{4} - \frac{1}{4}\Psi} + \frac{x_4}{\frac{1}{4}\Psi}\right) \\
@@ -299,28 +274,23 @@
     &= \frac{(1 - \Psi)x_{12} - \Psi x_2 - \Psi x_3 + (1 - \Psi)x_4}{\Psi(1 - \Psi)} \\
     &= \frac{-(x_{12} + x_2 + x_3 + x_4)\Psi + x_{12} + x_4}{\Psi(1 - \Psi)} = 0, 
   \end{align*}
-  we get the solution $\Psi = \frac{x_{12} + x_4}{x_{12} + x_2 + x_3 + x_4}$.
-  This solution is a lot simplier than the previous one, and the EM algorithm would be helpful here.
+  we get the solution $\Psi = \frac{x_{12} + x_4}{x_{12} + x_2 + x_3 + x_4}$. This solution is a lot simplier than the previous one, and the EM algorithm would be helpful here.
 
   \pagebreak
 
   \part{C}
 
-  Derive the E and M-steps of the EM algorithm for this problem.
-  \\
+  Derive the E and M-steps of the EM algorithm for this problem. \\
 
   \textbf{Solution}
   
-  The observed variables are $X = \{X_1, X_2, X_3, X_4\}$, and the hidden variables are $Z = \{X_{11}, X_{12}\}$.
-  Hence, the $Q$ function is
+  The observed variables are $X = \{X_1, X_2, X_3, X_4\}$, and the hidden variables are $Z = \{X_{11}, X_{12}\}$. Hence, the $Q$ function is
   \begin{align*}
     Q(\Psi; \Psi^{(n)})
     &= E_{Z|X; \Psi^{(n)}}\left[\log P_{X, Z}(\D, Z; \Psi)|\D\right] \\
     &= E_{Z|X; \Psi^{(n)}}\left[\log L(\D; \Psi)|\D\right].
   \end{align*}
-  Thus, by the linearity of expectation, the only unknown part of $Q(\Psi; \Psi^{(n)})$ is $E_{X_{12}|X; \Psi^{(n)}}[X_{12}|\D]$.
-  Since $X_1, X_2, X_3, X_4$ are independent, we are essentially counting the subset of a set of size $X_1$.
-  We know the probability of event for $X_{12}$ is 
+  Thus, by the linearity of expectation, the only unknown part of $Q(\Psi; \Psi^{(n)})$ is $E_{X_{12}|X; \Psi^{(n)}}[X_{12}|\D]$. Since $X_1, X_2, X_3, X_4$ are independent, we are essentially counting the subset of a set of size $X_1$. We know the probability of event for $X_{12}$ is 
   \[
     p = \frac{\frac{\Psi}{4}}{\frac{1}{2} + \frac{\Psi}{4}} = \frac{\Psi}{2 + \Psi},
   \]
@@ -355,14 +325,11 @@
   \[
     \Psi^{k + 1} = \Psi^k,
   \]
-  where $k$ is the iteration number. 
-  Compare to the solution obtained in part A.
-  \\
+  where $k$ is the iteration number. Compare to the solution obtained in part A. \\
 
   \textbf{Solution}
 
-  Suppose that $\Psi^{k + 1} = \Psi^k$.
-  Then,
+  Suppose that $\Psi^{k + 1} = \Psi^k$. Then,
 
   \begin{align*}
     \frac{\frac{\Psi^{(k)}x_1}{2 + \Psi^{(k)}} + x_4}{\frac{\Psi^{(k)}x_1}{2 + \Psi^{(k)}} + x_2 + x_3 + x_4} &= \Psi^{(k)} \\
@@ -376,8 +343,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  \textbf{EM and MAP estimates}:
-  In this problem we use EM for the maximization of the posterior probability
+  \textbf{EM and MAP estimates}: In this problem we use EM for the maximization of the posterior probability
   \[
     \Psi^* = \underset{\Psi}{\arg \max} \, P_{\Psi|X}(\Psi|x).
   \]
@@ -385,8 +351,7 @@
   \[
     P_{\Psi}(\Psi) = \frac{\Gamma(\nu_1 + \nu_2)}{\Gamma(\nu_1)\Gamma(\nu_2)}\Psi^{\nu_1 - 1}(1 - \Psi)^{\nu_2 - 1}.
   \]
-  Derive the equations of the EM algorithm for MAP estimation of the parameter $\Psi$.
-  \\
+  Derive the equations of the EM algorithm for MAP estimation of the parameter $\Psi$. \\
 
   \textbf{Solution}
 
@@ -396,8 +361,7 @@
     &= E_{Z|X; \Psi}[\log P_{X, Z|\Psi}(\D, z|\Psi)|\D, \Psi^{(n)}] + E_{Z|X; \Psi}[\log P_{\Psi}(\Psi)|\D, \Psi^{(n)}] - E_{Z|X; \Psi}[\log P_{X, Z}(\D, z)|\D, \Psi^{(n)}] \\
     &= Q(\Psi; \Psi^{(n)}) + \log P_{\Psi}(\Psi) - E_{Z|X; \Psi}[\log P_{X, Z}(\D, z)|\D, \Psi^{(n)}].
   \end{align*}
-  Since the last term does not depend on $\Psi$, we may ignore it.
-  Thus, in the case of problem 2, the equation we are to maximize becomes
+  Since the last term does not depend on $\Psi$, we may ignore it. Thus, in the case of problem 2, the equation we are to maximize becomes
   \begin{align*}
     Q(\Psi; \Psi^{(n)}) + \log P_{\Psi}(\Psi)
     &= E_{Z|X; \Psi^{(n)}}\left[\log L(\D, x_{12}; \Psi)|\D\right] + \log P_{\Psi}(\Psi) \\

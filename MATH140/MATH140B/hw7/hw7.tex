@@ -157,14 +157,11 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  Let $K$ be the unit circle in the complex plane (i.e., the set of all $z$ with $|z| = 1$), and let
-  $\mathscr{A}$ be the algebra of all functions of the form
+  Let $K$ be the unit circle in the complex plane (i.e., the set of all $z$ with $|z| = 1$), and let $\mathscr{A}$ be the algebra of all functions of the form
   \[
     f(e^{i\theta}) = \sum_{n=0}^N c_n e^{in\theta} \quad (\theta \text{ real}).
   \]
-  Then $\mathscr{A}$ separates points on $K$ and $\mathscr{A}$ vanishes at no point of $K$, but
-  nevertheless there are continuous functions on $K$ which are not in the uniform closure of
-  $\mathscr{A}$.
+  Then $\mathscr{A}$ separates points on $K$ and $\mathscr{A}$ vanishes at no point of $K$, but nevertheless there are continuous functions on $K$ which are not in the uniform closure of $\mathscr{A}$.
 
   \textbf{Hint:} For every $f \in \mathscr{A}$
   \[
@@ -173,9 +170,7 @@
   and this is also true for every $f$ in the closure of $\mathscr{A}$.
 
   \begin{proof}
-    Since $\mathscr{A}$ contains the identity function, $\mathscr{A}$ seperate points and vanishes
-    at no points of $K$. We now show that there exists functions not in the uniform closure of
-    $\mathscr{A}$. Suppose
+    Since $\mathscr{A}$ contains the identity function, $\mathscr{A}$ seperate points and vanishes at no points of $K$. We now show that there exists functions not in the uniform closure of $\mathscr{A}$. Suppose
     \[
       f(e^{i\theta}) = \sum_{n=0}^N c_n e^{in\theta}.
     \]
@@ -187,8 +182,7 @@
        &= \sum_{n=0}^N c_n \int_0^{2\pi} \cos((n + 1)\theta)  \, d\theta + \sum_{n=0}^N ic_n \int_0^{2\pi} \sin((n + 1)\theta)  \, d\theta \\
        &= \sum_{n=0}^N \frac{c_n}{n + 1} \int_0^{2\pi(n + 1)} \cos(u)  \, du + \sum_{n=0}^N \frac{ic_n}{n + 1} \int_0^{2\pi(n + 1)} \sin(u)  \, du = 0.
     \end{align*}
-    Now suppose $g$ is a limit point of $\mathscr{A}$. There exists a sequence $\{f_m\}$ of
-    functions from $\mathscr{A}$ which converges to $g$ uniformly. Then,
+    Now suppose $g$ is a limit point of $\mathscr{A}$. There exists a sequence $\{f_m\}$ of functions from $\mathscr{A}$ which converges to $g$ uniformly. Then,
     \begin{align*}
       \int_0^{2\pi} g(e^{i\theta}) e^{i\theta} \, d\theta
        &= \lim_{m \to \infty} \int_0^{2\pi} f_m(e^{i\theta}) e^{i\theta} \, d\theta = 0.
@@ -211,8 +205,7 @@
       0 & \text{if } x = 0.
     \end{cases}
   \]
-  Prove that $f$ has derivatives of all orders at $x = 0$ and that $f^{(n)}(0) = 0$ for $n = 1, 2, 3,
-  \dots$.
+  Prove that $f$ has derivatives of all orders at $x = 0$ and that $f^{(n)}(0) = 0$ for $n = 1, 2, 3, \dots$.
 
   \begin{proof}
     We proceed by induction on $n$ to show that
@@ -222,8 +215,7 @@
         0 & \text{if } x = 0,
       \end{cases}
     \]
-    where $p_n(1/x)$ is some polynomial function on $\frac{1}{x}$. Suppose $n = 1$. By
-    Theorem 8.6(f),
+    where $p_n(1/x)$ is some polynomial function on $\frac{1}{x}$. Suppose $n = 1$. By Theorem 8.6(f),
     \[
       f'(0) = \lim_{h \to 0} h^{-1}e^{-1/h^2} = 0.
     \]
@@ -303,8 +295,7 @@
   \begin{enumerate}[(a)]
     \item $\lim_{x \to 0} \frac{e -(1 + x)^{1/x}}{x}.$
     \begin{proof}
-      Exercise 4(c) shows that $\lim_{x \to 0} (1 + x)^{1/x} = e$, and so we may apply L'Hopital's
-      rule, and get
+      Exercise 4(c) shows that $\lim_{x \to 0} (1 + x)^{1/x} = e$, and so we may apply L'Hopital's rule, and get
       \[
         \lim_{x \to 0} \frac{e -(1 + x)^{1/x}}{x} = \lim_{x \to 0} -\left(\frac{1}{x}\log(1 + x)\right)'(1 + x)^{1/x} = e\lim_{x \to 0} \frac{\log(1 + x) - \frac{x}{1 + x}}{x^2}.
       \]
@@ -356,8 +347,7 @@
       \[
         f(x) = e^{cx},
       \]
-      where $c$
-      is a constant.
+      where $c$ is a constant.
       \begin{proof}
         It is obvious that for $x \neq 0$, $f(x) = f(x)f(0)$, so $f(0) = 1$. We also note that
         \[

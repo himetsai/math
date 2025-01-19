@@ -109,10 +109,7 @@
 %
 
 \begin{question}{A}
-    Let \[
-        E = \left\{\frac{5n + 8}{11n} : n \in \N \right\}.
-    \]
-    Compute $\sup E$ and $\inf E$. Justify your answer.
+    Let \[ E = \left\{\frac{5n + 8}{11n} : n \in \N \right\}. \] Compute $\sup E$ and $\inf E$. Justify your answer.
 \end{question}
 
 \begin{proof}[Solution]
@@ -123,8 +120,7 @@
         \frac{8}{11} \geq \frac{8}{11n} \geq 0 \\
         \frac{13}{11} \geq \frac{5n + 8}{11n} \geq \frac{5}{11},
     \end{gather*}
-    and thus $\frac{13}{11}$ and $\frac{5}{11}$ are a upper bound and a lower bound of $E$ respectively. 
-    Let $s < \frac{13}{11}$. Since $\frac{13}{11} \in E$, $s$ is not a upper bound of $E$. Therefore, $\sup E = \frac{13}{11}$.
+    and thus $\frac{13}{11}$ and $\frac{5}{11}$ are a upper bound and a lower bound of $E$ respectively. Let $s < \frac{13}{11}$. Since $\frac{13}{11} \in E$, $s$ is not a upper bound of $E$. Therefore, $\sup E = \frac{13}{11}$.
     
     We will now show inf $E = \frac{5}{11}$ by contradiction. Suppose for the sake of contradiction that there exists a lower bound $l$ of $E$ such that $l > \frac{5}{11}$. Then, for any $n \in \N$,
     \begin{align*}
@@ -158,8 +154,7 @@
 \end{question}
 
 \begin{proof}
-    We first show that $\sup(ST) = (\sup S) \dot (\sup T)$. Let $t \in T$, $s \in S$. 
-    Since $s < \sup S$ and $t < \sup T$, we have $st < (\sup S)t < (\sup S)(\sup T)$, and thus $(\sup S)(\sup T)$ is an upper bound of $ST$. Let $k \in \R^{+}$, such that $k < (\sup S)(\sup T)$. Since $\frac{k}{\sup S} < \sup T$, there exists $t \in T$ such that $\frac{k}{\sup S} < t < \sup T$. Then, we also know that since $\frac{k}{t} < \sup S$, there exists $s \in S$, such that $\frac{k}{t} < s < \sup S$. Rearranged, we get $k < st \in ST$, which shows that $k$ is not an upper bound of $ST$, and thus $\sup(ST) = (\sup S)(\sup T)$.
+    We first show that $\sup(ST) = (\sup S) \dot (\sup T)$. Let $t \in T$, $s \in S$. Since $s < \sup S$ and $t < \sup T$, we have $st < (\sup S)t < (\sup S)(\sup T)$, and thus $(\sup S)(\sup T)$ is an upper bound of $ST$. Let $k \in \R^{+}$, such that $k < (\sup S)(\sup T)$. Since $\frac{k}{\sup S} < \sup T$, there exists $t \in T$ such that $\frac{k}{\sup S} < t < \sup T$. Then, we also know that since $\frac{k}{t} < \sup S$, there exists $s \in S$, such that $\frac{k}{t} < s < \sup S$. Rearranged, we get $k < st \in ST$, which shows that $k$ is not an upper bound of $ST$, and thus $\sup(ST) = (\sup S)(\sup T)$.
 
     We now show that $\sup(S + T) = \sup S + \sup T$. Let $t \in T$, $s \in S$. Since $s < \sup S$ and $t < \sup T$, we have $s + t < \sup S + \sup T$, and thus $\sup S + \sup T$ is an upper bound of $S + T$. Let $k \in \R^{+}$, such that $k < \sup S + \sup T$. Since $k - \sup T < \sup S$, there exists $s \in S$ such that $k - \sup T < s$. Since $k - s < \sup T$, there exists $t \in T$ such that $k - s < t$, and thus we know there exist $s + t \in S + T$ such that $k < s + t < \sup S + \sup T$. Therefore, $\sup(S + T) = \sup S + \sup T$.
 \end{proof}

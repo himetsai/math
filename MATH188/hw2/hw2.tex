@@ -154,19 +154,15 @@
 \begin{homeworkProblem}
   Let $F(x)$ be a formal power series with $F(0) = 0$.
   \begin{enumerate}[(a)]
-    \item Show that there exists a formal power series $G(x)$ with $G(0) = 0$ such that $F(G(x)) =
-    x$ if and only if $[x^1]F(x) \neq 0$.
+    \item Show that there exists a formal power series $G(x)$ with $G(0) = 0$ such that $F(G(x)) = x$ if and only if $[x^1]F(x) \neq 0$.
     \begin{proof}
-      Let $F(x) = \sum_{n = 0}^{\infty} a_nx^n$, for some nonzero $a_1$ and $a_0 = 0$. We look for a
-      formal power series $G(x) = \sum_{n = 0}^{\infty} b_nx^n$ such that $F(G(x)) = x$ and $b_0 =
-      0$. That is,
+      Let $F(x) = \sum_{n = 0}^{\infty} a_nx^n$, for some nonzero $a_1$ and $a_0 = 0$. We look for a formal power series $G(x) = \sum_{n = 0}^{\infty} b_nx^n$ such that $F(G(x)) = x$ and $b_0 = 0$. That is,
       \begin{align*}
         F(G(x))
         &= \sum_{i = 1}^{\infty} a_iG(x)^i \\
         &= \sum_{n = 1}^{\infty} x^n \sum_{i = 1}^{n} a_i \sum_{m_1 + m_2 + \dots + m_i = n} b_{m_1}b_{m_2} \cdots b_{m_i} = x.
       \end{align*}
-      Note that the inner summation terminates at $n$, as we are enumerating through compositions of
-      $n$, which could not exceed $n$ terms. By comparing coefficients, we have
+      Note that the inner summation terminates at $n$, as we are enumerating through compositions of $n$, which could not exceed $n$ terms. By comparing coefficients, we have
       \[
         b_0 = 0, \quad b_1 = \frac{1}{a_1},
       \]
@@ -174,18 +170,11 @@
       \begin{gather}
         \sum_{i = 1}^{n} a_i \sum_{m_1 + m_2 + \dots + m_i = n} b_{m_1}b_{m_2} \cdots b_{m_i} = 0.
       \end{gather}
-      Here, we already know that $G(x)$ exists only if $[x^1]F(x) \neq 0$, it remains to show the
-      converse. Suppose $[x^1]F(x) \neq 0$. We already determined the unique existence of $b_1$. For
-      $n \geq 2$, rearranging (1) gives an expression of $b_n$ uniquely determined by $a_{1}, \dots
-      a_{n}, b_1, \dots b_{n - 1}$. But then the existence of $b_1, \dots b_{n - 1}$ are shown by
-      induction, and this ensures the unique existence of $b_n$.
+      Here, we already know that $G(x)$ exists only if $[x^1]F(x) \neq 0$, it remains to show the converse. Suppose $[x^1]F(x) \neq 0$. We already determined the unique existence of $b_1$. For $n \geq 2$, rearranging (1) gives an expression of $b_n$ uniquely determined by $a_{1}, \dots a_{n}, b_1, \dots b_{n - 1}$. But then the existence of $b_1, \dots b_{n - 1}$ are shown by induction, and this ensures the unique existence of $b_n$.
     \end{proof}
-    \item Assuming $[x^1]F(x) \neq 0$, show that $G(x)$ is unique and also satisfies $G(F(x)) = x$.
-    You may use without proof that composition of formal power series is associative.
+    \item Assuming $[x^1]F(x) \neq 0$, show that $G(x)$ is unique and also satisfies $G(F(x)) = x$. You may use without proof that composition of formal power series is associative.
     \begin{proof}
-      Uniqueness of $G(x)$ is shown in (a). We know $[x^1]G(x) \neq 0$. By (a), there exists a
-      formal power series $H(x)$ with $H(0) = 0$ such that $G(H(x)) = x$. But then $F(x) =
-      F(G(H(x))) = H(x)$. 
+      Uniqueness of $G(x)$ is shown in (a). We know $[x^1]G(x) \neq 0$. By (a), there exists a formal power series $H(x)$ with $H(0) = 0$ such that $G(H(x)) = x$. But then $F(x) = F(G(H(x))) = H(x)$. 
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -233,8 +222,7 @@
 \begin{homeworkProblem}
   Let $a, b$ be non-negative integers.
   \begin{enumerate}[(a)]
-    \item By comparing coefficients in $(1 + x)^{a+b} = (1 + x)^a(1 + x)^b$, prove that for any
-    non-negative integer $n$, we have
+    \item By comparing coefficients in $(1 + x)^{a+b} = (1 + x)^a(1 + x)^b$, prove that for any non-negative integer $n$, we have
     \[
       \binom{a + b}{n} = \sum_{i=0}^{n} \binom{a}{i} \binom{b}{n - i}.
     \]
@@ -250,10 +238,7 @@
     \end{proof}
     \item Now prove this identity using a counting argument.
     \begin{proof}
-      Consider choosing $n$ animals from $a$ dogs and $b$ cats. Suppose that we picked $i$ dogs.
-      There are $\binom{a}{i}$ ways of choosing them. In order to have $n$ animals in total, we then
-      have to pick $n - i$ cats, which has $\binom{b}{n - i}$ ways. The possible values for $i$ are
-      between $0$ and $n$, and thus we get the identity
+      Consider choosing $n$ animals from $a$ dogs and $b$ cats. Suppose that we picked $i$ dogs. There are $\binom{a}{i}$ ways of choosing them. In order to have $n$ animals in total, we then have to pick $n - i$ cats, which has $\binom{b}{n - i}$ ways. The possible values for $i$ are between $0$ and $n$, and thus we get the identity
       \[
         \binom{a + b}{n} = \sum_{i=0}^{n} \binom{a}{i} \binom{b}{n - i}.
       \]
@@ -267,11 +252,7 @@
   How many ways can we arrange the letters of: MISSISSIPPI?
 
   \begin{proof}
-    There are one M, four I's, two P's, and four S', and we have 11 slots in total. We first choose
-    a slot for the M, which has $\binom{11}{1}$ ways. Then, we choose 4 slots from the remaining 10
-    slots for the I's, which has $\binom{10}{4}$ ways. Then, we choose 2 slots from the remaining 6
-    slots for the P's, which has $\binom{6}{2}$ ways. Finally, we choose 4 slots from the remaining
-    4 slots for the S's, which has $\binom{4}{4}$ ways. In total, there are
+    There are one M, four I's, two P's, and four S', and we have 11 slots in total. We first choose a slot for the M, which has $\binom{11}{1}$ ways. Then, we choose 4 slots from the remaining 10 slots for the I's, which has $\binom{10}{4}$ ways. Then, we choose 2 slots from the remaining 6 slots for the P's, which has $\binom{6}{2}$ ways. Finally, we choose 4 slots from the remaining 4 slots for the S's, which has $\binom{4}{4}$ ways. In total, there are
     \[
       \binom{11}{1}\binom{10}{4}\binom{6}{2}\binom{4}{4} = \frac{11!}{4!2!4!}
     \]
@@ -282,14 +263,11 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $f(t) = \sum_{k=0}^{d} f_kt^k$ be a degree $d$ polynomial with rational coefficients. From
-  lecture, we know that there exist unique rational numbers $g_0, \ldots, g_d$ such that
+  Let $f(t) = \sum_{k=0}^{d} f_kt^k$ be a degree $d$ polynomial with rational coefficients. From lecture, we know that there exist unique rational numbers $g_0, \ldots, g_d$ such that
   \begin{gather}
     \sum_{n \geq 0} f(n)x^n = \frac{g_0 + g_1x + \ldots + g_dx^d}{(1 - x)^{d+1}}.
   \end{gather}
-  Now assume that $f(a)$ is an integer for $a = 0, \ldots, d$. (The $f_k$ don’t have to be integers
-  for this to be true, for example $f(n) = n(n - 1)/2$ has this property.) Prove that this implies
-  that the $g_k$ are all integers and that $f(a)$ is an integer whenever $a$ is an integer.
+  Now assume that $f(a)$ is an integer for $a = 0, \ldots, d$. (The $f_k$ don’t have to be integers for this to be true, for example $f(n) = n(n - 1)/2$ has this property.) Prove that this implies that the $g_k$ are all integers and that $f(a)$ is an integer whenever $a$ is an integer.
 
   \begin{proof}
     From (2), for $k = 0, 1, \dots, d$,
@@ -298,17 +276,13 @@
       &= [x^k](1 - x)^{d+1}\sum_{n \geq 0} f(n)x^n \\
       &= \sum_{i = 0}^k (-1)^{k - i}\binom{d + 1}{k - i}f(i),
     \end{align*}
-    which is an integer as $f(i)$ and $\binom{d + 1}{k - i}$ are both integers, for $i = 0, \dots,
-    d$. But then for $n \in \Z_{\geq 0}$,
+    which is an integer as $f(i)$ and $\binom{d + 1}{k - i}$ are both integers, for $i = 0, \dots, d$. But then for $n \in \Z_{\geq 0}$,
     \begin{align*}
       f(n) 
       &= [x^n](1 - x)^{-(d + 1)}(g_0 + g_1x + \ldots + g_dx^d) \\
       &= \sum_{k = 0}^d \binom{d + n - k}{n - k}g_k = \sum_{k = 0}^d \binom{d + n - k}{d}g_k.
     \end{align*}
-    Note that $h(n) = \sum_{k = 0}^d \binom{d + n - k}{d}g_k$ is a polynomial of degree $d$. Since
-    $f(n) - h(n) = 0$ for all $n \in \Z_{\geq 0}$, it follows from the Fundamental Theorem of
-    Algebra that $f(n) = h(n)$. Since $g_k \in \Z$ and $\binom{d + n - k}{n - k} \in \Z$ whenever $n
-    \in \Z$, we know $f(n)$ is an integer whenever $n \in \Z$. 
+    Note that $h(n) = \sum_{k = 0}^d \binom{d + n - k}{d}g_k$ is a polynomial of degree $d$. Since $f(n) - h(n) = 0$ for all $n \in \Z_{\geq 0}$, it follows from the Fundamental Theorem of Algebra that $f(n) = h(n)$. Since $g_k \in \Z$ and $\binom{d + n - k}{n - k} \in \Z$ whenever $n \in \Z$, we know $f(n)$ is an integer whenever $n \in \Z$. 
   \end{proof}
 \end{homeworkProblem}
 
@@ -349,16 +323,14 @@
 
 \begin{homeworkProblem}
   \begin{enumerate}[(a)]
-    \item Let $a, b$ be rational numbers. Show that for any formal power series $A(x)$ with $A(0) =
-    1$, we have
+    \item Let $a, b$ be rational numbers. Show that for any formal power series $A(x)$ with $A(0) = 1$, we have
     \[
     A(x)^a A(x)^b = A(x)^{a+b}.
     \]
     \textit{[Remember that we defined rational powers in a very specific way, so your proof needs to use this definition.]}
     
     \begin{proof}
-      By definition, $A(x)^{m/n} = (A(x)^{1/n})^m = (A(x)^m)^{1/n}$. Let $a = m/n$, $b = p/q$, for
-      some $m, n, p, q \in \Z$. Then,
+      By definition, $A(x)^{m/n} = (A(x)^{1/n})^m = (A(x)^m)^{1/n}$. Let $a = m/n$, $b = p/q$, for some $m, n, p, q \in \Z$. Then,
       \begin{align*}
         A(x)^a A(x)^b
         &= (A(x)^{1/{nq}})^{mq}(A(x)^{1/{nq}})^{np} \\
@@ -388,25 +360,19 @@
 \newpage
 
 \begin{homeworkProblem}
-  Assume now that we deal with complex-coefficient formal power series. Define the following sets of
-  formal power series:
+  Assume now that we deal with complex-coefficient formal power series. Define the following sets of formal power series:
   \[
     V = \{ F(x) \mid F(0) = 0 \}, \quad W = \{ G(x) \mid G(0) = 1 \}.
   \]
   \begin{enumerate}[(a)]
-      \item Given $F \in V$, show that $\textbf{E}(F) = \sum_{n \geq 0} \frac{F^{n}(x)}{n!}$ is the
-      \textit{unique} formal power series $G \in W$ such that $DG = DF \cdot G$. This defines a
-      function $\textbf{E}\colon V \to W$. [Convention: $F^{0}(x) = 1$ even if $F(x) = 0$.]
+      \item Given $F \in V$, show that $\textbf{E}(F) = \sum_{n \geq 0} \frac{F^{n}(x)}{n!}$ is the \textit{unique} formal power series $G \in W$ such that $DG = DF \cdot G$. This defines a function $\textbf{E}\colon V \to W$. [Convention: $F^{0}(x) = 1$ even if $F(x) = 0$.]
 
       \begin{proof}
         It is easy to see that
         \[
           DG = \sum_{n \geq 0} \frac{D(F^{n}(x))}{n!} = \sum_{n \geq 1} DF \cdot \frac{F^{n - 1}(x)}{(n - 1)!} = DF \sum_{n \geq 0} \frac{F^{n}(x)}{n!} = DF \cdot G,
         \]
-        and $G(0) = F^0(0) = 1$. It remains to show that $G$ is unique. Suppose there exists $G =
-        \sum_{n \geq 0} b_nx^n, G' = \sum_{n \geq 0} b'_nx^n \in W$ such that $\textbf{E}(F) = G$
-        and $\textbf{E}(F) = G'$. Suppose $DF = \sum_{n \geq 0} a_nx^n$ We know $DG = DF \cdot G$
-        and $DG' = DF \cdot G'$. By comparing coefficients, for $k \geq 1$,
+        and $G(0) = F^0(0) = 1$. It remains to show that $G$ is unique. Suppose there exists $G = \sum_{n \geq 0} b_nx^n, G' = \sum_{n \geq 0} b'_nx^n \in W$ such that $\textbf{E}(F) = G$ and $\textbf{E}(F) = G'$. Suppose $DF = \sum_{n \geq 0} a_nx^n$ We know $DG = DF \cdot G$ and $DG' = DF \cdot G'$. By comparing coefficients, for $k \geq 1$,
         \begin{gather*}
           (k + 1)b_{k + 1} = [x^k]DG = [x^k](DF \cdot G) = \sum_{i = 0}^k a_{i}b_{k - i}, \\
           (k + 1)b'_{k + 1} = [x^k]DG = [x^k](DF \cdot G) = \sum_{i = 0}^k a_{i}b'_{k - i}.
@@ -415,46 +381,32 @@
         \[
           b_k = \frac{1}{k + 1}\sum_{i = 0}^k a_ib_{k - i},  \quad b'_k = \frac{1}{k + 1}\sum_{i = 0}^k a_ib'_{k - i},
         \]
-        so $b_k, b'_k$ are uniquely determined by the corrresponding previous coefficients, and thus
-        $G = G'$ if and only if $b_0 = b'_0$. But then $G(0) = G'(0) = 1$, and the result follows. 
+        so $b_k, b'_k$ are uniquely determined by the corrresponding previous coefficients, and thus $G = G'$ if and only if $b_0 = b'_0$. But then $G(0) = G'(0) = 1$, and the result follows. 
       \end{proof}
       
-      \item Given $G \in W$, show that there is a \textit{unique} formal power series $F \in V$ such
-      that $DF(x) = DG(x)/G(x)$. We define the function $\textbf{L}\colon W \to V$ by $\textbf{L}(G)
-      = F$. [For the rest, it is unnecessary to use explicit formulas for $\textbf{L}$ and
-      $\textbf{E}$ and in fact it may be easier to only use the uniqueness properties above.]
+      \item Given $G \in W$, show that there is a \textit{unique} formal power series $F \in V$ such that $DF(x) = DG(x)/G(x)$. We define the function $\textbf{L}\colon W \to V$ by $\textbf{L}(G) = F$. [For the rest, it is unnecessary to use explicit formulas for $\textbf{L}$ and $\textbf{E}$ and in fact it may be easier to only use the uniqueness properties above.]
       \begin{proof}
-        Since $G(0) = 1$, there exists $G^{-1}(x)$ such that $G(x)G^{-1}(x) = G(x)^{-1}G(x) = 1$, so
-        $DG(x)/G(x)$ is unique given $G$. Suppose $DG(x)/G(x) = \sum_{n \geq 0} a_nx^n$. There
-        exists $F = \sum_{n \geq 1} \frac{1}{n}a_{n - 1}x^n \in V$ such that
+        Since $G(0) = 1$, there exists $G^{-1}(x)$ such that $G(x)G^{-1}(x) = G(x)^{-1}G(x) = 1$, so $DG(x)/G(x)$ is unique given $G$. Suppose $DG(x)/G(x) = \sum_{n \geq 0} a_nx^n$. There exists $F = \sum_{n \geq 1} \frac{1}{n}a_{n - 1}x^n \in V$ such that
         \[
           DF = \sum_{n \geq 1} a_{n - 1}x^{n - 1} = \sum_{n \geq 0} a_nx^n = DG(x)/G(x).
         \]
-        That is, all coefficients $a_n$ of $DF$ are uniquely determined by $DG(x)/G(x)$. But then
-        all coefficients of $F$ are uniquely determined, as $F$ has no constant term.
+        That is, all coefficients $a_n$ of $DF$ are uniquely determined by $DG(x)/G(x)$. But then all coefficients of $F$ are uniquely determined, as $F$ has no constant term.
       \end{proof}
 
       \break
       
       \item Show that $\textbf{E}$ and $\textbf{L}$ are inverses of each other.
       \begin{proof}
-        Let $F \in V$. $\textbf{E}$ maps $F$ to some unique $G' \in W$ such that $DG' = DF \cdot
-        G'$, that is, $DF = DG'/G'$. Then, $\textbf{L}$ maps $G'$ back to some unique $F'$ such that
-        $DF' = DG'/G' = DF$. But then both $F$ and $F'$ have no constant terms, so $F$ and $F'$
-        actually agree with all coefficients. Hence, $\textbf{L}(\textbf{E}(F)) = F$. 
+        Let $F \in V$. $\textbf{E}$ maps $F$ to some unique $G' \in W$ such that $DG' = DF \cdot G'$, that is, $DF = DG'/G'$. Then, $\textbf{L}$ maps $G'$ back to some unique $F'$ such that $DF' = DG'/G' = DF$. But then both $F$ and $F'$ have no constant terms, so $F$ and $F'$ actually agree with all coefficients. Hence, $\textbf{L}(\textbf{E}(F)) = F$. 
 
-        Let $G \in W$. $\textbf{L}$ maps $G$ to some unique $F'' \in V$ such that $DG/G = DF''$, and
-        $\textbf{E}$ maps $F''$ back to some unique $G''$ such that $DG'' = DF'' \cdot G'' = DG/G
-        \cdot G''$. But then $DG''/G'' = DG/G$. By comparing coefficients, for all $k \geq 0$ we get
+        Let $G \in W$. $\textbf{L}$ maps $G$ to some unique $F'' \in V$ such that $DG/G = DF''$, and $\textbf{E}$ maps $F''$ back to some unique $G''$ such that $DG'' = DF'' \cdot G'' = DG/G \cdot G''$. But then $DG''/G'' = DG/G$. By comparing coefficients, for all $k \geq 0$ we get
         \[
           \sum_{i = 0}^k b''_{k - i}(i + 1)b_{i + 1} = [x^k]DG'' \cdot G = [x^k]DG \cdot G'' = \sum_{i = 0}^k b_{k - i}(i + 1)b''_{i + 1}.
         \]
-        Since $b_0 = b''_0 = 1$, it follows from induction that $b_k = b''_k$ for all $k \in
-        \Z_{\geq 0}$, and so $G = G''$. Hence, $\textbf{E}(\textbf{L}(G)) = G$. 
+        Since $b_0 = b''_0 = 1$, it follows from induction that $b_k = b''_k$ for all $k \in \Z_{\geq 0}$, and so $G = G''$. Hence, $\textbf{E}(\textbf{L}(G)) = G$. 
       \end{proof}
       
-      \item Show that $\textbf{E}(F_1 + F_2) = \textbf{E}(F_1)\textbf{E}(F_2)$ for all $F_1, F_2 \in
-      V$.
+      \item Show that $\textbf{E}(F_1 + F_2) = \textbf{E}(F_1)\textbf{E}(F_2)$ for all $F_1, F_2 \in V$.
       \begin{proof}
         Let $G_1 = \textbf{E}(F_1)$, $G_2 = \textbf{E}(F_2)$, and $G = \textbf{E}(F_1 + F_2)$. Since
         \begin{align*}
@@ -464,12 +416,10 @@
           &= (DF_1 + DF_2)(G_1G_2) \\
           &= D(F_1 + F_2)(G_1G_2).
         \end{align*}
-        Note that $G_1G_2 \in W$. But then $G$ is the unique element in $W$ such that $DG = D(F_1 +
-        F_2)G$, and so $\textbf{E}(F_1 + F_2) = G = G_1G_2 = \textbf{E}(F_1)\textbf{E}(F_2)$.
+        Note that $G_1G_2 \in W$. But then $G$ is the unique element in $W$ such that $DG = D(F_1 + F_2)G$, and so $\textbf{E}(F_1 + F_2) = G = G_1G_2 = \textbf{E}(F_1)\textbf{E}(F_2)$.
       \end{proof}
       
-      \item Show that $\textbf{L}(G_1G_2) = \textbf{L}(G_1) + \textbf{L}(G_2)$ for all $G_1, G_2 \in
-      W$.
+      \item Show that $\textbf{L}(G_1G_2) = \textbf{L}(G_1) + \textbf{L}(G_2)$ for all $G_1, G_2 \in W$.
       \begin{proof}
         Let $F_1 = \textbf{L}(G_1)$, $F_2 = \textbf{L}(G_2)$. Since
         \begin{align*}
@@ -480,15 +430,10 @@
         \begin{gather}
           G_1G_2D(F_1 + F_2) = DG_1 \cdot G_2 + DG_2 \cdot G_1 = D(G_1G_2),
         \end{gather}
-        that is, $D(F_1 + F_2) = D(G_1G_2)/G_1G_2$. But then $F_1 + F_2 \in F$, so $G_!$ is
-        the unique element in $W$ that satisfies (3), and thus $\textbf{L}(G_1G_2) = F_1 + F_2 =
-        \textbf{L}(G_1) + \textbf{L}(G_2)$.
+        that is, $D(F_1 + F_2) = D(G_1G_2)/G_1G_2$. But then $F_1 + F_2 \in F$, so $G_!$ is the unique element in $W$ that satisfies (3), and thus $\textbf{L}(G_1G_2) = F_1 + F_2 = \textbf{L}(G_1) + \textbf{L}(G_2)$.
       \end{proof}
       
-      \item If $m$ is a positive integer and $G \in W$, show that
-      $\textbf{E}(\frac{\textbf{L}(G)}{m})$ is an $m$th root of $G$. [This gives an alternative
-      proof for the existence of $m$th roots and in fact we can now define powers for any complex
-      number $m$: $F^m = \textbf{E}(m\textbf{L}(F))$.]
+      \item If $m$ is a positive integer and $G \in W$, show that $\textbf{E}(\frac{\textbf{L}(G)}{m})$ is an $m$th root of $G$. [This gives an alternative proof for the existence of $m$th roots and in fact we can now define powers for any complex number $m$: $F^m = \textbf{E}(m\textbf{L}(F))$.]
 
       \begin{proof}
         By (e),
@@ -500,21 +445,16 @@
 
       \break
 
-      \item Show that if $\sum_{i \geq 0} F_i(x)$ converges to $F(x)$, then $\prod_{i \geq 0}
-      \textbf{E}(F_i)$ converges to $\textbf{E}(F)$.
+      \item Show that if $\sum_{i \geq 0} F_i(x)$ converges to $F(x)$, then $\prod_{i \geq 0} \textbf{E}(F_i)$ converges to $\textbf{E}(F)$.
       \begin{proof}
-        Let $F(x) = \sum_{n \geq 0} a_nx^n$. For $n \geq 0$, there exists $N_n$ such that
-        $[x^n]\sum_{i = 0}^k F_i(x) = [x^n]F(x)$ for all $k > N_n$. Note that
-        $[x^n]\textbf{E}(F(x))$ only depends on $a_0, \dots, a_n$. Take $N > \max(N_0, \dots, N_n)$.
-        By part (d), for $k > N$, 
+        Let $F(x) = \sum_{n \geq 0} a_nx^n$. For $n \geq 0$, there exists $N_n$ such that $[x^n]\sum_{i = 0}^k F_i(x) = [x^n]F(x)$ for all $k > N_n$. Note that $[x^n]\textbf{E}(F(x))$ only depends on $a_0, \dots, a_n$. Take $N > \max(N_0, \dots, N_n)$. By part (d), for $k > N$, 
         \[
           [x^n]\textbf{E}(F(x)) = [x^n]\textbf{E}\left(\sum_{i = 0}^k F_i(x)\right) = [x^n]\prod_{i = 0}^k \textbf{E}(F_i(x)),
         \]
         and thus the convergence.
       \end{proof}
       
-      \item Show that if $\prod_{i \geq 0} G_i(x)$ converges to $G(x)$, then $\sum_{i \geq 0}
-      \textbf{L}(G_i)$ converges to $\textbf{L}(G)$.
+      \item Show that if $\prod_{i \geq 0} G_i(x)$ converges to $G(x)$, then $\sum_{i \geq 0} \textbf{L}(G_i)$ converges to $\textbf{L}(G)$.
       \begin{proof}
         By (e),
         \[

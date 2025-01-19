@@ -1,0 +1,283 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#0}
+\newcommand{\hmwkDueDate}{Jan 7, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Let $X$ be a set. Give $X$ the topology $\mathcal{T}$ where every finite set is closed, plus $X$. If $Y$ is a subset of $X$ then determine
+	\begin{enumerate}[(i)]
+		\item The interior of $Y$.
+		\begin{proof}
+			If $X \backslash Y$ is finite, then $Y \in \T$ and so $\text{int}(Y) = Y$. Otherwise, $X \backslash Y$ is infinite and so $Y$ does not contain a set whose complement is finite. Thus, $\text{int}(Y) = \emptyset$.
+		\end{proof}
+		\item The closure of $Y$.
+		\begin{proof}
+			If $Y$ is finite, then $Y$ is closed so $Y = \overline{Y}$. If $Y$ is infinite, then there is no finite set that contains $Y$ so $\overline{Y} = X$. 
+		\end{proof}
+		\item The boundary of $Y$.
+
+		\begin{proof}
+			By (i) and (ii),
+			\[
+				\partial Y = \begin{cases}
+					\emptyset & \text{if } Y \text{ is finite and $X \backslash Y$ is finite}  \\
+					Y & \text{if } Y \text{ is finite and $X \backslash Y$ is infinite} \\
+					X \backslash Y & \text{if } Y \text{ is infinite and $X \backslash Y$ is finite}  \\
+					X & \text{if } Y \text{ is infinite and $X \backslash Y$ is infinite}
+				\end{cases}
+			\]
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $a < b \in \mathbb{R}$ and let $Y = [a, b) \subset \mathbb{R}$. What is
+	\begin{enumerate}[(i)]
+		\item The interior of $Y$?
+		\begin{proof}
+			Obviously, the largest open set contained in $Y$ is $(a, b)$, so $\text{int}(Y) = (a, b)$.
+		\end{proof}
+		\item The closure of $Y$?
+		\begin{proof}
+			Obviously, the smalled closed set contained in $Y$ is $[a, b]$, so $\overline{Y} = [a, b]$.
+		\end{proof}
+		\item The boundary of $Y$?
+		\begin{proof}
+			\[
+				\partial Y = \overline{Y} \backslash \text{int}(Y) = \{a, b\}.
+			\]
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $(X, d)$ be a metric space, let $a \in X$ be a point of $X$ and let $r > 0$ be a positive real. Let
+	\[
+		B = \overline{B_r}(a) = \{x \in X \mid d(a, x) \leq r\}.
+	\]
+	Show that $B$ is closed in $X$. $\overline{B_r}(a)$ is called the \emph{closed ball of radius $r$ centred about $a$}.
+
+	\begin{proof}
+		Let $x \in X \backslash B$. Let $\epsilon = d(a, x) - r > 0$. Then $B_{\epsilon}(x) \subset X \backslash B$, so $X \backslash B$ is covered by a collection of open sets. Thus, $X \backslash B$ is closed and the result follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	True or false? If true then give a proof and if false then give a counterexample.
+	\begin{enumerate}[(i)]
+		\item Let $(X, d)$ be a metric space, let $a \in X$ be a point of $X$ and let $r > 0$ be a positive real. Let $Y = B_r(a)$ be the \emph{open ball of radius $r$ centred about $a$}. Then the closure of $Y$ is the closed ball of radius $r$ centred about $a$.
+		
+		\begin{proof}
+			True. By problem 3, $\overline{B}_r(a)$ is closed, so it suffices to show $\overline{B}_r(a)$ is the smallest closed set. Suppose not. Let $C$ be a closed set such that $B_r(a) \subset C \subset \overline{B}_r(a)$. There exists some $x$ such that $d(a, x) = r$ and $x \notin C$. Since $B_s(x) \cap B_r(a) \neq \emptyset$ for any $s > 0$, there are no open balls in $X \backslash C$ that contain $x$. Thus $C$ is not closed, contradiction.
+		\end{proof}
+
+		\item If $(X, \mathcal{T})$ is a topological space and $Y \subset X$ is a subset then
+		\[
+		\overline{X \setminus Y} = X \setminus \operatorname{int}(Y).
+		\]
+
+		\begin{proof}
+			True. Since $C = \overline{X \setminus Y}$ is the smalled closed set that contains $X \setminus Y$, we know $X \backslash C$ is the largest open set that contains $Y$. Thus, $X \backslash C = \operatorname{int}(Y)$ and the result follows.
+		\end{proof}
+
+		\item If $(X, \mathcal{T})$ is a topological space and $Y \subset X$ and $Z \subset X$ are two subsets then
+		\[
+		\operatorname{int}(Y \cup Z) = \operatorname{int}(Y) \cup \operatorname{int}(Z).
+		\]
+
+		\begin{proof}
+			False. Let $X = \R$ and $Y = [0, 1]$ and $Z = [1, 2]$. Then $\operatorname{int}(Y \cup Z) = (0, 2)$ but $\operatorname{int}(Y) \cup \operatorname{int}(Z) = (0, 1) \cup (1, 2) = (0, 1) \cup [1, 2] = (0, 2)$.
+		\end{proof}
+		\item The integers $\mathbb{Z}$ are dense in the reals $\mathbb{R}$.
+		\begin{proof}
+			False. Let $x \in \R \backslash \Z$. There exists some $n \in \Z$ such that $n < x < n + 1$. Let $r = \min(x - n, n - x + 1)$. Then $B_{r}(x) \cap \Z = \emptyset$, so $\Z$ is not dense in $\R$ by lemma 4.12.
+		\end{proof}
+		\item The rationals $\mathbb{Q}$ are dense in the reals $\mathbb{R}$.
+		\begin{proof}
+			True. Let $x \in \R$ and $r > 0$. Fix $q$ such that $\frac{1}{q} < r$. There exists some $p$ such that $\frac{p - 1}{q} \leq x \leq \frac{p}{q} < x + r$. Thus $\frac{p}{q} \in B_r(x) \cap \Q$, so $\Q$ is dense.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that every open subset of $\mathbb{R}$ is a disjoint union of open intervals.
+
+	\begin{proof}
+		Let $U$ be an open set of $\R$. Then $U$ is a union of a collection of open intervals. Suppose $I_1 = (a, b)$ and $I_2 = (c, d)$ are two open intervals in $U$ such that $I_1 \cap I_2 \neq \emptyset$. Then $I_1 \cup I_2 = (\min(a, c), \max(b, d))$ is an open interval contained in $U$. Thus, $U$ is a disjoint union of open intervals.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $(X, \mathcal{T})$ be a topological space. Starting with any subset $Y \subset X$ (and any $X$) what is the maximum number of distinct subsets one can obtain by taking the closure and the complement (as many times as you please, in whatever order you please)?
+
+	\begin{proof}
+		idk bro.
+	\end{proof}
+\end{homeworkProblem}
+
+\end{document}

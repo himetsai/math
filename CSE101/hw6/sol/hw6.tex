@@ -159,41 +159,26 @@
 \begin{homeworkProblem}
 	Let $G$ be an directed acyclic graph with vertex set $V$ and edge set $E$.
 
-	Design a (recursive) backtracking algorithm that counts the number of topological orderings of the
-	vertices in $V$. \\
+	Design a (recursive) backtracking algorithm that counts the number of topological orderings of the vertices in $V$. \\
 
 	\textbf{Algorithm Description:} 
 		
-	First initialize set $T$ which would store the resulting orderings. If $|V| = 0$, return an empty
-	set. Construct a list $in$ such that $in[v]$ is the indegree of vertex $v$ in $G$, for all $v \in
-	V$. For each $v \in V$ with $in[v] = 0$, recurse on the graph $G - \{v\}$ to obtain a set of
-	topological orderings $T_v$. Then, for each ordering $S$ in $T_v$, add $[v] + S$ to $T$. Return
-	$T$ after we have iterated through all possible $v$'s. \\
+	First initialize set $T$ which would store the resulting orderings. If $|V| = 0$, return an empty set. Construct a list $in$ such that $in[v]$ is the indegree of vertex $v$ in $G$, for all $v \in V$. For each $v \in V$ with $in[v] = 0$, recurse on the graph $G - \{v\}$ to obtain a set of topological orderings $T_v$. Then, for each ordering $S$ in $T_v$, add $[v] + S$ to $T$. Return $T$ after we have iterated through all possible $v$'s. \\
 
 	\textbf{Proof of Correctness:} 
 
 	\begin{proof}
-		Let $Top(G)$ denote the result of the algorithm after running on graph $G$, and let
-		$\mathcal{T}(G)$ denote the set of all topological orderings of $G$. We proceed by induction on
-		$n$ to show that $Top(H) = \mathcal{T}(H)$, for all subgraph $H \subseteq G$ with $n$ vertices. 
+		Let $Top(G)$ denote the result of the algorithm after running on graph $G$, and let $\mathcal{T}(G)$ denote the set of all topological orderings of $G$. We proceed by induction on $n$ to show that $Top(H) = \mathcal{T}(H)$, for all subgraph $H \subseteq G$ with $n$ vertices. 
 		
-		The base case is trivial, as $Top(H)$ is the empty list when $H$ has no vertices, which is
-		obviously $\mathcal{T}(H)$.
+		The base case is trivial, as $Top(H)$ is the empty list when $H$ has no vertices, which is obviously $\mathcal{T}(H)$.
 		
-		Suppose $n \geq 1$. Assume that for all subgraph $H' \subseteq G$ with less than $n$ vertices,
-		$Top(H') = \mathcal{T}(H')$. Let $H$ be a subgraph of $G$ with $n$ vertices. 
+		Suppose $n \geq 1$. Assume that for all subgraph $H' \subseteq G$ with less than $n$ vertices, $Top(H') = \mathcal{T}(H')$. Let $H$ be a subgraph of $G$ with $n$ vertices. 
 		
-		For all $L \in Top(H)$, we have $L = v + L'$, where $v$ is an vertex of $H$ and $L' \in Top(H -
-		\{v\})$. By induction, $L' \in \mathcal{T}(H - \{v\})$, and thus $L \in \mathcal{T}(H)$, as $v$
-		has indegree 0 in $H$.
+		For all $L \in Top(H)$, we have $L = v + L'$, where $v$ is an vertex of $H$ and $L' \in Top(H - \{v\})$. By induction, $L' \in \mathcal{T}(H - \{v\})$, and thus $L \in \mathcal{T}(H)$, as $v$ has indegree 0 in $H$.
 		
-		Now suppose $S \in \mathcal{T}(H)$. $S$ starts with a vertex $u \in H$ with indegree 0 in $H$.
-		By induction, $S - [u] \in \mathcal{T}(H - \{u\}) = Top(H - \{u\})$. Since $in[u] = 0$ in $H$,
-		the outer loop in the algorithm runs through $u$, which then includes $S = [u] + (S - [u])$ in
-		the outputing set during the inner loop. Hence, $S \in Top(G)$. 
+		Now suppose $S \in \mathcal{T}(H)$. $S$ starts with a vertex $u \in H$ with indegree 0 in $H$. By induction, $S - [u] \in \mathcal{T}(H - \{u\}) = Top(H - \{u\})$. Since $in[u] = 0$ in $H$, the outer loop in the algorithm runs through $u$, which then includes $S = [u] + (S - [u])$ in the outputing set during the inner loop. Hence, $S \in Top(G)$. 
 		
-		It now follows that $\mathcal{T}(H) = Top(H)$, and this completes the induction. Obviously, $G$
-		is a subgraph of $G$, and hence the result.
+		It now follows that $\mathcal{T}(H) = Top(H)$, and this completes the induction. Obviously, $G$ is a subgraph of $G$, and hence the result.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -203,15 +188,9 @@
 	Recall the electric car problem but this time, each battery also has a price $p[i]$ to replace:
 
 	\begin{quote}
-	Suppose you are driving along a road in an electric car. The battery of the electric car can bring
-	you $x[0]$ miles. There are battery stations along the way at positive positions $D[1],\dots D[n]$
-	(in sorted order.) Each battery station can  \emph{replace} your battery and give you a new
-	battery that can bring you a certain number of miles. The distances of the batteries are given in
-	the array $x[0],x[1],\dots,x[n-1]$ and the price of each battery to replace is
-	$p[1],\dots,p[n-1]$.
+	Suppose you are driving along a road in an electric car. The battery of the electric car can bring you $x[0]$ miles. There are battery stations along the way at positive positions $D[1],\dots D[n]$ (in sorted order.) Each battery station can  \emph{replace} your battery and give you a new battery that can bring you a certain number of miles. The distances of the batteries are given in the array $x[0],x[1],\dots,x[n-1]$ and the price of each battery to replace is $p[1],\dots,p[n-1]$.
 
-	You wish to start at position $0$ with a full battery and end at position $D[n]$ by replacing
-	batteries with the minimum total cost.
+	You wish to start at position $0$ with a full battery and end at position $D[n]$ by replacing batteries with the minimum total cost.
 	\end{quote}
 
 
@@ -221,47 +200,33 @@
 	\begin{quote}
 	{\bf Candidate Greedy Strategy III:} 
 
-	Travel to the battery station with the largest $D[i] + x[i]$ value (in other words, the battery
-	that can take you the farthest down the road.) Replace the battery at that station and repeat the
-	process starting from that station until you can reach position $D[n]$ and then go directly there.
+	Travel to the battery station with the largest $D[i] + x[i]$ value (in other words, the battery that can take you the farthest down the road.) Replace the battery at that station and repeat the process starting from that station until you can reach position $D[n]$ and then go directly there.
 	\end{quote}
 
 	Give a counterexample as to why this does not always give you the optimal solution.
 
 	\begin{proof}
-		Consider the input $D = [0, 1, 2, 3], x = [2, 2, 2, 2], P = [0, 0, 1, 0]$. Since station $2$ has
-		the highest $D[i] + x[i]$ value ($2 + 2 = 4$) among all reachable stations from the start, the
-		strategy picks $2$, which costs 1 dollar. But then we may change battery at station 1 then go
-		directly to the destination, which costs nothing.
+		Consider the input $D = [0, 1, 2, 3], x = [2, 2, 2, 2], P = [0, 0, 1, 0]$. Since station $2$ has the highest $D[i] + x[i]$ value ($2 + 2 = 4$) among all reachable stations from the start, the strategy picks $2$, which costs 1 dollar. But then we may change battery at station 1 then go directly to the destination, which costs nothing.
 	\end{proof}
 
-	\item Design a \emph{reduction} algorithm that uses Dijkstra's algorithm. Compute the time
-	analysis in terms of the number of battery stations $n$. \\
+	\item Design a \emph{reduction} algorithm that uses Dijkstra's algorithm. Compute the time analysis in terms of the number of battery stations $n$. \\
 
 	\textbf{Algorithm Description:}
 
-	Construct a weighted directed graph $G = (V, E, w)$, with $V = \{0, 1, \dots, n\}$ being the set
-	of all stations. For distinct vertex $u, v \in V$, we add an edge $(u, v)$ if $v$ is reachable
-	from $u$. For each edge $(u, v) \in E$, assign weight $w(u, v) = p[v]$ if $v \neq n$, and put
-	$w(u, v) = 0$ if $v = n$. We now run Dijkstra's algorithm on $G$ starting on vertex 0 and return
-	the resulting price at vertex $n$. \\
+	Construct a weighted directed graph $G = (V, E, w)$, with $V = \{0, 1, \dots, n\}$ being the set of all stations. For distinct vertex $u, v \in V$, we add an edge $(u, v)$ if $v$ is reachable from $u$. For each edge $(u, v) \in E$, assign weight $w(u, v) = p[v]$ if $v \neq n$, and put $w(u, v) = 0$ if $v = n$. We now run Dijkstra's algorithm on $G$ starting on vertex 0 and return the resulting price at vertex $n$. \\
 
 	\textbf{Runtime Analysis:}
 
-	$G$ has $O(n)$ vertices and $O(n^2)$ edges, so constructing $G$ takes $O(n^2)$ time. Running
-	Dijkstra on $G$ using array as a priority queue takes $O(n^2)$ time. In total, the algorithm runs
-	in $O(n^2)$ time.
+	$G$ has $O(n)$ vertices and $O(n^2)$ edges, so constructing $G$ takes $O(n^2)$ time. Running Dijkstra on $G$ using array as a priority queue takes $O(n^2)$ time. In total, the algorithm runs in $O(n^2)$ time.
 
 	\newpage
 
-	\item Design a DP tabulation algorithm by ordering the subproblems from $n$ to $0$: (step 1 and 4
-	have been done for you)
+	\item Design a DP tabulation algorithm by ordering the subproblems from $n$ to $0$: (step 1 and 4 have been done for you)
 
 	\begin{quote}
 	1: Define the subproblems:
 	\begin{quote}
-		Let $G[k]$ be defined to be the minimum price it takes to get to battery station $n$ assuming
-		you start at battery station $k$ with the battery from battery station $k$.
+		Let $G[k]$ be defined to be the minimum price it takes to get to battery station $n$ assuming you start at battery station $k$ with the battery from battery station $k$.
 	\end{quote}
 
 	2: Define and evaluate the base cases
@@ -271,8 +236,7 @@
 
 	3: Establish the recurrence for the tabulation.
 	\begin{quote}
-		Suppose $0 \leq k < n$. Let $S = \{i \in [n] \mid D[k] < D[i] \leq D[k] + x[k]\}$, which is the
-		set of all reachable stations from station $k$. Then,
+		Suppose $0 \leq k < n$. Let $S = \{i \in [n] \mid D[k] < D[i] \leq D[k] + x[k]\}$, which is the set of all reachable stations from station $k$. Then,
 		\[
 			G[k] = \min_{i \in S} G[i] + P[k].
 		\]
@@ -310,8 +274,7 @@
 	
 	7: Runtime analysis
 	\begin{quote}
-		Each iteration of the inner loop takes constant time. Since the outer loop iterates through $0
-		\leq k \leq n - 1$ and the inner loop iterates through $k + 1 \leq i \leq n$, it takes 
+		Each iteration of the inner loop takes constant time. Since the outer loop iterates through $0 \leq k \leq n - 1$ and the inner loop iterates through $k + 1 \leq i \leq n$, it takes 
 		\begin{align*}
 			O\left(\sum_{k = 0}^{n - 1} \sum_{i = k + 1}^{n} c\right) 
 			&= O\left(c\sum_{k = 0}^{n - 1} (n - k)\right) \\
@@ -327,25 +290,15 @@
 \newpage
 
 \begin{homeworkProblem}
-	In the kingdom of Dynamoprogamia, a law was passed that the currency used in the Kingdom would be
-	in the denominations of perfect square numbers (i.e. in denominations of 1, 4, 9, 16, 25 and so
-	on). You can assume the denominations can go as large as you want it to go as long as it's a
-	perfect square number. Let's call this currency Square-Dollars. A money lender in this Kingdom
-	wants to lend money to his customers in such a way that he gives them the least number of coins
-	possible. 
+	In the kingdom of Dynamoprogamia, a law was passed that the currency used in the Kingdom would be in the denominations of perfect square numbers (i.e. in denominations of 1, 4, 9, 16, 25 and so on). You can assume the denominations can go as large as you want it to go as long as it's a perfect square number. Let's call this currency Square-Dollars. A money lender in this Kingdom wants to lend money to his customers in such a way that he gives them the least number of coins possible. 
 \begin{enumerate}[(a)]
-\item The greedy strategy for this: “Pick the maximum denomination that's less than \emph{or equal
-to} the amount you need to lend and subtract it from the amount you need to lend. Continue this
-process until you're left with nothing else to lend.” Provide a counter example for this.
+\item The greedy strategy for this: “Pick the maximum denomination that's less than \emph{or equal to} the amount you need to lend and subtract it from the amount you need to lend. Continue this process until you're left with nothing else to lend.” Provide a counter example for this.
 
 \begin{proof}
-	Consider the case 18. The algorithm picks $16$ first, which leaves us $18 - 16 = 2$. But then $2$
-	is not a square number, so in total this strategy uses more than 2 coins to lend 18
-	Square-Dollars. But then $18$ can be lent with two 9-dollar coins.
+	Consider the case 18. The algorithm picks $16$ first, which leaves us $18 - 16 = 2$. But then $2$ is not a square number, so in total this strategy uses more than 2 coins to lend 18 Square-Dollars. But then $18$ can be lent with two 9-dollar coins.
 \end{proof}
 
-\item Devise a Dynamic programming-based algorithm that returns the minimum number of coins needed
-to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})$ time.)
+\item Devise a Dynamic programming-based algorithm that returns the minimum number of coins needed to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})$ time.)
 
 \begin{quote}
 	1: Define the subproblems:
@@ -403,11 +356,7 @@ to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})
 	
 	7: Runtime analysis
 	\begin{quote}
-		Initializing $SD$ takes $O(n)$ time. Note that there are at most $\sqrt{i}$ square number $s
-		\leq i$, for all $i \in \Z^+$. Hence, for each positive integer $i \leq n$, looping through all
-		square number takes $O(\sqrt{n})$ time, and thus the outer loop which iterates through all $i
-		\leq n$ takes $O(n^{1.5})$ time. In total, the algorithm takes $O(n^{1.5} + n) = O(n^{1.5})$
-		time.
+		Initializing $SD$ takes $O(n)$ time. Note that there are at most $\sqrt{i}$ square number $s \leq i$, for all $i \in \Z^+$. Hence, for each positive integer $i \leq n$, looping through all square number takes $O(\sqrt{n})$ time, and thus the outer loop which iterates through all $i \leq n$ takes $O(n^{1.5})$ time. In total, the algorithm takes $O(n^{1.5} + n) = O(n^{1.5})$ time.
 	\end{quote}
 	\end{quote}
 \end{enumerate}
@@ -418,14 +367,12 @@ to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})
 \begin{homeworkProblem}
 	You are given an $n\times n$ matrix of 0's and 1's: $(A_{i,j})_{1\leq i \leq n,~1\leq j \leq n}$
 
-	Design a DP tabulation algorithm that finds the length of a side of the largest square entirely
-	made of 1's: (step 1 has been done for you)
+	Design a DP tabulation algorithm that finds the length of a side of the largest square entirely made of 1's: (step 1 has been done for you)
 
 	\begin{quote}
 	1: Define the subproblems:
 	\begin{quote}
-		Let $S[i,j]$ be defined to be the length of the side of the largest square entirely made of 1's
-		with bottom right corner at entry $[i,j]$
+		Let $S[i,j]$ be defined to be the length of the side of the largest square entirely made of 1's with bottom right corner at entry $[i,j]$
 	\end{quote}
 
 	2: Define and evaluate the base cases
@@ -446,9 +393,7 @@ to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})
 
 	4: Determine the order of subproblems:
 	\begin{quote}
-		Order the subproblems in row-major order. That is, we are traversing through $S$ one row at a
-		time, from left to right, and top to bottom. Each row is completed before moving on to the next
-		row.
+		Order the subproblems in row-major order. That is, we are traversing through $S$ one row at a time, from left to right, and top to bottom. Each row is completed before moving on to the next row.
 	\end{quote}
 
 	5: Final form of output.
@@ -483,8 +428,7 @@ to make change for $n$ Square-Dollars. (your algorithm should run in $O(n^{1.5})
 	\end{quote}
 	7: Runtime analysis
 	\begin{quote}
-		The algorithm is simply a nested loop iterating through each entry of the $n \times n$ array,
-		with each iteration running in constant time. Hence, the total runtime is $O(n^2)$.
+		The algorithm is simply a nested loop iterating through each entry of the $n \times n$ array, with each iteration running in constant time. Hence, the total runtime is $O(n^2)$.
 	\end{quote}
 \end{quote}
 \end{homeworkProblem}

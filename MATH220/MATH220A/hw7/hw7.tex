@@ -151,16 +151,14 @@
 \pagebreak
 
 \begin{homeworkProblem}
-	Let $I(r) = \int_\gamma \frac{e^{iz}}{z} \, dz$ where $\gamma: [0, \pi] \to \mathbb{C}$ is defined
-	by $\gamma(t) = re^{it}$. Show that $\lim_{r \to \infty} I(r) = 0$.
+	Let $I(r) = \int_\gamma \frac{e^{iz}}{z} \, dz$ where $\gamma: [0, \pi] \to \mathbb{C}$ is defined by $\gamma(t) = re^{it}$. Show that $\lim_{r \to \infty} I(r) = 0$.
 
 	\begin{proof}
 		Note that $\gamma'(t) = ire^{it}$ and so
 		\[
 			|I(r)| = \left|\int_0^\pi \frac{e^{ire^{it}}}{re^{it}} \cdot ire^{it} \, dt\right| = \left|i\int_0^\pi e^{ire^{it}} \, dt\right| \leq \int_0^\pi \left|e^{ire^{it}}\right| \, dt = \int_0^\pi \left|e^{r(i\cos(t) - \sin(t))}\right| \, dt = \int_0^\pi e^{-r\sin(t)} \, dt.
 		\]
-		Pick $\epsilon > 0$. There exists integer $N > -\log(\epsilon)$ such that for all $r > N$ and $t
-		\in [0, \pi]$,
+		Pick $\epsilon > 0$. There exists integer $N > -\log(\epsilon)$ such that for all $r > N$ and $t \in [0, \pi]$,
 		\[
 			\left|e^{-r\sin(t)}\right| \leq e^{-r} < e^{-N} < \epsilon.
 		\]
@@ -174,24 +172,8 @@
 
 \newpage
 
-% \begin{homeworkProblem}
-% 	Let $\gamma(t) = 2e^{it}$ for $-\pi \leq t \leq \pi$ and find $\int_\gamma (z^2 - 1)^{-1} \, dz$.
-
-% 	\begin{proof}
-% 		Note that $\gamma'(t) = 2ie^{it}$. We then have
-% 		\[
-% 			\int_\gamma (z^2 - 1)^{-1} \, dz = \int_{-\pi}^\pi \frac{2ie^{it}}{(2e^{it})^2 - 1} \, dt = \int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt.
-% 		\]
-% 		Let $u = 2e^{it} + 1$, then $du = 2ie^{it} \, dt$ and so
-% 		\[
-% 			\int_{-\pi}^\pi \frac{2ie^{it}}{4e^{2it} - 1} \, dt = \int_{1}^1 \frac{1}{u(u - 2)} \, dt = 0.
-% 		\]
-% 	\end{proof}
-% \end{homeworkProblem}
-
 \begin{homeworkProblem}
-	Show that if $F_1$ and $F_2$ are primitives for $f: G \to \mathbb{C}$ and $G$ is connected, then
-	there is a constant $c$ such that $F_1(z) = c + F_2(z)$ for each $z$ in $G$.
+	Show that if $F_1$ and $F_2$ are primitives for $f: G \to \mathbb{C}$ and $G$ is connected, then there is a constant $c$ such that $F_1(z) = c + F_2(z)$ for each $z$ in $G$.
 
 	\begin{proof}
 		Suppose $F_1' = F_2' = f$. Then
@@ -205,12 +187,10 @@
 \newpage
 
 \begin{homeworkProblem}
-	Let $\gamma$ be a closed rectifiable curve in an open set $G$ and $a \notin G$. Show that for $n
-	\geq 2$, $\int_{\gamma} (z - a)^{-n} \, dz = 0$.
+	Let $\gamma$ be a closed rectifiable curve in an open set $G$ and $a \notin G$. Show that for $n \geq 2$, $\int_{\gamma} (z - a)^{-n} \, dz = 0$.
 
 	\begin{proof}
-		Let $\alpha$ be the start/end point of $\gamma$. Since $a \notin G$, the primitive of $(z -
-		a)^{-n}$ is $\frac{1}{n - 1}(z - a)^{-(n - 1)}$. By theorem 1.18, 
+		Let $\alpha$ be the start/end point of $\gamma$. Since $a \notin G$, the primitive of $(z - a)^{-n}$ is $\frac{1}{n - 1}(z - a)^{-(n - 1)}$. By theorem 1.18, 
 		\[
 			\int_{\gamma} (z - a)^{-n} \, dz = \frac{1}{n - 1}(\alpha - a)^{-(n - 1)} - \frac{1}{n - 1}(\alpha - a)^{-(n - 1)} = 0.
 		\]
@@ -223,10 +203,7 @@
 	Show that the function defined by (2.2) is continuous.
 
 	\begin{proof}
-		Pick $\epsilon > 0$. Since $\varphi$ is continuous in a compact set, $\varphi$ is uniformly
-		continuous. Thus, there exists $\delta > 0$ such that for all $s \in [a, b]$, $|\varphi(s, t) -
-		\varphi(s, x)| < \frac{\epsilon}{b - a}$ for all $x, t \in [c, d]$ and $|x - t| < \delta$. It now
-		follows that for all $s \in [a, b]$ and $|t - x| < \delta$,
+		Pick $\epsilon > 0$. Since $\varphi$ is continuous in a compact set, $\varphi$ is uniformly continuous. Thus, there exists $\delta > 0$ such that for all $s \in [a, b]$, $|\varphi(s, t) - \varphi(s, x)| < \frac{\epsilon}{b - a}$ for all $x, t \in [c, d]$ and $|x - t| < \delta$. It now follows that for all $s \in [a, b]$ and $|t - x| < \delta$,
 		\[
 			|g(t) - g(x)| = \left|\int_{a}^b \varphi(s, t) - \varphi(s, x) \, ds\right| \leq \int_{a}^b |\varphi(s, t) - \varphi(s, x)| \, ds < \frac{\epsilon}{b - a} \cdot (b - a) < \epsilon.
 		\]
@@ -236,47 +213,26 @@
 \newpage
 
 \begin{homeworkProblem}
-	Prove the following analogue of Leibniz's rule (this exercise will be frequently used in the later
-	sections.) Let $G$ be an open set and let $\gamma$ be a rectifiable curve in $G$. Suppose that
-	$\varphi: \{\gamma\} \times G \to \mathbb{C}$ is a continuous function and define $g: G \to
-	\mathbb{C}$ by
+	Prove the following analogue of Leibniz's rule (this exercise will be frequently used in the later sections.) Let $G$ be an open set and let $\gamma$ be a rectifiable curve in $G$. Suppose that $\varphi: \{\gamma\} \times G \to \mathbb{C}$ is a continuous function and define $g: G \to \mathbb{C}$ by
 	\[
 		g(z) = \int_\gamma \varphi(w, z) \, dw
 	\]
-	then $g$ is continuous. If $\frac{\partial \varphi}{\partial z}$ exists for each $(w, z)$ in
-	$\{\gamma\} \times G$ and is continuous, then $g$ is analytic and
+	then $g$ is continuous. If $\frac{\partial \varphi}{\partial z}$ exists for each $(w, z)$ in $\{\gamma\} \times G$ and is continuous, then $g$ is analytic and
 	\begin{gather}
 		g'(z) = \int_\gamma \frac{\partial \varphi}{\partial z}(w, z) \, dw.
 	\end{gather}
 
 	\begin{proof}
-		Fix $z_0 \in G$. Pick $\epsilon > 0$. Note that $\gamma: [a, b] \to G$, for some interval $[a,
-		b]$. We first show that $g$ is continuous. Put $L = \int_\gamma |dw|$. Since $\gamma$ is
-		continuous on a compact set, its image $\{\gamma\}$ is compact. For $r > 0$ such that the closed
-		ball $\overline{B_{r}(z_0)} \subset G$, $\varphi$ is uniformly continuous on $\{\gamma\} \times
-		\overline{B_{r}(z_0)}$. Thus, there exists $\delta_r > 0$ such that $|\varphi(s, z) - \varphi(s,
-		w)| < \frac{\epsilon}{L}$ for all $s \in \{\gamma\}$ and $z, w \in \overline{B_{r}(z_0)}$ with
-		$d(z, w) < \delta_r$. It now follows that for all $s \in \{\gamma\}$ and $z \in
-		\overline{B_{r}(z_0)}$ with $d(z, z_0) < \delta_r$, 
+		Fix $z_0 \in G$. Pick $\epsilon > 0$. Note that $\gamma: [a, b] \to G$, for some interval $[a, b]$. We first show that $g$ is continuous. Put $L = \int_\gamma |dw|$. Since $\gamma$ is continuous on a compact set, its image $\{\gamma\}$ is compact. For $r > 0$ such that the closed ball $\overline{B_{r}(z_0)} \subset G$, $\varphi$ is uniformly continuous on $\{\gamma\} \times \overline{B_{r}(z_0)}$. Thus, there exists $\delta_r > 0$ such that $|\varphi(s, z) - \varphi(s, w)| < \frac{\epsilon}{L}$ for all $s \in \{\gamma\}$ and $z, w \in \overline{B_{r}(z_0)}$ with $d(z, w) < \delta_r$. It now follows that for all $s \in \{\gamma\}$ and $z \in \overline{B_{r}(z_0)}$ with $d(z, z_0) < \delta_r$, 
 		\[
 			|g(z) - g(z_0)| = \left|\int_{\gamma} \varphi(s, z) - \varphi(s, z_0) \, ds\right| \leq \int_{\gamma} |\varphi(s, z) - \varphi(s, z_0)| \, |ds| < \frac{\epsilon}{L} \cdot L = \epsilon.
 		\]
 
-		Now suppose that $\varphi' = \frac{\partial \varphi}{\partial z}$ exists for each $(w, z)$ in
-		$\{\gamma\}$ and is continuous. It suffices to verify (1), as the continuity of $g'$ follows
-		from (1) and the first part of the proof. Since $\varphi'$ is uniformly continuous on
-		$\{\gamma\} \times \overline{B_{r}(z_0)}$, there exists $\delta'_r > 0$ such that $|\varphi'(s,
-		w) - \varphi'(s, z)| < \epsilon/L$ for all $s \in \{\gamma\}$ and $w, z \in
-		\overline{B_{r}(z_0)}$ with $d(w, z) < \delta'_r$. Define path $\sigma_z: [0, 1] \to
-		\overline{B_{r}(z_0)}$ as $\sigma_z(t) = tz + (1 - t)z_0$ and note that $\sigma_z$ is
-		rectifiable, with $\int_{\sigma_z} |dw| = z - z_0$. Then for all for $s \in \{\gamma\}$ and
-		$d(z, z_0) < \delta'_r$, 
+		Now suppose that $\varphi' = \frac{\partial \varphi}{\partial z}$ exists for each $(w, z)$ in $\{\gamma\}$ and is continuous. It suffices to verify (1), as the continuity of $g'$ follows from (1) and the first part of the proof. Since $\varphi'$ is uniformly continuous on $\{\gamma\} \times \overline{B_{r}(z_0)}$, there exists $\delta'_r > 0$ such that $|\varphi'(s, w) - \varphi'(s, z)| < \epsilon/L$ for all $s \in \{\gamma\}$ and $w, z \in \overline{B_{r}(z_0)}$ with $d(w, z) < \delta'_r$. Define path $\sigma_z: [0, 1] \to \overline{B_{r}(z_0)}$ as $\sigma_z(t) = tz + (1 - t)z_0$ and note that $\sigma_z$ is rectifiable, with $\int_{\sigma_z} |dw| = z - z_0$. Then for all for $s \in \{\gamma\}$ and $d(z, z_0) < \delta'_r$, 
 		\begin{gather}
 			\left|\int_{\sigma_z} [\varphi'(s, w) - \varphi'(s, z_0)] \, dw\right| \leq \int_{\sigma_z} |\varphi'(s, w) - \varphi'(s, z_0)| \, |dw| \leq \frac{\epsilon (z - z_0)}{L}.
 		\end{gather}
-		Given a fixed $s \in \{\gamma\}$, $\Phi(z) = \varphi(s, z) - z\varphi'(s, z_0)$ is a primitive
-		of $\varphi'(s, z) - \varphi'(s, z_0)$. It now follows from (2) and the funamental theorem of
-		calculus that 
+		Given a fixed $s \in \{\gamma\}$, $\Phi(z) = \varphi(s, z) - z\varphi'(s, z_0)$ is a primitive of $\varphi'(s, z) - \varphi'(s, z_0)$. It now follows from (2) and the funamental theorem of calculus that 
 		\[
 			|\varphi(s, z) - \varphi(s, z_0) - (z - z_0)\varphi'(s, z_0)| \leq \frac{\epsilon (z - z_0)}{L}.
 		\]
@@ -291,8 +247,7 @@
 \newpage
 
 \begin{homeworkProblem}
-	Suppose that $\gamma$ is a rectifiable curve in $\mathbb{C}$ and $\varphi$ is defined and
-	continuous on $\{\gamma\}$. Use Exercise 2 to show that
+	Suppose that $\gamma$ is a rectifiable curve in $\mathbb{C}$ and $\varphi$ is defined and continuous on $\{\gamma\}$. Use Exercise 2 to show that
 	\[
 		g(z) = \int_\gamma \frac{\varphi(w)}{w - z} \, dw
 	\]
@@ -302,17 +257,11 @@
 	\end{gather}
 
 	\begin{proof}
-		Define $\phi(w, z) = \frac{\varphi(w)}{w - z}$ for $w \in \{\gamma\}$ and $z \in \mathbb{C} -
-		\gamma$. Note that $\phi$ is continuous on $\{\gamma\} \times (\mathbb{C} - \gamma)$, as
-		$\varphi$ and $\frac{1}{w - z}$ are continuous. Since $\frac{\partial \phi}{\partial z} =
-		\frac{\varphi(w)}{(w - z)^2}$ exists and is continuous, $g$ is analytic on $\mathbb{C} - \gamma$
-		and $g'(z) = \int_\gamma \frac{\varphi(w)}{(w - z)^2} \, dw$, by the previous exercise. We now
-		proceed by induction on $n$ to show (3). The base case is done. Suppose $n > 1$. By induction,
+		Define $\phi(w, z) = \frac{\varphi(w)}{w - z}$ for $w \in \{\gamma\}$ and $z \in \mathbb{C} - \gamma$. Note that $\phi$ is continuous on $\{\gamma\} \times (\mathbb{C} - \gamma)$, as $\varphi$ and $\frac{1}{w - z}$ are continuous. Since $\frac{\partial \phi}{\partial z} = \frac{\varphi(w)}{(w - z)^2}$ exists and is continuous, $g$ is analytic on $\mathbb{C} - \gamma$ and $g'(z) = \int_\gamma \frac{\varphi(w)}{(w - z)^2} \, dw$, by the previous exercise. We now proceed by induction on $n$ to show (3). The base case is done. Suppose $n > 1$. By induction,
 		\[
 			g^{(n)}(z) = \frac{\partial}{\partial z} \left[(n - 1)!\int_\gamma \frac{\varphi(w)}{(w - z)^{n}} \, dw\right].
 		\]
-		Since $\frac{\partial}{\partial z} \frac{\varphi(w)}{(w - z)^{n}} = \frac{n\varphi(w)}{(w - z)^{n
-		+ 1}}$ exists and is continuous, 
+		Since $\frac{\partial}{\partial z} \frac{\varphi(w)}{(w - z)^{n}} = \frac{n\varphi(w)}{(w - z)^{n + 1}}$ exists and is continuous, 
 		\[
 			g^{(n)}(z) = (n - 1)!\int_\gamma \frac{\partial}{\partial z} \frac{\varphi(w)}{(w - z)^{n}} \, dw = n! \int_\gamma \frac{\varphi(w)}{(w - z)^{n + 1}} \, dw.
 		\]

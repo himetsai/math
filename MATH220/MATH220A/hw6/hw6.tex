@@ -89,8 +89,8 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework\ \#6}
-\newcommand{\hmwkDueDate}{Nov 8, 2024}
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Nov 15, 2024}
 \newcommand{\hmwkClass}{MATH 220A}
 \newcommand{\hmwkClassInstructor}{Professor Ebenfelt}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
@@ -151,8 +151,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
-	If $Tz = \frac{az + b}{cz + d}$, find $z_2, z_3, z_4$ (in terms of $a, b, c, d$) such that $Tz =
-	(z, z_2, z_3, z_4)$.
+	If $Tz = \frac{az + b}{cz + d}$, find $z_2, z_3, z_4$ (in terms of $a, b, c, d$) such that $Tz = (z, z_2, z_3, z_4)$.
 
 	\begin{proof}
 		Solving
@@ -166,14 +165,10 @@
 \newpage
 
 \begin{homeworkProblem}
-	If $Tz = \frac{az + b}{cz + d}$, find necessary and sufficient conditions that $T(\Gamma) =
-	\Gamma$ where $\Gamma$ is the unit circle $\{ z : |z| = 1 \}$.
+	If $Tz = \frac{az + b}{cz + d}$, find necessary and sufficient conditions that $T(\Gamma) = \Gamma$ where $\Gamma$ is the unit circle $\{ z : |z| = 1 \}$.
 
 	\begin{proof}
-		Note that $T(\Gamma) = \Gamma$ if and only if $T^{-1}(\Gamma) = \Gamma$, and thus $T^{-1}$
-		perseves the symmetry between $0$ and $\infty$. Let $k = T^{-1}(0) \notin \Gamma$. By the
-		calculation in the textbook, $k$ is symmetric to $\frac{1}{\bar{k}}$. That is, $T(\frac{1}{k}) =
-		\infty$. Solving
+		Note that $T(\Gamma) = \Gamma$ if and only if $T^{-1}(\Gamma) = \Gamma$, and thus $T^{-1}$ perseves the symmetry between $0$ and $\infty$. Let $k = T^{-1}(0) \notin \Gamma$. By the calculation in the textbook, $k$ is symmetric to $\frac{1}{\bar{k}}$. That is, $T(\frac{1}{k}) = \infty$. Solving
 		\[
 			\begin{cases}
 				\frac{ak + b}{ck + d} = 0, \\
@@ -184,15 +179,13 @@
 		\[
 			Tz = \frac{m(z - k)}{z - \frac{1}{\bar{k}}}.
 		\]
-		If $k = 0$ or $\infty$, then $Tz = mz$ or $Tz = \frac{m}{z}$, so $T(\Gamma) = \Gamma$ if and
-		only if $m \in \Gamma$. Suppose otherwise. Notice
+		If $k = 0$ or $\infty$, then $Tz = mz$ or $Tz = \frac{m}{z}$, so $T(\Gamma) = \Gamma$ if and only if $m \in \Gamma$. Suppose otherwise. Notice
 		\begin{align*}
 			|Tz|^2
 			&= |m\bar{k}|^2\left(\frac{z - k}{\bar{k}z - 1}\right)\left(\frac{\bar{z} - \bar{k}}{k\bar{z} - 1}\right) \\
 			&= |m\bar{k}|^2\left(\frac{|z|^2 + |k|^2 - 2Re(z\bar{k})}{|k|^2|z|^2 + 1 - 2Re(z\bar{k})}\right).
 		\end{align*}
-		But then when $z \in \Gamma$, $|Tz|^2 = |m\bar{k}|^2$. Thus in this case, $T(\Gamma) = \Gamma$
-		if and only if $k \notin \Gamma$ and $m\bar{k} \in \Gamma$. 
+		But then when $z \in \Gamma$, $|Tz|^2 = |m\bar{k}|^2$. Thus in this case, $T(\Gamma) = \Gamma$ if and only if $k \notin \Gamma$ and $m\bar{k} \in \Gamma$. 
 		
 		Cominbing the two cases, we have $T(\Gamma) = \Gamma$ if and only if 
 		\[
@@ -208,15 +201,11 @@
 	Let $D = \{ z : |z| < 1 \}$ and find all Möbius transformations $T$ such that $T(D) = D$.
 
 	\begin{proof}
-		We show that $T(D) = D$ if and only if $T^{-1}(0) \in D$. Obviously if $T(D) = D$ we have
-		$T^{-1}(0) \in D$. Now suppose $k = T^{-1}(0) \in D$. Since $T$ is continuous, $T(\partial D) =
-		\partial D$, where $\partial D = \Gamma$ is the unit circle. By the previous problem, $T$ is of
-		the form
+		We show that $T(D) = D$ if and only if $T^{-1}(0) \in D$. Obviously if $T(D) = D$ we have $T^{-1}(0) \in D$. Now suppose $k = T^{-1}(0) \in D$. Since $T$ is continuous, $T(\partial D) = \partial D$, where $\partial D = \Gamma$ is the unit circle. By the previous problem, $T$ is of the form
 		\[
 			Tz = \frac{m(z - k)}{z - \frac{1}{\bar{k}}}.
 		\]
-		Suppose $z \in D$. It suffices to show that $|Tz| < 1$. If $k = 0$ then $Tz = mz$ and $|Tz| =
-		|mz| < 1$. Suppose $k \neq 0$. By the previous problem,
+		Suppose $z \in D$. It suffices to show that $|Tz| < 1$. If $k = 0$ then $Tz = mz$ and $|Tz| = |mz| < 1$. Suppose $k \neq 0$. By the previous problem,
 		\[
 			|Tz|^2 = |m\bar{k}|^2\left(\frac{|z|^2 + |k|^2 - 2Re(z\bar{k})}{|k|^2|z|^2 + 1 - 2Re(z\bar{k})}\right).
 		\]
@@ -231,33 +220,24 @@
 \newpage
 
 \begin{homeworkProblem}
-	Let $G$ be a region and suppose that $f: G \rightarrow \C$ is analytic such that $f(G)$ is a
-	subset of a circle. Show that $f$ is constant.
+	Let $G$ be a region and suppose that $f: G \rightarrow \C$ is analytic such that $f(G)$ is a subset of a circle. Show that $f$ is constant.
 
 	\begin{proof}
-		Let $z_2, z_3, z_4 \in G$ such that $f(z_2), f(z_3), f(z_4)$ are distinct. Let $T$ be a Möbius
-		transformation such that $Tz = \frac{az + b}{cz + d} = (z, f(z_2), f(z_3), f(z_4))$. Since $T$
-		is analytic and $T(f(z)) \in \R_{\infty}$ for all $z \in G$, $T(f(z))$ is constant by exercise
-		3.2.14. Thus,
+		Let $z_2, z_3, z_4 \in G$ such that $f(z_2), f(z_3), f(z_4)$ are distinct. Let $T$ be a Möbius transformation such that $Tz = \frac{az + b}{cz + d} = (z, f(z_2), f(z_3), f(z_4))$. Since $T$ is analytic and $T(f(z)) \in \R_{\infty}$ for all $z \in G$, $T(f(z))$ is constant by exercise 3.2.14. Thus,
 		\[
 			(T(f(z)))' = T'(f(z))f'(z) = \frac{ad - bc}{(cf(z) + d)^2}f'(z) = 0.
 		\]
-		Since $ad - bc \neq 0$, $f'(z) = 0$ for all $z \in G$ with $z \neq z_4$. But then $G$ is
-		connected and $f'$ is continuous, so $\lim_{z \to z_4} f'(z) = f'(z_4) = 0$. Hence, $f' = 0$ and
-		the result now follows.
+		Since $ad - bc \neq 0$, $f'(z) = 0$ for all $z \in G$ with $z \neq z_4$. But then $G$ is connected and $f'$ is continuous, so $\lim_{z \to z_4} f'(z) = f'(z_4) = 0$. Hence, $f' = 0$ and the result now follows.
 	\end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-	Show that a Möbius transformation $T$ satisfies $T(0) = \infty$ and $T(\infty) = 0$ iff $Tz =
-	kz^{-1}$ for some $k$ in $\mathbb{C}$.
+	Show that a Möbius transformation $T$ satisfies $T(0) = \infty$ and $T(\infty) = 0$ iff $Tz = kz^{-1}$ for some $k$ in $\mathbb{C}$.
 
 	\begin{proof}
-		Let $Tz = \frac{az + b}{cz + d}$. The converse is trivial. Suppose $T(0) = \infty$, and
-		$T(\infty) = 0$. Then $Tz = (z, z_2, \infty, 0)$ for some $k$. By the first problem of this
-		homework, 
+		Let $Tz = \frac{az + b}{cz + d}$. The converse is trivial. Suppose $T(0) = \infty$, and $T(\infty) = 0$. Then $Tz = (z, z_2, \infty, 0)$ for some $k$. By the first problem of this homework, 
 		\[
 			\frac{-b}{a} = \infty, \quad \frac{-d}{c} = 0,
 		\]

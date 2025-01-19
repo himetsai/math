@@ -130,29 +130,15 @@
 
 \section*{Introduction}
 
-This documentation outlines a C++ program designed to convert a Non-deterministic Finite Automaton
-(NFA) into a Deterministic Finite Automaton (DFA). The conversion process preserves the recognized
-language by following the canonical construction procedure, ensuring that the DFA accepts the same
-set of strings as the original NFA.
+This documentation outlines a C++ program designed to convert a Non-deterministic Finite Automaton (NFA) into a Deterministic Finite Automaton (DFA). The conversion process preserves the recognized language by following the canonical construction procedure, ensuring that the DFA accepts the same set of strings as the original NFA.
 
-The program operates on NFAs defined over the binary alphabet $\Sigma = \{a, b\}$, representing
-NFA's and DFA's with the formal definitions. States $Q$ within the NFA are represented as integers,
-ranging from 0 to $n - 1$, where $n$ is the total number of states. Upon conversion, the program
-generates a DFA, with its set of states represented as $\mathcal{P}(Q)$, the set of all possible
-subsets of $Q$.
+The program operates on NFAs defined over the binary alphabet $\Sigma = \{a, b\}$, representing NFA's and DFA's with the formal definitions. States $Q$ within the NFA are represented as integers, ranging from 0 to $n - 1$, where $n$ is the total number of states. Upon conversion, the program generates a DFA, with its set of states represented as $\mathcal{P}(Q)$, the set of all possible subsets of $Q$.
 
-The transition functions for both the NFA and the resultant DFA are delineated in a tabular format.
-In these tables, rows correspond to the current states, and columns correspond to the input alphabet
-symbols. Each cell within the table encapsulates the possible state transitions given a particular
-input symbol. Despite the transition tables for both the NFA and DFA display cells containing
-subsets of $Q$, it's important to note that in the NFA, these cells represent sets of possible next
-states for a given input, while in the DFA, each cell corresponds to a single composite state that
-encapsulates the possible NFA states after a transition.
+The transition functions for both the NFA and the resultant DFA are delineated in a tabular format. In these tables, rows correspond to the current states, and columns correspond to the input alphabet symbols. Each cell within the table encapsulates the possible state transitions given a particular input symbol. Despite the transition tables for both the NFA and DFA display cells containing subsets of $Q$, it's important to note that in the NFA, these cells represent sets of possible next states for a given input, while in the DFA, each cell corresponds to a single composite state that encapsulates the possible NFA states after a transition.
 
 \section*{Example}
 
-To illustrate the functionality of the program, we will proceed with the example of NFA $N$ detailed
-below:
+To illustrate the functionality of the program, we will proceed with the example of NFA $N$ detailed below:
 
 \begin{center}
   State diagram of $N$
@@ -160,30 +146,18 @@ below:
   \begin{tikzpicture}[->,>=stealth',shorten >=1pt, auto, node distance=2cm, semithick]
     \tikzstyle{every state}=[text=black, fill=yellow!40]
     
-    \node[initial,state] (0)          {$0$};
-    \node[state, accepting] (1) [right of=0, xshift=20pt] {$1$};
-    \node[state, accepting] (2) [below of=0, xshift=38.5pt] {$2$};
+    \node[initial,state] (0)          {$0$}; \node[state, accepting] (1) [right of=0, xshift=20pt] {$1$}; \node[state, accepting] (2) [below of=0, xshift=38.5pt] {$2$};
 
-    \path (0) edge  [] node {$a$} (1)
-          (1) edge  [] node {$a$} (2)
-          (2) edge  [] node {$a$} (0);
+    \path (0) edge  [] node {$a$} (1) (1) edge  [] node {$a$} (2) (2) edge  [] node {$a$} (0);
     \end{tikzpicture}
 \end{center}
 
-$N$ accepts strings over $\Sigma$ that only contain $a$ and have lengths are not divisible by three.
-In formal terms, $L(N) = \{w \in L(a^*) \mid |w| \nmid 3\}$. For example, $N$ accepts $a$ but
-rejects $aaa$.
+$N$ accepts strings over $\Sigma$ that only contain $a$ and have lengths are not divisible by three. In formal terms, $L(N) = \{w \in L(a^*) \mid |w| \nmid 3\}$. For example, $N$ accepts $a$ but rejects $aaa$.
 
 \section*{Instruction}
 
 
-To begin, we initiate the compilation process by executing the \verb|make| command in the terminal.
-Once compilation is successfully completed, we run the program with \verb|./compile|. The program
-will then prompt us to enter the parameters for our NFA, which include the number of states, the
-start state, the accepting states, and the transition function outputs for each state and symbol
-pair. Note that when inputting a set of states into the program, the states should be entered in
-sequence and separated by spaces. For instance, to input the set $\{0, 1, 2\}$, we entered it in the
-format \verb|0 1 2|. If we were to input $\emptyset$, we may simply click enter.
+To begin, we initiate the compilation process by executing the \verb|make| command in the terminal. Once compilation is successfully completed, we run the program with \verb|./compile|. The program will then prompt us to enter the parameters for our NFA, which include the number of states, the start state, the accepting states, and the transition function outputs for each state and symbol pair. Note that when inputting a set of states into the program, the states should be entered in sequence and separated by spaces. For instance, to input the set $\{0, 1, 2\}$, we entered it in the format \verb|0 1 2|. If we were to input $\emptyset$, we may simply click enter.
 
 We now proceed with a step-by-step walkthrough of entering the NFA $N$ into the program. 
 
@@ -218,10 +192,7 @@ We enter the set of accepting states of $N$ in the designated format, which is \
 
 \textbf{\large Enter the corresponding output}
 
-When entering the outputs of the transition function for the $N$, the program sequentially prompts
-for the output corresponding to each state and input symbol pair. For example, we are prompted for
-the output corresponding to the pair $(0, a)$ in the image, considering the transition function of
-$N$ maps state 0 with input symbol $a$ to the set $\{1\}$, we input \verb|1|.
+When entering the outputs of the transition function for the $N$, the program sequentially prompts for the output corresponding to each state and input symbol pair. For example, we are prompted for the output corresponding to the pair $(0, a)$ in the image, considering the transition function of $N$ maps state 0 with input symbol $a$ to the set $\{1\}$, we input \verb|1|.
 
 \begin{center}
   \includegraphics[width=0.8\textwidth]{trans}
@@ -231,8 +202,7 @@ $N$ maps state 0 with input symbol $a$ to the set $\{1\}$, we input \verb|1|.
 
 \section*{Result}
 
-After completing the input process, the program will display the formal definition of $N$ alongside
-the converted DFA derived from $N$.
+After completing the input process, the program will display the formal definition of $N$ alongside the converted DFA derived from $N$.
 
 \begin{center}
   \begin{multicols}{2}
@@ -248,18 +218,8 @@ the converted DFA derived from $N$.
   \end{multicols}
 \end{center}
 
-Call that resulting DFA $N'$. We now confirm that $N'$ recognizes the same language as $N$. Suppose
-$w \in L(N)$. Say $w = \underbrace{aa \dots a}_{k}$, for some $k \nmid 3$. Notice that when the
-input string only contains $a$, $N'$ would cycle through the states $\{0\} \rightarrow \{1\}
-\rightarrow \{2\} \rightarrow \{0\}$. Since $\{0\}$ is both the starting state of $N'$ and the only
-non-accepting states in the cycle, $w$ will be accepted by $N'$, as it has length not divisible by 3
-so it would not end at $\{0\}$. We now suppose $w \notin L(N)$. If $w$ contains $b$, it would get
-immediately sent to $\{\}$, whose only output state is itself, so $w$ would get stuck in $\{\}$ and
-never reach an accepting state. Hence, we may assume $w$ does not contain $b$. Then, $w$ contains
-only $a$'s and is of length divisible by $3$. As shown above, $w$ will stay in the cycle $\{0\}
-\rightarrow \{1\} \rightarrow \{2\} \rightarrow \{0\}$, but this time $w$ must end up at $\{0\}$, so
-it would get rejected by $N'$. Therefore, $L(N) = L(N')$, so the output for this example is indeed
-correct.
+Call that resulting DFA $N'$. We now confirm that $N'$ recognizes the same language as $N$. Suppose $w \in L(N)$. Say $w = \underbrace{aa \dots a}_{k}$, for some $k \nmid 3$. Notice that when the input string only contains $a$, $N'$ would cycle through the states $\{0\} \rightarrow \{1\} \rightarrow \{2\} \rightarrow \{0\}$. Since $\{0\}$ is both the starting state of $N'$ and the only non-accepting states in the cycle, $w$ will be accepted by $N'$, as it has length not divisible by 3 so it would not end at $\{0\}$. We now suppose $w \notin L(N)$. If $w$ contains $b$, it would get immediately sent to $\{\}$, whose only output state is itself, so $w$ would get stuck in $\{\}$ and never reach an accepting state. Hence, we may assume $w$ does not contain $b$. Then, $w$ contains only $a$'s and is of length divisible by $3$. As shown above, $w$ will stay in the cycle $\{0\} \rightarrow \{1\} \rightarrow \{2\} \rightarrow \{0\}$, but this time $w$ must end up at $\{0\}$, so it would get
+rejected by $N'$. Therefore, $L(N) = L(N')$, so the output for this example is indeed correct.
 
 \pagebreak
 
@@ -294,23 +254,17 @@ clean:
 \subsection*{main.cpp}
 
 \begin{lstlisting}[language=C++]
-#include <iostream>
-#include "NFA.h"
-#include "DFA.h"
-using namespace std;
+#include <iostream> #include "NFA.h" #include "DFA.h" using namespace std;
 
-int main() {
-	NFA nfa = NFA();
+int main() { NFA nfa = NFA();
 
 	nfa.init();
 
 	cout << endl;
 
-	DFA* dfa = nfa.convert();
-	dfa->display();
+	DFA* dfa = nfa.convert(); dfa->display();
 
-	return 0;
-}
+	return 0; }
 \end{lstlisting}
 
 \newpage
@@ -318,25 +272,13 @@ int main() {
 \subsection*{NFA.h}
 
 \begin{lstlisting}[language=C++]
-#ifndef NFA_H
-#define NFA_H
+#ifndef NFA_H #define NFA_H
 
-#include "DFA.h"
-#include <iostream>
-#include <cstdlib>
-#include <vector>
-#include <string>
-#include <sstream>
-#include <iomanip>
-using namespace std;
+#include "DFA.h" #include <iostream> #include <cstdlib> #include <vector> #include <string> #include <sstream> #include <iomanip> using namespace std;
 
 class NFA {
 
-  int states;
-  vector<char> sigma;
-  vector<vector<int>> delta;
-  int start;
-  int accept;
+  int states; vector<char> sigma; vector<vector<int>> delta; int start; int accept;
 
   public:
 
@@ -358,8 +300,7 @@ class NFA {
 
     DFA* convert();
     
-    void display();
-};
+    void display(); };
 
 #endif
 \end{lstlisting}

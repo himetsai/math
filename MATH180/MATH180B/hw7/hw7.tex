@@ -152,9 +152,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  Suppose that customers arrive at a facility according to a Poisson process having rate $\lambda =
-  2$. Let $X(t)$ be the number of customers that have arrived up to time $t$. Determine the
-  following probabilities and conditional probabilities:
+  Suppose that customers arrive at a facility according to a Poisson process having rate $\lambda = 2$. Let $X(t)$ be the number of customers that have arrived up to time $t$. Determine the following probabilities and conditional probabilities:
   \begin{enumerate}[(a)]
     \item $\Pr\{X(1) = 2\}$.
     \begin{proof}
@@ -199,14 +197,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  Shocks occur to a system according to a Poisson process of rate $\lambda$. Suppose that the system
-  survives each shock with probability $\alpha$, independently of other shocks, so that its
-  probability of surviving $k$ shocks is $\alpha^k$. What is the probability that the system is
-  surviving at time $t$?
+  Shocks occur to a system according to a Poisson process of rate $\lambda$. Suppose that the system survives each shock with probability $\alpha$, independently of other shocks, so that its probability of surviving $k$ shocks is $\alpha^k$. What is the probability that the system is surviving at time $t$?
 
   \begin{proof}
-    Let $X_t$ denote the number of shocks at time $t$ and $S_t$ be the event that the system
-    survives at time $t$. Then,
+    Let $X_t$ denote the number of shocks at time $t$ and $S_t$ be the event that the system survives at time $t$. Then,
     \begin{align*}
       \Pr(S_t)
       &= \sum_{k = 0}^{\infty} \Pr\{S_t \mid X_t = k\}\Pr\{X_t = k\} \\
@@ -258,13 +252,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  For $i = 1, \ldots, n$, let $\{X_i(t); t \geq 0\}$ be independent Poisson processes, each with the
-  same parameter $\lambda$. Find the distribution of the first time that at least one event has
-  occurred in every process.
+  For $i = 1, \ldots, n$, let $\{X_i(t); t \geq 0\}$ be independent Poisson processes, each with the same parameter $\lambda$. Find the distribution of the first time that at least one event has occurred in every process.
 
   \begin{proof}
-    Let $T$ denote the first time that at least one event has occurred in every process. Then, the
-    CDF of the desired distribution is
+    Let $T$ denote the first time that at least one event has occurred in every process. Then, the CDF of the desired distribution is
     \begin{align*}
       \Pr\{T < t\}
       &= \prod_{i = 1}^n \Pr\{X_t \geq 1\} \\
@@ -277,13 +268,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  Customers arrive at a certain facility according to a Poisson process of rate $\lambda$. Suppose
-  that it is known that five customers arrived in the first hour. Determine the mean total waiting
-  time $E[W_1 + W_2 + \ldots + W_5]$.
+  Customers arrive at a certain facility according to a Poisson process of rate $\lambda$. Suppose that it is known that five customers arrived in the first hour. Determine the mean total waiting time $E[W_1 + W_2 + \ldots + W_5]$.
 
   \begin{proof}
-    We give each customer a label. Let $U_k$ denote the time customer $k$ arrive at the facility. By
-    Theorem 5.7, $U_k$ is of a uniform distribution. Hence, 
+    We give each customer a label. Let $U_k$ denote the time customer $k$ arrive at the facility. By Theorem 5.7, $U_k$ is of a uniform distribution. Hence, 
     \[
       E[W_1 + W_2 + \ldots + W_5] = E[U_1 + U_2 + \ldots + U_5] = 5E[U_1] = \frac{5}{2}.
     \]
@@ -293,9 +281,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $W_1, W_2, \ldots$ be the event times in a Poisson process $\{X(t); t \geq 0\}$ of rate
-  $\lambda$. Suppose it is known that $X(1) = n$. For $k < n$, what is the conditional density
-  function of $W_1, \ldots, W_{k-1}, W_{k+1}, \ldots, W_n$, given that $W_k = w$?
+  Let $W_1, W_2, \ldots$ be the event times in a Poisson process $\{X(t); t \geq 0\}$ of rate $\lambda$. Suppose it is known that $X(1) = n$. For $k < n$, what is the conditional density function of $W_1, \ldots, W_{k-1}, W_{k+1}, \ldots, W_n$, given that $W_k = w$?
 
   \begin{proof}
     \begin{align*}
@@ -309,15 +295,13 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $W_1, W_2, \ldots$ be the event times in a Poisson process $\{X(t); t \geq 0\}$ of rate
-  $\lambda$, and let $f(w)$ be an arbitrary function. Verify that
+  Let $W_1, W_2, \ldots$ be the event times in a Poisson process $\{X(t); t \geq 0\}$ of rate $\lambda$, and let $f(w)$ be an arbitrary function. Verify that
   \[
     E\left[\sum_{i=1}^{X(t)} f(W_i)\right] = \lambda \int_{0}^{t} f(w)dw.
   \]
 
   \begin{proof}
-    Let $U_1, \ldots, U_n$ denote independent random variables that are uniformly distributed in
-    $(0, t]$. By Theorem 5.7,
+    Let $U_1, \ldots, U_n$ denote independent random variables that are uniformly distributed in $(0, t]$. By Theorem 5.7,
     \begin{align*}
       E\left[\sum_{i=1}^{X(t)} f(W_i)\right]
       &= \sum_{n = 1}^{\infty} E\left[\sum_{i=1}^{n} f(W_i) | X(t) = n\right]\Pr\{X(t) = n\} \\

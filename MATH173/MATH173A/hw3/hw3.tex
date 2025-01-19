@@ -152,8 +152,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
-	Determine whether each function is Lipschitz, and if so find the smallest possible Lipschitz
-	constant for the function. For all problems, $\|\cdot \|$ represents the Euclidean norm (2-norm).
+	Determine whether each function is Lipschitz, and if so find the smallest possible Lipschitz constant for the function. For all problems, $\|\cdot \|$ represents the Euclidean norm (2-norm).
 	\begin{enumerate}[(a)]
 		\item $f:\mathbb{R}^n \rightarrow\mathbb{R}$ for $f(x) = \|x\|$
 		\begin{proof}
@@ -161,13 +160,11 @@
 			\[
 				|f(x) - f(y)| = \left| \|x\| - \|y\| \right| \le \|x - y\|.
 			\]
-			Since the equality holds when $y = 2x \neq 0$, $f$ is Lipschitz, with smallest possible
-			Lipschitz constant being $L = 1$.
+			Since the equality holds when $y = 2x \neq 0$, $f$ is Lipschitz, with smallest possible Lipschitz constant being $L = 1$.
 		\end{proof}
 		\item $f:\mathbb{R}^n \rightarrow\mathbb{R}$ for $f(x) = \|x\|^2$
 		\begin{proof}
-			Note that $f$ is convex and differentiable. Since $\|\nabla f(x)\| = 2\|x\|$ is unbounded, $f$
-			is not Lipschitz.
+			Note that $f$ is convex and differentiable. Since $\|\nabla f(x)\| = 2\|x\|$ is unbounded, $f$ is not Lipschitz.
 		\end{proof}
 		\item $\rho:\mathbb{R}\rightarrow \mathbb{R}$ for $\rho(x) = \frac{1}{1 + e^{-x}}$.
 		\begin{proof}
@@ -175,18 +172,15 @@
 			\[
 				|\rho'(x)| = \left|\frac{e^{-x}}{(1 + e^{-x})^2}\right| = |\rho(x)||(1 - \rho(x))| \leq \frac{1}{4},
 			\]
-			where the equality holds when $x = 0$. Thus, $\rho$ is Lipschitz with the smallest Lipschitz
-			constant being $L = \frac{1}{4}$.
+			where the equality holds when $x = 0$. Thus, $\rho$ is Lipschitz with the smallest Lipschitz constant being $L = \frac{1}{4}$.
 		\end{proof}
-		\item $f:\mathbb{R}^n\rightarrow \mathbb{R}$ for $f(x) = \rho(w^Tx + b)$ for some weight vector
-		$w\in\mathbb{R}^n$, $b\in\mathbb{R}$, and $\rho$ from part (c).
+		\item $f:\mathbb{R}^n\rightarrow \mathbb{R}$ for $f(x) = \rho(w^Tx + b)$ for some weight vector $w\in\mathbb{R}^n$, $b\in\mathbb{R}$, and $\rho$ from part (c).
 		\begin{proof}
 			Since $0 < \rho(x) < 1$ for all $x \in \R$, 
 			\[
 				\|\nabla f(x)\| = \rho'(x)\|w\| \leq \frac{1}{4}\|w\|,
 			\]
-			where the equality holds when $x = 0$. Thus, $f$ is Lipschitz with the smallest Lipschitz
-			constant being $L = \frac{1}{4}\|w\|$.
+			where the equality holds when $x = 0$. Thus, $f$ is Lipschitz with the smallest Lipschitz constant being $L = \frac{1}{4}\|w\|$.
 		\end{proof}
 	\end{enumerate}
 \end{homeworkProblem}
@@ -194,11 +188,9 @@
 \newpage
 
 \begin{homeworkProblem}
-	Let $f$ be a convex and differentiable. Let $x^*$ be the global minimum and suppose $x^{(0)}$ is
-	the initialization such that $\|x^* - x^{(0)}\| \le 5$.
+	Let $f$ be a convex and differentiable. Let $x^*$ be the global minimum and suppose $x^{(0)}$ is the initialization such that $\|x^* - x^{(0)}\| \le 5$.
 	\begin{enumerate}[(a)]
-	\item Let $f$ be $L-$Lipschitz function where $L=3$. Determine the step size $\mu$ and number of
-	steps needed to satisfy
+	\item Let $f$ be $L-$Lipschitz function where $L=3$. Determine the step size $\mu$ and number of steps needed to satisfy
 	\begin{align*}
 		\left\| f\left(\frac{1}{t}\sum_{s=0}^{t-1} x^{(s)}\right) - f\left( x^*\right) \right\| \le 10^{-4}.
 	\end{align*}
@@ -208,11 +200,9 @@
 		\[
 			\left\| f\left(\frac{1}{t}\sum_{s=0}^{t-1} x^{(s)}\right) - f\left( x^*\right) \right\| \le \frac{15}{\sqrt{t}},
 		\]
-		and thus $t \geq 2.25 \times 10^{10}$ to satisfy the requirement. This makes the step size $\mu
-		\leq \frac{1}{90000}$.
+		and thus $t \geq 2.25 \times 10^{10}$ to satisfy the requirement. This makes the step size $\mu \leq \frac{1}{90000}$.
 	\end{proof}
-	\item Let $f$ be $L-$smooth where $L=3$. Determine the step size $\mu$ and number of steps needed
-	to satisfy
+	\item Let $f$ be $L-$smooth where $L=3$. Determine the step size $\mu$ and number of steps needed to satisfy
 	\begin{align*}
 	\left\| f\left(x^{(t)}\right) - f\left( x^*\right) \right\| \le 10^{-4}.
 	\end{align*}
@@ -234,18 +224,14 @@
 	\begin{enumerate}[(a)]
 		\item Find the global minimum of $f$, and justify your answer.
 		\begin{proof}
-			Note that $f(x_1, x_2) \geq 0$ as it is a sum of squares. Hence $(x_1, x_2) = (\frac{1}{2},
-			\frac{1}{2})$ is the global minimum of $f$ as it achieves the minimum value of $0$.
+			Note that $f(x_1, x_2) \geq 0$ as it is a sum of squares. Hence $(x_1, x_2) = (\frac{1}{2}, \frac{1}{2})$ is the global minimum of $f$ as it achieves the minimum value of $0$.
 		\end{proof}
 		\item Starting at $x^{(0)} = (0,0)$, perform gradient descent with backtracking line-search.
 		\begin{enumerate}[i.]
-			\item Starting at $x^{(0)} = (0,0)$ with learning rate $\mu^{(0)}$, write down the gradient
-			descent equation for $x^{(1)}$.
+			\item Starting at $x^{(0)} = (0,0)$ with learning rate $\mu^{(0)}$, write down the gradient descent equation for $x^{(1)}$.
 			\begin{proof}
-				Since $\nabla f(x) = \begin{bmatrix}
-					8(2x_1 - 1)^3 + 2(x_1 + x_2 - 1) \\
-					2(x_1 + x_2 - 1)
-				\end{bmatrix}$, we have
+				Since $\nabla f(x) = \begin{bmatrix} 8(2x_1 - 1)^3 + 2(x_1 + x_2 - 1) \\
+					2(x_1 + x_2 - 1) \end{bmatrix}$, we have
 				\[
 					x^{(1)} = x^{(0)} - \mu^{(0)}\nabla f(x^{(0)}) = \begin{bmatrix}
 						0 \\ 0
@@ -256,12 +242,9 @@
 					\end{bmatrix}.
 				\]
 			\end{proof}
-			\item Suppose we want to set $\mu^{(0)}$ using backtracking line search with $\gamma=0.2$ and
-			Armijo's condition $f(x^{(1)}) \le f(x^{(0)}) - \mu^{(0)}\gamma \| \nabla f(x^{(0)})\|_2^2$.
-			Find a value of $\mu^{(0)}$ that satisfies this.
+			\item Suppose we want to set $\mu^{(0)}$ using backtracking line search with $\gamma=0.2$ and Armijo's condition $f(x^{(1)}) \le f(x^{(0)}) - \mu^{(0)}\gamma \| \nabla f(x^{(0)})\|_2^2$. Find a value of $\mu^{(0)}$ that satisfies this.
 			\begin{proof}
-				We already know $f(x^{(0)}) = 2$ and $\|\nabla f(x^{(0)})\|^2_2 = 104$. Computing
-				$f(x^{(1)})$, we have
+				We already know $f(x^{(0)}) = 2$ and $\|\nabla f(x^{(0)})\|^2_2 = 104$. Computing $f(x^{(1)})$, we have
 				\[
 					f(x^{(1)}) = \left(4\mu^{(0)} - 1\right)^4 + \left(2\mu^{(0)} + 10\mu^{(0)} - 1\right)^2.
 				\]
@@ -271,13 +254,10 @@
 				\]
 				Putting $\mu^{(0)} = 0.01$ satisfies the condition.
 			\end{proof}
-			\item Suppose instead you started with $\mu^{(0)} = 1$ and an update of $\mu^{(0)} \leftarrow
-			\frac{1}{2}\mu^{(0)}$ (i.e. $\beta = \frac{1}{2}$). In the worst case, how many steps of
-			back-tracking would you have to take before accepting $x^{(1)}$?
+			\item Suppose instead you started with $\mu^{(0)} = 1$ and an update of $\mu^{(0)} \leftarrow \frac{1}{2}\mu^{(0)}$ (i.e. $\beta = \frac{1}{2}$). In the worst case, how many steps of back-tracking would you have to take before accepting $x^{(1)}$?
 
 			\begin{proof}
-				Define $g(\mu) = 2 - 20.8\mu - \left(4\mu - 1\right)^4 - \left(2\mu + 10\mu - 1\right)^2$.
-				We then have
+				Define $g(\mu) = 2 - 20.8\mu - \left(4\mu - 1\right)^4 - \left(2\mu + 10\mu - 1\right)^2$. We then have
 				\[
 					g(1) = -220.8, \quad g\left(\frac{1}{2}\right) = -34.4, \quad g\left(\frac{1}{4}\right) = -7.2, \quad g\left(\frac{1}{8}\right) = -0.9125, g\left(\frac{1}{16}\right) = 0.32109375.
 				\]

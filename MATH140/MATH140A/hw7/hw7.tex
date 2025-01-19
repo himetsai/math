@@ -165,9 +165,7 @@
       \end{proof}
       \item $a_n = \left(\sqrt{n+1} - \sqrt{n}\right) / n$;
       \begin{proof}
-        Notice $$a_n = \frac{\sqrt{n + 1} - \sqrt{n}}{n} = \frac{1}{n\sqrt{n + 1} + \sqrt{n}} <
-        \frac{1}{n\sqrt{n}} = \frac{1}{n^{\frac{3}{2}}}.$$ By Theorem 3.28, $\sum
-        \frac{1}{n^{\frac{3}{2}}}$ converges, and thus $\sum a_n$ converges by the compatison test.
+        Notice $$a_n = \frac{\sqrt{n + 1} - \sqrt{n}}{n} = \frac{1}{n\sqrt{n + 1} + \sqrt{n}} < \frac{1}{n\sqrt{n}} = \frac{1}{n^{\frac{3}{2}}}.$$ By Theorem 3.28, $\sum \frac{1}{n^{\frac{3}{2}}}$ converges, and thus $\sum a_n$ converges by the compatison test.
       \end{proof}
       \item $a_n = \left( \sqrt[n]{n} - 1 \right)^n$;
       \begin{proof}
@@ -189,9 +187,7 @@
         \[
           |a_n| = \left|\frac{1}{1 + z^n}\right| \leq \frac{1}{|z^n|} = \left|\frac{1}{z}\right|^n.
         \]
-        Since $\lim_{n \to \infty} \sqrt[n]{\left|\frac{1}{z}\right|^n} = \frac{1}{|z|} < 1$, $\sum
-        \left|\frac{1}{z}\right|^n$ converges by the root test, and thus $a_n$ converges by the
-        comparison test.
+        Since $\lim_{n \to \infty} \sqrt[n]{\left|\frac{1}{z}\right|^n} = \frac{1}{|z|} < 1$, $\sum \left|\frac{1}{z}\right|^n$ converges by the root test, and thus $a_n$ converges by the comparison test.
       \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -199,36 +195,28 @@
 \newpage
 
 \begin{homeworkProblem}
-  Prove that the convergence of $\sum a_n$ implies the convergence of $\sum \frac{\sqrt{a_n}}{n}$,
-  if $a_n \geq 0$.
+  Prove that the convergence of $\sum a_n$ implies the convergence of $\sum \frac{\sqrt{a_n}}{n}$, if $a_n \geq 0$.
 
   \begin{proof}
-    Note that both $\sum a_n$ and $\sum \frac{1}{n^2}$ converges absolutely. By the Cauchy-Schwarz
-    inequality, 
+    Note that both $\sum a_n$ and $\sum \frac{1}{n^2}$ converges absolutely. By the Cauchy-Schwarz inequality, 
     \[
       \left(\sum \frac{\sqrt{a_n}}{n}\right)^2 \leq \sum a_n \sum \frac{1}{n^2}.
     \]
-    Since $\sum a_n \sum \frac{1}{n^2}$ converges, $\sum \frac{\sqrt{a_n}}{n}$ is bounded. But then
-    $\sum \frac{\sqrt{a_n}}{n}$ is a series of nonnegative terms, so it converges.
+    Since $\sum a_n \sum \frac{1}{n^2}$ converges, $\sum \frac{\sqrt{a_n}}{n}$ is bounded. But then $\sum \frac{\sqrt{a_n}}{n}$ is a series of nonnegative terms, so it converges.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  If $\sum a_n$ converges and if $(b_n)$ is monotonic and bounded, prove that $\sum a_n b_n$
-  converges.
+  If $\sum a_n$ converges and if $(b_n)$ is monotonic and bounded, prove that $\sum a_n b_n$ converges.
 
   \begin{proof}
-    Since $(b_n)$ is monotonic and bounded, $(b_n)$ converges. Put $A = \sum^{\infty}_{n = 1} a_n$
-    and $B = \lim b_n$. Let $c_n = b_n - B$ if $b_n$ monotonically decreases. Otherwise, let $c_n =
-    B - b_n$. In this way, we guarantee $c_n$ is monotonically decreasing and $c_n \to 0$. Then,
+    Since $(b_n)$ is monotonic and bounded, $(b_n)$ converges. Put $A = \sum^{\infty}_{n = 1} a_n$ and $B = \lim b_n$. Let $c_n = b_n - B$ if $b_n$ monotonically decreases. Otherwise, let $c_n = B - b_n$. In this way, we guarantee $c_n$ is monotonically decreasing and $c_n \to 0$. Then,
     \[
       \sum^{\infty}_{n = 1} a_nb_n = \sum^{\infty}_{n = 1} a_n(b_n - B + B),
     \]
-    so $\sum^{\infty}_{n = 1} a_nb_n = \sum^{\infty}_{n = 1} a_nc_n \pm AB$, depending on whether
-    $b_n$ monotonically increases or decreases. Since $\sum a_n$ converges, it follows from Theorem
-    3.42 that $\sum a_nc_n$ converges, and thus $\sum a_nb_n$ converges.
+    so $\sum^{\infty}_{n = 1} a_nb_n = \sum^{\infty}_{n = 1} a_nc_n \pm AB$, depending on whether $b_n$ monotonically increases or decreases. Since $\sum a_n$ converges, it follows from Theorem 3.42 that $\sum a_nc_n$ converges, and thus $\sum a_nb_n$ converges.
   \end{proof}
 \end{homeworkProblem}
 
@@ -275,37 +263,28 @@
 \newpage
 
 \begin{homeworkProblem}
-  Suppose that the coefficients of the power series $\sum a_n z^n$ are integers, infinitely many of
-  which are distinct from zero. Prove that the radius of convergence is at most 1.
+  Suppose that the coefficients of the power series $\sum a_n z^n$ are integers, infinitely many of which are distinct from zero. Prove that the radius of convergence is at most 1.
 
   \begin{proof}
-    Since infinitely many of $a_n$ are distinct from zero, $\limsup_{n \to \infty} |a_n z^n| \geq \limsup_{n \to \infty} |z|^n \geq 1$
-    when $z > 0$. But then $|a_n z^n|$ does not converge to $0$, so $\sum a_n z^n$ diverges when
-    $|z| \geq 1$.
+    Since infinitely many of $a_n$ are distinct from zero, $\limsup_{n \to \infty} |a_n z^n| \geq \limsup_{n \to \infty} |z|^n \geq 1$ when $z > 0$. But then $|a_n z^n|$ does not converge to $0$, so $\sum a_n z^n$ diverges when $|z| \geq 1$.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Prove the following analogue of Theorem 3.10(b): If $(E_n)$ is a sequence of closed, nonempty, and
-  bounded sets in a \textit{complete} metric space $X$, if $E_n \supset E_{n+1}$, and if
+  Prove the following analogue of Theorem 3.10(b): If $(E_n)$ is a sequence of closed, nonempty, and bounded sets in a \textit{complete} metric space $X$, if $E_n \supset E_{n+1}$, and if
   \[
     \lim_{n \to \infty} \text{diam } E_n = 0,
   \]
   then $\bigcap_{n=1}^{\infty} E_n$ consists of exactly one point.
 
   \begin{proof}
-    Since $E_n$ is nonempty, let $(p_n)$ be a sequence such that $a_n \in E_n$ for all $n$. Let
-    $K_N$ contain the points $p_n, p_{N + 1}, \ldots$. Since $K_N \subset E_N$ and $E_N$ is bounded, 
+    Since $E_n$ is nonempty, let $(p_n)$ be a sequence such that $a_n \in E_n$ for all $n$. Let $K_N$ contain the points $p_n, p_{N + 1}, \ldots$. Since $K_N \subset E_N$ and $E_N$ is bounded, 
     \[
       \lim_{n \to \infty} \text{diam } K_n \leq \lim_{n \to \infty} \text{diam } E_n = 0,
     \]
-    and so $(p_n)$ is a Cauchy sequence. Since $X$ is complete, $p_n$ converges to some point $p \in
-    X$. Note that $p$ is a limit point of every $E_n$. But then $E_n$ is closed, so $p \in E_n$ for
-    all $n$, that is, $p \in \bigcap_{n=1}^{\infty} E_n$. Suppose for the sake of contradiction that
-    $\bigcap_{k=1}^{\infty} E_k$ contains two distinct points $p, q$. But since
-    $\bigcap_{k=1}^{\infty} E_k \subset E_n$ for all $n$, 
+    and so $(p_n)$ is a Cauchy sequence. Since $X$ is complete, $p_n$ converges to some point $p \in X$. Note that $p$ is a limit point of every $E_n$. But then $E_n$ is closed, so $p \in E_n$ for all $n$, that is, $p \in \bigcap_{n=1}^{\infty} E_n$. Suppose for the sake of contradiction that $\bigcap_{k=1}^{\infty} E_k$ contains two distinct points $p, q$. But since $\bigcap_{k=1}^{\infty} E_k \subset E_n$ for all $n$, 
     \[
       0 < \text{diam} \bigcap_{k=1}^{\infty} E_k \leq \text{diam } E_n,
     \]
@@ -316,30 +295,18 @@
 \newpage
 
 \begin{homeworkProblem}
-  Suppose $X$ is a nonempty complete metric space, and $(G_n)$ is a sequence of dense open subsets
-  of $X$. Prove Baire's theorem, namely, that $\bigcap_{n=1}^{\infty} G_n$ is not empty (In fact, it
-  is dense in $X$). \textit{Hint}: Find a shrinking sequence of neighborhoods $E_n$ such that
-  $\overline{E}_n \subset G_n$, and apply Exercise 3.21.
+  Suppose $X$ is a nonempty complete metric space, and $(G_n)$ is a sequence of dense open subsets of $X$. Prove Baire's theorem, namely, that $\bigcap_{n=1}^{\infty} G_n$ is not empty (In fact, it is dense in $X$). \textit{Hint}: Find a shrinking sequence of neighborhoods $E_n$ such that $\overline{E}_n \subset G_n$, and apply Exercise 3.21.
 
   \begin{proof}
-    We inductively construct sequence of open sets $(E_n)$. Since $G_1$ is open and nonempty, let
-    $x_1 \in G_1$. There exists small enough $\epsilon_1 > 0$ such that $\text{diam }
-    N_{\epsilon_1}(x_1) < 1$ and $\overline{N_{\epsilon_1}(x_1)} \subset G_1$. Put $E_1 =
-    N_{\epsilon_1}(x_1)$. 
+    We inductively construct sequence of open sets $(E_n)$. Since $G_1$ is open and nonempty, let $x_1 \in G_1$. There exists small enough $\epsilon_1 > 0$ such that $\text{diam } N_{\epsilon_1}(x_1) < 1$ and $\overline{N_{\epsilon_1}(x_1)} \subset G_1$. Put $E_1 = N_{\epsilon_1}(x_1)$. 
     
-    Suppose that $E_n$ is constructed. Since $G_{n + 1}$ is dense and open, $E_n \cap G_{n + 1}$ is
-    nonempty and open. Let $x_{n + 1} \in E_n \cap G_{n + 1}$. There exists small enough
-    $\epsilon_{n + 1}$ such that $\text{diam } N_{\epsilon_{n + 1}}(x_{n + 1}) < \frac{1}{n + 1}$
-    and $\overline{N_{\epsilon_{n + 1}}(x_{n + 1})} \subset E_n \cap G_{n + 1}$. Put $E_{n + 1} =
-    N_{\epsilon_{n + 1}}(x_{n + 1})$. 
+    Suppose that $E_n$ is constructed. Since $G_{n + 1}$ is dense and open, $E_n \cap G_{n + 1}$ is nonempty and open. Let $x_{n + 1} \in E_n \cap G_{n + 1}$. There exists small enough $\epsilon_{n + 1}$ such that $\text{diam } N_{\epsilon_{n + 1}}(x_{n + 1}) < \frac{1}{n + 1}$ and $\overline{N_{\epsilon_{n + 1}}(x_{n + 1})} \subset E_n \cap G_{n + 1}$. Put $E_{n + 1} = N_{\epsilon_{n + 1}}(x_{n + 1})$. 
 
-    Thus, we have constructed a sequence of closed, nonempty, and bounded sets $\overline{E_n}$.
-    Since $G_n \supset \overline{E_n} \supset \overline{E_{n + 1}}$ and
+    Thus, we have constructed a sequence of closed, nonempty, and bounded sets $\overline{E_n}$. Since $G_n \supset \overline{E_n} \supset \overline{E_{n + 1}}$ and
     \[
       \lim_{n \to \infty} \text{diam } \overline{E_n} = \lim_{n \to \infty} \text{diam } E_n \leq \lim_{n \to \infty} \frac{1}{n} = 0,
     \]
-    it follows from Exercise 3.21 that $\bigcap_{n = 1}^{\infty} G_n \supset \bigcap_{n =
-    1}^{\infty} \overline{E_n} \neq \emptyset$.
+    it follows from Exercise 3.21 that $\bigcap_{n = 1}^{\infty} G_n \supset \bigcap_{n = 1}^{\infty} \overline{E_n} \neq \emptyset$.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

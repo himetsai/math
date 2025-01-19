@@ -157,15 +157,10 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  If $(f_n)$ and $(g_n)$ converge uniformly on a set $E$, prove that $(f_n + g_n)$ converges
-  uniformly on $E$. If, in addition, $(f_n)$ and $(g_n)$ are sequences of bounded functions, prove
-  that $(f_n g_n)$ converges uniformly on $E$.
+  If $(f_n)$ and $(g_n)$ converge uniformly on a set $E$, prove that $(f_n + g_n)$ converges uniformly on $E$. If, in addition, $(f_n)$ and $(g_n)$ are sequences of bounded functions, prove that $(f_n g_n)$ converges uniformly on $E$.
 
   \begin{proof}
-    Pick $\epsilon > 0$. Since $(f_n)$ and $(g_n)$ converge uniformly, there exists $N, M$ such that
-    for all $x \in E$, $|f_{n_1}(x) - f_{n_2}(x)| \leq \epsilon/2$ and $|g_{m_1}(x) - g_{m_2}(x)|
-    \leq \epsilon/2$, for all $n_1, n_2 \geq N$ and $m_1, m_2 \geq M$. Put $L = \max(N, M)$. For all
-    $m, n \geq L$,
+    Pick $\epsilon > 0$. Since $(f_n)$ and $(g_n)$ converge uniformly, there exists $N, M$ such that for all $x \in E$, $|f_{n_1}(x) - f_{n_2}(x)| \leq \epsilon/2$ and $|g_{m_1}(x) - g_{m_2}(x)| \leq \epsilon/2$, for all $n_1, n_2 \geq N$ and $m_1, m_2 \geq M$. Put $L = \max(N, M)$. For all $m, n \geq L$,
     \begin{align*}
       |(f_n + g_n)(x) - (f_m + g_m)(x)| 
       &= |(f_n(x) - f_m(x)) + (g_n(x) - g_m(x))| \\
@@ -173,11 +168,7 @@
     \end{align*}
     for all $x \in E$. Hence, $(f_n + g_n)$ converges uniformly.
 
-    Now suppose that there exists $B > 0$ such that $\sup_x |f_n(x)| < B$ and $\sup_x |g_n(x)| < B$
-    for all $n$. Since $(f_n)$ and $(g_n)$ converge uniformly, there exists $N, M$ such that for all
-    $x \in E$, $|f_{n_1}(x) - f_{n_2}(x)| \leq \epsilon/2B$ and $|g_{m_1}(x) - g_{m_2}(x)| \leq
-    \epsilon/2B$, for all $n_1, n_2 \geq N$ and $m_1, m_2 \geq M$. Put $L = \max(N, M)$. For all $m,
-    n \geq L$. Then, for all $m, n \geq L$,
+    Now suppose that there exists $B > 0$ such that $\sup_x |f_n(x)| < B$ and $\sup_x |g_n(x)| < B$ for all $n$. Since $(f_n)$ and $(g_n)$ converge uniformly, there exists $N, M$ such that for all $x \in E$, $|f_{n_1}(x) - f_{n_2}(x)| \leq \epsilon/2B$ and $|g_{m_1}(x) - g_{m_2}(x)| \leq \epsilon/2B$, for all $n_1, n_2 \geq N$ and $m_1, m_2 \geq M$. Put $L = \max(N, M)$. For all $m, n \geq L$. Then, for all $m, n \geq L$,
     \begin{align*}
       |(f_ng_n)(x) - (f_mg_m)(x)|
       &= |(f_ng_n)(x) - (f_mg_n)(x) + (f_mg_n)(x) - (f_mg_m)(x)| \\
@@ -191,15 +182,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  Construct sequences $(f_n)$, $(g_n)$ which converge uniformly on some set $E$, but such that $(f_n
-  g_n)$ does not converge uniformly on $E$ (of course, $(f_n g_n)$ must converge on $E$).
+  Construct sequences $(f_n)$, $(g_n)$ which converge uniformly on some set $E$, but such that $(f_n g_n)$ does not converge uniformly on $E$ (of course, $(f_n g_n)$ must converge on $E$).
 
   \begin{proof}
-    Consider $f_n(x) = x$ and $g_n(x) = \frac{1}{n}$ on $\R^+$. Since $f_n$ remains the same for all
-    $n$, so it converges uniformly to $f(x) = x$. Given any $\epsilon > 0$, $|g_n| < \epsilon$ for
-    $n > \frac{1}{\epsilon}$, and thus $g_n$ converges uniformly to $0$. But then there always
-    exists $x > n$ such that $(f_n g_n)(x) > 1$. Hence, $\sup_x |(f_n g_n)(x) - 0| > 1$, $(f_n g_n)$
-    does not converge uniformly.
+    Consider $f_n(x) = x$ and $g_n(x) = \frac{1}{n}$ on $\R^+$. Since $f_n$ remains the same for all $n$, so it converges uniformly to $f(x) = x$. Given any $\epsilon > 0$, $|g_n| < \epsilon$ for $n > \frac{1}{\epsilon}$, and thus $g_n$ converges uniformly to $0$. But then there always exists $x > n$ such that $(f_n g_n)(x) > 1$. Hence, $\sup_x |(f_n g_n)(x) - 0| > 1$, $(f_n g_n)$ does not converge uniformly.
   \end{proof}
 \end{homeworkProblem}
 
@@ -210,23 +196,16 @@
   \[
     f(x) = \sum_{n=1}^{\infty} \frac{1}{1 + n^2 x}.
   \]
-  For what values of $x$ does the series converge absolutely? On what intervals does it converge
-  uniformly? On what intervals does it fail to converge uniformly? Is $f$ continuous wherever the
-  series converges? Is $f$ bounded?
+  For what values of $x$ does the series converge absolutely? On what intervals does it converge uniformly? On what intervals does it fail to converge uniformly? Is $f$ continuous wherever the series converges? Is $f$ bounded?
   
   \begin{proof}
-    Notice that when $x = 0$, $f(x) = \sum_{n = 1}^{\infty} 1$ diverges. Additionally, when $x =
-    -\frac{1}{n^2}$ for some $n$, the $n$th term in $f(x)$ is not well-defined, and thus the
-    infinite sum is also not well-defined. For $x \neq 0$ and $x \neq -\frac{1}{n^2}$ for all $n$,
+    Notice that when $x = 0$, $f(x) = \sum_{n = 1}^{\infty} 1$ diverges. Additionally, when $x = -\frac{1}{n^2}$ for some $n$, the $n$th term in $f(x)$ is not well-defined, and thus the infinite sum is also not well-defined. For $x \neq 0$ and $x \neq -\frac{1}{n^2}$ for all $n$,
     \[
       \sum_{n=1}^{\infty} \left|\frac{1}{1 + n^2 x}\right| \leq \sum_{n=1}^{\infty} \left|\frac{1}{xn^2}\right| = \frac{1}{|x|}\sum_{n=1}^{\infty} \frac{1}{n^2},
     \]
-    which converges as $\sum_{n=1}^{\infty} \frac{1}{n^2}$ converges. Hence, $f(x)$ converges
-    absolutely if and only of $x \neq 0$ and $x \neq -\frac{1}{n^2}$ for any $n$.
+    which converges as $\sum_{n=1}^{\infty} \frac{1}{n^2}$ converges. Hence, $f(x)$ converges absolutely if and only of $x \neq 0$ and $x \neq -\frac{1}{n^2}$ for any $n$.
 
-    Let $E = \R \backslash (\{0\} \cup \{-\frac{1}{n^2} \, | \, n \in \N\})$. We show that $f(x)$
-    converges uniformly on $E_{\delta} = E \backslash (-\delta, \delta)$, for any $\delta > 0$. Pick
-    $\epsilon > 0$. Let $M_n = \frac{2}{\delta n^2}$. For $x > 0$, 
+    Let $E = \R \backslash (\{0\} \cup \{-\frac{1}{n^2} \, | \, n \in \N\})$. We show that $f(x)$ converges uniformly on $E_{\delta} = E \backslash (-\delta, \delta)$, for any $\delta > 0$. Pick $\epsilon > 0$. Let $M_n = \frac{2}{\delta n^2}$. For $x > 0$, 
     \[
       \left|\frac{1}{1 + n^2x}\right| \leq \frac{1}{n^2} \cdot \frac{1}{\delta} < M_n.
     \]
@@ -234,22 +213,15 @@
     \[
       \left|\frac{1}{1 + n^2x}\right| < \frac{1}{\frac{1}{2}|x|} \cdot \frac{1}{n^2} \leq \frac{1}{\frac{1}{2}\delta} \cdot \frac{1}{n^2} = M_n,
     \]
-    when $n \geq N$ for some $N$. Hence, each term of $f(x)$ is bounded by $M_n$ when $n \geq N$.
-    Define $f'(x) = \sum_{n = N}^{\infty} \frac{1}{1 + n^2x}$. Since each term of $f'(x)$ is bounded
-    by $M_n$ and $\sum M_n$ converges, $f'(x)$ converges uniformly on $E_{\delta}$, and thus $f(x) =
-    \sum_{n = 1}^{N - 1} \frac{1}{1 + n^2x} + f'(x)$ also converges uniformly on $E_{\delta}$.
+    when $n \geq N$ for some $N$. Hence, each term of $f(x)$ is bounded by $M_n$ when $n \geq N$. Define $f'(x) = \sum_{n = N}^{\infty} \frac{1}{1 + n^2x}$. Since each term of $f'(x)$ is bounded by $M_n$ and $\sum M_n$ converges, $f'(x)$ converges uniformly on $E_{\delta}$, and thus $f(x) = \sum_{n = 1}^{N - 1} \frac{1}{1 + n^2x} + f'(x)$ also converges uniformly on $E_{\delta}$.
 
 
 
-    $f(x)$ trivially fails to converge uniformly on any interval which contains either $0$ or
-    $-\frac{1}{n^2}$ for some $n$. We now show that $f(x)$ fails to converge uniformly on $(0,
-    \delta]$ for any $\delta > 0$. Let $f_m(x) = \sum_{n = 1}^m \frac{1}{1 + n^2 x}$. Suppose for
-    the sake of contradiction that there eixsts $M$ such that for all $m \geq M$, 
+    $f(x)$ trivially fails to converge uniformly on any interval which contains either $0$ or $-\frac{1}{n^2}$ for some $n$. We now show that $f(x)$ fails to converge uniformly on $(0, \delta]$ for any $\delta > 0$. Let $f_m(x) = \sum_{n = 1}^m \frac{1}{1 + n^2 x}$. Suppose for the sake of contradiction that there eixsts $M$ such that for all $m \geq M$, 
     \[
       \left|f(x) - f_m(x)\right| < \frac{1}{4}.
     \]
-    Pick $x_0 \in (0, \delta]$ small enough such that $\lceil \frac{1}{\sqrt{x_0}} \rceil > M$. Let
-    $N = \lceil \frac{1}{\sqrt{x_0}} \rceil$. Then, $N^2 \geq \frac{1}{x} \geq (N - 1)^2$. But then
+    Pick $x_0 \in (0, \delta]$ small enough such that $\lceil \frac{1}{\sqrt{x_0}} \rceil > M$. Let $N = \lceil \frac{1}{\sqrt{x_0}} \rceil$. Then, $N^2 \geq \frac{1}{x} \geq (N - 1)^2$. But then
     \begin{align*}
       |f(x) - f_{N - 1}(x)|
       &= \left|\sum_{n = N}^{\infty} \frac{1}{1 + n^2x}\right| \\
@@ -259,10 +231,7 @@
     \end{align*}
     contradiction.
 
-    Since $\frac{1}{1 + n^2x}$ is continuous on $E$ for all $n \in \N$, the partial sums of $f(x)$
-    is continuous on $E$. Given any point $x \in E$, pick $\delta \in (0, |x|)$. By Theorem 7.12,
-    since $f$ uniformly converges on $E_{\delta}$, $f$ is continuous on $E_{\delta}$, and thus $f$
-    is continuous on $x$. Hence, $f$ is continuous whenever the series converges.
+    Since $\frac{1}{1 + n^2x}$ is continuous on $E$ for all $n \in \N$, the partial sums of $f(x)$ is continuous on $E$. Given any point $x \in E$, pick $\delta \in (0, |x|)$. By Theorem 7.12, since $f$ uniformly converges on $E_{\delta}$, $f$ is continuous on $E_{\delta}$, and thus $f$ is continuous on $x$. Hence, $f$ is continuous whenever the series converges.
 
     $f$ is not bounded. Given any $M > 0$, pick $x = \frac{1}{4M^2}$. Then,
     \begin{align*}
@@ -289,8 +258,7 @@
 
   \begin{proof}
 
-    We show that $(f_n)$ converges to $f(x) = 0$. Pick $\epsilon > 0$. Put $N >
-    \frac{1}{4\epsilon^2}$. Note that
+    We show that $(f_n)$ converges to $f(x) = 0$. Pick $\epsilon > 0$. Put $N > \frac{1}{4\epsilon^2}$. Note that
     \[
       \left|\frac{x}{1 + nx^2}\right| = \left|\frac{1}{\frac{1}{x} + nx}\right|.
     \]
@@ -300,26 +268,21 @@
     \]
     and thus $(f_n)$ converges to $0$ uniformly.
 
-    Note that $f_n'(x) = \frac{1 - nx^2}{(1 + nx^2)^2}$. In particular, $f_n'(0) = 1$. When $x \neq
-    0$, $\lim_{n \to \infty} f_n'(x) = 0 = f'(x)$. But then if $x = 0$, $\lim_{n \to \infty} f_n'(0)
-    = 1 \neq f'(x)$.
+    Note that $f_n'(x) = \frac{1 - nx^2}{(1 + nx^2)^2}$. In particular, $f_n'(0) = 1$. When $x \neq 0$, $\lim_{n \to \infty} f_n'(x) = 0 = f'(x)$. But then if $x = 0$, $\lim_{n \to \infty} f_n'(0) = 1 \neq f'(x)$.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Let $(f_n)$ be a sequence of continuous functions which converges uniformly to a function $f$ on a
-  set $E$. Prove that
+  Let $(f_n)$ be a sequence of continuous functions which converges uniformly to a function $f$ on a set $E$. Prove that
   \[
     \lim_{n \to \infty} f_n(x_n) = f(x)
   \]
-  for every sequence of points $x_n \in E$ such that $x_n \to x$, and $x \in E$. Is the converse of
-  this true?
+  for every sequence of points $x_n \in E$ such that $x_n \to x$, and $x \in E$. Is the converse of this true?
 
   \begin{proof}
-    By Theorem 7.12, since $f_n$ is continuous for all $n$, $f$ is continuous, which implies
-    $\lim_{n \to \infty} f(x_n) = f(x)$. Hence, it suffices to show that
+    By Theorem 7.12, since $f_n$ is continuous for all $n$, $f$ is continuous, which implies $\lim_{n \to \infty} f(x_n) = f(x)$. Hence, it suffices to show that
     \[
       \lim_{n \to \infty} f_n(x_n) = \lim_{n \to \infty} f(x_n).
     \]
@@ -333,60 +296,42 @@
     \] 
     for all $n \geq N$, and the result now follows.
 
-    However, the converse to this is not true. Consider $f_n(x) = x^n$ on $[0, 1)$ and $f(x) = 0$.
-    Let $(x_n)$ be a sequence in $[0, 1)$ which converges to some $x \in E$. Since $|x_n| < 1$, 
+    However, the converse to this is not true. Consider $f_n(x) = x^n$ on $[0, 1)$ and $f(x) = 0$. Let $(x_n)$ be a sequence in $[0, 1)$ which converges to some $x \in E$. Since $|x_n| < 1$, 
     \[
       \lim_{n \to \infty} f_n(x_n) = \lim_{n \to \infty} x_n^n = 0 = f(x).
     \]
-    But then $(f_n)$ does not converge uniformly, as for any $\epsilon \in (0, 1)$, there exists $x
-    > \sqrt[n]{\epsilon}$ in $[0, 1)$ such that $x^n > \epsilon$.
+    But then $(f_n)$ does not converge uniformly, as for any $\epsilon \in (0, 1)$, there exists $x > \sqrt[n]{\epsilon}$ in $[0, 1)$ such that $x^n > \epsilon$.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Letting $(x)$ denote the fractional part of the real number $x$ (see Exercise 4.16 for the
-  definition), consider the function
+  Letting $(x)$ denote the fractional part of the real number $x$ (see Exercise 4.16 for the definition), consider the function
   \[
     f(x) = \sum_{n=1}^{\infty} \frac{(nx)}{n^2}
   \]
-  for $x$ real. Find all discontinuities of $f$, and show that they form a countable dense set. Show
-  that $f$ is nevertheless Riemann-integrable on every bounded interval.
+  for $x$ real. Find all discontinuities of $f$, and show that they form a countable dense set. Show that $f$ is nevertheless Riemann-integrable on every bounded interval.
   
   \begin{proof}
-    We show that $f(x)$ is discontinuous for all $x \in \Q$, which is obviously a countable dense
-    set. We first note that the partial sums $f(x)$ converges uniformly as $\sum_{n=1}^{\infty}
-    \frac{1}{n^2}$ converges, by Theorem 7.10.
+    We show that $f(x)$ is discontinuous for all $x \in \Q$, which is obviously a countable dense set. We first note that the partial sums $f(x)$ converges uniformly as $\sum_{n=1}^{\infty} \frac{1}{n^2}$ converges, by Theorem 7.10.
     
-    Notice that $(nx)$ is discontinuous if and only if $nx \in \Z$ if and only if $x = p/q$, where
-    $n$ is a multiple of $q$. Hence, for any irrational $x$, since the partial sums of $f(x)$ is
-    continuous, $f(x)$ is continuous on $x$, by Theorem 7.12.
+    Notice that $(nx)$ is discontinuous if and only if $nx \in \Z$ if and only if $x = p/q$, where $n$ is a multiple of $q$. Hence, for any irrational $x$, since the partial sums of $f(x)$ is continuous, $f(x)$ is continuous on $x$, by Theorem 7.12.
     
-    Now suppose $x \in \Q$, say $x = p/q$. Define $f_q'(x) = \sum_{k = 1}^{\infty}
-    \frac{(kqx)}{[kq]^2}$ and consider $f_q(x) = f(x) - f_q'(x)$. Note that
+    Now suppose $x \in \Q$, say $x = p/q$. Define $f_q'(x) = \sum_{k = 1}^{\infty} \frac{(kqx)}{[kq]^2}$ and consider $f_q(x) = f(x) - f_q'(x)$. Note that
     \[
       f_q'(x-) = \sum_{k = 1}^{\infty} \frac{1}{[kq]^2} \neq 0 = f_q'(x),
     \]
-    and thus $f_q'(x)$ is discontinuous on $x$. Since $f'_q$ contains all terms which are
-    discontinuous on $x$, all terms of $f_q(x)$ are continuous on $x$, and thus the partial sum of
-    $f_q(x)$ is continuous on $x$. Again we know that the partial sums of $f_q(x)$ converge
-    uniformly, by Theorem 7.10. By Theorem 7.12, $f_q(x)$ is continuous on $x$. But then $f'_q(x) =
-    f_q(x) - f(x)$ is discontinuous on $x$, so $f(x)$ is discontinuous on $x$. Hence, $f(x)$ is
-    discontinuous on $x$ if and only if $x \in \Q$.
+    and thus $f_q'(x)$ is discontinuous on $x$. Since $f'_q$ contains all terms which are discontinuous on $x$, all terms of $f_q(x)$ are continuous on $x$, and thus the partial sum of $f_q(x)$ is continuous on $x$. Again we know that the partial sums of $f_q(x)$ converge uniformly, by Theorem 7.10. By Theorem 7.12, $f_q(x)$ is continuous on $x$. But then $f'_q(x) = f_q(x) - f(x)$ is discontinuous on $x$, so $f(x)$ is discontinuous on $x$. Hence, $f(x)$ is discontinuous on $x$ if and only if $x \in \Q$.
 
-    Since $(nx)/n^2$ is piece-wise continuous, $(nx)/n^2 \in \mathscr{R}$, and thus $\sum_{n = 1}^m
-    (nx)/n^2 \in \mathscr{R}$. It now follows that the partial sums of $f(x)$ converges uniformly on
-    any given bounded interval, so $f$ is Riemann-integrable on every bounded interval, by Theorem
-    7.16.
+    Since $(nx)/n^2$ is piece-wise continuous, $(nx)/n^2 \in \mathscr{R}$, and thus $\sum_{n = 1}^m (nx)/n^2 \in \mathscr{R}$. It now follows that the partial sums of $f(x)$ converges uniformly on any given bounded interval, so $f$ is Riemann-integrable on every bounded interval, by Theorem 7.16.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Let $f$ be a continuous real function on $\mathbb{R}^1$ with the following properties: $0 \leq
-  f(t) \leq 1$, and
+  Let $f$ be a continuous real function on $\mathbb{R}^1$ with the following properties: $0 \leq f(t) \leq 1$, and
   \[
     f(t) = \begin{cases} 
       0 & \text{for } 0 \leq t \leq \frac{2}{3}, \\
@@ -399,22 +344,16 @@
   \[
     x(t) = \sum_{n=1}^{\infty} 2^{-n} f(3^{2n-1} t), \quad y(t) = \sum_{n=1}^{\infty} 2^{-n} f(3^{2n} t).
   \]
-  Prove that $\Phi$ is continuous and that $\Phi$ maps $I = [0, 1]$ onto the unit square $I^2
-  \subseteq \mathbb{R}^2$. In fact, show that $\Phi$ maps the Cantor set onto $I^2$.
+  Prove that $\Phi$ is continuous and that $\Phi$ maps $I = [0, 1]$ onto the unit square $I^2 \subseteq \mathbb{R}^2$. In fact, show that $\Phi$ maps the Cantor set onto $I^2$.
 
   \begin{proof}
-    We first note that both $x(t)$ and $y(t)$ converges uniformly as $\sum_{n = 1}^{\infty}
-    2^{-n} = 1$ converges, by Theorem 7.10. Since $f$ is continuous, the partial sums of both $x(t)$
-    and $y(t)$ are continuous, and thus $x(t)$ and $y(t)$ are continuous, by Theorem 7.16. It now
-    follows from Theorem 4.10 that $\Phi$ is continuous.
+    We first note that both $x(t)$ and $y(t)$ converges uniformly as $\sum_{n = 1}^{\infty} 2^{-n} = 1$ converges, by Theorem 7.10. Since $f$ is continuous, the partial sums of both $x(t)$ and $y(t)$ are continuous, and thus $x(t)$ and $y(t)$ are continuous, by Theorem 7.16. It now follows from Theorem 4.10 that $\Phi$ is continuous.
 
-    We now show that $\Phi$ maps $I = [0, 1]$ onto $I^2$.
-    Notice thay each $(x_0, y_0) \in I^2$ has the form
+    We now show that $\Phi$ maps $I = [0, 1]$ onto $I^2$. Notice thay each $(x_0, y_0) \in I^2$ has the form
     \[
       x_0 = \sum_{n=1}^{\infty} 2^{-n} a_{2n-1}, \quad y_0 = \sum_{n=1}^{\infty} 2^{-n} a_{2n},
     \]
-    where each $a_i$ is $0$ or $1$. Let $t_0 = \sum_{i=1}^{\infty} 3^{-i-1} (2a_i)$. By Exercise
-    3.19, $t_0 = \sum_{i=1}^{\infty} 3^{-i - 1} (2a_i)$ is in the Cantor set. Since 
+    where each $a_i$ is $0$ or $1$. Let $t_0 = \sum_{i=1}^{\infty} 3^{-i-1} (2a_i)$. By Exercise 3.19, $t_0 = \sum_{i=1}^{\infty} 3^{-i - 1} (2a_i)$ is in the Cantor set. Since 
     \[
       3^kt_0 = \sum_{i=1}^{\infty} 3^{-i + k - 1} (2a_i) = 2\sum_{i=1}^{k - 1} 3^{-i + k - 1} a_i + \sum_{i=0}^{\infty} 3^{-i - 1} (2a_{i + k}),
     \]
@@ -426,10 +365,7 @@
     \[
       0 \leq \frac{2}{3}\sum_{i = 1}^{\infty} 3^{-i} a_{i + k} \leq \frac{2}{3} \cdot \frac{\frac{1}{3}}{1 - \frac{1}{3}} = \frac{1}{3},
     \]
-    so $\sum_{i=0}^{\infty} 3^{-i - 1} (2a_{i + k}) \in [0, \frac{2}{3}]$ if $a_k = 0$ and
-    $\sum_{i=0}^{\infty} 3^{-i - 1} (2a_{i + k}) \in [\frac{2}{3}, 1]$ otherwise. Hence, $f(3^kt_0)
-    = a_k$. It now follows that $x(t_0) = x_0$ and $y(t_0) = y_0$, and so $\Phi$ maps the Cantor set
-    $C \subset I$ onto $I^2$.
+    so $\sum_{i=0}^{\infty} 3^{-i - 1} (2a_{i + k}) \in [0, \frac{2}{3}]$ if $a_k = 0$ and $\sum_{i=0}^{\infty} 3^{-i - 1} (2a_{i + k}) \in [\frac{2}{3}, 1]$ otherwise. Hence, $f(3^kt_0) = a_k$. It now follows that $x(t_0) = x_0$ and $y(t_0) = y_0$, and so $\Phi$ maps the Cantor set $C \subset I$ onto $I^2$.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

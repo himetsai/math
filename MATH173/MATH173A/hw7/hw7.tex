@@ -152,13 +152,11 @@
 \pagebreak
 
 \begin{homeworkProblem}
-	Suppose a function $f : \mathbb{R}^d \to \mathbb{R}$ is $L$-smooth with $L = 4$ and satisfies the
-	PL-property with parameter $\mu = 2$, i.e., 
+	Suppose a function $f : \mathbb{R}^d \to \mathbb{R}$ is $L$-smooth with $L = 4$ and satisfies the PL-property with parameter $\mu = 2$, i.e., 
 	\[
 	\frac{1}{2} \|\nabla f(x)\|^2 \geq \mu (f - f^*).
 	\]
-	Consider the gradient descent method for minimizing $f$. Let $x^*$ be the global minimum and
-	suppose $x^{(0)}$ is the initialization such that 
+	Consider the gradient descent method for minimizing $f$. Let $x^*$ be the global minimum and suppose $x^{(0)}$ is the initialization such that 
 	\[
 	\|x^* - x^{(0)}\| \leq 5.
 	\]
@@ -199,12 +197,10 @@
 	\]
 
 	\begin{enumerate}[(a)]
-		\item Find an expression for the orthogonal projection of a point $x \in \mathbb{R}^n$ onto $B$
-		(No need for justification).
+		\item Find an expression for the orthogonal projection of a point $x \in \mathbb{R}^n$ onto $B$ (No need for justification).
 
 		\begin{proof}
-			Let $x^+_i = \max(x_i, 0)$, and let $I_s(x)$ be the index set of the $s$ largest components of
-			$x$. Note that $|I_s(x)| = s$. Define projection $\Pi_B(x)$ by sending
+			Let $x^+_i = \max(x_i, 0)$, and let $I_s(x)$ be the index set of the $s$ largest components of $x$. Note that $|I_s(x)| = s$. Define projection $\Pi_B(x)$ by sending
 			\[
 				x_i \mapsto \begin{cases}
 					x_i & \text{if } i \in I_s(x^+) \\
@@ -221,8 +217,7 @@
 		\[
 		\min_{x \in \Omega} f(x)
 		\]
-		for $\Omega = B$, with $B$ from part (a). You need to specify the gradient formula and the
-		projection formula. You do not need to specify the step size for this problem.
+		for $\Omega = B$, with $B$ from part (a). You need to specify the gradient formula and the projection formula. You do not need to specify the step size for this problem.
 
 		\begin{proof}
 			Let $x^{(0)} \in B$, and let $\mu$ be the step size. For $t = 1, \ldots$, 
@@ -231,10 +226,8 @@
 				\item Set $y^{(t + 1)} = x^{(t)} - \mu \nabla f(x^{(t)}) = x^{(t)} - \mu A^T(Ax^{(t)} - b) = (I - \mu A^TA)x^{(t)} + \mu A^Tb.$
 				\item Set $y^{(t + 1)}_i = \max(0, y^{(t + 1)}_i)$ for all $i$.
 				\item Calculate $I_s(y^{(t + 1)})$.
-				\item Set $x_i^{(t + 1)} = \begin{cases}
-					y^{(t + 1)}_i & \text{if } i \in I_s(y^{(t + 1)}) \\
-					0 & \text{otherwise}
-				\end{cases}.$
+				\item Set $x_i^{(t + 1)} = \begin{cases} y^{(t + 1)}_i & \text{if } i \in I_s(y^{(t + 1)}) \\
+					0 & \text{otherwise} \end{cases}.$
 			\end{enumerate}
 			
 		\end{proof}
@@ -243,8 +236,7 @@
 		\[
 		A = \begin{bmatrix} 2 & 0 \\ 0 & 1 \end{bmatrix}, \quad b = \begin{bmatrix} 2 \\ 1 \end{bmatrix}, \quad s = 1
 		\]
-		for the set $B$ in (a). Does the projected gradient method converge to the global minimizer for
-		any initialization $x^{(0)}$ if the step size $\mu \leq \frac{1}{8}$? Justify your answer.
+		for the set $B$ in (a). Does the projected gradient method converge to the global minimizer for any initialization $x^{(0)}$ if the step size $\mu \leq \frac{1}{8}$? Justify your answer.
 
 		\begin{proof}
 			No. Consider initializations $x^{(0)} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $x^{(0)} =
@@ -256,8 +248,7 @@
 			\[
 				y^{(1)} = \begin{bmatrix} 1 \\ \mu \end{bmatrix}.
 			\]
-			Since $\mu \leq 1$, $x^{(1)} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$, and thus the algorithm
-			converges to $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$.
+			Since $\mu \leq 1$, $x^{(1)} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$, and thus the algorithm converges to $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$.
 
 			\textbf{Case 2: $x^{(0)} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$.}
 
@@ -265,12 +256,10 @@
 			\[
 				y^{(1)} = \begin{bmatrix} 4\mu \\ 1 \end{bmatrix}.
 			\]
-			Since $4\mu \leq 0.5 \leq 1$, $x^{(1)} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$, and thus the algorithm
-			converges to $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.
+			Since $4\mu \leq 0.5 \leq 1$, $x^{(1)} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$, and thus the algorithm converges to $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.
 		\end{proof}
 
-		But then $f(1, 0) = 0.5$ and $f(0, 1) = 2$, so the algorithm does converge to the global
-		minimum for all initializations.
+		But then $f(1, 0) = 0.5$ and $f(0, 1) = 2$, so the algorithm does converge to the global minimum for all initializations.
 	\end{enumerate}
 \end{homeworkProblem}
 \end{document}

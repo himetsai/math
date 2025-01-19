@@ -151,22 +151,17 @@
 \pagebreak
 
 \begin{homeworkProblem}
-    If $r$ is rational $(r \neq 0)$ and $x$ is irrational, prove that $r + x$ and $rx$ are
-    irrational.
+    If $r$ is rational $(r \neq 0)$ and $x$ is irrational, prove that $r + x$ and $rx$ are irrational.
 
     \begin{proof}
-      Suppose for the sake of contradiction that $y = r + x$, $z = rx$ are rational. Since rational
-      numbers are closed under addition, $x = y - r$ is also rational, contradiction. Similarly,
-      since non-zero rational is closed under multiplication and taking multiplicative inverse, $x =
-      \frac{z}{r}$ is rational, contradiction. Hence, $r + x$ and $rx$ are irrational.
+      Suppose for the sake of contradiction that $y = r + x$, $z = rx$ are rational. Since rational numbers are closed under addition, $x = y - r$ is also rational, contradiction. Similarly, since non-zero rational is closed under multiplication and taking multiplicative inverse, $x = \frac{z}{r}$ is rational, contradiction. Hence, $r + x$ and $rx$ are irrational.
     \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Let $E$ be a nonempty subset of an ordered set; suppose $\alpha$ is a lower bound of $E$ and
-  $\beta$ is an upper bound of $E$. Prove that $\alpha \leq \beta$.
+  Let $E$ be a nonempty subset of an ordered set; suppose $\alpha$ is a lower bound of $E$ and $\beta$ is an upper bound of $E$. Prove that $\alpha \leq \beta$.
 
   \begin{proof}
     Since $\beta \geq e$ and $e \geq \alpha$ for $e \in E$, $\beta \geq \alpha$.
@@ -176,18 +171,13 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $A$ be a nonempty set of real numbers which is bounded below. Let $-A$ be the set of all
-  numbers $-x$, where $x \in A$. Prove that
+  Let $A$ be a nonempty set of real numbers which is bounded below. Let $-A$ be the set of all numbers $-x$, where $x \in A$. Prove that
     \[
         \inf A = -\sup(-A).
     \]
 
     \begin{proof}
-      Let $y = \inf A$. Since $y \leq x$ for $x \in A$, we know $-y \geq -x$ for $-x \in -A$, so
-      $-y$ is an upper bound of $-A$. Since $y$ is the greatest lower bound of $A$, there exists $a
-      \in A$ such that $a < y + \epsilon$, for $\epsilon > 0$. This immediately follows that for
-      $\epsilon > 0$, there exists $-a \in -A$ such that $-a > -y - \epsilon$, so $-y$ is the least
-      upper bound of $-A$. In other words, $y = -\sup(-A)$.
+      Let $y = \inf A$. Since $y \leq x$ for $x \in A$, we know $-y \geq -x$ for $-x \in -A$, so $-y$ is an upper bound of $-A$. Since $y$ is the greatest lower bound of $A$, there exists $a \in A$ such that $a < y + \epsilon$, for $\epsilon > 0$. This immediately follows that for $\epsilon > 0$, there exists $-a \in -A$ such that $-a > -y - \epsilon$, so $-y$ is the least upper bound of $-A$. In other words, $y = -\sup(-A)$.
     \end{proof}
 \end{homeworkProblem}
 
@@ -196,28 +186,21 @@
 \begin{homeworkProblem}
   Fix $b > 1$.
   \begin{enumerate}[(a)]
-    \item If $m, n, p, q$ are integers, $n > 0$, $q > 0$, and $r = \frac{m}{n} = \frac{p}{q}$, prove
-    that
+    \item If $m, n, p, q$ are integers, $n > 0$, $q > 0$, and $r = \frac{m}{n} = \frac{p}{q}$, prove that
     \[
       (b^m)^{1/n} = (b^p)^{1/q}.
     \]
     Hence it makes sense to define $b^r = (b^m)^{1/n}$.
     \begin{proof}
-      Let $x = (b^m)^{1/n}$, $y = (b^p)^{1/q}$. We know $x^n = b^m = b^{nr}$ and $y^q = b^p =
-      b^{qr}$. Consider $x^{nq}$. Since $x^{nq} = b^{nrq} = y^{nq}$, we conclude that $x = y$, by
-      Theorem 1.21.
+      Let $x = (b^m)^{1/n}$, $y = (b^p)^{1/q}$. We know $x^n = b^m = b^{nr}$ and $y^q = b^p = b^{qr}$. Consider $x^{nq}$. Since $x^{nq} = b^{nrq} = y^{nq}$, we conclude that $x = y$, by Theorem 1.21.
     \end{proof}
 
     \item Prove that $b^{r + s} = b^rb^s$ if $r$ and $s$ are rational.
     \begin{proof}
-      Let $r = \frac{m}{n}, s = \frac{p}{q}$, for $m, n, p, q \in \Z$ and $n, q > 0$. Consider
-      $(b^{r + s})^{nq}$ and $(b^rb^s)^{nq}$. Since $(b^{r + s})^{nq} = b^{mq + np}$ and
-      $(b^rb^s)^{nq} = (b^r)^{nq}(b^s)^{nq} = b^{mq}b^{np} = b^{mq + np}$, we know $(b^{r + s})^{nq}
-      = (b^rb^s)^{nq}$. The result now follows by Theorem 1.21.
+      Let $r = \frac{m}{n}, s = \frac{p}{q}$, for $m, n, p, q \in \Z$ and $n, q > 0$. Consider $(b^{r + s})^{nq}$ and $(b^rb^s)^{nq}$. Since $(b^{r + s})^{nq} = b^{mq + np}$ and $(b^rb^s)^{nq} = (b^r)^{nq}(b^s)^{nq} = b^{mq}b^{np} = b^{mq + np}$, we know $(b^{r + s})^{nq} = (b^rb^s)^{nq}$. The result now follows by Theorem 1.21.
     \end{proof}
 
-    \item If $x$ is real, define $B(x)$ to be the set of all numbers $b^t$, where $t$ is rational
-    and $t < x$. Prove that
+    \item If $x$ is real, define $B(x)$ to be the set of all numbers $b^t$, where $t$ is rational and $t < x$. Prove that
     \[
       b^r = \sup B(r).
     \]
@@ -227,32 +210,14 @@
     \]
     for every real $x$.
     \begin{proof}
-      Let $b^t \in B(r)$. Suppose $r = \frac{m}{n}$, $t = \frac{p}{q}$, where $n, q > 0$. Since $r >
-      t$, $mq > np$. Consider $(b^r)^{nq}$ and $(b^t)^{nq}$. We know $(b^r)^{nq} = b^{mq} > b^{np} =
-      (b^t)^{nq}$. Let $y = b^r$, $x = b^t$. Since $y^{nq - 1} + y^{nq - 2}x + \dots + x^{nq - 1} >
-      0$, the identity $y^{nq} - x^{nq} = (y - x)(y^{nq - 1} + y^{nq - 2}x + \dots + x^{nq - 1}) >
-      0$ yields $y > x$, and thus $y = b^r$ is an upper bound of $B(r)$. 
+      Let $b^t \in B(r)$. Suppose $r = \frac{m}{n}$, $t = \frac{p}{q}$, where $n, q > 0$. Since $r > t$, $mq > np$. Consider $(b^r)^{nq}$ and $(b^t)^{nq}$. We know $(b^r)^{nq} = b^{mq} > b^{np} = (b^t)^{nq}$. Let $y = b^r$, $x = b^t$. Since $y^{nq - 1} + y^{nq - 2}x + \dots + x^{nq - 1} > 0$, the identity $y^{nq} - x^{nq} = (y - x)(y^{nq - 1} + y^{nq - 2}x + \dots + x^{nq - 1}) > 0$ yields $y > x$, and thus $y = b^r$ is an upper bound of $B(r)$. 
 
-      Let $y < b^r$ be a positive real number. We show that there exists $b^s \in B(r)$ such that
-      $b^s > y$. Let $t = y^{-1}b^r$, and let $n \in \Z$ such that $n > \frac{b - 1}{t - 1}$. We
-      know such $n$ exists by the archimedean property and $t > 1$. Since $a^n - 1 = (a - 1)(a^{n -
-      1} + a^{n - 2} + \dots + 1) > n(a - 1)$ for $a > 1$, we know $b - 1 > n(b^{1/n} - 1) > \frac{b
-      - 1}{t - 1}(b^{1/n} - 1)$. This immediately follows that $t = y^{-1}b^r > b^{1/n}$, so $b^{r -
-      (1/n)} > y$. However, since $r - (1/n) \in \Q$, we have $b^{r - (1/n)} \in B(r)$. Therefore,
-      $y$ is not an upper bound of $B(r)$, which shows that $b^r = \sup B(r)$.
+      Let $y < b^r$ be a positive real number. We show that there exists $b^s \in B(r)$ such that $b^s > y$. Let $t = y^{-1}b^r$, and let $n \in \Z$ such that $n > \frac{b - 1}{t - 1}$. We know such $n$ exists by the archimedean property and $t > 1$. Since $a^n - 1 = (a - 1)(a^{n - 1} + a^{n - 2} + \dots + 1) > n(a - 1)$ for $a > 1$, we know $b - 1 > n(b^{1/n} - 1) > \frac{b - 1}{t - 1}(b^{1/n} - 1)$. This immediately follows that $t = y^{-1}b^r > b^{1/n}$, so $b^{r - (1/n)} > y$. However, since $r - (1/n) \in \Q$, we have $b^{r - (1/n)} \in B(r)$. Therefore, $y$ is not an upper bound of $B(r)$, which shows that $b^r = \sup B(r)$.
     \end{proof}
 
     \item Prove that $b^{x + y} = b^xb^y$ for all real $x$ and $y$.
     \begin{proof}
-      We show that $b^xb^y = \sup B(x + y)$. Note that $B(x + y) = \{b^{t} \, | \, t < x + y, t \in
-      \Q\} = \{b^{g + h} \, | \, g < x, h < y, g, h \in \Q\} = \{b^{g}b^{h} \, | \, g < x, h < y, g,
-      h \in \Q\}$. Let $b^{g}b^{h} \in B(x + y)$, for $g < x, h < y$. Since $b^g \in B(x)$ and $b^h
-      \in B(y)$, we know $b^x > b^g$ and $b^y > b^h$. Thus $b^{x}b^{y} > b^{g}b^{h}$, so
-      $b^{x}b^{y}$ is an upper bound of $B(x + y)$. Suppose that $k < b^{x}b^{y}$. Since
-      $\frac{k}{b^y} < b^{x}$, there exists $b^l \in B(x)$ such that $\frac{k}{b^y} < b^l$. However,
-      $\frac{k}{b^l} < b^y$, so there exists $b^s \in B(y)$ such that $\frac{k}{b^l} < b^s$. This
-      immediately follows that there exists $b^lb^s \in B(x + y)$ such that $k < b^lb^s$, so
-      $b^xb^y$ is the least upper bound of $B(x + y)$.
+      We show that $b^xb^y = \sup B(x + y)$. Note that $B(x + y) = \{b^{t} \, | \, t < x + y, t \in \Q\} = \{b^{g + h} \, | \, g < x, h < y, g, h \in \Q\} = \{b^{g}b^{h} \, | \, g < x, h < y, g, h \in \Q\}$. Let $b^{g}b^{h} \in B(x + y)$, for $g < x, h < y$. Since $b^g \in B(x)$ and $b^h \in B(y)$, we know $b^x > b^g$ and $b^y > b^h$. Thus $b^{x}b^{y} > b^{g}b^{h}$, so $b^{x}b^{y}$ is an upper bound of $B(x + y)$. Suppose that $k < b^{x}b^{y}$. Since $\frac{k}{b^y} < b^{x}$, there exists $b^l \in B(x)$ such that $\frac{k}{b^y} < b^l$. However, $\frac{k}{b^l} < b^y$, so there exists $b^s \in B(y)$ such that $\frac{k}{b^l} < b^s$. This immediately follows that there exists $b^lb^s \in B(x + y)$ such that $k < b^lb^s$, so $b^xb^y$ is the least upper bound of $B(x + y)$.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -263,32 +228,19 @@
   Fix $b > 1, y > 0$, and prove that there is a unique real $x$ such that $b^x = y$.
 
   \begin{proof}
-    Since $b > 1$, we know $b^{k}> 1$ for positive integer $k$, so the identity $b^n - 1 = (b -
-    1)(b^{n - 1} + b^{n - 2} + \dots + 1)$ yields
+    Since $b > 1$, we know $b^{k}> 1$ for positive integer $k$, so the identity $b^n - 1 = (b - 1)(b^{n - 1} + b^{n - 2} + \dots + 1)$ yields
     \begin{gather}
       b^{n} - 1 < n(b - 1),
     \end{gather}
-    for positive integer $n$. Note that $b^{1/n} > 1$, otherwise $b = (b^{1/n})^n \leq 1$. Hence, we
-    may apply (1) and get
+    for positive integer $n$. Note that $b^{1/n} > 1$, otherwise $b = (b^{1/n})^n \leq 1$. Hence, we may apply (1) and get
     \begin{gather}
       b - 1 > n(b^{1/n} - 1).
     \end{gather}
-    Suppose that $b^{w} < y$. Let $t = yb^{-w}$, and let $n > \frac{b - 1}{t - 1}$, for $w \in \R$.
-    We know such $n$ exists by the Archimedean Property and $t = yb^{-w} > b^wb^{-w} = 1$. By (2),
-    $b - 1 > n(b^{1/n} - 1) > \frac{b - 1}{t - 1}(b^{1/n} - 1)$, so $t > b^{1/n}$. Thus, $b^{w + (1
-    / n)} < y$ for sufficiently large $n$. Similarly, when $b^{w} > y$, take $t = y^{-1}b^{w}$.
-    Again, let $n > \frac{b - 1}{t - 1}$, and it follows by (2) that $t > b^{1/n}$. Thus, $y < b^{w
-    - (1 / n)}$ for sufficient large $n$. 
+    Suppose that $b^{w} < y$. Let $t = yb^{-w}$, and let $n > \frac{b - 1}{t - 1}$, for $w \in \R$. We know such $n$ exists by the Archimedean Property and $t = yb^{-w} > b^wb^{-w} = 1$. By (2), $b - 1 > n(b^{1/n} - 1) > \frac{b - 1}{t - 1}(b^{1/n} - 1)$, so $t > b^{1/n}$. Thus, $b^{w + (1 / n)} < y$ for sufficiently large $n$. Similarly, when $b^{w} > y$, take $t = y^{-1}b^{w}$. Again, let $n > \frac{b - 1}{t - 1}$, and it follows by (2) that $t > b^{1/n}$. Thus, $y < b^{w - (1 / n)}$ for sufficient large $n$. 
 
-    Let $A$ be the set of all $w$ such that $b^w < y$. We show that $x = \sup A$ satisfies $b^x =
-    y$. Suppose for the sake of contradiction that $b^x > y$. Then, we know there exists $n$ such
-    that $b^{x - (1 / n)} > y$. However, since $x = \sup A$, $b^{x - (1 / n)}$ must be in $A$, which
-    contradicts that $b^{x - (1 / n)} > y$. Suppose for the sake of contradiction that $b^x < y$.
-    There exists $n$ such that $b^{x + (1 / n)} < y$. However, this means that there exists $b^{x +
-    (1 / n)} \in A$ such that $b^{x + (1 / n)} > x = \sup A$, contradiction. Therefore, $b^x = y$.
+    Let $A$ be the set of all $w$ such that $b^w < y$. We show that $x = \sup A$ satisfies $b^x = y$. Suppose for the sake of contradiction that $b^x > y$. Then, we know there exists $n$ such that $b^{x - (1 / n)} > y$. However, since $x = \sup A$, $b^{x - (1 / n)}$ must be in $A$, which contradicts that $b^{x - (1 / n)} > y$. Suppose for the sake of contradiction that $b^x < y$. There exists $n$ such that $b^{x + (1 / n)} < y$. However, this means that there exists $b^{x + (1 / n)} \in A$ such that $b^{x + (1 / n)} > x = \sup A$, contradiction. Therefore, $b^x = y$.
     
-    Suppose that $b^{x} = b^{x'} = y$. $x$ cannot be greater or lesser than $x'$, otherwise
-    $b^{x} \neq b^{x'}$, so $x$ is unique.
+    Suppose that $b^{x} = b^{x'} = y$. $x$ cannot be greater or lesser than $x'$, otherwise $b^{x} \neq b^{x'}$, so $x$ is unique.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

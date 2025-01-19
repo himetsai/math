@@ -19,9 +19,7 @@
 
 % Q1.7.2
 \begin{problem}{1}
-    Let $K_{n:r}$ denote the Kneser graph, whose vertex set is the set of
-    r-element subsets of an n-element set, and where two vertices form an edge if the
-    corresponding sets are disjoint.
+    Let $K_{n:r}$ denote the Kneser graph, whose vertex set is the set of r-element subsets of an n-element set, and where two vertices form an edge if the corresponding sets are disjoint.
     \begin{enumerate}[label=(\alph*)]
     \item Describe $K_{n:1}$ for $n \geq 1$.
     \begin{proof}[Solution]
@@ -72,8 +70,7 @@
      \[V(P) \cap V(Q) \neq \emptyset.\]
 \end{problem}
 \begin{proof}
-    We will prove this by contradiction. Let $P, Q$ be the longest paths in a connected graph $G$, with $\{p_1, p_2, \dots, p_{n+1}\}$ and $\{q_1, q_2, \dots, q_{n+1}\}$ as their vertex sets respectively, and $n = |E(P)| = |E(Q)|$.  Suppose for the sake of contradiction that $V(P) \cap V(Q) = \emptyset$. Since $G$ is connected, there must be a path $R$ that starts from $p_i$ and ends at $q_j$, for some $1 \leq i, j \leq n + 1$. Let $m = d_G(p_i, q_j)$. Since $p_i \neq q_j$, we have $m \geq 1$. Let $P'$ be the longer path between $p_1p_2\dots p_i$ and $p_ip_{i+1}\dots p_{n+1}$, $Q'$ be the longer path between $q_1q_2\dots q_j$ and $q_jq_{j+1}\dots q_{n+1}$. By connecting $P'$, $Q'$, and $R$, we get a new path $S$. Since $|E(P')|, |E(Q')| \geq n/2$, $|E(R)| = m \geq 1$, we have $|E(S)| \geq n + 1$, which contradicts that $P, Q$ are the longest paths on $G$.
-    Therefore, if $P, Q$ are the longest paths in a connected graph, then $V(P) \cap V(Q) \neq \emptyset$.
+    We will prove this by contradiction. Let $P, Q$ be the longest paths in a connected graph $G$, with $\{p_1, p_2, \dots, p_{n+1}\}$ and $\{q_1, q_2, \dots, q_{n+1}\}$ as their vertex sets respectively, and $n = |E(P)| = |E(Q)|$.  Suppose for the sake of contradiction that $V(P) \cap V(Q) = \emptyset$. Since $G$ is connected, there must be a path $R$ that starts from $p_i$ and ends at $q_j$, for some $1 \leq i, j \leq n + 1$. Let $m = d_G(p_i, q_j)$. Since $p_i \neq q_j$, we have $m \geq 1$. Let $P'$ be the longer path between $p_1p_2\dots p_i$ and $p_ip_{i+1}\dots p_{n+1}$, $Q'$ be the longer path between $q_1q_2\dots q_j$ and $q_jq_{j+1}\dots q_{n+1}$. By connecting $P'$, $Q'$, and $R$, we get a new path $S$. Since $|E(P')|, |E(Q')| \geq n/2$, $|E(R)| = m \geq 1$, we have $|E(S)| \geq n + 1$, which contradicts that $P, Q$ are the longest paths on $G$. Therefore, if $P, Q$ are the longest paths in a connected graph, then $V(P) \cap V(Q) \neq \emptyset$.
 \end{proof}
 
 \newpage

@@ -162,16 +162,9 @@
     \frac{2}{\pi} < \frac{\sin x}{x} < 1.
   \]
   \begin{proof}
-    Consider the function $f(x) = x - \sin x$. Since $\cos x < 1 = (x)'$ in $(0, \pi/2)$, $f'(x) = x
-    - \cos x > 0$ in $(0, \pi/2)$, so $f$ is strictly increasing in $(0, \pi/2)$. But then $f(x) >
-    f(0) = 0$ for all $x \in (0, \pi/2)$. It now follows that $\frac{\sin x}{x} < 1$.
+    Consider the function $f(x) = x - \sin x$. Since $\cos x < 1 = (x)'$ in $(0, \pi/2)$, $f'(x) = x - \cos x > 0$ in $(0, \pi/2)$, so $f$ is strictly increasing in $(0, \pi/2)$. But then $f(x) > f(0) = 0$ for all $x \in (0, \pi/2)$. It now follows that $\frac{\sin x}{x} < 1$.
 
-    Now consider $g(x) = \frac{\sin x}{x}$. $g'(x) = \frac{x\cos x - \sin x}{x^2}$. We now show that
-    $x < \tan x = \frac{\sin x}{\cos x}$ in $(0, \pi/2)$. Put $h(x) = \tan x - x$. Since $|\cos x| <
-    1$ in $(0, \pi/2)$, $h'(x) = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} - 1 = \frac{1}{\cos^2 x} - 1 >
-    1$. But then $h(0) = 0$ and $h$ is strictly increasing, so $\tan x - x > 0$ in $(0, \pi/2)$. It
-    now follows that $g'(x) < \frac{\tan x\cos x - \sin x}{x^2} = 0$ and $g(\pi/2) = \frac{2}{\pi}$,
-    and thus $\frac{2}{\pi} < \frac{\sin x}{x}$ for all $0 < x < \frac{\pi}{2}$.
+    Now consider $g(x) = \frac{\sin x}{x}$. $g'(x) = \frac{x\cos x - \sin x}{x^2}$. We now show that $x < \tan x = \frac{\sin x}{\cos x}$ in $(0, \pi/2)$. Put $h(x) = \tan x - x$. Since $|\cos x| < 1$ in $(0, \pi/2)$, $h'(x) = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} - 1 = \frac{1}{\cos^2 x} - 1 > 1$. But then $h(0) = 0$ and $h$ is strictly increasing, so $\tan x - x > 0$ in $(0, \pi/2)$. It now follows that $g'(x) < \frac{\tan x\cos x - \sin x}{x^2} = 0$ and $g(\pi/2) = \frac{2}{\pi}$, and thus $\frac{2}{\pi} < \frac{\sin x}{x}$ for all $0 < x < \frac{\pi}{2}$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -206,16 +199,13 @@
   \[
   \lim_{N \to \infty} (s_N - \log N)
   \]
-  exists. (The limit, often denoted by $\gamma$, is called Euler's constant. Its numerical value
-  is 0.5772.... It is not known whether $\gamma$ is rational or not.)
+  exists. (The limit, often denoted by $\gamma$, is called Euler's constant. Its numerical value is 0.5772.... It is not known whether $\gamma$ is rational or not.)
   \begin{proof}
-    Let $f_n = s_n - \log n$. Since $\frac{1}{x}$ is a decreasing function, $\int_{n}^{n + 1} \frac{1}{x} \, \dx \geq
-    \frac{1}{n + 1}$. Thus,
+    Let $f_n = s_n - \log n$. Since $\frac{1}{x}$ is a decreasing function, $\int_{n}^{n + 1} \frac{1}{x} \, \dx \geq \frac{1}{n + 1}$. Thus,
     \[
       f_{n + 1} - f_n = \frac{1}{n + 1} - (\log (n + 1) - \log n) = \frac{1}{n + 1} - \int_{n}^{n + 1} \frac{1}{x} \, \dx \leq 0,
     \]
-    and so $\{f_n\}$ is a monotonically decreasing sequence. But then $\int_{1}^n \frac{1}{x} \,
-    dx \leq \sum_{k = 1}^{n - 1} \frac{1}{k}$. Hence,
+    and so $\{f_n\}$ is a monotonically decreasing sequence. But then $\int_{1}^n \frac{1}{x} \, dx \leq \sum_{k = 1}^{n - 1} \frac{1}{k}$. Hence,
     \[
       f_n = \sum_{k = 1}^n \frac{1}{k} - \int_{1}^n \frac{1}{x} \, dx \geq \frac{1}{n} > 0,
     \]
@@ -229,19 +219,14 @@
   Prove that $\sum 1/p$ diverges; the sum extends over all primes.
 
   \begin{proof}
-    Given $N$, let $p_1, \ldots , p_k$ be those primes that divide at least one integer at most $N$.
-    Each $n \leq N$ is a product of powers of $p_j$'s. Since $\prod_{j = 1}^k \left(1 +
-    \frac{1}{p_j} + \frac{1}{p_j^2} + \cdots\right)$ is the sum of all inverses of numbers whose
-    factorization consists of only powers of $p_j$'s, 
+    Given $N$, let $p_1, \ldots , p_k$ be those primes that divide at least one integer at most $N$. Each $n \leq N$ is a product of powers of $p_j$'s. Since $\prod_{j = 1}^k \left(1 + \frac{1}{p_j} + \frac{1}{p_j^2} + \cdots\right)$ is the sum of all inverses of numbers whose factorization consists of only powers of $p_j$'s, 
     \begin{align*}
       \sum_{n = 1}^N \frac{1}{n}
       &= \sum_{n = 1}^N \frac{1}{p_1^{l_1}p_2^{l_2}\cdots p_k^{l_k}} \\
       &\leq \prod_{j = 1}^k \left(1 + \frac{1}{p_j} + \frac{1}{p^2} + \cdots\right) \\
       &= \prod_{j = 1}^k \left(1 - \frac{1}{p_j}\right)^{-1}.
     \end{align*}
-    We now show that $e^{2x} \geq (1 - x)^{-1}$ for $x \in (0, 1/2)$. Put $f(x) = (1 - x)e^{2x}$.
-    Since $f'(x) = (1 - 2x)e^{2x} > 0$ for $x \in (0, 1/2)$ and $f(0) = 1$, we have $f(x) \geq 1$ in
-    $(0, 1/2)$, and thus $e^{2x} \geq (1 - x)^{-1}$. Hence, we have
+    We now show that $e^{2x} \geq (1 - x)^{-1}$ for $x \in (0, 1/2)$. Put $f(x) = (1 - x)e^{2x}$. Since $f'(x) = (1 - 2x)e^{2x} > 0$ for $x \in (0, 1/2)$ and $f(0) = 1$, we have $f(x) \geq 1$ in $(0, 1/2)$, and thus $e^{2x} \geq (1 - x)^{-1}$. Hence, we have
     \[
       \prod_{j = 1}^k \left(1 - \frac{1}{p_j}\right)^{-1} \leq \exp \sum_{j = 1}^k \frac{2}{p_j}.
     \]
@@ -249,22 +234,19 @@
     \[
       \frac{1}{2}\log \left(\sum_{n = 1}^N \frac{1}{n}\right) \leq \sum_{j = 1}^k \frac{1}{p_j}.
     \]
-    Since $k \to \infty$ as $N \to \infty$ and $\sum_{n = 1}^{\infty} \frac{1}{n}$ diverges,
-    $\sum_{j = 1}^{\infty} \frac{1}{p_j}$ diverges, by comparison test.
+    Since $k \to \infty$ as $N \to \infty$ and $\sum_{n = 1}^{\infty} \frac{1}{n}$ diverges, $\sum_{j = 1}^{\infty} \frac{1}{p_j}$ diverges, by comparison test.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Suppose $f \in \mathscr{R}$ on $[0, A]$ for all $A < \infty$, and $f(x) \to 1$ as $x \to \infty$.
-  Prove that
+  Suppose $f \in \mathscr{R}$ on $[0, A]$ for all $A < \infty$, and $f(x) \to 1$ as $x \to \infty$. Prove that
   \[
     \lim_{t \to 0} t \int_0^\infty e^{-tx} f(x) \, dx = 1 \quad (t > 0).
   \]
   \begin{proof}
-    We first show that the improper integral is well-defined. Pick $\epsilon > 0$. There exists $A$
-    such that $|f(x) - 1| < \epsilon$ for all $x \geq A$. For $n > A$, 
+    We first show that the improper integral is well-defined. Pick $\epsilon > 0$. There exists $A$ such that $|f(x) - 1| < \epsilon$ for all $x \geq A$. For $n > A$, 
     \[
       \frac{1 - \epsilon}{t}[e^{-tA} - e^{-tn}] = \int_A^n e^{-tx} (1 - \epsilon) \, dx < \int_A^n e^{-tx} f(x) \, dx < \int_A^n e^{-tx} (1 + \epsilon) \, dx = \frac{1 + \epsilon}{t}[e^{-tA} - e^{-tn}].
     \]
@@ -276,8 +258,7 @@
     \[
       \int_A^{\infty} e^{-tx} f(x) \, dx = \frac{1}{t}e^{-tA},
     \]
-    and so $\int_0^{\infty} e^{-tx} f(x) \, dx = \int_0^{A} e^{-tx} f(x) \, dx + \int_A^{\infty}
-    e^{-tx} f(x) \, dx$ exists. Since $|e^{-tx}| < 1$ for all $t > 0$, 
+    and so $\int_0^{\infty} e^{-tx} f(x) \, dx = \int_0^{A} e^{-tx} f(x) \, dx + \int_A^{\infty} e^{-tx} f(x) \, dx$ exists. Since $|e^{-tx}| < 1$ for all $t > 0$, 
     \[
       \lim_{t \to 0^+} t \left|\int_0^{A} e^{-tx} f(x) \, dx\right| \leq \lim_{t \to 0^+} t\int_0^A |f(x)| \, dx = 0.
     \]
@@ -309,8 +290,7 @@
     \[
       \lim_{n \to \infty} \left|\frac{\frac{\alpha(\alpha-1) \cdots (\alpha-n)}{(n + 1)!} x^{n + 1}}{\frac{\alpha(\alpha-1) \cdots (\alpha-n+1)}{n!} x^n}\right| = \lim_{n \to \infty} \left|\frac{n - \alpha}{n + 1}\right||x| < 1,
     \]
-    the series on the right converges in $(-1, 1)$ by the ratio test. Let $f(x)$ denote the function
-    on the right-hand side. By Theorem 8.1, $f(x)$ is differentiable. Note that
+    the series on the right converges in $(-1, 1)$ by the ratio test. Let $f(x)$ denote the function on the right-hand side. By Theorem 8.1, $f(x)$ is differentiable. Note that
     \[
       f'(x) = \sum_{n=1}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n+1)}{(n - 1)!} x^{n - 1} = \sum_{n=0}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n)}{n!} x^{n}.
     \]
@@ -323,20 +303,15 @@
       &= \alpha + \alpha\sum_{n=1}^\infty \frac{\alpha(\alpha-1) \cdots (\alpha-n + 1)}{n!} x^{n} \\
       &= \alpha f(x).
     \end{align*}
-    Since $f(0) = 1$ and $f$ is continuous, there exists $R \in (0, 1)$ such that $f(x) > 0$ in
-    $(-R, R)$. Hence, $(\log f(x))' = \frac{f'(x)}{f(x)} = \frac{\alpha}{1 + x}$ in $(-R, R)$, which
-    shares the same derivative with $\log (1 + x)^{\alpha}$. But then for $x \in (-R, R)$,
+    Since $f(0) = 1$ and $f$ is continuous, there exists $R \in (0, 1)$ such that $f(x) > 0$ in $(-R, R)$. Hence, $(\log f(x))' = \frac{f'(x)}{f(x)} = \frac{\alpha}{1 + x}$ in $(-R, R)$, which shares the same derivative with $\log (1 + x)^{\alpha}$. But then for $x \in (-R, R)$,
     \[
       \log f(x) = \log f(x) - \log f(0) = \int_{0}^x \frac{\alpha}{1 + t} \, dt = \alpha \log(1 + x) = \log(1 + x)^{\alpha},
     \]
-    and so $f(x) = \exp(\log f(x)) = \exp(\log (1 + x)^{\alpha}) = (1 + x)^{\alpha}$. Now let $S =
-    \{K \in (0, 1) \mid f(x) > 0 \text{ if } x \in [-K, K]\}$. Suppose for contradiction that
-    $A = \sup S < 1$. We know $f(x) = (1 + x)^{\alpha}$ in $(-A, A)$. But then 
+    and so $f(x) = \exp(\log f(x)) = \exp(\log (1 + x)^{\alpha}) = (1 + x)^{\alpha}$. Now let $S = \{K \in (0, 1) \mid f(x) > 0 \text{ if } x \in [-K, K]\}$. Suppose for contradiction that $A = \sup S < 1$. We know $f(x) = (1 + x)^{\alpha}$ in $(-A, A)$. But then 
     \[
       \lim_{x \to A} f(x) = (1 + A)^{\alpha} > 0 \text{ and } \lim_{x \to -A} f(x) = (1 + -A)^{\alpha} > 0.
     \]
-    By continuity, there exists $\delta$ such that $f(x) > 0$ in $(-A - \delta, A + \delta)$,
-    contradiction. Hence, $f(x) = (1 + x)^{\alpha}$ in $(-1, 1)$. 
+    By continuity, there exists $\delta$ such that $f(x) > 0$ in $(-A - \delta, A + \delta)$, contradiction. Hence, $f(x) = (1 + x)^{\alpha}$ in $(-1, 1)$. 
   \end{proof}
 \end{homeworkProblem}
 \end{document}

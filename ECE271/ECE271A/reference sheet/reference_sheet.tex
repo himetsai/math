@@ -207,16 +207,13 @@
     
     Given a sample $\D = \{x_1, \dots , x_n\}$ of independent points, where $P_X(x_i) = \frac{1}{\sqrt{(2\pi)^d|\Sigma|}}e^{-\frac{1}{2}(x_i - \mu)^T\Sigma^{-1}(x_i - \mu)}$.
 
-    Then, the likelihood $L(x_1, \dots, x_n|\mu, \sigma) = \prod_{i = 1}^n P_X(x_i)$.
-    We take the gradient of the natural log of $L$ with respect to $\mu$ and get
+    Then, the likelihood $L(x_1, \dots, x_n|\mu, \sigma) = \prod_{i = 1}^n P_X(x_i)$. We take the gradient of the natural log of $L$ with respect to $\mu$ and get
     \begin{align*}
         \nabla_{\mu} (\log L) 
         &= \nabla_{\mu} \left(-\frac{1}{2}\log[(2\pi)^d|\Sigma|] - \frac{1}{2} \sum_{i = 1}^n (x_i - \mu)^T\Sigma^{-1}(x_i - \mu)\right) \\
         &= \sum_{i = 1}^n \Sigma^{-1}(x_i - \mu) = \sum_{i = 1}^n x_i - \sum_{i = 1}^n \mu  = 0.
     \end{align*}
-    Thus, we get $\hat{\mu} = \frac{1}{n}\sum_{i = 1}^n x_i$. 
-    By taking the Hessian, we get $\nabla_{\mu}^2(\log L) = -\sum_{i = 1}^n \Sigma^{-1} = -n\Sigma^{-1}$.
-    Since the covariance matrix $\Sigma$ is positive definite, $-n\Sigma^{-1}$ is negative definite. Thus $\hat{\mu}$ is the maximum point.
+    Thus, we get $\hat{\mu} = \frac{1}{n}\sum_{i = 1}^n x_i$. By taking the Hessian, we get $\nabla_{\mu}^2(\log L) = -\sum_{i = 1}^n \Sigma^{-1} = -n\Sigma^{-1}$. Since the covariance matrix $\Sigma$ is positive definite, $-n\Sigma^{-1}$ is negative definite. Thus $\hat{\mu}$ is the maximum point.
 
     In addition, the MLE of the covariance matrix is
     \[
@@ -269,8 +266,7 @@
         &= \int \G(x - \mu, 0, \Sigma)\G(\mu, \mu_n, \Sigma_n) \, d\mu \\
         &= \G(x, 0, \Sigma) * \G(x, \mu_n, \Sigma_n) = \G(x, \mu_n, \Sigma + \Sigma_n).
     \end{align*}
-    Note that for non-informative prior,
-    $\displaystyle{\lim_{|\Sigma_0| \to \infty}} \mu_n = \mu_{ML}$ and $\displaystyle{\lim_{|\Sigma_0| \to \infty}} \Sigma_n = \frac{1}{n}\Sigma = \Sigma_{ML}$, so
+    Note that for non-informative prior, $\displaystyle{\lim_{|\Sigma_0| \to \infty}} \mu_n = \mu_{ML}$ and $\displaystyle{\lim_{|\Sigma_0| \to \infty}} \Sigma_n = \frac{1}{n}\Sigma = \Sigma_{ML}$, so
     \[
         P_{X|T}(x|\D) = \G(x, \mu_n, \Sigma + \Sigma_n) = \G\left(x, \mu_{ML}, \left(1 + \frac{1}{n}\right)\Sigma\right).
     \]
@@ -323,9 +319,7 @@
     \[
         \Psi^{(n + 1)} = \underset{\Psi}{\arg \max} \, \sum_{i, j} h_{ij}\log [P_{X|Z}(x|e_j, \Psi)\pi_j].
     \]
-    For Gaussiam mixure, we may solve for $h_{ij}$ first then take the Lagrangian 
-    $L = Q(\Psi; \Psi^{(n)}) + \lambda\left(\sum_{j = 1}^C \pi_j - 1\right)$
-    to solve for the parameters. Here are the results:
+    For Gaussiam mixure, we may solve for $h_{ij}$ first then take the Lagrangian $L = Q(\Psi; \Psi^{(n)}) + \lambda\left(\sum_{j = 1}^C \pi_j - 1\right)$ to solve for the parameters. Here are the results:
     \begin{align*}
         &h_{ij} = \frac{\G\left(x_i, \mu_j^{(n)}, \sigma_j^{(n)}\right)\pi_j^{(n)}}{\sum_k^C \G\left(x_i, \mu_k^{(n)}, \sigma_k^{(n)}\right)\pi_k^{(n)}}
         &\pi_j^{(n + 1)} = \frac{1}{n}\sum_{i = 1}^n h_{ij} \\

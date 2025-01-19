@@ -158,11 +158,8 @@
 	for every $x \in \R^1$. Does this imply that $f$ is continuous?
 
 	\begin{proof}
-		No. Consider $f(x) = \begin{cases}
-			1 & ,x = 0 \\
-			0 & ,x \neq 0
-		\end{cases}$. Since $f(x)$ is constant at all points other than $x = 0$, the condition stated
-		above holds for $f$. But then $\lim_{x \to 0} f(x) = 0 \neq 1 = f(0)$, so $f$ is not continuous.
+		No. Consider $f(x) = \begin{cases} 1 & ,x = 0 \\
+			0 & ,x \neq 0 \end{cases}$. Since $f(x)$ is constant at all points other than $x = 0$, the condition stated above holds for $f$. But then $\lim_{x \to 0} f(x) = 0 \neq 1 = f(0)$, so $f$ is not continuous.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -173,29 +170,19 @@
 	\[
 		f(\overline{E}) \subseteq \overline{f(E)}
 	\]
-	for every set $E \subseteq X$. ($\overline{E}$ denotes the closure of $E$.) Show, by an example,
-	that $f(\overline{E})$ can be a proper subset of $\overline{f(E)}$.
+	for every set $E \subseteq X$. ($\overline{E}$ denotes the closure of $E$.) Show, by an example, that $f(\overline{E})$ can be a proper subset of $\overline{f(E)}$.
 
 	\begin{proof}
-		Note that $f(E) \subseteq \overline{f(E)}$, so it suffices to show $f(E') \subseteq
-		\overline{f(E)}$. Let $p \in E'$. Since $f$ is continuous, for all $n \in \N$, there exists
-		$\delta_n > 0$ such that $d_Y(f(p), f(q)) < 1/n$ for all $d_X(p, q) < \delta_n$. But then $p$ is
-		a limit point of $E$, so we may pick $q_n \in E \cap N_{\delta_n}(p) \backslash \{p\}$ for each
-		$n \in \N$. Now, for arbitrary $\epsilon > 0$, we may find $f(q_n) \in f(E)$, such that
-		$d_Y(f(q_n), f(p)) < 1/n < \epsilon$, for large enough $n$. Hence, $f(p)$ is a limit point of
-		$f(E)$, and the result follows.
+		Note that $f(E) \subseteq \overline{f(E)}$, so it suffices to show $f(E') \subseteq \overline{f(E)}$. Let $p \in E'$. Since $f$ is continuous, for all $n \in \N$, there exists $\delta_n > 0$ such that $d_Y(f(p), f(q)) < 1/n$ for all $d_X(p, q) < \delta_n$. But then $p$ is a limit point of $E$, so we may pick $q_n \in E \cap N_{\delta_n}(p) \backslash \{p\}$ for each $n \in \N$. Now, for arbitrary $\epsilon > 0$, we may find $f(q_n) \in f(E)$, such that $d_Y(f(q_n), f(p)) < 1/n < \epsilon$, for large enough $n$. Hence, $f(p)$ is a limit point of $f(E)$, and the result follows.
 
-		Consider $X = \Q$ and $Y = \R$. Take $f: \Q \hookrightarrow \R$ to be the natural inclusion.
-		Since $\Q$ is closed in itself but $\overline{\Q} = \R$ in $\R$, $f(\overline{\Q}) = f(\Q) = \Q
-		\subset \R$.
+		Consider $X = \Q$ and $Y = \R$. Take $f: \Q \hookrightarrow \R$ to be the natural inclusion. Since $\Q$ is closed in itself but $\overline{\Q} = \R$ in $\R$, $f(\overline{\Q}) = f(\Q) = \Q \subset \R$.
 	\end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-	Let $f$ be a continuous real function on a metric space $X$. Let $Z(f)$ (the zero set of $f$) be
-	the set of all $p \in X$ at which $f(p) = 0$. Prove that $Z(f)$ is closed.
+	Let $f$ be a continuous real function on a metric space $X$. Let $Z(f)$ (the zero set of $f$) be the set of all $p \in X$ at which $f(p) = 0$. Prove that $Z(f)$ is closed.
 
 	\begin{proof}
 		Since $\{0\}$ is closed in $\R$, $Z(f) = f^{-1}(0)$ is closed in $X$, by Theorem 4.8.
@@ -205,19 +192,12 @@
 \newpage
 
 \begin{homeworkProblem}
-	Let $f$ and $g$ be continuous mappings of a metric space $X$ into a metric space $Y$, and let $E$
-	be a dense subset of $X$. Prove that $f(E)$ is dense in $f(X)$. If $g(p) = f(p)$ for all $p \in
-	E$, prove that $g(p) = f(p)$ for all $p \in X$ (In other words, a continuous function is
-	determined by its values on a dense subset of its domain).
+	Let $f$ and $g$ be continuous mappings of a metric space $X$ into a metric space $Y$, and let $E$ be a dense subset of $X$. Prove that $f(E)$ is dense in $f(X)$. If $g(p) = f(p)$ for all $p \in E$, prove that $g(p) = f(p)$ for all $p \in X$ (In other words, a continuous function is determined by its values on a dense subset of its domain).
 
 	\begin{proof}
-		Let $x \in X$. Fix $\epsilon > 0$. There exists $\delta > 0$ such that $d_Y(f(x), f(y)) <
-		\epsilon$, for any $y \in X$ with $d_X(x, y) < \delta$. Since $E$ is dense in $X$, there exists
-		$e \in E$ such that $d_X(x, e) < \delta$. But then $d_Y(f(x), f(e)) < \epsilon$. Since
-		$\epsilon$ was arbitrary, $f(E)$ is dense in $f(X)$.
+		Let $x \in X$. Fix $\epsilon > 0$. There exists $\delta > 0$ such that $d_Y(f(x), f(y)) < \epsilon$, for any $y \in X$ with $d_X(x, y) < \delta$. Since $E$ is dense in $X$, there exists $e \in E$ such that $d_X(x, e) < \delta$. But then $d_Y(f(x), f(e)) < \epsilon$. Since $\epsilon$ was arbitrary, $f(E)$ is dense in $f(X)$.
 		
-		We now prove the second question. Let $p \in X$. Since $E$ is dense in $X$, pick $p_n \in E \cap
-		(N_{\frac{1}{n}} \backslash \{p\})$, for each $n \in \N$. But then
+		We now prove the second question. Let $p \in X$. Since $E$ is dense in $X$, pick $p_n \in E \cap (N_{\frac{1}{n}} \backslash \{p\})$, for each $n \in \N$. But then
 		\[
 			f(p) = \lim_{n \to \infty} f(p_n) = \lim_{n \to \infty} g(p_n) = g(p).
 		\]
@@ -227,13 +207,10 @@
 \newpage
 
 \begin{homeworkProblem}
-	If $f$ is a real continuous function defined on a closed set $E \subseteq \R^1$, prove that there
-	exist continuous real functions on $\R^1$ such that $g(x) = f(x)$ for all $x \in E$. (Such
-	functions $g$ are called continuous extensions of $f$ from $E$ to $\R^1$.) 
+	If $f$ is a real continuous function defined on a closed set $E \subseteq \R^1$, prove that there exist continuous real functions on $\R^1$ such that $g(x) = f(x)$ for all $x \in E$. (Such functions $g$ are called continuous extensions of $f$ from $E$ to $\R^1$.) 
 
 	\begin{proof}
-		By exercise 2.29, $E^c$ is a union of countably many disjoint segments, say $E^c = \bigcup_{n =
-		1} (a_n, b_n)$, where $a_i < b_i \leq a_{i + 1}$ for all $i$. Define $g_n: (a_n, b_n) \to \R$ as
+		By exercise 2.29, $E^c$ is a union of countably many disjoint segments, say $E^c = \bigcup_{n = 1} (a_n, b_n)$, where $a_i < b_i \leq a_{i + 1}$ for all $i$. Define $g_n: (a_n, b_n) \to \R$ as
 		\[
 			g_n(x) \mapsto \begin{cases}
 				f(b_n), &a_n = -\infty \\
@@ -241,99 +218,52 @@
 				f(a_n) + \frac{f(b_n) - f(a_n)}{b_n - a_n} \cdot (x - a_n), & \text{otherwise}
 			\end{cases}.
 		\]
-		If we plotted out the two dimension graph of $g$, the image of each segment $(a_i, b_i)$ is a
-		straight line which connects $(a_i, f(a_i))$ and $(b_i, f(b_i))$. Note that we $g_n$ is
-		continuous, as it is either constant or a linear polynomial. Now define $g: \R \to \R$ as
+		If we plotted out the two dimension graph of $g$, the image of each segment $(a_i, b_i)$ is a straight line which connects $(a_i, f(a_i))$ and $(b_i, f(b_i))$. Note that we $g_n$ is continuous, as it is either constant or a linear polynomial. Now define $g: \R \to \R$ as
 		\[
 			g(x) \mapsto \begin{cases}
 				g_n(x), & x \in (a_n, b_n) \\
 				f(x), & \text{otherwise}
 			\end{cases}.
 		\]
-		Obvisouly, $g(x) = f(x)$ for all $x \in E$. Fix $\epsilon > 0$, and let $p \in \R$. Suppose $p
-		\notin E$. Since $E^c$ is open, $N_r(p) \subseteq E^c$ for some $r > 0$. Since $g_n(p)$ is
-		continuous, there exists $\delta \in (0, r)$, such that $|g_n(p) - g_n(q)| < \epsilon$ for all
-		$q \in N_{\delta}(p)$. But then $q \in E^c$, so $g(q) = g_n(q)$, and thus $g$ is continuous at
-		$p$. 
+		Obvisouly, $g(x) = f(x)$ for all $x \in E$. Fix $\epsilon > 0$, and let $p \in \R$. Suppose $p \notin E$. Since $E^c$ is open, $N_r(p) \subseteq E^c$ for some $r > 0$. Since $g_n(p)$ is continuous, there exists $\delta \in (0, r)$, such that $|g_n(p) - g_n(q)| < \epsilon$ for all $q \in N_{\delta}(p)$. But then $q \in E^c$, so $g(q) = g_n(q)$, and thus $g$ is continuous at $p$. 
 		
-		Now suppose $p \in E$. Since $f$ is continuous, there eixsts $\delta > 0$ such that $|g(p) -
-		g(q)| = |f(p) - f(q)| < \epsilon$, for all $q \in (p - \delta, p + \delta) \cap E$. We may
-		assume $(p - \delta, p + \delta)$ intersects with some $(a_i, b_i)$, otherwise we are done. 
+		Now suppose $p \in E$. Since $f$ is continuous, there eixsts $\delta > 0$ such that $|g(p) - g(q)| = |f(p) - f(q)| < \epsilon$, for all $q \in (p - \delta, p + \delta) \cap E$. We may assume $(p - \delta, p + \delta)$ intersects with some $(a_i, b_i)$, otherwise we are done. 
 		
-		Suppose some $(a_i, b_i) \subset (p - \delta, p + \delta)$. Since $a_i, b_i \in E$ and, by
-		construction, $\min(f(a_i), f(b_i)) \leq f(q) \leq \max(f(a_i), f(b_i))$ for $q \in (a_i, b_i)$,
-		we have $|g(p) - g(q)| < \epsilon$ for $q \in (a_i, b_i)$. 
+		Suppose some $(a_i, b_i) \subset (p - \delta, p + \delta)$. Since $a_i, b_i \in E$ and, by construction, $\min(f(a_i), f(b_i)) \leq f(q) \leq \max(f(a_i), f(b_i))$ for $q \in (a_i, b_i)$, we have $|g(p) - g(q)| < \epsilon$ for $q \in (a_i, b_i)$. 
 
-		Hence, we only have to care about the case where the ends of $(p - \delta, p + \delta)$ overlap
-		with other segments. Suppose $(p - \delta, p + \delta)$ partially intersects with the bottom
-		part of some $(a_i, b_i)$, then we shrunk the segment to $(p - \delta, p + \delta_a)$, with $a_i
-		= p + \delta_a$. Similarly, suppose $(p - \delta, p + \delta)$ partially intersects with the top
-		part of some $(a_i, b_i)$, then we shrunk the segment to $(p - \delta_b, p + \delta)$, with
-		$b_i = p + \delta_b$. 
+		Hence, we only have to care about the case where the ends of $(p - \delta, p + \delta)$ overlap with other segments. Suppose $(p - \delta, p + \delta)$ partially intersects with the bottom part of some $(a_i, b_i)$, then we shrunk the segment to $(p - \delta, p + \delta_a)$, with $a_i = p + \delta_a$. Similarly, suppose $(p - \delta, p + \delta)$ partially intersects with the top part of some $(a_i, b_i)$, then we shrunk the segment to $(p - \delta_b, p + \delta)$, with $b_i = p + \delta_b$. 
 		
-		Thus, if $\delta_a, \delta_b > 0$, we would end up with some neighborhood $N_p = (p - \delta_b,
-		p + \delta_a)$, where $\delta_a, \delta_b \leq \delta$, such that $|g(p) - g(q)| < \epsilon$ for
-		all $q \in N_p$.
+		Thus, if $\delta_a, \delta_b > 0$, we would end up with some neighborhood $N_p = (p - \delta_b, p + \delta_a)$, where $\delta_a, \delta_b \leq \delta$, such that $|g(p) - g(q)| < \epsilon$ for all $q \in N_p$.
 
-		Suppose $\delta_a = 0$. Then $p = a_i$, for some $i$. But then $\lim_{x \to a_i} g_i(x) =
-		g_i(a_i)$. Similarly, suppose $\delta_b = 0$. Then $p = b_i$, for some $i$. But then $\lim_{x
-		\to b_i} g_i(x) = g_i(b_i)$. Hence, in either case, we may still find some $\delta_a', \delta_b'
-		> 0$, such that $|g(p) - g(q)| < \epsilon$ for $q \in (p - \delta_b', p + \delta_a')$, and thus
-		$g(p)$ is continuous at $p$.
+		Suppose $\delta_a = 0$. Then $p = a_i$, for some $i$. But then $\lim_{x \to a_i} g_i(x) = g_i(a_i)$. Similarly, suppose $\delta_b = 0$. Then $p = b_i$, for some $i$. But then $\lim_{x \to b_i} g_i(x) = g_i(b_i)$. Hence, in either case, we may still find some $\delta_a', \delta_b' > 0$, such that $|g(p) - g(q)| < \epsilon$ for $q \in (p - \delta_b', p + \delta_a')$, and thus $g(p)$ is continuous at $p$.
 	\end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-	If $f$ is defined on $E$, the graph of $f$ is the set of points $(x, f(x))$, for $x \in E$. In
-	particular, if $E$ is a set of real numbers and $f$ is real-valued, the graph of $f$ is a subset
-	of the plane. Suppose $E$ is compact and prove that $f$ is continuous on $E$ if and only if its
-	graph is compact.
+	If $f$ is defined on $E$, the graph of $f$ is the set of points $(x, f(x))$, for $x \in E$. In particular, if $E$ is a set of real numbers and $f$ is real-valued, the graph of $f$ is a subset of the plane. Suppose $E$ is compact and prove that $f$ is continuous on $E$ if and only if its graph is compact.
 
 	\begin{proof}
-		Suppose $f: E \to Y$ is continuous. Define $\phi: E \to E \times Y$ that sends $x$ to $(x,
-		f(x))$. Fix $\epsilon > 0$. There exists $\nu > 0$ such that $d_Y(f(x), f(y)) < \epsilon/2$ for
-		$y \in N_{\nu}(x)$. Take $\delta = \min(\nu, \epsilon/2)$. We then have
+		Suppose $f: E \to Y$ is continuous. Define $\phi: E \to E \times Y$ that sends $x$ to $(x, f(x))$. Fix $\epsilon > 0$. There exists $\nu > 0$ such that $d_Y(f(x), f(y)) < \epsilon/2$ for $y \in N_{\nu}(x)$. Take $\delta = \min(\nu, \epsilon/2)$. We then have
 		\[
 			d(\phi(x), \phi(y)) = d_E(x, y) + d_Y(f(x), f(y)) < \min(\nu, \epsilon/2) + \epsilon/2 \leq \epsilon,
 		\]
-		for all $y \in E$ with $d_E(x, y) < \delta$. Since $\phi$ is a continuous mapping of a compact
-		metrix space, $\phi(E)$ is compact, by By Theorem 4.14.
+		for all $y \in E$ with $d_E(x, y) < \delta$. Since $\phi$ is a continuous mapping of a compact metrix space, $\phi(E)$ is compact, by By Theorem 4.14.
 
-		We now show the converse. Since $d(\phi(x), \phi(y)) \geq d_Y(f(x), f(y))$, it is obvious that
-		$f$ is continuous if $\phi$ is continuous, as the $\delta > 0$ that can be used to show the
-		continui of $\phi$ also applies to show that of $f$. Hence, suppose $f$ is not continuous at
-		some point $p$, then $\phi$ is not continuous at $p$. Then, there exists a sequence $p_n$ that
-		converges to $p$ while $\phi(p_n)$ does not converge to $\phi(p)$. We may assume that some
-		subsequence $\phi(p_{n_i})$ converges, otherwise $\phi(E)$ is not compact, by Theorem 3.6. But
-		then $\phi(p_{n_i})$ converges to some point $k$, where $f(p) \neq k$. Since $f$ is
-		well-defined, $(p, k) \neq (p, f(p))$ is a limit point not contained in $\phi(E)$. Hence,
-		$\phi(E)$ is not closed, and thus it is not compact, by Theorem 2.34.
+		We now show the converse. Since $d(\phi(x), \phi(y)) \geq d_Y(f(x), f(y))$, it is obvious that $f$ is continuous if $\phi$ is continuous, as the $\delta > 0$ that can be used to show the continui of $\phi$ also applies to show that of $f$. Hence, suppose $f$ is not continuous at some point $p$, then $\phi$ is not continuous at $p$. Then, there exists a sequence $p_n$ that converges to $p$ while $\phi(p_n)$ does not converge to $\phi(p)$. We may assume that some subsequence $\phi(p_{n_i})$ converges, otherwise $\phi(E)$ is not compact, by Theorem 3.6. But then $\phi(p_{n_i})$ converges to some point $k$, where $f(p) \neq k$. Since $f$ is well-defined, $(p, k) \neq (p, f(p))$ is a limit point not contained in $\phi(E)$. Hence, $\phi(E)$ is not closed, and thus it is not compact, by Theorem 2.34.
 	\end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-	Let $f$ be a real uniformly continuous function on the bounded set $E$ in $\R^1$. Prove that $f$
-	is bounded on $E$. Show that the conclusion is false if the boundedness of $E$ is omitted from the
-	hypothesis.
+	Let $f$ be a real uniformly continuous function on the bounded set $E$ in $\R^1$. Prove that $f$ is bounded on $E$. Show that the conclusion is false if the boundedness of $E$ is omitted from the hypothesis.
 
 	\begin{proof}
-		Suppose for the sake of contradiction that $f$ is unbounded on $E$. Then, we may pick $p_n$ such
-		that $|f(p_n)| > n$, for each $n \in \N$. Note that $f(p_n) \to \infty$. But $p_n$ is a sequence
-		in a bounded set $E$, so there exists a convergent subsequence $p_{n_i}$, by Theorem 3.6. Fix
-		$\epsilon > 0$. Since $f$ is uniformly continuous, there exists $\delta > 0$ such that $|f(x) -
-		f(y)| < \epsilon$ for all $|x - y| < \delta$. Since $p_{n_i}$ is a Cauchy sequence by Theorem
-		3.11, there exists integer $N$ such that $|p_{n_i} - p_{n_j}| < \delta$ for $i, j \geq N$ and
-		thus $|f(p_{n_i}) - f(p_{n_j})| < \epsilon$. Hence, $|f(p_{n_i})| \leq |f(p_{n_i}) -
-		f(p_{n_j})| + |f(p_{n_j})| < \epsilon + |f(p_{n_j})|$. Fixing $j$, we have $\lim_{i \to \infty}
-		|f(p_{n_i})| \leq \epsilon + |f(p_{n_j})|$, contradicting our choice of $p_n$.
+		Suppose for the sake of contradiction that $f$ is unbounded on $E$. Then, we may pick $p_n$ such that $|f(p_n)| > n$, for each $n \in \N$. Note that $f(p_n) \to \infty$. But $p_n$ is a sequence in a bounded set $E$, so there exists a convergent subsequence $p_{n_i}$, by Theorem 3.6. Fix $\epsilon > 0$. Since $f$ is uniformly continuous, there exists $\delta > 0$ such that $|f(x) - f(y)| < \epsilon$ for all $|x - y| < \delta$. Since $p_{n_i}$ is a Cauchy sequence by Theorem 3.11, there exists integer $N$ such that $|p_{n_i} - p_{n_j}| < \delta$ for $i, j \geq N$ and thus $|f(p_{n_i}) - f(p_{n_j})| < \epsilon$. Hence, $|f(p_{n_i})| \leq |f(p_{n_i}) - f(p_{n_j})| + |f(p_{n_j})| < \epsilon + |f(p_{n_j})|$. Fixing $j$, we have $\lim_{i \to \infty} |f(p_{n_i})| \leq \epsilon + |f(p_{n_j})|$, contradicting our choice of $p_n$.
 
-		Define $f: \R \to \R$ as $f(x) = x$. For $\epsilon > 0$, there exists $\delta = \epsilon$ such
-		that $|f(x) - f(y)| = |x - y| < \epsilon$ for all $|x - y| < \delta$. It follows that $f$ is
-		uniformly continuous but unbounded, so the conclusion is false if $E$ is not bounded.
+		Define $f: \R \to \R$ as $f(x) = x$. For $\epsilon > 0$, there exists $\delta = \epsilon$ such that $|f(x) - f(y)| = |x - y| < \epsilon$ for all $|x - y| < \delta$. It follows that $f$ is uniformly continuous but unbounded, so the conclusion is false if $E$ is not bounded.
 	\end{proof}
 \end{homeworkProblem}
 \end{document}

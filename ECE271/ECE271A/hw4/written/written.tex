@@ -156,8 +156,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  \textbf{Bayesian regression}: 
-  in last week's problem set we showed that various forms of linear regression by the method of least squares are really just particular cases of ML estimation under the model
+  \textbf{Bayesian regression}: in last week's problem set we showed that various forms of linear regression by the method of least squares are really just particular cases of ML estimation under the model
   \[
     \mathbf{z} = \mathbf{\Phi}\theta + \epsilon,
   \]
@@ -169,9 +168,7 @@
       1 & \dots & x_n^K \\
     \end{bmatrix}
   \]
-  and $\epsilon = (\epsilon_1, \dots, \epsilon_n)^T$ is a normal random process $\epsilon \sim \N(\mathbf{0, \Sigma})$.
-  It seems only natural to consider the Bayesian extension of this model, an extension that has been the subject of some recent research under the denomination of \textit{Gaussian processes}.
-  For this, we simply extend the model considering a Gaussian prior
+  and $\epsilon = (\epsilon_1, \dots, \epsilon_n)^T$ is a normal random process $\epsilon \sim \N(\mathbf{0, \Sigma})$. It seems only natural to consider the Bayesian extension of this model, an extension that has been the subject of some recent research under the denomination of \textit{Gaussian processes}. For this, we simply extend the model considering a Gaussian prior
   \[
     P_{\theta}(\theta) = \G(\theta, \mathbf{0, \Gamma}).
   \]
@@ -203,13 +200,11 @@
     &\propto \exp\left\{-\frac{1}{2}\left(\theta^T\mathbf{\Sigma}^{-1}_{\theta}\theta - 2\theta^T\mathbf{\Sigma}^{-1}_{\theta}\mu_{\theta}\right)\right\} \\
     &\propto \exp\left\{-\frac{1}{2}\left[(\theta - \mu_{\theta})^T\mathbf{\Sigma}^{-1}_{\theta}(\theta - \mu_{\theta})\right]\right\},
   \end{align*}
-  where $\mathbf{\Sigma}_{\theta} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}$ and $\mu_{\theta} = \mathbf{\Sigma}_{\theta}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$.
-  Therefore, 
+  where $\mathbf{\Sigma}_{\theta} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}$ and $\mu_{\theta} = \mathbf{\Sigma}_{\theta}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$. Therefore, 
   \[
     P_{\theta|T}(\theta|\D) = \G(\theta, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}).
   \]
-  Let $\xi = \phi^T\theta$.
-  Then, the predictive distribution
+  Let $\xi = \phi^T\theta$. Then, the predictive distribution
   \begin{align*}
     P_{z|T, x}(z|\D, x)
     &= \int P_{z|\xi, x}(z|\xi, x)P_{\xi|T}(\xi|\D) d\xi \\
@@ -224,43 +219,29 @@
   \[
     \theta_{MAP} = \underset{\theta}{\arg \max} \, P_{\theta|\mathbf{T}}(\theta|\D).
   \]
-  How does it differ from the weighted least squares estimate?
-  What is the role of the terms that were not present in the latter?
-  Is there any advantage in setting them to anything other than zero?
-  \\
+  How does it differ from the weighted least squares estimate? What is the role of the terms that were not present in the latter? Is there any advantage in setting them to anything other than zero? \\
 
   \textbf{Solution}
 
-  Since $P_{\theta|T}(\theta|\D) = \G(\theta, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1})$ is simply a gaussian distribution, the map estimate $\theta_{MAP} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$.
-  From last week, we get that the weighted least equares estimate is $\theta_{ML} =  (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$.
-  Notice that the weighted least equares estimate is missing the term $\mathbf{\Gamma}^{-1}$ in the $\mathbf{\Sigma}_{\theta}$ term of $\theta_{MAP}$.
-  $\mathbf{\Gamma}^{-1}$ plays the role of regularization for the model.
-  An example of the advantage of setting $\mathbf{\Gamma}^{-1}$ to a non-zero value is that it allows us to adjust the importance of each order of the polynomial terms.
-  \\
+  Since $P_{\theta|T}(\theta|\D) = \G(\theta, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}, (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1})$ is simply a gaussian distribution, the map estimate $\theta_{MAP} = (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi} + \mathbf{\Gamma}^{-1})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$. From last week, we get that the weighted least equares estimate is $\theta_{ML} =  (\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{\Phi})^{-1}\mathbf{\Phi}^T\mathbf{\Sigma}^{-1}\mathbf{z}$. Notice that the weighted least equares estimate is missing the term $\mathbf{\Gamma}^{-1}$ in the $\mathbf{\Sigma}_{\theta}$ term of $\theta_{MAP}$. $\mathbf{\Gamma}^{-1}$ plays the role of regularization for the model. An example of the advantage of setting $\mathbf{\Gamma}^{-1}$ to a non-zero value is that it allows us to adjust the importance of each order of the
+  polynomial terms. \\
 
   \part{C}
 
-  Consider the case in which prior covariance $\mathbf{\Gamma}$ is a diagonal matrix, not necessarily the identity.
-  Suppose that you are told that $K$, i.e. the number of parameters in $\theta$ or the degree of the polynomial $\phi(x)^T\theta$, is somewhere between 1 and 25. 
-  How would you set up $\mathbf{\Gamma}$ and why? 
-  Discuss the implications of your selection on the bias and variance of your MAP solution
+  Consider the case in which prior covariance $\mathbf{\Gamma}$ is a diagonal matrix, not necessarily the identity. Suppose that you are told that $K$, i.e. the number of parameters in $\theta$ or the degree of the polynomial $\phi(x)^T\theta$, is somewhere between 1 and 25. How would you set up $\mathbf{\Gamma}$ and why? Discuss the implications of your selection on the bias and variance of your MAP solution
   \[
     z_{MAP} = \mathbf{\Phi}(x)\theta_{MAP}.
   \]
 
   \textbf{Solution}
 
-  Since a polynomial of degree 25 is going to be extremely "wiggly," it is highly likely that it would end up overfitting the training data, so I would heavily bias against the higher orders and favor the lower orders.
-  Therefore, I would set a monotonicity decreasing sequence along the diagonal of $\mathbf{\Gamma}$, where the last few entries are close to 0.
-  In terms of the prior distribution $P_{\theta}(\theta) = \G(\theta, \mathbf{0, \Gamma})$, doing so it basically say that the first few entries of $\theta$ is of a wide range of numbers depending on the data, but the last few are most likely going to be $0$. 
-  Since we are removing the flexibility of the higher order terms of the polynomial $z_{MAP}$, the variance would get lower but the bias would get higher.
+  Since a polynomial of degree 25 is going to be extremely "wiggly," it is highly likely that it would end up overfitting the training data, so I would heavily bias against the higher orders and favor the lower orders. Therefore, I would set a monotonicity decreasing sequence along the diagonal of $\mathbf{\Gamma}$, where the last few entries are close to 0. In terms of the prior distribution $P_{\theta}(\theta) = \G(\theta, \mathbf{0, \Gamma})$, doing so it basically say that the first few entries of $\theta$ is of a wide range of numbers depending on the data, but the last few are most likely going to be $0$. Since we are removing the flexibility of the higher order terms of the polynomial $z_{MAP}$, the variance would get lower but the bias would get higher.
 \end{homeworkProblem}  
 
 \pagebreak
 
 \begin{homeworkProblem}
-  In this problem we explore the exponential family and conjugate priors. 
-  The exponential family is the family of densities of the form
+  In this problem we explore the exponential family and conjugate priors. The exponential family is the family of densities of the form
   \[
     P_{\mathbf{X}|\theta} = f(\mathbf{x})g(\theta)e^{\phi(\theta)^Tu(\mathbf{x})}
   \]
@@ -275,8 +256,7 @@
   \[
     P_{\mathbf{T}|\theta} \propto \prod_{i = 1}^n f(\mathbf{x}_i)\exp\left\{\phi(\theta)^T\sum_{i = 1}^n u(\mathbf{x}_i)\right\}.
   \]
-  What is the normalization constant?
-  \\
+  What is the normalization constant? \\
   
   \textbf{Solution}
   
@@ -291,20 +271,15 @@
   \[
     P_{\mathbf{T}|\theta} \propto \prod_{i = 1}^n f(\mathbf{x}_i)\exp\left\{\phi(\theta)^T\sum_{i = 1}^n u(\mathbf{x}_i)\right\},
   \]
-  the normalization constant is $g(\theta)^n$.
-  \\
+  the normalization constant is $g(\theta)^n$. \\
 
   \part{B}
 
-  It has been shown that, apart from certain irregular cases, the exponential family is the only family of distributions for which there is a conjugate prior. 
-  Show that
+  It has been shown that, apart from certain irregular cases, the exponential family is the only family of distributions for which there is a conjugate prior. Show that
   \[
     P_{\theta}(\theta) = \frac{g(\theta)^{\eta}e^{\phi(\theta)^T\nu}}{\int g(\theta)^{\eta}e^{\phi(\theta)^T\nu} d\theta}
   \]
-  is a conjugate prior for the exponential family and compute the posterior distribution $P_{\theta|\mathbf{T}}(\theta|\D)$.
-  Denoting $\mathbf{s} = \sum_{i = 1}^n u(\mathbf{x}_i)$ as the \textit{sufficient statistic}, compare the posterior with prior density. 
-  What is the result of “propagating” the prior through the likelihood function?
-  \\
+  is a conjugate prior for the exponential family and compute the posterior distribution $P_{\theta|\mathbf{T}}(\theta|\D)$. Denoting $\mathbf{s} = \sum_{i = 1}^n u(\mathbf{x}_i)$ as the \textit{sufficient statistic}, compare the posterior with prior density. What is the result of “propagating” the prior through the likelihood function? \\
 
   \textbf{Solution}
 
@@ -319,12 +294,7 @@
   \[
     P_{\theta|\mathbf{T}}(\theta|\D) = \frac{g(\theta)^{\eta + n} \exp\left\{\phi(\theta)^T\left(\nu + \mathbf{s}\right)\right\}}{\int g(\theta)^{\eta + n} \exp\left\{\phi(\theta)^T\left(\nu + \mathbf{s}\right)\right\} d\theta},
   \]
-  and so the posterior is of the same form as the prior, with $\eta$ replaced as $\eta + n$ and $\nu$ replaced as $\nu + \mathbf{s}$.
-  Hence, $P_{\theta}$ is indeed a conjugate prior for the exponential family.
-  The result could be viewed as updating the prior with the newly observed data.
-  We can think of $\eta$ as the virtual sample size and $n$ as the sample size of the training set.
-  Similarly, $\nu$ can be think of as the value of the virtual sample and $\mathbf{s}$ as the actual data from the training set.
-  \\
+  and so the posterior is of the same form as the prior, with $\eta$ replaced as $\eta + n$ and $\nu$ replaced as $\nu + \mathbf{s}$. Hence, $P_{\theta}$ is indeed a conjugate prior for the exponential family. The result could be viewed as updating the prior with the newly observed data. We can think of $\eta$ as the virtual sample size and $n$ as the sample size of the training set. Similarly, $\nu$ can be think of as the value of the virtual sample and $\mathbf{s}$ as the actual data from the training set. \\
 
   \part{C}
 
@@ -384,8 +354,7 @@
       &\propto (1 - \theta)^{\alpha + \beta - 2}\exp \left\{(\alpha - 1)\log\left(\frac{\theta}{1 - \theta}\right)\right\} \\
       &\propto (1 - \theta)^{\eta}\exp \left\{\log\left(\frac{\theta}{1 - \theta}\right)\nu\right\},
     \end{align*}
-    the Beta function is a conjugate prior for the likelihood function for the Bernoulli distribution, with $\eta = \alpha + \beta - 2$, $\nu = \alpha - 1$, $g(\theta) = 1 - \theta$, and $\phi = \log \frac{\theta}{1 - \theta}$.
-    \\
+    the Beta function is a conjugate prior for the likelihood function for the Bernoulli distribution, with $\eta = \alpha + \beta - 2$, $\nu = \alpha - 1$, $g(\theta) = 1 - \theta$, and $\phi = \log \frac{\theta}{1 - \theta}$. \\
 
     \textbf{Poisson}
 
@@ -394,8 +363,7 @@
       \frac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha - 1}e^{-\beta\theta}
       &\propto e^{-\eta \theta} \exp \left\{\log(\theta)\nu\right\},
     \end{align*}
-    the Gamma function is a conjugate prior for the likelihood function for the Poisson distribution, with $\eta = \beta$, $\nu = \alpha - 1$, $g(\theta) = e^{-\theta}$, and $\phi = \log \theta$.
-    \\
+    the Gamma function is a conjugate prior for the likelihood function for the Poisson distribution, with $\eta = \beta$, $\nu = \alpha - 1$, $g(\theta) = e^{-\theta}$, and $\phi = \log \theta$. \\
 
     \textbf{Exponential}
 
@@ -460,31 +428,19 @@
     
     \textbf{Bernoulli}
 
-    The sifficient statistic here represents the number of tosses in $\D$ that results in $1$.
-    The propagation in this case represents the addition of virtual tosses we have.
-    Of the total $\alpha + \beta - 2$ tosses, $\alpha - 1$ of them are $1$ and $\beta - 1$ of them are $0$.
-    Hence, the prior suggests that the chance to toss an 1 should be closer to $\frac{\alpha - 1}{\alpha + \beta - 2}$.
+    The sifficient statistic here represents the number of tosses in $\D$ that results in $1$. The propagation in this case represents the addition of virtual tosses we have. Of the total $\alpha + \beta - 2$ tosses, $\alpha - 1$ of them are $1$ and $\beta - 1$ of them are $0$. Hence, the prior suggests that the chance to toss an 1 should be closer to $\frac{\alpha - 1}{\alpha + \beta - 2}$.
 
     \textbf{Poisson}
 
-    The sifficient statistic here represents the sum of the number of times an event was triggered in $\D$.
-    The propagation in this case represents addition of the virtual experiments that was done.
-    Of the $\beta$ virtual experiments, the total number of times an event was triggered is $\alpha - 1$.
-    Hence, the prior suggests that the rate of trigger should be closer to $\frac{\alpha - 1}{\beta}$.
+    The sifficient statistic here represents the sum of the number of times an event was triggered in $\D$. The propagation in this case represents addition of the virtual experiments that was done. Of the $\beta$ virtual experiments, the total number of times an event was triggered is $\alpha - 1$. Hence, the prior suggests that the rate of trigger should be closer to $\frac{\alpha - 1}{\beta}$.
 
     \textbf{Exponential}
 
-    The sufficent statistic here represents the sum of the time we waited in $\D$.
-    The propagation in this case represents the addition of the virtual experiments that was done.
-    Of the $\alpha - 1$ virtual experiments, the total time we waited is $\beta$.
-    Hence, the prior suggests that the wait time should be closer to $\frac{\beta}{\alpha - 1}$.
+    The sufficent statistic here represents the sum of the time we waited in $\D$. The propagation in this case represents the addition of the virtual experiments that was done. Of the $\alpha - 1$ virtual experiments, the total time we waited is $\beta$. Hence, the prior suggests that the wait time should be closer to $\frac{\beta}{\alpha - 1}$.
 
     \textbf{Normal}
 
-    The sufficent statistic here represents the sum of the variance between each sample in $\D$ and the mean.
-    The propagation in this case represents the addition of the virtual sample.
-    Of the $2\alpha - 2$ virtual experiments, the sum of all variances is $2\beta$.
-    Hence, the prior suggests that the variance should be closer to $\frac{\beta}{\alpha - 1}$.
+    The sufficent statistic here represents the sum of the variance between each sample in $\D$ and the mean. The propagation in this case represents the addition of the virtual sample. Of the $2\alpha - 2$ virtual experiments, the sum of all variances is $2\beta$. Hence, the prior suggests that the variance should be closer to $\frac{\beta}{\alpha - 1}$.
   \end{enumerate}
 \end{homeworkProblem}
 \end{document}

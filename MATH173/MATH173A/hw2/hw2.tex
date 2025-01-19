@@ -157,9 +157,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  Using the conditions of optimality, find the extreme points of the following functions and
-  determine whether they are maxima or minima. You may use a computer to find the eigenvalues, but
-  these questions should have easily accessible eigenvalues by hand.
+  Using the conditions of optimality, find the extreme points of the following functions and determine whether they are maxima or minima. You may use a computer to find the eigenvalues, but these questions should have easily accessible eigenvalues by hand.
 
   \begin{enumerate}[(a)]
     \item $f: \mathbb{R}^2 \to \mathbb{R}$ for $f(x_1, x_2) = x_1^4 + 2x_2^4 - 4x_1 x_2$
@@ -173,8 +171,7 @@
           -4 & 24x_2^2
         \end{bmatrix}.
       \end{gather*}
-      Thus, the critical points are $x^* = (0, 0)$ or $\pm(2^{-1/8}, 2^{-3/8})$. We can then
-      check
+      Thus, the critical points are $x^* = (0, 0)$ or $\pm(2^{-1/8}, 2^{-3/8})$. We can then check
       \begin{gather*}
         \nabla^2 f(0, 0) = \begin{bmatrix}
           0 & -4 \\
@@ -185,14 +182,10 @@
           -4 & 24 \cdot 2^{-3/4}
         \end{bmatrix}.
       \end{gather*}
-      Since the eigenvalues of $\nabla^2 f(0, 0)$ are $\pm 4$, $(0, 0)$ is a saddle point. Since
-      $\det \nabla^2 f(2^{-1/8}, 2^{-3/8}) = \det \nabla^2 f(-2^{-1/8}, -2^{-3/8}) = 128 > 0$ and
-      $\frac{\partial^2 f}{\partial x_1^2} > 0$, the critical points $\pm (2^{-1/8}, 2^{-3/8})$
-      are local minima.
+      Since the eigenvalues of $\nabla^2 f(0, 0)$ are $\pm 4$, $(0, 0)$ is a saddle point. Since $\det \nabla^2 f(2^{-1/8}, 2^{-3/8}) = \det \nabla^2 f(-2^{-1/8}, -2^{-3/8}) = 128 > 0$ and $\frac{\partial^2 f}{\partial x_1^2} > 0$, the critical points $\pm (2^{-1/8}, 2^{-3/8})$ are local minima.
     \end{proof}
 
-    \item $f: \mathbb{R}^3 \to \mathbb{R}$ for $f(\vec{x}) = \vec{x}^T A \vec{x} + b^T \vec{x}$,
-    where
+    \item $f: \mathbb{R}^3 \to \mathbb{R}$ for $f(\vec{x}) = \vec{x}^T A \vec{x} + b^T \vec{x}$, where
     \[
     A = \begin{bmatrix}
     -1 & 0 & \frac{1}{2} \\
@@ -219,8 +212,7 @@
           \frac{4}{3}
         \end{bmatrix}.
       \]
-      Since the eigenvalues of $\nabla^2 f(\vec{x}) = 2A$ are $-1, -2, -3$, we know $\nabla^2
-      f(\vec{x}) \prec 0$ and the critical point is a local maximum.
+      Since the eigenvalues of $\nabla^2 f(\vec{x}) = 2A$ are $-1, -2, -3$, we know $\nabla^2 f(\vec{x}) \prec 0$ and the critical point is a local maximum.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -271,9 +263,7 @@
         \nabla F(w) = \frac{1}{N} \sum_{i=1}^N \frac{-y_i e^{-\langle w, x_i \rangle y_i}}{1 + e^{-\langle w, x_i \rangle y_i}} x_i  \\
         \nabla^2 F(w) = \frac{1}{N} \sum_{i=1}^N \frac{y_i^2 e^{-\langle w, x_i \rangle y_i}}{(1 + e^{-\langle w, x_i \rangle y_i})^2} x_ix_i^T.
       \end{gather*}
-      Since $x_ix_i^T \succeq 0$, $\frac{y_i^2 e^{-\langle w, x_i \rangle y_i}}{(1 + e^{-\langle w,
-      x_i \rangle y_i})^2} \geq 0$, and the sum of positive semidefinite matrices is positive
-      semidefinite, $\nabla^2 F(w) \succeq 0$. Thus, $F(w)$ is convex.
+      Since $x_ix_i^T \succeq 0$, $\frac{y_i^2 e^{-\langle w, x_i \rangle y_i}}{(1 + e^{-\langle w, x_i \rangle y_i})^2} \geq 0$, and the sum of positive semidefinite matrices is positive semidefinite, $\nabla^2 F(w) \succeq 0$. Thus, $F(w)$ is convex.
     \end{proof}
     \item Find a gradient descent algorithm for minimizing $F$.
     \begin{proof}
@@ -294,8 +284,7 @@
   \[
     a_1x^2 + a_2y^2 = 1.
   \]
-  Given data $\{(x_i, y_i)\}_{i=1}^N \subset \mathbb{R}^2$ that lie on (or near) the ellipse, you
-  can find the best fit ellipse by solving
+  Given data $\{(x_i, y_i)\}_{i=1}^N \subset \mathbb{R}^2$ that lie on (or near) the ellipse, you can find the best fit ellipse by solving
   \[
     \min_{\mathbf{a} \in \mathbb{R}^2} f(\mathbf{a})
   \]
@@ -305,19 +294,14 @@
   \]
 
   \begin{enumerate}[(a)]
-    \item Find an $A \in \mathbb{R}^{N \times 2}$ and $b \in \mathbb{R}^N$ such that $f(\mathbf{a})
-    = \|A \mathbf{a} - b\|_2^2$. What is $A$ in terms of $(x_i, y_i)$?
+    \item Find an $A \in \mathbb{R}^{N \times 2}$ and $b \in \mathbb{R}^N$ such that $f(\mathbf{a}) = \|A \mathbf{a} - b\|_2^2$. What is $A$ in terms of $(x_i, y_i)$?
 
     \begin{proof}
-      Put $A = \begin{bmatrix}
-        x_1^2 & y_1^2 \\
+      Put $A = \begin{bmatrix} x_1^2 & y_1^2 \\
         \vdots & \vdots \\
-        x_N^2 & y_N^2
-      \end{bmatrix}$ and $b = \begin{bmatrix}
-        1 \\
+        x_N^2 & y_N^2 \end{bmatrix}$ and $b = \begin{bmatrix} 1 \\
         \vdots \\
-        1
-      \end{bmatrix}$ and we have
+        1 \end{bmatrix}$ and we have
       \begin{align*}
         f(\mathbf{a}) &= \sum_{i=1}^{N} \left( a_1 x_i^2 + a_2 y_i^2 - 1 \right)^2 \\
         &= \sum_{i=1}^{N} \left( \begin{bmatrix}
@@ -330,8 +314,7 @@
       \end{align*}
     \end{proof}
 
-    \item Download the data provided on the HW page (called \texttt{HW2.ellipse.csv}), and create a
-    scatter plot of the points (submit your code and the plot).
+    \item Download the data provided on the HW page (called \texttt{HW2.ellipse.csv}), and create a scatter plot of the points (submit your code and the plot).
 
     \begin{center}
       \includegraphics[width=.95\textwidth]{ellipse.png}
@@ -340,52 +323,30 @@
     \textbf{Code:}
 
     \begin{lstlisting}[language=Python]
-      ellipse = pd.read_csv('HW2_ellipse.csv', header=None)
-      ellipse.columns = ['x', 'y']
-      fig = plt.figure(figsize=(24, 12))
-      ax = fig.add_subplot(1, 1, 1)  
+      ellipse = pd.read_csv('HW2_ellipse.csv', header=None) ellipse.columns = ['x', 'y'] fig = plt.figure(figsize=(24, 12)) ax = fig.add_subplot(1, 1, 1)  
       ax.plot(ellipse['x'], ellipse['y'], '.', color='black')
     \end{lstlisting}
 
 
 
-    \item Using Problem 3, create computer code to compute the gradient descent algorithm on this
-    $f(\mathbf{a})$. The code must include a stopping condition. Use a step-size of $\mu =
-    \frac{1}{2 \|\mathbf{A}^T \mathbf{A}\|}$. Note, you cannot use a built-in gradient descent
-    algorithm; it must be written with a while or for loop. Also note, the norm of a matrix
-    $\|\mathbf{X}\| = \lambda_{\text{max}}(\mathbf{X})$ is the largest eigenvalue of $\mathbf{X}$,
-    and can be computed using \texttt{norm(X,2)} in MATLAB or \texttt{np.linalg.norm(X,2)} in
-    Python. (Submit the code)
+    \item Using Problem 3, create computer code to compute the gradient descent algorithm on this $f(\mathbf{a})$. The code must include a stopping condition. Use a step-size of $\mu = \frac{1}{2 \|\mathbf{A}^T \mathbf{A}\|}$. Note, you cannot use a built-in gradient descent algorithm; it must be written with a while or for loop. Also note, the norm of a matrix $\|\mathbf{X}\| = \lambda_{\text{max}}(\mathbf{X})$ is the largest eigenvalue of $\mathbf{X}$, and can be computed using \texttt{norm(X,2)} in MATLAB or \texttt{np.linalg.norm(X,2)} in Python. (Submit the code)
 
     \textbf{Code:}
 
     \begin{lstlisting}[language=Python]
-      A = ellipse.values * ellipse.values
-      b = np.ones((A.shape[0], 1))
-      mu = 1/(2 * np.linalg.norm(A.T @ A, 2))
-      a = np.random.rand(2, 1)
+      A = ellipse.values * ellipse.values b = np.ones((A.shape[0], 1)) mu = 1/(2 * np.linalg.norm(A.T @ A, 2)) a = np.random.rand(2, 1)
 
-      def df(x):
-          return 2 * A.T @ (A @ x - b)
+      def df(x): return 2 * A.T @ (A @ x - b)
 
-      for i in range(1000):
-          a = a - mu * df(a)
+      for i in range(1000): a = a - mu * df(a)
     \end{lstlisting}
 
 
-    \item Using the data provided and your gradient descent code, estimate the solution
-    $\mathbf{a}$. Report $\mathbf{a}$ and $f(\mathbf{a})$. Given $f(\mathbf{a})$ and $N$, do you
-    think you fit the data well or poorly? Given the convexity of $f$, do you think this is the
-    optimal $\mathbf{a}$?
+    \item Using the data provided and your gradient descent code, estimate the solution $\mathbf{a}$. Report $\mathbf{a}$ and $f(\mathbf{a})$. Given $f(\mathbf{a})$ and $N$, do you think you fit the data well or poorly? Given the convexity of $f$, do you think this is the optimal $\mathbf{a}$?
 
     \begin{proof}[Solution]
-      The solution estimated by the code is $\mathbf{a} \approx \begin{bmatrix}
-        0.5001 \\
-        1.9946 \end{bmatrix}$, with $f(\mathbf{a}) \approx 0.4641$. Since we are given $N = 1000$
-      points, on average each point is only off by $f(\mathbf{a})/N \approx 0.0004641$, which is a
-      small enough number to me. Given that $\Delta f(\mathbf{a}) \approx 0$, I believe $\mathbf{a}$
-      has reached a local minimum up to some computational error. Since  $f$ is convex, $\mathbf{a}$
-      is extremely close to the theoretical optimal solution.
+      The solution estimated by the code is $\mathbf{a} \approx \begin{bmatrix} 0.5001 \\
+        1.9946 \end{bmatrix}$, with $f(\mathbf{a}) \approx 0.4641$. Since we are given $N = 1000$ points, on average each point is only off by $f(\mathbf{a})/N \approx 0.0004641$, which is a small enough number to me. Given that $\Delta f(\mathbf{a}) \approx 0$, I believe $\mathbf{a}$ has reached a local minimum up to some computational error. Since  $f$ is convex, $\mathbf{a}$ is extremely close to the theoretical optimal solution.
     \end{proof}
   \end{enumerate}
 

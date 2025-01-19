@@ -162,8 +162,7 @@
   \end{bmatrix}
   \]
   
-  and initial distribution \(p_0 = \Pr\{X_0 = 0\} = 0.3\), \(p_1 = \Pr\{X_0 = 1\} = 0.4\), and \(p_2
-  = \Pr\{X_0 = 2\} = 0.3\). Determine \(\Pr\{X_0 = 0, X_1 = 1, X_2 = 2\}\).
+  and initial distribution \(p_0 = \Pr\{X_0 = 0\} = 0.3\), \(p_1 = \Pr\{X_0 = 1\} = 0.4\), and \(p_2 = \Pr\{X_0 = 2\} = 0.3\). Determine \(\Pr\{X_0 = 0, X_1 = 1, X_2 = 2\}\).
   
   \begin{proof}
     \[
@@ -201,22 +200,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  A simplified model for the spread of a disease goes this way: The total population size is \( N =
-  5 \), of which some are diseased and the remainder are healthy. During any single period of time,
-  two people are selected at random from the population and assumed to interact. The selection is
-  such that an encounter between any pair of individuals in the population is just as likely as
-  between any other pair. If one of these persons is diseased and the other not, with probability \(
-  \alpha = 0.1 \) the disease is transmitted to the healthy person. Otherwise, no disease
-  transmission takes place. Let \( X_n \) denote the number of diseased persons in the population at
-  the end of the \( n \)th period. Specify the transition probability matrix.
+  A simplified model for the spread of a disease goes this way: The total population size is \( N = 5 \), of which some are diseased and the remainder are healthy. During any single period of time, two people are selected at random from the population and assumed to interact. The selection is such that an encounter between any pair of individuals in the population is just as likely as between any other pair. If one of these persons is diseased and the other not, with probability \( \alpha = 0.1 \) the disease is transmitted to the healthy person. Otherwise, no disease transmission takes place. Let \( X_n \) denote the number of diseased persons in the population at the end of the \( n \)th period. Specify the transition probability matrix.
   
   \begin{proof}
-    Note that $X_n$ can either increment by one or stay the same in a single period of time. $X_n$
-    increase by one if and only if one diseased and one healthy people are selected and the disease
-    succfully transmitted during the period of time, of which the probability is $\alpha\frac{{X_{n
-    - 1} \choose 1}{5 - X_{n - 1} \choose 1}}{{5 \choose 2}} = \frac{X_{n - 1}(5 - X_{n -
-    1})}{100}$. Thus, the probability that $X_n$ remain the same is $1 - \frac{X_{n - 1}(5 - X_{n -
-    1})}{100}$. Hence, we have the trasition matrix is
+    Note that $X_n$ can either increment by one or stay the same in a single period of time. $X_n$ increase by one if and only if one diseased and one healthy people are selected and the disease succfully transmitted during the period of time, of which the probability is $\alpha\frac{{X_{n - 1} \choose 1}{5 - X_{n - 1} \choose 1}}{{5 \choose 2}} = \frac{X_{n - 1}(5 - X_{n - 1})}{100}$. Thus, the probability that $X_n$ remain the same is $1 - \frac{X_{n - 1}(5 - X_{n - 1})}{100}$. Hence, we have the trasition matrix is
     \[
       \begin{bmatrix}
         0.96 & 0.04 & 0 & 0 & 0 \\
@@ -226,16 +213,14 @@
         0 & 0 & 0 & 0 & 1
       \end{bmatrix},
     \]
-    where the $i$-th row $j$-th column represents the probability that the number of diseased
-    transition from $N = i$ to $N = j$.
+    where the $i$-th row $j$-th column represents the probability that the number of diseased transition from $N = i$ to $N = j$.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  A particle moves among the states 0, 1, 2 according to a Markov process whose transition
-  probability matrix is
+  A particle moves among the states 0, 1, 2 according to a Markov process whose transition probability matrix is
 
   \[
     P = \begin{bmatrix}
@@ -245,8 +230,7 @@
     \end{bmatrix}.
   \]
 
-  Let \( X_n \) denote the position of the particle at the $n$th move. Calculate \( \Pr\{X_n = 0
-  \mid X_0 = 0\} \) for \( n = 0, 1, 2, 3, 4 \).
+  Let \( X_n \) denote the position of the particle at the $n$th move. Calculate \( \Pr\{X_n = 0 \mid X_0 = 0\} \) for \( n = 0, 1, 2, 3, 4 \).
 
   \begin{proof}
     Note that
@@ -292,14 +276,10 @@
     \end{bmatrix}
   \].
 
-  Suppose that the initial distribution is \( p_i = \frac{1}{4} \) for \( i = 0, 1, 2, 3 \). Show
-  that \( \Pr\{X_n = k\} = \frac{1}{4} \), \( k = 0, 1, 2, 3 \), for all \( n \). Can you deduce a
-  general result from this example?
+  Suppose that the initial distribution is \( p_i = \frac{1}{4} \) for \( i = 0, 1, 2, 3 \). Show that \( \Pr\{X_n = k\} = \frac{1}{4} \), \( k = 0, 1, 2, 3 \), for all \( n \). Can you deduce a general result from this example?
 
   \begin{proof}
-    Let $v = (\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4})^T$. Note that $Pv = v$, and thus
-      we may conclude that $P^nv = PP^{n - 1}v = Pv = v$ by induction on $n$. Since $P^n_{ij} =
-      \Pr\{X_n = j | X_{0} = 0\}$, we get that
+    Let $v = (\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4})^T$. Note that $Pv = v$, and thus we may conclude that $P^nv = PP^{n - 1}v = Pv = v$ by induction on $n$. Since $P^n_{ij} = \Pr\{X_n = j | X_{0} = 0\}$, we get that
       \begin{align*}
         \Pr\{X_n = k\} 
         &= \sum_{i = 0}^3 \Pr\{X_n = k | X_{0} = i\}\Pr\left\{X_{0} = i\right\} \\
@@ -313,17 +293,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  Consider two urns \( A \) and \( B \) containing a total of \( N \) balls. An experiment is
-  performed in which a ball is selected at random (all selections equally likely) at time \( t \)
-  (\( t = 1, 2, \ldots \)) from among the totality of \( N \) balls. Then, an urn is selected at
-  random (\( A \) is chosen with probability \( p \) and \( B \) is chosen with probability \( q \))
-  and the ball previously drawn is placed in this urn. The state of the system at each trial is
-  represented by the number of balls in \( A \). Determine the transition matrix for this Markov
-  chain.
+  Consider two urns \( A \) and \( B \) containing a total of \( N \) balls. An experiment is performed in which a ball is selected at random (all selections equally likely) at time \( t \) (\( t = 1, 2, \ldots \)) from among the totality of \( N \) balls. Then, an urn is selected at random (\( A \) is chosen with probability \( p \) and \( B \) is chosen with probability \( q \)) and the ball previously drawn is placed in this urn. The state of the system at each trial is represented by the number of balls in \( A \). Determine the transition matrix for this Markov chain.
 
   \begin{proof}
-    We denote $X_t$ as the number of balls in $A$ at time $t$. We know $B$ contains $N - X_t$ balls
-    at time $t$. Since we only move a ball at a time, $|X_{t + 1} - X_t| \leq 1$. Then,
+    We denote $X_t$ as the number of balls in $A$ at time $t$. We know $B$ contains $N - X_t$ balls at time $t$. Since we only move a ball at a time, $|X_{t + 1} - X_t| \leq 1$. Then,
     \begin{align*}
       \p(X_{t + 1} = x + 1 \mid X_t = x) 
       &= \p\{\text{Pick a ball from }A\text{ and pick urn } B\} \\ 

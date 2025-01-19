@@ -158,20 +158,13 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  You are given a schedule for $n$ buses in the city. The schedule is given to you as a
-  2-dimensional array $B$ of dimensions $n\times k$. Each bus has $k$ stops and each entry of the
-  array is an ordered pair $B[i,j] = (S_{i,j},t_{i,j})$  which means that the $j^{th}$ stop that bus
-  $i$ makes is at station $S_{i,j}$ at time $t_{i,j}$ (measured in minutes counted from the
-  beginning of the day.) Each row is ordered by times (i.e., $t_{i,1}<t_{i,2}<\dots <t_{i,k}$). 
+  You are given a schedule for $n$ buses in the city. The schedule is given to you as a 2-dimensional array $B$ of dimensions $n\times k$. Each bus has $k$ stops and each entry of the array is an ordered pair $B[i,j] = (S_{i,j},t_{i,j})$  which means that the $j^{th}$ stop that bus $i$ makes is at station $S_{i,j}$ at time $t_{i,j}$ (measured in minutes counted from the beginning of the day.) Each row is ordered by times (i.e., $t_{i,1}<t_{i,2}<\dots <t_{i,k}$). 
 
-  You can transfer from bus $a$ to bus $b$ at stop $X$ if there exists entries $B[a,j] =
-  (X,t_{a,j})$ and $B[b,j'] = (X,t_{b,j'})$ and $t_{a,j} < t_{b,j'}$.
+  You can transfer from bus $a$ to bus $b$ at stop $X$ if there exists entries $B[a,j] = (X,t_{a,j})$ and $B[b,j'] = (X,t_{b,j'})$ and $t_{a,j} < t_{b,j'}$.
 
   \begin{enumerate}[(a)]
   \item
-  Given bus stations $X$ and $Y$ and a starting time $T$, design an algorithm that returns the
-  earliest time you can reach station $Y$ from station $X$ starting any time after time $T$ using a
-  sequence of transfers.
+  Given bus stations $X$ and $Y$ and a starting time $T$, design an algorithm that returns the earliest time you can reach station $Y$ from station $X$ starting any time after time $T$ using a sequence of transfers.
 
   \begin{proof}
     Let $V$ be the set of stations. Consider the following algorithm:
@@ -212,32 +205,16 @@
       \end{enumerate}
     \end{quote}
 
-    This algorithm is a modified version of Dijkstra's, with an additional step of constructing a
-    bus schedule with respect to each station. 
+    This algorithm is a modified version of Dijkstra's, with an additional step of constructing a bus schedule with respect to each station. 
 
-    We now give a justification for the correctness of the algorithm. Note that at any moment, there
-    is always a valid sequence of transfers such that the number of transfers is equal to $time(v)$
-    in any iteration if $time(v) < \infty$. We may find such sequence by backtracing $prev(v)$ until
-    we reach $X$, and step 11 ensures each transfer in the sequence is valid. Hence, it remains to
-    show that $time(v)$ is minimum by the end of the algorithm.
+    We now give a justification for the correctness of the algorithm. Note that at any moment, there is always a valid sequence of transfers such that the number of transfers is equal to $time(v)$ in any iteration if $time(v) < \infty$. We may find such sequence by backtracing $prev(v)$ until we reach $X$, and step 11 ensures each transfer in the sequence is valid. Hence, it remains to show that $time(v)$ is minimum by the end of the algorithm.
     
-    Let $R_n$ be $V\backslash H$ at the end of $n$th iteration of the while loop, and let
-    $\delta(v)$ be the earliest time $v$ can be reached from $X$, and let $l(S)$ be the time that
-    the sequences of transfers $S$ ends. We show that $time(v) = \delta(v)$ for all $v \in R_n$ by
-    induction on $n$. Since $R_1 = \{X\}$ and $time(X) = T = \delta(X)$, the base case is done.
-    Suppose $n > 1$. Let $u$ be the last vertex added to $R_n$. By induction, $time(v) = \delta(v)$
-    for all $v \in R_{n - 1}$, and thus it remains to show that $time(u) = \delta(u)$. Suppose for
-    the sake of contradiction that the fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S)
-    < time(u)$, say $S = s_0s_1\dots s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Suppose $s_i$ is
-    the first station in $S$ which is not in $R_{n - 1}$, and let $S_k = s_0s_1 \dots s_k$, for $0
-    \leq k \leq n$. Note that we may make the subsequential transfers in $S$ if we arrive at $s_{i}$
-    earlier than $l(S_{i})$, as we can wait at the station. Hence, as $time(s_{i - 1}) \leq l(S_{i -
-    1})$ and $s_{i - 1} \in R_{n - 1}$, 
+    Let $R_n$ be $V\backslash H$ at the end of $n$th iteration of the while loop, and let $\delta(v)$ be the earliest time $v$ can be reached from $X$, and let $l(S)$ be the time that the sequences of transfers $S$ ends. We show that $time(v) = \delta(v)$ for all $v \in R_n$ by induction on $n$. Since $R_1 = \{X\}$ and $time(X) = T = \delta(X)$, the base case is done. Suppose $n > 1$. Let $u$ be the last vertex added to $R_n$. By induction, $time(v) = \delta(v)$ for all $v \in R_{n - 1}$, and thus it remains to show that $time(u) = \delta(u)$. Suppose for the sake of contradiction that the fastest sequence of transfer from $X$ to $u$ is $S$ and $l(S) < time(u)$, say $S = s_0s_1\dots s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Suppose $s_i$ is the first station in $S$ which is not in $R_{n - 1}$, and let $S_k = s_0s_1 \dots s_k$, for $0 \leq k \leq n$. Note that we may make the subsequential transfers in $S$ if we arrive at $s_{i}$ earlier than $l(S_{i})$, as we can wait at the station.
+    Hence, as $time(s_{i - 1}) \leq l(S_{i - 1})$ and $s_{i - 1} \in R_{n - 1}$, 
     \[
       time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S),
     \]
-    Since $s_i$ is immediate to stations in $R_{n - 1}$, the while loop forces the $time(s_i)$ to be
-    the earliest time you can travel from $X$ to $s_i$ via the stations in $R_{n - 1}$, and so
+    Since $s_i$ is immediate to stations in $R_{n - 1}$, the while loop forces the $time(s_i)$ to be the earliest time you can travel from $X$ to $s_i$ via the stations in $R_{n - 1}$, and so
     \[
       time(s_{i}) \leq time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})).
     \]
@@ -245,23 +222,13 @@
     \[
       time(u) \leq time(s_{i}) \leq time(s_{i - 1}) + (l(S_i) - l(S_{i - 1})) \leq l(S) < time(u),
     \] 
-    contradiction. Hence, $time(u) = \delta(u)$, and this completes the induction. By the time the
-    algorithm terminates, $V = R_n$, and the result follows.
+    contradiction. Hence, $time(u) = \delta(u)$, and this completes the induction. By the time the algorithm terminates, $V = R_n$, and the result follows.
 
-    Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which
-    takes $O(\log |V|)$ for $insert$, $decreaseKey$, and $deletemin$. The first for loop runs over
-    $V$ for initialization, which takes $O(|V|)$ time. The second for loop runs through all entries
-    of $B$, which takes $O(nk)$ time. $makequeue$ takes $O(|V|)$ time. The while loop goes through
-    all $|V|$ stations, and the inner for loop at 10. goes through at most $\sum_{u \in V}
-    |schedule(u)| = |B| = nk$ entries, each entry runs $decreaseKey$ at most $k$ times. Hence, the
-    while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(nk^2|V|\log |V|)$ time. In total, the
-    algorithm takes $O(nk^2|V|\log |V|)$ time. 
+    Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which takes $O(\log |V|)$ for $insert$, $decreaseKey$, and $deletemin$. The first for loop runs over $V$ for initialization, which takes $O(|V|)$ time. The second for loop runs through all entries of $B$, which takes $O(nk)$ time. $makequeue$ takes $O(|V|)$ time. The while loop goes through all $|V|$ stations, and the inner for loop at 10. goes through at most $\sum_{u \in V} |schedule(u)| = |B| = nk$ entries, each entry runs $decreaseKey$ at most $k$ times. Hence, the while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(nk^2|V|\log |V|)$ time. In total, the algorithm takes $O(nk^2|V|\log |V|)$ time. 
   \end{proof}
 
   \item
-  Given bus stations $X$ and $Y$ and a starting time $T$, design an algorithm that returns the
-  fewest number of transfers necessary to reach station $Y$ from station $X$ starting any time after
-  time $T$ using a sequence of transfers.
+  Given bus stations $X$ and $Y$ and a starting time $T$, design an algorithm that returns the fewest number of transfers necessary to reach station $Y$ from station $X$ starting any time after time $T$ using a sequence of transfers.
 
   \begin{proof}
     Let $V$ be the set of stations. Consider the following algorithm:
@@ -306,45 +273,21 @@
       \end{enumerate}
     \end{quote}
 
-    This algorithm is a modified version of Dijkstra's, with an additional step of constructing a
-    bus schedule with respect to each station. 
+    This algorithm is a modified version of Dijkstra's, with an additional step of constructing a bus schedule with respect to each station. 
 
-    We now give a justification for the correctness of the algorithm. Note that at any moment, there
-    is always a valid sequence of transfers such that the number of transfers is equal to $step(v)$
-    in any iteration if $step(v) < \infty$. We may find such sequence by backtracing $prev(v)$ until
-    we reach $X$, and step 13 ensures each transfer in the sequence is valid. Hence, it remains to
-    show that $step(v)$ is minimum by the end of the algorithm.
+    We now give a justification for the correctness of the algorithm. Note that at any moment, there is always a valid sequence of transfers such that the number of transfers is equal to $step(v)$ in any iteration if $step(v) < \infty$. We may find such sequence by backtracing $prev(v)$ until we reach $X$, and step 13 ensures each transfer in the sequence is valid. Hence, it remains to show that $step(v)$ is minimum by the end of the algorithm.
     
-    Let $R_n$ be $V\backslash H$
-    at the end of $n$th iteration of the while loop, and let $\delta(v)$ be the minimum number of
-    transfers $v$ can be reached from $X$, and let $|S|$ be the number of transfers in a sequences
-    of transfers $S$. We show that $step(v) = \delta(v)$ for all $v \in R_n$ by induction on $n$.
-    Since $R_1 = \{X\}$ and $step(X) = 0 = \delta(X)$, the base case is done. Suppose $n > 1$. Let
-    $u$ be the last vertex added to $R_n$. By induction, $step(v) = \delta(v)$ for all $v \in R_{n -
-    1}$, and thus it remains to show that $step(u) = \delta(u)$. Suppose for the sake of
-    contradiction that the minimum sequence of transfers from $X$ to $u$ is $S$ and $|S| < step(u)$,
-    say $S = s_0s_1\dots s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Let $S_k = s_0s_1 \dots s_k$,
-    for $0 \leq k \leq n$. Suppose $s_i$ is the first station in $S$ which is not in $R_{n - 1}$.
-    Since $s_{i - 1} \in R_{n - 1}$, by induction,
+    Let $R_n$ be $V\backslash H$ at the end of $n$th iteration of the while loop, and let $\delta(v)$ be the minimum number of transfers $v$ can be reached from $X$, and let $|S|$ be the number of transfers in a sequences of transfers $S$. We show that $step(v) = \delta(v)$ for all $v \in R_n$ by induction on $n$. Since $R_1 = \{X\}$ and $step(X) = 0 = \delta(X)$, the base case is done. Suppose $n > 1$. Let $u$ be the last vertex added to $R_n$. By induction, $step(v) = \delta(v)$ for all $v \in R_{n - 1}$, and thus it remains to show that $step(u) = \delta(u)$. Suppose for the sake of contradiction that the minimum sequence of transfers from $X$ to $u$ is $S$ and $|S| < step(u)$, say $S = s_0s_1\dots s_{n-1}s_n$, where $s_0 = X$ and $s_n = u$. Let $S_k = s_0s_1 \dots s_k$, for $0 \leq k \leq n$. Suppose $s_i$ is the first station in $S$ which is not in $R_{n - 1}$. Since $s_{i - 1} \in R_{n - 1}$, by induction,
     \[
       step(s_{i - 1}) + 1 \leq |S_{i - 1}| + 1 = |S_{i}| = |S| < step(u).
     \]
-    Since $s_i$ is immediate to stations in $R_{n - 1}$, the while loop forces $step(s_i)$ to be the
-    minimum steps you can travel from $X$ to $s_i$ via the stations in $R_{n - 1}$, and so
+    Since $s_i$ is immediate to stations in $R_{n - 1}$, the while loop forces $step(s_i)$ to be the minimum steps you can travel from $X$ to $s_i$ via the stations in $R_{n - 1}$, and so
     \[
       step(s_{i}) \leq step(s_{i - 1}) + 1 \leq |S_{i - 1}| + 1 = |S_{i}| = |S| < step(u).
     \]
-    But then the algorithm picked $u$ over $s_i$ at step 12, so $step(u) < step(s_{i})$,
-    contradiction.
+    But then the algorithm picked $u$ over $s_i$ at step 12, so $step(u) < step(s_{i})$, contradiction.
 
-    Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which
-    takes $O(\log |V|)$ for $insert$, $decreaseKey$, and $deletemin$. The first for loop runs over
-    $V$ for initialization, which takes $O(|V|)$ time. The second for loop runs through all entrys
-    of $B$, which takes $O(nk)$ time. $makequeue$ takes $O(|V|)$ time. The while loop goes through
-    all $|V|$ stations, and the inner for loop at 10. goes through at most $\sum_{u \in V}
-    |schedule(u)| = |B| = nk$ entries, each entry runs $decreaseKey$ at most $k$ times. Hence, the
-    while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(nk^2|V|\log |V|)$ time. In total, the
-    algorithm takes $O(nk^2|V|\log |V|)$ time.
+    Finally, we give a runtime analysis of the algorithm. Suppose we use the binary heap, which takes $O(\log |V|)$ for $insert$, $decreaseKey$, and $deletemin$. The first for loop runs over $V$ for initialization, which takes $O(|V|)$ time. The second for loop runs through all entrys of $B$, which takes $O(nk)$ time. $makequeue$ takes $O(|V|)$ time. The while loop goes through all $|V|$ stations, and the inner for loop at 10. goes through at most $\sum_{u \in V} |schedule(u)| = |B| = nk$ entries, each entry runs $decreaseKey$ at most $k$ times. Hence, the while loop takes $O(|V|(\log |V| + nk^2\log |V|)) = O(nk^2|V|\log |V|)$ time. In total, the algorithm takes $O(nk^2|V|\log |V|)$ time.
   \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -352,17 +295,12 @@
 \newpage
 
 \begin{homeworkProblem}
-  For some non-negative integer $d$, we say that a $d$-regular graph is an undirected graph such
-  that each vertex has a degree of $d$.
+  For some non-negative integer $d$, we say that a $d$-regular graph is an undirected graph such that each vertex has a degree of $d$.
 
-  Suppose you are given access to a \emph{connected} $d$-regular graph $G=(V,E)$ and two vertices
-  $s\in V$, $t\in V$. You wish to find the shortest path from $s$ to $t$. (We can assume that the
-  graph is very large and that we want to avoid having to look at the entire graph. So, for any
-  vertex, you can look at its list of neighbors without having to look at the entire graph.)
+  Suppose you are given access to a \emph{connected} $d$-regular graph $G=(V,E)$ and two vertices $s\in V$, $t\in V$. You wish to find the shortest path from $s$ to $t$. (We can assume that the graph is very large and that we want to avoid having to look at the entire graph. So, for any vertex, you can look at its list of neighbors without having to look at the entire graph.)
 
 
-  We can alter BFS so that it takes both $s$ and $t$ as inputs and when we reach $t$, we can stop so
-  that we don't have to continue to explore unnecessary vertices.
+  We can alter BFS so that it takes both $s$ and $t$ as inputs and when we reach $t$, we can stop so that we don't have to continue to explore unnecessary vertices.
 
 
   \begin{quote}
@@ -399,40 +337,23 @@
   \item
   \begin{enumerate}[i.]
   \item
-  Give an argument about why \texttt{BFS2} will correctly assign \emph{dist}$(t)$ to the length of
-  the shortest path from $s$ to $t$.
+  Give an argument about why \texttt{BFS2} will correctly assign \emph{dist}$(t)$ to the length of the shortest path from $s$ to $t$.
 
   \begin{proof}
-    Note that the only difference between \texttt{BFS2} and \texttt{BFS} is that \texttt{BFS2} stops
-    once $dist(t)$ is modified. Since the $dist(t)$ in both \texttt{BFS2} and \texttt{BFS} would
-    only be modified at most once, both algorithms would output the same value given the same input.
-    Since \texttt{BFS} is already proven to be correct, then so is \texttt{BFS2}. 
+    Note that the only difference between \texttt{BFS2} and \texttt{BFS} is that \texttt{BFS2} stops once $dist(t)$ is modified. Since the $dist(t)$ in both \texttt{BFS2} and \texttt{BFS} would only be modified at most once, both algorithms would output the same value given the same input. Since \texttt{BFS} is already proven to be correct, then so is \texttt{BFS2}. 
   \end{proof}
 
   \item
-  Assuming that $\ell$ is the length of the shortest path from $s$ to $t$, what is the worst-case
-  runtime of \texttt{BFS2} in terms of $d$ and $\ell$? (your answer should be in big-$O$ notation in
-  terms of $d$ and $\ell$.)
+  Assuming that $\ell$ is the length of the shortest path from $s$ to $t$, what is the worst-case runtime of \texttt{BFS2} in terms of $d$ and $\ell$? (your answer should be in big-$O$ notation in terms of $d$ and $\ell$.)
 
-  (Note: You can use the fact that for every possible distance $i=1...L$, at some point in BFS, the
-  queue will contain exactly all of the vertices that are distance $i$ away from $s$.)
+  (Note: You can use the fact that for every possible distance $i=1...L$, at some point in BFS, the queue will contain exactly all of the vertices that are distance $i$ away from $s$.)
 
   \begin{proof}
-    Since at some point in BFS, the queue will contain exactly all of the vertices that are distance
-    $l - 1$ away from $s$, which includes the node preceding $t$ in its shortest path to $s$,
-    \texttt{BFS2} is guaranteed to have visited $t$ after processing all vertices in the queue at
-    that moment. By the fact that for every possible distance $i = 1, ..., l$, at some point in BFS,
-    the queue will contain exactly all of the vertices that are distance $i$ away from $s$, BFS will
-    visit all vertices of distance less than $l$ before visiting vertices of distance $l$. Since
-    each vertex $v \neq s$ has at most $d$ nonvisited neighbors (excluding the preceding vertex),
-    there are less than $d^k$ vertices that has distance $k$ from $s$ by induction on $k$. But then
-    there are less than
+    Since at some point in BFS, the queue will contain exactly all of the vertices that are distance $l - 1$ away from $s$, which includes the node preceding $t$ in its shortest path to $s$, \texttt{BFS2} is guaranteed to have visited $t$ after processing all vertices in the queue at that moment. By the fact that for every possible distance $i = 1, ..., l$, at some point in BFS, the queue will contain exactly all of the vertices that are distance $i$ away from $s$, BFS will visit all vertices of distance less than $l$ before visiting vertices of distance $l$. Since each vertex $v \neq s$ has at most $d$ nonvisited neighbors (excluding the preceding vertex), there are less than $d^k$ vertices that has distance $k$ from $s$ by induction on $k$. But then there are less than
     \[
       1 + \sum_{k = 1}^l d^k = \frac{d^{l + 1} - 1}{d - 1}
     \]
-    vertices which have distance at most $l$ from $s$. Hence, in the worst case, $t$ would be
-    explored before the $\frac{d^{l + 1} - 1}{d - 1}$th vertex is explored, and thus the algorithm
-    has a worst case runtime of 
+    vertices which have distance at most $l$ from $s$. Hence, in the worst case, $t$ would be explored before the $\frac{d^{l + 1} - 1}{d - 1}$th vertex is explored, and thus the algorithm has a worst case runtime of 
     \[
       O\left(|V| + \frac{d^{l + 1} - 1}{d - 1}\right) = O(d^{l}).
     \]
@@ -440,24 +361,19 @@
   \end{enumerate}
 
   \item
-  Design an algorithm that finds the shortest path from $s$ to $t$ in $G$ that runs in time
-  $O(d^{l/2})$.
+  Design an algorithm that finds the shortest path from $s$ to $t$ in $G$ that runs in time $O(d^{l/2})$.
   \begin{enumerate}[i.]
   \item
   High-level algorithm description (No correctness proof necessary.)
 
   \begin{proof}
-    We run \texttt{BFS2} simultaneously from both $s$ and $t$, and terminate once both \texttt{BFS2}
-    have visited the same node. 
+    We run \texttt{BFS2} simultaneously from both $s$ and $t$, and terminate once both \texttt{BFS2} have visited the same node. 
   \end{proof}
 
   \item
   Runtime analysis.
   \begin{proof}
-    At the worst case, both \texttt{BFS2} meet at the middle of the shortest path between $s$ and
-    $t$, say vertex $v$. But then the shortest paths between $s, v$ and $s, t$ have length $l/2$. By
-    (a).ii, the runtime for each \texttt{BFS2} is $O(d^{l/2})$, and thus the total runtime is
-    $O(2d^{l/2}) = O(d^{l/2})$. 
+    At the worst case, both \texttt{BFS2} meet at the middle of the shortest path between $s$ and $t$, say vertex $v$. But then the shortest paths between $s, v$ and $s, t$ have length $l/2$. By (a).ii, the runtime for each \texttt{BFS2} is $O(d^{l/2})$, and thus the total runtime is $O(2d^{l/2}) = O(d^{l/2})$. 
   \end{proof}
   \end{enumerate}
   \end{enumerate}
@@ -485,23 +401,12 @@
 
   \begin{enumerate}[(a)]
   \item
-  Let $maxdist(v)$ be the maximum dist value that $dist(v)$ is set to (besides $\infty$) after
-  running Dijkstra's on $H(n)$ starting at $A_n$.
+  Let $maxdist(v)$ be the maximum dist value that $dist(v)$ is set to (besides $\infty$) after running Dijkstra's on $H(n)$ starting at $A_n$.
 
   Prove by induction that $maxdist(v)\leq 2^n+n$ for all $v\in H(n)$.
 
   \begin{proof}
-    We proceed by induction on $n$. Since $A_0$ has no out going edge, $maxdist(A_0) = 0 \leq 2^n +
-    n$ and the base case is done. Suppose $n \geq 1$. Since there is only one path to either $B_{n -
-    1}$ or $C_{n - 1}$ from $A_n$, $maxdist(B_{n - 1}) = 2^{n - 1}$ and $maxdist(C_{n - 1}) = 2^{n}
-    + n$, both of which are at most $2^n + n$. There are two possible paths from $A_n$ to $A_{n -
-    1}$, namely $A_nB_{n - 1}A_{n - 1}$ and $A_nC_{n - 1}A_{n - 1}$, which have weights $2^{n - 1}$
-    and $0$, respectively. Since $2^{n - 1} < 2^n + n$, $maxdist(A_{n - 1})$ would be set to $2^{n -
-    1}$. But then $2^{n - 1} < 2^n + n$, so the algorithm would prioritize $A_{n - 1}$ over $C_{n -
-    1}$. Note that the subgraph starting from $A_{n - 1}$ is isomorphic to $H(n - 1)$. Call it $H'(n
-    - 1)$. For $v \in H'(n - 1)$, $maxdist(v)$ can be calculated by running Dijkstra's on $H'(n -
-    1)$ starting from $A_{n - 1}$, with the initial distance at $A_{n - 1}$ set to $maxdist(A_{n -
-    1})$. By induction,
+    We proceed by induction on $n$. Since $A_0$ has no out going edge, $maxdist(A_0) = 0 \leq 2^n + n$ and the base case is done. Suppose $n \geq 1$. Since there is only one path to either $B_{n - 1}$ or $C_{n - 1}$ from $A_n$, $maxdist(B_{n - 1}) = 2^{n - 1}$ and $maxdist(C_{n - 1}) = 2^{n} + n$, both of which are at most $2^n + n$. There are two possible paths from $A_n$ to $A_{n - 1}$, namely $A_nB_{n - 1}A_{n - 1}$ and $A_nC_{n - 1}A_{n - 1}$, which have weights $2^{n - 1}$ and $0$, respectively. Since $2^{n - 1} < 2^n + n$, $maxdist(A_{n - 1})$ would be set to $2^{n - 1}$. But then $2^{n - 1} < 2^n + n$, so the algorithm would prioritize $A_{n - 1}$ over $C_{n - 1}$. Note that the subgraph starting from $A_{n - 1}$ is isomorphic to $H(n - 1)$. Call it $H'(n - 1)$. For $v \in H'(n - 1)$, $maxdist(v)$ can be calculated by running Dijkstra's on $H'(n - 1)$ starting from $A_{n - 1}$, with the initial distance at $A_{n - 1}$ set to $maxdist(A_{n - 1})$. By induction,
     \[
       maxdist(v) \leq maxdist(A_{n - 1}) + (2^{n - 1} + n - 1) \leq 2^{n - 1} + (2^{n - 1} + n - 1) = 2^n + n - 1 \leq 2^n + n.
     \]
@@ -509,30 +414,18 @@
   \end{proof}
 
   \item
-  Prove by induction that after running Dijkstra's on $H(n)$, starting at $A_n$, the vertex $A_0$
-  has been ejected from the priority queue $2^n$ times. (You can use the previous part.)
+  Prove by induction that after running Dijkstra's on $H(n)$, starting at $A_n$, the vertex $A_0$ has been ejected from the priority queue $2^n$ times. (You can use the previous part.)
 
   \begin{proof}
-    We proceed by induction on $n$. For $n = 0$, $H(0)$ consists of a single vertex $A_0$ and thus
-    the algorithm would only eject it once. Suppose $n \geq 1$. Since $dist(A_{n - 1})$ would
-    initially be assigned $2^{n - 1} < 2^n + n$, $A_{n - 1}$ would be prioritized over $C_{n - 1}$.
-    By (a), $maxdist(v) \leq 2^{n - 1} + n - 1$ for all $v \in H(n - 1)$. But then $2^{n - 1} + 2^{n
-    - 1} + n - 1 = 2^n + n - 1 < 2^n + n$, so all vertices of subscripts less than $n - 1$ would be
-    prioritized over $C_{n - 1}$. Hence, the process of the algorithm before ejecting $C_{n - 1}$ is
-    equivalent to running Dijkstra's algorithm on $H'(n - 1)$ starting at $A_{n - 1}$, which would
-    ejected $A_0$ $2^{n - 1}$ times, by induction. But then after ejecting $C_{n - 1}$, the
-    algorithm push $A_{n - 1}$ back to the priority queue, and the remaining process is also
-    equivalent to running Dijkstra's algorithm on $H'(n - 1)$ starting at $A_{n - 1}$, which would
-    eject $A_0$ another $2^{n - 1}$ times. Hence, $A_0$ would be ejected $2^n$ times in total.
+    We proceed by induction on $n$. For $n = 0$, $H(0)$ consists of a single vertex $A_0$ and thus the algorithm would only eject it once. Suppose $n \geq 1$. Since $dist(A_{n - 1})$ would initially be assigned $2^{n - 1} < 2^n + n$, $A_{n - 1}$ would be prioritized over $C_{n - 1}$. By (a), $maxdist(v) \leq 2^{n - 1} + n - 1$ for all $v \in H(n - 1)$. But then $2^{n - 1} + 2^{n - 1} + n - 1 = 2^n + n - 1 < 2^n + n$, so all vertices of subscripts less than $n - 1$ would be prioritized over $C_{n - 1}$. Hence, the process of the algorithm before ejecting $C_{n - 1}$ is equivalent to running Dijkstra's algorithm on $H'(n - 1)$ starting at $A_{n - 1}$, which would ejected $A_0$ $2^{n - 1}$ times, by induction. But then after ejecting $C_{n - 1}$, the algorithm push $A_{n - 1}$ back to the priority queue, and the remaining process is also equivalent to running Dijkstra's algorithm on $H'(n - 1)$ starting at $A_{n - 1}$, which would eject $A_0$ another $2^{n - 1}$ times. Hence, $A_0$ would
+    be ejected $2^n$ times in total.
   \end{proof}
 
   \item
-  Give a lower bound for the runtime of Dijkstra's on this graph in $\Omega$ notation in terms of
-  the number of vertices $N$.
+  Give a lower bound for the runtime of Dijkstra's on this graph in $\Omega$ notation in terms of the number of vertices $N$.
 
   \begin{proof}
-    Given $N$ vertices in the graph, there would be $(N - 1)/3$ diamonds. Thus, by (b), the
-    algorithm would at least process $A_0$ $2^{(N - 1)/3}$ times, which has a lower bound of $\Omega(2^{N/3})$.
+    Given $N$ vertices in the graph, there would be $(N - 1)/3$ diamonds. Thus, by (b), the algorithm would at least process $A_0$ $2^{(N - 1)/3}$ times, which has a lower bound of $\Omega(2^{N/3})$.
   \end{proof}
 \end{enumerate}
 \end{homeworkProblem}
@@ -546,8 +439,7 @@
   \end{center}
   \begin{enumerate}[(a)]
   \item
-  Draw a table showing the intermediate distance values of all the nodes at each iteration of the
-  algorithm.
+  Draw a table showing the intermediate distance values of all the nodes at each iteration of the algorithm.
   \begin{proof}
     Consider the following table:
     \begin{center}

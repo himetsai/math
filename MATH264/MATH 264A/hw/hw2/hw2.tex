@@ -90,10 +90,13 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework 2}
-\newcommand{\hmwkDueDate}{Nov 26, 2024}
-\newcommand{\hmwkClass}{MATH 264A}
-\newcommand{\hmwkClassInstructor}{Professor Warnke}
+\newcommand{\hmwkTitle}{Homework\ \#0}
+\newcommand{\hmwkDueDate}{Jan 7, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
 \newcommand{\hmwkPID}{A16848188}
 
@@ -104,8 +107,11 @@
 \title{
     \vspace{2in}
     \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
-    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
     \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
     \vspace{3in}
 }
 
@@ -152,28 +158,20 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  This problem illustrates how variants of the usual switching arguments can sometimes lead to
-  fairly simple proofs (if one is content with bounds instead of asymptotics). Let $\mathcal{N}_i$
-  denote the set of permutations of $[n]$ with exactly $i$ fixed points. Picking a random
-  permutation $\pi_n \in S_n$ uniformly at random, below we give a simple and robust proof of the
-  non-trivial bound
+  This problem illustrates how variants of the usual switching arguments can sometimes lead to fairly simple proofs (if one is content with bounds instead of asymptotics). Let $\mathcal{N}_i$ denote the set of permutations of $[n]$ with exactly $i$ fixed points. Picking a random permutation $\pi_n \in S_n$ uniformly at random, below we give a simple and robust proof of the non-trivial bound
   \[
     \mathbb{P}(\pi_n \text{ has no fixed points}) \geq \frac{1}{3} - o(1) \quad \text{as } n \to \infty
   \]
 
 \begin{enumerate}[(a)]
-    \item Using a basic switching argument, show that $\lvert \mathcal{N}_1 \rvert / \lvert
-    \mathcal{N}_0 \rvert \leq 1 + O(1/n)$.
+    \item Using a basic switching argument, show that $\lvert \mathcal{N}_1 \rvert / \lvert \mathcal{N}_0 \rvert \leq 1 + O(1/n)$.
 
     \begin{proof}
-      Define switching operation $\phi: \mathcal{N}_1 \to 2^{\mathcal{N}_0}$ by sending $\pi \in
-      \mathcal{N}_1$ to the set of all possible permutations $\pi'$ obtained by switching the fixed
-      point $k$ with any other element in $[n] \backslash \{k\}$. 
+      Define switching operation $\phi: \mathcal{N}_1 \to 2^{\mathcal{N}_0}$ by sending $\pi \in \mathcal{N}_1$ to the set of all possible permutations $\pi'$ obtained by switching the fixed point $k$ with any other element in $[n] \backslash \{k\}$. 
 
       \textbf{Forward Switching:}
       
-      Let $\pi \in \mathcal{N}_1$ with $\pi(k) = k$. Notice if permutation $\pi'$ is
-      defined by
+      Let $\pi \in \mathcal{N}_1$ with $\pi(k) = k$. Notice if permutation $\pi'$ is defined by
       \[
         \pi'(i) = \begin{cases}
           \pi(j) & \text{if } i = k \\
@@ -181,21 +179,15 @@
           \pi(i) & \text{otherwise}
         \end{cases}
       \] 
-      for some $j \neq k$, then $\pi' \in \mathcal{N}_0$. Since there are $n - 1$ choices for $j$,
-      we have $\lvert \phi(\pi) \rvert = n - 1$. 
+      for some $j \neq k$, then $\pi' \in \mathcal{N}_0$. Since there are $n - 1$ choices for $j$, we have $\lvert \phi(\pi) \rvert = n - 1$. 
 
       \textbf{Reverse Switching:}
 
-      Number of ways $\pi' \in \mathcal{N}_0$ can be obtained by switching some $\pi \in
-      \mathcal{N}_1$ is
+      Number of ways $\pi' \in \mathcal{N}_0$ can be obtained by switching some $\pi \in \mathcal{N}_1$ is
       \begin{align*}
         \lvert \phi^{-1}(\pi') \rvert  = (\# \text{choices for fixed point $k$})(\# \text{valid points in $\pi'$ to swap with $k$})
       \end{align*}
-      There are $n$ choices for $k$. Notice that we need to swap $k$ with $\pi'(k)$ to possibly
-      obtain a permutation with $k$ as its only fixed point. If $\pi'(k) = j$ and $\pi'(j) = k$,
-      then swapping $k$ with $j$ will yield a permutation with both $k$ and $j$ as fixed points.
-      Hence, the number of valid points to swap with $k$ is $\leq 1$, and thus $\lvert
-      \phi^{-1}(\pi') \rvert \leq n$.
+      There are $n$ choices for $k$. Notice that we need to swap $k$ with $\pi'(k)$ to possibly obtain a permutation with $k$ as its only fixed point. If $\pi'(k) = j$ and $\pi'(j) = k$, then swapping $k$ with $j$ will yield a permutation with both $k$ and $j$ as fixed points. Hence, the number of valid points to swap with $k$ is $\leq 1$, and thus $\lvert \phi^{-1}(\pi') \rvert \leq n$.
 
       \textbf{Double Counting:}
 
@@ -204,12 +196,10 @@
       \]
     \end{proof}
 
-    \item Using a simple counting argument, show that in a random permutation, the expected number
-    of fixed points is equal to one.
+    \item Using a simple counting argument, show that in a random permutation, the expected number of fixed points is equal to one.
 
     \begin{proof}
-      Let $X$ be the number of fixed points in a random permutation $\pi_n \in S_n$, and let $X_i$
-      be the indicator for the event that $\pi_n(i) = i$. Then,
+      Let $X$ be the number of fixed points in a random permutation $\pi_n \in S_n$, and let $X_i$ be the indicator for the event that $\pi_n(i) = i$. Then,
       \[
         \E_{\pi_n}[X] = \sum_{i = 1}^{n} \E_{\pi_n}[X_i] = \sum_{i = 1}^{n} \prob(i \text{ is a fixed point}) = \sum_{i = 1}^{n} \frac{\# \text{$\pi \in S_n$ with $\pi(i) = i$}}{|S_n|} = \sum_{i = 1}^n \frac{1}{n} = 1.
       \]
@@ -230,8 +220,7 @@
       \[
         2 \cdot \frac{\lvert \mathcal{N}_0 \rvert}{n!} \geq 1 - \frac{\lvert \mathcal{N}_1 \rvert}{n!}
       \]
-      It now follows $\lvert \mathcal{N}_1 \rvert \leq (1 + O(1/n))\lvert \mathcal{N}_0 \rvert$ from
-      (a) that
+      It now follows $\lvert \mathcal{N}_1 \rvert \leq (1 + O(1/n))\lvert \mathcal{N}_0 \rvert$ from (a) that
       \[
         2 \cdot \frac{\lvert \mathcal{N}_0 \rvert}{n!} \geq 1 - (1 + O(1/n))\frac{\lvert \mathcal{N}_0 \rvert}{n!} \quad \implies \quad \frac{\lvert \mathcal{N}_0 \rvert}{n!} \geq \frac{1}{3} - O(1/n).
       \]

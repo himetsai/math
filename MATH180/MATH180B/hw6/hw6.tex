@@ -152,13 +152,10 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  Which states are transient and which are recurrent in the Markov chain whose transition
-  probability matrix is
+  Which states are transient and which are recurrent in the Markov chain whose transition probability matrix is
   \begin{center}
     \begin{tabular}{c ||c c c c c c||}
-      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-      \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} &
-      \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
+      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} & \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
       0 & $\frac{1}{3}$ & 0 & $\frac{1}{3}$ & 0 & 0 & $\frac{1}{3}$ \\
       1 & $\frac{1}{2}$ & $\frac{1}{4}$ & $\frac{1}{4}$ & 0 & 0 & 0 \\
       2 & 0 & 0 & 0 & 0 & 1 & 0 \\
@@ -168,24 +165,18 @@
     \end{tabular} ?
   \end{center}
   \begin{proof}
-    The communicating classes of the matrix are $\{0\}, \{1\}, \{3\}, \{5\}, \{2, 4\}$. Note that
-    $\{5\}$ and $\{2, 4\}$ are closed classes, so states $2, 4, 5$ are recurrent. In addition since
-    $0, 1, 3$ are connected all to closed classes, they will eventually get stuck in those closed
-    classes and never return to the original state, and thus they are transient. 
+    The communicating classes of the matrix are $\{0\}, \{1\}, \{3\}, \{5\}, \{2, 4\}$. Note that $\{5\}$ and $\{2, 4\}$ are closed classes, so states $2, 4, 5$ are recurrent. In addition since $0, 1, 3$ are connected all to closed classes, they will eventually get stuck in those closed classes and never return to the original state, and thus they are transient. 
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Determine the communicating classes and period for each state of the Markov chain whose transition
-  probability matrix is
+  Determine the communicating classes and period for each state of the Markov chain whose transition probability matrix is
 
   \begin{center}
     \begin{tabular}{c ||c c c c c c||}
-      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-      \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} &
-      \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
+      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} & \multicolumn{1}{c}{$4$} & \multicolumn{1}{c}{$5$} \\
       0 & $\frac{1}{2}$ & 0 & 0 & 0 & $\frac{1}{2}$ & 0 \\
       1 & 0 & 0 & 1 & 0 & 0 & 0 \\
       2 & 0 & 0 & 0 & 1 & 0 & 0 \\
@@ -196,11 +187,7 @@
   \end{center}
 
   \begin{proof}
-    Since states each of $0, 1$ is not accessible to any other classes, they each form their own
-    classes. Since there exists a cycle $2 \to 3 \to 4 \to 5 \to 2$ which passes through all the
-    rest of the states, they all belong to a class. Hence, the communicating classes are $\{0\},
-    \{1\}, \{2, 3, 4, 5\}$. Since $0$ and $5$ are both connected to itself, $\{0\}$ and $\{2, 3, 4,
-    5\}$ have period 1. Since 1 is not accessible from any states including itself, $d(1) = 0$. 
+    Since states each of $0, 1$ is not accessible to any other classes, they each form their own classes. Since there exists a cycle $2 \to 3 \to 4 \to 5 \to 2$ which passes through all the rest of the states, they all belong to a class. Hence, the communicating classes are $\{0\}, \{1\}, \{2, 3, 4, 5\}$. Since $0$ and $5$ are both connected to itself, $\{0\}$ and $\{2, 3, 4, 5\}$ have period 1. Since 1 is not accessible from any states including itself, $d(1) = 0$. 
   \end{proof}
 \end{homeworkProblem}
 
@@ -211,12 +198,10 @@
   \[
   f_{ii}^{(n)} = \Pr\{X_1 \neq i, X_2 \neq j,\ldots, X_{n-1} \neq i, X_n = i \mid X_0 = i\} \text{ for } n = 1,2,\ldots,
   \]
-  with $f_{ii}^{(0)} = 0$ by convention. Using equation (4.16), determine $f_{00}^{(n)}, n =
-  1,2,3,4,$ for the Markov chain whose transition probability matrix is
+  with $f_{ii}^{(0)} = 0$ by convention. Using equation (4.16), determine $f_{00}^{(n)}, n = 1,2,3,4,$ for the Markov chain whose transition probability matrix is
   \begin{center}
     \begin{tabular}{c ||c c c c||}
-      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-      \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
+      \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
       0 & 0 & $\frac{1}{2}$ & 0 & $\frac{1}{2}$ \\
       1 & 0 & 0 & 1 & 0 \\
       2 & 0 & 0 & 0 & 1 \\
@@ -227,25 +212,17 @@
   \begin{proof}
     Call that matrix $P$. Note that 
     \begin{center}
-      $P^2 = $ \begin{tabular}{c ||c c c c||}
-        \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-        \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
+      $P^2 = $ \begin{tabular}{c ||c c c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
         0 & $\frac{1}{4}$ & 0 & $\frac{1}{2}$ & $\frac{1}{4}$ \\
         1 & 0 & 0 & 0 & 1 \\
         2 & $\frac{1}{2}$ & 0 & 0 & $\frac{1}{2}$ \\
         3 & $\frac{1}{4}$ & $\frac{1}{4}$ & 0 & $\frac{1}{2}$ \\
-      \end{tabular}, \quad 
-      $P^3 = $ \begin{tabular}{c ||c c c c||}
-        \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-        \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
+      \end{tabular}, \quad $P^3 = $ \begin{tabular}{c ||c c c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
         0 & $\frac{1}{8}$ & $\frac{1}{8}$ & 0 & $\frac{3}{4}$ \\
         1 & $\frac{1}{2}$ & 0 & 0 & $\frac{1}{2}$ \\
         2 & $\frac{1}{4}$ & $\frac{1}{4}$ & 0 & $\frac{1}{2}$ \\
         3 & $\frac{1}{4}$ & $\frac{1}{8}$ & $\frac{1}{4}$ & $\frac{3}{8}$ \\
-      \end{tabular}, \quad
-      $P^4 = $ \begin{tabular}{c ||c c c c||}
-        \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} &
-        \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
+      \end{tabular}, \quad $P^4 = $ \begin{tabular}{c ||c c c c||} \multicolumn{1}{c}{\phantom{A}} & \multicolumn{1}{c}{$0$} & \multicolumn{1}{c}{$1$} & \multicolumn{1}{c}{$2$} & \multicolumn{1}{c}{$3$} \\
         0 & $\frac{3}{8}$ & $\frac{1}{16}$ & $\frac{1}{8}$ & $\frac{7}{16}$ \\
         1 & $\frac{1}{4}$ & $\frac{1}{4}$ & 0 & $\frac{1}{2}$ \\
         2 & $\frac{1}{4}$ & $\frac{1}{8}$ & $\frac{1}{4}$ & $\frac{3}{8}$ \\
@@ -259,22 +236,18 @@
       P^3_{00} = \frac{1}{8} = f^{(0)}_{00}P^3_{00} + f^{(1)}_{00}P^2_{00} + f^{(2)}_{00}P^1_{00} + f^{(3)}_{00}P^0_{00} = f^{(3)}_{00} \\
       P^4_{00} = \frac{3}{8} = f^{(0)}_{00}P^4_{00} + f^{(1)}_{00}P^3_{00} + f^{(2)}_{00}P^2_{00} + f^{(3)}_{00}P^1_{00} + f^{(4)}_{00}P^0_{00} = \frac{1}{4} \cdot \frac{1}{4} + f^{(4)}_{00},
     \end{gather*}
-    and thus $f^{(1)}_{00} = 0, f^{(2)}_{00} = \frac{1}{4}, f^{(3)}_{00} = \frac{1}{8}, f^{(4)}_{00}
-    = \frac{5}{16}$.
+    and thus $f^{(1)}_{00} = 0, f^{(2)}_{00} = \frac{1}{4}, f^{(3)}_{00} = \frac{1}{8}, f^{(4)}_{00} = \frac{5}{16}$.
   \end{proof}
 \end{homeworkProblem}
 
 \newpage
 
 \begin{homeworkProblem}
-  Let \{$\alpha_i : i = 1, 2, \ldots$\} be a probability distribution, and consider the Markov chain
-  whose transition probability matrix is
+  Let \{$\alpha_i : i = 1, 2, \ldots$\} be a probability distribution, and consider the Markov chain whose transition probability matrix is
 
   \begin{center}
   \begin{tabular}{c ||c c c c c c c||}
-  \multicolumn{1}{c}{} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} &
-  \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} &
-  \multicolumn{1}{c}{$\cdots$} \\
+  \multicolumn{1}{c}{} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{$\cdots$} \\
   0 & $\alpha_1$ & $\alpha_2$ & $\alpha_3$ & $\alpha_4$ & $\alpha_5$ & $\alpha_6$ & $\cdots$ \\
   1 & 1 & 0 & 0 & 0 & 0 & 0 & $\cdots$ \\
   2 & 0 & 1 & 0 & 0 & 0 & 0 & $\cdots$ \\
@@ -284,22 +257,14 @@
   \end{tabular}
   \end{center}
 
-  What condition on the probability distribution \{$\alpha_i : i = 1, 2, \ldots$\} is necessary and
-  sufficient in order that a limiting distribution exist, and what is this limiting distribution?
-  Assume $\alpha_1 > 0$ and $\alpha_2 > 0$ so that the chain is aperiodic.
+  What condition on the probability distribution \{$\alpha_i : i = 1, 2, \ldots$\} is necessary and sufficient in order that a limiting distribution exist, and what is this limiting distribution? Assume $\alpha_1 > 0$ and $\alpha_2 > 0$ so that the chain is aperiodic.
 
   \begin{proof}
-    Call that matrix $P$. We show that $\sum_{k = 1}^{\infty} k\alpha_k < \infty$ is the necessary
-    and sufficient condition to the existence of the limiting distribution.
+    Call that matrix $P$. We show that $\sum_{k = 1}^{\infty} k\alpha_k < \infty$ is the necessary and sufficient condition to the existence of the limiting distribution.
     
-    $P$ is obviously aperiodic and irreducible. Hence, if state $0$ is
-    recurrent, every state in $P$ is recurrent. Let $R = \inf \{n \geq 1; X_n = 0\}$. Note that $P(R
-    \leq k \mid X_0 = 0) = \sum_{i = 1}^{k} f^{(i)}_{00} = \sum_{i = 1}^{k} \alpha_i$. Clearly,
-    $\lim\limits_{k \to \infty} \sum_{i = 1}^{k} \alpha_i = 1$. It follows that $f_{00} =
-    \lim\limits_{k \to \infty} \sum_{i = 1}^{k} f^{(i)}_{00} = 1$, so $P$ is indeed recurrent. 
+    $P$ is obviously aperiodic and irreducible. Hence, if state $0$ is recurrent, every state in $P$ is recurrent. Let $R = \inf \{n \geq 1; X_n = 0\}$. Note that $P(R \leq k \mid X_0 = 0) = \sum_{i = 1}^{k} f^{(i)}_{00} = \sum_{i = 1}^{k} \alpha_i$. Clearly, $\lim\limits_{k \to \infty} \sum_{i = 1}^{k} \alpha_i = 1$. It follows that $f_{00} = \lim\limits_{k \to \infty} \sum_{i = 1}^{k} f^{(i)}_{00} = 1$, so $P$ is indeed recurrent. 
 
-    Suppose that $\sum_{k = 1}^{\infty} k\alpha_k < \infty$. Since $m_0 = E[R \mid X_0 = 0] =
-    \sum_{k = 1}^{\infty} k\alpha_k < \infty$, the state 0 is positively recurrent, with
+    Suppose that $\sum_{k = 1}^{\infty} k\alpha_k < \infty$. Since $m_0 = E[R \mid X_0 = 0] = \sum_{k = 1}^{\infty} k\alpha_k < \infty$, the state 0 is positively recurrent, with
     \begin{align*}
       \pi_0 &= \lim\limits_{n \to \infty} P^{(n)}_{00} = \frac{1}{m_0} = \frac{1}{\sum_{k = 1}^{\infty} k\alpha_k} \\
       \pi_1 &= (1 - \alpha_1)\pi_0 \\
@@ -310,8 +275,7 @@
     \end{align*}
     Hence, the limiting distribution is $\pi_k = \frac{1 - \sum_{i = 1}^k \alpha_i}{m_0}$.
 
-    Suppose that $\sum_{k = 1}^{\infty} k\alpha_k = \infty$. Then, $m_0 = \infty$. It follows that
-    $\pi_0 = \frac{1}{m_0} = 0$, so the limiting distribution does not exist.
+    Suppose that $\sum_{k = 1}^{\infty} k\alpha_k = \infty$. Then, $m_0 = \infty$. It follows that $\pi_0 = \frac{1}{m_0} = 0$, so the limiting distribution does not exist.
   \end{proof}
 \end{homeworkProblem}
 
@@ -321,10 +285,7 @@
   Determine the period of state 0 in the Markov chain whose transition probability matrix is
 
   \begin{center}
-    $P = $ \begin{tabular}{c ||c c c c c c c c||}
-    \multicolumn{1}{c}{} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{1} &
-    \multicolumn{1}{c}{0} & \multicolumn{1}{c}{-1} & \multicolumn{1}{c}{-2} &
-    \multicolumn{1}{c}{-3} & \multicolumn{1}{c}{-4} \\
+    $P = $ \begin{tabular}{c ||c c c c c c c c||} \multicolumn{1}{c}{} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{-1} & \multicolumn{1}{c}{-2} & \multicolumn{1}{c}{-3} & \multicolumn{1}{c}{-4} \\
     3 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
     2 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
     1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -337,11 +298,7 @@
   \end{center}
 
   \begin{proof}
-    There are two communicating classes in $P$, namely $\{1, 2, 3\}$ and $\{0, -1, -2, -3, -4\}$.
-    Note that $0$ is accessible to both classes. But since $\{1, 2, 3\}$ is a closed class, there
-    are no path to return to 0 after entering that class. Hence, we may focus on the class $\{0, -1,
-    -2, -3, -4\}$. Since the only path to return to 0 is via the cycle $0 \to -1 \to -2 \to -3 \to
-    -4 \to 0$, the state $0$ is of period 5.
+    There are two communicating classes in $P$, namely $\{1, 2, 3\}$ and $\{0, -1, -2, -3, -4\}$. Note that $0$ is accessible to both classes. But since $\{1, 2, 3\}$ is a closed class, there are no path to return to 0 after entering that class. Hence, we may focus on the class $\{0, -1, -2, -3, -4\}$. Since the only path to return to 0 is via the cycle $0 \to -1 \to -2 \to -3 \to -4 \to 0$, the state $0$ is of period 5.
   \end{proof}
 \end{homeworkProblem}
 
@@ -355,10 +312,7 @@
   Find the stationary distribution.
 
   \begin{proof}
-    We solve for $\pi = \pi P$ and get $\pi_0 = \sum_{i = 0}^{\infty} \frac{x_i}{i + 2}$ and $\pi_k
-    = \sum_{i = k}^{\infty} \frac{x_{i - 1}}{i + 1}$, for $k > 0$. Hence, we get $\pi_k =
-    \frac{\pi_0}{k!}$. Since $\sum_{i = 0}^{\infty} \pi_i = \pi_0\sum_{k = 0}^{\infty} \frac{1}{k!}
-    = e\pi_0 = 1$, we get $\pi_0 = \frac{1}{e}$, and so $\pi_k = \frac{1}{k!e}$.
+    We solve for $\pi = \pi P$ and get $\pi_0 = \sum_{i = 0}^{\infty} \frac{x_i}{i + 2}$ and $\pi_k = \sum_{i = k}^{\infty} \frac{x_{i - 1}}{i + 1}$, for $k > 0$. Hence, we get $\pi_k = \frac{\pi_0}{k!}$. Since $\sum_{i = 0}^{\infty} \pi_i = \pi_0\sum_{k = 0}^{\infty} \frac{1}{k!} = e\pi_0 = 1$, we get $\pi_0 = \frac{1}{e}$, and so $\pi_k = \frac{1}{k!e}$.
   \end{proof}
 \end{homeworkProblem}
 \end{document}

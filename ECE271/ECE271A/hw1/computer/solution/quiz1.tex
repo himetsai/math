@@ -116,11 +116,7 @@ Using the training data in {\fontfamily{qcr}\selectfont TrainingSamplesDCT\textu
 
 \textbf{\large Solution}
 
-We assume that {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore FG} and 
-{\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore BG} represents a set of complete images collectively.
-Then, given that there are $250$ rows in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore FG}
-and $1053$ rows in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore BG},
-we use the ratio of the size of samples to give an estimate for the prior probabilities, namely 
+We assume that {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore FG} and {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore BG} represents a set of complete images collectively. Then, given that there are $250$ rows in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore FG} and $1053$ rows in {\fontfamily{qcr}\selectfont TrainingSampleDCT\textunderscore BG}, we use the ratio of the size of samples to give an estimate for the prior probabilities, namely 
 \[
   \prob_Y(cheetah) = \frac{250}{1053 + 250} \approx 19\%,
 \]
@@ -129,13 +125,11 @@ we use the ratio of the size of samples to give an estimate for the prior probab
 \]
 
 \section*{Part B}
-Using the training data in {\fontfamily{qcr}\selectfont TrainingSamplesDCT\textunderscore8.mat}, compute and plot the index histograms
-$P_{X|Y}(x|cheetah)$ and $P_{X|Y}(x|grass)$. \\
+Using the training data in {\fontfamily{qcr}\selectfont TrainingSamplesDCT\textunderscore8.mat}, compute and plot the index histograms $P_{X|Y}(x|cheetah)$ and $P_{X|Y}(x|grass)$. \\
 
 \textbf{\large Solution}
 
-We collect feature $X$, the position of the coefficient of the second largest magnitude, from each row vector and normalize it to 
-obtained the index histogram for $P_{X|Y}(x|cheetah)$ and $P_{X|Y}(x|grass)$:
+We collect feature $X$, the position of the coefficient of the second largest magnitude, from each row vector and normalize it to obtained the index histogram for $P_{X|Y}(x|cheetah)$ and $P_{X|Y}(x|grass)$:
 \begin{center}
   \includegraphics[scale=0.3]{probability_histogram}
 \end{center}
@@ -144,19 +138,12 @@ obtained the index histogram for $P_{X|Y}(x|cheetah)$ and $P_{X|Y}(x|grass)$:
 
 \section*{Part C}
 
-For each block in the image {\fontfamily{qcr}\selectfont cheetah.bmp}, compute the feature $X$ (index of the DCT coefficient with
-2nd greatest energy). Compute the state variable $Y$ using the minimum probability of error rule based
-on the probabilities obtained in part a and b. Store the state in an array $A$. Using the commands {\fontfamily{qcr}\selectfont imagesc} 
-and {\fontfamily{qcr}\selectfont colormap(gray(255))}, create a picture of that array. \\
+For each block in the image {\fontfamily{qcr}\selectfont cheetah.bmp}, compute the feature $X$ (index of the DCT coefficient with 2nd greatest energy). Compute the state variable $Y$ using the minimum probability of error rule based on the probabilities obtained in part a and b. Store the state in an array $A$. Using the commands {\fontfamily{qcr}\selectfont imagesc} and {\fontfamily{qcr}\selectfont colormap(gray(255))}, create a picture of that array. \\
 
 \textbf{\large Solution}
 
-Let $g(x)$ be our decision function. Assume our loss function 
-$L[g(x), y] = \begin{cases}
-  1, &g(x) \neq y \\
-  0, &g(x) = y
-\end{cases}$. 
-By the minimum probability of error rule, the optimal decision function is
+Let $g(x)$ be our decision function. Assume our loss function $L[g(x), y] = \begin{cases} 1, &g(x) \neq y \\
+  0, &g(x) = y \end{cases}$. By the minimum probability of error rule, the optimal decision function is
 \begin{align*}
   g^*(x) 
   &= {\arg \max}_{i} \prob_{Y|X}(i | x) \\
@@ -170,13 +157,11 @@ By the minimum probability of error rule, the optimal decision function is
     grass, &\text{otherwise},
   \end{cases}
 \end{align*}
-for the 0-1 loss function. We then use function $g^*(x)$ to assign a state to each pixel and obtian 
-our pridiction mask array $A$. Resulting picture of array $A$ is shown at the bottom of the page.
+for the 0-1 loss function. We then use function $g^*(x)$ to assign a state to each pixel and obtian our pridiction mask array $A$. Resulting picture of array $A$ is shown at the bottom of the page.
 
 \section*{Part D}
 
-The array $A$ contains a mask that indicates which blocks contain grass and which contain the
-cheetah. Compare it with the ground truth provided in image {\fontfamily{qcr}\selectfont cheetah\textunderscore mask.bmp} and compute the probability of error of your algorithm. \\
+The array $A$ contains a mask that indicates which blocks contain grass and which contain the cheetah. Compare it with the ground truth provided in image {\fontfamily{qcr}\selectfont cheetah\textunderscore mask.bmp} and compute the probability of error of your algorithm. \\
 
 \textbf{\large Solution}
 By comparing our prediction with the truth, we calculate the error rate with the following formula

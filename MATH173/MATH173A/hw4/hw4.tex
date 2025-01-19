@@ -153,22 +153,15 @@
 
 \begin{homeworkProblem}
 	\begin{enumerate}[(a)]
-		\item Find an expression for the orthogonal projection of a point $x\in\mathbb{R}^n$ onto the
-		convex set
+		\item Find an expression for the orthogonal projection of a point $x\in\mathbb{R}^n$ onto the convex set
 		\begin{align*}
 			B = \{z\in\mathbb{R}^n : 0\le z_i \le 1 \textnormal{ for
 			each } i=1, ..., n\}.
 		\end{align*}
-		You need to show your work, and justify your answer. The expression can be written piecewise,
-		and per dimension if it's easier / more compact. {\bf Hint:} It might be helpful to sketch $B$,
-		when $n = 2$ (i.e., in 2 dimensions), and use the sketch to help you figure out what the
-		projection should be.
+		You need to show your work, and justify your answer. The expression can be written piecewise, and per dimension if it's easier / more compact. {\bf Hint:} It might be helpful to sketch $B$, when $n = 2$ (i.e., in 2 dimensions), and use the sketch to help you figure out what the projection should be.
 
 		\begin{proof}
-			For $x \in \R^n$, we need to find $\Pi_B(x) = \underset{z \in B}{\arg\min} \|z - x\| =
-			\underset{z \in B}{\arg\min} \sum_i (z_i - x_i)^2$. Notice that we may decouple this
-			minimization problem across $n$ dimension by minimizing each $z_i$ independently. That is, for
-			all $i$
+			For $x \in \R^n$, we need to find $\Pi_B(x) = \underset{z \in B}{\arg\min} \|z - x\| = \underset{z \in B}{\arg\min} \sum_i (z_i - x_i)^2$. Notice that we may decouple this minimization problem across $n$ dimension by minimizing each $z_i$ independently. That is, for all $i$
 			\[
 				z_i = \underset{a \in [0, 1]}{\arg\min} (a - x_i)^2 = \begin{cases}
 					0 & \textnormal{if } x_i < 0, \\
@@ -182,13 +175,11 @@
 		\begin{align*}
 		f(x) = \|Ax\|_2^2 + a^T x
 		\end{align*}
-		where $A\in\mathbb{R}^{n\times n}$ is a positive definite matrix, and $a\in\mathbb{R}^n$. Write
-		a projected gradient descent algorithm to solve
+		where $A\in\mathbb{R}^{n\times n}$ is a positive definite matrix, and $a\in\mathbb{R}^n$. Write a projected gradient descent algorithm to solve
 		\begin{align*}
 		\min_{x\in\Omega} f(x)
 		\end{align*}
-		for $\Omega = B$, with $B$ from part (a). You do not need to specify the step size for this
-		problem.
+		for $\Omega = B$, with $B$ from part (a). You do not need to specify the step size for this problem.
 
 		\begin{proof}
 			Note that
@@ -218,8 +209,7 @@
 			\[
 				x^{(k+1)} = \Pi_\Omega\left(x^{(k)} - \mu \nabla f(x^{(k)})\right) = \Pi_B\left((I - 2\mu A^TA)x^{(k)} - \mu a\right),
 			\]
-			which is $\frac{(I - 2\mu A^TA)x^{(k)} - \mu a}{\|(I - 2\mu A^TA)x^{(k)} - \mu a\|_2}$ if
-			$\|x\| > 1$ and $(I - 2\mu A^TA)x^{(k)} - \mu a$ otherwise.
+			which is $\frac{(I - 2\mu A^TA)x^{(k)} - \mu a}{\|(I - 2\mu A^TA)x^{(k)} - \mu a\|_2}$ if $\|x\| > 1$ and $(I - 2\mu A^TA)x^{(k)} - \mu a$ otherwise.
 		\end{proof}
 		\end{enumerate}
 \end{homeworkProblem}
@@ -227,27 +217,21 @@
 \newpage
 
 \begin{homeworkProblem}
-	Consider the \emph{hollow} sphere $S$ in $\mathbb{R}^n$, i.e., the set $S := \{x \in \mathbb{R}^n
-	: \|x\|_2^2 = 1\}$. Consider the function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ given by
+	Consider the \emph{hollow} sphere $S$ in $\mathbb{R}^n$, i.e., the set $S := \{x \in \mathbb{R}^n : \|x\|_2^2 = 1\}$. Consider the function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ given by
 	\begin{align*}
 	f(x) = x^T Qx
 	\end{align*}
-	where $Q$ is an $n\times n$ symmetric matrix. For this problem you may use the fact that $\nabla
-	f(x) = 2Qx$.
+	where $Q$ is an $n\times n$ symmetric matrix. For this problem you may use the fact that $\nabla f(x) = 2Qx$.
 
 	\begin{enumerate}[(a)]
-		\item For an arbitrary point $y\in\mathbb{R}^n$, $\Pi(y)$ be the projection of $y$ onto $S$.
-		Find an expression for $\Pi(y)$ and give a short argument (i.e., proof) for why this is the
-		correct expression. Make sure to handle the case $y = 0$ (i.e., the zero vector).
+		\item For an arbitrary point $y\in\mathbb{R}^n$, $\Pi(y)$ be the projection of $y$ onto $S$. Find an expression for $\Pi(y)$ and give a short argument (i.e., proof) for why this is the correct expression. Make sure to handle the case $y = 0$ (i.e., the zero vector).
 
 		\begin{proof}
-			I claim that $\Pi(y) = \frac{y}{\|y\|_2}$ if $y \neq 0$ and $\Pi(0)$ can be any point in $S$.
-			Note that the reverse triangle-inequality yields a lower bound
+			I claim that $\Pi(y) = \frac{y}{\|y\|_2}$ if $y \neq 0$ and $\Pi(0)$ can be any point in $S$. Note that the reverse triangle-inequality yields a lower bound
 			\[
 				\|x - y\|_2 \ge \left|\|x\|_2 - \|y\|_2\right| = \left|1 - \|y\|_2\right|,
 			\]
-			for $x \in \Omega$. Obvisouly, any $x \in \Omega$ achieves the lower bound when $y = 0$.
-			Suppose $y \neq 0$. Obviously $\frac{y}{\|y\|_2} \in \Omega$. Since 
+			for $x \in \Omega$. Obvisouly, any $x \in \Omega$ achieves the lower bound when $y = 0$. Suppose $y \neq 0$. Obviously $\frac{y}{\|y\|_2} \in \Omega$. Since 
 			\[
 				\left\|\frac{y}{\|y\|_2} - y\right\| = \left\|\left(\frac{1}{\|y\|_2} - 1\right)y\right\| = \|y\|_2\left|\frac{1}{\|y\|_2} - 1\right| = |1 - \|y\|_2|
 			\]
@@ -257,8 +241,7 @@
 		\item Is $S$ a convex set?
 
 		\begin{proof}
-			$S$ is not a convex set. Consider $x = (1, 0)$ and $y = (-1, 0)$. Then $0 = \frac{1}{2}(1, 0)
-			+ \frac{1}{2}(-1, 0) \notin S$.
+			$S$ is not a convex set. Consider $x = (1, 0)$ and $y = (-1, 0)$. Then $0 = \frac{1}{2}(1, 0) + \frac{1}{2}(-1, 0) \notin S$.
 		\end{proof}
 
 		\item Write a projected gradient descent algorithm, with constant step size $\mu$, for
@@ -272,13 +255,10 @@
 			\[
 				x^{(k+1)} = \Pi_S\left((I - 2\mu Q)x^{(k)}\right),
 			\]
-			which is equal to $\frac{(I - 2\mu Q)x^{(k)}}{\|(I - 2\mu Q)x^{(k)}\|}$ if $x^{(k)} \neq 0$
-			and any point in $S$ if $x^{(k)} = 0$.
+			which is equal to $\frac{(I - 2\mu Q)x^{(k)}}{\|(I - 2\mu Q)x^{(k)}\|}$ if $x^{(k)} \neq 0$ and any point in $S$ if $x^{(k)} = 0$.
 		\end{proof}
 
-		\item Is the projected gradient descent algorithm guaranteed to converge to the solution for
-		small enough $\mu$? If not, can you give an example of $Q$ and an initialization $x^{(0)}$ where
-		the algorithm won't converge?
+		\item Is the projected gradient descent algorithm guaranteed to converge to the solution for small enough $\mu$? If not, can you give an example of $Q$ and an initialization $x^{(0)}$ where the algorithm won't converge?
 
 		\begin{proof}
 			Fix $\mu \in (0, 0.5)$. Consider $Q = \text{diag}(1, 0)$ and $x^{(0)} = (1, 0)$. Then
@@ -288,13 +268,11 @@
 				\end{bmatrix}x^{(k)}\right) = \frac{1}{\sqrt{(1 - 2\mu)^2(x^{(k)}_1)^2 + (x^{(k)}_2)^2}}\begin{bmatrix} (1 - 2\mu)x^{(k)}_1 \\ x^{(k)}_2 \end{bmatrix}.
 			\] 
 			
-			Since $x^{(0)}$ only have the first entry non-zero, $x_2^{(k)} = 0$ for all $k$ by induction
-			and thus
+			Since $x^{(0)}$ only have the first entry non-zero, $x_2^{(k)} = 0$ for all $k$ by induction and thus
 			\[
 				x^{(k + 1)} = \frac{1}{(1 - 2\mu)x^{(k)}_1}\begin{bmatrix} (1 - 2\mu)x^{(k)}_1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}.
 			\]
-			But then $f\left(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\right) = 1$ and $f\left(\begin{bmatrix} 0 \\ 1
-				\end{bmatrix}\right) = 0$, so the algorithm fails to converge to a minimum.
+			But then $f\left(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\right) = 1$ and $f\left(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\right) = 0$, so the algorithm fails to converge to a minimum.
 		\end{proof}
 	\end{enumerate}
 \end{homeworkProblem}

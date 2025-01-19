@@ -152,8 +152,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  Let $U, V,$ and $W$ be independent random variables with equal variance $\sigma^2$. Define $X = U
-  + W$ and $Y = V - W$. Find the covariance between $X$ and $Y$.
+  Let $U, V,$ and $W$ be independent random variables with equal variance $\sigma^2$. Define $X = U + W$ and $Y = V - W$. Find the covariance between $X$ and $Y$.
 
   \begin{proof}
     \begin{align*}
@@ -170,16 +169,12 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $X$ and $Y$ be independent binomial random variables having parameters $(N, p)$ and $(M, p)$,
-  respectively. Let $Z = X + Y$.
+  Let $X$ and $Y$ be independent binomial random variables having parameters $(N, p)$ and $(M, p)$, respectively. Let $Z = X + Y$.
 
   \begin{enumerate}[(a)]
-    \item Argue that $Z$ has a binomial distribution with parameters $(N + M, p)$ by writing $X$ and
-    $Y$ as appropriate sums of Bernoulli random varaibles.
+    \item Argue that $Z$ has a binomial distribution with parameters $(N + M, p)$ by writing $X$ and $Y$ as appropriate sums of Bernoulli random varaibles.
     \begin{proof}
-      Since $\p(X = i) = {N \choose i}p^{i}(1 - p)^{N - i}$ and $\p(Y = i) = {M \choose i}p^{i}(1 -
-      p)^{M - i}$, $X$ is the sum of $N$ indicators and $Y$ is the sum of $M$ indicators. Hence, we
-      have $Z = X + Y$ as the sum of $M + N$ indicators.
+      Since $\p(X = i) = {N \choose i}p^{i}(1 - p)^{N - i}$ and $\p(Y = i) = {M \choose i}p^{i}(1 - p)^{M - i}$, $X$ is the sum of $N$ indicators and $Y$ is the sum of $M$ indicators. Hence, we have $Z = X + Y$ as the sum of $M + N$ indicators.
     \end{proof}
 
     \item Validate the results in (a) by evaluating the necessary convolution.
@@ -200,9 +195,7 @@
 \newpage
 
 \begin{homeworkProblem}
-  Let $X$ be a random variable. Recall that the moment generating function (or MGF for short)
-  $M_X(t)$ of $X$ is the function $M_X : \R \rightarrow \R \cup \{\infty\}$ defined by $t \mapsto
-  \E[e^{tX}]$. Now suppose that $X \sim Gamma(\alpha, \lambda)$, where $\alpha, \lambda > 0$.
+  Let $X$ be a random variable. Recall that the moment generating function (or MGF for short) $M_X(t)$ of $X$ is the function $M_X : \R \rightarrow \R \cup \{\infty\}$ defined by $t \mapsto \E[e^{tX}]$. Now suppose that $X \sim Gamma(\alpha, \lambda)$, where $\alpha, \lambda > 0$.
 
   \begin{enumerate}[(a)]
     \item Prove that
@@ -221,32 +214,24 @@
         &= \frac{\lambda^{\alpha}}{\Gamma(\alpha)} \int_0^{\infty} \left(\frac{u}{\lambda - t}\right)^{\alpha - 1}e^{-u} \frac{du}{\lambda - t} \\
         &= \left(\frac{\lambda}{\lambda - t}\right)^{\alpha} \frac{\int_0^{\infty} u^{\alpha - 1}e^{-u} du}{\Gamma(\alpha)}.
       \end{align*}
-      If $t \geq \lambda$, we get $-u > 0$, so the integral $\int_0^{\infty} u^{\alpha - 1}e^{-u}
-      du$ would approach infinity. Otherwise, $\int_0^{\infty} u^{\alpha - 1}e^{-u} du =
-      \Gamma(\alpha)$, and we get $M_{X}(t) = \left(\frac{\lambda}{\lambda - t}\right)^{\alpha}$.
+      If $t \geq \lambda$, we get $-u > 0$, so the integral $\int_0^{\infty} u^{\alpha - 1}e^{-u} du$ would approach infinity. Otherwise, $\int_0^{\infty} u^{\alpha - 1}e^{-u} du = \Gamma(\alpha)$, and we get $M_{X}(t) = \left(\frac{\lambda}{\lambda - t}\right)^{\alpha}$.
     \end{proof}
 
-    \item Recall that the MGF contains the information of the moments. In particular, if $m_l(X$) is
-    the $l$-th moment of $X$, then $M^{(l)}_X(0) = m_l(X)$, where $M^{(l)}_X$ denotes the $l$-th
-    derivative of $M_X$. Use this to compute the mean and variance of $X$.
+    \item Recall that the MGF contains the information of the moments. In particular, if $m_l(X$) is the $l$-th moment of $X$, then $M^{(l)}_X(0) = m_l(X)$, where $M^{(l)}_X$ denotes the $l$-th derivative of $M_X$. Use this to compute the mean and variance of $X$.
 
     \begin{proof}
       Note that 
       \[
         M_X(t) = \E[e^{tX}] = \sum_{k = 0}^{\infty} \E\left[\frac{(tX)^k}{k!}\right] = \sum_{k = 0}^{\infty} \frac{t^k}{k!} \E[X^k].
       \]
-      Since all the terms after the first one in $M^{(l)}_X$ is multiplied by a power of $t$, only
-      the first term remains when $t$ is set to 0, and thus $m_l(X) = M^{(l)}_X(0) = \E[X^l]$. To
-      calculate the mean $\mu$ and variance $\sigma^2$ of $X$, we only need to calculate $\E[X]$ and
-      $\E[X^2]$, namely $m_1(X)$ and $m_2(X)$. Since $t < \lambda$, 
+      Since all the terms after the first one in $M^{(l)}_X$ is multiplied by a power of $t$, only the first term remains when $t$ is set to 0, and thus $m_l(X) = M^{(l)}_X(0) = \E[X^l]$. To calculate the mean $\mu$ and variance $\sigma^2$ of $X$, we only need to calculate $\E[X]$ and $\E[X^2]$, namely $m_1(X)$ and $m_2(X)$. Since $t < \lambda$, 
       \[
         m_1(X) = \left.\frac{\alpha\lambda^{\alpha}}{(\lambda - t)^{\alpha + 1}}\right|_{t = 0} = \frac{\alpha}{\lambda}
       \]
       \[
         m_2(X) =  \left.\frac{\alpha(\alpha + 1)\lambda^{\alpha}}{(\lambda - t)^{\alpha + 2}}\right|_{t = 0} = \frac{\alpha(\alpha + 1)}{\lambda^2},
       \]
-      and thus $\mu = m_1(X) = \frac{\alpha}{\lambda}$ and $\sigma^2 = m_2(X) - m_1(X)^2 =
-      \frac{\alpha(\alpha + 1)}{\lambda^2} - \left(\frac{\alpha}{\lambda}\right)^2 =\frac{\alpha}{\lambda^2}$.
+      and thus $\mu = m_1(X) = \frac{\alpha}{\lambda}$ and $\sigma^2 = m_2(X) - m_1(X)^2 = \frac{\alpha(\alpha + 1)}{\lambda^2} - \left(\frac{\alpha}{\lambda}\right)^2 =\frac{\alpha}{\lambda^2}$.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -254,15 +239,10 @@
 \newpage
 
 \begin{homeworkProblem}
-  Suppose that $(X_1, X_2)$ has the bivariate normal distribution with marginals $X_1 \sim \N(\mu_1,
-  \sigma^2_1)$ and $X_2 \sim \N(\mu_2, \sigma^2_2)$ and correlation $Corr(X_1, X_2) = \rho$. Let $Y_1
-  = 2X_1 + X_2$ and $Y_2 = X_1 - X_2$. Determine the distribution of the random vector $(Y_1,
-  Y_2)$.
+  Suppose that $(X_1, X_2)$ has the bivariate normal distribution with marginals $X_1 \sim \N(\mu_1, \sigma^2_1)$ and $X_2 \sim \N(\mu_2, \sigma^2_2)$ and correlation $Corr(X_1, X_2) = \rho$. Let $Y_1 = 2X_1 + X_2$ and $Y_2 = X_1 - X_2$. Determine the distribution of the random vector $(Y_1, Y_2)$.
 
   \begin{proof}
-    Let $X = (X_1, X_2)^T$, $Y = (Y_1, Y_2)^T$. Note that $Corr(X_1, X_2) = \frac{Cov(X_1,
-    X_2)}{\sigma_1\sigma_2}$, so $Cov(X_1, X_2) = Cov(X_2, X_1) = \rho\sigma_1\sigma_2$. Thus, we
-    get the covariance matrix of $X$, which is 
+    Let $X = (X_1, X_2)^T$, $Y = (Y_1, Y_2)^T$. Note that $Corr(X_1, X_2) = \frac{Cov(X_1, X_2)}{\sigma_1\sigma_2}$, so $Cov(X_1, X_2) = Cov(X_2, X_1) = \rho\sigma_1\sigma_2$. Thus, we get the covariance matrix of $X$, which is 
 
     \[
       \Sigma_X = \E[(X - \E[X])(X - \E[X])^T] = \begin{bmatrix} 
@@ -311,11 +291,7 @@
   \begin{enumerate}[(a)]
     \item Prove that $Y = g(X)$ and $Z = h(X)$ are both uniform $Y, Z \sim$ Unif$[-1, 1]$.
     \begin{proof}
-      Let $k \in [-1, 1]$, and let $\alpha = \p(X = 0)$. Note that $\p(X = x) = \alpha$, for all $x
-      \in [-1, 1]$. Suppose that $k \geq 0$. Then, $\p(Y = k) = \p(X = 1 - k) = \alpha$ and $\p(Z =
-      k) = \p(X = k) = \alpha$. Suppose that $k < 0$. Then, $\p(Y = k) = \p(X = k) = \alpha$ and
-      $\p(Z = k) = \p(X = -(k + 1)) = \alpha$. Since $\p(Y = k) = \p(Z = k) = \alpha$ for all $l \in
-      [-1, 1]$, $Y, Z \sim$ Unif$[-1, 1]$.
+      Let $k \in [-1, 1]$, and let $\alpha = \p(X = 0)$. Note that $\p(X = x) = \alpha$, for all $x \in [-1, 1]$. Suppose that $k \geq 0$. Then, $\p(Y = k) = \p(X = 1 - k) = \alpha$ and $\p(Z = k) = \p(X = k) = \alpha$. Suppose that $k < 0$. Then, $\p(Y = k) = \p(X = k) = \alpha$ and $\p(Z = k) = \p(X = -(k + 1)) = \alpha$. Since $\p(Y = k) = \p(Z = k) = \alpha$ for all $l \in [-1, 1]$, $Y, Z \sim$ Unif$[-1, 1]$.
     \end{proof}
     \item Prove that $Cov(X, Y) = Cov(X, Z)$.
     \begin{proof}
@@ -329,14 +305,12 @@
       \]
       we get $Cov(X, Y) = Cov(X, Z)$.
     \end{proof}
-    \item Prove that the random vectors $(X, Y)$ and $(X, Z)$ do not have the same joint
-    distribution. This can be done by finding a subset $B \subset \R^2$ such that
+    \item Prove that the random vectors $(X, Y)$ and $(X, Z)$ do not have the same joint distribution. This can be done by finding a subset $B \subset \R^2$ such that
     \[
       \p((X, Y) \in B) \neq \p((X, Z) \in B).
     \]
     \begin{proof}
-      Consider $B = \{(x, x) \, | \, x \in [0, 1]\}$. Since $\p((X, Y) \in B) = 0 \neq \frac{1}{2} =
-      \p((X, Z) \in B)$, $(X, Y)$ and $(X, Z)$ do not have the same joint distribution.
+      Consider $B = \{(x, x) \, | \, x \in [0, 1]\}$. Since $\p((X, Y) \in B) = 0 \neq \frac{1}{2} = \p((X, Z) \in B)$, $(X, Y)$ and $(X, Z)$ do not have the same joint distribution.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
