@@ -217,7 +217,7 @@
 	Show that $B$ is closed in $X$. $\overline{B_r}(a)$ is called the \emph{closed ball of radius $r$ centred about $a$}.
 
 	\begin{proof}
-		Let $x \in X \backslash B$. Let $\epsilon = d(a, x) - r > 0$. Then $B_{\epsilon}(x) \subset X \backslash B$, so $X \backslash B$ is covered by a collection of open sets. Thus, $X \backslash B$ is closed and the result follows.
+		Let $x \in X \backslash B$. Let $\epsilon = d(a, x) - r > 0$. Then $B_{\epsilon}(x) \subset X \backslash B$, so $X \backslash B$ is covered by a collection of open sets. Thus, $X \backslash B$ is open and the result follows.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -229,7 +229,7 @@
 		\item Let $(X, d)$ be a metric space, let $a \in X$ be a point of $X$ and let $r > 0$ be a positive real. Let $Y = B_r(a)$ be the \emph{open ball of radius $r$ centred about $a$}. Then the closure of $Y$ is the closed ball of radius $r$ centred about $a$.
 		
 		\begin{proof}
-			True. By problem 3, $\overline{B}_r(a)$ is closed, so it suffices to show $\overline{B}_r(a)$ is the smallest closed set. Suppose not. Let $C$ be a closed set such that $B_r(a) \subset C \subset \overline{B}_r(a)$. There exists some $x$ such that $d(a, x) = r$ and $x \notin C$. Since $B_s(x) \cap B_r(a) \neq \emptyset$ for any $s > 0$, there are no open balls in $X \backslash C$ that contain $x$. Thus $C$ is not closed, contradiction.
+			True. By problem 3, $\overline{B}_r(a)$ is closed, so it suffices to show $\overline{B}_r(a)$ is the smallest closed set that contains $B_r(a)$. Suppose not. Let $C$ be a closed set such that $B_r(a) \subset C \subset \overline{B}_r(a)$. Then there exists some $x$ such that $d(a, x) = r$ and $x \notin C$. But then there does not exist $s > 0$ such that $B_s(x) \cap B_r(a) \neq \emptyset$. Thus $X \backslash C$ is not open and so $C$ is not closed, contradiction.
 		\end{proof}
 
 		\item If $(X, \mathcal{T})$ is a topological space and $Y \subset X$ is a subset then
