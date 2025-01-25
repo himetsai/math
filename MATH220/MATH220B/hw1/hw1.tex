@@ -1,0 +1,401 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{Jan 26, 2025}
+\newcommand{\hmwkClass}{MATH 220B}
+\newcommand{\hmwkClassInstructor}{Professor Xiao}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Each of the following functions $f$ has an isolated singularity at $z = 0$. Determine its nature; if it is a removable singularity define $f(0)$ so that $f$ is analytic at $z = 0$; if it is a pole find the singular part; if it is an essential singularity determine $f(\{z : 0 < |z| < \delta\})$ for arbitrarily small values of $\delta$.
+
+	\begin{enumerate}
+		\item[(a)] $f(z) = \frac{\sin z}{z}$
+		\begin{proof}
+			$f$ has a removable singularity at $z = 0$. Since the power series expansion of $\sin z$ is $z - \frac{z^3}{3!} + \frac{z^5}{5!} - \cdots$, 
+			\[
+				f(z) = 1 - \frac{z^2}{3!} + \frac{z^4}{5!} - \cdots
+			\]
+			and so defining $f(0) = \lim_{z \to 0} f(z) = 1$ makes $f$ analytic.
+		\end{proof}
+		\item[(b)] $f(z) = \frac{\cos z}{z}$
+		\begin{proof}
+			Since the power series expansion of $\cos z$ is $1 - \frac{z^2}{2!} + \frac{z^4}{4!} - \cdots$, 
+			\[
+				f(z) = \frac{1}{z} - \frac{z}{2!} + \frac{z^3}{4!} - \cdots,
+			\]
+			and so the singluar part of $f$ is $\frac{1}{z}$.
+		\end{proof}
+		\item[(j)]$f(z) = z^n \sin\left(\frac{1}{z}\right)$
+		\begin{proof}
+			Note that the Laurent expansion
+			\[
+				f(z) = \sum_{k = 0}^{\infty} \frac{(-1)^{k}}{(2k + 1)!}z^{n - k} = \sum_{k = -\infty}^n \frac{(-1)^{n - k}}{[2(n - k) + 1]!}z^{k}
+			\]
+			has infinitely many terms with negative powers of $z$ and so $f$ has an essential singularity at $z = 0$.
+
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $f(z) = \frac{1}{z(z-1)(z-2)}$; give the Laurent Expansion of $f(z)$ in each of the following annuli:
+	\begin{enumerate}
+		\item[(b)] $\text{ann}(0; 1, 2)$
+		\begin{proof}
+			By partial fractions decomposition,
+			\[
+				f(z) = \frac{1}{z(z-1)(z-2)} = \frac{1}{2z} - \frac{1}{z - 1} + \frac{1}{2(z - 2)}.
+			\]
+			Since $|z| > 1$,
+			\[
+				\frac{1}{z - 1} = \frac{1}{z} \cdot \frac{1}{1 - \frac{1}{z}} = \frac{1}{z} \sum_{n = 0}^{\infty} \frac{1}{z^n} = \sum_{n = 1}^{\infty} \frac{1}{z^{n}}.
+			\]
+			Since $0 < |z| < 2$,
+			\[
+				\frac{1}{z - 2} = -\frac{1}{2} \cdot \frac{1}{1 - \frac{z}{2}} = - \sum_{n = 0}^{\infty} \frac{z^n}{2^{n + 1}}.
+			\]
+			Hence, the Laurent expansion of $f$ in $\text{ann}(0; 1, 2)$ is
+			\[
+				f(z) = \frac{1/2}{z} - \sum_{n = 1}^{\infty} \frac{1}{z^{n}} - \sum_{n = 0}^{\infty} \frac{1}{2^{n + 2}}z^n.
+			\]
+		\end{proof}
+		\item[(c)] $\text{ann}(0; 2, \infty)$
+		\begin{proof}
+			By partial fractions decomposition,
+			\[
+				f(z) = \frac{1}{z(z-1)(z-2)} = \frac{1}{2z} - \frac{1}{z - 1} + \frac{1}{2(z - 2)}.
+			\]
+			Since $|z| > 2$,
+			\[
+				\frac{1}{z - 1} = \frac{1}{z} \cdot \frac{1}{1 - \frac{1}{z}} = \frac{1}{z} \sum_{n = 0}^{\infty} \frac{1}{z^n} = \sum_{n = 1}^{\infty} \frac{1}{z^{n}}.
+			\]
+			and
+			\[
+				\frac{1}{z - 2} = \frac{1}{z} \cdot \frac{1}{1 - \frac{2}{z}} = \sum_{n = 1}^{\infty} \frac{2^{n - 1}}{z^{n}}.
+			\]
+			Hence, the Laurent expansion of $f$ in $\text{ann}(0; 1, 2)$ is
+			\[
+				f(z) = \frac{1/2}{z} - \sum_{n = 1}^{\infty} \frac{1}{z^{n}} + \sum_{n = 1}^{\infty} \frac{2^{n - 2}}{z^{n}} = \frac{1/2}{z} + \sum_{n = 1}^{\infty} \frac{2^{n - 2} - 1}{z^{n}}.
+			\]
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	If $f: G \to \mathbb{C}$ is analytic except for poles, show that the poles of $f$ cannot have a limit point in $G$.
+
+	\begin{proof}
+		Suppose $a \in G$ is a limit point of poles of $f$. Then $a$ cannot be a pole, as there does not exist $R > 0$ such that $B_R(a) \backslash \{a\}$ is analytic. By the Open Mapping Theorem, there exists $r > 0$ such that $B_r(f(a)) \subseteq f(G \backslash \{\text{poles}\})$. Since $f$ is continuous, $f^{-1}(B_r(f(a)))$ is open in $G \backslash \{\text{poles}\}$ and contains $a$. But then $a$ is a limit point of poles, so there does not exist an open neighborhood of $a$ that is contained in $G \backslash \{\text{poles}\}$, contradiction.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose that $f$ has an essential singularity at $z = a$. Prove the following strengthened version of the Casorati-Weierstrass Theorem. If $c \in \mathbb{C}$ and $\epsilon > 0$ are given, then for each $\delta > 0$ there is a number $\alpha$, $\lvert c - \alpha \rvert < \epsilon$, such that $f(z) = \alpha$ has infinitely many solutions in $B(a; \delta)$.
+
+	\begin{proof}
+		We may assume that $a = 0$, otherwise we work with $f(z - a)$ instead. For $n \in \N$, let $S_n = f[\text{ann}(0, 0, \delta/(n + 1))]$, the image of $f(z)$ for all $0 < |z| < \delta/(n + 1)$. Let $\alpha_1 = c$ and $r_1 = \epsilon$. For $n \in \N$, since $S_n$ is dense by the Casorati-Weierstrass Theorem, there exists $\alpha_{n + 1} \in S_n \cap B_{\epsilon}(c)$. By the Open Mapping Theorem, $S_n$ is open, so there exists $r_{n + 1} \in (0, \delta/(n + 1))$ such that $\overline{B}_{r_{n + 1}}(\alpha_{n + 1}) \subseteq S_n \cap B_{r_n}(\alpha_n)$. By iterating this process, we obtain sequences $\{\alpha_n\}_{n \in \N}$ and $\{r_n\}_{n \in \N}$. Since $r_n \to 0$, $\alpha_n$ is Cauchy and thus converges to some $\alpha \in B_\epsilon(c) \cap \bigcap_{n = 1}^\infty S_n$, and the result follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $R > 0$ and $G = \{ z : |z| > R \}$; a function $f: G \to \C$ has a \textit{removable singularity}, a \textit{pole}, or an \textit{essential singularity at infinity} if $f(z^{-1})$ has, respectively, a removable singularity, a pole, or an essential singularity at $z = 0$. If $f$ has a pole at $\infty$, then the order of the pole is the order of the pole of $f(z^{-1})$ at $z = 0$.
+	\begin{enumerate}[(a)]
+		\item Prove that an entire function has a removable singularity at infinity iff it is a constant.
+		\begin{proof}
+			If an entire function $f$ has a removable singularity at $\infty$, then $f(z^{-1})$ has a removable singularity at $z = 0$. But then $f(z^{-1})$ is bounded around $0$, which implies $f$ is bounded in any neighborhood of $\infty$. By Liouville's Theorem, $f$ is constant. 
+
+			If $f(z) = c$, then $f(z^{-1}) = c$ and so $f$ has a removable singularity at $\infty$.
+		\end{proof}
+		\item Prove that an entire function has a pole at infinity of order $m$ iff it is a polynomial of degree $m$.
+		\begin{proof}
+			If an entire function $f$ has a pole at $\infty$ of order $m$, then $f(z^{-1})z^m$ has a removable singularity at $z = 0$. But then $f(z^{-1})z^m$ is bounded in any neighborhood of $0$, so $f(z^{-1})z^m$, which implies $f(z)z^{-m}$ is bounded in any neighborhood of $\infty$. By Liouville's Theorem, $f(z)z^{-m}$ is constant, and thus $f(z)$ is a polynomial of degree $m$.
+
+			If $f(z) = a_mz^m + \cdots + a_0$ with $a_m \neq 0$, then $z^mf(z^{-1}) = \lim_{z \to 0} z^mf(z^{-1}) = a_0z^m + \cdots + a_m$, which has a removable singularity at $z = 0$. Thus, $f$ has a pole at $\infty$ of order $m$.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Calculate the following integrals:
+	\begin{enumerate}[(a)]
+		\item $\int_{0}^{\infty} \frac{x^2 \, dx}{x^4 + x^2 + 1}$
+		\begin{proof}
+			Put $f(z) = \frac{z^2}{z^4 + z^2 + 1}$. Since $f$ is even, $\int_{0}^{\infty} f(x) \, dx = \frac{1}{2}\int_{-\infty}^{\infty} f(x) \, dx$. Note that $f$ has poles at $a_1 = e^{i\pi/3}$ and $a_2 = e^{2i\pi/3}$. For $R > 1$, let $\gamma_R = Re^{it}$, $0 \leq t \leq \pi$. Since $a_1, a_2$ are enclosed by $\gamma_R \cup [-R, R]$, by the Residue Theorem,
+			\[
+				\int_{-R}^{R} f(x) \, dx = 2\pi i [\text{Res}(f, a_1) + \text{Res}(f, a_2)] - \int_{\gamma_R} f(z) \, dz.
+			\]
+			Calculating the residues, we have
+			\begin{align*}
+				\text{Res}(f, a_1) &= \frac{e^{2i\pi/3}}{4e^{i\pi} + 2e^{i\pi/3}} = \frac{-\frac{1}{2} + \frac{i\sqrt{3}}{2}}{-4 + 1 + i\sqrt{3}} = \frac{1}{4} - \frac{\sqrt{3}}{12}i, \\
+				\text{Res}(f, a_2) &= \frac{e^{4i\pi/3}}{4e^{2i\pi} + 2e^{2i\pi/3}} = \frac{-\frac{1}{2} - \frac{i\sqrt{3}}{2}}{4 - 1 + i\sqrt{3}} = -\frac{1}{4} - \frac{\sqrt{3}}{12}i.
+			\end{align*}
+			As $R \to \infty$,
+			\[
+				\left|\int_{\gamma_R} f(z) \, dz\right| \leq \int_{\gamma_R} \frac{|z|^2|}{|z^4 + z^2 + 1|} \, |dz| \leq \int_{\gamma_R} \frac{|z|^2}{|z|^4 - |z|^2 - 1} \, |dz| = \frac{\pi R^3}{R^4 - R^2 - 1} \to 0.
+			\]
+			Hence, combining the above results, 
+			\[
+				\int_{0}^{\infty} \frac{x^2 \, dx}{x^4 + x^2 + 1} = \frac{1}{2}\lim_{R \to \infty} \int_{-R}^{R} f(x) \, dx = \pi i\left(\frac{1}{4} - \frac{\sqrt{3}}{12}i - \frac{1}{4} - \frac{\sqrt{3}}{12}i\right) = \frac{\pi}{2\sqrt{3}}.
+			\]
+		\end{proof}
+		\item $\int_{0}^{\infty} \frac{\cos x - 1}{x^2} \, dx$
+		\begin{proof}
+			Put $f(z) = \frac{e^{iz} - 1}{z^2}$. Let $R > r > 0$ and define $\gamma_{r}(t) = re^{-it}$, $0 \leq t \leq \pi$, and $\gamma_{R}(t) = Re^{it}$, $0 \leq t \leq \pi$. Let $\gamma = [-R, -r] \cup \gamma_r \cup [r, R] \cup \gamma_R$. Since $f$ is analytic on $\C \backslash \{0\}$, 
+			\[
+				\int_\gamma f(z) \, dz = \int_{-R}^{-r} f(z) \, dz + \int_{\gamma_r} f(z) \, dz + \int_{r}^{R} f(z) \, dz + \int_{\gamma_R} f(z) \, dz = 0
+			\]
+			Note that 
+			\[
+				\int_{-R}^{-r} \frac{e^{iz} - 1}{z^2} \, dz = \int_{r}^{R} \frac{e^{-iz} - 1}{z^2} \, dz,
+			\]
+			and so 
+			\[
+				\int_{-R}^{-r} f(z) \, dz + \int_{r}^{R} f(z) \, dz = \int_{r}^{R} \frac{e^{iz} + e^{-iz} - 2}{z^2} \, dz = 2\int_{r}^{R} \frac{\cos(z) - 1}{z^2} \, dz.
+			\]
+			Hence,
+			\[
+				\int_{r}^{R} \frac{\cos(z) - 1}{z^2} \, dz = - \frac{1}{2}\int_{\gamma_r} f(z) \, dz - \frac{1}{2}\int_{\gamma_R} f(z) \, dz.
+			\]
+			As $R \to \infty$, 
+			\[
+				\left|\int_{\gamma_R} f(z) \, dz\right| \leq \int_{\gamma_R} \frac{|e^{iz} - 1|}{|z|^2} \, |dz| \leq \frac{1}{R^2}\left(\int_{\gamma_R} |e^{iz}| \, |dz| + \int_{\gamma_R} |dz|\right) = \frac{2}{R^2}\int_{\gamma_R} |dz| = \frac{2\pi}{R} \to 0.
+			\]
+			On the other hand, since $f(z) = \frac{i}{z} - \frac{1}{2} - \frac{iz}{6} + \cdots$, 
+			\begin{align*}
+				\lim_{r \to 0} \int_{\gamma_r} f(z) \, dz 
+				&= \lim_{r \to 0} i\int_{\gamma_r} \frac{1}{z} \, dz + \left( - \lim_{r \to 0} \int_{\gamma_r} \frac{1}{2} \, dz + \lim_{r \to 0} \int_{\gamma_r} \frac{iz}{6} \, dz - \cdots \right) \\
+				&= \lim_{r \to 0} i\int_{\gamma_r} \frac{1}{z} \, dz \\
+				&= \lim_{r \to 0} i\int_{0}^{\pi} \frac{-ire^{-it}}{re^{-it}} \, dt = \pi.
+			\end{align*}
+			Thus,
+			\[
+				\int_{0}^{\infty} \frac{\cos(z) - 1}{z^2} \, dz = - \frac{1}{2} \lim_{r \to 0}\int_{\gamma_r} f(z) \, dz = -\frac{\pi}{2}.
+			\]
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Verify the following equation:
+	\[
+		\int_{0}^{\pi/2} \frac{d\theta}{a + \sin^2 \theta} = \frac{\pi}{2 \sqrt{a(a+1)}}, \quad \text{if } a > 0;
+	\]
+
+	\begin{proof}
+		Note that
+		\[
+			\int_{0}^{\pi/2} \frac{d\theta}{a + \sin^2 \theta} = \int_{0}^{\pi} \frac{1}{2a + 1 - \cos \theta} \, d\theta,
+		\]
+		and since $\cos \theta = \cos -\theta$,
+		\[
+			\int_{0}^{\pi} \frac{1}{2a + 1 - \cos \theta} \, d\theta = \frac{1}{2}\int_{0}^{2\pi} \frac{1}{2a + 1 - \cos \theta} \, d\theta.
+		\]
+		Put $z = e^{i\theta}$ and we have
+		\[
+			\int_{0}^{2\pi} \frac{1}{2a + 1 - \cos \theta} \, d\theta = \int_{|z| = 1} \frac{1}{2a + 1 - \frac{z + z^{-1}}{2}} \, \frac{dz}{iz} = 2i\int_{|z| = 1} \frac{1}{z^2 - (4a + 2)z + 1} \, dz.
+		\]
+		Let $f(z) = \frac{1}{z^2 - (4a + 2)z + 1}$. $f(z)$ have simple poles at $z = 2a + 1 \pm 2\sqrt{a(a + 1)}$. Since $|2a + 1 + 2\sqrt{a(a + 1)}| > 1$, by the Residue Theorem, 
+		\[
+			\int_{|z| = 1} \frac{1}{z^2 - (4a + 2)z + 1} \, dz = 2\pi i \text{Res}(f, 2a + 1 - 2\sqrt{a(a + 1)}).
+		\]
+		Since
+		\[
+			\text{Res}(f, 2a + 1 - 2\sqrt{a(a + 1)}) = \left.\frac{1}{2z - (4a + 2)}\right|_{z = 2a + 1 - 2\sqrt{a(a + 1)}} = -\frac{1}{4\sqrt{a(a + 1)}},
+		\]
+		we have
+		\[
+			\int_{0}^{\pi} \frac{1}{2a + 1 - \cos \theta} \, d\theta = \frac{1}{2} \cdot 2i \cdot 2\pi i \cdot -\frac{1}{4\sqrt{a(a + 1)}} = \frac{\pi}{2\sqrt{a(a + 1)}},
+		\]
+		for $a > 0$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose that $f$ has a simple pole at $z = a$ and let $g$ be analytic in an open set containing $a$. Show that
+	\[
+		\text{Res}(fg; a) = g(a) \, \text{Res}(f; a).
+	\]
+
+	\begin{proof}
+		\[
+			\text{Res}(fg; a) = \lim_{z \to a} (z - a)f(z)g(z) = g(a)\lim_{z \to a} (z - a)f(z) = g(a) \, \text{Res}(f; a).
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Use the previous result to show that if $G$ is a region and $f$ is analytic in $G$ except for simple poles at $a_1, \ldots, a_n$; and if $g$ is analytic in $G$, then
+	\[
+		\frac{1}{2\pi i} \int_\gamma fg = \sum_{k=1}^n n(\gamma; a_k) \, g(a_k) \, \text{Res}(f; a_k)
+	\]
+	for any closed rectifiable curve $\gamma$ not passing through $a_1, \ldots, a_n$ such that $\gamma \approx 0$ in $G$.
+
+	\begin{proof}
+		By the Residue Theorem and the last problem,
+		\[
+			\frac{1}{2\pi i} \int_\gamma fg = \sum_{k=1}^n n(\gamma; a_k) \, \text{Res}(fg; a_k) = \sum_{k=1}^n n(\gamma; a_k) \, g(a_k) \, \text{Res}(f; a_k).
+		\]
+	\end{proof}
+\end{homeworkProblem}
+\end{document}

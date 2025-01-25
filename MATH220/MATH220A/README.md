@@ -2,6 +2,8 @@
 
 Instructor: Peter Ebenfelt
 
-Material: Functions of One Complex Variable 2nd Edition, by John B. Conway
+Material: Functions of One Complex Variable I 2nd Edition, by John B. Conway
 
 Term: FA24
+
+Grade: A-
