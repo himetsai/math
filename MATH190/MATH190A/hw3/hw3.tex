@@ -1,0 +1,271 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{Jan 29, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Let $(X, \mathcal{T})$ be a topological space. If $A \subset X$ is any subset then we say that $x \in X$ is an \textbf{accumulation point} if the closure of $A \setminus \{ x \}$ contains $x$. Show that the closure of $A$ is the union of $A$ and all of its accumulation points.
+
+	\begin{proof}
+		It suffices to show that the set of accumulation points of $A$ that are not in $A$ equals $\overline{A} \backslash A$. If $x$ is an accumulation point of $A$ and $x \notin A$, then $x$ contained in the closure of $A \backslash \{x\} = A$. Now suppose $x \in \overline{A} \backslash A$. Then $x$ is in the closure of $A \backslash \{x\} = A$, so $x$ is an accumulation point of $A$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $(X, \mathcal{T})$ be a topological space with basis $\mathcal{B}$ and let $(Y, \mathcal{S})$ be a topological space with basis $\mathcal{C}$.  
+	Show that
+	\[
+		\mathcal{D} = \{ B \times C \mid B \in \mathcal{B}, C \in \mathcal{C} \}
+	\]
+	is a basis for the product topology on $X \times Y$.
+
+	\begin{proof}
+		Note that
+		\[
+			X \times Y = \bigcup_{B \in \mathcal{B}} B \times \bigcup_{C \in \mathcal{C}} C = \bigcup_{B \in \mathcal{B}, C \in \mathcal{C}} B \times C = \bigcup_{D \in \mathcal{D}} D,
+		\]
+		so $\mathcal{D}$ covers $X \times Y$. 
+
+		Suppose $D_1, D_2 \in \mathcal{D}$. Then $D_1 = B_1 \times C_1$ and $D_2 = B_2 \times C_2$, and thus
+		\[
+			D_1 \cap D_2 = (B_1 \cap B_2) \times (C_1 \cap C_2) \in \mathcal{D}.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $(X, \mathcal{T})$ be a topological space. We say that $(X, \mathcal{T})$ is \textbf{Hausdorff} if for any two points $x \neq y \in X$ we may find two disjoint neighborhoods $F$ and $G$ of $x$ and $y$. Show that the following are equivalent:
+	\begin{enumerate}[(i)]
+		\item $(X, \mathcal{T})$ is Hausdorff.
+		\item For any two points $x \neq y$ we can find two disjoint open subsets $U$ and $V$ such that $x \in U$ and $y \in V$.
+		\item For any two points $x \neq y$ we can find a closed neighborhood $A$ of $x$ not containing $y$ (that is, $y \notin A$).
+		\item The diagonal
+		\[
+		\Delta = \{ (x, x) \mid X \times X \}
+		\]
+		is closed in the product topology.
+	\end{enumerate}
+
+	\begin{proof}
+		(i) to (ii): If $F$ and $G$ are disjoint neighborhoods of $x$ and $y$, then $\text{int}(F)$, $\text{int}(G)$ are disjoint open sets containing $x$ and $y$.
+
+		(ii) to (iii): If $U$ and $V$ are disjoint open sets such that $x \in U$ and $y \in V$, then $A = V^c$ is a closed neighborhood of $x$ not containing $y$.
+
+		(iii) to (iv): Suppose $x, y \in X$ such that $x \neq y$. Then there exists a closed neighborhood $A$ of $x$ that does not contain $y$. But then $\text{int}(A) \times A^c$ is an open neighborhood of $(x, y)$ that does not intersect with $\Delta$. Hence, $\Delta^c$ is open.
+
+		(iv) to (i): Since $\Delta^c$ is open, for each $x \neq y$ there exists an open set $U \times V \subseteq \Delta^c$ containing $(x, y)$, where $U, V \subseteq X$. For $(a, b) \in U \times V$, since $U \times V \cap \Delta = \emptyset$, $a \neq b$. Thus, $U$ and $V$ are disjoint neighborhoods of $x$ and $y$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	True or false? If true then give a proof and if false then give a counterexample.
+	\begin{enumerate}[(i)]
+		\item If $(X, \mathcal{T})$ is a topological space and $Y \subset X$ is a subset and $U \subset Y$ is open in the subspace topology then $U$ is open in $X$.
+		\begin{proof}
+			False. Consider $X = \R$, and $\T$ is the Eclidean topology. If $Y = [0, 1]$, then $U = (0, 1]$ is open in $Y$ but not in $X$.
+		\end{proof}
+		\item If $(X, \mathcal{T})$ is a Hausdorff topological space then every singleton subset $\{ x \}$ is closed.
+		\begin{proof}
+			True. Let $x \in X$. Then for any $y \in X$ with $y \neq x$, there exist closed neighborhood $U_y$ of $x$ that does not contain $y$. But then
+			\[
+				\bigcup_{y \in X, x \neq y} U_y^c  = X \backslash \{ x \}
+			\]
+			is open.
+		\end{proof}
+		\item If $(X, \mathcal{T})$ is a topological space and every singleton subset is closed then $(X, \mathcal{T})$ is Hausdorff.
+		\begin{proof}
+			False. Consider the topology given in homework 2 problem 1 and let $X$ be infinite. Every singleton is closed, but it is not Hausdorff, as any two non-empty open sets intersect.
+		\end{proof}
+		\item If $(X, \mathcal{T})$ and $(Y, \mathcal{S})$ are Hausdorff topological spaces then the product $(X \times Y, \mathcal{R})$ is Hausdorff.
+		\begin{proof}
+			True. For distinct points $(x_1, y_y), (x_2, y_2)$, there exists $U_1, U_2, V_1, V_2$ such that $x_1 \in U_1$, $x_2 \in U_2$, $y_1 \in V_1$, $y_2 \in V_2$ and $U_1 \cap U_2 = \emptyset$, $V_1 \cap V_2 = \emptyset$. Then $U_1 \times V_1$ and $U_2 \times V_2$ are disjoint neighborhoods of $(x_1, y_1)$ and $(x_2, y_2)$.
+		\end{proof}
+		\item If $(X, \mathcal{T})$ and $(Y, \mathcal{S})$ are two topological spaces and $A \subset X, B \subset Y$ then
+		\[
+		\overline{A \times B} = \overline{A} \times \overline{B}
+		\]
+		in the product topology on $X \times Y$.
+		\begin{proof}
+			True. Let $(x, y) \in \overline{A \times B}$. Then any open neighborhoods $U \times V$ of $(x, y)$ intersects with $A \times B$. This implies any open neighborhoods $U$ of $x$ intersects with $A$ and any open neighborhood $V$ of $y$ intersects with $B$. Thus, $x \in \overline{A}$ and $y \in \overline{B}$.
+
+			On the other hand, Let $(x, y) \in \overline{A} \times \overline{B}$. Then any open neighborhoods $U$ of $x$ intersects with $A$ and any open neighborhood $V$ of $y$ intersects with $B$. But then any open neighborhoods $U \times V$ of $(x, y)$ intersects with $A \times B$.
+		\end{proof}
+		\item Every subspace of a Hausdorff topological space is Hausdorff.
+		\begin{proof}
+			True. Let $x, y$ be distinct points in the subspace $Y$ of $X$. Then there exist disjoint neighborhoods $U, V$ of $x$ and $y$ in $X$. But then $U \cap Y$ and $V \cap Y$ are disjoint neighborhoods of $x$ and $y$ in $Y$.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	If $(X, d)$ is a metric space then the induced topological space $(X, \mathcal{T})$ is Hausdorff.
+
+	\begin{proof}
+		Let $x, y \in X$ such that $x \neq y$, and let $r = d(x, y)/2$. Then the open balls $B(x, r)$ and $B(y, r)$ are disjoint neighborhoods of $x$ and $y$.
+	\end{proof}
+\end{homeworkProblem}
+
+\end{document}
