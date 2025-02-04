@@ -1,0 +1,279 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{Feb 3, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Find all topologies on the set
+	\[
+		X = \{ a, b, c, d \}
+	\]
+	up to homeomorphism. (This means, give a list of topologies on $X$, such that every other topology on $X$ is homeomorphic to exactly one topology in your list).
+
+	\begin{proof}
+		bruh.
+		\begin{enumerate}
+			\item $\{\emptyset, X\}$
+			\item $\{\emptyset, X, \{a, b\}\}$
+			\item $\{\emptyset, X, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a, b\}, \{c, d\}\}$
+			\item $\{\emptyset, X, \{a, b\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a, b\}, \{a, b, c\}, \{a, b, d\}\}$
+			\item $\{\emptyset, X, \{a\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, d\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b, c\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b, c\}, \{a, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b, c\}, \{a, d\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b\}, \{a, c\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b, c\}, \{a, b, c\}, \{b, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b\}, \{a, b, c\}, \{a, b, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b\}, \{a, c\}, \{a, b, c\}, \{a, b, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{a, b\}, \{a, c\}, \{a, d\}, \{a, b, c\}, \{a, b, d\}, \{a, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}, \{b, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}, \{a, c\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}, \{a, b, c\}, \{a, b, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{b, c\}, \{a, b, c\}, \{b, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}, \{c, d\}, \{a, c, d\}, \{b, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}, \{a, c\}, \{a, b, c\}, \{a, b, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{a, b\}, \{b, c\}, \{b, d\}, \{a, b, c\}, \{a, b, d\}, \{b, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}, \{b, c, d\}\}$
+			\item $\{\emptyset, X, \{a\}, \{b\}, \{c\}, \{c, d\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}, \{a, c, d\}, \{b, c, d\}\}$
+			\item $\wp(X)$
+		\end{enumerate}
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $X$ and $Y$ be two sets. Give both sets the topology where the closed sets are the finite sets, plus the whole set. Under what conditions are $X$ and $Y$ homeomorphic?
+
+	\begin{proof}
+		$X$ and $Y$ are homeomorphic if $X$ and $Y$ have the same cardinality. When $X, Y$ are finite, the given topology is just the discrete topology, so they are homeomorphic if and only if $|X| = |Y|$. If $X, Y$ are infinite, let $f: X \to Y$ be a bijection. Then $f$ is continuous since the preimage of any closed set in $Y$ is closed in $X$. The inverse function $f^{-1}: Y \to X$ is also continuous since the preimage of any closed set in $X$ is closed in $Y$. Thus, $f$ is a homeomorphism if $|X| = |Y|$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that any two closed and bounded intervals in $\mathbb{R}$ are homeomorphic.
+
+	\begin{proof}
+		By lemma 7.3, it suffices to show that any any closed interval $[a, b]$ is homeomorphic to $[0, 1]$. Let $f: [0, 1] \to [a, b]$ be defined as
+		\[
+			f(x) = a + (b - a)x.
+		\]
+		A basis for the subspace topology is given by intervals $(\alpha, \beta), (\alpha, 1]$, $[0, \beta)$, and $[0, 1]$, for $\alpha, \beta \in (0, 1)$ and $\alpha < \beta$, and $f$ sends these to intervals $(a + (b - a)\alpha, a + (b - a)\beta), (a + (b - a)\alpha, b]$, $[a, a + (b - a)\beta)$, and $[a, b]$, respectively. The inverse of $f$ is the function $g: [a, b] \to [0, 1]$ which is defined as
+		\[
+			g(x) = \frac{x - a}{b - a}.
+		\]
+		A basis for the subspace topology for $[a, b]$ is given by intervals $(r, s), (r, d]$, $[c, s)$, and $[c, d]$, for $r, s \in (a, b)$, and $g$ sends these to intervals $(\frac{r - a}{b - a}, \frac{s - a}{b - a}), (\frac{r - a}{b - a}, 1]$, $[0, \frac{s - a}{b - a})$, and $[0, 1]$, respectively. Thus, $f$ and $g$ are homeomorphisms by lemma 7.4.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Complete the proof of Theorem 7.2.
+
+	\begin{proof}
+		Let $a \in \R$. 
+		
+		Define $f: (0, \infty) \to (a, \infty)$ to be $f(x) = a + x$. $f$ sends interval $(\alpha, \beta) \subseteq (0, \infty)$ to $(\alpha + a, \beta + a) \subseteq (a, \infty)$. $f$'s inverse $f^{-1}: (a, \infty) \to (0, \infty)$ defined as $f^{-1}(x) = x - a$ sends $(\gamma, \eta) \subseteq (a, \infty)$ to $(\gamma - a, \eta - a) \subseteq (0, \infty)$. Thus, $f$ and $f^{-1}$ are continuous by lemma 7.4, and thus $(0, \infty), (a, \infty)$ are homeomorphic.
+
+		Define $g: (a, \infty) \to (-\infty, a)$ to be $g(x) = -x$. $g$ sends interval $(\alpha, \beta) \subseteq (a, \infty)$ to $(-\beta, -\alpha) \subseteq (-\infty, a)$. $g$'s inverse $g^{-1}: (-\infty, a) \to (a, \infty)$ defined as $g^{-1}(x) = -x$ sends $(\gamma, \eta) \subseteq (-\infty, a)$ to $(-\eta, \gamma) \subseteq (a, \infty)$. Thus, $g$ and $g^{-1}$ are continuous by lemma 7.4, and thus $(a, \infty), (-\infty, a)$ are homeomorphic.
+
+		Define $h: (0, \infty) \to \R$ to be $h(x) = \ln x$. $h$ sends interval $(\alpha, \beta) \subseteq (0, \infty)$ to $(\ln \alpha, \ln \beta) \subseteq \R$. $h$'s inverse $h^{-1}: \R \to (0, \infty)$ defined as $h^{-1}(x) = e^x$ sends $(\gamma, \eta) \subseteq \R$ to $(e^\gamma, e^\eta) \subseteq (0, \infty)$. Thus, $h$ and $h^{-1}$ are continuous by lemma 7.4, and thus $(0, \infty), \R$ are homeomorphic.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	True or false? If true then give a proof and if false then give a counterexample.
+   \begin{enumerate}[(i)]
+			\item If $(X, \mathcal{T})$ and $(Y, \mathcal{S})$ are topological spaces then $X \times Y$ and $Y \times X$, both with the product topology, are homeomorphic.
+			\begin{proof}
+				True. Consider the map $f: X \times Y \to Y \times X$ that sends $(x, y)$ to $(y, x)$. This map is a bijection. Given any open set $U \times V \subseteq X \times Y$, we have $f(U \times V) = V \times U$ is open in $Y \times X$. Similarly, given any open set $V \times U \subseteq Y \times X$, we have $f^{-1}(V \times U) = U \times V$ is open in $X \times Y$. Thus, $X \times Y$ and $Y \times X$ are homeomorphic.
+			\end{proof}
+			\item Let $\mathcal{T}$ be the Euclidean topology on $\mathbb{R}$ and let $\mathcal{S}$ be the topology where the open sets are half open intervals of the form $(a, \infty)$. Then $(\mathbb{R}, \mathcal{T})$ and $(\mathbb{R}, \mathcal{S})$ are homeomorphic.
+			\begin{proof}
+				False. Since $\mathcal{S} \subseteq \mathcal{T}$ but $(0, 1) \in \mathcal{T} \backslash \mathcal{S}$, $\T$ is strictly finer than $\mathcal{S}$.
+			\end{proof}
+			\item Let $\mathcal{T}$ be the topology where the open sets are half open intervals of the form $(a, \infty)$ and let $\mathcal{S}$ be the topology where the open sets are half open intervals of the form $(-\infty, a)$. Then $(\mathbb{R}, \mathcal{T})$ and $(\mathbb{R}, \mathcal{S})$ are homeomorphic.
+			\begin{proof}
+				True. Consider the bijection $f: \R \to \R$ that sends $x$ to $-x$. Then the induced map $F: \T \to \mathcal{S}$ is a bijection that sends $(a, \infty)$ to $(-\infty, a)$. Thus, $F$ is a homeomorphism.
+			\end{proof}
+			\item If $(X, \mathcal{T})$ and $(Y, \mathcal{S})$ are homeomorphic topological spaces then $(X, \mathcal{T})$ is Hausdorff if and only if $(Y, \mathcal{S})$ is Hausdorff.
+			\begin{proof}
+				True. Let $f: X \to Y$ be a homeomorphism. Let $x_1, x_2 \in X$ be distinct points. Then $f(x_1), f(x_2) \in Y$ are distinct points. Since $(X, \mathcal{T})$ is Hausdorff, there exists disjoint open sets $U_1, U_2 \in \mathcal{T}$ such that $x_1 \in U_1$ and $x_2 \in U_2$. Then $f(U_1), f(U_2) \in \mathcal{S}$ are open sets such that $f(x_1) \in f(U_1)$, $f(x_2) \in f(U_2)$. Note that $f(U_1), f(U_2)$ are disjoint, otherwise $f^{-1}(f(U_1) \cap f(U_2)) = U_1 \cap U_2$ is nonempty. By syymmetry, the converse is also true.
+			\end{proof}
+			\item If we are given four topological spaces, $X, Y, Z$ and $W$ and $X \times Y$ is homeomorphic to $Z \times W$ then $X$ is homeomorphic to $Z$ or $X$ is homeomorphic to $W$.
+			\begin{proof}
+				False. Consider $X = Y = \R$, $Z = \R^2$, and $W = \{0\}$. Obviously $X \times Y = \R^2$ is homeomorphic to $Z \times W = \R^2 \times \{0\}$. However, $X$ is not homeomorphic to $Z$ or $W$.
+			\end{proof}
+   \end{enumerate}
+\end{homeworkProblem}
+\end{document}

@@ -1,0 +1,290 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{Feb 8, 2025}
+\newcommand{\hmwkClass}{MATH 220B}
+\newcommand{\hmwkClassInstructor}{Professor Xiao}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Suppose $f$ is analytic on $\overline{B}(0;1)$ and satisfies $|f(z)| < 1$ for $|z| = 1$. Find the number of solutions (counting multiplicities) of the equation $f(z) = z^n$ where $n$ is an integer larger than or equal to 1.
+
+	\begin{proof}
+		Let $g(z) = z^n$, $h(z) = f(z) - g(z)$. Since
+		\[
+			|h(z) + g(z)| = |f(z)| < 1 = |g(z)|
+		\]
+		for $|z| = 1$, by Rouche's theorem, $h(z)$ has the same number of zeros as $g(z)$ in $B(0;1)$, that is, $n$ zeros.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Prove the following Minimum Principle. If $f$ is a non-constant analytic function on a bounded open set $G$ and is continuous on $\overline{G}$, then either $f$ has a zero in $G$ or $|f|$ assumes its minimum value on $\partial G$. (See Exercise IV. 3.6.)
+
+	\begin{proof}
+		If there exists $a \in G$ such that $|f(a)| \leq |f(z)|$ for all $z \in G$, then $f(a) = 0$ by Exercise IV.3.6. Otherwise, $|f|$ assumes its minimum value on $\partial G$ as it is continuous on $\overline{G}$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $G$ be a bounded region and suppose $f$ is continuous on $\overline{G}$ and analytic on $G$. Show that if there is a constant $c \geq 0$ such that $|f(z)| = c$ for all $z$ on the boundary of $G$ then either $f$ is a constant function or $f$ has a zero in $G$.
+
+	\begin{proof}
+		Suppose $f$ is not constant. By the Maximum Modulus Principle, $|f(z)| \leq c$ for all $z \in G$ otherwise $|f|$ would assume its maximum value in $G$. But then by the Minimum Principle we just proved, $f$ has a zero in $G$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+		\item Let $f$ be entire and non-constant. For any positive real number $c$ show that the closure of $\{z : |f(z)| < c\}$ is the set $\{z : |f(z)| \leq c\}$.
+		\begin{proof}
+			Since $f$ is continuous, it suffices to show that any $z$ with $|f(z)| = c$ are in the closure of $\{z : |f(z)| < c\}$. Suppose there exists $z_0$ such that $|f(z_0)| = c$ and $z_0$ is not in the closure of $\{z : |f(z)| < c\}$. Then there exists $r > 0$ such that $B_r(z_0) \cap \{z : |f(z)| < c\} = \emptyset$. That is, $|f(z)| \geq c$ for all $z \in B_r(z_0)$. But then $f(B_r(z_0))$ is open by the Open Mapping Theorem, so $f(B_r(z_0))$ contains an open neighborhood $U$ of $f(z_0)$. This implies $|f(z_0)| < c$ for some $z \in B_r(z_0)$, contradiction.
+		\end{proof}
+
+		\item Let $p$ be a polynomial and show that each component of $\{z : |p(z)| < c\}$ contains a zero of $p$.
+		\begin{proof}
+			We may assume $p$ is not constant. Note that each component of $\{z : |p(z)| < c\}$ is bounded, otherwise $p$ is constant by the Louiville's Theorem. By (a), the closure of $\{z : |p(z)| < c\}$ is $\{z : |p(z)| \leq c\}$. Since each component $G$ of $\{z : |p(z)| \leq c\}$ is bounded and $|p(z)| = c$ for all $z \in \partial G$, $p$ has a zero in $G$ by the previous problem.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose that both $f$ and $g$ are analytic on $\overline{B}(0; R)$ with $|f(z)| = |g(z)|$ for $|z| = R$. Show that if neither $f$ nor $g$ vanishes in $B(0; R)$ then there is a constant $\lambda$, $|\lambda| = 1$, such that $f = \lambda g$.
+
+	\begin{proof}
+		We first show that the multiplicities of the zeros of $f$ and $g$ on the boundary are the same. Suppose $f$ has a zero of order $n$ at $z_0$ and $g$ has a zero of order $m$ at $z_0$ with $|z_0| = R$ and $n \geq m$. Then $f(z) = (z - z_0)^n F(z)$ and $g(z) = (z - z_0)^m G(z)$ for some analytic functions $F$ and $G$ with $F(z_0), G(z_0) \neq 0$. Since $|f(z)| = |g(z)|$ for $|z| = R$, we have $|z - z_0|^{n - m} = \left|\frac{G(z)}{F(z)}\right|$. But then $n = m$ and $F(z_0) = G(z_0)$, otherwise $G(z_0) = 0$. Hence, we may define $h(z) = \frac{g(z)}{f(z)}$ on $\overline{B}_R(0)$. Since $|h(z)| = 1$ for $|z| = R$ and $h$ has not zeros in $B_R(0)$, $|h(z)| = 1$ for all $z \in \overline{B}_R(0)$ by Exercise VI.1.2. The result now follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $f$ be analytic in the disk $B(0; R)$ and for $0 \leq r < R$ define $A(r) = \max \{\text{Re} f(z): |z| = r\}$. Show that unless $f$ is a constant, $A(r)$ is a strictly increasing function of $r$.
+
+	\begin{proof}
+		Assume that $f$ is not a constant. Let $0 \leq r_1 < r_2 < R$. Consider $g(z) = e^{f(z)}$ over $\overline{B}_{r_2}(0)$. Note that $|g(z)| = e^{\text{Re} f(z)}$ attains the maximum at the same point as $\text{Re} f(z)$. Suppose $A(r_1) \geq A(r_2)$. Then $|g(z)|$ attains a maximum in $B_{r_2}(0)$, which makes $g(z)$ constant by the Maximum Modulus Principle, contradiction. 
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Does there exist an analytic function $f: D \to D$ with $f(\frac{1}{2}) = \frac{3}{4}$ and $f'(\frac{1}{2}) = \frac{2}{3}$?
+
+	\begin{proof}
+		By the Schwarz-Pick Lemma, 
+		\[
+			|f'(\frac{1}{2})| \leq \frac{1 - |f(\frac{1}{2})|^2}{1 - |\frac{1}{2}|^2} = \frac{1 - \frac{9}{16}}{1 - \frac{1}{4}} = \frac{7}{12} < \frac{2}{3},
+		\]
+		and thus such analytic function does not exist.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose $f: D \to \mathbb{C}$ satisfies $\operatorname{Re} f(z) \geq 0$ for all $z$ in $D$ and suppose that $f$ is analytic.
+
+	\begin{enumerate}[(a)]
+		\item Show that $\operatorname{Re} f(z) > 0$ for all $z$ in $D$.
+		\begin{proof}
+			Suppose $z \in D$ such that $\text{Re} f(z) = 0$. By the Open Mapping Theorem, $f(D)$ is open, so there exists $r > 0$ such that $B_r(f(z)) \subset f(D)$. But then $B_r(f(z))$ contains points with negative real part, contradiction.
+		\end{proof}
+		\item By using an appropriate Möbius transformation, apply Schwarz's Lemma to prove that if $f(0) = 1$ then
+		\[
+		|f(z)| \leq \frac{1+|z|}{1-|z|}
+		\]
+		for $|z| < 1$. What can be said if $f(0) \neq 1$?
+		\begin{proof}
+			Let $\phi(z) = \frac{z - 1}{z + 1}$ and consider $g(z) = \phi \circ f(z)$. Note that $g(0) = \phi(f(0)) = \phi(1) = 0$. Since $\phi$ maps $\{z : \text{Re}(z) > 0\}$ to $D$, $g$ maps $D$ to $D$. By Schwarz's Lemma, $|g(z)| \leq |z|$ for $z \in D$. That is,
+			\[
+				|z| \geq \frac{|f(z) - 1|}{|f(z) + 1|} \geq \frac{|f(z)| - 1}{|f(z)| + 1}.
+			\]
+			The result now follows from rearranging the inequality. If $f(0) = \alpha$ for some $\alpha \neq 1$, apply the transformation $\phi(z) = \frac{z - a}{z + a}$ instead.
+		\end{proof}
+		\item Show that $f$ also satisfies
+		\[
+		|f(z)| \geq \frac{1-|z|}{1+|z|}.
+		\]
+		\begin{proof}
+			Note that $\text{Re} \frac{1}{f(z)} > 0$ for all $z \in D$. Hence, consider $h(z) = \phi \circ (1/f)(z)$. $h(0) = 0$ and $h$ maps $D$ to $D$. By Schwarz's Lemma, $|h(z)| \leq |z|$ for $z \in D$. That is,
+			\[
+				|z| \geq \frac{|1/f(z) - 1|}{|1/f(z) + 1|} \geq \frac{1 - |f(z)|}{1 + |f(z)|}.
+			\]
+			The result now follows.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose $f$ is analytic in some region containing $\overline{B}(0;1)$ and $|f(z)| = 1$ where $|z| = 1$. Find a formula for $f$. (Hint: First consider the case where $f$ has no zeros in $\overline{B}(0;1)$.)
+
+	\begin{proof}
+		Suppose $f$ has no zeros in $\overline{B}_1(0)$. Then by the exercise in the start of this assignment, $f = c$ with $|c| = 1$. Suppose $f(z_0) = 0$ for some $z_0 \in \overline{B}_1(0)$. 
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Is there an analytic function $f$ on $B(0;1)$ such that $|f(z)| < 1$ for $|z| < 1$, $f(0) = \frac{1}{2}$, and $f'(0) = \frac{3}{4}$. If so, find such an $f$. Is it unique?
+
+	\begin{proof}
+		Let $\phi_{\frac{1}{2}}(z) = \frac{z - 1/2}{1 - z/2}$ be defined as in the textbook, and let $g = \phi_{\frac{1}{2}} \circ f$. Since $g$ maps $B(0;1)$ to $B(0;1)$, $g(0) = 0$, and $|g'(0)| = |\phi'_{\frac{1}{2}} \circ f(0) \cdot f'(0)| = 1$, by Schwarz's Lemma, $g(z) = cz$ for some $|c| = 1$. Hence, $f(z) = \frac{\frac{1}{2} + cz}{1 + \frac{c}{2}z}$.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
