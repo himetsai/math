@@ -1,0 +1,429 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{Feb 12, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  The purpose of this exercise is to build up as many of the familiar functions from analysis as we can, using just the definitions and some results from the course.  
+
+	Let $X$ and $Y$ be topological spaces.  
+
+	\begin{enumerate}[(i)]
+    \item If $b \in Y$ then show that the constant function  
+    \[
+    f: X \to Y \quad \text{given by} \quad f(x) = b,
+    \]
+    is continuous.
+
+		\begin{proof}
+			Let $V$ be an open set in $Y$. If $b \in V$, then $f^{-1}(V) = X$. Otherwise, $f^{-1}(V) = \emptyset$. In either case, $f^{-1}(V)$ is open in $X$, and thus $f$ is continuous.
+		\end{proof}
+
+    \item If $m \in \mathbb{R}$ is a real then show that the function  
+    \[
+    f: \mathbb{R} \to \mathbb{R} \quad \text{given by} \quad f(x) = mx
+    \]
+    is continuous.
+
+		\begin{proof}
+			Let $V = (a, b) \subseteq \R$. Then $f^{-1}(V)$ is either $(a/m, b/m)$ or $(b/m, a/m)$, both of which are open in $\R$. Thus, $f$ is continuous.
+		\end{proof}
+
+    \item Show that the function  
+    \[
+    a: \mathbb{R}^2 \to \mathbb{R} \quad \text{given by} \quad a(x,y) = x + y,
+    \]
+    is continuous.
+
+		\begin{proof}
+			Write $a(x, y) = p_1(x, y) + p_2(x, y)$, where $p_1, p_2$ are coordinate projections. Then $p_1, p_2$ are continuous. Since addition is continuous in $\R$, $a$ is continuous.
+		\end{proof}
+
+    \item If $f: X \to \mathbb{R}$ and $g: Y \to \mathbb{R}$ are continuous functions then show that the function  
+    \[
+    f + g: X \to \mathbb{R} \quad \text{given by} \quad (f+g)(x) = f(x) + g(x)
+    \]
+    is continuous.
+
+		\begin{proof}
+			Define $h: X \to \R^2$ as $h(x) = (f(x), g(x))$, and write $f + g = a \circ h$, where $a$ is the addition function from part (iii). Since $h$ is continuous by the continuity of $f, g$, and $a$ is continuous, $f + g$ is continuous by the composition of continuous functions.
+		\end{proof}
+
+    \item Show that the function  
+    \[
+    m: \mathbb{R}^2 \to \mathbb{R} \quad \text{given by} \quad m(x,y) = xy,
+    \]
+    is continuous.
+
+		\begin{proof}
+			Write $m(x, y) = p_1(x, y)p_2(x, y)$, where $p_1, p_2$ are coordinate projections. Then $p_1, p_2$ are continuous. Since multiplication is continuous in $\R$, $m$ is continuous.
+		\end{proof}
+
+    \item If $f: X \to \mathbb{R}$ and $g: X \to \mathbb{R}$ are continuous functions then show that the function  
+    \[
+    fg: X \to \mathbb{R} \quad \text{given by} \quad (fg)(x) = f(x)g(x)
+    \]
+    is continuous.
+
+		\begin{proof}
+			Define $h: X \to \R^2$ as $h(x) = (f(x), g(x))$, and write $fg = m \circ h$, where $m$ is the addition function from the last part. Since $h$ is continuous by the continuity of $f, g$, and $m$ is continuous, $fg$ is continuous by the composition of continuous functions.
+		\end{proof}
+
+    \item Show that the function  
+    \[
+    f: \mathbb{R} \to \mathbb{R} \quad \text{given by} \quad x \mapsto x^n
+    \]
+    is continuous.
+
+		\begin{proof}
+			The last part establishes that $x^n = x^{n - 1} \cdot x$ is continuous if $x^{n - 1}$ is continuous. Since $x^0 = 1$ is continuous, $x^n$ is continuous for all $n \in \N$ by induction.
+		\end{proof}
+
+    \item Any polynomial function  
+    \[
+    f: \mathbb{R} \to \mathbb{R} \quad \text{given by} \quad f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0,
+    \]
+    where $a_0, a_1, \dots, a_n$ are real numbers, is continuous.
+
+		\begin{proof}
+			By the previous part, $x^n$ is continuous for all $n \in \N$. Since addition and linear functions are continuous, the polynomial function is continuous.
+		\end{proof}
+
+    \item The function  
+    \[
+    f: \mathbb{R}^* \to \mathbb{R} \quad \text{given by} \quad f(x) = \frac{1}{x}
+    \]
+    is continuous, where  
+    \[
+    \mathbb{R}^* = \mathbb{R} \setminus \{0\}.
+    \]
+
+		\begin{proof}
+			Let $V = (a, b) \subseteq \R$. Since $0$ is not in the range of $f$, we may assume $(a, b) = (a^-, b^-) \cup (a^+, b^+)$, where $a^-, b^- < 0$ and $a^+, b^+ > 0$. Then $f^{-1}(V) = (1/b^-, 1/a^-) \cup (1/b^+, 1/a^+)$, which is open in $\R^*$. Thus, $f$ is continuous.
+		\end{proof}
+
+    \item Let  
+    \[
+    g(x) = \sum b_m x^m + b_{m-1} x^{m-1} + \dots + b_0,
+    \]
+    be a polynomial function, where $b_0, b_1, \dots, b_m$ are real numbers. Show that the set of points where $g$ is non-zero is an open subset $U$ of $\mathbb{R}$. Show that the rational function  
+    \[
+    \phi: U \to \mathbb{R} \quad \text{given by} \quad \phi(x) = \frac{a_n x^n + a_{n-1} x^{n-1} + \dots + a_0}{b_m x^m + b_{m-1} x^{m-1} + \dots + b_0}
+    \]
+    is continuous.
+
+		\begin{proof}
+			Since $g$ is a polynomial function, it is continuous, and so $U = g^{-1}(\R^*)$ is open in $\R$. Let $f$ be the inversion function defined in the last part and $k(x) = a_nx^n + \cdots + a_0$. Then $\phi = k(\phi \circ g)$ is continuous by the results of the previous parts.
+		\end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $f: X \to Y$ be any map of sets whose image lies in a subset $B$ of $Y$. Note that there is a unique function $g: X \to B$ with the property that $f = j \circ g$, where $j: B \to Y$ is the natural inclusion.  
+
+	Now suppose that $X$ and $Y$ are topological spaces and give $B$ the subspace topology.  
+
+	Show that $f$ is continuous if and only if $g$ is continuous.
+
+	\begin{proof}
+		First note that $j$ is continuous. Let $V$ be open in $Y$. Then $f$ is continuous if and only if $f^{-1}(V) = g^{-1}(j^{-1}(V)) = U$ is open in $X$ if and only if $g^{-1}(V \cap B) = U$ is open in $X$ if and only if $g$ is continuous.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	True or false? If true then give a proof and if false then give a counterexample.
+
+	\begin{enumerate}[(i)]
+    \item If $f: X \to Y$ is a continuous map of topological spaces and $f$ is a bijection then $f$ is a homeomorphism.
+    \begin{proof}
+			Let $X = \R$ be the topological space with discrete topology and $Y = \R$ be the topological space with the Euclidean topology. Consider the identity function $i: X \to Y$. Since the discrete topology is strictly finer than the Euclidean topology, $i$ is continuous but $i^{-1}$ is not.
+		\end{proof}
+
+    \item If $f: X \to Y$ is a continuous function between two topological spaces then the inverse image of every closed set is closed.
+    
+		\begin{proof}
+			True. Let $V$ be closed in $Y$. Then $f^{-1}(Y \backslash V) = X \backslash f^{-1}(V)$ is open in $X$, so $f^{-1}(V)$ is closed in $X$.
+		\end{proof}
+    
+    \item If $f: X \to Y$ is a function between two topological spaces and the inverse image of every closed set is closed then $f$ is continuous.
+    
+		\begin{proof}
+			True. Let $V$ be open in $Y$. Then $f^{-1}(Y \backslash V) = X \backslash f^{-1}(V)$ is closed in $X$. That is, $f^{-1}(V)$ is open in $X$. Thus, $f$ is continuous.
+		\end{proof}
+
+    \item The function
+    \[
+    	f: \mathbb{R} \to \mathbb{R}
+    \]
+    defined as
+    \[
+			f(x) =
+			\begin{cases} 
+			0 & \text{if } x \leq 0 \\
+			1 & \text{otherwise}
+			\end{cases}
+    \]
+    is continuous.
+
+		\begin{proof}
+			False. Consider $V = (-1, 1)$. Then $f^{-1}(V) = (-\infty, 0]$, which is not open in $\R$.
+		\end{proof}
+
+    \item If $f: X \to Y$ is a continuous function between two topological spaces and $A \subset X$ then
+    \[
+    	f(\overline{A}) = \overline{f(A)}.
+    \]
+		\begin{proof}
+			False. Consider $f(x) = e^x$ and let $A = (-\infty, 0)$. Then $\overline{A} = (-\infty, 0]$ so $f(\overline{A})=(0, 1]$. But then $\overline{f(A)} = [0, 1]$.
+		\end{proof}
+
+    \item If $f: X \to Y$ is a continuous function between two topological spaces and $A \subset X$ then
+    \[
+    	f(\overline{A}) \subset \overline{f(A)}.
+    \]
+
+		\begin{proof}
+			True. Let $y \in f(\overline{A})$. Then there exists $x \in \overline{A}$ such that $f(x) = y$. Let $V$ be an open set containing $y$. Then $f^{-1}(V)$ is open and contains $x$. But then $x \in \overline{A}$, so $f^{-1}(V)$ intersects $A$. Thus, every open set containing $y$ intersects $f(A)$, so $y \in \overline{f(A)}$.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let  
+	\[
+		S^n = \{ x \in \mathbb{R}^{n+1} \mid ||x||^2 = 1 \}
+	\]
+	be the unit sphere.  
+
+	\begin{enumerate}[(i)]
+    \item Show that $S^n$ is a closed subset of $\mathbb{R}^{n+1}$. Let  
+    \[
+    N = (0, 0, 0, \dots, 0, 1) \in \mathbb{R}^{n+1}.
+    \]
+    Show that $N \in S^n$ ($N$ is sometimes called the North pole). Show that $U = S^n - \{N\}$ is an open subset of $S^n$. Let $H$ be the hyperplane determined by the equation $x_{n+1} = 0$,  
+    \[
+    H = \{ (a_1, a_2, \dots, a_{n+1}) \mid a_{n+1} = 0 \}.
+    \]
+    Show that $H$ is homeomorphic to $\mathbb{R}^n$.
+
+		\begin{proof}
+			Let $x \in \R^{n + 1} \backslash S^n$. Then $||x||^2 \neq 1$, so $||x||^2 > 1$ or $||x||^2 < 1$. In the former case, let $r = ||x||^2 - 1$. Then $B_r(x) \subseteq \R^{n + 1} \backslash S^n$, so $\R^{n + 1} \backslash S^n$ is open. In the latter case, let $r = 1 - ||x||^2$. Then $B_r(x) \subseteq \R^{n + 1} \backslash S^n$, so $\R^{n + 1} \backslash S^n$ is open. Thus, $S^n$ is closed.
+
+			Let $P = \{x \in \R^{n + 1} \mid x_{n + 1} < 1\}$. If $x \in P$, then there exists $r \in (0, 1 - x_{n + 1})$ such that $B_{r}(x) \subset P$. Thus, $P$ is open. But then $U = S^n \cap P$, so $U$ is open in $S^n$.
+
+			Define $f: \R^{n + 1} \to \R^n$ as $f(a_1, \dots, a_n, a_{n + 1}) = (a_1, \dots, a_n)$. $f$ is a projection, so it is continuous. Now consider $f|_H$. $f|_H$ is a bijection, and its inverse is $f|_H^{-1}(a_1, \dots, a_n) = (a_1, \dots, a_n, 0)$ is obviously continuous. Thus, $f|_H$ is a homeomorphism.
+		\end{proof}
+
+    \item Define a function  
+    \[
+    f: U \to H
+    \]
+    as follows. Consider the straight line connecting the north pole $N$ to the point $P \in \mathbb{R}^{n+1} \setminus \{N\}$. This line intersects $H$ in a unique point $Q$. If $P \in U$ then we send $P$ to this unique point $Q$. $f$ is called \textbf{Stereographic projection}.  
+
+    Write down a formula for $f$ and show that $f$ is continuous.
+
+		\begin{proof}
+			For $P = (x_1, x_2, \dots, x_n, x_{n+1}) \in U$, define
+			\[
+			f(P) = \left( \frac{x_1}{1-x_{n+1}},\, \frac{x_2}{1-x_{n+1}},\, \dots,\, \frac{x_n}{1-x_{n+1}} \right).
+			\]
+			Note that for every point in $U$, we have $x_{n+1} \neq 1$, which ensures $1 - x_{n + 1} \neq 0$. 
+
+			For continuity, note that each component of $f$ is given by
+			\[
+				x_i \mapsto \frac{x_i}{1-x_{n+1}},
+			\]
+			which is a composition of continuous functions. Hence, $f$ is continuous.
+		\end{proof}
+
+    \item Show that $f$ is a homeomorphism of $U$ with $H$, so that $U$ is homeomorphic to $\mathbb{R}^n$.
+    
+		\begin{proof}
+		For $y = (y_1,y_2,\dots,y_n) \in H$, define
+		\[
+		f^{-1}(y_1,y_2,\dots,y_n)=\left(\frac{2y_1}{1+\|y\|^2},\frac{2y_2}{1+\|y\|^2},\dots,\frac{2y_n}{1+\|y\|^2},\frac{\|y\|^2-1}{1+\|y\|^2}\right).
+		\]
+		A direct but uninformative calculation shows that for $x \in U$, $f^{-1}(f(x)) = x$, and for $y \in H$, $f(f^{-1}(y))=y$. Each components of $f$ and $f^{-1}$ are compositions of continuous functions, so both maps are continuous. The result now follows.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let  
+	\[
+		Y = \overline{B}_1(0) = \{ (x,y) \in \mathbb{R}^2 \mid x^2 + y^2 \leq 1 \}
+	\]
+	be the closed unit ball, centred at the origin. Let $a$ and $b$ be any two points on the unit circle, the boundary of $Y$. Let $C_{a,b}$ be the part of the boundary going from $a$ to $b$ (going anti-clockwise), so that $C_{a,b}$ is an arc of the unit circle including $a$ and $b$. Let  
+	\[
+		U_{a,b} = Y \setminus C_{a,b}.
+	\]
+	Show that the homeomorphism type of $U_{a,b}$ does not depend on $a$ and $b$ (even allowing $a = b$). (Hint: you may use the fact that $\cos$ and $\sin$ are continuous functions).
+
+	\begin{proof}
+		It suffices to show that $U_{a,b}$ is homeomorphic to $T \backslash \{(1, 0)\}$ for all $a, b \in \partial Y$. Note that since $\sin$ and $\cos$ are homeomorphic, the rotation linear transformation on $U_{a,b}$ is homeomorphic. Hence, we may fix $b = (1, 0)$. Suppose $a = (\cos \theta_a, \sin \theta_a)$ for some $\theta_a \in (0, 2\pi]$. Define $g_a: [0, \theta_a] \to [0, 2\pi]$ as $g_a(\theta) = \frac{2\pi}{\theta_a}\theta$. Note that $g_a(0) = 0$ and $g_a(\theta_a) = 2\pi$. Since $g_a$ is a linear function, $g_a$ is a homeomorphism. Now consider the function $f_a: U_{a, (1, 0)} \to Y \backslash \{(1, 0)\}$ that sends $(r\cos\theta, r\sin \theta)$ to $(r \cos g_a(\theta), r \sin g_a(\theta))$. $f_a$ has an inverse $f_a^{-1}: Y \backslash \{(1, 0)\} \to U_{a, (1, 0)}$ that sends $(r\cos\theta, r\sin \theta)$ to $(r\cos g_a^{-1}(\theta), r\sin g_a^{-1}(\theta))$. Since $r, \sin. g_a, g_a^{-1}$ are continuous, $f_a$ and $f_a^{-1}$ are continuous. Thus, $U_{a, (1, 0)}$ is homeomorphic to $Y \backslash \{(1, 0)\}$.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}

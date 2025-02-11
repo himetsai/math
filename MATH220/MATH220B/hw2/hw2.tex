@@ -274,7 +274,11 @@
 	Suppose $f$ is analytic in some region containing $\overline{B}(0;1)$ and $|f(z)| = 1$ where $|z| = 1$. Find a formula for $f$. (Hint: First consider the case where $f$ has no zeros in $\overline{B}(0;1)$.)
 
 	\begin{proof}
-		Suppose $f$ has no zeros in $\overline{B}_1(0)$. Then by the exercise in the start of this assignment, $f = c$ with $|c| = 1$. Suppose $f(z_0) = 0$ for some $z_0 \in \overline{B}_1(0)$. 
+		Suppose $f$ has no zeros in $\overline{B}_1(0)$. Then by the exercise in the start of this assignment, $f = c$ with $|c| = 1$. Suppose $f$ has zeros $a_1, \ldots, a_m$ in $\overline{B}_1(0)$. Since $|f(z)| = 1$ for $|z| = 1$, we know $a_1, \ldots, a_m \in B_1(0)$. Then $f(z) = g(z)\prod_{i = 1}^m z - a_i$ with $g(z) \neq 0$ for all $z \in \overline{B}_1(0)$. Consider $\frac{f(z)}{\prod_{i = i}^m \phi_{a_i}(z)}$. Since $|\phi_{a_i}(z)| = 1$ for $|z| = 1$, $\frac{f(z)}{\prod_{i = i}^m \phi_{a_i}(z)} = 1$ for $|z| = 1$. But then for all $a_i$,
+		\[
+			\lim_{z \to a_i} \frac{f(z)}{\prod_{i = i}^m \phi_{a_i}(z)} = \lim_{z \to a_i} g(z)\prod_{i = i}^m (1 - \overline{a_i}z) \neq 0
+		\]
+		for all $z \in B_1(0)$. Hence, $\frac{f(z)}{\prod_{i = i}^m \phi_{a_i}(z)} \neq 0$ on $\overline{B}_1(0)$. By the exercise in the start of this assignment, $\frac{f(z)}{\prod_{i = i}^m \phi_{a_i}(z)} = 1$. It now follows that $f(z) = \prod_{i = 1}^m \phi_{a_i}(z)$.
 	\end{proof}
 \end{homeworkProblem}
 
