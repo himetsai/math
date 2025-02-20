@@ -1,0 +1,343 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{Feb 18, 2025}
+\newcommand{\hmwkClass}{MATH 220B}
+\newcommand{\hmwkClassInstructor}{Professor Xiao}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Prove Lemma 1.5: If $(S, d)$ is a metric space then
+	\[
+	\mu(s, t) = \frac{d(s, t)}{1 + d(s, t)}
+	\]
+	is also a metric on $S$. A set is open in $(S, d)$ iff it is open in $(S, \mu)$; a sequence is a Cauchy sequence in $(S, d)$ iff it is a Cauchy sequence in $(S, \mu)$.
+
+	\begin{proof}
+		We first show that $\mu$ is a metric. Let $s, t, u \in S$. Then $\mu(s, s) = 0$, $\mu(s, t) > 0$ if $s \neq t$, $\mu(s, t) = \mu(t, s)$. We now prove the triangle inequality. Note that
+		\[
+			\frac{d(s, u)}{1 + d(s, u)} \leq \frac{d(s, t) + d(t, u)}{1 + d(s, t) + d(t, u)},
+		\]
+		Hence, it suffices to show that for $a, b \geq 0$,
+		\[
+			\frac{a + b}{1 + a + b} \leq \frac{a}{1 + a} + \frac{b}{1 + b}.
+		\]
+		Notice
+		\[
+			\frac{a}{1 + a} + \frac{b}{1 + b} = 2 - \left(\frac{1}{1 + a} + \frac{1}{1 + b}\right)
+		\]
+		and
+		\[
+			\frac{a + b}{1 + a + b} = 1 - \frac{1}{1 + a + b}.
+		\]
+		Since
+		\[
+			\frac{1}{1 + a} + \frac{1}{1 + b} - 1 = \frac{1 - ab}{1 + a + b + ab} \leq \frac{1}{1 + a + b},
+		\]
+		we have 
+		\[
+			\frac{a}{1 + a} + \frac{b}{1 + b} = 2 - \left(\frac{1}{1 + a} + \frac{1}{1 + b}\right) \geq 1 - \frac{1}{1 + a + b} = \frac{a + b}{1 + a + b}.
+		\]
+
+		Since $\frac{t}{1 + t}$ is continuous and strictly increasing on $[0, \infty)$, for $\delta > 0$ there exists $\epsilon > 0$ such that $d(s, t) < \delta$ if and only if $\mu(s, t) < \epsilon$. Hence, a set $U \subseteq S$ is open in $(S, d)$ if and only if $U$ is open in $(S, \mu)$. Similarly, a sequence $\{s_n\}$ is a Cauchy sequence in $(S, \mu)$ if and only if for $\epsilon > 0$ there exists $N$ such that for all $m, n \geq N$,
+		\[
+			\mu(s_n, s_m) < \epsilon \iff d(s_n, s_m) < \delta,
+		\]
+		where the $\delta$ corresponds to $\epsilon$ as above. 
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose $\{f_n\}$ is a sequence in $C(G, \Omega)$ which converges to $f$ and $\{z_n\}$ is a sequence in $G$ which converges to a point $z$ in $G$. Show $\lim f_n(z_n) = f(z)$.
+    
+	\begin{proof}
+		Let $\epsilon > 0$. Since $f_n \to f$ on $G$, there exists $N$ such that for all $n \geq N$,
+		\[
+			|f_n(x) - f(x)| < \frac{\epsilon}{2},
+		\]
+		for all $x \in G$. Since $z_n \to z$ and $f$ is continuous, there exists $M$ such that for all $n \geq M$,
+		\[
+			d|f(z_n) - f(z)| < \frac{\epsilon}{2},
+		\]
+		Hence, for all $n \geq \max(N, M)$,
+		\[
+			|f_n(z_n) - f(z)| \leq |f_n(z_n) - f_n(z)| + |f_n(z) - f(z)| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	\textbf{(Dini's Theorem)} Consider $C(G, \mathbb{R})$ and suppose that $\{f_n\}$ is a sequence in $C(G, \mathbb{R})$ which is monotonically increasing (i.e., $f_n(z) \leq f_{n+1}(z)$ for all $z$ in $G$) and $\lim f_n(z) = f(z)$ for all $z$ in $G$, where $f \in C(G, \mathbb{R})$. Show that $f_n \to f$.
+
+	\begin{proof}
+		Let $K \subseteq G$ be compact. Fix $\epsilon > 0$. Let $g_n = f - f_n$. Let $K_n = \{x \in K \mid g_n(x) \geq \epsilon\} = g^{-1}([\epsilon, \infty))$. Since $g_n$ is continuous and $[\epsilon, \infty)$ is closed, $K_n$ is closed. But then $K_n$ is a closed subset of a compact set, so $K_n$ is compact. Since $g_{n + 1}(z) \geq g_n(z)$, we have $K_{n + 1} \subseteq K_n$. Let $z \in K$. Since $\lim_{n \to \infty} g_n(z) = 0$, we know $z \notin K_n$ for large enough $n$, and so $\bigcap_{n \geq 1} K_n = \emptyset$. But then $K_N$ is empty for some $N$. Hence, $0 \leq g_n(z) < \epsilon$ for all $z \in K$, $n \geq N$. The result now follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	\begin{enumerate}
+    \item[(a)] Let $f$ be analytic on $B(0; R)$ and let 
+    \[
+    f(z) = \sum_{n=0}^{\infty} a_n z^n \quad \text{for } |z| < R.
+    \]
+    If 
+    \[
+    f_n(z) = \sum_{k=0}^{n} a_k z^k,
+    \]
+    show that $f_n \to f$ in $C(G; \mathbb{C})$.
+
+		\begin{proof}
+			Let $r \in (0, R)$. Since $f$ converges on $B(0; R)$, the series $\sum_{n = 0}^\infty a_n r^n$ converges. But then by the Weierstrass M-test, $f_n$ converges to $f$ uniformly on $\overline{B}_r(0)$. The result now follows.
+		\end{proof}
+    
+    \item[(b)] Let $G = \text{ann}(0; 0, R)$ and let $f$ be analytic on $G$ with Laurent series development
+    \[
+    f(z) = \sum_{n=-\infty}^{\infty} a_n z^n.
+    \]
+    Put 
+    \[
+    f_n(z) = \sum_{k=-\infty}^{n} a_k z^k
+    \]
+    and show that $f_n \to f$ in $C(G; \mathbb{C})$.
+
+		\begin{proof}
+			Write $f(z) = f^-(z) + f^+(z)$, with $f^-(z) = \sum_{n = -\infty}^{-1} a_n z^n$ and $f^+(z) = \sum_{n = 0}^{\infty} a_n z^n$. Let $f_n^- = \sum_{k = 1}^{n} a_{-k} z^{-k}$ and $f_n^+ = \sum_{k = 0}^{n} a_k z^k$. Let $0 < r_1 < r_2 < R$. Since $f$ converges on $\text{ann}(0; 0, R)$, the series $\sum_{n = -\infty}^{-1} a_nr_1^n$ and $\sum_{n = 0}^{\infty} a_nr_2^n$ converges. By the Weierstrass M-test, $f_n^-$ converges to $f^-$ uniformly on $\overline{\text{ann}(0; r_1, r_2)}$ and $f_n^+$ converges to $f^+$ uniformly on $\overline{\text{ann}(0; r_1, r_2)}$. Since $f_n(z) = f^-(z) + f^+_n(z)$, the result follows.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Prove Vitali's Theorem: If $G$ is a region and $\{f_n\} \subset H(G)$ is locally bounded and $f \in H(G)$ that has the property that 
+	\[
+	A = \{ z \in G : \lim f_n(z) = f(z) \}
+	\]
+	has a limit point in $G$, then $f_n \to f$.
+
+	\begin{proof}
+		Define $g_n = f_n - f$. Since $\{f_n\}$ is locally bounded, $\{g_n\}$ is locally bounded. By Montel's Theorem, theres is a converging subsequence $\{g_{n_k}\}$, say $g_{n_k} \to g$. But then $g(z) = 0$ on $A$ and $A$ has a limit point, so $g(z) = 0$ on $G$. This implies every converging subsequence of $\{g_{n}\}$ converges to $0$ on $G$, which forces $g_n \to 0$. Therefore,
+		$f_n = f + g_n \to f$. 
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $D = B(0; 1)$ and for $0 < r < 1$ let $\gamma_r(t) = re^{2\pi i t}$, $0 \leq t \leq 1$. Show that a sequence $\{ f_n \}$ in $H(D)$ converges to $f$ iff
+	\[
+	\int_{\gamma_r} |f(z) - f_n(z)| \, |dz| \to 0 \quad \text{as } n \to \infty
+	\]
+	for each $r$, $0 < r < 1$.
+
+	\begin{proof}
+		Suppose that $f_n \to f$. Pick $\epsilon > 0$. Then there exists $N$ such that for all $n \geq N$, $|f(z) - f_n(z)| < \epsilon$. Hence,
+		\[
+			\int_{\gamma_r} |f(z) - f_n(z)| \, |dz| < \epsilon \int_{\gamma_r} |dz| = \epsilon \cdot 2\pi r \to 0,
+		\]
+		as $\epsilon \to 0$.
+
+		We now show the converse. Fix $r \in (0, 1), \epsilon > 0$. Let $g_n = f(z) - f_n(z)$. Since $g_n$ is analytic,  
+		\[
+			|g_n(z)| = \frac{1}{2\pi}\int_{\gamma_r} \frac{g_n(w)}{w - z} \, |dw| \leq \frac{1}{2\pi r}\int_{\gamma_r} |g_n(w)| \, |dz|
+		\]
+		on $\overline{B}_r(0)$. Hence, $g_n(z) \to 0$ on any closed disk $B_0(r)$, $0 < r < 1$, and the result now follows.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $\{ f_n \} \subset H(G)$ be a sequence of one-one functions which converge to $f$. Show that either $f$ is one-one or $f$ is a constant function.
+
+	\begin{proof}
+		Suppose $f$ is not one-one or constant. There exists $z_1, z_2 \in G$ such that $f(z_1) = f(z_2)$. Consider sequence $g_n(z) = f_n(z) - f_n(z_1)$. Let $g = f - f(z_1)$. Note that $g_n \to g$ and $g_n$ has at most one zero. Since $g$ is analytic, its zeros are isolated, so we may find a closed disk $D$ such that $g$ does not vanish on $\partial D$ and $z_1, z_2 \in K$. By Hurwitz's Theorem, for large enough $n$, $g_n$ and $g$ have the same number of zeros in $K$. But then $g$ has zeros $z_1$ and $z_2$ in $K$ while $g_n$ has at most one zero in $K$, contradiction.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Suppose that $\{ f_n \}$ is a sequence in $H(G)$, $f$ is a non-constant function, and $f_n \to f$ in $H(G)$. Let $a \in G$ and $\alpha = f(a)$; show that there is a sequence $\{ a_n \}$ in $G$ such that:
+	\begin{enumerate}
+    \item[(i)] $a = \lim a_n$;
+    \item[(ii)] $f_n(a_n) = \alpha$ for sufficiently large $n$.
+	\end{enumerate}
+
+	\begin{proof}
+		Define $g(z) = f(z) - \alpha$. Since $g$ is analytic and non-constant, the zeros of $g$ are isolated. Hence, we may find a sequence $\{r_n\}$ such that $r_n \to 0$ and  $g$ does not vanish on $\partial B_{r_n}(a)$. Since $f_n \to f$ uniformly on closed balls, there exists $N$ such that for $n \geq N$ we have
+		\[
+			\max_{|z - a| = r_n} |f_n(z) - f(z)| < \min_{|z - a| = r_n} |g(z)|.
+		\]
+		Put $g_n(z) = f_n(z) - \alpha$. Since for $n \geq N$
+		\[
+			|g_n(z) - g(z)| = |f_n(z) - f(z)| < |g(z)|
+		\]
+		on $\partial B_{r_n}(a)$, $g_n(z)$ and $g(z)$ have the same number of zeros in $B_{r_n}(a)$, which is at least one. Let $a_n$ be a zero of $g_n(z)$ in $B_{r_n}(a)$. Then we have $f_n(a_n) = \alpha$ for all $n \geq N$. Since $r_n \to 0$, $a_n \to 0$. 
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $f$ be analytic on $G = \{z : \text{Re} \, z > 0\}$, one-one, with $\text{Re} f(z) > 0$ for all $z \in G$, and $f(a) = a$ for some real number $a$. Show that $|f'(a)| \leq 1$. 
+
+	\begin{proof}
+		Since $G$ is a simply connected region and $G \neq \C$, there is a unique analytic one-one function $g: G \to D$ such that $g(a) = 0$. Consider $h = g \circ f \circ g^{-1}$. Note that $h$ maps $D$ to $D$ and $h(0) = 0$. By Schwarz's Lemma, 
+		\[
+			|h'(0)| = |g'(a)f'(a)(g^{-1})'(0)| \leq 1
+		\]
+		But then $(g^{-1})'(0)g'(a) = (g^{-1})'(0)g'(g^{-1}(0)) = 1$, and the result now follows.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
