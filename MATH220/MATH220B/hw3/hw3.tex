@@ -197,11 +197,11 @@
 	Suppose $\{f_n\}$ is a sequence in $C(G, \Omega)$ which converges to $f$ and $\{z_n\}$ is a sequence in $G$ which converges to a point $z$ in $G$. Show $\lim f_n(z_n) = f(z)$.
     
 	\begin{proof}
-		Let $\epsilon > 0$. Since $f_n \to f$ on $G$, there exists $N$ such that for all $n \geq N$,
+		Let $K \subseteq G$ be a compact set that contains $z$ and $\{z_n\}$. Let $\epsilon > 0$. Since $f_n \to f$ uniformly on $K$, there exists $N$ such that for all $n \geq N$,
 		\[
 			|f_n(x) - f(x)| < \frac{\epsilon}{2},
 		\]
-		for all $x \in G$. Since $z_n \to z$ and $f$ is continuous, there exists $M$ such that for all $n \geq M$,
+		for all $x \in K$. Since $z_n \to z$ and $f$ is continuous, there exists $M$ such that for all $n \geq M$,
 		\[
 			d|f(z_n) - f(z)| < \frac{\epsilon}{2},
 		\]
@@ -237,7 +237,7 @@
     show that $f_n \to f$ in $C(G; \mathbb{C})$.
 
 		\begin{proof}
-			Let $r \in (0, R)$. Since $f$ converges on $B(0; R)$, the series $\sum_{n = 0}^\infty a_n r^n$ converges. But then by the Weierstrass M-test, $f_n$ converges to $f$ uniformly on $\overline{B}_r(0)$. The result now follows.
+			Note that for any compact subset $K \subseteq B(0; R)$, there exists $r \in (0, R)$ such that $K \subseteq \overline{B}_r(0)$. Since $f$ converges on $B(0; R)$, the series $\sum_{n = 0}^\infty a_n r^n$ converges. But then by the Weierstrass M-test, $f_n$ converges to $f$ uniformly on $\overline{B}_r(0)$. The result now follows.
 		\end{proof}
     
     \item[(b)] Let $G = \text{ann}(0; 0, R)$ and let $f$ be analytic on $G$ with Laurent series development
@@ -251,7 +251,7 @@
     and show that $f_n \to f$ in $C(G; \mathbb{C})$.
 
 		\begin{proof}
-			Write $f(z) = f^-(z) + f^+(z)$, with $f^-(z) = \sum_{n = -\infty}^{-1} a_n z^n$ and $f^+(z) = \sum_{n = 0}^{\infty} a_n z^n$. Let $f_n^- = \sum_{k = 1}^{n} a_{-k} z^{-k}$ and $f_n^+ = \sum_{k = 0}^{n} a_k z^k$. Let $0 < r_1 < r_2 < R$. Since $f$ converges on $\text{ann}(0; 0, R)$, the series $\sum_{n = -\infty}^{-1} a_nr_1^n$ and $\sum_{n = 0}^{\infty} a_nr_2^n$ converges. By the Weierstrass M-test, $f_n^-$ converges to $f^-$ uniformly on $\overline{\text{ann}(0; r_1, r_2)}$ and $f_n^+$ converges to $f^+$ uniformly on $\overline{\text{ann}(0; r_1, r_2)}$. Since $f_n(z) = f^-(z) + f^+_n(z)$, the result follows.
+			Write $f(z) = f^-(z) + f^+(z)$, with $f^-(z) = \sum_{n = -\infty}^{-1} a_n z^n$ and $f^+(z) = \sum_{n = 0}^{\infty} a_n z^n$. Let $f_n^- = \sum_{k = 1}^{n} a_{-k} z^{-k}$ and $f_n^+ = \sum_{k = 0}^{n} a_k z^k$. Note that for any compact subset $K \subseteq \text{ann}(0; 0, R)$, there exists $r_1, r_2 \in (0, R)$ such that $K \subseteq \overline{\text{ann}(0; r_1, r_2)}$. Since $f$ converges on $\text{ann}(0; 0, R)$, the series $\sum_{n = -\infty}^{-1} a_nr_1^n$ and $\sum_{n = 0}^{\infty} a_nr_2^n$ converges. By the Weierstrass M-test, $f_n^-$ converges to $f^-$ uniformly on $\overline{\text{ann}(0; r_1, r_2)}$ and $f_n^+$ converges to $f^+$ uniformly on $\overline{\text{ann}(0; r_1, r_2)}$. Since $f_n(z) = f^-(z) + f^+_n(z)$, the result follows.
 		\end{proof}
 	\end{enumerate}
 \end{homeworkProblem}
