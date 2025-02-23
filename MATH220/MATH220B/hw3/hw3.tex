@@ -281,17 +281,16 @@
 	for each $r$, $0 < r < 1$.
 
 	\begin{proof}
-		Suppose that $f_n \to f$. Pick $\epsilon > 0$. Then there exists $N$ such that for all $n \geq N$, $|f(z) - f_n(z)| < \epsilon$. Hence,
+		Suppose that $f_n \to f$. Fix $\epsilon > 0$. Let $r \in (0, 1)$. Then there exists $N$ such that for all $n \geq N$, $|f(z) - f_n(z)| < \epsilon/2\pi r$. Hence,
 		\[
-			\int_{\gamma_r} |f(z) - f_n(z)| \, |dz| < \epsilon \int_{\gamma_r} |dz| = \epsilon \cdot 2\pi r \to 0,
+			\int_{\gamma_r} |f(z) - f_n(z)| \, |dz| < \frac{\epsilon}{2\pi r} \int_{\gamma_r} |dz| = \epsilon.
 		\]
-		as $\epsilon \to 0$.
 
-		We now show the converse. Fix $r \in (0, 1), \epsilon > 0$. Let $g_n = f(z) - f_n(z)$. Since $g_n$ is analytic,  
+		We now show the converse. Let $K \subset D$ be compact. Fix $\epsilon > 0$. There eixsts $r \in (0, 1)$ such that $K \subseteq B_r(0)$. Let $d$ be the distance from $K$ to $\gamma_r$. Let $g_n = f(z) - f_n(z)$. There exists $N$ such that for all $n \geq N$, $\int_{\gamma_r} |g_n(w)| \, |dz| < 2\pi d\epsilon$. Since $g_n$ is analytic,  
 		\[
-			|g_n(z)| = \frac{1}{2\pi}\int_{\gamma_r} \frac{g_n(w)}{w - z} \, |dw| \leq \frac{1}{2\pi r}\int_{\gamma_r} |g_n(w)| \, |dz|
+			|g_n(z)| = \frac{1}{2\pi}\left|\int_{\gamma_r} \frac{g_n(w)}{w - z} \, dw\right| \leq \frac{1}{2\pi d}\int_{\gamma_r} |g_n(w)| \, |dz| < \epsilon
 		\]
-		on $\overline{B}_r(0)$. Hence, $g_n(z) \to 0$ on any closed disk $B_0(r)$, $0 < r < 1$, and the result now follows.
+		on $B_r(0)$. Thus $g_n(z)$ converges to $0$ uniformly on any compact $K$, and the result now follows.
 	\end{proof}
 \end{homeworkProblem}
 

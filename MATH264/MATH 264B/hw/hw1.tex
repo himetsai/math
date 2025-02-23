@@ -217,7 +217,53 @@
     sending the composition $(\alpha_1, \ldots, \alpha_k)$ to $(\alpha_1, \ldots, \alpha_k - 1, 1)$
     if $\alpha_k > 1$ and send $(\alpha_1, \ldots, \alpha_k)$ to $(\alpha_1, \ldots, \alpha_{k - 1}
     + 1)$ if $\alpha_k = 1$. Notice that $\phi(\phi(\alpha_1, \ldots, \alpha_k)) = (\alpha_1, \ldots,
-    \alpha_k)$, so $\phi$ is an inversion. 
+    \alpha_k)$, so $\phi$ is a bijection. But then ther eare $2^{n - 1}$ compositions of $n$, so $E_n = 2^{n - 2}$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For $1 \leq i \leq n - 1$, let $s_i$ be the adjacent transposition $(i, i+1) \in \sym_n$. It is known that the set $S = \{ s_1, \dots, s_{n-1} \}$ generates the group $\sym_n$. For $w \in \sym_n$, the \textit{Coxeter length} $\ell_{\mathcal{S}}(w)$ is the minimum number $r$ so that $w = s_{i_1} \cdots s_{i_r}$ for some $1 \leq i_1, \dots, i_r \leq n$. Prove that $\ell_{\mathcal{S}}(w) = \operatorname{inv}(w)$ for all $w \in \sym_n$.
+
+  \begin{proof}
+    Let $w \in \sym_n$. Consider the bubble sorting algorithm that rearranges the identity permutation by swapping adjacent numbers. Let $w^{(i)}$ be the result after the $i$th iteration of the algorithm. Note $w^{(0)}$ is the identity permutation. Hence, in the $i$th iteration, we shift the $i$th number of $w$ to the $i$th position. For all $i$, notice that $w^{(i)}_{j} = w_j$ for $1 \leq j \leq i$, and $w^{(i)}_j < w^{(i)}_k$ for $i < j < k \leq n$. Thus if $w_{i} = w^{(i - 1)}_j$, then we know $j \geq i$ and the $i$th iteration of the algorithm would take $j - i$ adjacent transpositions to move $w_i$ to the $i$th position. But then for $i < k < j$, we know $w_i = w^{(i - 1)}_j > w^{(i - 1)}_k$ and $w^{(i - 1)}_k = w_m$ for some $m > i$. Additionally, $w_k = w^{(i - 1)}_k$ for $1 \leq k < i$ so the numbers sorted before $w^{(i - 1)}_j$ will not contribute to the number of inversions in $w$ with respect to $w_i = w^{(i - 1)}_j$. Hence, let $L(w)$ be the number of adjacent transpositions used to create $w$ with this algorithm, then $\ell_S(w) \leq L(w) = \text{inv}(w)$. It remains to show that $\ell_S(w) \geq \text{inv}(w)$. Notice that the identity permutation is a product of $0$ adjacent transpositions, and each transposition increases the number of inversions of a permutation by at most $1$. Hence, we need at least $\text{inv}(w)$ adjacent transpositions to produce a permutation with $\text{inv}(w)$ inversions, and thus $\ell_S(w) \geq \text{inv}(w)$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  The set $T = \{(i\;j) : 1 \leq i < j \leq n\}$ of all transpositions generates the symmetric group $\sym_n$. For $w \in \sym_n$, the \emph{absolute length} $\ell_T(w)$ is defined to be the minimum number $r$ so that $w = t_1 t_2 \cdots t_r$ for some $t_1, t_2, \ldots, t_r \in T$. Prove that $\ell_T(w) \;=\; n - \mathrm{cyc}(w)$.
+
+  \begin{proof}
+    Let $w = c_1\ldots c_k \in \sym_n$, where $c_1, \ldots, c_k$ are disjoint cycles and each $c_i$ is a $m_i$-cycle. Note that $c_i$ is a product of $m_i - 1$ transpositions, so $w$ can be written as a product of $\sum_{i = 1}^k (m_i - 1) = \left(\sum_{i = 1}^k m_k\right) - k = n - k$ transpositions. Thus, $\ell_T(w) \leq n - k$. It remains to show that $\ell_T(w) \geq n - k$. Notice the identity permutation is a product of $n$ disjoint $1$-cycles, and each transposition decreases the number of disjoint cycles of a permutation by at most $1$. It now follows that we need at least $n - k$ transpositions to produce a permutation with $k$ cycles, and thus $\ell_T(w) \geq n - k$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove the following identity of formal power series using the theory of partitions:
+  \[
+    \prod_{i \geq 1} \frac{1}{1 - x^i y} = \sum_{k \geq 0} \frac{x^{k^2} y^k}{(1 - x)(1 - x^2) \cdots (1 - x^k)(1 - yx)(1 - yx^2) \cdots (1 - yx^k)}.
+  \]
+
+  \begin{proof}
+    Note that the left-hand-side is the generating function for partitions, where the exponent of $y$ represents the number of parts. Given $k \geq 0$, we show how to generate a partition with a $k \times k$ Durfee square. Start with a $k \times k$ Durfee square, this has generating function $x^{k^2}y$. We may choose two partitions with at most $k$ parts to add to the right and bottom sides of the Durfee square. The generating  function for partition with at most $k$ parts is $\frac{1}{(1 - x)(1 - x^2) \cdots (1 - x^k)}$. However, each part of the bottom partition contributes to an addition part to the whole partition. Hence, we need to use the generating function which records the number of parts, which is $\frac{1}{(1 - yx)(1 - yx^2) \cdots (1 - yx^k)}$. For partitions with a $k \times k$ Durfee square, we now have the generating function $x^{k^2}y \cdot \frac{1}{(1 - x)(1 - x^2) \cdots (1 - x^k)} \cdot \frac{1}{(1 - yx)(1 - yx^2) \cdots (1 - yx^k)}$. This gives us the right-hand-side.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove the following identity of formal power series using the theory of partitions:
+  \[
+    \prod_{i \geq 1} (1 + x^{2i-1} y) = \sum_{k \geq 0} \frac{x^{k^2} y^k}{(1 - x^2)(1 - x^4) \cdots (1 - x^{2k})}.
+  \]
+
+  \begin{proof}
+    Note that the left-hand-side equals the generating function for partitions into distinct odd parts where the exponent of $y$ represents the number of parts. Let $P_k$ be the set of such partitions of $k$ parts. Given $\lambda \in P_k$, $|\lambda| \geq 1 + 3 + \cdots + (2k - 1) = k^2$, as $\lambda_i \geq 2i - 1$. Hence, for $\lambda \in P_k$, we may write $\lambda_i = 2i - i + 2\mu_i$, where $\mu_i$ is even and $\mu_1 \leq \mu_2 \leq \cdots \leq \mu_k$. That is, we may generate $P_k$ by starting with a partition of $k^2$ into $k$ distinct odd parts, and we choose an non-decreasing sequence of even numbers $(\mu_1, \ldots, \mu_k)$ to add to the corresponding odd parts. This gives us the right-hand-side.
   \end{proof}
 \end{homeworkProblem}
 
