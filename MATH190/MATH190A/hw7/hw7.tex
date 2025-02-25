@@ -1,0 +1,225 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Feb 26, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Let $X$ be the topological space whose closed sets are the finite sets plus the whole of $X$. Show that $X$ is compact.
+
+	\begin{proof}
+		Let $\{U_\alpha\}_\alpha$ be an open cover of $X$. We may assue that $X$ is infinite, otherwise we are done. Pick $U_1$ from $\{U_\alpha\}_\alpha$. Since $U_1$ is open, $X \backslash U_1$ is finite. For $x_i \in X \backslash U_1$, pick $U_i$ from $\{U_\alpha\}_\alpha$ such that $x_i \in U_i$. Then $\{U_1, U_2, \ldots, U_i\}$ is a finite subcover of $\{U_\alpha\}_\alpha$. Therefore, $X$ is compact.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $X$ be a topological space. Show that $X$ is compact if and only if for every collection of closed sets
+	\[
+	\mathcal{F} = \{ F_{\alpha} \mid \alpha \in \Lambda \}
+	\]
+	such that every finite subcollection
+	\[
+	\mathcal{F}_0 = \{ F_{\beta} \mid \beta \in M \}
+	\]
+	has non-empty intersection, then the intersection of every element of $\mathcal{F}$ is non-empty.
+
+	\begin{proof}
+		We first show the forward direction. Suppose for contradiction that $\bigcap_{F \in \mathcal{F}} F = \emptyset$. Let $\mathcal{G}$ be the collection of $X \backslash F$ for all $F \in \mathcal{F}$. Then $\bigcup_{G \in \mathcal{G}} G = X \backslash \bigcap_{F \in \mathcal{F}} F = X$. But then $\mathcal{G}$ is an open cover of $X$, and so there exists a finite subcover $\mathcal{G}_0 = \{X \backslash F_{i} \mid 1 \leq i \leq n\}$, for some $F_1, \ldots, F_n \in \mathcal{F}$. That is, $\bigcap_{G \in \mathcal{G}_0} G = X \backslash \bigcap_{i = 1}^n F_i$. But then $\bigcap_{i = 1}^n F_i \neq \emptyset$, so $\bigcap_{G \in \mathcal{G}_0} G \neq X$, a contradiction.
+
+		Now we show the converse. Let $\{U_\alpha\}$ be an open cover of $X$. Let $\mathcal{F}$ be the collection of $X \backslash U_\alpha$ for all $\alpha$. Then $\mathcal{F}$ is a collection of closed sets. Since $\bigcap_{F \in \mathcal{F}} F = \bigcap_{\alpha} (X \backslash U_\alpha) = X \backslash \bigcup_{\alpha} U_\alpha = \emptyset$, there exists a finite subcollection $\mathcal{F}_0 = \{X \backslash U_{\alpha_1}, \ldots, X \backslash U_{\alpha_n}\}$ such that $\bigcap_{F \in \mathcal{F}_0} F = X \backslash \bigcap_{i = 1}^n U_{\alpha_i} = \emptyset$. But then $\{U_{\alpha_i}\}_{i = 1}^n$ is a finite subcover of $X$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	True or false? If true then give a proof and if false then give a counterexample.
+
+	\begin{enumerate}[(i)]
+    \item If $X$ is a compact topological space and $f: X \to \mathbb{R}$ is continuous, then $f$ achieves its maximum and minimum value.
+    \begin{proof}
+			True. Since $f$ is continuous and $X$ is compact, $f(X)$ is compact and so $f(X) = [a, b]$ for some $a < b$. Therefore, $f$ achieves its maximum and minimum value.
+		\end{proof}
+    \item Let $f: X \to Y$ be continuous and injective. If $Y$ is Hausdorff, then $X$ is Hausdorff.
+    \begin{proof}
+			True. Let $x_1, x_2 \in X$ and $y_1 = f(x_1)$, $y_2 = f(x_2)$. Since $Y$ is Hausdorff, there exists disjoint open sets $U_1$ and $U_2$ such that $y_1 \in U_1$, $y_2 \in U_2$. Since $f$ is continuous, $f^{-1}(U_1)$ and $f^{-1}(U_2)$ are open in $X$. Since $f$ is injective, $f(f^{-1}(U_1)) \subseteq U_1$ and $f(f^{-1}(U_2)) \subseteq U_2$. Therefore, $f^{-1}(U_1)$ and $f^{-1}(U_2)$ are disjoint open sets in $X$ that contain $x_1$ and $x_2$ respectively. 
+		\end{proof}
+    \item If $A$ and $B$ are compact subspaces of a topological space $X$ then $A \cup B$ is compact.
+    
+		\begin{proof}
+			True. Let $\{U_\alpha\}$ be an open cover of $A \cup B$. Then $\{U_\alpha \cap A\}_\alpha$ and $\{U_\alpha \cap B\}_\alpha$ are open covers of $A$ and $B$ respectively. Since $A$ and $B$ are compact, there exists finite subcovers $\{U_1, U_2, \ldots, U_n\}$ and $\{V_1, V_2, \ldots, V_m\}$ of $A$ and $B$ respectively. Then $\{U_1, U_2, \ldots, U_n, V_1, V_2, \ldots, V_m\}$ is a finite subcover of $A \cup B$.
+		\end{proof}
+    \item If $A$ and $B$ are compact subspaces of a topological space $X$ then $A \cap B$ is compact.
+    \begin{proof}
+			False. Consider $X = \R \cup \{a, b\}$ whose open sets are the canonical open sets of $\R$ and $\R \cup U$, for $U \subseteq \{a, b\}$. Let $A = \R \cup \{a\}$ and $B = \R \cup \{b\}$. Let $\{U_\alpha\}$ be an open cover of $X$. Then there exists $U_1$ such that $a \in U_1$, and so $\R \subseteq U_1$. Hence, $A$ is compact. Similarly, $B$ is compact. However, $A \cap B = \R$ is not compact.
+		\end{proof}
+	\end{enumerate}
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $X$ be a compact topological space and let $Y$ be a Hausdorff topological space. If $f: X \to Y$ is continuous and a bijection, then show that $f$ is a homeomorphism.
+
+	\begin{proof}
+		It suffices to show that $f^{-1}$ is continuous. Let $U$ be closed in $X$. Since $X$ is compact, $U$ is compact, and thus $f(U)$ is compact. But then $Y$ is Hausdorff, so $f(U)$ is closed. Therefore, $f^{-1}$ is continuous.
+	\end{proof}
+\end{homeworkProblem}
+\end{document}
