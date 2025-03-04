@@ -1,0 +1,211 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{Mar 1, 2025}
+\newcommand{\hmwkClass}{MATH 220B}
+\newcommand{\hmwkClassInstructor}{Professor Xiao}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+    \item Let $G$ be a region, let $a \in G$ and suppose that $f: (G - \{a\}) \to \mathbb{C}$ is an analytic function such that $f(G - \{a\}) = \Omega$ is bounded. Show that $f$ has a removable singularity at $z = a$. If $f$ is one-one, show that $f(a) \in \partial \Omega$.
+    
+		\begin{proof}
+			Since $\Omega$ is bounded, $\lim_{z \to a} |f(z)| < \infty$. Hence, $\lim_{z \to a} (z - a)f(z) = 0$, and so $f$ has a removable singularity at $z = a$. 
+
+			Suppose $f$ is injective. Let $w = f(a)$. Since $f$ is analytic on $G$, $\lim_{z \to a} f(z) = f(a) = w$. This shows that $w \in \overline{\Omega}$. Since $f$ is injective, $f(z_n) \neq w$ for all $n$. Hence, $f(a) \in \partial \Omega$.
+		\end{proof}
+    
+    \item Show that there is no one-one analytic function which maps $G = \{z: 0 < |z| < 1\}$ onto an annulus $\Omega = \{z: r < |z| < R\}$ where $r > 0$.
+		
+		\begin{proof}
+			Suppose there exists a injective analytic function $f: G \to \Omega$. Since $\Omega$ is bounded, $f$ has a removable singularity at $z = 0$ and $|f(0)|$ is either $r$ or $R$. But then $\Omega$ is not simply connected and conformally equivalent to $B_1(0)$, contradiction.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Find an analytic function $f$ which maps $\{z: |z| < 1, \operatorname{Re} z > 0\}$ onto $B(0;1)$ in a one-one fashion.
+
+	\begin{proof}
+		Consider the Mobius transformation $h(z) = \frac{1 + z}{1 - z}$. $h$ maps $B_1(0)$ to the right half plane bijectively. Additionally, the interval $(-1, 1)$ is mapped to the real axis and $h(i) = i$, so $h$ maps the upper half circle to the first quadrant. Since $z \mapsto z^2$ maps the first quadrant to the upper half plane bijectively and $g(z) = \frac{z - i}{z + i}$ maps the upper half plane to the unit disk bijectively, $f = g \circ h^2$ is the function we desire.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $G_1$ and $G_2$ be simply connected regions, neither of which is the whole plane. Let $f$ be a one-one analytic mapping of $G_1$ onto $G_2$. Let $a \in G_1$ and put $\alpha = f(a)$. Prove that for any one-one analytic map $h$ of $G_1$ into $G_2$ with $h(a) = \alpha$, it follows that $|h'(a)| \leq |f'(a)|$. Suppose $h$ is not assumed to be one-one; what can be said?
+
+	\begin{proof}
+		Let $g = f^{-1} \circ h$. Then $g$ is an analytic function from $G_1$ to $G_1$ with $g(a) = a$. By the Riemann Mapping Theorem, there exists bijective analytic functions $\phi: G_1 \to D$ and $\phi(a) = 0$. Then $\bar{g} = \phi \circ g \circ \phi^{-1}$ is an analytic function from $D$ to $D$ with $\bar{g}(0) = 0$. By Schwarz's Lemma, $|g'(a)| = |\bar{g}'(0)| \leq 1$. But then $g'(a) = (f^{-1})'(h(a)) \cdot h'(a) = \frac{h'(a)}{f'(a)}$, and so $|h'(a)| \leq |f'(a)|$. If $h$ is not assumed to be one-one, then the resulting $\bar{g}$ would not be a rotation. In this case, $|\bar{g}'(0)| < 1$ and so $|h'(a)| < |f'(a)|$.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $r_1, r_2, R_1, R_2$ be positive numbers such that $R_1/r_1 = R_2/r_2$; show that $\operatorname{ann} (0; r_1, R_1)$ and $\operatorname{ann} (0; r_2, R_2)$ are conformally equivalent. (The converse of this is presented in Exercise X.4.)
+
+	\begin{proof}
+		Let $m = R_1/r_1 = R_2/r_2$, and consider $f(z) = mz$. $f$ is aa Mobius transformation, and so $f$ is injective and analytic. We first note that $f(0) = 0$. Suppose $|z| = r$. Then $|f(z)| = |mz| = mr$. Hence, $f$ maps $B_r(0)$ to $B_{mr}(0)$. Put $r$ as $r_1$ and $r_2$ and the result follows.
+	\end{proof}
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that there is an analytic function $f$ defined on $G = \operatorname{ann}(0; 0,1)$ such that $f'$ never vanishes and $f(G) = B(0;1)$.
+
+	\begin{proof}
+		
+	\end{proof}
+\end{homeworkProblem}
+\end{document}

@@ -1,0 +1,283 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#8}
+\newcommand{\hmwkDueDate}{Mar 5, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Show that if $X$ is a Hausdorff topological space and $A$ and $B$ are compact, then $A \cap B$ is compact.
+
+	\begin{proof}
+		Since $A, B$ are compact in a Hausdorff space, they are closed and Hausdorff. But then $A \cap B$ is closed in a compact set $A$, so $A \cap B$ is compact.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let 
+	\[
+	f: X \to Y
+	\]
+	be a function with graph
+	\[
+	\Gamma_f = \{(x, f(x)) \mid x \in X\}.
+	\]
+	Suppose that $X$ and $Y$ are topological spaces.
+
+	\begin{enumerate}[(i)]
+		\item If $Y$ is Hausdorff and $f$ is continuous, then show that $\Gamma_f$ is closed in $X \times Y$.
+		\begin{proof}
+			Let $(x, y) \in (X \times Y) \backslash \Gamma_f$. Since $y \neq f(x)$, there exists disjoint open sets $U, V \subseteq Y$ such that $y \in U$ and $f(x) \in V$. But then $f$ is continuous, so $f^{-1}(V)$ is open and $f(f^{-1}(V)) \subseteq V$. Hence, $f^{-1}(V) \times U$ is an open neighborhood of $(x, y)$ that does not intersect $\Gamma_f$. The result now follows.
+		\end{proof}
+		\item Show that if $Y$ is compact, then 
+		\[
+		p: X \times Y \to X
+		\]
+		is a closed map (that is, the image of a closed set is closed).
+		\begin{proof}
+			Let $A \subseteq X \times Y$ be closed. Pick $x \in X \backslash p(A)$. Then $\{x\} \times Y$ is contained in the open set $(X \times Y) \backslash A$. Since $Y$ is compact, the Tube Lemma yields an open neighborhood $U_x$ of $x$ such that $U_x \times Y \subseteq (X \times Y) \backslash A$. But then $U_x \times Y$ is an open neighborhood of $x$ that does not intersect $p(A)$, so $p(A)$ is closed.
+
+		\end{proof}
+		\item Show that if $Y$ is compact and $\Gamma_f$ is closed in $X \times Y$, then $f$ is continuous.
+		\begin{proof}
+			Let $V \subseteq Y$ be open. Let $B = \Gamma_f \cap (X \times (Y \backslash V))$. Since $B$ is closed, the projection $p: X \times Y \to X$ is a closed map, and so $p(B) = X \backslash f^{-1}(V)$ is closed in $X$. It now follows that $f^{-1}(V)$ is open, so $f$ is continuous.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $A$ and $B$ be subspaces of the topological spaces $X$ and $Y$. Suppose that
+	\[
+	A \times B \subset W \subset X \times Y.
+	\]
+	If $A$ and $B$ are compact and $W$ is open, then show that we can find $U$ and $V$ open in $X$ and $Y$ such that
+	\[
+	A \times B \subset U \times V \subset W.
+	\]	
+
+	\begin{proof}
+		Since $W$ is open, for each $(a, b) \in A \times B$ there exists open sets $U_{a, b} \subseteq X, V_{a, b} \subseteq Y$ such that $U_{a, b} \times V_{a, b} \subseteq W$, $a \in U_{a, b}$ and $b \in V_{a, b}$. Fix $a \in A$. Since $B$ is compact, there exists a finite subcover $\{V_{a, b_i}\}_{i = 1}^n$ of $B$. Let $U_a = \bigcap_{i = 1}^n U_{a, b_i}$ and $V_a = \bigcup_{i = 1}^n V_{a, b_i}$. Note that $U_a$ is an open neighborhood of $a$ and $U_a \times V_a \subseteq W$. Since $\{U_{a}\}_{a \in A}$ is an open cover of $A$ and $A$ is compact, there exists a finite subcover $\{U_{a_i}\}_{i = 1}^n$ of $A$. Let $U = \cup_{i = 1}^n U_{a_i}$ and $V = \cap_{i = 1}^n V_{a_i}$. Since $B \subseteq V_{a_i}$ for all $i$, $B \subseteq V$. But then $A \times B \subseteq U \times V \subseteq W$ and $U, V$ are open.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $f$ and $g$ be two functions
+	\[
+	f: X \to Y \quad \text{and} \quad g: X \to Y.
+	\]
+	Let
+	\[
+	h: X \to Y \times Y
+	\]
+	be the function
+	\[
+	h(x) = (f(x), g(x)).
+	\]
+	\begin{enumerate}[(i)]
+    \item Show that $f = g$ if and only if the image of $h$ lands in the diagonal
+    \[
+    \Delta = \{(y, y) \mid y \in Y\}.
+    \]
+
+		\begin{proof}
+			$f = g$ if and only if $(f(x), g(x)) \in \Delta$ for all $x \in X$ if and only if $h(X) \subseteq \Delta$.
+		\end{proof}
+    \item Now suppose that $f$ and $g$ are continuous functions and $Y$ is Hausdorff. If $A \subset X$ is dense and $f|_A = g|_A$, then show that $f = g$.
+    
+		\begin{proof}
+			By homework 3 question 3, $\Delta$ is closed in $Y \times Y$. Hence, $h^{-1}(\Delta)$ is closed in $X$ and $A \subseteq h^{-1}(\Delta)$. But then $X = \overline{A} \subseteq h^{-1}(\Delta)$, so $f = g$.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $X$ be a Hausdorff topological space.
+	\begin{enumerate}[(i)]
+    \item If $A$ and $B$ are disjoint compact subspaces of $X$, then show that we can find disjoint open sets $U$ and $V$ such that
+    \[
+    A \subset U \quad \text{and} \quad B \subset V.
+    \]
+		\begin{proof}
+			For $a \in A$ and $b \in B$, there exists disjoint open sets $U_{a, b}$ and $V_{a, b}$ such that $a \in U_{a, b}$ and $b \in V_{a, b}$. Fix $a \in A$. Then $\{V_{a, b}\}_{b \in B}$ is an open cover of $B$. Since $B$ is compact, there exists a finite subcover $\{V_{a, b_i}\}_{i = 1}^n$ of $B$. Let $U_a = \bigcap_{i = 1}^n U_{a, b_i}$ and $V_a = \bigcup_{i = 1}^n V_{a, b_i}$. Note that $U_a$ is an open neighborhood of $a$ and $U_a \cap B = \emptyset$. Since $\{U_{a}\}_{a \in A}$ is an open cover of $A$ and $A$ is compact, there exists a finite subcover $\{U_{a_i}\}_{i = 1}^n$ of $A$. Let $U = \bigcup_{i = 1}^n U_{a_i}$ and $V = \bigcap_{i = 1}^n V_{a_i}$. Then $A \subseteq U$ and $B \subseteq V$ and $U \cap V = \emptyset$.
+		\end{proof}
+    \item Suppose in addition that $X$ is compact. Suppose we are given a collection of connected closed subsets
+    \[
+    \{F_\alpha \mid \alpha \in \Lambda\}.
+    \]
+    which are totally ordered by inclusion, so that given $\alpha$ and $\beta \in \Lambda$, either
+    \[
+    F_\alpha \subset F_\beta \quad \text{or} \quad F_\beta \subset F_\alpha.
+    \]
+    Show that
+    \[
+    \bigcap_{\alpha} F_\alpha
+    \]
+    is closed and connected.
+
+		\begin{proof}
+			Let $F = \bigcap_{\alpha} F_\alpha$. Since $F$ is the intersection of closed sets, $F$ is closed. Suppose $f: F \to \{0, 1\}$ is continuous and not constant. Since $F_\alpha$ is connected for all $\alpha$, $f(F_{\alpha})$ is a singleton. Hence $f^{-1}(0) \supseteq F_{\alpha}$ and $f^{-1}(1) \supseteq F_{\beta}$ for some $\alpha, \beta \in \Lambda$. But then $F_\alpha$ and $F_{\beta}$ are not ordered.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}
