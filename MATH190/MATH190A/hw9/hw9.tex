@@ -1,0 +1,243 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#9}
+\newcommand{\hmwkDueDate}{Mar 12, 2025}
+\newcommand{\hmwkClass}{MATH 190A}
+\newcommand{\hmwkClassTime}{Section A02 8:00AM - 8:50AM}
+\newcommand{\hmwkSectionLeader}{Zhiyuan Jiang}
+\newcommand{\hmwkClassInstructor}{Professor McKernan}
+\newcommand{\hmwkSource}{Source Consulted: Textbook, Lecture, Discussion}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{0.1in}\small\hmwkClassTime \\
+    \small Section Leader: \hmwkSectionLeader \\
+    \vspace{0.1in}\small\hmwkSource \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\T}{\mathcal{T}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Show that an arbitrary product of Hausdorff spaces is Hausdorff.
+
+	\begin{proof}
+		Let $\{X\alpha\}$ be a collection of Hausdorff spaces and consider 
+		\[
+			X = \prod_{\alpha} X_\alpha.
+		\]
+		Let $x, y \in X$ such that $x \neq y$. Then there exists some index $\beta$ such that $x_\beta \neq y_\beta$. Since $X_\beta$ is Hausdorff, there exists disjoint open sets $U, V \subset X_\beta$ such that $x_\beta \in U$ and $y_\beta \in V$. Let $p_\beta: X \to X_\beta$ be the natural projection map. Then $p_\beta^{-1}(U)$ and $p_\beta^{-1}(V)$ are open in $X$ and $x \in p_\beta^{-1}(U)$. $y \in p_\beta^{-1}(V)$. Moreover, $p_\beta^{-1}(U)$ and $p_\beta^{-1}(V)$ are disjoint and $U, V$ are joint, so $X$ is Hausdorff.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Show that an arbitrary product of connected sets is connected.
+
+	\begin{proof}
+		Let $\{X_\alpha\}$ be a collection of connected spaces and consider 
+		\[
+			X = \prod_{\alpha \in \Lambda} X_\alpha.
+		\]
+		First note that since $X_\alpha$ is connected, $\prod_{\alpha \in F} X_\alpha$ is connected for all finite $F \subseteq \Lambda$. Suppose for sake of contradiction that $X$ may be partitioned into two disjoint nonempty open sets $U, V$. Fix $a \in X$. For $\alpha \in \Lambda$, let 
+		\[
+			Z_\alpha = \{x \in X \mid x_\beta = a_\beta, \beta \neq \alpha\},
+		\]
+		the set of points in $X$ that agree with $a$ in all coordinates except $\alpha$. Then $f_\alpha: X_\alpha \to Z_\alpha$ which sends $k$ to $(x_\beta)$ where $x_\beta = a_\beta$ for $\beta \neq \alpha$ and $x_\alpha = k$ is a homeomorphism. Since $X_\alpha$ is connected, $Z_\alpha$ is connected. Hence, for each $\alpha \in \Lambda$, $Z_\alpha$ is contained in either $U$ or $V$. Since $U, V$ are nonempty, we may find $Z_{\alpha_1}, Z_{\alpha_2}$ such that $Z_{\alpha_1} \subseteq U$ and $Z_{\alpha_2} \subseteq V$. Now consider $W = Z_{\alpha_1} \cup Z_{\alpha_2} \subset X$. Then the function $g: X_{\alpha_1} \times X_{\alpha_2} \to W$ which sends $(k, m)$ to $(x_\beta)$ where $x_\beta = a_\beta$ for $\beta \neq \alpha_1, \alpha_2$ and $(x_{\alpha_1}, x_{\alpha_2}) = (k, m)$ is a homeomorphism. But then this implies that $W = (W \cap U) \cup (W \cap V)$ is connected, contradiction.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let $f: X \to Y$ be a continuous and surjective function.
+
+\begin{enumerate}[(i)]
+    \item Show that $f$ is a quotient map if and only if $Y$ has the finest topology such that $f$ is continuous (that is, $V \subset Y$ is open if and only if $U = f^{-1}(V)$ is open).
+    \begin{proof}
+			Suppose $f$ is a quotient map. 
+		\end{proof}
+    
+    \item Show that if $f$ is open then $f$ is a quotient map.
+    
+    \item Show that if $f$ is closed then $f$ is a quotient map.
+    
+    \item Show that if $X$ is compact and $Y$ is Hausdorff then $f$ is a quotient map.
+    
+    \item Show that if $f$ has a right inverse, that is, there is a continuous function $g: Y \to X$ such that $f \circ g: Y \to Y$ is the identity, then $f$ is a quotient map.
+    
+    \item Show that if $p: X \times Y \to Y$ is the projection then $p$ is a quotient map.
+    
+    \item Let $X$ be a topological space and let $Y \subset X$ be a subspace. We say that $r$ is a \textit{retraction} of $X$ onto $Y$ if $r: X \to Y$ is a continuous map whose restriction to $Y$ is the identity, $r|_Y = i_Y$.\\
+    If $r: X \to Y$ is a retraction then show that $r$ is a quotient map.
+    
+    \item Show that the composition of quotient maps is a quotient map.
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let
+	\[
+	X = \{(x,y) \mid \text{either } x \geq 0 \text{ or } y = 0 \} \subset \mathbb{R}^2.
+	\]
+	Let $p: \mathbb{R}^2 \to \mathbb{R}$ denote projection onto the first factor and let
+	\[
+	f: X \to \mathbb{R}
+	\]
+	be the restriction of $p$ to $X$.
+
+	Show that $f$ is a quotient map, even though $f$ is neither open nor closed and $X$.
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Consider the Möbius strip $X_1$ and the closed unit ball $X_2$ in $\mathbb{R}^2$. The boundary of both is homeomorphic to $S^1$ (in fact the boundary of the closed unit ball is $S^1$). Define a topological space $X$ by taking the quotient of the disjoint union of $X_1$ and $X_2$, modulo an equivalence relation that identifies the two boundaries (in other words, pick a homeomorphism between the two boundaries and identify corresponding points).
+
+	Show that $X$ is homeomorphic to the real projective plane.
+\end{homeworkProblem}
+\end{document}

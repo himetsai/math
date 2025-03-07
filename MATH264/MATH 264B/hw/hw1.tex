@@ -141,6 +141,7 @@
 \newcommand*{\R}{\mathbb{R}}
 \newcommand*{\C}{\mathbb{C}}
 \newcommand*{\N}{\mathbb{N}}
+\newcommand*{\F}{\mathbb{F}}
 \newcommand*{\prob}{\mathds{P}}
 \newcommand*{\E}{\mathds{E}}
 \newcommand*{\sym}{\mathfrak{S}}
@@ -267,4 +268,129 @@
   \end{proof}
 \end{homeworkProblem}
 
+\newpage
+
+\begin{homeworkProblem}
+  Let $\alpha = (\alpha_1, \dots, \alpha_r) \models n$ be a composition of a positive integer $n$ and let $\mathbb{F}$ be an arbitrary field. Let $P_{\alpha} \subseteq GL_n(\mathbb{F})$ be the parabolic subgroup of block upper-triangular invertible matrices whose diagonal blocks have sizes $\alpha_1 \times \alpha_1, \dots, \alpha_r \times \alpha_r$. Describe a bijection between cosets $GL_n(\mathbb{F})/P_{\alpha}$ and the family of flags $W_{\bullet} = (W_0 \subset W_1 \subset \cdots \subset W_r)$ of subspaces of $\mathbb{F}^n$ such that $\dim W_i = \alpha_1 + \cdots + \alpha_i$.
+
+  \begin{proof}
+    Consider flag $0 = V_0 \subset V_1 \subset \cdots \subset V_r = \mathbb{F}^n$, where $V_i$ is the span of the first $\alpha_1 + \cdots + \alpha_i$ standard basis vector.  For $g \in GL_n(\mathbb{F})$, define the map by sending $gP_\alpha$ to $g(V_0)\subset g(V_1) \subset \cdots \subset g(V_r)$. Notice $P_\alpha(V_i) = V_i$ for all $i$, so $P_\alpha$ is a stabilizer of the flag $V_0 \subset V_1 \subset \cdots \subset V_r$. Hence, this map is well-defined as $gP_\alpha(V_i) = gV_i$, and it is obviously bijective.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $n$ and $m$ be positive integers and let $f(n,m)$ be the number of $0,1$-matrices of dimensions $n \times m$ which do not contain any zero rows or columns. Find a formula for $f(n,m)$.
+
+
+  \begin{proof}
+    For $S \subseteq [m]$, let $g(S)$ be the number of $0,1$-matrices of dimensions $n \times m$ that have no zero rows but have zero columns indexed by $S$, and let $h(S)$ be the number of $0,1$-matrices of dimensions $n \times m$ that have no zero rows and have zero columns exactly at the columns indexed by $S$. Note that for all $S \subseteq [m]$,
+    \[
+      g(S) = \sum_{S \subseteq T \subseteq [m]} h(T).
+    \]
+    Given $T \subseteq [m]$, there are $(2^{m - |T|} - 1)^n$ ways to choose $n$ rows that is not completely zero in the columns not indexed by $T$ and zero in the columns indexed by $T$, so $g(T) = (2^{m - |T|} - 1)^n$. Principle of Inclusion-Exclusion now yields
+    \[
+      f(n, m) = h(\emptyset) = \sum_{T \subseteq [n]} (-1)^{|T|} g(T) = \sum_{k = 1}^m (-1)^{k}\binom{m}{k}(2^{m - k} - 1)^n.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  What is the average number of fixed points of a permutation $w \in \mathcal{S}_n$?
+
+  \begin{proof}
+    Let $X$ be the expected number of fixed points in a random permutation $w \in \mathcal{S}_n$, and let $X_i$ be the indicator for the event that $w(i) = i$. Then
+    \[
+      \E[X] = \sum_{i = 1}^n \E[X_i] = \sum_{i = 1}^n \prob(w(i) = i) = \sum_{i = 1}^n \frac{1}{n} = 1.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $q$ be a prime power and let $\mathbb{F}_q$ be the finite field with $q$ elements. For $k \leq n$, find a formula for the number of $\mathbb{F}_q$-linear surjections $\varphi : \mathbb{F}_q^n \twoheadrightarrow \mathbb{F}_q^k$.
+
+  \begin{proof}
+    For each subsapce $U$ of $\F^k_q$, define $f(U)$ to be the number of linear maps $\mathbb{F}_q^n \rightarrow \mathbb{F}_q^k$ whose image lies in $U$, and define $g(U)$ to be the number of linear maps $\mathbb{F}_q^n \rightarrow \mathbb{F}_q^k$ whose image is $U$. Obviously,
+    \[
+      f(U) = \sum_{V \text{ subspace of } U} g(V).
+    \]
+    By Möbius inversion on the lattice of subspaces of $\F^k_q$, 
+    \[
+      g(\F_q^k) = \sum_{V \text{ subspace of } U} \mu(V, \F_q^k)f(V).
+    \]
+    Since $\mu(V, \F_q^k) = (-1)^{k - \dim(V)}q^{\binom{k - \dim(V)}{2}}$ and $f(V) = q^{n \cdot \dim V}$,
+    \[
+      g(\F_q^k) = \sum_{i = 1}^k \begin{bmatrix}
+        k \\ i
+      \end{bmatrix}_q (-1)^{k - i}q^{\binom{k - i}{2}}q^{ni}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $P$ be a finite poset which has a minimum element $\hat{0}$. Prove that the order complex $\Delta(P)$ is contractible. (This means that $\Delta(P)$ can be continuously deformed to a point. For example, the 2-dimensional disc $D^2$ is contractible whereas its boundary circle $S^1$ is not.)
+
+  \begin{proof}
+    Note that $\hat{0}$ is minimal and any chain in $P$ can be extended to another chain in $P$ that includes $\hat{0}$ as a unique minimum element. Hence, all maximal simplices in $\Delta(P)$ are simplices of $\{\hat{0}\}$. Hence, given a maximal chain $C$ in $P$, we continuously deform the corresponding simplex of $C$ by iteratively removing the elements of starting from the end of the chain to $\hat{0}$. This deformation iteratively reduces the dimension of the corresponding simplex of $C$ until it is a point at $\hat{0}$. Hence, $\Delta(P)$ is contractible.
+
+    (I have no idea what I wrote.)
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathcal{A}$ be the arrangement in $\mathbb{R}^n$ and let $R$ be a region of $\mathcal{A}$. The \textit{recession cone} of $R$ is
+  \[
+  \text{Rec}(R) := \{ v \in \mathbb{R}^n \mid R + v \subseteq R \}.
+  \]
+  Prove that $\text{Rec}(R)$ is a \textit{cone} in $\mathbb{R}^n$. That is, prove that if $v_1, \dots, v_r \in \text{Rec}(R)$ and if $a_1, \dots, a_r > 0$ we have
+  \[
+  a_1 v_1 + \cdots + a_r v_r \in \text{Rec}(R).
+  \]
+
+  \begin{proof}
+    Let $x \in R$. By definition of $\text{Rec}(R)$, we have $x + v_r \in R$ for all $i$. Since $R$ is convex, $x + tv_r \in R$ for all $t \in [0, 1]$. But then given any $a_r > 0$, we may repeatedly apply the above argument to show that $x + a_rv_r \in R$. The result now follows from induction on $r$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathcal{A}$ be the arrangement in $\mathbb{R}^n$ with hyperplanes $x_i = x_j$ for $1 \leq i < j \leq n$ and 
+  \[
+  x_1 + x_2 + \cdots + x_n = 0.
+  \]
+  Prove that $\mathcal{A}$ has characteristic polynomial
+  \[
+  \chi_{\mathcal{A}}(t) = (t - 1)^2 (t - 2)(t - 3) \cdots (t - n + 1).
+  \]
+
+  \begin{proof}
+    Denote the hyperplane $x_1 + x_2 + \cdots + x_n = 0$ as $H_0$. Let $\mathcal{A}' \subset \mathcal{A}$ be the Braid arrangement, and let
+    \[
+      \mathcal{A}'' = \{H_0 \cap H \neq \emptyset : H_0 \not\subseteq H, H \in \mathcal{A}\} = \{H_0 \cap \{x_i = x_j\} \mid 1 \leq i < j \leq n\}.
+    \]
+    By the Deletion-Rejection principle, we have
+    \[
+      \chi_{\mathcal{A}}(t) = \chi_{\mathcal{A}'}(t) - \chi_{\mathcal{A}''}(t).
+    \]
+    We already know the characteristic polynomial of the Braid arrangement is 
+    \[
+      \chi_{\mathcal{A}'}(t) = t(t - 1)(t - 2) \cdots (t - n + 1).
+    \]
+    We now use the finite field method to compute $\chi_{\mathcal{A}''}(t)$. Let $q$ be a prime power and let $\mathbb{F}_q$ be the finite field with $q$ elements. The finite field method yields
+    \[
+      \chi_{\mathcal{A}''}(t) = \# \left(\F_q^n \backslash \bigcup_{H^{(p)} \in \mathcal{A}''^{(p)}} H^{(p)}\right) = \# \left(\F_q^n \backslash \bigcup_{\{x_i = x_j\} \in \mathcal{A}'^{(p)}} H_0^{(p)} \cap \{x_i = x_j\}\right)
+    \]
+    
+  \end{proof}
+\end{homeworkProblem}
 \end{document}

@@ -162,7 +162,7 @@
 	Show that if $X$ is a Hausdorff topological space and $A$ and $B$ are compact, then $A \cap B$ is compact.
 
 	\begin{proof}
-		Since $A, B$ are compact in a Hausdorff space, they are closed and Hausdorff. But then $A \cap B$ is closed in a compact set $A$, so $A \cap B$ is compact.
+		Since $A, B$ are compact in a Hausdorff space, they are closed and Hausdorff. But then $A \cap B$ is a closed compact subset of $A$, so $A \cap B$ is compact.
 	\end{proof}
 \end{homeworkProblem}
 
@@ -276,7 +276,7 @@
     is closed and connected.
 
 		\begin{proof}
-			Let $F = \bigcap_{\alpha} F_\alpha$. Since $F$ is the intersection of closed sets, $F$ is closed. Suppose $f: F \to \{0, 1\}$ is continuous and not constant. Since $F_\alpha$ is connected for all $\alpha$, $f(F_{\alpha})$ is a singleton. Hence $f^{-1}(0) \supseteq F_{\alpha}$ and $f^{-1}(1) \supseteq F_{\beta}$ for some $\alpha, \beta \in \Lambda$. But then $F_\alpha$ and $F_{\beta}$ are not ordered.
+			Let $F = \bigcap_{\alpha} F_\alpha$. Since $F$ is the intersection of closed sets, $F$ is closed. Suppose $f: F \to \{0, 1\}$ is continuous and not constant. Since $F_\alpha$ is connected for all $\alpha$, $f(F_{\alpha})$ is a singleton. Hence $f^{-1}(0) \supseteq F_{\alpha}$ and $f^{-1}(1) \supseteq F_{\beta}$ for some $\alpha, \beta \in \Lambda$. But then $f^{-1}(0) \cap f^{-1}(1) = \emptyset$, so $F_\alpha$ and $F_{\beta}$ are not ordered, contradiction.
 		\end{proof}
 	\end{enumerate}
 \end{homeworkProblem}
