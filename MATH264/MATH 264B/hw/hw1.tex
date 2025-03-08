@@ -91,9 +91,9 @@
 %
 
 \newcommand{\hmwkTitle}{Homework}
-\newcommand{\hmwkDueDate}{Nov 2, 2024}
+\newcommand{\hmwkDueDate}{Mar 10, 2025}
 \newcommand{\hmwkClass}{MATH 264B}
-\newcommand{\hmwkClassInstructor}{Professor Rhodes}
+\newcommand{\hmwkClassInstructor}{Professor Rhoades}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
 \newcommand{\hmwkPID}{A16848188}
 
@@ -281,6 +281,29 @@
 \newpage
 
 \begin{homeworkProblem}
+  Let $n > 1$ be an integer. Use a sign-reversing involution to prove the identity
+  \[
+  \sum_{w \in \sym_n} (-1)^{\operatorname{inv}(w)} = 0.
+  \]
+  Your involution should also prove the identity
+  \[
+  \sum_{w \in \sym_n} (-1)^{\operatorname{cyc}(w)} = 0.
+  \]
+
+  \begin{proof}
+    Consider the function $f: \sym_n \to \sym_n$ which swaps $w(1)$ and $w(2)$ if $w(1) = 1$, and swaps $w(1)$ and $w^{-1}(1)$ if $w(1) \neq 1$. Let $w \in \sym_n$. Observe that $f(f(w)) = 1$, so $f$ is an involution. Suppse $w(1) = 1$. Then applying $f$ to $w$ increases the number of inversions by $1$. Also, $f$ merges the 1-cycle $(1)$ with the cycle containing $w(2)$, so $f$ reduces the number of cycles of $w$ by $1$. Now suppose $w(1) \neq 1$. Then applying $f$ to $w$ decreases the number of inversions by $1$. Also, $f$ splits the the cycle which contains $w(1)$, so $f$ increases the number of cycles of $w$ by $1$. Hence, $f$ changes the parity of $\operatorname{inv}(w)$ and $\operatorname{cyc}(w)$. Thus,
+    \[
+      \sum_{w \in \sym_n} (-1)^{\operatorname{inv}(w)} = \frac{1}{2}\left(\sum_{w \in \sym_n} (-1)^{\operatorname{inv}(w)} + (-1)^{\operatorname{inv}(f(w))}\right) = 0,
+    \]
+    \[
+      \sum_{w \in \sym_n} (-1)^{\operatorname{cyc}(w)} = \frac{1}{2}\left(\sum_{w \in \sym_n} (-1)^{\operatorname{cyc}(w)} + (-1)^{\operatorname{cyc}(f(w))}\right) = 0.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
   Let $n$ and $m$ be positive integers and let $f(n,m)$ be the number of $0,1$-matrices of dimensions $n \times m$ which do not contain any zero rows or columns. Find a formula for $f(n,m)$.
 
 
@@ -347,6 +370,57 @@
 \newpage
 
 \begin{homeworkProblem}
+  Let $\Pi_n$ be the lattice of set partitions of $[n]$, partially ordered by $\pi \leq \sigma$ if and only if $\pi$ refines $\sigma$. These exercises outline an alternative proof that
+  \[
+  \mu_{\Pi_n}[\hat{0}, \hat{1}] = (-1)^{n-1} \cdot (n-1)!.
+  \]
+  \begin{enumerate}[(a)]
+    \item Let $\pi = \{B_1 \mid \cdots \mid B_k\}$ be a set partition of $[n]$. Give a poset isomorphism
+    \[
+    [\hat{0}, \pi]_{\Pi_n} \cong [\hat{0}, \hat{1}]_{\Pi_{|B_1|}} \times \cdots \times [\hat{0}, \hat{1}]_{\Pi_{|B_k|}}.
+    \]
+    \begin{proof}
+      Let $\sigma \in [\hat{0}, \pi]_{\Pi_n}$. Note that each block of $\sigma$ is a subset of some unique $B_i$. Hence, we may index the blocks of $\sigma$ that refines $B_i$ as $B_{i_1}, B_{i_2}, \ldots, B_{i_{m_1}}$. Define $f: [\hat{0}, \pi]_{\Pi_n} \to [\hat{0}, \hat{1}]_{\Pi_{|B_1|}} \times \cdots \times [\hat{0}, \hat{1}]_{\Pi_{|B_k|}}$ by 
+      \[
+      f(\sigma) = (\sigma_{B_1}, \ldots, \sigma_{B_k}),
+      \]
+      where $\sigma_{B_i} = \{B_{i_1} \mid \cdots \mid B_{i_{m_i}}\} \in \Pi_{|B_i|}$. Since the operation of $f$ can be reversed, $f$ is well-defined and bijective. Suppose $x, y \in [\hat{0}, \pi]_{\Pi_n}$ such that $x \leq y$. Then $x_{B_i} \leq y_{B_i}$ for all $i$, so $f(x) \leq f(y)$. Hence, $f$ is order-preserving. 
+    \end{proof}
+
+    \item We have a natural map $\varphi : \mathcal{S}_n \to \Pi_n$ where $\varphi(w)$ is the set partition of $[n]$ whose blocks are the cycles of the permutation $w \in \mathcal{S}_n$. If $\pi = \{B_1 \mid \cdots \mid B_k\}$ is a set partition of $[n]$, prove that the pre-image $\varphi^{-1}(\pi)$ has size
+    \[
+    \# \varphi^{-1}(\pi) = (|B_1| - 1)! \cdots (|B_k| - 1)!.
+    \]
+    \begin{proof}
+      Since there are $(r - 1)!$ ways to arrange $r$ distinct elements into a cycle, for each $B_i$ there are $(|B_i| - 1)!$ possible cycles that would result in $B_i$ as a block. The result now follows.
+    \end{proof}
+
+    \item Use the results in Problems 1 and 2 to deduce that $\mu_{\Pi_n}[\hat{0}, \hat{1}]$. (Use induction on $n$. It may be helpful to remember a result about the alternating sum of Stirling numbers of the first kind.)
+    \begin{proof}
+      We proceed on induction on $n$. For $n = 1$, $\Pi_1$ only has one partition, so $\mu_{\Pi_1}[\hat{0}, \hat{1}] = 1$. Suppose $n \geq 2$. The Möbius function satisfies
+      \[
+        \mu_{\Pi_n}[\hat{0}, \hat{1}] = -\sum_{\pi < \hat{1}} \mu_{\Pi_n}[\hat{0}, \pi].
+      \]
+      For $\pi < \hat{1}$,
+      \[
+        \mu_{\Pi_n}[\hat{0}, \pi] = \mu_{\Pi_{|B_1|}}[\hat{0}, \hat{1}] \cdots \mu_{\Pi_{|B_{k_\pi}|}}[\hat{0}, \hat{1}] = \prod_{i = 1}^k (-1)^{|B_i| - 1}(|B_i| - 1)! = (-1)^{n - k}(|B_1| - 1)! \cdots (|B_{k_\pi}| - 1)!,
+      \]
+      by (a) and induction. But then by (b),
+      \[
+        \mu_{\Pi_n}[\hat{0}, \hat{1}] = -\sum_{\pi < \hat{1}}(-1)^{n - k_\pi} \cdot \# \varphi^{-1}(\pi) = (-1)^{n - 1}\sum_{k = 2}^n (-1)^{k}c(n, k).
+      \]
+      Since $\sum_{k = 1}^n (-1)^{k}c(n, k) = 0$, 
+      \[
+        \mu_{\Pi_n}[\hat{0}, \hat{1}] = (-1)^{n - 1}c(n, 1) = (-1)^{n - 1}(n - 1)!.
+      \]
+    \end{proof}
+
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
   Let $\mathcal{A}$ be the arrangement in $\mathbb{R}^n$ and let $R$ be a region of $\mathcal{A}$. The \textit{recession cone} of $R$ is
   \[
   \text{Rec}(R) := \{ v \in \mathbb{R}^n \mid R + v \subseteq R \}.
@@ -374,23 +448,34 @@
   \]
 
   \begin{proof}
-    Denote the hyperplane $x_1 + x_2 + \cdots + x_n = 0$ as $H_0$. Let $\mathcal{A}' \subset \mathcal{A}$ be the Braid arrangement, and let
+    We now use the finite field method to compute $\chi_{\mathcal{A}}(t)$. Let $q$ be a large prime power and let $\mathbb{F}_q$ be the finite field with $q$ elements. The finite field method yields
+    \begin{align*}
+      \chi_{\mathcal{A}}(q) 
+      &= \# \left(\F_q^n \backslash \bigcup_{H^{(p)} \in \mathcal{A}^{(p)}} H^{(p)}\right) \\ 
+      &= \#\{x \in \F_q^n \mid x_i \neq x_j \text{ for $i \neq j$ and } x_1 + \cdots + x_n \neq 0\} \\
+      &= \#\{x \in \F_q^n \mid x_i \neq x_j \text{ for $i \neq j$}\} - \#\{x \in \F_q^n \mid x_i \neq x_j \text{ for $i \neq j$ and } x_1 + \cdots + x_n = 0\}.
+    \end{align*}
+    For $a \in \F_q$, define
     \[
-      \mathcal{A}'' = \{H_0 \cap H \neq \emptyset : H_0 \not\subseteq H, H \in \mathcal{A}\} = \{H_0 \cap \{x_i = x_j\} \mid 1 \leq i < j \leq n\}.
+      S_a = \#\{x \in \F_q^n \mid x_i \neq x_j \text{ for $i \neq j$ and } x_1 + \cdots + x_n = a\}.
     \]
-    By the Deletion-Rejection principle, we have
+    Let $a, b \in \F_q$. Since $q$ is prime, there exists unique $k \in \F_q$ such that $a + nk \equiv b \pmod q$. Define $f_{a, b}: S_a \to S_b$ by
     \[
-      \chi_{\mathcal{A}}(t) = \chi_{\mathcal{A}'}(t) - \chi_{\mathcal{A}''}(t).
+      f_{a, b}(x_1, \ldots, x_n) = (x_1 + k, x_2 + k, \ldots, x_n + k).
     \]
-    We already know the characteristic polynomial of the Braid arrangement is 
+    Define $f_{b, a}$ in the same fashion, and we get $f_{a, b} \circ f_{b, a} = f_{b, a} \circ f_{a, b}$ is the identity map. Hence, $|S_a| = |S_b|$ for all $a, b \in \F_q$, and so
     \[
-      \chi_{\mathcal{A}'}(t) = t(t - 1)(t - 2) \cdots (t - n + 1).
+      |S_0| = \frac{1}{q} \cdot \#\{x \in \F_q^n \mid x_i \neq x_j \text{ for $i \neq j$}\}.
     \]
-    We now use the finite field method to compute $\chi_{\mathcal{A}''}(t)$. Let $q$ be a prime power and let $\mathbb{F}_q$ be the finite field with $q$ elements. The finite field method yields
+    Since 
     \[
-      \chi_{\mathcal{A}''}(t) = \# \left(\F_q^n \backslash \bigcup_{H^{(p)} \in \mathcal{A}''^{(p)}} H^{(p)}\right) = \# \left(\F_q^n \backslash \bigcup_{\{x_i = x_j\} \in \mathcal{A}'^{(p)}} H_0^{(p)} \cap \{x_i = x_j\}\right)
+      \#\{x \in \F_q^n \mid x_i \neq x_j \text{ for $i \neq j$}\} = q(q - 1)(q - 2) \cdots (q - n + 1),
     \]
-    
+    we have
+    \[
+      \chi_{\mathcal{A}}(q) = (q - 1)^2 (q - 2)(q - 3) \cdots (q - n + 1).
+    \]
+    The result now follows.
   \end{proof}
 \end{homeworkProblem}
 \end{document}
