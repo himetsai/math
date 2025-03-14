@@ -291,10 +291,11 @@
   \]
 
   \begin{proof}
-    Consider the function $f: \sym_n \to \sym_n$ which swaps $w(1)$ and $w(2)$ if $w(1) = 1$, and swaps $w(1)$ and $w^{-1}(1)$ if $w(1) \neq 1$. Let $w \in \sym_n$. Observe that $f(f(w)) = 1$, so $f$ is an involution. Suppse $w(1) = 1$. Then applying $f$ to $w$ increases the number of inversions by $1$. Also, $f$ merges the 1-cycle $(1)$ with the cycle containing $w(2)$, so $f$ reduces the number of cycles of $w$ by $1$. Now suppose $w(1) \neq 1$. Then applying $f$ to $w$ decreases the number of inversions by $1$. Also, $f$ splits the the cycle which contains $w(1)$, so $f$ increases the number of cycles of $w$ by $1$. Hence, $f$ changes the parity of $\operatorname{inv}(w)$ and $\operatorname{cyc}(w)$. Thus,
+    Consider the involution $f: \sym_n \to \sym_n$ which swaps the last two elements of the permutation. If $w(n) > w(n - 1)$, then $f$ would increase $\operatorname{inv}(w)$ by 1. Otherwise, $f$ would decrease $\operatorname{inv}(w)$ by 1. That is, $f$ changes the parity of $\operatorname{inv}(w)$, and so
     \[
       \sum_{w \in \sym_n} (-1)^{\operatorname{inv}(w)} = \frac{1}{2}\left(\sum_{w \in \sym_n} (-1)^{\operatorname{inv}(w)} + (-1)^{\operatorname{inv}(f(w))}\right) = 0,
     \]
+    On the other hand, consider $f$'s effect on the number of cycles of $w$. Suppose $n$ and $n - 1$ are in the same cycle of $w$, say $c_1c_2\ldots c_kc_1$ where $n = c_i, w(n) = c_{i + 1}, n - 1 = c_j, w(n - 1) = c_{j + 1}$, for some $1\leq i < j \leq k$. Then $f$ would split the cycle into two cycles, $c_i c_{j + 1} \ldots c_1 \ldots c_i$ and $c_{i + 1} \ldots c_j c_{i + 1}$. Otherwise, assume that $n$ and $n - 1$ are in different cycles of $w$, say $c_{i_1}c_{i_2} \ldots c_{i_k}$ and $c_{j_1}c_{j_2} \ldots c_{j_l}$, where $n = c_{i_1}, w(n) = c_{i_2}, n - 1 = c_{j_1}, w(n - 1) = c_{j_2}$. Then $f$ would merge the two cycles into one cycle, $c_{i_1}c_{j_2} \ldots c_{j_l}c_{j_1} \ldots c_{i_2} \ldots c_{i_k}c_{i_1}$. Hence, $f$ changes the parity of $\operatorname{cyc}(w)$, and so
     \[
       \sum_{w \in \sym_n} (-1)^{\operatorname{cyc}(w)} = \frac{1}{2}\left(\sum_{w \in \sym_n} (-1)^{\operatorname{cyc}(w)} + (-1)^{\operatorname{cyc}(f(w))}\right) = 0.
     \]

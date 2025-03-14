@@ -1,0 +1,288 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{Mar 14, 2025}
+\newcommand{\hmwkClass}{MATH 220B}
+\newcommand{\hmwkClassInstructor}{Professor Xiao}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Let $f$ and $g$ be analytic functions on a region $G$ and show that there are analytic functions $f_1, g_1$, and $h$ on $G$ such that 
+	\[
+	f(z) = h(z) f_1(z) \quad \text{and} \quad g(z) = h(z) g_1(z)
+	\]
+	for all $z$ in $G$; and $f_1$ and $g_1$ have no common zeros.
+
+	\begin{proof}
+		Let $Z_f, Z_g$ be the sets of zeros of $f, g$ respectively counted with multiplicity. Theorem 5.15 yields a analytic function $h(z)$ on $G$ such that $h$ admits zeros on $Z_f \cap Z_g$. Let $f_1, g_1$ such that 
+		\[
+		f(z) = h(z) f_1(z) \quad \text{and} \quad g(z) = h(z) g_1(z).
+		\]
+		We know $h$, $f_1$ and $g_1$ are analytic on $G$. Also, since $h(z)$ contains all the common zeros of $f(z)$ and $g(z)$, $f_1$ and $g_1$ have no common zeros.
+	\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	\begin{enumerate}[(a)]
+		\item Let $0 < |a| < 1$ and $|z| \leq r < 1$; show that 
+		\[
+		\left| \frac{a + |a| z}{(1 - \bar{a} z)a} \right| \leq \frac{1 + r}{1 - r}.
+		\]
+		\begin{proof}
+			\[
+				\left| \frac{a + |a| z}{(1 - \bar{a} z)a} \right| = \left| \frac{1 + \frac{|a|}{a}z}{1 - \bar{a}z}\right|.
+			\]
+			By the triangle inequality,
+			\[
+				\left|1 + \frac{|a|}{a}z\right| \leq 1 + |z| \leq 1 + r,
+			\]
+			and
+			\[
+				|1 - \bar{a}z| \geq 1 - |\bar{a}||z| \geq 1 - |a|r \geq 1 - r.
+			\]
+			The result now follows.
+		\end{proof}
+
+		\item Let $\{ a_n \}$ be a sequence of complex numbers with $0 < |a_n| < 1$ and 
+		\[
+		\sum (1 - |a_n|) < \infty.
+		\]
+		Show that the infinite product 
+		\[
+		B(z) = \prod_{n=1}^{\infty} \frac{|a_n|}{a_n} \left( \frac{a_n - z}{1 - \bar{a_n} z} \right)
+		\]
+		converges in $H(B(0;1))$ and that $|B(z)| \leq 1$. What are the zeros of $B$? ($B(z)$ is called a \textit{Blaschke Product}.)
+
+		\begin{proof}
+			Let $K$ be a compact set. $K$ is contained in $\overline{B}_r(0)$ for some $r < 1$. Let $B_n(z) = \frac{|a_n|}{a_n} \left( \frac{a_n - z}{1 - \bar{a_n} z}\right)$. By (a), 
+			\[
+				|B_n(z) - 1| = (1 - |a_n|)\left|\frac{a_n + |a_n|z}{(1 - \overline{a_n}z)a_n}\right| \leq \frac{1 + r}{1 - r} (1 - |a_n|)
+			\]
+			for $z \in K$, and thus $\sum |B_n(z) - 1| \leq \frac{1 + r}{1 - r} \sum (1 - |a_n|) < \infty$. But then $B(z) = \prod B_n(z)$ converges uniformly and absolutely on $K$. Also note that $B_n(z)$ is an automorphism on the unit disk with a pole at $\frac{1}{\overline{a_n}} \notin \overline{B}_1(0)$ and a zero at $a_n$. Hence, $B(z) \leq \prod 1 = 1$ and $B(z)$ has zeros at $a_n$.
+		\end{proof}
+
+		\item Find a sequence $\{ a_n \}$ in $B(0;1)$ such that 
+		\[
+		\sum (1 - |a_n|) < \infty
+		\]
+		and every number $e^{i\theta}$ is a limit point of $\{ a_n \}$.
+
+		\begin{proof}
+			Consider $a_n = e^{i\pi n/\sqrt{2}}(1 - 2^{-n})$. Then 
+			\[
+				\sum (1 - |a_n|) \leq \sum |e^{i\pi n/\sqrt{2}} - a_n| \leq \sum 2^{-n} < \infty.
+			\]
+			Since $\sqrt{2}$ is irrational, the set $\{ e^{i\pi n/\sqrt{2}} \mid n \in \N \}$ is dense in the unit circle. That is, for each $e^{i\theta}$, there exists a sequence $\{ n_k \}$ such that $e^{i\pi n_k/\sqrt{2}} \to e^{i\theta}$. Hence, $a_{n_k} = e^{i\pi n_k/\sqrt{2}}(1 - 2^{-n_k}) \to e^{i\theta}$.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+	Let 
+	\[
+	f = \frac{1}{(z-1)(z-5)}.
+	\]
+
+	\begin{enumerate}[(a)]
+    \item Prove that there is a sequence of rational functions $R_n(z)$ whose poles can only occur at $2$ and $6$ such that 
+    \[
+    \lim_{n \to \infty} \sup_{3 \leq |z| \leq 4} |f(z) - R_n(z)| = 0. \tag{1}
+    \]
+		\begin{proof}
+			Pick $\epsilon > 0$. Let $K = \overline{\text{ann}(0; 3, 4)}$, and let $E = \{2, 6, \infty\}$. Since $K$ is compact and $E$ contains a pole from each component of $\C_{\infty} \backslash K$, Runge's theorem yields a rational function $R_n(z)$ whose poles can only occur in $E$ and 
+			\[
+				|f(z) - R_n(z)| < \epsilon,
+			\]
+			for $z \in K$. The result now follows.
+		\end{proof}
+
+    \item Does there exist a sequence of rational functions $R_n(z)$ whose poles can only occur at $6$ such that (1) holds? Justify your answer.
+
+    \begin{proof}
+			No. Suppose for the sake of contradiction that there exists such a sequence $\{R_n\}$. Since $R_n$ is analytic on $B_2(0)$, $\int_{|z| = 2} R_n(z) \, dz = 0$, and so $\int_{|z| = 2} R_n(z) \, dz \to 0$. But then $\int_{|z| = 2} f(z) \, dz = -\frac{\pi i}{2}$, contradiction.
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Let 
+\[
+G = \{ z \in \mathbb{C} : |z| < 1 \text{ and } |z - \frac{1}{3}| > \frac{2}{3} \};
+\]
+and let $K$ be the closure of $G$:
+\[
+K = \{ z \in \mathbb{C} : |z| \leq 1 \text{ and } |z - \frac{1}{3}| \geq \frac{2}{3} \}.
+\]
+Let $A(K)$ be the space of continuous functions on $K$ that are analytic on $G$ equipped with the uniform norm on $K$. For the purposes of this problem, a Laurent polynomial is a function of the form 
+\[
+\sum_{n=-N}^{N} a_n z^n.
+\]
+Determine whether the following are true or false. Justify your answer.
+
+	\begin{enumerate}[(a)]
+    \item The set of polynomials is dense in $H(G)$.
+    \begin{proof}
+			True. Since $\C_{\infty} \backslash G$ is connected, for $f \in H(G)$ there exists a sequence of polynomials $\{p_n\}$ on $G$ such that $p_n \to f$ uniformly, by Corollary 1.15. That is, the set of polynomials is dense in $H(G)$.
+		\end{proof}
+    \item The set of polynomials is dense in $A(K)$.
+    \begin{proof}
+			False. Consider $f(z) = 1/z$ on $K$. We know $\int_{|z| = 1} f = 2\pi i$. But then $\int_{|z| = 1} p_n = 0$ for any polynomial $p_n$, and there does not exist $\{p_n\}$ that converges to $f$ uniformly on $K$. Hence, the set of polynomials is not dense in $A(K)$.
+		\end{proof}
+    \item If $f$ is analytic on a neighborhood of $K$, then $f$ can be uniformly approximated on $K$ by Laurent polynomials.
+    
+		\begin{proof}
+			True. Let $E = \{0, \infty\}$. Since $E$ meets each component of $\C_{\infty} \backslash K$, Runge's Theorem furnishes a sequences of rational function $\{R_n\}$ which only have poles in $E$ that converges uniformly to $f$ on $K$. But then $R_n$ are Laurent polynomials. 
+		\end{proof}
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}
