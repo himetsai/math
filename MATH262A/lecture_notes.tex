@@ -1,0 +1,319 @@
+\documentclass[10pt,reqno]{amsart}
+
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{amsfonts}
+%\usepackage{showkeys}
+\usepackage{setspace}
+\usepackage{version}
+\usepackage[noabbrev,capitalize]{cleveref}
+\usepackage{geometry}
+
+\geometry{a4paper, margin=1in}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\textheight 9in \textwidth 6.5in
+
+
+%     If your article includes graphics, uncomment this command.
+%\usepackage{graphicx}
+
+%     If the article includes commutative diagrams, ...
+%\usepackage[cmtip,all]{xy}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+
+\newsavebox{\proofbox}
+\savebox{\proofbox}{\begin{picture}(7,7)  \put(0,0){\framebox(7,7){}}\end{picture}}
+\def\boxeq{\tag*{\usebox{\proofbox}}}
+\def\diamondeq{\tag*{$\diamond$}}
+\newcommand{\md}[1]{\ensuremath{\,(\operatorname{mod}\, #1)}}
+\newcommand{\mdsub}[1]{\ensuremath{(\mbox{\scriptsize mod}\, #1)}}
+\newcommand{\mdlem}[1]{\ensuremath{(\mbox{\textup{mod}}\, #1)}}
+\newcommand{\mdsublem}[1]{\ensuremath{(\mbox{\scriptsize \textup{mod}}\, #1)}}
+
+\renewcommand{\labelenumi}{(\roman{enumi})}
+
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\newcommand\SL{\operatorname{SL}}
+\newcommand\GL{\operatorname{GL}}
+\newcommand\SO{\operatorname{SO}}
+\newcommand\Hom{\operatorname{Hom}}
+\newcommand\tr{\operatorname{tr}}
+\newcommand\id{\operatorname{id}}
+\newcommand\im{\operatorname{im}}
+\newcommand\Lip{\operatorname{Lip}}
+\newcommand\tor{\operatorname{tor}}
+\newcommand\sml{\operatorname{sml}}
+\newcommand\unf{\operatorname{unf}}
+\newcommand\poly{\operatorname{poly}}
+\newcommand\disc{\operatorname{disc}}
+\def\F{\mathbb{F}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\Z{\mathbb{Z}}
+\def\E{\mathbb{E}}
+\def\P{\mathbb{P}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\T{\mathbb{T}}
+\def\cr{\operatorname{cr}}
+\def\eps{\varepsilon}
+
+
+\parskip 1mm
+
+\numberwithin{equation}{section}
+
+\begin{document}
+
+% \title[short text for running head]{full title}
+\title[MATH 262A: Discrete Geometry]{MATH 262A: Discrete Geometry Notes}
+
+%    Only \author and \address are required; other information is
+%    optional.  Remove any unused author tags.
+
+%    author one information
+% \author[short version for running head]{name for top of paper}
+
+\author{Ray Tsai}
+
+\onehalfspace
+%    \subjclass is required.
+%\subjclass[2000]{Primary }
+%    The 2010 edition of the Mathematics Subject Classification is
+%    now available.  If you are citing a classification from the
+%    new scheme, use the following input coding instead.
+%\subjclass[2010]{Primary }
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Sums vs Product}
+
+\begin{definition}
+	The \textit{crossing number} of a graph $G$, denoted $\cr(G)$, is the minimum number of crossing pair of edges over all possisble drawings of $G$ in the plane.
+\end{definition}
+
+\begin{lemma}[Crossing Lemma]\label{lem:crossing}
+	Let $G = (V, E)$ be a graph. If $|E| \geq 4|V|$, then
+	\[
+		\cr(G) \geq \frac{|E|^3}{64|V|^2}.
+	\]
+\end{lemma}
+
+\begin{theorem}\label{thm:sumprod}
+	Let $A$ be a set of $n$ distinct real numbers. Then $\max\{|A + A|, |A \cdot A|\} = \Omega(n^{5/4})$.
+\end{theorem}
+
+\begin{proof}
+	Denote $A + A = \{s_1, s_2, \ldots, s_x\}$ and $A \cdot A = \{p_1, p_2, \ldots, p_y\}$. Let $L$ be the set of lines $v = a_i(u - a_j)$ for $a_i, a_j \in A$. Construct the graph $G = (V, E)$ with $V = (A + A) \times (A \cdot A)$ and $\{(s_i, p_i), (s_j, p_j)\} \in E$ if and only if there exists a line $l \in L$ such that $(s_i, p_i)$ and $(s_j, p_j)$ are consecutive points on $l$. Notice that each line passes through at least $n - 1$ points in $V$, so $|E| \geq (n - 1)|L| = \Omega(n^3)$. If $|E| < 4|V|$, then 
+	\[
+		4|A + A| \cdot |A \cdot A| = 4|V| > |E| = \Omega(n^3).
+	\]
+	But then either $|A + A| = \Omega(n^{3/2})$ or $|A \cdot A| = \Omega(n^{3/2})$. Thus we may assume $|E| \geq 4|V|$. By the crossing lemma, 
+	\[
+		\frac{|E|^3}{64|V|^2} \leq \cr(G) \leq |L|^2 \leq n^4.
+	\]
+	Rearranged, we have
+	\[
+		|V|^2 \geq \frac{|E|^{3}}{64n^4} = \Omega(n^{5}).
+	\]
+	The result now follows.
+\end{proof}
+
+\newpage
+
+\section{Crossing Lemma}
+
+In this section we prove \cref{lem:crossing} mentioned in the previous section. 
+
+
+\begin{lemma}
+	Let $G = (V, E)$ be a graph. Then $\cr(G) \geq |E| - 3|V|$. 
+\end{lemma}
+
+\begin{proof}
+	Suppose not. We may assume $|E| \geq 3|V|$, otherwise we are done. Remove edges from each crossing until we have a planar graph. Since $\cr(G) < |E| - 3|V|$, we removed less than $|E| - 3|V|$ edges. But then the planar graph has more than $|E| - (|E| - 3|V|) = 3|V|$ edges, contradicting Euler's theorem. 
+\end{proof}
+
+\begin{proof}[Proof of \cref{lem:crossing}]
+	For any graph $H$, define $X_H = \cr(H) - |E(H)| + 3|V(H)|$. By the crossing lemma we know $X_H \geq 0$. Consider the drawing of $G$ in $\R^2$ with $\cr(G)$ crossings. Let $S \subseteq V$ be a set vertices where each vertex is chosen independently with probability $p \in [0, 1]$. Let $G' = G[S]$ be the induced subgraph on $S$. Then
+	\[
+		\E[X_{G'}] = \E[\cr(G')] - \E[|E(G')|] + 3\E[|V(G')|] = \E[\cr(G')] - p^2|E| + 3p|V| \geq 0.
+	\]
+	Let $C_{G'}$ be the number of crossings in the drawing of $G'$ inherited from $G$. Obviously, $\E[\cr(G')] \leq \E[C_{G'}]$. Since each crossing pair has a probability of $p^4$ of being in $G'$, we have $\E[C_{G'}] = p^4\cr(G)$, and thus
+	\[
+		p^4\cr(G) \geq \E[\cr(G')] \geq p^2|E| - 3p|V|.
+	\]
+	By setting $p = 4|V|/|E|$, we have
+	\[
+		\cr(G) \geq \frac{|E|}{p^2} - \frac{3|V|}{p^3} \geq \frac{|E|^3}{64|V|^2}.
+	\]
+\end{proof}
+
+\newpage
+
+\section{Szemerédi-Trotter Theorem}
+
+\begin{definition}
+	Let $P$ be a set of $n$ points and $L$ be a set of $m$ lines in the plane. We call a pair $(p, l)$ \textit{incidence} if $p \in P$, $l \in L$, and $p \in l$. Define $I(P, L)$ as the number of incidences between $P$ and $L$, and define $I(m, n)$ as the maximum number of incidences between any $m$ lines and $n$ points.
+\end{definition}
+
+\begin{definition}
+	Let $P$ be a set of $n$ points. A line is \textit{generated by} $P$ if it contains at least 2 points from $P$.
+\end{definition}
+
+\begin{definition}
+	For $k \geq 2$ and a set of points $P$, a line $l$ is $k$-rich if it contains at least $k$ points from $P$.
+\end{definition}
+
+\begin{theorem}[Szemerédi-Trotter Theorem]\label{thm:szemeredi-trotter}
+	For all $m, n \geq 1$, we have $I(m, n) = O(m^{2/3}n^{2/3} + m + n)$.
+\end{theorem}
+
+\begin{proof}
+	We will adopt the same strategy as the proof of \cref{thm:sumprod}, which constructs a graph and double counts the number of crossings in it.
+
+	Let $P$ be the set of $n$ points in $\R^2$ and $L$ be the set of $m$ lines in $\R^2$.	Define graph $G = (V, E)$ where $V = P$ and $E$ is the set of consecutive pairs of vertices along some line in $L$. We may assume each line in $L$ contains at least one point from $P$. For $l \in L$, let $|l|$ denote the number of points in $P$ which lies in $l$. Observe that
+	\[
+		|E| = \sum_{l \in L} |l| - 1 = |I(P, L)| - m.
+	\]
+	Hence, it suffices to show that $|E| = O(m^{2/3}n^{2/3} + n)$. We may assume $|E| \geq 4|V|$, otherwise we are done. Note that the construction of $G$ gives a natural drawing with points $P$ and lines $P$ in the plane, so we may define $C$ as the number of crossings in this drawing. By the crossing lemma, we have
+	\[
+		\frac{|E|^3}{64n^2} \leq \cr(G) \leq C \leq \binom{m}{2} = O(m^2).
+	\]
+	It now follows that
+	\[
+		|E| = O(n^{2/3}m^{2/3}).
+	\]
+	This completes the proof.
+\end{proof}
+
+% We now give a construction which shows that the Szemerédi-Trotter theorem is tight when $m = n$. Consider $P = \left[\lfloor n^{1/3}\rfloor\right] \times \left[\lfloor n^{2/3}\rfloor\right]$ and $L$ consists of lines $y = ax + b$ where $a \in \left[\lfloor n^{1/3}/4\rfloor\right]$ and $b \in \left[\lfloor n^{2/3}/4\rfloor\right]$. 
+
+
+\begin{corollary}
+	Let $P$ be a set of $n$ points. Then $P$ generates $O(\frac{n^2}{k^3} + \frac{n}{k})$ $k$-rich lines.
+\end{corollary}
+
+\begin{proof}
+	Let $L_k$ be the set of $k$-rich lines generated by $P$. By the Szemerédi-Trotter theorem, 
+	\[
+		k|L_k| \leq I(P, L_k) = c(|L_k|^{2/3}n^{2/3} + |L_k| + n),
+	\]
+	for some constant $c$. We may assume $k \geq 4c$, otherwise we are done as $|L_k| = O(n^2)$. If $n + |L_k| \geq |L_k|^{2/3}n^{2/3}$. Then 
+	\[
+		k|L_k| \leq 2c(|L_k| + n) = 2cm + 2c|L_k|.
+	\]
+	Rearranged,
+	\[
+		|L_k| \leq \frac{2cm}{k - 2c} \leq O(m/k).
+	\]
+	Now suppose $n + |L_k| < |L_k|^{2/3}n^{2/3}$. Then 
+	\[
+		k|L_k| \leq 2c|L_k|^{2/3}n^{2/3},
+	\]
+	and so 
+	\[
+		|L_k|= O(n^{2}/k^3). 
+	\]
+\end{proof}
+
+\newpage
+
+\section{The Cutting Lemma}
+
+\begin{lemma}[Cutting Lemma]
+	Let $L$ be a set of $m$ lines in $\R^2$ and let $r \in (1, m)$. Then the plane can be subdivied into $t = O(r^2)$ generalized triangles (intersections of three half planes) $\Delta_1, \Delta_2, \ldots, \Delta_t$ such that the interior of each $\Delta_i$ is intersected by at most $m/r$ lines of $L$. 
+\end{lemma}
+
+\begin{lemma}
+	Let $L$ be a set of $m$ lines in $\R^2$ and let $r \in (1, m)$. Then the plane can be subdivied into $t = O(r^2\log^2 n)$ generalized triangles $\Delta_1, \Delta_2, \ldots, \Delta_t$ such that the interior of each $\Delta_i$ is intersected by at most $m/r$ lines of $L$. 
+\end{lemma}
+
+\begin{proof}
+	Put $s = 6r\ln m$. Select a random set of lines $S \subset L$ by making $s$ independent random draws with replacement. Consider the line arrangement of $S$. Partition any cell that is not a generalized triangle further by adding diagonals that connect vertices. To this end, $\R^2$ is partitioned into $t$ generalized triangles. Consider a box $B$ that contains all bounded triangles $\Delta_i$. Since each line crosses through $B$ two times and each two consecutive lines around $B$ determine an unbounded triangle, the number of unbounded triangles is at most $2s$. Now consider the bounded triangles. View each intersecting point of two lines in $S$ as a vertex of a graph, and each bounded triangle as a face. Let $V$ denote the set of vertices and $F$ the set of faces. We know that $|V| \leq \binom{s}{2} = O(s^2)$. By Euler's formula, we have
+	\[
+		3|F| \leq \sum_{f \in F} \deg f = 2|E| = 2(|V| + |F| - 2),
+	\]
+	and thus 
+	\[
+		|F| \leq 2|V| - 4 = O(s^2).
+	\]
+	Hence, we have $t = O(s^2)$. 
+	
+	We call a (generalized) triangle \textit{horny} if its interior intersects at least $m/r$ lines of $L$. For any horny triangle $T$, the probability that no line in $S$ intersects the interior of $T$ is at most $(1 - 1/r)^s$. Using the inequality $1 - x \leq e^{-x}$, we have $(1 - 1/r)^s \leq e^{-6\ln m} = m^{-6}$. 
+
+	Now call a triangle \textit{interesting} if it can appear in a triangulation for some sample $S \subset L$. Notice that each vertex of an interesting triangle is an intersecting point of two lines in the arrangement of $L$, and thus there are at most $\binom{m}{2}^3 < m^6$ such triangles. 
+
+	But then the expected number of horny $\Delta_i$'s is less than $m^{-6} \cdot m^{6} = 1$. It now follows that there exists a set of $S \subseteq L$ such that each $\Delta_i$ is intersected by at most $m/r$ lines.
+\end{proof}
+
+\newpage
+
+\section{An Aliter for the Szemerédi-Trotter Theorem}
+
+\begin{theorem}[Kővári-Sós-Turán Theorem]
+	For $s, t \geq 2$, let $G$ be an $m \times n$ bipartite graph that does not contain a complete bipartite graph $K_{s, t}$ where the $s$ vertices are from the part of size $m$. Then,
+	\[
+		|E(G)| = O(nm^{1 - 1/t} + m) \quad \text{ and } \quad |E(G)| = O(mn^{1 - 1/s} + n).
+	\]
+\end{theorem}
+
+\begin{proof}
+	Let $M, N$ be the two parts of the bipartite graph $G$, with $|M| = m$ and $|N| = n$. Notice that no set of $s$ vertices in $M$ has more than $t - 1$ common neighbors in $N$, so
+	\[
+		\sum_{v \in M} \binom{d(v)}{t} \leq \binom{n}{t} (s - 1) \leq \frac{sn^t}{t!}.
+	\]
+	By Jensen's inequality, we have
+	\[
+		\sum_{v \in M} \binom{d(v)}{t} \geq m\binom{\frac{1}{m}\sum_{v \in M} d(v)}{t} \geq \frac{m(|E(G)|/m - t)^t}{t!}.
+	\]
+	The result now follows from the two inequalities.
+\end{proof}
+
+\begin{corollary}\label{cor:ks}
+	$|I(m, n)| \leq O(n\sqrt{m} + m)$ and $|I(m, n)| \leq O(m\sqrt{n} + n)$.
+\end{corollary}
+
+\begin{proof}
+	Let $P$ be the set of $n$ points and $L$ be the set of $m$ lines in $\R^2$. Let $G = (P, L)$ be the bipartite graph with parts $P$ and $L$ and $(p, l)$ is an edge if and only if $p \in l$. Since no two points lie on the same line, $G$ is $K_{2, 2}$-free. The resulting bounds now follows from the Kővári-Sós-Turán theorem.
+\end{proof}
+
+We give an alternative proof of a case of the Szemerédi-Trotter theorem with $n$ points and $n$ lines, using the Cutting lemma and the Kővári-Sós-Turán theorem.
+
+\begin{proof}[Aliter for \cref{thm:szemeredi-trotter}]
+	Let $P$ be the set of $n$ points and $L$ be the set of $n$ lines in $\R^2$. We need to show that there are at most $O(n^{4/3})$ incidences between $P$ and $L$. We apply the cutting lemma with $r = n^{1/3}$, which divides the plane into $t = O(n^{2/3})$ generalized triangles $\Delta_1, \Delta_2, \ldots, \Delta_t$. 
+	
+	Let $V$ be the points that lie on the vertex of some $\Delta_i$. Since $|V| \leq 3t = O(n^{2/3})$, \cref{cor:ks} gives us $|I(V, L)| = O(n^{2/3}\sqrt{n} + n^{2/3}) = O(n^{4/3})$.
+
+	Let $|L'|$ be the set of lines that borders some triangle $\Delta_i$. Then $|L'| \leq 3t = O(n^{2/3})$, and \cref{cor:ks} again gives us $|I(P_0, L')| = O(n^{2/3}\sqrt{n} + n^{2/3}) = O(n^{4/3})$.
+
+	It remains to count the incidences that occur at the interior of some triangle. Let $P_i$ be the set of points in $P$ that lies in the interior of $\Delta_i$. Let $L_i$ be the set of lines intersecting the interior of $\Delta_i$. By the cutting lemma, $|L_i| \leq n/r = O(n^{2/3})$. Hence,
+	\[
+		\sum_{i = 1}^t I(P_i, L_i) \leq \sum_{i = 1}^t I(P_i, n^{2/3}) = \sum_{i = 1}^t O(|P_i|n^{1/3} + n^{2/3}) = O(n^{4/3}).
+	\]
+\end{proof}
+
+\end{document}
