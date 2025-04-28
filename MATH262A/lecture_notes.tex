@@ -68,7 +68,7 @@
 \newcommand\unf{\operatorname{unf}}
 \newcommand\poly{\operatorname{poly}}
 \newcommand\disc{\operatorname{disc}}
-\def\F{\mathbb{F}}
+\def\F{\mathcal{F}}
 \def\R{\mathbb{R}}
 \def\C{\mathbb{C}}
 \def\Z{\mathbb{Z}}
@@ -489,5 +489,43 @@ Note that we are only interested in dense graphs. This is because if $|E(A, B)| 
 \begin{theorem}
 	Let $P$ be a set of $n$ points and $L$ be a set of $n$ lines in $\R^2$, and let $r$ be a parameter. If the arrangement of $P$ and $L$ does not contain a triangle, then $|I(P, L)| = O(n^{4/3}/\log^* n) = o(n^{4/3})$, where $\log^*$ is the iterated logarithm. 
 \end{theorem}
+
+\newpage
+
+\section{VC-Dimension Theory}
+
+\begin{definition}
+	A \textit{set system} is a tuple $(V, \F)$, where $V$ is a set and $\F$ is a collection of subsets of $V$. 
+\end{definition}
+
+\begin{definition}
+	A \textit{hyperplane} in $\R^d$ is a $(d - 1)$-dimensional affine subspace of $\R^d$. 
+\end{definition}
+
+\begin{definition}
+	A set $H$ of hyperplanes in $\R^d$ is in \textit{general position} if the intersection of any $k$ members is $(d - k)$-dimensional, for all $k \in \{2, \ldots, d\}$.
+\end{definition}
+
+\begin{theorem}
+	The number of cells in an arrangement of $n$ hyperplanes in general position in $\R^d$ is
+	\[
+		\binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{d}.
+	\]
+\end{theorem}
+
+\begin{proof}
+	We proceed by induction on $n$ and $d$. There are $2 = \binom{1}{0} + \binom{1}{1}$ cells when $n = 1$ and $d > 0$, and there are $n + 1 = \binom{n}{0} + \binom{n}{1}$ cells when $d = 1$, so the base case is done. Suppose $d \geq 2$. Write $H = \{h_1, \ldots, h_n\}$. By induction, the number of cells in the arrangement of $h_1, \ldots, h_{n - 1}$ is 
+	\[
+		\binom{n}{0} + \binom{n}{1} + \cdots + \binom{n - 1}{d}.
+	\]
+	Given the arrangement of $h_1, \ldots, h_{n - 1}$, the number of cells that $h_n$ adds to this arrangement is the number of cells in the arrangement of $h_1, \ldots, h_{n - 1}$ on $h_n$, which is
+	\[
+		\binom{n - 1}{0} + \binom{n - 1}{1} + \cdots + \binom{n - 1}{d - 1},
+	\]
+	by induction. Hence, by Pascal's identity, the total number of cells in the arrangement of $h_1, \ldots, h_n$ is
+	\[
+		\binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{d}.
+	\]
+\end{proof}
 
 \end{document}
