@@ -3,6 +3,7 @@
 \usepackage{amssymb}
 \usepackage{amscd}
 \usepackage{amsfonts}
+\usepackage{mathrsfs} % added package to provide \mathscr
 %\usepackage{showkeys}
 \usepackage{setspace}
 \usepackage{version}
@@ -447,13 +448,39 @@ Note that we are only interested in dense graphs. This is because if $|E(A, B)| 
 	\]
 \end{proof}
 
+\begin{theorem}[Triangle Removal Lemma]
+	For $\epsilon > 0$, there exists $\delta = \delta(\epsilon)$ such that every graph $G = (V, E)$ with $< \delta n^3$ triangles can be made triangle-free by removing $< \epsilon n^2$ edges.
+\end{theorem}
+
+\begin{proof}
+	We prove by contrapositive. Suppose $G$ has $\epsilon n^2$ edge disjoint triangles. Apply Szemerédi's regularity lemma to $G$ with parameter $\epsilon/4$ to get a partition $V = V_1 \sqcup V_2 \sqcup \cdots \sqcup V_k$. For $(V_i, V_j)$, we delete all edges between $V_i, V_j$ if one of the following holds:
+	\begin{enumerate}
+		\item $V_i, V_j$ are not $\epsilon/4$-regular. This deletes $< (\epsilon/4)n^2$ edges.
+		\item $d(V_i, V_j) < \epsilon/2$. This deletes $\sum_{(V_i, V_i)} d(V_i, V_j)|V_i||V_i| < (\epsilon/2)n^2$ edges.
+		\item $|V_i|$ or $|V_j|$ is less than $(\epsilon/4k)n$. This deletes $< (\epsilon/4)n^2$ edges.
+	\end{enumerate}
+	In total, we delete $< \epsilon n^2$ edges. But then there remains at least $1$ triangle in $G$. Let $X, Y, Z$ be the three parts that contain the vertices of the triangle. By the counting lemma, 
+	\[
+		\#\{K_3 \subseteq G\} \geq (1 - \epsilon/2)(\epsilon/2 - \epsilon/4)^3(\epsilon/4k)^3n^3.
+	\]
+	The result now follows from setting $\delta = (1 - \epsilon/2)(\epsilon/2 - \epsilon/4)^3(\epsilon/4k)^3$.
+\end{proof}
+
 \newpage
 
 \section{Roth's Theorem}
 
 \begin{theorem}[Roth's Theorem]
-	For all $\delta \in (0, 1)$, there exists $n_0$ such that for all $n > n_0$, any subset of $[n]$ of size $\geq \delta n$ contains a 3-term arithmetic progression.
+	For all $\epsilon \in (0, 1)$, there exists $n_0$ such that for all $n > n_0(\epsilon)$, any subset of $[n]$ of size $\geq \epsilon n$ contains a 3-term arithmetic progression.
 \end{theorem}
+
+\begin{proof}
+	Let $A \subseteq [n]$ be a set of size $\geq \epsilon n$. Consider the grid
+	\[
+		\mathscr{G} = \{(a, 0) : a \in [2n]\} \cup ([2n] \times [2n]) \backslash ([n] \times [2n]).
+	\]
+	and set lines $l_a : y = x - a$ for $a \in A$. Let $P = \bigcup_{a \in A} l_a \cap \mathscr{G}$. Note that each line $l_a$ intersects $n$ points in $\mathscr{G}$, and so $|P| = |A|n \geq \epsilon n^2$. Let $L = L_1 \sqcup L_2 \sqcup L_3$, where $L_1$ is the set of $n$ vertical lines that cover $\mathscr{G}$, $L_2$ is the set of $2n$ horizontal lines that cover $\mathscr{G}$, and $L_3$ is the set of $n$ lines of slope $-1$ that cover $\mathscr{G}$. Define $G$ as the graph with vertex set $L$ and edges between two lines if they intersect at a point in $P$. Note that a triangle in $G$ is formed for any three lines that intersect at a point in $P$, so there are $\epsilon n^2$ edge disjoint triangles. By the triangle removal lemma, there are at least $\delta n^3$ triangles in $G$ for some $\delta > 0$. But then the only other way to form a triangle in $G$ is for each two of the three lines to intersect at a point in $P$, and there are $\delta n^3 - \epsilon n^2 > 1$ of them for large enough $n$. Let $x, y, z \in P$ be the three points that form such triangle, where $y$ is the intersection of the horizontal and vertical sides of the triangle. Let $l_a, l_b, l_c$ be the three lines that pass through $x, y, z$ respectively. Then the distance between $l_a$ and $l_b$ is the same as the distance between $l_a$ and $l_c$, and so $a, b, c$ form a 3-term arithmetic progression. 
+\end{proof}
 
 \newpage
 
