@@ -1,0 +1,318 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework}
+\newcommand{\hmwkDueDate}{Mar 10, 2025}
+\newcommand{\hmwkClass}{MATH 264B}
+\newcommand{\hmwkClassInstructor}{Professor Rhoades}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+\newcommand{\hmwkPID}{A16848188}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+    \vspace{3in}
+}
+
+\author{
+  \hmwkAuthorName \\
+  \vspace{0.1in}\small\hmwkPID
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\F}{\mathbb{F}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+\newcommand*{\sym}{\mathfrak{S}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Let $c_n = \frac{1}{n+1} \binom{2n}{n}$ be the $n^\text{th}$ Catalan number. Prove that
+  \[
+    c_n = \sum_{i=1}^{n} c_{i-1} \cdot c_{n-i}
+  \]
+  for all $n > 0$.
+\end{homeworkProblem}
+
+\begin{proof}
+  Note that $c_n$ is the number of Dyck paths of size $n$. Observe that a Dyck path of size $n$ consists of a prime Dyck path of size $i$ starting at the origin and a Dyck path of size $n - i$, for some $i \in [n]$. Let $p_n$ denote the number of prime Dyck paths of size $n$. Then
+  \[
+    c_n = \sum_{i = 1}^n p_{i} \cdot c_{n - i}.
+  \]
+  Since we may bijectively map prime Dyck paths of size $i$ to Dyck paths of size $i - 1$ by removing the first and last steps, we have $p_i = c_{i - 1}$. The result now follows.
+\end{proof}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\tau \in \mathfrak{S}_k$ be a permutation (thought of as a `pattern'). A permutation $w \in \mathfrak{S}_n$ is called \textit{$\tau$-avoiding} if its one-line notation $[w(1), \dots, w(n)]$ does not contain a subsequence
+  \[
+    w(i_1), \dots, w(i_k) \quad \text{with } 1 \leq i_1 < \cdots < i_k \leq n
+  \]
+  order-isomorphic to $\tau$.
+
+  Prove that the number of 312-avoiding permutations $w \in \mathfrak{S}_n$ equals the Catalan number $c_n$. (Hint: Consider $w^{-1}(1)$.) Explain why $c_n$ also counts $\tau$-avoiding permutations in $\mathfrak{S}_n$ for the patterns $\tau = 132, 213, 231$.
+\end{homeworkProblem}
+
+\begin{proof}
+  Let $A_n$ be the set of $312$-avoiding permutations in $\sym_n$. For $i \in [n]$, we show a bijection between $\{w \in A_n : w^{-1}(1) = i\}$ and $A_{i - 1} \times A_{n - i}$. Let $w \in A_n$ with $w^{-1}(1) = i$. Write $L = [w(1), \ldots, w(i - 1)]$ and $R = [w(i + 1), \ldots, w(n)]$. Notice that if $w(k) > w(m)$ for some $1 \leq k < i < m \leq n$, then $w(k), w(i), w(m)$ is a 312-pattern, contradiction. Hence, $\max L < \min R$. Now let $w_L = [w(1) - 1, \ldots, w(i - 1) - 1] \in A_{i - 1}$ and $w_R = [w(i + 1) - i, \ldots, w(n) - i] \in A_{n - i}$ and map $w$ to $(w_L, w_R)$, and the above operation is reversible. This gives the desired bijection. Therefore, $A_n$ has the recursion formula
+  \[
+    |A_n| = \sum_{i = 1}^n |A_{i - 1}| \cdot |A_{n - i}|,
+  \]
+  which is the same as the recursion for the Catalan numbers.
+
+  Since permutations $312$ and $231$ are isomorphic, we only need to consider $132$ and $213$. Consider the involutions inv$(w)$ and rev$(w)$, which maps $w$ to $w^{-1}$ and the reverse of $w$, respectively. Since inv$(312) = 132$ and rev$(312) = 213$, inv maps $312$-avoiding permutations to $132$-avoiding permutations, and rev maps $312$-avoiding permutations to $213$-avoiding permutations. Hence, we may the composition of the above bijection and inv or rev gives the desired bijection. Therefore, $c_n$ also counts $132$-avoiding and $213$-avoiding permutations.
+\end{proof}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $S_{n,k}$ be the Stirling number of the second kind counting set partitions of $[n]$ into $k$ blocks. Find an expression for the exponential generating function
+  \[
+    \sum_{n \geq 0} S_{n,k} \cdot \frac{x^n}{n!}
+  \]
+  where $k$ is fixed.
+\end{homeworkProblem}
+
+\begin{proof}
+  Since $e^x - 1 = \sum_{n \geq 1} x^n/n!$ is the exponential generating function for non-empty sets, $(e^x - 1)^k$ counts the number of ways to partition number of ways to $[n]$ into $k$ ordered blocks. Hence, $(e^x - 1)^k/k!$ counts the number of ways to partition $[n]$ into $k$ unordered blocks, which is just $S_{n, k}$. Therefore,
+  \[
+    \sum_{n \geq 0} S_{n,k} \cdot \frac{x^n}{n!} = \frac{(e^x - 1)^k}{k!}.
+  \]
+\end{proof}
+
+\newpage
+
+\begin{homeworkProblem}
+  Each of $n$ distinguishable telephone poles is painted red, white, blue, or yellow. An odd number are painted blue and an even number are painted yellow. In how many ways can this be done?
+\end{homeworkProblem}
+
+\begin{proof}
+  Write $E(x) = \sum_{n \text{ even}} x^n/n!$ and $O(x) = \sum_{n \text{ odd}} x^n/n!$. Then
+  \[
+    E(x) = \frac{e^x + 1}{2} \quad \text{and} \quad O(x) = \frac{e^x - 1}{2}.
+  \]
+  Note that $E(x)$ and $O(x)$ are the exponential generating function for even and odd sets, respectively. Then the exponential generating funtion for the ways to paint the poles is
+  \[
+    e^x \cdot e^x \cdot E(x) \cdot O(x) = e^{2x} \cdot \frac{e^x - 1}{2} \cdot \frac{e^x + 1}{2} = \frac{e^{4x} - e^{2x}}{4}.
+  \]
+\end{proof}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $G$ be a finitely generated group and write
+  \[
+  \text{Hom}(G, \mathfrak{S}_n) := \{\text{all homomorphisms } G \to \mathfrak{S}_n\}.
+  \]
+  For any $n \geq 0$, the set $\text{Hom}(G, \mathfrak{S}_n)$ is finite (why?). We consider the exponential generating function
+  \[
+  F(x) := \sum_{n \geq 0} \#\text{Hom}(G, \mathfrak{S}_n) \frac{x^n}{n!}.
+  \]
+  If $g_n$ denotes the number of \textit{transitive} actions of $G$ on $[n]$, prove that
+  \[
+  F(x) = \exp\left( \sum_{d \geq 1} g_d \cdot \frac{x^d}{d!} \right).
+  \]
+\end{homeworkProblem}
+
+\begin{proof}
+  Since a homomorphism $G \to \sym_n$ is equivalent to a $G$-action on $[n]$, we have $\#\text{Hom}(G, \mathfrak{S}_n) = \#\{G\text{-actions on } [n]\}$. Given an $G$-action $\alpha$ on $[n]$, $\alpha$ induces a partition of $[n]$ into orbits $O_1 \sqcup \cdots \sqcup O_k$, and the restriction of $\alpha$ to $O_i$ is a transitive action of $G$ on $O_i$. In particular, $\alpha$ may be determined by $k$ transitive actions on each orbit. Applying the exponential generating function, we get
+  \[
+    F(x) = \exp\left( \sum_{d \geq 1} g_d \cdot \frac{x^d}{d!} \right).
+  \]
+\end{proof}
+ 
+\newpage
+
+\begin{homeworkProblem}
+  In the context of the previous problem, if $j_d(G)$ is the number of subgroups of $G$ having index $d$, show that
+  \[
+  g_d = j_d(G) \cdot (d - 1)!.
+  \]
+\end{homeworkProblem}
+
+\begin{proof}
+   
+\end{proof}
+
+\newpage
+
+\begin{homeworkProblem}
+  For each of the following sets of graphs, let $f(n)$ be the number of graphs on the labeled vertex set $[n]$ such that every connected component is isomorphic to some graph in the set. In each case, find the exponential generating function of $f(n)$, where $f(0) := 1$.
+  \begin{enumerate}[(a)]
+    \item Cycles $C_i$ of length $i \geq k$ where $k \geq 3$ is fixed.
+    \begin{proof}
+      Given $n$ vertices, the number of ways to order them into an undirected cycle is $(n - 1)!/2$. Hence, let 
+      \[
+        C(x) = \sum_{n \geq k} \frac{(n - 1)!}{2} \cdot \frac{x^n}{n!} = \frac{1}{2}\sum_{n \geq k} \frac{x^n}{n} = -\frac{1}{2}\ln(1 - x) - \frac{1}{2}\sum_{i = 1}^{k - 1} \frac{x^i}{i}
+      \]
+      be the exponential generating function that counts cycles of length $k$ or more. Since the connected components of a graph on $[n]$ may be viewed as a partition of $[n]$,
+      \[
+        \sum_{n \geq 0} f(n)\frac{x^n}{n!} = \exp(C(x)) = (1 - x)^{-1/2}\exp\left(-\frac{1}{2}\sum_{i = 1}^{k - 1} \frac{x^i}{i}\right).
+      \]
+    \end{proof}
+    \item Stars $K_{i,1}$ for some $i \geq 1$. (Here $K_{r,s}$ is the complete bipartite graph.)
+    \begin{proof}
+      Given $n$ vertices, the number of ways to order them into a $K_{n - 1, 1}$ is $n$. Hence, let 
+      \[
+        S(x) = \sum_{n \geq 1} n \cdot \frac{x^n}{n!} = \sum_{n \geq 1} \frac{x^n}{(n - 1)!} = x(e^x - 1)
+      \]
+      be the exponential generating function that counts stars. Since the connected components of a graph on $[n]$ may be viewed as a partition of $[n]$,
+      \[
+        \sum_{n \geq 0} f(n)\frac{x^n}{n!} = \exp(S(x)) = \exp[x(e^x - 1)].
+      \]
+    \end{proof}
+    \item Wheels $W_i$ for $i \geq 4$. (Here $W_i$ is obtained from $C_{i-1}$ by adding a new vertex connected to every other vertex.)
+    \begin{proof}
+      Given $n$ vertices, the number of ways to order them into a $W_n$ is $n \cdot (n - 2)!/2$. Hence, let 
+      \[
+        W(x) = \sum_{n \geq 4} \frac{n(n - 2)!}{2} \cdot \frac{x^n}{n!} = \sum_{n \geq 4} \frac{x^n}{2(n - 1)} = \frac{x}{2}\sum_{n \geq 3} \frac{x^n}{n} = \frac{x}{2}\left( -\ln(1 - x) - x - \frac{x^2}{2}\right)
+      \]    
+      be the exponential generating function that counts wheels. Since the connected components of a graph on $[n]$ may be viewed as a partition of $[n]$,
+      \[
+        \sum_{n \geq 0} f(n)\frac{x^n}{n!} = \exp(W(x)) = \exp\left[\frac{x}{2}\left( -\ln(1 - x) - x - \frac{x^2}{2}\right)\right].
+      \]
+    \end{proof}
+
+    \newpage
+
+    \item Paths $P_i$ with $i \geq 1$ vertices. (So that $P_1$ is a single vertex and $P_2$ is a single edge.)
+    \begin{proof}
+      Given $n \geq 2$ vertices, the number of ways to order them into an undirected path is $n!/2$. Hence, let 
+      \[
+        P(x) = x + \sum_{n \geq 2} \frac{n!}{2} \cdot \frac{x^n}{n!} = x + \frac{1}{2}\sum_{n \geq 2} x^n = \frac{x^2 - 2x + 2}{2 - 2x}
+      \]    
+      be the exponential generating function that counts paths. Since the connected components of a graph on $[n]$ may be viewed as a partition of $[n]$,
+      \[
+        \sum_{n \geq 0} f(n)\frac{x^n}{n!} = \exp(P(x)) = \exp(x^2 - 2x + 2) - \exp(2 - 2x).
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+\end{document}
