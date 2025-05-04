@@ -492,7 +492,7 @@ Note that we are only interested in dense graphs. This is because if $|E(A, B)| 
 
 \newpage
 
-\section{VC-Dimension Theory}
+\section{Hyperplane Arrangement}
 
 \begin{definition}
 	A \textit{set system} is a tuple $(V, \F)$, where $V$ is a set and $\F$ is a collection of subsets of $V$. 
@@ -526,6 +526,139 @@ Note that we are only interested in dense graphs. This is because if $|E(A, B)| 
 	\[
 		\binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{d}.
 	\]
+\end{proof}
+
+\newpage
+
+\section{VC-Dimension}
+
+\begin{definition}
+	Given set system $(V, \F)$, we say $X \subseteq V$ is \textit{shattered} by $\F$ if for each subset $Y \subseteq X$ there exists $F \in \F$ such that $F \cap X = Y$.
+\end{definition}
+
+\begin{definition}
+	The \textit{VC-dimension} of $\F$ is the size of the largest subset of $V$ that is shattered by $\F$.
+\end{definition}
+
+\begin{theorem}[Sauer-Shelah]
+	Let $(V, \F)$ be a set system with $|V| = n$. If $\F$ has VC-dimension $d$, then
+	\[
+		|\F| \leq \binom{n}{0} + \binom{n}{1} + \cdots \binom{n}{d}.
+	\]
+\end{theorem}
+
+\begin{proof}
+	We proceed by induction on $n$ and $d$. If $n = 0$ and $d \geq 1$, then we trivially have $|\F| \leq 1 = \binom{0}{0}$. Suppose $d = 0$ and $n \geq 0$. This implies no nonempty subset of $V$ is shattered by $\F$. If $A, B \in \F$ are distinct and $|A| \geq |B|$, then there exists vertex $x \in A \backslash B$. But then $\{x\}$ is shattered by $\F$, and this contradiction shows $|\F| \leq 1 = \binom{n}{0}$. Thus the base case is done.
+
+	Now suppose $n \geq 1$ and $d \geq 1$. Fix a vertex $x \in V$ and define the set system $(V \backslash \{x\}, \F_1)$, where $\F_1 = \{A \backslash \{x\} : A \in F\}$. Note that $\F_1$ has VC-dimension $\leq d$. By induction, 
+	\[
+		|\F_1| \leq \binom{n - 1}{0} + \binom{n - 1}{1} + \cdots \binom{n - 1}{d}.
+	\]
+	Consider another set system $(V \backslash \{x\}, \F_2)$, where $\F_2 = \{A \in \F : x \notin A, \{x\} \cup A \in \F\}$. We show that $\F_2$ has VC-dimension $\leq d - 1$. Suppose not. There exists $X \subseteq V$ of size $d$ that is shattered by $\F_2$. That is, there are $2^{d}$ subsets of $V$, say $A_1, \ldots, A_{2^d}$, that shatter $X$. By definition of $\F_2$, $A_1 \cup \{x\}, \ldots, A_{2^d} \cup \{x\} \in \F$. But then $A_1, \ldots, A_{2^d}$ along with $A_1 \cup \{x\}, \ldots, A_{2^d} \cup \{x\}$ shatter $\{x\} \cup X$, contradiction. Hence, $\F_2$ has VC-dimension $\leq d - 1$, and by induction,
+	\[
+		|\F_2| \leq \binom{n - 1}{0} + \binom{n - 1}{1} + \cdots \binom{n - 1}{d - 1}.
+	\]
+	It now follows from Pascal's identity that
+	\[
+		\F \leq \F_1 + \F_2 \leq \binom{n}{0} + \binom{n}{1} + \cdots \binom{n}{d}.
+	\]
+\end{proof}
+
+\begin{definition}
+	Let $(V, \F)$ be a set system and let $S \subseteq V$. Denote $\F|_S = \{A \cap S : A \in \F\}$. The \textit{primal shatter function} is defined as
+	\[
+		\Pi_\F(m) = \max_{|S| = m} |\F|_S|.
+	\]
+\end{definition}
+
+\begin{definition}
+	Given a set system $(V, \F)$, the \textit{dual set system} of $(V, \F)$ is the set system $(V^*, \F^*)$, where $V^* = \F$ and $\F^* = \{A_x \subseteq \F : x \in V, \, \forall A \in A_x, x \in A\}$
+\end{definition}
+
+\begin{theorem}
+	Let $(V, \F)$ be a set system with VC-dimension $d$. Then $\F^*$ has VC-dimension $< 2^{d + 1}$.
+\end{theorem}
+
+\begin{proof}
+	Suppose not. Then there exists $X^* \subseteq V^*$ of size $2^{d + 1}$ that is shattered by $\F^*$. Hence, there exists $X \subseteq V$ of size $2^{2^{d + 1}}$ such that $A_x : x \in X$ shatters $X^*$. Consider the 0-1 matrix $M$ of size $2^{2^{d + 1}} \times 2^{d + 1}$, whose rows are indexed by the elements of $X$ and columns are indexed by the elements of $X^*$, and $M_{v, A} = 1$ if and only if $v  \in A$. Since $X$ shatters $X^*$, each row of $M$ is a unique binary vector of size $2^{d + 1}$. Let $M'$ denote the $(d + 1) \times 2^{d + 1}$ matrix whose columns are the binary expansions of the numbers $0, \ldots, 2^{d + 1} - 1$ in order. Since the rows of $M$ contain all possible binary vectors of size $2^{d + 1}$, $M'$ is a submatrix of $M$. It now follows that the $d + 1$ vertices corrsponding to the columns of $M'$ embedded into $M$ are shattered by $X^*$, and so $\F$ has VC-dimension $d + 1$, contradiction.
+\end{proof}
+
+\newpage
+
+\section{Packing and Transversal Number}
+
+\begin{definition}
+	Given a set system $(V, \F)$, a subset $X \subseteq V$ is called a \textit{transversal} (or \textit{hitting set}) of $\F$ if $X \cap A \neq \emptyset$ for all $A \in \F$. The \textit{transversal number} of $\F$, denoted $\tau(\F)$, is the size of the smallest transversal of $\F$.
+\end{definition}
+
+\begin{definition}
+	Given a set system $(V, \F)$, the \textit{packing number} of $\F$, denoted $\nu(\F)$, is the size of the largest subfamily of pairwise disjoint sets in $\F$.
+\end{definition}
+
+\begin{definition}
+	Let $(V, \F)$ be a set system and let $\epsilon \in [0, 1]$. A set $X \subseteq V$ is called an \textit{$\epsilon$-net} for $(V, \F)$ if $X \cap A \neq \emptyset$ for all $A \in \F$ of size $\geq \epsilon|V|$.
+\end{definition}
+
+\begin{lemma}
+	Let $(V, \F)$ be a set system with $n$ vertices and VC-dimension $d$, and let $\epsilon > 0$. If each member of $\F$ has size $\geq \epsilon n$, then
+	\[
+		\tau(\F) \leq 4\left(\frac{d}{\epsilon}\right)\log n.
+	\]
+\end{lemma}
+
+\begin{proof}
+	Let $x = (4d/\epsilon)\log n$, and let $X$ be $x$ vertices independently and randomly drawn with replacement from $V$. Let $E$ denote the event that $X$ is not a transversal of $\F$. Given $A \in \F$, the probability that $X$ does not intersect $A$ is
+	\[
+		\mathbb{P}(X \cap A = \emptyset) \leq (1 - \epsilon)^x \leq e^{-\epsilon x} = n^{-4d}.
+	\] 
+	By the union bound and the Sauer-Shelah theorem, we now have
+	\[
+		\mathbb{P}(E) = \mathbb{P}(\exists A \in \F, \, X \cap A = \emptyset) \leq |\F|\mathbb{P}(X \cap A = \emptyset) \leq n^d \cdot n^{-4d} = n^{-3d} < 1.
+	\]
+	But then there exists $X \subseteq V$ of size $x$ such that $X$ is a transversal of $\F$. Hence, $\tau(\F) \leq x = (4d/\epsilon)\log n$.
+\end{proof}
+
+\begin{lemma}\label{lem:chebyshev}
+	Let $X = X_1 + X_2 + \cdots + X_n$, where $X_i$ are independent random variables with $\P(X_i = 1) = p$ and $\P(X_i = 0) = 1 - p$. Then $\P(X \geq np/2) \geq 1/2$, provided that $np \geq 8$.
+\end{lemma}
+
+\begin{proof}
+	Since $\E[X] = np$ and Var$[X] = np(1 - p)$, by the Chebyshev inequality,
+	\[
+		\P(X < np/2) \leq \P(|X - \E[X]| \geq np/2) \leq \frac{4}{np} \leq \frac{1}{2}.
+	\]
+\end{proof}
+
+\newpage
+
+\section{Epsilon-net Theorem}
+
+\begin{theorem}[Epsilon-net Theorem]
+	Let $(V, \F)$ be a set system with $n$ vertices and VC-dimension $d$. Then $(V, \F)$ has an $\epsilon$-net of size $O((d/\epsilon)\log(1/\epsilon))$.
+\end{theorem}
+
+\begin{proof}
+	We may assume that $A \geq \epsilon n$ for all $A \in \F$. Let $C$ be a large enough constant. We need to show $\tau(\F) \leq C(d/\epsilon)\log(1/\epsilon)$. Let $s = C(d/\epsilon)\log(1/\epsilon)$. Let $N, M$ each be some $s$ vertices independently and randomly drawn with replacement from $V$. Let $E_0$ denote the event that $N$ is not a transversal of $\F$, and let $E_1$ denote the event that there exists $A \in \F$ such that $N \cap A = \emptyset$ and $|M \cap A| \geq \epsilon s/2$. Clearly, $\mathbb{P}(E_1) \leq \mathbb{P}(E_0)$, and we will show that $\mathbb{P}(E_1) \leq 2\mathbb{P}(E_0)$. In particular, we show that for any $N$, $\P(E_1|N) \geq \P(E_0|N)/2$. If $N$ is a transversal, then $\P(E_1|N) = \P(E_0|N) = 0$. If $N$ is not a transversal, then there exists $A \in \F$ such that $N \cap A = \emptyset$. By \cref{lem:chebyshev},
+	\[
+		\P(E_1|N) = \P(|M \cap A| \geq \epsilon s/2|N) > \frac{1}{2} = \frac{\P(E_0|N)}{2}.
+	\]
+	We now show that $\P(E_0) < 1$ by showing that $\P(E_1) \leq 1/2$. Let $Z = \{Z_1, \ldots, Z_{2s}\}$ be $2s$ vertices independently and randomly drawn with replacement from $V$. Now let $N$ be a random set of $s$ vertices drawn from $Z$, and let $M = Z \backslash N$. We show that for any $Z$, we have $\P(E_1|Z) < 1/2$. By definition,
+	\[
+		\P(E_1|Z) = \P(\exists A \in \F: N \cap A = \emptyset \text{ and } |M \cap A| \geq \epsilon s/2|Z).
+	\]
+	Fix $A \in \F$. If $|A \cap Z| < \epsilon s/2$, then clearly
+	\[
+		\P(N \cap A = \emptyset \text{ and } |M \cap A| \geq \epsilon s/2|Z) = 0.
+	\]
+	On the other hand, if $|A \cap Z| = k \geq \epsilon s/2$, then
+	\[
+		\P(N \cap A = \emptyset, \, |M \cap A| \geq \epsilon s/2|Z) \leq \P(N \cap A = \emptyset|Z) \leq \frac{\binom{2s - k}{s}}{\binom{2s}{s}} \leq \left(1 - \frac{k}{2s}\right)^s \leq e^{-k/2} = \epsilon^{Cd/4}.
+	\]
+	By the Sauer-Shelah theorem, $|\F|_Z| \leq (2s)^d$, and so the union bound now yields
+	\[
+		\P(E_1|Z) \leq |\F|_Z|\P(N \cap A = \emptyset|Z) \leq (2s)^d \cdot \epsilon^{Cd/4} < 1/2,
+	\]
+	for large enough $C$. The completes the proof.
 \end{proof}
 
 \end{document}

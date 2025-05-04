@@ -92,7 +92,7 @@
 
 \newcommand{\hmwkTitle}{Homework}
 \newcommand{\hmwkDueDate}{Mar 10, 2025}
-\newcommand{\hmwkClass}{MATH 264B}
+\newcommand{\hmwkClass}{MATH 264C}
 \newcommand{\hmwkClassInstructor}{Professor Rhoades}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
 \newcommand{\hmwkPID}{A16848188}
@@ -315,4 +315,50 @@
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $a$ and $b$ be positive integers. Give combinatorial interpretations of the numbers
+  \[
+    e_a(1,2,\ldots,b) \quad \text{and} \quad h_a(1,2,\ldots,b).
+  \]
+  (Here we set all remaining variables in these symmetric functions to 0.)
+\end{homeworkProblem}
+
+\begin{proof}
+  We first note that
+  \[
+    e_a(1, 2, \ldots, b) = \sum_{S \subseteq [b], |S| = a} \prod_{i \in S} i.
+  \]
+  But then this is just $(-1)^a$ times the $(b + 1 - a)$-th coefficient of the falling factorial
+  \[
+    (x)_{b + 1} = x(x - 1) \cdots (x - b) = \sum_{k \geq 0} (-1)^{b + 1 - k}c(b + 1, k)x^k
+  \] 
+  where $c(n, k)$ is the unsigned Stirling number of the first kind. In other words,
+  \[
+    e_a(1, 2, \ldots, b) = c(b + 1, b + 1 - a),
+  \]
+  which is the number of permutations of $[b + 1]$ with $b + 1 - a$ disjoint cycles.
+
+  For $h_a$, we note that
+  \[
+    h_a(1, 2, \ldots, b) = \sum_{1 \leq i_1 \leq i_2 \leq \cdots \leq i_a \leq b} i_1 i_2 \cdots i_a.
+  \]
+  But then this is the coefficient of $x^a$ in the generating function
+  \[
+    (x + x^2 + \cdots)(2x + (2x)^2 + \cdots) \cdots (bx + (bx)^2 + \cdots) = \prod_{k = 1}^b \frac{1}{1 - kx}.
+  \]
+\end{proof}
+
+\newpage
+
+\begin{homeworkProblem}
+  Describe transition matrices between the $e$-basis $\{e_\lambda\}$ and the $h$-basis $\{h_\lambda\}$ of the ring $\Lambda$ of symmetric functions.
+\end{homeworkProblem}
+
+\begin{proof}
+  
+\end{proof}
+  
 \end{document}
