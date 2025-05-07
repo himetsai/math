@@ -253,12 +253,15 @@
 \begin{homeworkProblem}
   In the context of the previous problem, if $j_d(G)$ is the number of subgroups of $G$ having index $d$, show that
   \[
-  g_d = j_d(G) \cdot (d - 1)!.
+    g_d = j_d(G) \cdot (d - 1)!.
   \]
 \end{homeworkProblem}
 
 \begin{proof}
-   
+  Let $T_d$ be the set of transitive $G$-actions on $[d]$, and let $D$ be the set of subgroups of $G$ with index $d$. Consider the map $f: T_d \to D$ which maps action $\alpha$ to $\text{Stab}_\alpha(1)$. We show that $f$ is surjective. Let $H \in D$. Let $G$ act on $G/H$ by left multiplication and note that it is transitive. Then each $g \in G$ yields a permutation $\sigma_g: G/H \to G/H$ by sending $aH$ to $(ga)H$. Since $H$ has index $d$, there is a bijection $\phi: G/H \to [d]$ such that $\phi(H) = 1$. Let $\alpha: G \to \sym_d$ by sending $g$ to $\phi \circ \sigma_g \circ \phi^{-1}$. Then $\alpha$ is a transitive action of $G$ on $[d]$ with $\text{Stab}_\alpha(1)$. This shows that $f$ is surjective. Since $f^{-1}(H)$ is the set of transitive actions on $[d]$ with $H$ as the stabilizer of $1$, there are $(d - 1)!$ choices to map the remaining $d - 1$ cosets of $H$ to $[d]\backslash\{1\}$. Thus, 
+  \[
+    g_d = \sum_{H \subseteq G, [G: H] = d} |f^{-1}(H)| = j_d(G)(d - 1)!.
+  \]
 \end{proof}
 
 \newpage

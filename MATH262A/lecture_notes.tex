@@ -575,7 +575,7 @@ Note that we are only interested in dense graphs. This is because if $|E(A, B)| 
 	Given a set system $(V, \F)$, the \textit{dual set system} of $(V, \F)$ is the set system $(V^*, \F^*)$, where $V^* = \F$ and $\F^* = \{A_x \subseteq \F : x \in V, \, \forall A \in A_x, x \in A\}$
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:dual-vc}
 	Let $(V, \F)$ be a set system with VC-dimension $d$. Then $\F^*$ has VC-dimension $< 2^{d + 1}$.
 \end{theorem}
 
@@ -659,6 +659,37 @@ Note that we are only interested in dense graphs. This is because if $|E(A, B)| 
 		\P(E_1|Z) \leq |\F|_Z|\P(N \cap A = \emptyset|Z) \leq (2s)^d \cdot \epsilon^{Cd/4} < 1/2,
 	\]
 	for large enough $C$. The completes the proof.
+\end{proof}
+
+\newpage
+
+\section{Haussler's Packing Lemma}
+
+\begin{definition}
+	Let $(V, \F)$ be a set system and $\delta > 0$. We call $\F$ $\delta$-separated if $|A \Delta B| \geq \delta$ for all distinct $A, B \in \F$.
+\end{definition}
+
+\begin{lemma}\label{lem:haussler}
+	Let $(V, \F)$ be a set system with VC-dimension $d$, and let $\F' = \{A \Delta B \mid A, B \in \F\}$. Then $\F'$ has VC-dimension $D$, where $D$ is a constant that only depends on $d$.
+\end{lemma}
+
+\begin{proof}
+	We first show that if $\Pi_{\F'}(m) \leq \binom{m}{0} + \binom{m}{1} + \cdots \binom{m}{d}$ for all $m$, then $|\F'|$ has VC-dimension at most $d$. Suppose not. Then there exists $X \subseteq V$ of size $d + 1$ that is shattered by $\F$, which requires $2^{d + 1}$ members of $\F'$. But then $\Pi_{\F'}(d + 1) \leq \binom{d + 1}{0} + \binom{d + 1}{1} + \cdots \binom{d + 1}{d} < 2^{d + 1}$, contradiction. But then if the dual shatter function $\Pi^*_{\F'}(m) = \Pi_{(\F')^*}(m) = O(m^c)$, then by \cref{thm:dual-vc} $\Pi_{\F'}(m) = O(m^{c_d})$, for some $c_d$ that only depends on $d$. Hence, it suffices to show that $\Pi^*_{\F'}(m) = \Pi_{(\F')^*}(m) = O(m^c)$. Since $\F'$ is the set of symmetric differences of $\F$, for any $m$ members in $\F'$, the number of cells they can create in a Venn-diagram is at most the number of cells some $2m$ members of $\F$ can create. This implies $\Pi_{\F'}^*(m) \leq \Pi_\F^*(2m) = O(m^D)$, for some $D = D(d)$ by the Sauer-Shelah theorem. This completes the proof.
+\end{proof}
+
+\begin{theorem}[Haussler]
+	Let $(V, \F)$ be a $\delta$-separated set system with VC-dimension $d$. Then 
+	\[
+		|\F| = O\left(\left(\frac{n}{\delta}\right)^d\right) \ll O(n^d).
+	\]
+\end{theorem}
+
+\begin{proof}
+	We prove a slightly weaker result which shows $|\F| \leq c_d(n\log(n/\delta)/\delta)^d$, for some $c_d > 0$. Let $\F' = \{A \Delta B \mid A, B \in \F, \, A \neq B\}$ and note that any set in $\F'$ has size $\geq \delta$. Let $\epsilon = \delta/n$. By \cref{lem:haussler}, $\F'$ has VC-dimension $D$, where $D$ only depends on $d$. By the Epsilon-net theorem, there exists $N \subseteq V$ of size $O((D/\epsilon)\log(1/\epsilon))$, such that $N \cap A \neq \emptyset$ for all $A \in \F$ of size $|A| \geq \epsilon n = \delta$. Thus $N$ is a transversal of $\F'$. But then $A \cap N \neq B \cap N$ for all distinct $A, B \in \F$, as $N \cap (A \Delta B) \neq \emptyset$. This implies $|\F| = |\F|_N|$. It now follows from Sauer-Shelah theorem that
+	\[
+		|\F| = |\F|_N| \leq c_d|N|^d = c'_d[(1/\epsilon)\log(1/\epsilon)]^d = c'_d[(n/\delta)\log(n/\delta)]^d,
+	\] 
+	for some $c_d, c_d'$ that only depends on $d$.
 \end{proof}
 
 \end{document}
