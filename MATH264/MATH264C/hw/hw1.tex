@@ -255,14 +255,14 @@
   \[
     g_d = j_d(G) \cdot (d - 1)!.
   \]
-\end{homeworkProblem}
 
-\begin{proof}
-  Let $T_d$ be the set of transitive $G$-actions on $[d]$, and let $D$ be the set of subgroups of $G$ with index $d$. Consider the map $f: T_d \to D$ which maps action $\alpha$ to $\text{Stab}_\alpha(1)$. We show that $f$ is surjective. Let $H \in D$. Let $G$ act on $G/H$ by left multiplication and note that it is transitive. Then each $g \in G$ yields a permutation $\sigma_g: G/H \to G/H$ by sending $aH$ to $(ga)H$. Since $H$ has index $d$, there is a bijection $\phi: G/H \to [d]$ such that $\phi(H) = 1$. Let $\alpha: G \to \sym_d$ by sending $g$ to $\phi \circ \sigma_g \circ \phi^{-1}$. Then $\alpha$ is a transitive action of $G$ on $[d]$ with $\text{Stab}_\alpha(1)$. This shows that $f$ is surjective. Since $f^{-1}(H)$ is the set of transitive actions on $[d]$ with $H$ as the stabilizer of $1$, there are $(d - 1)!$ choices to map the remaining $d - 1$ cosets of $H$ to $[d]\backslash\{1\}$. Thus, 
-  \[
-    g_d = \sum_{H \subseteq G, [G: H] = d} |f^{-1}(H)| = j_d(G)(d - 1)!.
-  \]
-\end{proof}
+  \begin{proof}
+    Let $T_d$ be the set of transitive $G$-actions on $[d]$, and let $D$ be the set of subgroups of $G$ with index $d$. Consider the map $f: T_d \to D$ which maps action $\alpha$ to $\text{Stab}_\alpha(1)$. We show that $f$ is surjective. Let $H \in D$. Let $G$ act on $G/H$ by left multiplication and note that it is transitive. Then each $g \in G$ yields a permutation $\sigma_g: G/H \to G/H$ by sending $aH$ to $(ga)H$. Since $H$ has index $d$, there is a bijection $\phi: G/H \to [d]$ such that $\phi(H) = 1$. Let $\alpha: G \to \sym_d$ by sending $g$ to $\phi \circ \sigma_g \circ \phi^{-1}$. Then $\alpha$ is a transitive action of $G$ on $[d]$ with $\text{Stab}_\alpha(1)$. This shows that $f$ is surjective. Since $f^{-1}(H)$ is the set of transitive actions on $[d]$ with $H$ as the stabilizer of $1$, there are $(d - 1)!$ choices to map the remaining $d - 1$ cosets of $H$ to $[d]\backslash\{1\}$. Thus, 
+    \[
+      g_d = \sum_{H \subseteq G, [G: H] = d} |f^{-1}(H)| = j_d(G)(d - 1)!.
+    \]
+  \end{proof}
+\end{homeworkProblem}
 
 \newpage
 
@@ -361,7 +361,86 @@
 \end{homeworkProblem}
 
 \begin{proof}
-  
+  We first show by induction on $d$ that
+  \[
+    h_d = \sum_{\alpha \vDash d} (-1)^{d - \ell(\alpha)} e_{\alpha}.
+  \]
+  When $d = 1$, $h_1 = e_1$. Suppose $d \geq 2$. Since $h_d = (-1)^{d - 1}e_d + \sum_{k = 1}^{d - 1} (-1)^{k - 1}h_{k}e_{d - k}$, by induction we have
+  \begin{align*}
+    h_d 
+    &= (-1)^{d - 1}e_d + \sum_{k = 1}^{d - 1} (-1)^{d - k - 1}\left(\sum_{\alpha \vDash k} (-1)^{k - \ell(\alpha)} e_{\alpha}\right)e_{d - k} \\
+    &= (-1)^{d - 1}e_d + \sum_{k = 1}^{d - 1} \sum_{\alpha \vDash k} (-1)^{d - \ell(\alpha) - 1} e_{\alpha \cup \{d - k\}} \\
+    &= \sum_{\alpha \vDash d} (-1)^{d - \ell(\alpha)} e_{\alpha}
+  \end{align*}
+  For partition $\lambda$, let $m_i(\lambda)$ be the number of parts of $\lambda$ that are equal to $i$. Then
+  \[
+    h_d = \sum_{\alpha \vDash d} (-1)^{d - \ell(\alpha)} e_{\alpha} = \sum_{\lambda \vdash d} (-1)^{d - \ell(\lambda)} \left(\frac{\ell(\lambda)!}{\prod_{i \geq 1} m_i(\lambda)}\right) e_\lambda.
+  \]
+  Hence, for partition $\mu$,
+  \[
+    h_\mu = \prod_{i = 1}^{\ell(\mu)} \sum_{\lambda \vdash \mu_i} (-1)^{\mu_i - \ell(\lambda)} \left(\frac{\ell(\lambda)!}{\prod_{i \geq 1} m_i(\lambda)}\right) e_\lambda. 
+  \]
 \end{proof}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathbb{Y}$ be Young's lattice and let $\mathbb{C}[\mathbb{Y}]$ be the complex vector space with basis $\mathbb{Y}$. Define linear functions
+  \[
+    U : \mathbb{C}[\mathbb{Y}] \to \mathbb{C}[\mathbb{Y}] \quad \text{and} \quad D : \mathbb{C}[\mathbb{Y}] \to \mathbb{C}[\mathbb{Y}]
+  \]
+  by
+  \[
+    U(\lambda) = \sum_{\lambda \prec \nu} \nu \quad \text{and} \quad D(\lambda) = \sum_{\mu \prec \lambda} \mu.
+  \]
+
+  Prove that
+  \[
+    DU - UD = I
+  \]
+  where $I : \mathbb{C}[\mathbb{Y}] \to \mathbb{C}[\mathbb{Y}]$ is the identity operator. Use this relation to deduce 
+  \[
+    D^n U^n(\varnothing) = n! \cdot \varnothing
+  \]
+  where $\varnothing \in \mathbb{Y}$ is the empty partition. Explain why this proves 
+  \[
+    n! = \sum_{\lambda \vdash n} (f^\lambda)^2.
+  \]
+
+  \begin{proof}
+    Note that $U, D$ are linear functions which sends $\lambda$ to the sum of all Young's tableaux that are greater than $\lambda$ and less than $\lambda$, respectively. Suppose $\lambda$ has $d$ removable boxes. Let $\nu$ be a Young's tableau obtained by adding a box $a$ to $\lambda$ then removing a box $b$. If $a \neq b$, then we may also get $\nu$ by first removing $b$ then adding $a$. Hence, if $\lambda \neq \nu$, then the number of ways to obtain $\nu$ from $\lambda$ by first adding then removing a box is equal to the number of ways to obtain $\nu$ from $\lambda$ by first removing then adding a box. Now suppose $a = b$. There are $d + 1$ ways to obtain $\nu = \lambda$ from $\lambda$ by first adding then removing the same box. But then there are only $d$ ways to obtain $\nu = \lambda$ from $\lambda$ by first removing then adding the same box. Hence, we have $(DU - UD)\lambda = \lambda$ for all $\lambda \in \mathbb{Y}$, which gives us the desired relation.
+
+    Now that $DU = UD + I$, we can apply this relation repeatedly to get
+    \[
+      DU^n = (UD + I)U^{n - 1} = U(DU^{n - 1}) + U^{n - 1} = U^2(DU^{n - 2}) + 2U^{n - 1} = \cdots = U^n D + nU^{n - 1}.
+    \]
+    It now follows that
+    \[
+      D^n U^n(\varnothing) = D^{n - 1}(DU^n)(\varnothing) = D^{n - 1}U^nD(\varnothing) + nD^{n - 1}U^{n - 1}(\varnothing).
+    \]
+    But then $D^{n - 1}U^nD(\varnothing) = 0$. Hence,
+    \[
+      D^n U^n(\varnothing) = nD^{n - 1}U^{n - 1}(\varnothing) = n(n - 1)D^{n - 2}U^{n - 2}(\varnothing) = \cdots = n! \cdot \varnothing.
+    \]
+    Finally, note that $f^\lambda$ is the number of standard Young's tableaux of shape $\lambda$. In other words, $f^\lambda$ counts the paths from $\varnothing$ to $\lambda$ in Young's lattice, so $U^n(\varnothing) = \sum_{\lambda \vdash n} f^{\lambda} \cdot \lambda$. But then for each $\lambda \vdash n$, the number of paths from $\varnothing$ to $\lambda$ is also $f^{\lambda}$, so $D^n(\lambda) = f^{\lambda} \cdot \varnothing$. It now follows that 
+    \[
+      n! \cdot \varnothing = D^nU^n(\varnothing) = \sum_{\lambda \vdash n} f^{\lambda}D^n(\lambda) = \left(\sum_{\lambda \vdash n} (f^{\lambda})^2\right) \cdot \varnothing.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $G$ be a finite group acting on a finite set $X$. Prove that the multiplicity of the trivial representation in $\C[X]$ is the number of orbits in the action of $G$ on $X$.
+
+  \begin{proof}
+    For $g \in G$, note that $\chi(g) = \text{tr}(\rho(g)) = |X^g|$, the number of fixed points of $g$ in $X$. By Burnside's lemma, the multiplicity of the trivial representation in $\C[X]$ is 
+    \[
+      \frac{1}{|G|}\sum_{g \in G} \chi(g) = \frac{1}{|G|}\sum_{g \in G} |X^g| = |G/X|,
+    \]
+    the number of orbits in the action of $G$ on $X$.
+  \end{proof}
+\end{homeworkProblem}
   
 \end{document}
