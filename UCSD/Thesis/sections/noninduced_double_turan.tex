@@ -1,0 +1,133 @@
+\section{The Non-induced Double Tur\'{a}n Problem}
+
+In this section, we prove our main theorems on $\phi(m, n, F)$. 
+
+\subsection{Proof of Theorem \ref{wilsontheorem}} 
+
+We first show that for all 
+$m,n \geq 1$ and graph $F$, 
+\[  
+  \phi(m, n ,F) \leq \binom{n}{2} + \ex(n, F)\binom{m}{2}.  
+\]
+Thereafter, we show that if there is an extremal $F$-free graph with maximum degree at most $n^{1/2}/m^2$, then the above bound is tight. 
+
+\textit{Proof of the upper bound}. For $S \subseteq [m]$, let $E_S$ denote the set of edges that are contained in exactly $\{G_i\}_{i \in S}$, and note that $E_S \cap E_{S'} = \emptyset$ if $S \neq S'$. Then 
+\[
+  \sum_{i = 1}^m e(G_i) = \sum_{S \subseteq [m]} |S||E_S| \leq \binom{n}{2} + \sum_{S \subseteq [m], |S| \geq 2} (|S| - 1)|E_S|.
+\]
+Note that $\bigsqcup_{T \supseteq S} E_T = \bigcap_{i \in S} E(G_i)$, which is $F$-free for $|S| \geq 2$ and so 
+\[
+  \sum_{T \supseteq S} |E_T| \leq \text{ex}(n, F).
+\]
+It now follows that
+\[
+  \sum_{\substack{S \subseteq [m] \\ |S| \geq 2}} (|S| - 1)|E_S| = \sum_{\substack{S \subseteq [m], \\ |S| = 2}} \sum_{T \supseteq S} \frac{(|T| - 1)|E_T|}{\binom{|T|}{2}} \leq \sum_{\substack{S \subseteq [m], \\ |S| = 2}} \sum_{T \supseteq S} |E_T| \leq \binom{m}{2}\text{ex}(n, F),
+\]
+as each $T \in [m]$ with $|T| \geq 2$ is counted $\binom{|T|}{2}$ times in total and $|T| - 1 \leq \binom{|T|}{2}$. This proves the upper bound.
+
+\begin{proof}[Proof of the lower bound]
+  We need to show there exists a construction such that the graph with edge set $E_S$ is an extremal $F$-free graph, for all $S \subseteq [m]$ of size $2$. Let $M = \binom{m}{2}$ and $H_1, \ldots, H_M$ be copies of an extremal $F$-free graph on $n$ vertices such that $H_i$ with maximum degree $\triangle \leq n^{1/2}/m^2$ for all $i \in [m]$. It suffices to show that we can embed each $H_i$ onto $[n]$ such that their edge sets are pairwise disjoint. We begin by an arbitrary embedding of each $H_i$ and iteratively decrease the number of intersecting edges. Define a \textit{$(u, v, i)$-swap} by swapping the embedding of vertex $u$ and $v$ of $H_i$, i.e. replacing each edge $\{u, w\} \in E(H_i)$ with the edge $\{u, w\}$ and each edge $\{v, w\} \in E(H_i)$ with the edge $\{v, w\}$. This preserves the type of isomorphism of $H_i$. Given a vertex $v$, let $N(v) = N_{H_1}(v) \cup \cdots \cup N_{H_M}(v)$. Suppose there exists an intersecting edge $\{u, w\} \in E(H_i) \cap E(H_j)$. Since $|N(u)| \leq M \cdot \triangle \leq n^{1/2}/2$, $|N(u) \cup N(N(u))| \leq \triangle + \triangle(\triangle - 1) \leq n/4$, so there exists a vertex $v \notin N(u) \cup N(N(u))$. Since $N(u) \cap N(v) = \emptyset$, performing a $(u, v, i)$-swap reduces the number of intersecting edges. The result now follows from iterating this process.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:asymp}}
+
+We need the following \textit{saturation theorem}, which may be found in~\cite{ErdosSimonovits1983}.
+
+\begin{proposition}\label{thm:sat}
+Let $F$ be any non-empty graph with $k$ vertices. For all $\epsilon > 0$, there exists $\delta > 0$ such that if $G$ is any $n$-vertex graph with $\ex(n,F) + \epsilon n^2$ edges, then  $G$ contains $\delta n^k$ copies of $F$. 
+\end{proposition}
+
+\textit{Proof of Theorem \ref{thm:asymp}.}
+  Let $k = |V(F)|$ and let $\epsilon > 0$. Let $G_1,G_2,\dots,G_m$ be double $F$-free. 
+  Reorder $G_1,G_2 \ldots, G_m$ so that 
+  $e(G_i) \geq \ex(n,F) + \epsilon n^2$ for $1 \leq i \leq \ell$ and $e(G_i) <\ex(n,F) + \epsilon n^2$ for $\ell < i \leq m$. Then each $G_i : 1 \leq i \leq \ell$ contains at least $\delta n^k$ copies of $F$, by Proposition \ref{thm:sat}. On the other hand, there are at most $n^k$ copies of $F$ 
+  such that $F \subseteq G_i$ for some $i \in [m]$. 
+  Therefore $\ell \leq 1/\delta$ and
+  \begin{align*}
+    \sum_{i = 1}^m e(G_i) 
+    &= \sum_{i = 1}^{\ell} e(G_i) + \sum_{i =\ell + 1}^m e(G_i) \\
+    &\leq \frac{1}{\delta}\binom{n}{2} + (m - \ell)\ex(n,F) + (m - \ell) \epsilon n^2 \\
+    &\leq m \cdot \ex(n,F) + \epsilon m n^2 + \frac{1}{\delta}\binom{n}{2}.
+  \end{align*}
+Since $F$ is not bipartite, $\ex(n,F) = \Theta(n^2)$ and so $\phi(m, n, F) \leq m \cdot \ex(n,F) + (\epsilon + 1/\delta m)mn^2$. Since $\epsilon$ was arbitrary and $\delta$ is a constant depending only on $\epsilon$, 
+we conclude $\phi(m, n, F) \leq (1 + o(1))m \cdot \ex(n,F)$ as $m \rightarrow \infty$. \qed
+
+Let $F$ be a bipartite graph with $k \geq 2$ vertices and $j \geq 1$ edges. A strong version of a conjecture of Simonovits~\cite{Sidorenko1993,Simonovits1984} would suggest that for all $\epsilon > 0$, there exists $\delta > 0$ such that every $n$-vertex graph $G$ with at least $p\binom{n}{2}(1 + \epsilon)\ex(n,F)$ edges contains at least $\delta p^j n^{k}$ copies of $F$. For instance, this is known to be true whenever the asymptotic behavior of $\ex(n,F)$ is known, which includes the case $F = K_{2,t}$. If $F$ is bipartite and $m \cdot \ex(n,F)/n^2 \rightarrow \infty$ as $m,n \rightarrow \infty$, then this conjecture with the same proof as above shows $\phi(m, n, F) = (1 + o(1))m \cdot \ex(n,F)$. When $F$ contains a cycle, then there exists $\alpha > 0$ such that $\ex(n,F) \geq n^{1 + \alpha}$ for large enough $n$. Thus, we conclude that if $F$ contains a cycle and the Simonovits conjecture is true for $F$, then $\phi(m, n, F) = (1 + o(1))m \cdot \ex(n,F)$ for $m \geq n$ and $n \rightarrow \infty$. In particular, this shows $\phi(m,n,K_{2,t}) = (1 + o(1))m \cdot \ex(n,F)$ for $m \geq n$ as $n \rightarrow \infty$.
+
+\subsection{Proof of Theorem \ref{thm:blowup}}
+
+We now prove Theorem \ref{thm:blowup}. Notice that we trivially have $f(m, n, r) \leq \phi(m, n, K_r)$, so it suffices to show the reverse inequality. That is, we need to show that there exists  a blowup construction meeting the desired bound.
+
+Let $G_1, G_2, \ldots, G_m$ be graphs on $[n]$ with no double $K_r$ and $\sum_{i = 1}^m e(G_i) = \phi(m, n, K_r)$. Observe that any pair $\{i, j\} \subseteq [n]$ must be in some $G_i$, otherwise, we may add it to $G_1$ without creating a double $K_r$. 
+
+We call vertices $v, v'$ \textit{clones} if for all $u \in [n] \backslash \{v, v'\}$ and $i \in [m]$, the edge $\{u, v\} \in E(G_i)$ if and only if $\{u, v'\} \in E(G_i)$. Furthermore, we call $\{v, v'\}$ a \textit{light edge} if $\{v, v'\}$ is in exactly one graph $G_i$.
+
+We now apply Algorithm \ref{alg:sym} to $G_1, G_2, \ldots, G_m$. 
+
+\begin{algorithm}[H]
+  \caption{symmetrization algorithm}\label{alg:sym}
+  \begin{algorithmic}
+    \While{$\exists$ a light edge whose endpoints are not clones}
+    \State{among all vertices incident to such an edge, select a vertex $v$ with maximum degree}\;
+    \State{$B_v\gets$ collection of vertices sending a light edge to $v$ that are not clones of $v$}\;
+    \While{$B_v\neq \emptyset$}
+    \State{pick $u\in B_v$}\;
+    \State{$j \gets$ colour of the light edge from $u$ to $v$}\;
+    \For{$1\leq i\leq m$}\;
+    \If{$i\neq j$};
+    \State{$N_{G_i}(u) \gets N_{G_i}(v)$}\;
+    \ElsIf{$i=j$}
+        \State{$N_{G_i}(u) \gets \left(N_{G_i}(v)\setminus \{u\}\right)\cup\{v\}$}\;
+    \EndIf		
+    \EndFor
+    \EndWhile
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{claim}
+  Algorithm \ref{alg:sym} terminates.
+\end{claim}
+
+Notice that at the end of the `while $B_v \neq \emptyset$' loop, every vertex sending a light edge to $v$ is a clone of $v$. This implies $v$ along with the set $L_v$ of vertices receiving light edges from $v$ induce a clique of size at least two in some $G_i$, and an empty graph in every other graph $G_j$ with $j \neq i$. Moreover, any vertex $w \notin L_v$ sends edges to either all or none of the vertices in $L_v$, and if $w$ is incident to $L_v$, then $w$ sends edges to $L_v$ in at least two graphs. It now follows that no light edge incident with a vertex in $L_v$ will be picked again in an iteration of the out most while loop. Thus the algorithm can run through at most $n/2$ such iterations, and so it terminates.
+
+\begin{claim}
+  The resulting graphs $G_1', G_2', \ldots, G_m'$ do not contain a double $K_r$ and $\sum_{i = 1}^m e(G_i') = \phi(m, n, K_r)$. 
+\end{claim}
+
+Note that we replace $u$ by a clone of $v$ in the for loop of Algorithm \ref{alg:sym}. Since $\{u, v\}$ remains a light edge in this step, $u$ and $v$ cannot both belong to a double $K_r$ in the modified graphs. Furthermore, any double $K_r$ containing $u$ after the for loop arises from a double $K_r$ containing $v$ prior to the for loop. But then $G_1, G_2, \ldots, G_m$ contained no double $K_r$ to begin with, so $G_1', G_2', \ldots, G_m'$ do not contain a double $K_r$.
+
+We now show that the algorithm does not reduce the number of edges. By our choice of $v$, we know $d(v) \geq d(u)$ for all $u \in B_v$ prior to the for loop. Hence, replacing $u$ with a clone of $v$ does not decrease the number of edge over a complete iteration of the inner while loop. Therefore, $\sum_{i = 1}^m e(G_i') = \phi(m, n, K_r)$. The proof of the claim is now complete.
+
+Hence, the algorithm results in graphs $G_1', G_2', \ldots, G_m'$ with $\phi(m, n, K_r)$ edges and the additional property that light edges come in `clone cliques.' We may thus partition the vertex set $[n]$ into $k$ disjoint sets $V_1, V_2, \ldots, V_k$, such that each $V_i$ induces a clique of light edges from the same graph. Moreover, for distinct $i, j \in [k]$, define $S_{ij}$ to be the set of all edges between $V_i$ and $V_j$, and note that any edge in $S_{ij}$ appears in at least two modified graphs. The sets $S_{ij}$ now yield a $k$-blowup. Notice that if the pattern of the $k$-blowup contains a double $K_r$, then the original graphs $G_1, G_2, \ldots, G_m$ must have contained a double $K_r$ as well, contradiction. Thus the $k$-blowup is double $K_r$-free. 
+
+It remains to show that $k < R_M(K_r)$. For each edge $\{i, j\} \subseteq [k]$ in the pattern of the $k$-blowup, we assign an arbitrary distinct pair $\{a, b\} \subseteq L_{ij} \subseteq [m]$ to $\{i, j\}$. If $k \geq R_M(K_r)$, then there exists $K_r$ in the pattern of the $k$-blowup colored by some distinct pair $\{a, b\} \subseteq [m]$. But then this implies the pattern of the $k$-blowup contains a double $K_r$, contradiction. This completes the proof. \qed
+
+\newpage
+
+\subsection{Proof of Theorem \ref{thm:triangles}}
+
+It is not hard to see that $\phi(2,n,K_3) = \binom{n}{2} + \lfloor n^2/4\rfloor$: if $G_1,G_2$ 
+is double triangle-free, then we have
+\[
+	e(G_1) + e(G_2) \leq \binom{n}{2} + e(G_1 \cap G_2) \leq \binom{n}{2} + \ex(n, K_3)
+\]
+and so $\phi(2,n,K_3) \leq \binom{n}{2} + \lfloor n^2/4\rfloor$. Taking $G_1 = K_n$ and $G_2 = K_{\lfloor n/2 \rfloor,\lceil n/2 \rceil}$ meets this bounds. The main result of this section is to show for all $n \geq 1$, 
+\[    
+  \phi(3, n, K_3) = \binom{n}{2} + \Big\lfloor \frac{n^2}{2} \Big\rfloor.
+\]
+Let $G_1,G_2,G_3$ be double triangle-free. Define $H_k \subseteq G$ to be the graph with edges contained in at least $k$  of the $G_i$'s and note that $e(G_1) + e(G_2) + e(G_3) = e(H_1) + e(H_2) + e(H_3)$. Thus it suffices to show that $e(H_2) + e(H_3) \leq n^2/2$. Notice $H_2$ must not contain any triangles with two edges in $H_3$, so
+\[
+  e(H_2) + e(H_3) \leq \binom{n}{2} + e(H_3) - |\{\{u, v\} : u \neq v, N_{H_3}(u) \cap N_{H_3}(v) \neq \emptyset\}|.
+\]
+Let $H'_3$ be the graph with the same vertex set as $H_3$ and edge set $\{\{u, v\} : u \neq v, N_{H_3}(u) \cap N_{H_3}(v) \neq \emptyset\}$. It suffices to show that $n/2 \geq e(H_3) - e(H'_3)$. 
+
+Let $d_1 \geq d_2 \geq \cdots \geq d_n$ and $f_1 \geq f_2 \geq \cdots \geq f_n$ each be the degree sequence of $H_3$ and $H_3'$, respectively. We show that $f_i \geq d_i - 1$ for all $i$. Let $v_i$ denote the vertex in $H$ with degree $d_i$ and $u_i$ be the vertex in $H$ with degree $f_i$. Let $S_i = |N_{H_3}(v_1) \cup \cdots \cup N_{H_3}(v_i)|$. Since 
+\[
+  \sum_{u \in S_i} d_{H_3}(u) \geq d_1 + \cdots + d_i,
+\]
+we have that $|S_i| \geq i$. But then $S_i \backslash \{u_1, \ldots, u_{i - 1}\}$ is non-empty, and every $u \in S_i$ has degree $d_{H_3'}(u) \geq d_i - 1$. Hence, $f_i \geq d_i - 1$ for all $i$, which yields
+\[
+  e(H_3') = \frac{1}{2}\sum_{i = 1}^n f_i \geq \frac{1}{2}\sum_{i = 1}^n (d_i - 1) = e(H_3) - \frac{n}{2}.
+\]
+This proves Theorem \ref{thm:triangles}. \qed

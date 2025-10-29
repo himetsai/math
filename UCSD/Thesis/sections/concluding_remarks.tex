@@ -1,0 +1,9 @@
+\section{Concluding Remarks}
+
+\begin{itemize}
+  \item For Theorem \ref{thm:inducedF}, we may not be able to achieve the same result with smaller $n$. For example, consider $F$ to be the bowtie graph, i.e. the $5$-vertex graph with two triangles sharing a vertex. The $n$-vertex extremal graph for $F$ is given by $K_{\left\lfloor\frac{n}{2}\right\rfloor, \left\lceil\frac{n}{2}\right\rceil}$ plus an edge when $n \geq 5$, otherwise it is the complete graph. For $n = 5$, the construction $G_1 = K_{4}, G_2 = K_5$ then shows that $\phi^*(2, 5, F) > 2 \cdot \ex(5, F)$. Fortunately, for non-bipartite $F$ with $|V(F)| = k$, it is not hard to show $n \geq k^2$ is sufficient to avoid this issue.
+  
+  \item We note that Theorem \ref{thm:blowup} may be generalized to any family of non-bipartite graphs up to asymptotic error via Szemer\'{e}di's Regularity lemma
+  
+  \item One could ask for the analogous results for hypergraphs. That is, if $F$ is an $r$-uniform hypergraph, let $\phi(m, n, F)$ be the maximum number of edges over $m$ double $F$-free $r$-uniform hypergraphs on $[n]$. Again, we have $\phi(m, n, F) \geq \binom{n}{r} + (m - 1) \cdot \ex(n, F)$. Another direction of generalization is to relax the constraint to no copies of $F$ contained in the intersection of $k$ of the graphs $G_1, G_2, \ldots, G_m$. Many of the theorems and proofs also hold in this case. For instance, the proof of Theorem \ref{wilsontheorem} applies for this generalization by merely changing the numbers.
+\end{itemize}

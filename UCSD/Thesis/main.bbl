@@ -1,0 +1,143 @@
+\begin{thebibliography}{19}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alon and Shikhelman(2016)]{AlonShikhelman2016}
+N.~Alon and C.~Shikhelman.
+\newblock Many {$T$} copies in {$H$}-free graphs.
+\newblock \emph{J. Combin. Theory Ser. B}, 121:\penalty0 146--172, 2016.
+\newblock ISSN 0095-8956,1096-0902.
+\newblock \doi{10.1016/j.jctb.2016.03.004}.
+\newblock URL \url{https://doi.org/10.1016/j.jctb.2016.03.004}.
+
+\bibitem[Conlon and Ferber(2021)]{ConlonFerber2021}
+D.~Conlon and A.~Ferber.
+\newblock Lower bounds for multicolor {R}amsey numbers.
+\newblock \emph{Adv. Math.}, 378:\penalty0 Paper No. 107528, 5, 2021.
+\newblock ISSN 0001-8708,1090-2082.
+\newblock \doi{10.1016/j.aim.2020.107528}.
+\newblock URL \url{https://doi.org/10.1016/j.aim.2020.107528}.
+
+\bibitem[Erd{{\H{o}}}s and Stone(1946)]{ErdosStone1946}
+P.~Erd{{\H{o}}}s and A.~H. Stone.
+\newblock On the structure of linear graphs.
+\newblock \emph{Bull. Amer. Math. Soc.}, 52:\penalty0 1087--1091, 1946.
+\newblock ISSN 0002-9904.
+\newblock \doi{10.1090/S0002-9904-1946-08715-7}.
+\newblock URL \url{https://doi.org/10.1090/S0002-9904-1946-08715-7}.
+
+\bibitem[Erd{\H{o}}s(1977)]{Erdos1977}
+P.~Erd{\H{o}}s.
+\newblock Problems and results in combinatorial analysis.
+\newblock In \emph{Proceedings of the {E}ighth {S}outheastern {C}onference on {C}ombinatorics, {G}raph {T}heory and {C}omputing ({L}ouisiana {S}tate {U}niv., {B}aton {R}ouge, {L}a., 1977)}, volume No. XIX of \emph{Congress. Numer.}, pages 3--12. Utilitas Math., Winnipeg, MB, 1977.
+\newblock ISBN 0-919628-19-2.
+
+\bibitem[Erd{\H{o}}s and Simonovits(1966)]{ErdosSimonovits1966}
+P.~Erd{\H{o}}s and M.~Simonovits.
+\newblock A limit theorem in graph theory.
+\newblock \emph{Studia Sci. Math. Hungar}, 1:\penalty0 51--57, 1966.
+\newblock ISSN 0081-6906.
+
+\bibitem[Erd{\H{o}}s and Simonovits(1983)]{ErdosSimonovits1983}
+P.~Erd{\H{o}}s and M.~Simonovits.
+\newblock Supersaturated graphs and hypergraphs.
+\newblock \emph{Combinatorica}, 3\penalty0 (2):\penalty0 181--192, 1983.
+\newblock ISSN 0209-9683.
+\newblock \doi{10.1007/BF02579292}.
+\newblock URL \url{https://doi.org/10.1007/BF02579292}.
+
+\bibitem[F\"uredi(1984)]{Furedi1984}
+Z.~F\"uredi.
+\newblock Hypergraphs in which all disjoint pairs have distinct unions.
+\newblock \emph{Combinatorica}, 4\penalty0 (2-3):\penalty0 161--168, 1984.
+\newblock ISSN 0209-9683.
+\newblock \doi{10.1007/BF02579216}.
+\newblock URL \url{https://doi.org/10.1007/BF02579216}.
+
+\bibitem[F{\"{u}}redi and Simonovits(2013)]{FurediSimonovits2013}
+Z.~F{\"{u}}redi and M.~Simonovits.
+\newblock The history of degenerate (bipartite) extremal graph problems.
+\newblock In \emph{Erd{{\H{o}}}s centennial}, volume~25 of \emph{Bolyai Soc. Math. Stud.}, pages 169--264. J\'{a}nos Bolyai Math. Soc., Budapest, 2013.
+\newblock \doi{10.1007/978-3-642-39286-3_7}.
+\newblock URL \url{https://doi.org/10.1007/978-3-642-39286-3_7}.
+
+\bibitem[K{{{\H{o}}}}vari et~al.(1954)K{{{\H{o}}}}vari, S{\'{o}}s, and Tur{\'{a}}n]{KovariSosTuran1954}
+T.~K{{{\H{o}}}}vari, V.~T. S{\'{o}}s, and P.~Tur{\'{a}}n.
+\newblock On a problem of {K}. {Z}arankiewicz.
+\newblock \emph{Colloquium Math.}, 3:\penalty0 50--57, 1954.
+\newblock \doi{10.4064/cm-3-1-50-57}.
+\newblock URL \url{https://doi.org/10.4064/cm-3-1-50-57}.
+
+\bibitem[Kostochka et~al.(2015)Kostochka, Mubayi, and Verstra\"ete]{KostochkaMubayiV2015}
+A.~Kostochka, D.~Mubayi, and J.~Verstra\"ete.
+\newblock Tur\'an problems and shadows {III}: expansions of graphs.
+\newblock \emph{SIAM J. Discrete Math.}, 29\penalty0 (2):\penalty0 868--876, 2015.
+\newblock ISSN 0895-4801,1095-7146.
+\newblock \doi{10.1137/140977138}.
+\newblock URL \url{https://doi.org/10.1137/140977138}.
+
+\bibitem[Lefmann(1987)]{Lefmann1987}
+H.~Lefmann.
+\newblock A note on {R}amsey numbers.
+\newblock \emph{Studia Sci. Math. Hungar.}, 22\penalty0 (1-4):\penalty0 445--446, 1987.
+\newblock ISSN 0081-6906,1588-2896.
+
+\bibitem[Mubayi and Mukherjee(2023)]{MubayiMukherjee2023}
+D.~Mubayi and S.~Mukherjee.
+\newblock Triangles in graphs without bipartite suspensions.
+\newblock \emph{Discrete Math.}, 346\penalty0 (6):\penalty0 Paper No. 113355, 19, 2023.
+\newblock ISSN 0012-365X,1872-681X.
+\newblock \doi{10.1016/j.disc.2023.113355}.
+\newblock URL \url{https://doi.org/10.1016/j.disc.2023.113355}.
+
+\bibitem[Mubayi and Verstra\"ete(2004)]{MubayiV2004}
+D.~Mubayi and J.~Verstra\"ete.
+\newblock A hypergraph extension of the bipartite {T}ur\'an problem.
+\newblock \emph{J. Combin. Theory Ser. A}, 106\penalty0 (2):\penalty0 237--253, 2004.
+\newblock ISSN 0097-3165,1096-0899.
+\newblock \doi{10.1016/j.jcta.2004.02.002}.
+\newblock URL \url{https://doi.org/10.1016/j.jcta.2004.02.002}.
+
+\bibitem[Mubayi and Verstra\"ete(2016)]{MubayiV2016}
+D.~Mubayi and J.~Verstra\"ete.
+\newblock A survey of {T}ur\'an problems for expansions.
+\newblock In \emph{Recent trends in combinatorics}, volume 159 of \emph{IMA Vol. Math. Appl.}, pages 117--143. Springer, [Cham], 2016.
+\newblock ISBN 978-3-319-24296-5; 978-3-319-24298-9.
+\newblock \doi{10.1007/978-3-319-24298-9\_5}.
+\newblock URL \url{https://doi.org/10.1007/978-3-319-24298-9_5}.
+
+\bibitem[Pikhurko and Verstra\"ete(2009)]{PikhurkoV2009}
+O.~Pikhurko and J.~Verstra\"ete.
+\newblock The maximum size of hypergraphs without generalized 4-cycles.
+\newblock \emph{J. Combin. Theory Ser. A}, 116\penalty0 (3):\penalty0 637--649, 2009.
+\newblock ISSN 0097-3165,1096-0899.
+\newblock \doi{10.1016/j.jcta.2008.09.002}.
+\newblock URL \url{https://doi.org/10.1016/j.jcta.2008.09.002}.
+
+\bibitem[Sidorenko(1993)]{Sidorenko1993}
+A.~Sidorenko.
+\newblock A correlation inequality for bipartite graphs.
+\newblock \emph{Graphs Combin.}, 9\penalty0 (2):\penalty0 201--204, 1993.
+\newblock ISSN 0911-0119.
+\newblock \doi{10.1007/BF02988307}.
+\newblock URL \url{https://doi.org/10.1007/BF02988307}.
+
+\bibitem[Simonovits(1984)]{Simonovits1984}
+M.~Simonovits.
+\newblock Extremal graph problems, degenerate extremal problems, and supersaturated graphs.
+\newblock In \emph{Progress in graph theory ({W}aterloo, {O}nt., 1982)}, pages 419--437. Academic Press, Toronto, ON, 1984.
+
+\bibitem[Szemer{\'{e}}di(1978)]{Szemeredi1978}
+E.~Szemer{\'{e}}di.
+\newblock Regular partitions of graphs.
+\newblock In \emph{Probl{\`e}mes combinatoires et th{\'{e}}orie des graphes (Colloq. Internat. {CNRS}, Univ. Orsay, Orsay, 1976)}, volume 260 of \emph{Colloq. Internat. CNRS}, pages 399--401. CNRS, Paris, 1978.
+
+\bibitem[Tur{\'{a}}n(1941)]{Turan1941}
+P.~Tur{\'{a}}n.
+\newblock Eine {E}xtremalaufgabe aus der {G}raphentheorie.
+\newblock \emph{Mat. Fiz. Lapok}, 48:\penalty0 436--452, 1941.
+
+\end{thebibliography}

@@ -1,0 +1,161 @@
+\section{The Induced Double Tur\'{a}n Problem}
+
+We prove the theorems for $\phi^*(m, n ,F)$ in this chapter. In particular, the main theorem we prove is Theorem \ref{thm:inducedF} for general non-bipartite graphs $F$ and in the special case of cliques. We will first introduce two observations that simplify the problem.
+
+The first observation is that the determination of $\phi^*(m, n, F)$ can be reduced to smaller values of $m$:
+
+\begin{lemma}\label{lem:induce-reduce}
+  Let $n, m, k \geq 2$ with $m \geq k$, and let $F$ be some graph. Then
+  \[
+    \phi^*(m, n, F) \leq \frac{m}{k} \cdot \phi^*(k, n, F).
+  \]
+  Moreover, let $G_1, \ldots, G_m$ be induced double $F$-free graphs on $[n]$ and suppose $\sum_{i = 1}^k e(G_i) = \phi^*(k, n, F)$ only if $G_1 = \cdots = G_k$. Then $\sum_{i = 1}^m e(G_i) = \phi^*(m, n, F)$ only if $G_1 = \cdots = G_m$.
+\end{lemma}
+
+\begin{proof}
+  Let $G_1, \ldots, G_m$ be induced double $F$-free graphs on $[n]$. Put $G_{i + m} = G_i$ for all $i \in [m]$. Then
+  \[
+    \sum_{i = 1}^m e(G_i) = \frac{1}{k}\sum_{i = 1}^m [e(G_i) + \cdots + e(G_{i + k - 1})] \leq \frac{1}{k}\sum_{i = 1}^m \phi^*(k, n, F) = \frac{m}{k} \cdot \phi^*(k, n, F),
+  \]
+  which establishes the upper bound. The lower bound follows from the construction with $G_1 = \cdots = G_m$ to be $n$-vertex extremal graphs for $F$.
+
+  Now suppose $\sum_{i = 1}^m e(G_i) = (m/k)\phi^*(k, n, F)$ and $G_1 \neq G_2$. By assumption $\sum_{i = 1}^k e(G_i) < \phi^*(k, n, F)$. But then $\sum_{i = 1}^k e(G_{i + j}) > \phi^*(k, n, F)$ for some $j \geq 1$, contradiction. 
+\end{proof}
+
+The second observation shows that the determination of $\phi^*(2, n, F)$ can be reduced to an optimization problem over the number of vertices in the intersection of the two graphs:
+
+\begin{lemma}\label{lem:optimize-con}
+  Let $n \geq 1$. For graph $F$, define $\con(n, t, F) \coloneq \binom{n - t}{2} + (n - t)t + 2\ex(t, F)$. Let $G_1, G_2$ be induced double $F$-free graphs on $[n]$. Then
+  \[
+    e(G_1) + e(G_2) \leq \max_{0 \leq t \leq n} \con(n, t, F),
+  \]
+  with equality only if $G_2$ is an extremal graph for $F$ with $t_{max}$ vertices and $G_1 = G_2 + K_{n - t}$, where $t_{max}$ is a maximizer of $\con(n, t, F)$ over $0 \leq t \leq n$.
+\end{lemma}
+
+\begin{proof}
+  Let $G_1, G_2$ be induced double $F$-free graphs on $[n]$. Put $T = V(G_1) \cap V(G_2)$, $t = |T|$, $s = |V(G_1) \backslash T|$, and $n - t - s = |V(G_2) \backslash T|$. Note that $t, s \in \Z_{\geq 0}$. Since $G_1, G_2$ are induced subgraphs of $G_1 \cup G_2$, we have $G_1[T] = G_2[T] = G_1 \cap G_2$. But then $G_1 \cap G_2$ is $F$-free, so $e(G_1[T]) = e(G_2[T]) \leq \ex(t, F)$. Notice there can be at most $t(n - t)$ edges between $T$ and $(V(G_1) \cup V(G_2)) \backslash T$. Since $G[V(G_1) \backslash T] \leq \binom{s}{2}$ and $G[V(G_2) \backslash T] \leq \binom{n - t - s}{2}$,
+  \[
+    e(G_1) + e(G_2) \leq \binom{s}{2} + \binom{n - s - t}{2} + t(n - t) + 2\ex(t, F).
+  \]
+  But then $\binom{n - t}{2} > \binom{s}{2} + \binom{n - t - s}{2}$ for $0 < s < n - t$, so
+  \[
+    e(G_1) + e(G_2) \leq \binom{n - t}{2} + (n - t)t + 2\ex(t, F) = \con(n, t, F).
+  \]
+  This establishes the upper bound. From this we also know that $e(G_1) + e(G_2) = \con(n, t, F)$ only if $G_2$ is the $t$-vertex extremal graph for $F$ and $G_1 = G_2 + K_{n - t}$. The result now follows.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:complete}}
+
+By Lemma \ref{lem:induce-reduce}, it suffices to prove the theorem for $m = 3$. Let $G_1, G_2, G_3$ be induced double $K_r$-free graphs, such that $e(G_1) + e(G_2) + e(G_3) = \phi^*(3, n, K_r)$. We may assume $e(G_1) \geq e(G_2) \geq e(G_3)$, and we already know $\phi^*(3, n, K_r) \geq 3\ex(n, K_r)$. Consequently, we must have $e(G_1) + e(G_2) \geq 2\ex(n, K_r)$. Since $G_1, G_2, G_3$ are induced and $e(G_1) + e(G_2) + e(G_3) \geq 3\ex(n, K_r)$, it suffices to show that $G_1 = G_2 = T_{r - 1}(n)$. In particular, we will use Lemma \ref{lem:optimize-con} to show that $G_1, G_2$ is an extremal configuration without containing a double $K_r$. 
+
+Let $t = |V(G_1 \cap G_2)|$. By Turán's Theorem,
+\[
+  \ex(t, K_{r}) - \ex(t - 1, K_{r}) = e(T_{r - 1}(t)) - e(T_{r - 1}(t - 1)) = t - \left\lceil \frac{t}{r - 1} \right\rceil.
+\]
+It immediately follows that
+\begin{equation}
+  \con(n, t, K_r) - \con(n, t - 1, K_r) = - t + 1 + 2[\ex(t, K_r) - \ex(t - 1, K_r)] = t + 1 - 2\left\lceil \frac{t}{r - 1} \right\rceil. \label{eq:con1}
+\end{equation}
+For $r \geq 4$, $\con(n, t, K_r)$ is strictly increasing on $t$, so by Lemma \ref{lem:optimize-con}, 
+\[
+  \phi^*(2, n, K_r) = \con(n, n, K_r) = 2\ex(n, K_r) = e(G_1) + e(G_2)
+\]
+and $G_1 = G_2 = T_{r - 1}(n)$, as desired. 
+
+Now suppose $r = 3$. Equation \eqref{eq:con1} shows that $\con(n, t, K_r)$ is non-decreasing on $t$ and $\con(n, t, K_r) > \con(n, t, K_r)$ for even $t$. By Lemma \ref{lem:optimize-con}, we now have 
+\[
+  \phi^*(2, n, K_r) = \max[\con(n, n, K_r), \con(n, n - 1, K_r)] = 2\ex(n, K_r) = e(G_1) + e(G_2),
+\]
+and either $G_1 = G_2 = T_{r - 1}(n)$, or $G_2 = T_{r - 1}(n - 1)$ and $G_1 = G_2 + K_1$. If the latter case is true, then $e(G_3) \geq \ex(n, F) > e(G_2)$, and this contradiction completes the proof. \qed
+
+\subsection{Proof of Theorem \ref{thm:inducedF}}
+
+If $F$ is a graph of chromatic number $r + 1 \geq 3$, then Theorem \ref{thm:ess} shows 
+$\ex(n,F)= (1 + o(1))\ex(n,K_{r+1})$ as $n \rightarrow \infty$. In this section, we prove Theorem \ref{thm:inducedF} following the same line of reasoning as in the proof of Theorem \ref{thm:complete}.
+
+\begin{proof}[Proof of Theorem \ref{thm:inducedF}]
+  By Lemma \ref{lem:induce-reduce}, it suffices to prove the theorem for $m = 3$. Let $G_1, G_2, G_3$ be induced double $F$-free graphs, such that $e(G_1) + e(G_2) + e(G_3) = \phi^*(3, n, F)$. We may assume $e(G_1) \geq e(G_2) \geq e(G_3)$, and we already know $\phi^*(3, n, F) \geq 3\ex(n, F)$. Consequently, we must have $e(G_1) + e(G_2) \geq 2\ex(n, F)$. Since $G_1, G_2, G_3$ are induced and $e(G_1) + e(G_2) + e(G_3) \geq 3\ex(n, F)$, it suffices to show that $G_1 = G_2$ are $n$-vertex $F$-free extremal graphs. In particular, we will use Lemma \ref{lem:optimize-con} to show that $G_1, G_2$ is an extremal configuration without containing a double $F$.
+  
+  Let $t = |V(G_1 \cap G_2)|$. If $t < \sqrt{n}$, then
+  \[
+    2\ex(n, F) \geq 2e(T_{r - 1}(n)) \geq 2\left\lfloor\frac{n^2}{4}\right\rfloor \geq \binom{n}{2} + \binom{\sqrt{n}}{2} > \con(n, t, F).
+  \]
+  Thus $t \geq \sqrt{n}$. But then for large enough $t$, any extremal $t$-vertex $F$-free graph contains a spanning complete $(r - 1)$-partite subgraph $T_{r - 1}(t)$, so we may add $\ex(t - 1, F) - e(T_{r - 1}(t - 1))$ egdes to $T_{r - 1}(t)$ and still avoid $F$ as a subgraph. Hence for large enough $t$, we have $\ex(t, F) \geq \ex(t - 1, F) - e(T_{r - 1}(t - 1)) + e(T_{r - 1}(t))$, and so
+  \[
+    \ex(t, F) - \ex(t - 1, F) \geq e(T_{r - 1}(t)) - e(T_{r - 1}(t - 1)) \geq t - \left\lceil \frac{t}{r - 1} \right\rceil.
+  \]
+  It immediately follows that
+  \begin{equation}
+    \con(n, t, F) - \con(n, t - 1, F) = - t + 1 + 2[\ex(t, F) - \ex(t - 1, F)] \geq t + 1 - 2\left\lceil \frac{t}{r - 1} \right\rceil. \label{eq:con}
+  \end{equation}
+  For $r \geq 4$, $\con(n, t, F)$ is strictly increasing on $t$, so by Lemma \ref{lem:optimize-con}, 
+  \[
+    \phi^*(2, n, F) = \con(n, n, F) = 2\ex(n, F) = e(G_1) + e(G_2),
+  \] 
+  and $G_1 = G_2$ are $n$-vertex $F$-free extremal graphs, as desired. 
+  
+  Now suppose $r = 3$. Equation \eqref{eq:con} shows that $\con(n, t, F)$ is strictly increasing for even $t$ and $\con(n, t, F) \geq \con(n, t - 1, F)$ for odd $t$. By Lemma \ref{lem:optimize-con}, we now have 
+  \[
+    \phi^*(2, n, F) = \max[\con(n, n, F), \con(n, n - 1, F)] = 2\ex(n, F) = e(G_1) + e(G_2),
+  \]
+  and either $G_1 = G_2$ are $n$-vertex extremal $F$-free graphs, or $G_2$ is an $(n - 1)$-vertex extremal $F$-free graph and $G_1 = G_2 + K_1$. If the latter case is true, then $e(G_3) \geq \ex(n, F) > e(G_2)$, and this contradiction completes the proof.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{thm:inducedP}}
+
+We need to show that $\phi(n,n,P) = \Omega(n^{5/2})$ and $\phi^*(n,n,P) = o(n^{5/2})$, as $n \to \infty$.
+
+\begin{claim}\label{claim:phi-lower}
+  For $\sqrt{n} < m \leq n$, 
+  \[
+    \phi(n, n, P) = (1/2 + o(1))mn^{3/2},
+  \]
+  as $n \to \infty$.
+\end{claim}
+
+We first show that $\phi(m, n, P) \leq (mn^{3/2} + n^2)/2$. For each vertex $u \in [n]$, define $H_u$ as the $m \times n$ bipartite graph with edge set $E(H_u) \coloneq \{\{v, i\} : \{u, v\} \in E(G_i)\}$. If $H_u$ contains a quadrilateral $\{v, i\}, \{v, j\}, \{w, i\}, \{w, j\}$, then $\{u, v\}, \{u, w\}$ form a double $P$ in $G_i \cap G_j$, contradiction. Thus we conclude that $H_u$ is quadrilateral-free, and therefore $e(H_u) \leq m\sqrt{n} + n$, by the K\H{o}vari-S\'{o}s-Tur\'{a}n Theorem~\cite{KovariSosTuran1954}. It now follows that
+\[
+  \sum_{i = 1}^m e(G_i) = \frac{1}{2}\sum_{u \in V(G)} e(H_u) \leq \frac{1}{2}(mn^{3/2} + n^2).
+\]
+
+We now show the upperbound is tight asymptotically by giving a finite projective plane construction. Suppose $G_1, G_2, \ldots, G_n$ are graphs on $[n]$ containing no double $P$ and $\sum_{i = 1}^n e(G_i) \geq (1/2 + o(1))n^{5/2}$, with $e(G_1) \geq e(G_2) \geq \cdots \geq e(G_n)$. Then $G_1, G_2, \ldots, G_m$ are graphs with no double $P$ and $\sum_{i = 1}^m e(G_i) \geq (1/2 + o(1))mn^{3/2}$. Hence, it suffices to prove the case for $m = n$.
+
+Consider a finite projective plane with $n$ points and $n$ lines, with prime $q$ chosen so that $n = (1 + o(1))(q^2 + q + 1)$ as $q \to \infty$. Let $S_1, \ldots, S_n \subseteq [n]$ be the $n$ lines of the projective plane. Note that each line $S_i$ contains $q + 1$ points, and the intersection of any two distinct lines $S_i, S_j$ contains $|S_i \cap S_j| = 1$ point. 
+
+Define $G_1, \ldots, G_n$ to be graphs on $[n]$, each with edge set
+\[
+  E(G_i) \coloneq \{\{j, k\} \subseteq [n] : j \neq k, \, j + k \in S_i \mod n\}.
+\]
+Note that the intersection of distinct $G_i$, $G_j$ is $P$ free: since $|S_i \cap S_j| = 1$, if $\{a, b\}, \{a, c\} \in E(G_i) \cap E(G_j)$, then $a + b = a + c$ so $b = c$. 
+
+We now count the number of edges in $G_1, \ldots, G_n$. Since $|S_i| = q + 1$, for each point $j \in [n]$, there are $q + 1$ choices for $k \in [n]$ such that $j + k \in S_i$. But then we have to avoid counting the same edge twice and loops, so the number of edges in $G_i$ is
+\[
+  e(G_i) = \frac{n(q + 1) - \#\text{loops counted for } G_i}{2}.
+\]
+If $j \in [n]$ is even, then $k = j/2$ is the unique number in $[n]$ such that $k + k = j \mod n$. If $j \in [n]$ is odd, then $k = (n + j)/2$ is the unique number in $[n]$ such that $k + k = j \mod n$, as $n$ is even. Hence, for each $j \in S_i$, there exists a unique $k \in [n]$ such that $k + k = j \mod n$, and thus
+\[
+  \#\text{loops counted for } G_i = |S_i| = q + 1.
+\]
+Since $q + 1 = (1 + o(1))n^{1/2}$, the number of edges in $G_1, \ldots, G_n$ is
+\[
+  \sum_{i = 1}^n e(G_i) = n \cdot \frac{n(q + 1) - (q + 1)}{2} = \left(\frac{1}{2} + o(1)\right)n^{5/2},
+\]
+as $n \to \infty$. This proves the first claim.
+
+\begin{claim}
+  $\phi^*(n, n, P) = o(n^{5/2})$, as $n \to \infty$.
+\end{claim}
+
+Let $G_1, G_2, \dots, G_n$ be induced and double $P$-free and let $\epsilon > 0$. Let $d_i(v)$ be the degree of vertex $v$ in the graph $G_i$. Let $I$ be the set of pairs $(i,v)$ such that $d_i(v) \geq \sqrt{n}/\epsilon + 1$. Since $G_1, G_2 ,\dots, G_n$ do not contain a double $P$, 
+\[ 
+  \sum_{(i,v) \in I} {d_i(v) \choose 2} \leq n^3.
+\]
+The maximum possible value of $\sum_{(i,v) \in I} d_i(v)$ subject to this constraint is when $d_i(v) = \sqrt{n}/\epsilon + 1$ for all $(i,v)$, in which case $|I| \leq 2\epsilon^2n^2$ and so
+\[ 
+  \sum_{(i,v) \in I} d_i(v) \leq (2\epsilon^2 n^2) \cdot \left(\frac{\sqrt{n}}{\epsilon} + 1\right) = 3\epsilon n^{5/2}
+\]
+for large enough $n$. Remove all edges of $G_i$ on vertex $v$ such that $(i,v) \in I$. The total number of edges removed is at most $3\epsilon n^{5/2}$. Let $G_1', G_2', \dots, G_n'$ be the remaining subgraphs of $G_1, G_2, \dots, G_n$. If $e(G_i') \leq \epsilon n^{3/2}$, then remove all edges of $G_i'$. The number of edges removed in this process is at most $\epsilon n^{5/2}$. The remaining graphs $G_1'', G_2'', \dots, G_m''$ have each at least $\epsilon n^{3/2}$ edges and maximum degree at most $\sqrt{n}/\epsilon$. In particular, each $G_i''$ contains a matching $M_i$ of size at least $e(G_i'')/2\Delta(G_i'') = \epsilon^2 n/2$. If $m \leq \epsilon n$, then 
+\[ 
+  \sum_{i = 1}^n e(G_i) \leq 4\epsilon n^{5/2} + \sum_{i = 1}^m e(G_i'') \leq 4\epsilon n^{5/2} + \phi(m, n, P) \leq 5\epsilon n^{5/2}
+\]
+by Claim \ref{claim:phi-lower}. If $m > \epsilon n$, then we apply Szemer\'{e}di's Regularity Lemma to find, for some $\delta > 0$ depending only on $\epsilon$, a matching $M_1$ in $G_1''$ such that for some pair of set $X, Y \subseteq V(M_1)$ of size at least $\delta n$ each, there is a set $E$ of at least $\delta^3 n^2$ edges $\{x, y\}$ of $G_1'' \cup G_2'' \cup \dots \cup G_m''$ such that $x \in X$ and $y \in Y$. Since $G_1''$ is induced, $E \subseteq E(G_1)$. In particular, there are at least $\delta^5 n^3/4$ copies of $P$ in $G_1$. We can repeat the argument in the remaining graphs $G_i'' : i \in [2,m]$ to get say $M_2$ in $G_2''$ as above, which gives $\delta^5 n^3/4$ copies of $P$ in $G_2$. If we do this $4\delta^{-5}$ times, then we have found $n^3$ copies of $P$ in the first $4\delta^{-5}$ graphs, and two of them have the same edge-set. We conclude $\sum_{i = 1}^n e(G_i) \leq 5\epsilon n^{5/2}$ if $n$ is large enough. Since $\epsilon$ is arbitrary, this completes the proof.  \qed
