@@ -1,9 +1,8 @@
 .DS_Store
 *.gz
-/sage
 
-/cv
+/UCSD/sage
+/UCSD/sop
+/UCSD/CSE95
 
-/sop
-
-/CSE95
+/optiver

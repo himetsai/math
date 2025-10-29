@@ -1,0 +1,238 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#1}
+\newcommand{\hmwkDueDate}{October 28, 2025}
+\newcommand{\hmwkClass}{C8.3 Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor A. Scott}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Write down all antichains contained in $\mathcal{P}(1)$ and $\mathcal{P}(2)$. How many different antichains are there in $\mathcal{P}(3)$?
+
+  \begin{proof}
+    The antichains in $\mathcal{P}(1)$ are $\{\emptyset\}$ and $\{1\}$. The antichains in $\mathcal{P}(2)$ are $\{\emptyset\}$, $\{1\}$, $\{2\}$, $\{1, 2\}$, and $\{12\}$. There are 19 antichains in $\mathcal{P}(3)$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item Look up Stirling's Formula. Use it to find an asymptotic estimate for $\binom{n}{n/2}$ of the form $(1+o(1))f(n)$ when $n$ is even.
+    
+    \begin{proof}
+      By Stirling's Formula,
+      \[
+        \binom{n}{n/2} = \frac{n!}{(n/2)!(n/2)!} = \frac{(1 + o(1))\sqrt{2\pi n}(n/e)^n}{(1 + o(1))\pi n(n/2e)^{n}} = (1 + o(1))2^n\sqrt{\frac{2}{\pi n}}.
+      \]
+    \end{proof}
+    
+    \item Now do the same for $\binom{n}{pn}$ where $p \in (0, 1)$ is a constant and $pn$ is an integer. Write your answer in terms of the binary entropy function
+    \[
+    H(p) = -p \log p - (1 - p) \log(1 - p)
+    \]
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  Let $k \le n/2$, and suppose that $\mathcal{F}$ is an antichain in $\mathcal{P}[n]$ such that every $A \in \mathcal{F}$ has $|A| \le k$. Prove that $|\mathcal{F}| \le \binom{n}{k}$.
+
+  \begin{proof}
+    Let $\mathcal{P}_k[n]$ be the set of all subsets of $[n]$ of size $k \leq n$. For $1 \leq k \leq n/2$, consider the bipartite subgraph $G_k$ of the discrete cube $Q_n$ induced by $[n]^{(k - 1)} \sqcup [n]^{(k)}$. Note that there is edge between $A \in [n]^{(k - 1)}$ and $B \in [n]^{(k)}$ if and only if $A \subseteq B$. 
+    
+    We now verify the conditions of Hall's Theorem to show that there is a matching saturating $[n]^{(k - 1)}$. Let $S \subseteq [n]^{(k - 1)}$ and let $T = \Gamma(S)$. Notice that each $A \in S$ has $n - k + 1$ neighbors in $T$, whereas each $B \in T$ has $k - 1$ neighbors in $[n]^{(k - 1)}$. But then 
+    \[
+    |S| \cdot (n - k + 1) = e(S, T) \leq |T| \cdot k.
+    \]
+    Since $k \leq n/2$, we have $|S| \leq |T| \cdot k/(n - k + 1) \leq |T|$. Hall's Theorem now furnishes a matching in $G_k$ saturating $[n]^{(k - 1)}$, for any $1\leq k \leq n/2$. By connecting the matchings between $G_k$ for $1 \leq k \leq n/2$, we get $\binom{n}{k}$ chains that partition $\mathcal{P}_k[n]$. It now follows that $\mathcal{F}$ intersects with any of these chains in at most one element, and so $|\mathcal{F}| \leq \binom{n}{k}$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $(P, \le)$ be a poset. Suppose that every chain in $P$ has at most $k$ elements. Prove that $P$ can be written as the union of $k$ antichains.
+
+  \begin{proof}
+    For $x \in P$, define $h(x)$ as the length of the longest chain containing $x$ as the maximal element. Notice that if $x > y$ then $h(x) > h(y)$, as we may append $x$ to the end of any chain containing $y$. This implies $x$ and $y$ are incomparable if $h(x) = h(y)$. But then for any $x \in P$ we have $h(x) \leq k$. Thus for $1 \leq n \leq k$, $A_n = \{x \in P \mid h(x) = n\}$ is an antichain. The result now follows. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose $\mathcal{F} \subset \mathcal{P}[n]$ is a set system containing no chain with $k+1$ sets.
+  
+  \begin{enumerate}[(a)]
+    \item Prove that $\sum_{i=0}^{n} \frac{|\mathcal{F}_i|}{\binom{n}{i}} \le k$, where $\mathcal{F}_i = \mathcal{F} \cap [n]^{(i)}$ for each $i$.
+
+    \begin{proof}
+      Since every chain in $\mathcal{F}$ has at most $k$ elements, the proof of Problem 4 furnishes a partition of $\mathcal{F}$ into $k$ antichains $A_1, \ldots, A_k$. By the LYM inequality, for $1 \leq j \leq k$ we have
+      \[
+        \sum_{i = 0}^n \frac{|A_j \cap [n]^{(i)}|}{\binom{n}{i}} \leq 1. \tag{1}
+      \]
+      But then
+      \[
+        \sum_{i=0}^{n} \frac{|\mathcal{F}_i|}{\binom{n}{i}} = \sum_{i=0}^{n} \sum_{j = 1}^k \frac{|A_j \cap [n]^{(i)}|}{\binom{n}{i}} = \sum_{j = 1}^k \sum_{i=0}^{n}  \frac{|A_j \cap [n]^{(i)}|}{\binom{n}{i}} \leq k. \tag{2}
+      \]
+    \end{proof}
+
+    \item What is the maximum possible size of such a system?
+
+    \begin{proof}
+      By the LYM inequality, equality holds in (1) if and only if $A_j = [n]^{(i)}$ for some $i$. Thus, equality can be achieved when $\mathcal{F} = \bigsqcup_{i \in I} [n]^{(i)}$ for some $I \subseteq [n]$ of size $k$.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathcal{A}$ be an antichain in $\mathcal{P}[n]$ that is not of the form $[n]^{(r)}$. Must there exist a maximal chain disjoint from $\mathcal{A}$?
+
+  \begin{proof}
+    For $A \in \mathcal{A}$, the fraction of chains in $\mathcal{P}[n]$ that contain $A$ is
+    \[
+      \frac{|A|!(n - |A|)!}{n!} = \frac{1}{\binom{n}{|A|}}.
+    \]
+    Since each chain intersects with at most one element of $\mathcal{A}$, the fraction of chains that intersect with $\mathcal{A}$ is
+    \[
+      \sum_{A \in \mathcal{A}} \frac{1}{\binom{n}{|A|}} = \sum_{i = 0}^n \sum_{A \in \mathcal{A} \cap [n]^{(i)}} \frac{1}{\binom{n}{i}} = \sum_{i = 0}^n \frac{|\mathcal{A} \cap [n]^{(i)}|}{\binom{n}{i}}.
+    \]
+    But then $\mathcal{A}$ is not of the form $[n]^{(r)}$, so by the LYM inequality, the above sum is strictly less than 1. This completes the proof.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $(P, \le)$ be an infinite poset. Must $P$ contain an infinite chain or antichain?
+
+  \begin{proof}
+    Suppose $P$ contains no infinite antichain and no infinite chain. Define $h(x)$ as the length of the longest chain containing $x$ as the maximal element. Notice that if $x > y$ then $h(x) > h(y)$, as we may append $x$ to the end of any chain containing $y$. This implies $x$ and $y$ are incomparable if $h(x) = h(y)$. Thus $A_n = \{x \in P \mid h(x) = n\}$ is an antichain for $n \in \N$ and $P = \bigsqcup_{n \in \N} A_n$. Since each $A_n$ is finite, there must be infinitely many $n$ such that $A_n$ is non-empty. But then $h(x)$ is unbounded on $P$, so there must exists an infinite chain in $P$, contradiction.
+  \end{proof}
+\end{homeworkProblem}
+
+
+\end{document}
