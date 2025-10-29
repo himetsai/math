@@ -1,6 +1,6 @@
-# Math Archive (2023-Present)
+# Hime Math (2023-Present)
 
-An personal archive of all the homework, and thesis work in mathematics and related fields since 2023.
+A personal archive of all the work I've done in math since 2023.
 
 ## 📚 Course Archive
 
