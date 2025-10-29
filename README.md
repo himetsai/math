@@ -17,7 +17,6 @@ A personal archive of all the work I've done in math since 2023.
 | [Probability on Graphs and Lattices](Oxford/Probability_on_Graphs_and_Lattices/) | Christina Goldschmidt, Joost Jorritsma |
 | [Theories of Deep Learning](Oxford/Theories_of_Deep_Learning/)                   | Jared Tanner                           |
 
----
 
 ### UCSD
 
