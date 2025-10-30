@@ -1,4 +1,4 @@
-# Hime Math (2023-Present)
+# Math Archive (2023-Present)
 
 A personal archive of all the work I've done in math since 2023.
 

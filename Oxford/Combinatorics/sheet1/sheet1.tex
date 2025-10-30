@@ -125,7 +125,7 @@
   Write down all antichains contained in $\mathcal{P}(1)$ and $\mathcal{P}(2)$. How many different antichains are there in $\mathcal{P}(3)$?
 
   \begin{proof}
-    The antichains in $\mathcal{P}(1)$ are $\{\emptyset\}$ and $\{1\}$. The antichains in $\mathcal{P}(2)$ are $\{\emptyset\}$, $\{1\}$, $\{2\}$, $\{1, 2\}$, and $\{12\}$. There are 19 antichains in $\mathcal{P}(3)$.
+    The antichains in $\mathcal{P}(1)$ are $\{\emptyset\}$ and $\{1\}$. The antichains in $\mathcal{P}(2)$ are $\{\emptyset\}$, $\{1\}$, $\{2\}$, $\{1, 2\}$, and $\{12\}$. There are 20 antichains in $\mathcal{P}(3)$.
   \end{proof}
 \end{homeworkProblem}
 
@@ -146,6 +146,18 @@
     \[
     H(p) = -p \log p - (1 - p) \log(1 - p)
     \]
+    \begin{proof}
+      By Stirling's Formula,
+      \begin{align*}
+        \binom{n}{pn} &= \frac{n!}{(pn)!((1 - p)n)!} \\
+        &= \frac{(1 + o(1))\sqrt{2\pi n}(n/e)^n}{(1 + o(1))\sqrt{2\pi pn}(pn/e)^{pn}\sqrt{2\pi (1 - p)n}((1 - p)n/e)^{(1 - p)n}} \\
+        &= (1 + o(1))\frac{1}{\sqrt{2\pi p(1 - p)n}} \cdot \frac{(n/e)^n}{(pn/e)^{pn}(n(1 - p)/e)^{(1 - p)n}} \\
+        &= (1 + o(1))\frac{1}{\sqrt{2\pi p(1 - p)n}} \cdot \frac{n^n}{(pn)^{pn}(n(1 - p))^{(1 - p)n}} \\
+        &= (1 + o(1))\frac{1}{\sqrt{2\pi p(1 - p)n}} \cdot \frac{2^{n\log n}}{2^{pn\log(pn)}2^{(1 - p)n \log(n(1 - p))}} \\
+        &= (1 + o(1))\frac{2^{n\log n - pn(\log n + \log p) - (1 - p)n(\log n + \log(1 - p))}}{\sqrt{2\pi p(1 - p)n}} \\
+        &= (1 + o(1))\frac{2^{nH(p)}}{\sqrt{2\pi p(1 - p)n}}.
+      \end{align*}
+    \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
 
