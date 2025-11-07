@@ -224,11 +224,11 @@
   Let $\mathcal{A}$ be an antichain in $\mathcal{P}[n]$ that is not of the form $[n]^{(r)}$. Must there exist a maximal chain disjoint from $\mathcal{A}$?
 
   \begin{proof}
-    For $A \in \mathcal{A}$, the fraction of chains in $\mathcal{P}[n]$ that contain $A$ is
+    For $A \in \mathcal{A}$, the fraction of maximal chains in $\mathcal{P}[n]$ that contain $A$ is
     \[
       \frac{|A|!(n - |A|)!}{n!} = \frac{1}{\binom{n}{|A|}}.
     \]
-    Since each chain intersects with at most one element of $\mathcal{A}$, the fraction of chains that intersect with $\mathcal{A}$ is
+    Since each maximal chain intersects with at most one element of $\mathcal{A}$, the fraction of maximal chains that intersect with $\mathcal{A}$ is
     \[
       \sum_{A \in \mathcal{A}} \frac{1}{\binom{n}{|A|}} = \sum_{i = 0}^n \sum_{A \in \mathcal{A} \cap [n]^{(i)}} \frac{1}{\binom{n}{i}} = \sum_{i = 0}^n \frac{|\mathcal{A} \cap [n]^{(i)}|}{\binom{n}{i}}.
     \]

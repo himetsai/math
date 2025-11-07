@@ -1,0 +1,390 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{bbm}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#2}
+\newcommand{\hmwkDueDate}{November 4, 2025}
+\newcommand{\hmwkClass}{C3.8 Analytic Number Theory}
+\newcommand{\hmwkClassInstructor}{Professor B. Green}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Evaluate the sum $\displaystyle \sum_{n=1}^{\infty} \frac{\mu(n)}{n^2}$.
+
+  \begin{proof}
+    By Proposition 3.1(ii),
+    \[
+      \sum_{n=1}^{\infty} \frac{\mu(n)}{n^2} = \frac{1}{\sum_{n = 1}^{\infty} n^{-2}} = \frac{6}{\pi^2}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Give a simple description of the function $\phi \star 1$.
+
+  \begin{proof}
+    Note that
+    \[
+      \phi \star 1 = \sum_{d \mid n} \phi(n/d).
+    \]
+    But then $\phi(n/d)$ is the number of $m \leq n$ such that $\gcd(m, n) = d$. Thus $\phi \star 1(n) = n$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  Establish the following Dirichlet series:
+  \begin{enumerate}[(i)]
+    \item $\displaystyle \sum_{n} \tau(n) n^{-s} = \zeta(s)^2 \text{ for } \operatorname{Re} s > 1;$
+    \begin{proof}
+      Note that
+      \[
+        1 \star 1 = \sum_{d \mid n} 1 = \tau(n).
+      \]
+      The result now follows from Proposition 3.1(i).
+    \end{proof}
+    \item $\displaystyle \sum_{n} \phi(n) n^{-s} = \frac{\zeta(s-1)}{\zeta(s)} \text{ for } \operatorname{Re} s > 2;$
+    \begin{proof}
+      Since
+      \[
+        \phi \star 1 = \sum_{d \mid n} \phi(n/d) = n,
+      \]
+      by Proposition 3.1(i) we have
+      \[
+        \zeta(s) \sum_{n} \phi(n) n^{-s} = \sum_{n} n \cdot n^{-s} = \zeta(s-1).
+      \]
+      The result now follows.
+    \end{proof}
+    \item $\displaystyle \sum_{n} \sigma(n) n^{-s} = \zeta(s)\zeta(s-1);$
+    \begin{proof}
+      By (ii), $\zeta(s - 1)$ is the Dirichlet series for $\phi \star 1 = n$. But then
+      \[
+        n \star 1 = \sum_{d \mid n} d = \sigma(n).
+      \]
+      The result now follows from Proposition 3.1(i).
+    \end{proof}
+    \item If $\lambda(n)$ is the Liouville function, that is to say the unique completely multiplicative function equal to $-1$ on the primes, then
+    \[
+      \sum_{n} \lambda(n) n^{-s} = \frac{\zeta(2s)}{\zeta(s)} \text{ for } \operatorname{Re} s > 1.
+    \]
+    \begin{proof}
+      Let $d \mid n$. Notice
+      \[
+        \lambda(d) + \frac{\lambda(n)}{\lambda(d)} = \frac{\lambda(d)^2 + \lambda(n)}{\lambda(d)} = \frac{1 + \lambda(n)}{\lambda(d)} = \begin{cases}
+          2/\lambda(d) & \text{if $n$ is a square number}  \\
+          0 & \text{otherwise}
+        \end{cases}
+      \]
+      Thus $\lambda \star 1(n) = 0$ if $n$ is not a square number. Suppose now $n$ is a square number. Then $n$ has an odd number of divisors $d$. That is if $n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$, then $|\alpha| = \alpha_1 + \cdots + \alpha_k$ is odd. But then $d = p_1^{\beta_1} p_2^{\beta_2} \cdots p_k^{\beta_k}$, $\lambda(d) = (-1)^{\sum_{i = 1}^k \beta_i}$. Thus
+      \[
+        \lambda \star 1(n) = \sum_{d \mid n} \lambda(d) = \sum_{0 \leq \beta_i \leq \alpha_i} (-1)^{\sum_{i = 1}^k \beta_i} = \sum_{i = 1}^{|\alpha|} (-1)^{i} = 1.
+      \]
+      It now follows that
+      \[
+        \zeta(s) \sum_n \lambda(n) n^{-s} = \sum_{\substack{n = 1, \\ n = k^2}}^{\infty} n^{-s} = \sum_{n = 1}^{\infty} n^{-2s} = \zeta(2s).
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Obtain an asymptotic for $\displaystyle \sum_{n < X} \tau(n)$
+  
+  \begin{proof}
+    Note that
+    \[
+      \sum_{n < X} \tau(n) = \sum_{n < X} \sum_{ab = n} 1 = \sum_{ab < X} 1 = 2\sum_{n \leq \sqrt{X}} \lfloor X/n \rfloor - \mathbbm{1}_{X = k^2} \cdot (\sqrt{X})^2.
+    \]
+    Since
+    \[
+      \sum_{n \leq \sqrt{X}} \lfloor X/n \rfloor = (1 + o(1))X\sum_{n \leq \sqrt{X}} 1/n = (1 + o(1))\left(\frac{1}{2}\log X + \gamma\right)X,
+    \]
+    we have
+    \[
+      \sum_{n < X} \tau(n) = (1 + o(1))X\log X.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  True or false? There is a constant $C$ such that $\tau(n) \le \log^C n$ for all sufficiently large $n$. Justify your answer.
+
+  \begin{proof}
+    False. Suppose it is true and that $n$ is large. Consider the product of the first $k$ primes $n = p_1p_2 \cdots p_k$. 
+    \[
+      \tau(n) = (1 + 1)(1 + 1) \cdots (1 + 1) = 2^k. 
+    \]
+    But then by the Prime Number Theorem, $p_k \sim k \log k$. Thus
+    \[
+      \tau(n) = 2^k \leq \log^C n \leq \log^C p_k^k = (1 + o(1)) (k^2 \log k)^C,
+    \]
+    contradiction as $\lim_{k \to \infty} \frac{2^k}{(k^2 \log k)^C} = \infty$ for fixed $C$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Show that
+  \[
+    \sum_{n} \Lambda(n) \left\lfloor \frac{Y}{n} \right\rfloor = \sum_{n \le Y} \log n.
+  \]
+  By considering $Y = X$ and $Y = X/2$, use this to prove that
+  \[
+    \sum_{X/2 < n \le X} \Lambda(n) \ll X.
+  \]
+
+  \begin{proof}
+    By Legendre's formula, the exponent of the largest power of prime $p$ that divides $n!$ is
+    \[
+      \nu_p(n!) = \sum_{i = 1}^{\infty} \left\lfloor \frac{n}{p^i} \right\rfloor.
+    \]
+    Thus
+    \[
+      \sum_{n} \Lambda(n) \left\lfloor \frac{Y}{n} \right\rfloor = \sum_{p \leq Y} \nu_p(Y!) \log p = \log \prod_{p \leq Y} p^{\nu_p(Y!)} = \log Y! = \sum_{n \le Y} \log n.
+    \]
+    Notice
+    \begin{align*}
+      \sum_{n} \Lambda(n) \left\lfloor \frac{X}{n} \right\rfloor - 2\sum_{n} \Lambda(n) \left\lfloor \frac{X/2}{n} \right\rfloor
+      &= \left(\sum_{n \leq X/2} \Lambda(n) \left\lfloor \frac{X}{n} \right\rfloor + \sum_{X/2 < n \leq X} \Lambda(n) \left\lfloor \frac{X}{n} \right\rfloor\right) - 2\sum_{n \leq X/2} \Lambda(n) \left\lfloor \frac{X/2}{n} \right\rfloor \\
+      &= \sum_{n \leq X/2} \Lambda(n) \left(\left\lfloor \frac{X}{n} \right\rfloor - 2\left\lfloor \frac{X/2}{n} \right\rfloor\right) + \sum_{X/2 < n \leq X} \Lambda(n) \left\lfloor \frac{X}{n} \right\rfloor \\
+      &\geq \sum_{X/2 < n \leq X} \Lambda(n),
+    \end{align*}
+    as $\left\lfloor \frac{X}{n} \right\rfloor - 2\left\lfloor \frac{X/2}{n} \right\rfloor \geq 0$ for $n > X/2$ and $\left\lfloor \frac{X}{n} \right\rfloor = 1$ for $X/2 < n \leq X$. But then on the LHS, we have
+    \[
+      \sum_{n} \Lambda(n) \left\lfloor \frac{X}{n} \right\rfloor - 2\sum_{n} \Lambda(n) \left\lfloor \frac{X/2}{n} \right\rfloor = \log X! - 2\log (X/2)! = \log \frac{X!}{(X/2)!(X/2)!}.
+    \]
+    By the Stirling's Formula,
+    \[
+      \frac{X!}{(X/2)!(X/2)!} = (1 + o(1))2^X\sqrt{\frac{2}{\pi X}}.
+    \]
+    Thus
+    \[
+      \log \frac{X!}{(X/2)!(X/2)!} = O(X).
+    \]
+    The result now follows from combining all of the above.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Write $L(X) := \sum_{n \le X} \lambda(n)$ and $M(X) := \sum_{n \le X} \mu(n)$. Establish the relations
+  \[
+    L(X) = \sum_{d \le \sqrt{X}} M\!\left(\frac{X}{d^2}\right)
+    \quad \text{and} \quad
+    M(X) = \sum_{d \le \sqrt{X}} \mu(d) L\!\left(\frac{X}{d^2}\right),
+  \]
+  and hence conclude that the statements $L(X) = o(X)$ and $M(X) = o(X)$ are equivalent.
+
+  \begin{proof}
+    By Problem 3(iv), 
+    \[
+      \lambda \star 1(n) = \begin{cases} 
+        1 & \text{if $n$ is a square number} \\ 0 & \text{otherwise} 
+      \end{cases}.
+    \]
+    Thus let $\operatorname{sq}(n)$ denote the indicator function of the set of square numbers. The Möbius inversion formula then yields
+    \[
+      \lambda(n) = \mu \star \operatorname{sq}(n) = \sum_{d \mid n} \mu(n/d) \operatorname{sq}(d).
+    \]
+    Hence,
+    \[
+      L(X) = \sum_{n \leq X} \sum_{d \mid n} \mu(n/d) \operatorname{sq}(d) = \sum_{d \leq X} \operatorname{sq}(d) \sum_{n \leq X/d} \mu(n) = \sum_{d \leq \sqrt{X}} \sum_{n \leq X/d^2} \mu(n) = \sum_{d \leq \sqrt{X}} M\left(\frac{X}{d^2}\right).
+    \]
+    But then
+    \[
+      \sum_{d \le \sqrt{X}} \mu(d) L\!\left(\frac{X}{d^2}\right) = \sum_{d^2k \leq X} \mu(d) \lambda(k) = \sum_{n \leq X} \sum_{d^2 \mid n} \mu(d) \lambda\left(\frac{n}{d^2}\right).
+    \]
+    Note that
+    \begin{align*}
+      \sum_{d^2 \mid n} \mu(d) \lambda\left(\frac{n}{d^2}\right) 
+      &= \sum_{d^2 \mid n} \mu(d) \sum_{j \mid n/d^2} \mu(n/jd^2) \operatorname{sq}(j) \\
+      &= \sum_{d^2 \mid n} \mu(d) \sum_{(jd)^2 \mid n} \mu(n/(jd)^2) \\
+      &= \sum_{m^2 \mid n} \mu(n/m^2) \sum_{d \mid m} \mu(d) \\
+      &= \sum_{m^2 \mid n} \mu(n/m^2) \cdot \delta(m) = \mu(n).
+    \end{align*}
+    Thus,
+    \[
+      M(X) = \sum_{d \le \sqrt{X}} \mu(d) L\!\left(\frac{X}{d^2}\right).
+    \]
+    Suppose $L(X) = o(X)$ and that $M(X) = \Omega(X)$. Then
+    \[
+      L(X) = \sum_{d \leq \sqrt{X}} M\!\left(\frac{X}{d^2}\right) = \Omega\left(X\sum_{d \leq \sqrt{X}} \frac{1}{d^2}\right) = \Omega(X),
+    \] 
+    contradiction. On the other hand, suppose $M(X) = o(X)$. Fix $\epsilon > 0$. Since $|M(Y)/Y| \leq 1$, we may pick $N$ large enough such that
+    \[
+      \left|\frac{1}{X}\sum_{N \leq d \le \sqrt{X}} M\!\left(\frac{X}{d^2}\right)\right| = \left|\sum_{N \leq d \le \sqrt{X}} \frac{1}{d^2} \cdot \frac{M\!\left(\frac{X}{d^2}\right)}{X/d^2}\right| \leq \left| \sum_{d \geq N} \frac{1}{d^2} \right| < \epsilon/2.
+    \]
+    We also have
+    \[
+      \lim_{X \to \infty}\frac{1}{X}\sum_{d \le N} M\!\left(\frac{X}{d^2}\right) = \lim_{X \to \infty} \sum_{d \le N} \frac{1}{d^2} \cdot \frac{M\!\left(\frac{X}{d^2}\right)}{X/d^2} = 0 
+    \]
+    But then
+    \[
+      \frac{L(X)}{X} = \frac{1}{X}\sum_{d \le N} M\!\left(\frac{X}{d^2}\right) + \frac{1}{X}\sum_{N \leq d \le \sqrt{X}} M\!\left(\frac{X}{d^2}\right) < \epsilon,
+    \]
+    as $X \to \infty$. Since $\epsilon$ was arbitrary, we have $L(X) = o(X)$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Give an asymptotic for $\displaystyle \sum_{n \le X} \phi(n)$.  
+  \textit{(Hint. Using the answer to Question 2, or otherwise, first establish that the expression to be estimated is $\displaystyle \sum_{d \le X} \mu(d) \sum_{m \le X/d} m$.)}
+
+  \begin{proof}
+    Since $\phi \star 1 = n$, the Mobius inversion formula yields
+    \[
+      \phi(n) = n \star \mu(n) = \sum_{d \mid n} \mu(d) \cdot \frac{n}{d}.
+    \]
+    Thus we have
+    \[
+      \sum_{n \leq X} \phi(n) = \sum_{n \leq X} \sum_{d \mid n} \mu(d) \cdot \frac{n}{d}.
+    \]
+    Notice that for a fixed $d \leq X$, we will sum up $n/d$ over all $n \leq X$ such that $d \mid n$, and times it by $\mu(d)$. In other words, we will sum up all integers $m \leq X/d$ and multiply it by $\mu(d)$. Thus the double sum can be written as
+    \begin{align*}
+      \sum_{n \leq X} \phi(n) 
+      &= \sum_{d \leq X} \mu(d) \sum_{m \leq X/d} m \\
+      &= \sum_{d \leq X} \mu(d) \cdot \frac{(1 + \lfloor X/d \rfloor)\lfloor X/d \rfloor}{2} \\
+      &= \frac{1}{2}\sum_{d \leq X} (1 + o(1))\mu(d) \cdot (X/d) + \frac{1}{2}\sum_{d \leq X} (1 + o(1))\mu(d) \cdot (X/d)^2 \\
+      &= \frac{X}{2}\sum_{d \leq X} (1 + o(1)) \frac{\mu(d)}{d} + \frac{X^2}{2}\sum_{d \leq X} (1 + o(1)) \frac{\mu(d)}{d^2}.
+    \end{align*}
+    By Problem 1, $\displaystyle \sum_{d \leq X} (1 + o(1))\frac{\mu(d)}{d^2} \to \frac{6}{\pi^2}$ as $X \to \infty$. On the other hand,  
+    \[
+      \sum_{d \leq X} (1 + o(1)) \frac{\mu(d)}{d} \leq \sum_{d \leq X} (1 + o(1)) \frac{1}{d} = O(\log X).
+    \]
+    Thus we may conclude that
+    \[
+      \sum_{n \leq X} \phi(n) = \frac{3}{\pi^2}X^2 + O(X\log X).
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\end{document}
