@@ -1,0 +1,249 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#2}
+\newcommand{\hmwkDueDate}{November12, 2025}
+\newcommand{\hmwkClass}{C8.3 Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor A. Scott}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  What are the 50th, 51st and 52nd elements of $\mathbb{N}^{(3)}$ in the colex order? What about in lex?
+
+  \begin{proof}
+    Notice that are $\binom{k - 1}{2}$ elements in $\mathbb{N}^{(3)}$ with $k + 2$ as the largest number. Thus, there are
+    \[
+      \sum_{k = 1}^n \binom{k - 1}{2}
+    \]
+    elements $x \in \mathbb{N}^{(3)}$ such that $x \leq_{colex} (k, k + 1, k + 2)$. Note that
+    \[
+      \sum_{k = 1}^6 \binom{k - 1}{2} = 35, \quad \sum_{k = 1}^7 \binom{k - 1}{2} = 56.
+    \]
+    Thus the 50th, 51st and 52nd elements have $8$ as their largest number. Counting down from $(6, 7, 8)$ now gives us the 50th, 51st and 52nd elements in colex order as $(5, 6, 8)$, $(1, 7, 8)$ and $(2, 7, 8)$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathcal{F} \subset [10]^{(3)}$, and suppose $|\mathcal{F}| = 29$.
+    \begin{enumerate}[(a)]
+        \item What is the minimum possible size of $\partial \mathcal{F}$?
+        \begin{proof}
+          By Kruskal-Katona Theorem, the family $\mathcal{F} \subset [10]^{(3)}$ with the minimum possible shadow is the family consisting of the first $29$ elements in colex order, which is the family
+          \[
+            [7]^{(3)} \backslash \{765, 764, 763, 762, 761, 754\} = [6]^{(3)} \cup \{ab7 : ab \in [4]^{(2)}\} \cup \{753, 752, 751\}.
+          \]
+          The shadow of this family is 
+          \[
+            [6]^{(2)} \cup \{a7 : a \in [5]\},
+          \]
+          which has size $20$.
+        \end{proof}
+        \item Find a family that achieves this minimum.
+        \begin{proof}
+          See part (a).
+        \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose that $\mathcal{F} \subset [n]^{(r)}$, and let $\mathcal{A}$ denote the first $|\mathcal{F}|$ elements of $[n]^{(r)}$ in colex order. If $|\partial \mathcal{F}| = |\partial \mathcal{A}|$ must we have $\mathcal{F} = \mathcal{A}$ (possibly after relabelling elements)?
+
+  \begin{proof}
+    No. Consider the case $r = 2$, where $\mathcal{F} = \{13, 23, 14, 24\}$. Then $\mathcal{A} = \{13, 23, 14, 24\}$ and $|\partial \mathcal{F}| = |\partial \mathcal{A}| = 4$. But $\mathcal{F} \neq \mathcal{A}$ for any relabelling of elements.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  
+  The \textit{upper shadow} $\partial^+(\mathcal{F})$ of a set $\mathcal{F} \subset [n]^{(r)}$ is the set
+  \[
+      \partial^+(\mathcal{F}) := \{ A \in [n]^{(r+1)} : A \supset B \text{ for some } B \in \mathcal{F} \}.
+  \]
+  Give a version of the Kruskal-Katona Theorem for the upper shadow.
+
+  \begin{proof}
+    Let $\mathcal{F} \subseteq [n]^{(r)}$ and let $\mathcal{A}$ be the family consisting of the last $|\mathcal{F}|$ elements of $[n]^{(r)}$ in colex order. We will show that $|\partial^+ \mathcal{F}| \geq |\partial^+ \mathcal{A}|$.
+
+    For any family of subsets $\mathcal{S}$ of $[n]$, let $\mathcal{S}^C := \{[n] \backslash S : S \in \mathcal{S}\}$, and note that $|\mathcal{S}| = |\mathcal{S}^C|$. Since $\partial \mathcal{F}^C \subseteq [n]^{(n - r - 1)}$ consists of all the $(n - r - 1)$-element subsets of $[n]$ that are disjoint from $\mathcal{F}$, its complement are all the $(r + 1)$-element subsets that contains $\mathcal{F}$. In other words,
+    $\partial^+ \mathcal{F} = (\partial \mathcal{F}^C)^C$. Let $\mathcal{A}$ be the family consisting of the last $|\mathcal{F}|$ elements of $[n]^{(r)}$ in colex order. Then $\mathcal{A}^C$ is the first $|\mathcal{F}|$ elements of $[n]^{(n - r)}$. It now follows from Kruskal-Katona Theorem that
+    \[
+      |\partial^+ \mathcal{F}| = |(\partial \mathcal{F}^C)^C| = |\partial \mathcal{F}^C| \geq |\partial \mathcal{A}^C| = |(\partial^+ \mathcal{A}^C)^C| = |\partial^+ \mathcal{A}|.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Give a proof of Hall's Theorem using Dilworth's Theorem.
+
+  \begin{proof}
+    Let $G$ be a bipartite graph with parts $A$ and $B$ such that $|A| \leq |B|$. If there is a complete matching in $G$ from $A$ to $B$, then $\Gamma(S) \geq |S|$ for all $S \subseteq A$. 
+
+    Now suppose that $G$ satisfies the Hall's Condition. Define poset $(P, \leq)$, where $P = V(G)$ and $x \leq y$ if $x \in A$, $y \in B$, and $\{x, y\} \in E(G)$. Note that each chain has lengh at most 2. Suppose that there is an antichain $\mathcal{X}$ of size $|B| + 1$. Then $A \cap \mathcal{X}$ is nonempty. By the Hall's Condition,
+    \[
+      |B \cap \mathcal{X}| + \Gamma(A \cap \mathcal{X}) \geq |B \cap \mathcal{X}| + |A \cap \mathcal{X}| = |\mathcal{X}| = |B| + 1.
+    \]
+    But then $\Gamma(A \cap \mathcal{X}) \subseteq B$, so
+    \[
+      (B \cap \mathcal{X}) \cap \Gamma(A \cap \mathcal{X}) \neq \emptyset.
+    \]
+    This implies that there is an edge in $\mathcal{X}$, contradiction. Hence, $B$ is the maximum antichain in $P$. Dilworth's Theorem now furnishes a set $\mathcal{C}$ of $|B|$ chains that cover $P$, and note that each $b \in B$ is in exactly one chain in $\mathcal{C}$. Since $\mathcal{C}$ covers $A$, there is a chain $C_a = \{a, b\} \in \mathcal{C}$ for some $b \in B$. Then $\mathcal{M} = \bigcup_{a \in A} C_a$ is a set of disjoint edges that saturates $A$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove that in any sequence of $n^2 + 1$ real numbers there is an increasing subsequence of length $n + 1$ or a decreasing subsequence of length $n + 1$.
+
+  \begin{proof}
+    Let $x_1, x_2, \ldots, x_{n^2 + 1}$ be the sequence of distinct real numbers. Define a poset $(P, \leq)$ by letting $P$ be the set of numbers in the sequence and $x_i < x_j$ in the poset if $x_i < x_j$ and $i < j$. Suppose that there is no decreasing subsequence of length $n + 1$. Then the maximum antichain in $P$ has size at most $n$. By Dilworth's Theorem, $n$ chains are needed to cover $P$. But then there must be a chain of length $n + 1$, otherwise $n$ chains would not be enough to cover $n^2 + 1$ elements. The result now follows.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  We say that $\mathcal{A} \subset \mathcal{P}[n]$ is a \textit{downset} if, for every $A \in \mathcal{A}$, every subset of $A$ belongs to $\mathcal{A}$. Prove that if $\mathcal{A}$ is a downset then the average size of sets in $\mathcal{A}$ is at most $n/2$.
+
+  \begin{proof}
+    By proposition 10, $\mathcal{P}[n]$ may be partitioned into symmetric chains, which also gives a partition of $\mathcal{A}$ into chains. Let $\mathcal{C}$ be a symmetric chain that contains some element $A \in \mathcal{A}$. Since $\mathcal{A}$ is a downset, every element below $A$ in $\mathcal{C}$ is also in $\mathcal{A}$. Thus the average weight of $\mathcal{C}$ is does not increase when restricted to $\mathcal{A}$. But then the average weight of a symmetric chain is $n/2$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove that every intersecting family $\mathcal{F} \subset \mathcal{P}[n]$ is contained in an intersecting family of size $2^{n-1}$.
+
+  \begin{proof}
+    We proceed by induction on $n$. The base case is trivial. Suppose $n \geq 2$. Let $\mathcal{F}_{<n} = \mathcal{F} \cap {P}[n - 1]$ and $\mathcal{F}_{n} = \mathcal{F} \setminus {P}[n - 1]$. By induction, $\mathcal{F}_{<n}$ is contained in an intersecting family $\mathcal{S} \subset {P}[n - 1]$ of size $2^{n - 2}$. Note that any element of ${P}[n - 1] \setminus \mathcal{S}$ is disjoint from some element of $\mathcal{S}$. Consider the family $\mathcal{S}' = \{A \cup \{n\} : A \in \mathcal{S}\}$. By defnition $\mathcal{S}'$ intersects with any element of $\mathcal{S}$. Notice that we also have $\mathcal{F}_n \subseteq \mathcal{S}'$, otherwise there exists $A \cup \{n\} \in \mathcal{F}_n$ such that $A \notin \mathcal{S}$, which implies that $A \cup \{n\}$ is disjoint from some element of $\mathcal{S}$, contradiction. It now follows that $\mathcal{S} \cup \mathcal{S'}$ is a intersecting family of size $2^{n - 1}$ that contains $\mathcal{F}$.
+  \end{proof}
+\end{homeworkProblem}
+
+\end{document}

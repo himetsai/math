@@ -10,6 +10,7 @@
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
 \usepackage{enumerate}
+\usepackage{dsfont}
 
 \usetikzlibrary{automata,positioning}
 
@@ -213,7 +214,15 @@
     \item What is the maximum possible size of such a system?
 
     \begin{proof}
-      By the LYM inequality, equality holds in (1) if and only if $A_j = [n]^{(i)}$ for some $i$. Thus, equality can be achieved when $\mathcal{F} = \bigsqcup_{i \in I} [n]^{(i)}$ for some $I \subseteq [n]$ of size $k$.
+      Note that setting $\mathcal{F}$ to be the union of the center $k$ layers of $\mathcal{P}[n]$ shows that
+      \[
+        |\mathcal{F}| \geq \sum_{i = 1}^k \binom{n}{\left\lfloor \frac{n - k}{2} \right\rfloor + i}.
+      \]
+      By the LYM inequality, equality holds in (1) if and only if $A_j = [n]^{(i)}$ for some $i$. Thus, equality can be achieved when $\mathcal{F} = \bigsqcup_{i \in I} [n]^{(i)}$ for some $I \subseteq [n]$ of size $k$. But then
+      \[
+        |\mathcal{F}| \leq \max_{I \in [n]^{(k)}} \sum_{i \in I} \binom{n}{i} = \sum_{i = 1}^k \binom{n}{\left\lfloor \frac{n - k}{2} \right\rfloor + i}.
+      \]
+      The result now follows.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -228,9 +237,9 @@
     \[
       \frac{|A|!(n - |A|)!}{n!} = \frac{1}{\binom{n}{|A|}}.
     \]
-    Since each maximal chain intersects with at most one element of $\mathcal{A}$, the fraction of maximal chains that intersect with $\mathcal{A}$ is
+    Let $M$ be a random maximal chain in $\mathcal{P}[n]$. Since each maximal chain intersects with at most one element of $\mathcal{A}$, 
     \[
-      \sum_{A \in \mathcal{A}} \frac{1}{\binom{n}{|A|}} = \sum_{i = 0}^n \sum_{A \in \mathcal{A} \cap [n]^{(i)}} \frac{1}{\binom{n}{i}} = \sum_{i = 0}^n \frac{|\mathcal{A} \cap [n]^{(i)}|}{\binom{n}{i}}.
+      \prob(M \cap \mathcal{A} \neq \emptyset) = \sum_{A \in \mathcal{A}} \frac{1}{\binom{n}{|A|}} = \sum_{i = 0}^n \sum_{A \in \mathcal{A} \cap [n]^{(i)}} \frac{1}{\binom{n}{i}} = \sum_{i = 0}^n \frac{|\mathcal{A} \cap [n]^{(i)}|}{\binom{n}{i}}.
     \]
     But then $\mathcal{A}$ is not of the form $[n]^{(r)}$, so by the LYM inequality, the above sum is strictly less than 1. This completes the proof.
   \end{proof}
@@ -242,7 +251,11 @@
   Let $(P, \le)$ be an infinite poset. Must $P$ contain an infinite chain or antichain?
 
   \begin{proof}
-    Suppose $P$ contains no infinite antichain and no infinite chain. Define $h(x)$ as the length of the longest chain containing $x$ as the maximal element. Notice that if $x > y$ then $h(x) > h(y)$, as we may append $x$ to the end of any chain containing $y$. This implies $x$ and $y$ are incomparable if $h(x) = h(y)$. Thus $A_n = \{x \in P \mid h(x) = n\}$ is an antichain for $n \in \N$ and $P = \bigsqcup_{n \in \N} A_n$. Since each $A_n$ is finite, there must be infinitely many $n$ such that $A_n$ is non-empty. But then $h(x)$ is unbounded on $P$, so there must exists an infinite chain in $P$, contradiction.
+    Take any $x_0$ from $P$. Since $P$ is infinite, at least one of 
+    \[
+      \{y \in P \mid y > x_0\}, \quad \{y \in P \mid y < x_0\}, \quad \{y \in P \mid y \text{ incomparable to } x_0\}
+    \]
+    is infinite. Let $S_1$ be the set that is infinite, and pick any $x_1 \in S_1$. Iterate the above process on $S_1$ gives us a infinite sequence $x_0, x_1, x_2, \ldots$ in $P$. There exists a subsequence $x_{i_0}, x_{i_1}, x_{i_2}, \ldots$ where all elements are picked from the same choices. But then this subsequence is a chain or antichain.
   \end{proof}
 \end{homeworkProblem}
 

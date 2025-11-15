@@ -1,0 +1,486 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{bbm}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#2}
+\newcommand{\hmwkDueDate}{November 8, 2025}
+\newcommand{\hmwkClass}{SC9 Probability on Graphs and Lattices}
+\newcommand{\hmwkClassInstructor}{Professor C. Goldschmidt and Professor J. Jorritsma}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Prove that $p_c(1) = 1$.
+
+  \begin{proof}
+    Let $p \in [0, 1]$. If $0 \leftrightarrow \infty$, then for any $n \in \Z_{\geq 0}$ we have $0 \leftrightarrow n$ or $0 \leftrightarrow -n$. Notice
+    \[
+      \prob_p(0 \leftrightarrow n) = \prob_p(0 \leftrightarrow -n) = p^{n}.
+    \]
+    Thus,
+    \[
+      \theta(p) = \lim_{n \to \infty} p^{n} = \begin{cases}
+        0 & \text{if $p < 1$} \\
+        1 & \text{if $p = 1$}
+      \end{cases}.
+    \]
+    It now follows that $p_c(1) = \sup \{p \in [0, 1] : \theta(p) = 0\} = 1$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  An event $A \subset \Omega_G$ is \emph{decreasing} if whenever $\omega \le \omega'$ and $\omega' \in A$, we also have $\omega \in A$. A function $f : \Omega_G \to \mathbb{R}$ is \emph{decreasing} if $f(\omega) \ge f(\omega')$ whenever $\omega \le \omega'$.
+
+  \begin{enumerate}[(a)]
+    \item Fix a vertex $v \in V(G)$. Are the following events and variables/functions increasing, decreasing, or neither?
+    \begin{enumerate}[(i)]
+    \item $|C(v)|$
+    \begin{proof}
+      Increasing, as including more edges does not decrease the size of the largest cluster.
+    \end{proof}
+    \item $\{\omega \text{ has no cycles}\}$
+    \begin{proof}
+      Decreasing, as removing edges would not create a cycle.
+    \end{proof}
+    \item $\{v \text{ lies in the largest cluster or } |C(v)| = \infty\}$
+    \begin{proof}
+      Neither, as adding or removing edges might cause another cluster that does not contain $v$ to become the largest. 
+    \end{proof}
+    \item $\{\omega \text{ forms a spanning tree of } G\}$
+    \begin{proof}
+      Niether. Adding edges might create a cycle, and removing edges might disconnect the component.
+    \end{proof}
+    \end{enumerate}
+    
+    \item Prove that the Harris inequality holds for bounded decreasing functions $f,g : \Omega_G \to \mathbb{R}$, i.e.
+    \[
+    \mathbb{E}_p[fg] \ge \mathbb{E}_p[f]\mathbb{E}_p[g].
+    \]
+    \begin{proof}
+      Let $f' = -f$ and $g' = -g$. Then $f'$ and $g'$ are increasing, so by the Harris inequality for increasing functions, 
+      \[
+        \mathbb{E}_p[fg] = \mathbb{E}_p[f'g'] \ge \mathbb{E}_p[f']\mathbb{E}_p[g'] = \mathbb{E}_p[f]\mathbb{E}_p[g].
+      \]
+    \end{proof}
+    
+    \item Suppose $f$ is a bounded increasing function, and $A$ a decreasing event, with $\mathbb{P}_p(A) > 0$. Show that
+    \[
+    \mathbb{E}_p[f | A] \le \mathbb{E}_p[f].
+    \]
+    \begin{proof}
+      Let $f' = -f$ and $g = \mathbbm{1}_{A}$. Then $f'$ and $g$ are decreasing. By (b) we have
+      \[
+        \mathbb{E}_p[f'g] \geq \mathbb{E}_p[f']\prob_p(A).
+      \]
+      Rearranging and replacing $f'$ with $-f$, we have
+      \[
+        E_p[f|A] = \frac{\mathbb{E}_p[fg]}{\prob_p(A)} \leq \mathbb{E}_p[f].
+      \]
+    \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Given $k \ge 2$ increasing events $A_1,\dots,A_k \subset \Omega_G$, show that
+  \[
+  \max_{1 \le i \le k} \mathbb{P}_p(A_i) \ge 1 - \left( 1 - \mathbb{P}_p(A_1 \cup \cdots \cup A_k) \right)^{1/k}.
+  \]
+
+  \begin{proof}
+    By induction and the Harris inequality for decreasing events, we have
+    \[
+      1 - \mathbb{P}_p(A_1 \cup \cdots \cup A_k) = \mathbb{P}_p(A_1^C \cap \cdots \cap A_k^C) \geq \prob_p(A_1^C) \cdots \prob_p(A_k^C) = \prod_{i = 1}^k (1 - \mathbb{P}_p(A_i)) \geq \left(1 - \max_{1 \le i \le k} \mathbb{P}_p(A_i)\right)^{k}.
+    \]
+    Rearranging now yields the result.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  Let $\mathbb{T}_\infty$ be the infinite rooted binary tree, with root $\rho$, which is exhausted by the sequence $(\mathbb{T}_n)$, where $\mathbb{T}_n$ is the depth-$n$ binary tree, consisting of all vertices in $\mathbb{T}_\infty$ at graph distance at most $n$ from $\rho$. In lectures, we showed that the FUSF on $\mathbb{T}_\infty$ is $\mathbb{T}_\infty$ itself.
+
+  \begin{enumerate}[(a)]
+    \item Suppose that $(X_k)_{k \ge 0}$ is a SRW on $\mathbb{T}_\infty$. Let $D_k = d(\rho, X_k)$, where $d$ denotes the graph distance. Describe the process $(D_k)_{k \ge 0}$, and find
+    \[
+    \theta := \mathbb{P}(D_k > 1 \text{ for all } k \ge 1 \mid D_0 = 1).
+    \]
+    What is $\mathbb{P}(D_k > m \text{ for all } k \ge 1 \mid D_0 = m)$ for $m > 1$?
+
+    \begin{proof}
+      Consider $\mathbb{T}_\infty$ to be a directed graph, with edges pointing from parent to child. Let $u$ be a neighbor of $v$. Notice that if $u$ is a parent of $v$, then $d(\rho, u) - d(\rho, v) = -1$, and if $u$ is a child of $v$, then $d(\rho, u) - d(\rho, v) = 1$. Since each non-root vertex has $1$ parent and $2$ children, if $X_{k - 1} \neq \rho$
+      \[
+        \prob(D_k = D_{k - 1} + 1) = \frac{2}{3}, \quad \prob(D_k = D_{k - 1} - 1) = \frac{1}{3},
+      \]
+      where as $\prob(D_k = D_{k - 1} + 1) = 1$ if $D_{k - 1} = 0$. For $i \in \Z_{\geq 0}$, define
+      \[
+        \theta_i := \mathbb{P}(D_k > 1 \text{ for all } k \ge 1 \mid D_0 = i),
+      \]
+      and note that $\theta_0 = 0$, $\lim_{i \to \infty} \theta_i = 1$, and
+      \[
+        \theta_i = \frac{2}{3}\theta_{i + 1} + \frac{1}{3}\theta_{i - 1} \Rightarrow \theta_{i + 1} - \theta_i = \frac{1}{2}(\theta_i - \theta_{i - 1}) = \cdots = \frac{1}{2^i}(\theta_1 - \theta_0) = \frac{1}{2^i}\theta.
+      \]
+      But then
+      \[
+        \theta_i = \theta_i - \theta_{i - 1} + \theta_{i - 1} - \theta_{i - 2} + \theta_{i - 2} - \cdots - \theta_1 + \theta_1 = \left(1 + \frac{1}{2} + \cdots + \frac{1}{2^{i - 1}}\right)\theta = \left(2 - \frac{1}{2^{i - 1}}\right)\theta.
+      \]
+      Thus,
+      \[
+        \lim_{i \to \infty} \theta_i = 2\theta = 1 \Rightarrow \theta = \frac{1}{2}.
+      \]
+      For $m > 1$, we have $\mathbb{P}(D_k > m \text{ for all } k \ge 1 \mid D_0 = m) = \mathbb{P}(D_k > 1 \text{ for all } k \ge 1 \mid D_0 = 1) = \frac{1}{2}$.
+    \end{proof}
+    
+    \item Now write $\mathbb{T}_n^W$ for the wired version of $\mathbb{T}_n$, with wiring vertex $w_n$. Let one of the two neighbours of $\rho$ be $\alpha$. Prove that
+    \[
+    \liminf_{n \to \infty} \mathbb{P}(\text{SRW on } \mathbb{T}_n^W \text{ started from } \rho \text{ hits } w_n \text{ before } \alpha) > 0. \tag{1}
+    \]
+    \begin{proof}
+      Note that $w_n$ are connected to all the leaves of $\mathbb{T}_n^W$. Let $\beta$ be the other child of $\rho$. For $u, v \in V(\mathbb{T}_n^W)$, let $\tau_u(v)$ denote the hitting time of $v$ by the SRW on $\mathbb{T}_n^W$ started from $u$. Then we have
+      \[
+        \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1}{2} \cdot \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)).
+      \]
+      Notice that if the SRW started from $\beta$, then to hit $\alpha$ it must go through $\rho$. Let $A$ denote the event where SRW hits started from $\beta$ hits $w_n$ before $\alpha$. Let $R$ be the event where the SRW started from $\beta$ hits $\rho$ before $w_n$. Then
+      \begin{align*}
+        \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)) = \prob(\tau_\beta(w_n) &< \tau_\beta(\alpha)|\tau_\beta(w_n) > \tau_\beta(\rho)) \cdot \prob(\tau_\beta(w_n) > \tau_\beta(\rho)) \\
+        &+ \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)|\tau_\beta(w_n) < \tau_\beta(\rho)) \cdot \prob(\tau_\beta(w_n) < \tau_\beta(\rho)).
+      \end{align*}
+      Note that
+      \[
+        \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)|\tau_\beta(w_n) < \tau_\beta(\rho)) = 1 \quad \text{and} \quad \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)|\tau_\beta(w_n) < \tau_\beta(\rho)) = \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)).
+      \]
+      Denote $\mathbb{P}(D_k > 1 \text{ for all } n \geq k \ge 1 \mid D_0 = i) = \theta^{(n)}$ and we have
+      \[
+        \prob(\tau_\beta(w_n) < \tau_\beta(\rho)) = \theta^{(n)},
+      \]
+      and so $\prob(\tau_\beta(w_n) > \tau_\beta(\rho)) = 1 - \prob(\tau_\beta(w_n) < \tau_\beta(\rho)) = 1 - \theta^{(n)}$. It now follows that
+      \[
+        \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)) = 1 - \theta^{(n)} + \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) \cdot \theta^{(n)} 
+      \]
+      and so
+      \[
+        \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1 - \theta^{(n)}}{2} + \frac{1}{2} \cdot \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) \cdot \theta^{(n)}.
+      \]
+      By (a) we have $\lim_{n \to \infty} \theta^{(n)} = \frac{1}{2}$, and so
+      \[
+        \lim_{n \to \infty} \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1}{4} + \frac{1}{4} \cdot \lim_{n \to \infty} \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) \Rightarrow \lim_{n \to \infty} \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1}{3} > 0.
+      \]
+      This completes the proof.
+    \end{proof}
+    
+    \item By considering also a version of (1) for a SRW started from $\alpha$, and using Wilson's algorithm on $\mathbb{T}_n^W$ with initial vertex $w_n$ (or otherwise), prove that the edge $\{\rho,\alpha\}$ is not $\mu^W$-almost surely present, and thus FUSF $\neq$ WUSF for $\mathbb{T}_\infty$.
+    \begin{proof}
+      By (a) we have
+      \[
+      \liminf_{n \to \infty} \mathbb{P}(\text{SRW on } \mathbb{T}_n^W \text{ started from } \alpha \text{ hits } w_n \text{ before } \rho) = \theta = \frac{1}{2}.
+      \]
+      Now consider running Wilson's algorithm on $\mathbb{T}_n^W$ with an enumeration of the vertices $w_n, \rho, \alpha, \dots$. Then the probability that the edge $\{\rho,\alpha\}$ is not present is
+      \[
+        \mathbb{P}(\text{SRW on } \mathbb{T}_n^W \text{ started from } \rho \text{ hits } w_n \text{ before } \alpha) \cdot \mathbb{P}(\text{SRW on } \mathbb{T}_n^W \text{ started from } \alpha \text{ hits } w_n \text{ before } \rho).
+      \]
+      By the previous results, taking the limit as $n \to \infty$ yields
+      \[
+        \lim_{n \to \infty} \prob(\{\rho, \alpha\} \notin E(\mathbb{T}_n^W)) = \frac{1}{3} \cdot \frac{1}{2} = \frac{1}{6} > 0.
+      \]
+      The result now follows.
+      \end{proof}
+    \end{enumerate}
+    
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\sigma_n$ be the number of self-avoiding walks started from the origin in $\mathbb{Z}^d$ with length $n$.
+
+  \begin{enumerate}[(a)]
+  \item Prove that $\sigma_n \ge d^n$.
+  \begin{proof}
+    Consider any simple walks that only move in the positive direction. Since there are no cycles in such walks, they are self-avoiding walks. There are $d^n$ such walks, and so $\sigma_n \ge d^n$.
+  \end{proof}
+  \item Explain why $\sigma_{m+n} \le \sigma_m \sigma_n$.
+  \begin{proof}
+    Consider the set of all concatenations of two self-avoiding walks of length $m$ and $n$. Then the set of self-avoiding walks of length $m + n$ is a subset of this set, and so $\sigma_{m+n} \le \sigma_m \sigma_n$.
+  \end{proof}
+  \item (Fekete's lemma) Let $(x_n)$ be a real sequence satisfying the subadditive property:
+  \[
+  x_{n+m} \le x_n + x_m \quad \text{for all } n,m \ge 1.
+  \]
+  Prove that $\lim_{n \to \infty} \frac{x_n}{n} \in [-\infty, \infty)$ exists. 
+  \begin{proof}
+    Let $A = \inf_{n} \frac{x_n}{n}$. By definition, $\liminf_{n \to \infty} \frac{x_n}{n} \geq A$, so it suffcies to show $\limsup_{n \to \infty} \frac{x_n}{n} \leq A$. Fix $\epsilon > 0$. Let $(x_{n_k})$ be a convergent subsequence of $(x_n)$. Pick $m$ such that $x_m/m < A + \epsilon$. Then for $n_k \geq m$, we have $n_k = qm + r$ where $q, r \in \N$ and $0 \leq r < m$. By the subadditive property, 
+    \[
+      \frac{x_{n_k}}{n_k} \leq \frac{qx_m + x_r}{n_k} < \frac{qm(A + \epsilon) + x_r}{n_k} \leq A + \epsilon + \frac{x_r}{n_k}.
+    \]
+    But then
+    \[
+      \lim_{k \to \infty} \frac{x_{n_k}}{n_k} \leq A + \epsilon.
+    \]
+    Since $\epsilon$ is arbitrary, $\limsup_{n \to \infty} \frac{x_n}{n} \leq A$. This completes the proof.
+  \end{proof}
+  \item Hence, or otherwise, prove that there exists $\kappa \in [d, 2d-1]$ such that for all $\varepsilon > 0$,
+  \[
+  (\kappa - \varepsilon)^n \le \sigma_n \le (\kappa + \varepsilon)^n, \quad \text{for large enough } n.
+  \]
+  ($\kappa$ is known as the \emph{connectivity constant} of $\mathbb{Z}^d$.)
+
+  \begin{proof}
+    Consider the sequence $(x_n)$ where $x_n = \frac{\log \sigma_n}{n}$. By (b) we have
+    \[
+      \frac{\log \sigma_{m + n}}{m + n} \leq \frac{\log \sigma_{m}\sigma_{n}}{m + n} = \frac{\log \sigma_m}{m + n} + \frac{\log \sigma_n}{m + n} \leq \frac{\log \sigma_m}{m} + \frac{\log \sigma_n}{n},
+    \]
+    so $(x_n)$ is subadditive. By (c) we have that $L = \lim_{n \to \infty} \frac{x_n}{n} \in [-\infty, \infty)$ exists. Thus,
+    \[
+      \lim_{n \to \infty} \sigma_n^{\frac{1}{n}} = e^L.
+    \]
+    Put $\kappa = e^L$. Since $d^n \leq \sigma_n \leq (2d-1)^n$, we have $\kappa \in [d, 2d - 1]$.
+  \end{proof}
+  \end{enumerate}
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Consider the one-dimensional slab $S_n := \mathbb{Z} \times \{1,2,\dots,n\}$ for any $n \in \mathbb{N}$, considered as a subgraph of the lattice $\mathbb{Z}^2$. Show that the critical probability $p_c$ for percolation on $S_n$ is $1$.
+
+  \emph{Hint: you may wish to argue similarly to Question 1.}
+
+  \begin{proof}
+    Let $p \in [0, 1]$. Let $A_k = \{(k, x) \in S_n : x \in [n]\}$. Let $\{0 \leftrightarrow A_k\} = \bigcup_{v \in A_k} \{0 \leftrightarrow v\}$ and note that $\prob(0 \leftrightarrow A_k) = \prob(0 \leftrightarrow A_{-k})$. If $0 \leftrightarrow \infty$, then for any $k \in \Z_{\geq 0}$ we have $0 \leftrightarrow A_k$ or $0 \leftrightarrow A_{-k}$. Notice that $0 \leftrightarrow A_k$ implies that for $1 \leq k \leq n$, there is an edge between $A_k$ and $A_{k - 1}$. Put $q = 1 - (1 - p)^n$. We then have,
+    \[
+      \prob(0 \leftrightarrow A_k) \leq q^k.
+    \]
+    Then
+    \[
+      \lim_{k \to \infty} \prob(0 \leftrightarrow A_k) \leq \lim_{k \to \infty} q^k = \begin{cases}
+        0 & \text{if } p < 1 \\
+        1 & \text{if } p = 1
+      \end{cases}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose that $\mathbb{T}_d$ is an infinite rooted tree in which each vertex has $d$ children (so that all vertices except the root $\rho$ have degree $d+1$). Suppose each edge of the tree is open independently with probability $p$. As usual, let
+  \[
+  p_c := \sup\{p : \mathbb{P}_p(\rho \leftrightarrow \infty) = 0\}.
+  \]
+  \begin{enumerate}[(a)]
+  \item Show that $p_c = 1/d$, and that $\mathbb{P}_{p_c}(\rho \leftrightarrow \infty) = 0$.
+
+  \emph{Hint: recall basic results about branching processes.}
+
+  \begin{proof}
+    Note that we may view the component of $\rho$ is a result of the branching process with offspring distribution $X \sim \text{Binomial}(d, p)$, where the level of the tree represents the generation of the process. Then the event $\{\rho \leftrightarrow \infty\}$ is the event that the branching process does not extinct. The expected number of offspring for each layer is $\mu = dp$. By the results about branching processes, the branching process will extinct if and only if $\mu \leq 1$. That is,
+    \[
+      p_c = \sup\{p : \mu \leq 1\} = \frac{1}{d},
+    \]
+    and that $\prob_{p_c}(\rho \leftrightarrow \infty) = 0$.
+  \end{proof}
+
+  \item Prove that for $p \le p_c$,
+  \[
+  \mathbb{P}_p(\exists\, v \in V(\mathbb{T}_d) : v \leftrightarrow \infty) = 0.
+  \]
+
+  \emph{Note that, unlike the case $\mathbb{Z}^d$ treated in the lemma in lectures, $\mathbb{T}_d$ is not vertex-transitive.}
+
+  \begin{proof}
+    Suppose not. There exists $v \in V(\mathbb{T}_d)$ such that $\prob_p(v \leftrightarrow \infty) > 0$. But then
+    \[
+      \prob_p(\rho \leftrightarrow \infty) \geq \prob_p(\rho \leftrightarrow v) \cdot \prob_p(v \leftrightarrow \infty) > 0,
+    \]
+    contradiction.
+  \end{proof}
+
+  \item Prove that for $p \in (p_c,1)$,
+  \[
+  \mathbb{P}_p\big( \exists\, v \in V(\mathbb{T}_d) : v \leftrightarrow \infty \big) = 1,
+  \]
+  directly, without appeal to Kolmogorov's 0--1 law.
+
+  \begin{proof}
+    Let $V_n$ be the set of vertices on layer $n$ of the tree, and note that $|V_n| = d^n$. Let $\{V_n \leftrightarrow \infty\} = \bigcup_{v \in V_n} \{v \leftrightarrow \infty\}$. Since for any $v, v' \in V_n$, the events $\{v \leftrightarrow \infty\}$ and $\{v' \leftrightarrow \infty\}$ are independent and have the same probability,
+    \[
+      \prob(V_n \leftrightarrow \infty) = 1 - \prod_{v \in V_n} (1 - \prob_p(v \leftrightarrow \infty)) = 1 - (1 - \prob_p(v \leftrightarrow \infty))^{d^n}.
+    \]
+    Since $p > p_c$, we must have $\prob_p(v \leftrightarrow \infty) > 0$ for some $v \in V_n$. But then for any $\epsilon > 0$, there exists large enough $n$ such that $\mathbb{P}_p\big( \exists\, v \in V(\mathbb{T}_d) : v \leftrightarrow \infty \big) \geq \prob(V_n \leftrightarrow \infty) > 1 - \epsilon$. This completes the proof.
+  \end{proof}
+
+  \item How many infinite clusters are there for $p \in (p_c,1)$?
+  \begin{proof}
+    For $v \in V(\mathbb{T}_d)$, let $\mathbb{T}_d^{(v)}$ be the subtree of $\mathbb{T}_d$ rooted at $v$. By (c), there exists some vertex $v_0$ such that $v_0 \leftrightarrow \infty$ almost surely. Consider $\mathbb{T}_d^{(v_0)}$. Since $p < 1$, there exists some vertex $v_0' \in V(\mathbb{T}_d^{(v_0)})$ such that $v_0 \not\leftrightarrow v_0'$ almost surely. By (c), there exists some vertex $v_1 \in V(\mathbb{T}_d^{(v_0')})$ such that $v_1 \leftrightarrow \infty$ almost surely, and the infinite cluster containing $v_1$ is disjoint from the infinite cluster containing $v_0$. Recursively repeating this process shows that there are infinitely many infinite clusters.
+  \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For any $d \ge 2$, the graph $\mathbb{Z}^d \oplus \mathbb{Z}^d$ is constructed by taking two disjoint copies of $\mathbb{Z}^d$, and for each labelled vertex $v \in \mathbb{Z}^d$, adding an edge between the two vertices with this label.
+
+  For $\mathbb{Z}^2 \oplus \mathbb{Z}^2$, prove that
+  \[
+  1 - \frac{1}{\sqrt{2}} \le p_c \le \frac{1}{2}.
+  \]
+
+  \emph{Hint: you may find it helpful to observe that $p = 1 - \frac{1}{\sqrt{2}}$ satisfies $2p - p^2 = \frac{1}{2}$.}
+
+  \begin{proof}
+    By Kesten's theorem, it is obvious that $p_c \leq \frac{1}{2}$, otherwise there exists an infinite cluster in $\Z^2$ which is also an infinite cluster in $\mathbb{Z}^2 \oplus \mathbb{Z}^2$.
+    
+    Now suppose $p < 1 - 1/\sqrt{2}$. Consider the dual graph $L'$ of $\Z^2$, and define an edge $e \in E(L')$ as open if and only if the corresponding primal edges in at least one of the copies of $\Z^2$ are open. Then $e \in E(L')$ is open with probability $1 - (1 - p)^2 = 2p - p^2$. Suppose $2p - p^2 < 1/2$. By Kesten's theorem there does not exist an infinite cluster in $L'$. But then there are no infinite clusters in either copy of $\Z^2$. It now follows that $p_c \geq 1 - 1/\sqrt{2}$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\Lambda(n) = [-n,n]^2 \cap \mathbb{Z}^2$. Using the BK inequality, show that, for $\mathbb{Z}^2$,
+  \begin{equation}
+  \mathbb{P}_{1/2}\big(0 \leftrightarrow \partial \Lambda(n)\big) \ge \frac{1}{2\sqrt{n}}.
+  \tag{2}
+  \end{equation}
+
+  \emph{Hint: consider horizontal crossings of the box $[-n,n] \times [-n,n-1]$ and think about where such a crossing meets the $y$-axis in order to split it in two. Then relate the probabilities of each of those smaller crossings to $\mathbb{P}_{1/2}\big(0 \leftrightarrow \partial \Lambda(n)\big)$.}
+
+  \begin{proof}
+    Consider the rectangle $J_n := ([-n, n] \cap \Z) \times ([-n, n-1] \times \Z)$. Let $L_n, R_n$ be the left and right boundaries of $J_n$. Let $J'_n$ be the dual graph of $J_n$, and denote $T_n, B_n$ the top and bottom boundaries of $J'_n$. Define $H_n := \{L_n \leftrightarrow R_n\}$ and $V_n := \{T_n \leftrightarrow B_n\}$. Also, let $Y = \{0\} \times ([-n, n - 1] \cap \Z)$.
+
+    Note that if $L_n \leftrightarrow R_n$, then $J'$ must not contain a vertical crossing. On the other hand, if $L_n \not\leftrightarrow R_n$, then there must be a vertical crossing in $J'$. Thus $\prob(H_n) + \prob(V_n) = 1$. But then $J$ and $J'$ are isomorphic, and so by symmetry $\prob_{1/2}(H_n) = \prob_{1/2}(V_n) = \frac{1}{2}$. 
+
+    Now note that by BK inequality,
+    \[
+      \prob_{1/2}(H_n) = \prob_{1/2}\left(\bigcup_{y \in Y}\{L_n \leftrightarrow y\} \circ \{y \leftrightarrow R_n\}\right) \leq \sum_{y \in Y} \prob_{1/2}(L_n \leftrightarrow y) \cdot \prob_{1/2}(y \leftrightarrow R_n) \leq 2n \cdot \prob_{1/2}(0 \leftrightarrow \partial \Lambda(n))^2.
+    \]
+    The result now follows from rearranging the above inequality.
+    \end{proof}
+    
+\end{homeworkProblem}
+
+\end{document}

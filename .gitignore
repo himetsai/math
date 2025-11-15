@@ -2,7 +2,7 @@
 *.gz
 
 /UCSD/sage
-/UCSD/sop
+/sop
 /UCSD/CSE95
 
 /optiver
