@@ -1,0 +1,360 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#3}
+\newcommand{\hmwkDueDate}{November 24, 2025}
+\newcommand{\hmwkClass}{C3.8 Analytic Number Theory}
+\newcommand{\hmwkClassInstructor}{Professor B. Green}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Evaluate $\zeta(0)$ and $\zeta(-1)$. (You may want to use the facts that $\displaystyle \int_{0}^{\infty} e^{-x^2}\, dx = \tfrac{1}{2}\sqrt{\pi}$ and that $\displaystyle \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$.)
+
+  \begin{proof}
+    Note that $\Xi(s) = \Xi(1 - s)$, where $\Xi(s) = \pi^{-s/2}\Gamma(s/2)\zeta(s)$. Thus
+    \[
+      \zeta(0) = \lim_{\epsilon \to 0} \frac{\pi^{-(1 + \epsilon)/2}\Gamma((1 + \epsilon)/2)\zeta(1 + \epsilon)}{\pi^{\epsilon/2}\Gamma(-\epsilon/2)} = \pi^{-1/2}\Gamma(1/2) \cdot \lim_{\epsilon \to 0} \frac{\zeta(1 + \epsilon)}{\Gamma(-\epsilon/2)} = \pi^{-1/2}\Gamma(1/2) \cdot \lim_{\epsilon \to 0} -\frac{\epsilon\zeta(1 + \epsilon)}{2\Gamma(1 - \epsilon/2)}.
+    \]
+    But then $\zeta$ has a simple pole at $s = 1$, so $\lim_{\epsilon \to 0} \epsilon\zeta(1 + \epsilon) = 1$. Thus we have
+    \[
+      \zeta(0) = -\frac{1}{2}\pi^{-1/2}\Gamma(1/2).
+    \]
+    Since
+    \[
+      \Gamma(1/2) = \int_0^{\infty} e^{-t}t^{-1/2} \, dt = 2\int_0^{\infty} e^{-u^2} \, du = \sqrt{\pi},
+    \]
+    we have $\zeta(0) = -\frac{1}{2}$.
+
+    Similarly,
+    \[
+      \zeta(-1) = \frac{\pi^{-1}\Gamma(1)\zeta(2)}{\pi^{1/2}\Gamma(-1/2)} = \frac{\zeta(2)}{-2\pi^{3/2}\Gamma(1/2)} = \frac{1}{-2\pi^{2}} \cdot \frac{\pi^2}{6} = -\frac{1}{12}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(i)]
+    \item Assume $\Re s > 0$. Calculate the Mellin transform $\tilde{W}(s)$, where 
+    $W(x) = 1$ for $0 < x < 1$ and $W(x) = 0$ for $x \ge 1$.
+
+    \begin{proof}
+      Note that
+      \[
+        \tilde{W}(s) = \int_{0}^1 x^{s - 1} \, dx = \frac{1}{s}.
+      \]
+    \end{proof}
+
+    \item[(ii)] Define
+    \[
+        W_{*}(x) := \frac{1}{2\pi i} \int_{2 - i\infty}^{2 + i\infty} \tilde{W}(s) x^{s}\, ds,
+    \]
+    where the integral is defined to be
+    \[
+        \lim_{T \to \infty} \frac{1}{2\pi i} \int_{2 - iT}^{2 + iT} \tilde{W}(s) x^{s} \, ds
+    \]
+    (that is, the ‘Cauchy principal value’ of the indefinite integral). By considering $x = 1$, 
+    show that $W_{*}$ is not identically equal to $W$.
+
+    \begin{proof}
+      Note that $W(1) = 0$. But then
+      \[
+        W_{*}(1) = \frac{1}{2\pi i} \int_{2 - i\infty}^{2 + i\infty} \frac{1}{s} \, ds.
+      \]
+      Put $s = 2 + it$ for $t \in \R$ and we have
+      \[
+        \int_{2 - i\infty}^{2 + i\infty} \frac{1}{s} \, ds = i\int_{-\infty}^{\infty} \frac{1}{2 + it} \, dt = i\int_{-\infty}^{\infty} \frac{2}{4 + t^2} \, dt + \int_{-\infty}^{\infty} \frac{t}{4 + t^2} \, dt.
+      \]
+      Since $\frac{t}{4 + t^2}$ is an odd function, its integral is 0. But then
+      \[
+        \int_{2 - i\infty}^{2 + i\infty} \frac{1}{s} \, ds = i\int_{-\infty}^{\infty} \frac{2}{4 + t^2} \, dt = 4i\left(\lim_{t \to \infty} \frac{1}{2}\arctan\left(\frac{t}{2}\right) - \frac{1}{2}\arctan(0)\right) = i\pi.
+      \]
+      But then $W_{*}(1) \neq 0 = W(1)$. 
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Prove directly from the Euler product that $\zeta(s) \ne 0$ for $\Re s > 1$.
+
+  \begin{proof}
+    Suppose $s = a + bi$ where $a > 1$. Then
+    \[
+      |\zeta(s)| = \prod_{p} (1 - p^{-a})^{-1}.
+    \]
+    But then for $\zeta(s)$ to be $0$, we must have $1/p^a \to \infty$ as $p \to \infty$, which is impossible.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Define a function $W : \mathbb{R} \to \mathbb{R}$ by
+  \[
+    W(x) = 
+    \begin{cases}
+      \exp\!\left(\dfrac{1}{x^{2} - 1}\right) & |x| < 1, \\[6pt]
+      0 & |x| \ge 1,
+    \end{cases}
+  \]
+  Show that $W$ is smooth.
+
+  \begin{proof}
+    $W(x)$ is clearly smooth on $|x| > 1$. On $(-1, 1)$, $W(x)$ is a composition of smooth functions, so it is smooth. Since $W(x)$ is an even function, it suffices to show that 
+    \[
+      \lim_{x \to 1^{-}} W^{(n)}(x) = 0,
+    \]
+    for all $n \in \Z_{\geq 0}$. By induction, we have
+    \[
+      W^{(n)}(x) = \frac{P_n(x)}{(x^2 - 1)^{2n}} \cdot \exp\!\left(\dfrac{1}{x^{2} - 1}\right),
+    \]
+    for all $n \in \Z_{\geq 0}$. Put $t = 1/(1 - x^2)$ and note that $t \to \infty$ as $x \to 1^{-}$. Thus,
+    \[
+      \lim_{x \to 1^{-}} W^{(n)}(x) = \lim_{t \to \infty} P_n(1) \cdot \frac{t^{2n}}{e^{t}} = 0.
+    \]
+    This completes the proof.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Define functions $F_{1}, F_{2} : \mathbb{R} \to \mathbb{R}$ by setting 
+  $F_{1}(x) = 1$ if $|x| \le 1$, and $0$ otherwise; and 
+  $F_{2}(x) = 1 - |x|$ if $|x| \le 1$, and $0$ otherwise. 
+  Show that $\int |\hat{F_{1}}(\xi)|\, d\xi$ is infinite, but that 
+  $\int |\hat{F_{2}}(\xi)|\, d\xi$ is finite.
+
+  \begin{proof}
+    Note that
+    \[
+      \hat{F_{1}}(\xi) = \int_{-1}^{1} e^{-i \xi x} \, dx = \frac{i}{\xi} (e^{-i\xi} - e^{i\xi}) = \frac{2\sin \xi}{\xi}.
+    \]
+    Hence,
+    \[
+      \int_{\infty}^{-\infty} |\hat{F_{1}}(\xi)| \, d\xi = \int_{-\infty}^{\infty} \frac{2|\sin \xi|}{|\xi|} \, d\xi = 4\int_{0}^{\infty} \frac{|\sin \xi|}{|\xi|} \, d\xi
+    \]
+    For $n \in \N$,
+    \[
+      \int_{(n - 1)\pi}^{n\pi} \frac{|\sin \xi|}{|\xi|} \, d\xi \geq \frac{1}{n\pi} \int_{(n - 1)\pi}^{n\pi} |\sin \xi| \, d\xi = \frac{2}{n\pi}.
+    \]
+    Thus,
+    \[
+      \int_{\infty}^{-\infty} |\hat{F_{1}}(\xi)| \, d\xi \geq \frac{8}{\pi} \sum_{n = 1}^{\infty} \frac{1}{n} = \infty.
+    \]
+    On the other hand,
+    \[
+      \hat{F_{2}}(\xi) = \int_{-1}^{1} (1 - |x|) e^{-i \xi x} \, dx = \frac{2(1 - \cos \xi)}{\xi^2}.
+    \]
+    Thus,
+    \[
+      \int_{\infty}^{-\infty} |\hat{F_{2}}(\xi)| \, d\xi = 4\int_{0}^{\infty} \frac{1 - \cos \xi}{\xi^2} \, d\xi.
+    \]
+    For $n \in \N$,
+    \[
+      \int_{(n - 1)\pi}^{n\pi} \frac{1 - \cos \xi}{\xi^2} \, d\xi \geq \frac{1}{n^2\pi^2} \int_{(n - 1)\pi}^{n\pi} 1 - \cos \xi \, d\xi = \frac{1}{n^2\pi}.
+    \]
+    But then
+    \[
+      \int_{\infty}^{-\infty} |\hat{F_{2}}(\xi)| \, d\xi = 4\sum_{n = 1}^\infty \frac{1}{n^2\pi} = \frac{2\pi}{3} < \infty.
+    \]
+ \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\chi : \mathbb{N} \to \{-1, 0, 1\}$ be the function defined by 
+    $\chi(n) = 0$ if $2 \mid n$, $\chi(n) = 1$ if $n \equiv 1 \pmod{4}$, and 
+    $\chi(n) = -1$ if $n \equiv 3 \pmod{4}$.
+    \begin{enumerate}
+      \item[(i)] Show that $\chi$ is completely multiplicative.
+      \begin{proof}
+        Let $a, b \in \N$. If $2 \mid ab$, then $2 \mid a$ or $2 \mid b$, so $\chi(ab) = 0 = \chi(a)\chi(b)$. Suppose $ab$ is odd. If $a \equiv b \pmod{4}$, then $ab \equiv 1 \pmod{4}$, so $\chi(ab) = 1 = \chi(a)\chi(b)$. If $a \equiv -b \equiv 1 \pmod{4}$, then $ab \equiv -1 \pmod{4}$, so $\chi(ab) = -1 = \chi(a)\chi(b)$. Thus $\chi(ab) = \chi(a)\chi(b)$ for all $a, b \in \N$.
+      \end{proof}
+
+      \item[(ii)] Define 
+      \[
+          L(s, \chi) := \prod_{p} \bigl(1 - \chi(p) p^{-s}\bigr)^{-1}.
+      \]
+      Evaluate $\lim_{s \to 1^{+}} L(s, \chi)$.
+
+      \begin{proof}
+        Since $\chi$ is completely multiplicative, 
+        \[
+          L(s, \chi) = \sum_{n = 1}^{\infty} \frac{\chi(n)}{n^s} = \sum_{n = 4k + 1} n^{-s} - \sum_{n = 4k + 3} n^{-s} = \sum_{n = 4k + 1} n^{-s} - (n + 2)^{-s} = \sum_{n = 4k + 1} \frac{(n + 2)^s - n^s}{(n^2 + 2n)^s}.
+        \]
+        But then
+        \[
+          \lim_{s \to 1^{+}} L(s, \chi) = \sum_{n = 4k + 1} \frac{(n + 2) - n}{(n^2 + 2n)} = \sum_{n = 4k + 1} \frac{2}{n(n + 2)} = \sum_{n = 4k + 1} \left(\frac{1}{n} - \frac{1}{n + 2}\right) = \sum_{k = 0}^{\infty} \frac{(-1)^{k}}{2k + 1} = \frac{\pi}{4}.
+        \]
+      \end{proof}
+
+      \item[(iii)] Deduce that $\lim_{s \to 1^{+}} \sum_{p} \chi(p) p^{-s}$ converges.
+      \begin{proof}
+        Note that
+        \[
+          \log L(s, \chi) = \sum_p -\log(1 - \chi(p)p^{-s}).
+        \]
+        By the expansion of $\log(1 - x)$, we get
+        \[
+          -\log(1 - \chi(p)p^{-s}) = \chi(p)p^{-s} + \chi(p^2)p^{-2s} + \chi(p^3)p^{-3s} + \cdots = \chi(p)p^{-s} + \sum_{k = 2}^\infty \chi(p^k)p^{-ks}.
+        \] 
+        Note that
+        \[
+          \left|\sum_p \sum_{k = 2}^\infty \chi(p^k)p^{-ks}\right| \leq \sum_p \sum_{k = 2}^\infty |p^{-ks}| \leq \sum_{k \geq 1} \frac{1}{k^2} < \infty
+        \]
+        converges for any $s > 1$. But then by (b),
+        \[
+          \lim_{s \to 1^{+}} \log L(s, \chi) = \lim_{s \to 1^{+}}\sum_p \chi(p)p^{-s} + \lim_{s \to 1^{+}} \sum_p \sum_{k = 2}^\infty \chi(p^k)p^{-ks} = \frac{\pi}{4} < \infty.
+        \]
+        The result now follows.
+      \end{proof}
+
+      \newpage
+
+      \item[(iv)] Conclude that there are infinitely many primes congruent to $1 \bmod 4$, 
+      and also infinitely many primes congruent to $3 \bmod 4$.
+
+      \begin{proof}
+        Note that $\chi^{-1}(0) = \{2\}$, so there are infinitely many primes congruent to $\pm 1 \bmod 4$. But then by (iii)
+        \[
+          \lim_{s \to 1^{+}} \sum_{p} \chi(p) p^{-s} = \lim_{s \to 1^{+}} \sum_{p = 4k + 1} p^{-s} - \lim_{s \to 1^{+}} \sum_{p = 4k + 3} p^{-s} < \infty.
+        \]
+        If either there are finitely many primes congruent to $1 \bmod 4$ or finitely many primes congruent to $3 \bmod 4$, then the sum above would've diverged, contradiction.
+      \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Show that $\zeta(s)$ does not vanish for real $s$ in the interval $[0,1]$.
+
+  \begin{proof}
+    
+  \end{proof}
+\end{homeworkProblem}
+
+\end{document}
