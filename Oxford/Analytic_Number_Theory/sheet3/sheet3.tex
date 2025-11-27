@@ -199,11 +199,11 @@
   Prove directly from the Euler product that $\zeta(s) \ne 0$ for $\Re s > 1$.
 
   \begin{proof}
-    Suppose $s = a + bi$ where $a > 1$. Then
+    Suppose $s = a + bi$ where $a > 1$. Note that $|1 - w|^{-1} \geq e^{-2|w|}$. Replace $w$ with $p^{-s}$ and we have
     \[
-      |\zeta(s)| = \prod_{p} (1 - p^{-a})^{-1}.
+      |\zeta(s)| = \prod_{p} (1 - p^{-s})^{-1} \geq \exp\left(-2\sum_{p} p^{-a}\right).
     \]
-    But then for $\zeta(s)$ to be $0$, we must have $1/p^a \to \infty$ as $p \to \infty$, which is impossible.
+    Since $a > 1$, $\exp\left(-2\sum_{p} p^{-a}\right)$ converges to a positive value. The result now follows.
   \end{proof}
 \end{homeworkProblem}
 
@@ -263,21 +263,17 @@
     \[
       \int_{\infty}^{-\infty} |\hat{F_{1}}(\xi)| \, d\xi \geq \frac{8}{\pi} \sum_{n = 1}^{\infty} \frac{1}{n} = \infty.
     \]
-    On the other hand,
+    On the other hand, notice that for some constant $C$,
     \[
-      \hat{F_{2}}(\xi) = \int_{-1}^{1} (1 - |x|) e^{-i \xi x} \, dx = \frac{2(1 - \cos \xi)}{\xi^2}.
+      F_2(x) = C(F_1 * F_1)(x),
+    \]
+    so 
+    \[
+      \hat{F_{2}}(\xi) = C\left(\hat{F_{1}}(\xi)\right)^2 = O\left(\frac{1}{\xi^2}\right).
     \]
     Thus,
     \[
-      \int_{\infty}^{-\infty} |\hat{F_{2}}(\xi)| \, d\xi = 4\int_{0}^{\infty} \frac{1 - \cos \xi}{\xi^2} \, d\xi.
-    \]
-    For $n \in \N$,
-    \[
-      \int_{(n - 1)\pi}^{n\pi} \frac{1 - \cos \xi}{\xi^2} \, d\xi \geq \frac{1}{n^2\pi^2} \int_{(n - 1)\pi}^{n\pi} 1 - \cos \xi \, d\xi = \frac{1}{n^2\pi}.
-    \]
-    But then
-    \[
-      \int_{\infty}^{-\infty} |\hat{F_{2}}(\xi)| \, d\xi = 4\sum_{n = 1}^\infty \frac{1}{n^2\pi} = \frac{2\pi}{3} < \infty.
+      \int_{\infty}^{-\infty} |\hat{F_{2}}(\xi)| \, d\xi \ll \sum_{n = 1}^{\infty} \int_{(n - 1)\pi}^{n\pi} \frac{1}{\xi^2} \, d\xi \ll \sum_{n = 1}^{\infty} \frac{1}{n^2}  < \infty.
     \]
  \end{proof}
 \end{homeworkProblem}
@@ -327,7 +323,7 @@
         \]
         converges for any $s > 1$. But then by (b),
         \[
-          \lim_{s \to 1^{+}} \log L(s, \chi) = \lim_{s \to 1^{+}}\sum_p \chi(p)p^{-s} + \lim_{s \to 1^{+}} \sum_p \sum_{k = 2}^\infty \chi(p^k)p^{-ks} = \frac{\pi}{4} < \infty.
+          \lim_{s \to 1^{+}} \log L(s, \chi) = \lim_{s \to 1^{+}}\sum_p \chi(p)p^{-s} + \lim_{s \to 1^{+}} \sum_p \sum_{k = 2}^\infty \chi(p^k)p^{-ks} < \infty.
         \]
         The result now follows.
       \end{proof}
@@ -353,7 +349,11 @@
   Show that $\zeta(s)$ does not vanish for real $s$ in the interval $[0,1]$.
 
   \begin{proof}
-    idk bro.
+    By Problem 1 we have $\zeta(0) \neq 0$. By Proposition 3.4, for $s \in (0, 1]$,
+    \[
+      \zeta(s) = \frac{s}{s - 1} - s\int_1^{\infty} \{x\}x^{-s-1} \, dx.
+    \]
+    Since $\frac{s}{s - 1} < 0$ and $s\int_1^{\infty} \{x\}x^{-s-1} \, dx > 0$, the equation must not vanish for $s \in [0, 1]$.
   \end{proof}
 \end{homeworkProblem}
 

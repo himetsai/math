@@ -1,0 +1,414 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{dsfont}
+\usepackage{bbm}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#3}
+\newcommand{\hmwkDueDate}{November 23, 2025}
+\newcommand{\hmwkClass}{SC9 Probability on Graphs and Lattices}
+\newcommand{\hmwkClassInstructor}{Professor C. Goldschmidt and Professor J. Jorritsma}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  \textbf{Obtaining magnetisation from pressure.} 
+  
+  Let $m_G(\omega) = \frac{1}{|V(G)|} \sum_{i \in V(G)} \sigma_i(\omega)$ be the magnetisation per site. Let $\Psi_{G;\beta,h} = \log(Z_{G;\beta,h})/|V(G)|$ be the pressure. Show that
+  \[
+  \langle m_G \rangle_{G;\beta,h} = \frac{\partial \Psi_{G;\beta,h}}{\partial h}.
+  \]
+
+  \begin{proof}
+    \begin{align*}
+      \frac{\partial \Psi_{G;\beta,h}}{\partial h}
+      &= \frac{1}{|V(G)|Z_{G;\beta,h}} \cdot 
+      \sum_{\omega \in \Omega_G} \frac{\partial e^{-\mathcal{H}_{G;\beta,h}(\omega)}}{\partial h} \\
+      &= \frac{1}{|V(G)|Z_{G;\beta,h}} \cdot 
+      \sum_{\omega \in \Omega_G} e^{-\mathcal{H}_{G;\beta,h}(w)} \cdot \frac{\partial (-\mathcal{H}_{G;\beta,h}(\omega))}{\partial h} \\
+      &= \frac{1}{|V(G)|Z_{G;\beta,h}} \cdot 
+      \sum_{\omega \in \Omega_G} \sum_{i \in V(G)} e^{-\mathcal{H}_{G;\beta,h}(w)} \cdot \sigma_i(\omega) \\
+      &= \frac{1}{|V(G)|} \cdot 
+      \sum_{i \in V(G)} \sigma_i(\omega) \cdot \sum_{\omega \in \Omega_G} \frac{e^{-\mathcal{H}_{G;\beta,h}(w)}}{Z_{G;\beta,h}} \\
+      &= m_G(\omega).
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \textbf{Spatial Markov property.} 
+  
+  Fix $(\beta, h) \in \mathbb{R}_{\ge 0} \times \mathbb{R}$, $\eta \in \{\pm 1\}^{\mathbb{Z}^d}$ and let $G' \subseteq G$ be finite subgraphs of $\mathbb{Z}^d$. Show that we have
+  \[
+  \mu_{G;\beta,h}^\eta (\cdot \mid \sigma_i = \eta_i, \, \forall i \in V(G) \setminus V(G')) = \mu_{G';\beta,h}^\eta (\cdot).
+  \]
+
+  \begin{proof}
+    \begin{align*}
+      \mathcal{H}^{\eta}_{G;\beta,h}(\omega \mid \sigma_i = \eta_i, \, \forall i \in V(G) \setminus V(G'))
+      &= -\beta \sum_{(i, j) \in E(G) \cup \partial G} \sigma_i(\omega) \sigma_j(\omega) - h \sum_{i \in V(G)} \sigma_i(\omega) \\
+      &= \mathcal{H}^{\eta}_{G';\beta,h}(\omega) -\beta \sum_{(i, j) \in E(G \setminus G') \cup \partial G} \sigma_i(\omega) \sigma_j(\omega) - h \sum_{i \in V(G \setminus G')} \sigma_i(\omega).
+    \end{align*}
+    Since all vertices in $V(G) \setminus V(G')$ are conditioned on $\eta$, we may write the last two sums as a constant $C = C(\eta)$. Thus,
+    \[
+      \mathcal{H}^{\eta}_{G;\beta,h}(\omega \mid \sigma_i = \eta_i, \, \forall i \in V(G) \setminus V(G')) = \mathcal{H}^{\eta}_{G';\beta,h}(\omega) + C.
+    \]
+    Let
+    \[
+      Z' = \sum_{\substack{\omega \in \Omega_G \\ \sigma_i = \eta_i, \, \forall i \in V(G) \setminus V(G')}} e^{-\mathcal{H}^{\eta}_{G';\beta,h}(\omega) - C} = e^{-C} \cdot Z_{G';\beta,h}.
+    \]
+    It now follows that
+    \begin{align*}
+      \mu_{G;\beta,h}^\eta (\cdot \mid \sigma_i = \eta_i, \, \forall i \in V(G) \setminus V(G')) 
+      &= \frac{e^{-\mathcal{H}^{\eta}_{G';\beta,h}(\cdot) - C}}{e^{-C} \cdot Z_{G';\beta,h}} = \frac{e^{-\mathcal{H}^{\eta}_{G';\beta,h}(\cdot)}}{Z_{G';\beta,h}} = \mu_{G';\beta,h}^\eta (\cdot).
+    \end{align*}
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \textbf{The measures $\mu_{G;\beta,h}^+$ and $\mu_{G;\beta,h}^-$ are extremal.} 
+  
+  Let $f : \{\pm 1\}^{\mathbb{Z}^d} \to \mathbb{R}$ be an increasing function. Show that for all configurations $\eta \le \omega$ in $\{\pm 1\}^{\mathbb{Z}^d}$ we have
+  \[
+  \langle f \rangle_{G;\beta,h}^\eta \le \langle f \rangle_{G;\beta,h}^\omega.
+  \]
+
+  \begin{proof}
+    Let
+    \[
+      R_{G;\beta, h}^{\omega, \eta}(\sigma) = \exp\left(\mathcal{H}_{G;\beta,h}^\eta(\sigma) - \mathcal{H}_{G;\beta,h}^\omega(\sigma)\right) = \exp\left(\beta\sum_{(i, j) \in \partial G} \sigma_i \cdot (\omega_j - \eta_j)\right).
+    \]
+    Then
+    \begin{align*}
+      \langle f \rangle_{G;\beta,h}^\omega 
+      &= \sum_{\Omega_G^\omega} f(\sigma) \cdot \frac{e^{-\mathcal{H}_{G;\beta,h}^\omega(\sigma)}}{Z_{G;\beta,h}^\omega} \\
+      &= \sum_{\Omega_G^\omega} f(\sigma) \cdot \frac{e^{-\mathcal{H}_{G;\beta,h}^\eta(\sigma)} \cdot R_{G;\beta, h}^{\omega, \eta}(\sigma)}{Z_{G;\beta,h}^\omega} \\
+      &= \frac{Z_{G;\beta,h}^\eta}{Z_{G;\beta,h}^\omega}\sum_{\Omega_G^\eta} f(\sigma) \cdot R_{G;\beta, h}^{\omega, \eta}(\sigma) \cdot \frac{e^{-\mathcal{H}_{G;\beta,h}^\eta(\sigma)}}{Z_{G;\beta,h}^\eta} \\
+      &= \frac{Z_{G;\beta,h}^\eta}{Z_{G;\beta,h}^\omega} \langle fR_{G;\beta, h}^{\omega, \eta} \rangle_{G;\beta,h}^\eta.
+    \end{align*}
+    Note that
+    \[
+      \sum_{\Sigma_G^{\omega}} \mu^{\omega}_{G;\beta,h}(\sigma) = \frac{Z_{G;\beta,h}^\eta}{Z_{G;\beta,h}^\omega} \sum_{\Sigma_G^{\eta}} \mu^{\eta}_{G;\beta,h}(\sigma) \cdot R_{G;\beta, h}^{\omega, \eta}(\sigma) = \frac{Z_{G;\beta,h}^\eta}{Z_{G;\beta,h}^\omega} \langle R_{G;\beta, h}^{\omega, \eta} \rangle_{G;\beta,h}^\eta = 1,
+    \]
+    so
+    \[
+      \frac{Z_{G;\beta,h}^\eta}{Z_{G;\beta,h}^\omega} = \frac{1}{\langle R_{G;\beta, h}^{\omega, \eta} \rangle_{G;\beta,h}^\eta}.
+    \]
+    It now follows from the FKG inequality that
+    \[
+      \langle f \rangle_{G;\beta,h}^\omega = \frac{\langle fR_{G;\beta, h}^{\omega, \eta} \rangle_{G;\beta,h}^\eta}{\langle R_{G;\beta, h}^{\omega, \eta} \rangle_{G;\beta,h}^\eta} \geq \frac{\langle f \rangle_{G;\beta,h}^\eta \cdot \langle R_{G;\beta, h}^{\omega, \eta} \rangle_{G;\beta,h}^\eta}{\langle R_{G;\beta, h}^{\omega, \eta} \rangle_{G;\beta,h}^\eta} = \langle f \rangle_{G;\beta,h}^\eta.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  \textbf{Spin at 0 and average magnetisation.}
+
+  Define $m^+(\beta, h)$ and $m^-(\beta, h)$ as
+  \[
+  \lim_{n \to \infty} \frac{\langle \sum_{i \in \Lambda(n)} \sigma_i \rangle_{\Lambda(n);\beta,h}^+}{|\Lambda(n)|}, \qquad \lim_{n \to \infty} \frac{\langle \sum_{i \in \Lambda(n)} \sigma_i \rangle_{\Lambda(n);\beta,h}^-}{|\Lambda(n)|},
+  \]
+  respectively. Show that $\langle \sigma_0 \rangle_{\beta,h}^\pm = m^\pm(\beta, h)$.
+
+  \textit{Hint: Show an upper and lower bound. Argue (and use) that for an increasing function $f$ and subgraphs $G' \subseteq G \subseteq \mathbb{Z}^d$, $\langle f \rangle_{G',\beta,h}^+ \ge \langle f \rangle_{G,\beta,h}^+$, then establish bounds on the \emph{limsup} and \emph{liminf} using appropriate choices of $G', G$ and $f$.}
+
+  \begin{proof}
+    We first note that
+    \[
+      \langle \sigma_0 \rangle_{\beta,h}^+ = \langle \sigma_i \rangle_{\beta,h}^+.
+    \]
+    for all $i \in \Z^d$. By Problem 3 and the strong Markov property, for increasing function $f$, 
+    \[
+      \langle f \rangle_{G',\beta,h}^+ \geq \E_{\alpha}[\langle f \rangle_{G',\beta,h}^\alpha] = \langle f \rangle_{G,\beta,h}^+.
+    \]
+    But then $\sigma_i$ is increasing, so
+    \[
+      \langle \sigma_0 \rangle_{\beta,h}^+ = \langle \sigma_i \rangle_{\beta,h}^+ \leq \langle \sigma_i \rangle_{\Lambda(n); \beta,h}^+,
+    \]
+    for any $n \in \N$. Let 
+    \[
+      m^+_n(\beta, h) = \frac{\sum_{i \in \Lambda(n)} \langle \sigma_i \rangle_{\Lambda(n);\beta,h}^+}{|\Lambda(n)|}.
+    \]
+    Then
+    \[
+      \liminf_{n \to \infty} m^+_n(\beta, h) \geq \langle \sigma_0 \rangle_{\beta,h}^+.
+    \]
+    On the other hand, fix an integer $k$. Let $\Lambda_i(k)$ denote the length $k$ box centred at $i$. Assume $n$ is sufficiently large and consider the sites $i \in \Lambda(n)$ such that $\Lambda_i(k) \subset \Lambda(n)$. Then
+    \[
+      \langle \sigma_i \rangle_{\Lambda(n);\beta,h}^+ \leq \langle \sigma_i \rangle_{\Lambda_i(k);\beta,h}^+ = \langle \sigma_0 \rangle_{\Lambda(k);\beta,h}^+.
+    \]
+    Thus
+    \[
+      \limsup_{n \to \infty} m^+_n(\beta, h) \leq \langle \sigma_0 \rangle_{\Lambda(k);\beta,h}^+.
+    \]
+    But then
+    \[
+      \langle \sigma_0 \rangle_{\beta,h}^+ \leq \liminf_{n \to \infty} m^+_n(\beta, h) \leq \limsup_{n \to \infty} m^+_n(\beta, h) \leq \lim_{k \to \infty}\langle \sigma_0 \rangle_{\Lambda(k);\beta,h}^+ = \langle \sigma_0 \rangle_{\beta,h}^+.
+    \]
+    The result for the negative case follows from symmetry.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \textbf{Ising model on the complete graph.}
+  
+  The \textit{Curie-Weiss} model is the Ising model on the complete graph $K_N$ with $N$ vertices. Despite the lack of geometry, there are still interesting phase transitions. Let $h=0$ throughout.
+
+  \begin{enumerate}[(i)]
+    \item Let $R(\omega) = \#\{i : \sigma_i(\omega) = 1\}$ be the number of $+$ spins (which is $N$ minus the number of $-$ spins). Show that the probability that $R(\omega) = k$ is given by
+    \[
+    \mu_{K_N;\beta,0}(R(\omega)=k) = \frac{1}{\tilde{Z}_{N,\beta}} \binom{N}{k} \exp\left(-2\beta k(N-k)\right)
+    \]
+    for $0 \le k \le N$ (where $\tilde{Z}_{N,\beta}$ is a normalising constant).
+
+    \begin{proof}
+      Let $\omega \in \Omega_{K_N}^+$ such that $R(\omega) = k$. Let $C = e^{-\beta\binom{N}{2} - 2k(N-k)}$. Then
+      \[
+        \mathcal{H}_{K_N;\beta,0}(\omega) = -\beta \sum_{(i, j) \in E(K_N)} \sigma_i(\omega) \sigma_j(\omega) = -\beta\left(\binom{k}{2} + \binom{N-k}{2} - k(N-k)\right) = -\beta\left(\binom{N}{2} - 2k(N-k)\right).
+      \]
+But then
+      \begin{align*}
+        \mu_{K_N;\beta,0}(R(\omega)=k)
+        &= \frac{\binom{N}{i}\exp\left(-\beta\left(\binom{N}{2} - 2k(N-k)\right)\right)}{\sum_{i = 0}^N \binom{N}{i}\exp\left(-\beta\left(\binom{N}{2} - 2i(N-i)\right)\right)} \\
+        &= \frac{C\binom{N}{k}\exp\left(-\beta\left(2k(N-k)\right)\right)}{C\sum_{i = 0}^N \binom{N}{i} \exp\left(-\beta\left(2i(N-i)\right)\right)} \\
+        &= \frac{1}{\tilde{Z}_{N,\beta}} \binom{N}{k} \exp\left(-2\beta k(N-k)\right).
+      \end{align*}
+    \end{proof}
+
+    \item Consider taking the limit $N \to \infty$, with $\beta = \theta/N$ for some fixed $\theta > 0$. Investigate which $k$ (approximately) maximises the probability in (i). Interpret your findings.
+
+    \textit{[Perhaps useful: from Stirling's formula, if $k = (\alpha+o(1))N$ as $N \to \infty$, then $\binom{N}{k} \approx \exp\left[N(f(\alpha)+o(1))\right]$, where $f(\alpha) = -\alpha \log \alpha - (1-\alpha)\log(1-\alpha)$.]}
+
+    \begin{proof}
+      \[
+        \mu_{K_N;\theta/N,0}(R(\omega)=k) = \frac{1}{\tilde{Z}_{N,\theta/N}} \binom{N}{k} \exp\left(\frac{-2\theta k(N-k)}{N}\right).
+      \]
+      Write $k = (\alpha + o(1))N$ as $N \to \infty$. Let $f(\alpha) = -\alpha \log \alpha - (1-\alpha)\log(1-\alpha)$. By Stirling's formula,
+      \[
+        \binom{N}{k} \approx \exp\left[N(f(\alpha) + o(1))\right].
+      \]
+      Put $\phi(\alpha) = f(\alpha) -2\theta (\alpha(1 - \alpha))$ and we have
+      \[
+        \mu_{K_N;\theta/N,0}(R(\omega)=k) = \frac{1}{\tilde{Z}_{N,\theta/N}} \exp(\phi(\alpha) + o(1)).
+      \]
+      Note that the exponential function is increasing, so the maximum is achieved when $\phi(\alpha)$ is maximized. 
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \textit{FKG and BK in the context of the random-cluster model.}
+
+  \begin{itemize}
+    \item One can show that the FKG inequality holds for the random-cluster model for all $G$ when $q \ge 1$. Does it also hold for $q < 1$?
+    \begin{proof}
+      No. Consider graph $G$ with two vertices and two parallel edges $x, y$. Let $A_x$ and $A_y$ be the event where edge $x$ and $y$ are open, respectively. Then
+      \[
+        \prob(\emptyset) = \frac{q^2(1 - p)^2}{Z}, \quad \prob(A_x) = \prob(A_y) = \frac{qp}{Z}, \quad \prob(A_x \cap A_y) = \frac{qp^2}{Z}, \quad Z = q^2(1 - p)^2 + 2qp(1 - p) + qp^2.
+      \]
+
+      If the FKG inequality held, we would have
+      \[
+        \frac{qp^2}{Z} \geq \left(\frac{qp}{Z}\right)^2 \implies Z \geq q.
+      \]
+      But then
+      \[
+        q \leq q^2(1 - p)^2 + 2qp(1 - p) + qp^2 \implies q \geq 1,
+      \]
+      contradiction.
+    \end{proof}
+    
+    \item Fix $q > 1$. Does the BK inequality hold for the random-cluster model on $G$ with parameters $p, q$ for all $G, p \in (0, 1)$?
+    \begin{proof}
+      No. Using the same events as in the previous proof, note that
+      \[
+        \prob(A_x \circ A_y) = \prob(A_x \cap A_y) = \frac{qp^2}{Z}.
+      \]
+      Since $\frac{q}{Z} < 1$ for $q > 1$,
+      \[
+        \prob(A_x \circ A_y) = \frac{qp^2}{Z} > \left(\frac{qp}{Z}\right)^2 = \prob(A_x) \prob(A_y),
+      \]
+      contradicting the BK inequality.
+    \end{proof}
+\end{itemize}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \textbf{Uniqueness of Gibbs measure for Ising model at high temperature.}
+
+  \begin{enumerate}[(i)]
+      \item Let $G$ be a finite subgraph of $\mathbb{Z}^d$. Let $\beta > 0$ and $p \in (0, 1)$ be connected by $p = 1 - e^{-\beta}$. Fix $q \ge 2$.
+
+      Let $\phi_{G;p,q}^{\text{free}}$ and $\phi_{G;p,q}^{\text{wired}}$ be free and wired random-cluster measures on $G$ respectively, and let $\mu_{G;\beta,q}$ and $\mu_{G;\beta,q}^b$ be Gibbs measures for the Potts model on $G$ with free boundary conditions, and with all-$b$ boundary conditions for some fixed colour $b$, respectively.
+
+      Show that for any $i, j \in V(G)$,
+      \begin{align*}
+      \mu_{G;\beta,q}(\sigma_i = \sigma_j) &= \frac{1}{q} + \frac{q-1}{q} \phi_{G;p,q}^{\text{free}}(i \leftrightarrow j) \\
+      \mu_{G;\beta,q}^b(\sigma_i = \sigma_b) &= \frac{1}{q} + \frac{q-1}{q} \phi_{G;p,q}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)).
+      \end{align*}
+
+      \begin{proof}
+        By Theorem 3.12, $\sigma_i = \sigma_j$ in the free random-cluster model with probability $1/q$ if $i$ and $j$ are not in the same cluster and probability $1$ otherwise. Thus,
+        \[
+          \mu_{G;\beta,q}(\sigma_i = \sigma_j) = \frac{1}{q}(1 - \phi_{G;p,q}^{\text{free}}(i \leftrightarrow j)) + \phi_{G;p,q}^{\text{free}}(i \leftrightarrow j) = \frac{1}{q} + \frac{q-1}{q} \phi_{G;p,q}^{\text{free}}(i \leftrightarrow j).
+        \]
+        Similarly, $\sigma_i = \sigma_b$ in the wired random-cluster model with probability $1/q$ if $i$ is disconnected from the boundary and probability $1$ otherwise. Thus,
+        \[
+          \mu_{G;\beta,q}^b(\sigma_i = \sigma_b) = \frac{1}{q}(1 - \phi_{G;p,q}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G))) + \phi_{G;p,q}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)) = \frac{1}{q} + \frac{q-1}{q} \phi_{G;p,q}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)).
+        \]
+      \end{proof}
+
+      \item By applying the second identity in (i) to the $+$ boundary and $-$ boundary Ising models, show that at sufficiently high temperature (i.e. for $\beta$ sufficiently small), there is a unique Gibbs measure for the Ising model in $\mathbb{Z}^d$.
+
+      \textit{[Hint: you may like to use the FKG inequality to compare connectivity probabilities for percolation with those for random-cluster with $q=2$.]}
+
+      \begin{proof}
+        Note that $-2^{k(\omega)}$ is an increasing function. By the FKG inequality, 
+        \[
+          -\phi_{G;p,2}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)) = \frac{\langle -2^{k(\omega)}\mathds{1}_{i \leftrightarrow \mathbb{Z}^d \setminus V(G)}\rangle_{G;p, 1}^{\text{wired}}}{\langle 2^{k(\omega)}\rangle_{G;p, 1}^{\text{wired}}} \geq -\phi_{G;p,1}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)).
+        \]
+        Thus,
+        \[
+          \phi_{G;p,2}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)) \leq \phi_{G;p,1}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)).
+        \]
+        This implies that vertex $i$ is more likely to be connected to the boundary in the percolation model than in the random-cluster model with $q = 2$. Let $(G_n)$ be an exhaustion of $\mathbb{Z}^d$ by finite subgraphs. Then when $p < p_c$,
+        \[
+          \lim_{n \to \infty} \phi_{G;p,2}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)) \leq \lim_{n \to \infty} \phi_{G;p,1}^{\text{wired}}(i \leftrightarrow \mathbb{Z}^d \setminus V(G)) = 0.
+        \]
+        It now follows from $(i)$ that
+        \[
+          \lim_{n \to \infty} \mu_{G_n;\beta,q}^+(\sigma_i = +) = \lim_{n \to \infty} \mu_{G_n;\beta,q}^-(\sigma_i = -) = \frac{1}{q}.
+        \]
+      \end{proof}
+\end{enumerate}
+\end{homeworkProblem}
+
+\end{document}
