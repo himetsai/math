@@ -1,0 +1,237 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{dsfont}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#3}
+\newcommand{\hmwkDueDate}{November 27, 2025}
+\newcommand{\hmwkClass}{C8.3 Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor A. Scott}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Let $\mathcal{A} \subset \mathcal{P}[n]$ be an upset and $\mathcal{B} \subset \mathcal{P}[n]$ be a downset. Prove that $|\mathcal{A} \cap \mathcal{B}| \leq 2^{-n}|\mathcal{A}| \cdot |\mathcal{B}|$.
+
+  \begin{proof}
+    Note that $\mathcal{A}^C$ is a downset. By Kleitman's Theorem,
+    \[
+      |\mathcal{B}| - |\mathcal{A} \cap \mathcal{B}| = |\mathcal{A}^C \cap \mathcal{B}| \geq \frac{|\mathcal{A}^C||\mathcal{B}|}{2^n} = \frac{(2^n - |\mathcal{A}|)|\mathcal{B}|}{2^n} = |\mathcal{B}| - \frac{|\mathcal{A}||\mathcal{B}|}{2^n}.
+    \]
+    The result now follows.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  The $i$-compression operator $\pi_i$ is defined by $\pi_i(A) = A \setminus \{i\}$ and, for a set system $\mathcal{A}$,
+  \[
+  \pi_i(\mathcal{A}) = \{\pi_i(A) : A \in \mathcal{A}\} \cup \{A \in \mathcal{A} : \pi_i(A) \in \mathcal{A}\}.
+  \]
+  Let $\mathcal{F} \subset \mathcal{P}[n]$ be a set system and $\mathcal{A} = \pi_i(\mathcal{F})$ for some $i \in [n]$. Show that $\operatorname{tr}_{\mathcal{A}}(S) \leq \operatorname{tr}_{\mathcal{F}}(S)$ for every $S \subset [n]$.
+
+  \begin{proof}
+    Suppose $B \subseteq S$ such that $B = A \cap S$ for some $A \in \mathcal{A}$. Let $F \in \mathcal{F}$ such that $\pi_i(F) = A$. We may assume $F = A \cup \{i\}$ otherwise $F \cap S = F \cap A = B$ and we are done. If $i \notin S$, then $F \cap S = A \cap S = B$. If $i \in S$, then $F \cap S = B \cup \{i\} \notin \mathcal{A} \mid S$. Thus, regardless of whether $B \in \mathcal{F} \mid S$ or not,
+    \[
+      \operatorname{tr}_{\mathcal{A}}(S) \leq \operatorname{tr}_{\mathcal{F}}(S).
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item Let $X = \mathbb{R}$ and let $\mathcal{F} = \{[a, b] : a < b\}$. What is the VC-dimension of $\mathcal{F}$?
+    \begin{proof}
+      Note that the VC-dimension of $\mathcal{F}$ is at least 2: the set $\{0, 2\}$ is shattered by the intervals $[3, 4], [0, 1], [1, 2], [0, 2]$. 
+      
+      It has VC-dimension less than 3: consider any set of three points $a < b < c$. Then there are no intervals that contain both $a$ and $c$ while excluding $b$. 
+
+      Hence, the VC-dimension of $\mathcal{F}$ is 2.
+    \end{proof}
+    \item What if $X = \mathbb{R}^2$ and $\mathcal{F} = \{[a, b] \times [c, d] : a < b \text{ and } c < d\}$?
+    
+    \begin{proof}
+      The VC-dimension of $\mathcal{F}$ is at least 4, as it can shatter the set $\{(-1, -1), (1, 1), (-1, 1), (1, -1)\}$. 
+
+      It has VC-dimension less than 4: Let $S$ be a set of 5 elements. Let $x_M, x_m, y_M, y_m$ be the maximum and minimum $x$- and $y$-coordinates of the points in $S$, respectively. Then the box that contains $\{x_M, x_m, y_M, y_m\}$ must contain the rest of $S$. 
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  Let $\mathcal{F}$ be the collection of all convex sets in $\mathbb{R}^2$. Show that $\mathcal{F}$ does not have bounded VC-dimension.
+
+  \begin{proof}
+    For any $n \in \N$, consider a set $S$ of $n$ points lying on the unit circle. Then for any subset $T \subseteq S$, the polygon formed by the points in $T$ is convex and only contains points in $T$. Hence, the VC-dimension of $\mathcal{F}$ is at least $n$. This completes the proof.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A \emph{sunflower} is a sequence $F_1, \dots, F_k$ of sets such that for some set $S$, and all $i < j$,
+  \[
+  F_i \cap F_j = S.
+  \]
+  Let $r, s \geq 1$. Prove that there is $m = m(r, s)$ such that every sequence of $m$ sets from $\mathbb{N}^{(r)}$ has a subsequence of length $s$ that forms a sunflower.
+
+  [Bonus question: explain the term \emph{sunflower} by means of a nice picture.]
+
+  \begin{proof}
+    Fix $s \geq 1$. We proceed by induction on $r$ to show that $m(r, s)$ is bounded. Note that if $m(1, s) \geq s^2 + 1$, then either there are $s$ distinct singletons or there exists subsequence $F_{i_1} = F_{i_2} = \cdots = F_{i_s}$, by the pigeonhole principle. But then either case yields a sunflower, so the base case is done. Suppose $r \geq 2$. By induction, $m(r - 1, s) < \infty$. Let $F_1, \ldots, F_k$ be a sequence of $k \geq (m(r - 1, s) + 1)^2 + 1$ sets from $\N^{(r)}$. Just as the base case, there exists a subsequence $F_{i_1}, \ldots F_{i_{m(r - 1, s) + 1}}$, such that either there exists $f_i \in F_i$ with $f_i \neq f_j$ for $i \neq j$, or there exists $f \in \N$ with $f \in \bigcap_{i = 1}^{m(r - 1, s) + 1} F_i$. In either case, consider the sequence $F_1 \setminus \{f_1\}, \ldots, F_{m(r - 1, s) + 1} \setminus \{f_{m(r - 1, s) + 1}\}$ or $F_1 \setminus \{f\}, \ldots, F_{m(r - 1, s) + 1} \setminus \{f\}$. Since it is a sequence from $\N^{(r - 1)}$ of length $> m(r - 1, s)$, there is a subsequence $F_{j_1}, \ldots, F_{j_{s}}$ such that $F_{j_1} \setminus \{f_{j_1}\}, \ldots, F_{j_s} \setminus \{f_{j_s}\}$ or $F_{j_1} \setminus \{f\}, \ldots, F_{j_s} \setminus \{f\}$ is a sunflower. But then $F_{j_1}, \ldots, F_{j_{s}}$ is a sunflower of length $s$ in either case. This completes the proof.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathcal{F} \subset \mathcal{P}[n]$ be a set system. The \emph{dual set system} $\mathcal{F}^*$ has vertex set $\mathcal{F}$, and for each $i \in [n]$, there is an edge $\{F \in \mathcal{F} : i \in F\}$ (we ignore duplicate edges). Prove that for every positive integer $d$ there is a constant $f(d)$ such that if $\mathcal{F}$ has VC-dimension at most $d$ then $\mathcal{F}^*$ has VC-dimension at most $f(d)$.
+
+  \begin{proof}
+    Suppose $\mathcal{F}$ has VC-dimension $d$. Suppose for the sake of contradiction that $\mathcal{F}^*$ has VC-dimension $2^{d + 1}$. Then there exists $\mathcal{S} \subseteq \mathcal{F}$ of size $2^{d + 1}$ that is shattered by $\mathcal{F}^*$. Consider the indicent matrix $M$, whose rows are indexed by the elements of $[n]$, columns are indexed by the elements of $\mathcal{S}$, and $M_{i, F} = \mathds{1}_{i \in F}$ for $F \in \mathcal{S}, i \in [n]$. Since $\mathcal{S}$ is shattered by $\mathcal{F}^{*}$, there are $2^{2^{d + 1}}$ unique binary vectors of length $2^{d + 1}$ among the rows of $M$. Omit all duplicate rows of $M$ so that $M$ turns into a $2^{2^{d + 1}} \times 2^{d + 1}$ matrix with unique rows. Let $M'$ be the $(d + 1) \times 2^{d + 1}$ matrix whose columns are the binary expansions of the numbers $0, \ldots, 2^{d + 1} - 1$ in order. Note that the columns of $M'$ are distinct. Since the rows of $M$ contain all possible binary vectors of length $2^{d + 1}$, each row of $M'$ corresponds to a unique row of $M$. Let $X \subseteq [n]$ be the set of $d + 1$ rows in $M$ that $M'$ corresponds to. Then $X$ is shattered by $\mathcal{F}$, contradicting that $\mathcal{F}$ has VC-dimension $d$. Thus $F^*$ has VC-dimension at most $f(d) = 2^{{d + 1}} - 1$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Suppose that $\mathcal{F}_1, \dots, \mathcal{F}_s \subset \mathcal{P}(n)$ are intersecting families. Prove that $|\mathcal{F}_1 \cup \dots \cup \mathcal{F}_s| \leq 2^n - 2^{n-s}$.
+
+  \begin{proof}
+    For $1 \leq i \leq s$ and $\mathcal{S} \subseteq \mathcal{F}_i$, Define
+    \[
+      \mathcal{D}_i = \{D \in \mathcal{P}(n) : F \subseteq D \text{ for some } F \in \mathcal{F}_i\}. 
+    \]
+    Note that $\mathcal{D}_i$ is intersecting and $|\mathcal{F}_i| = |\mathcal{D}_i|$. Since
+    \[
+      |\mathcal{F}_1 \cup \dots \cup \mathcal{F}_s| \leq |\mathcal{D}_1 \cup \dots \cup \mathcal{D}_s| = 2^n - |\mathcal{D}_1^C \cap \dots \cap \mathcal{D}_s^C|,
+    \]
+    it suffices to show that $|\mathcal{D}_1^C \cap \dots \cap \mathcal{D}_s^C| \geq 2^{n-s}$. Since $|\mathcal{D}_i| \leq 2^{n - 1}$, we have $|\mathcal{D}_i^C| \geq 2^{n - 1}$. For $D \in \mathcal{D}_i$, notice that if $D' \supseteq D$ then $D' \in \mathcal{D}_i$, so $\mathcal{D}_i$ is an upset. But then $\mathcal{D}_i^C$ is a downset. It now follows from the Kleitman's Theorem that
+    \[
+      |\mathcal{D}_1^C \cap \dots \cap \mathcal{D}_s^C| \geq \frac{|\mathcal{D}_1^C||\mathcal{D}_2^C| \cdots |\mathcal{D}_s^C|}{(2^n)^{s - 1}} \geq \frac{2^{s(n - 1)}}{2^{n(s - 1)}} = 2^{n - s}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\end{document}
