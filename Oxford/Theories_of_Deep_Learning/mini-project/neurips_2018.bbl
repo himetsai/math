@@ -1,0 +1,81 @@
+\begin{thebibliography}{10}
+
+\bibitem{andriushchenko2020understandingimprovingfastadversarial}
+Maksym Andriushchenko and Nicolas Flammarion.
+\newblock Understanding and improving fast adversarial training, 2020.
+
+\bibitem{croce2020reliableevaluationadversarialrobustness}
+Francesco Croce and Matthias Hein.
+\newblock Reliable evaluation of adversarial robustness with an ensemble of diverse parameter-free attacks, 2020.
+
+\bibitem{165600}
+H.~Drucker and Y.~Le~Cun.
+\newblock Improving generalization performance using double backpropagation.
+\newblock {\em IEEE Transactions on Neural Networks}, 3(6):991--997, 1992.
+
+\bibitem{finlay2019scaleableinputgradientregularization}
+Chris Finlay and Adam~M Oberman.
+\newblock Scaleable input gradient regularization for adversarial robustness, 2019.
+
+\bibitem{goodfellow2015explainingharnessingadversarialexamples}
+Ian~J. Goodfellow, Jonathon Shlens, and Christian Szegedy.
+\newblock Explaining and harnessing adversarial examples, 2015.
+
+\bibitem{ororbia2016unifyingadversarialtrainingalgorithms}
+Alexander G.~Ororbia II, C.~Lee Giles, and Daniel Kifer.
+\newblock Unifying adversarial training algorithms with flexible deep data gradient regularization, 2016.
+
+\bibitem{kang2021understandingcatastrophicoverfittingadversarial}
+Peilin Kang and Seyed-Mohsen Moosavi-Dezfooli.
+\newblock Understanding catastrophic overfitting in adversarial training, 2021.
+
+\bibitem{kim2020understandingcatastrophicoverfittingsinglestep}
+Hoki Kim, Woojin Lee, and Jaewook Lee.
+\newblock Understanding catastrophic overfitting in single-step adversarial training, 2020.
+
+\bibitem{7373334}
+Chunchuan Lyu, Kaizhu Huang, and Hai-Ning Liang.
+\newblock A unified gradient regularization family for adversarial examples.
+\newblock In {\em 2015 IEEE International Conference on Data Mining}, pages 301--309, 2015.
+
+\bibitem{madry2019deeplearningmodelsresistant}
+Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and Adrian Vladu.
+\newblock Towards deep learning models resistant to adversarial attacks, 2019.
+
+\bibitem{moosavidezfooli2018robustnesscurvatureregularizationvice}
+Seyed-Mohsen Moosavi-Dezfooli, Alhussein Fawzi, Jonathan Uesato, and Pascal Frossard.
+\newblock Robustness via curvature regularization, and vice versa, 2018.
+
+\bibitem{papernot2017practicalblackboxattacksmachine}
+Nicolas Papernot, Patrick McDaniel, Ian Goodfellow, Somesh Jha, Z.~Berkay Celik, and Ananthram Swami.
+\newblock Practical black-box attacks against machine learning, 2017.
+
+\bibitem{qin2019adversarialrobustnesslocallinearization}
+Chongli Qin, James Martens, Sven Gowal, Dilip Krishnan, Krishnamurthy Dvijotham, Alhussein Fawzi, Soham De, Robert Stanforth, and Pushmeet Kohli.
+\newblock Adversarial robustness through local linearization, 2019.
+
+\bibitem{rodríguezmuñoz2024characterizingmodelrobustnessnatural}
+Adrián Rodríguez-Muñoz, Tongzhou Wang, and Antonio Torralba.
+\newblock Characterizing model robustness via natural input gradients, 2024.
+
+\bibitem{ross2017improvingadversarialrobustnessinterpretability}
+Andrew~Slavin Ross and Finale Doshi-Velez.
+\newblock Improving the adversarial robustness and interpretability of deep neural networks by regularizing their input gradients, 2017.
+
+\bibitem{seck2019l1normdoublebackpropagation}
+Ismaïla Seck, Gaëlle Loosli, and Stephane Canu.
+\newblock L 1-norm double backpropagation adversarial defense, 2019.
+
+\bibitem{simongabriel2019firstorderadversarialvulnerabilityneural}
+Carl-Johann Simon-Gabriel, Yann Ollivier, Léon Bottou, Bernhard Schölkopf, and David Lopez-Paz.
+\newblock First-order adversarial vulnerability of neural networks and input dimension, 2019.
+
+\bibitem{wong2020fastbetterfreerevisiting}
+Eric Wong, Leslie Rice, and J.~Zico Kolter.
+\newblock Fast is better than free: Revisiting adversarial training, 2020.
+
+\bibitem{xie2021smoothadversarialtraining}
+Cihang Xie, Mingxing Tan, Boqing Gong, Alan Yuille, and Quoc~V. Le.
+\newblock Smooth adversarial training, 2021.
+
+\end{thebibliography}
