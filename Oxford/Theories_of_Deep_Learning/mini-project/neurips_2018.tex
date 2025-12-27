@@ -37,7 +37,7 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{remark}{Remark}[section]
 
-\title{Smoothness is All You Need: Examining the Role of Smooth Activations in Robustness Training}
+\title{Smoothness is All You Need: Examining the Role of Smooth Activations in Efficient Robustness Trainings}
 
 % The \author macro works with any number of authors. There are two commands
 % used to separate the names and addresses of multiple authors: \And and \AND.
@@ -57,18 +57,18 @@
 \maketitle
 
 \begin{abstract}
-  Robustness training is notorious for its computational cost. To address this, Input Gradient Regularization (IGR) has been proposed as a more efficient alternative. Before the recent breakthrough of Rodríguez-Muñoz et al. \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural}, IGR has historically struggled to achieve robustness results comparable to Adversarial Training, either leading to gradient masking or inferior performance when generalizing to modern datasets. In this project, we discuss the mathematical background and motivation behind IGR in robustness training and confirm whether smoothness is a sufficient condition for IGR's success.
+  Robustness training is notorious for its computational cost. To address this, one-step training methods like Input Gradient Regularization (IGR) and Fast Gradient Sign Method (FGSM) have been proposed, but their effectiveness has either been inferior to multi-step methods or significantly comprimised when enduring stronger attacks. In this project, we discuss the mathematical background of IGR and FGSM and the effect of smooth activations on both methods.
 \end{abstract}
 
 \section{Introduction}
 
-Deep neural networks are very brittle to adversarial attacks; imperceptible perturbations to inputs can cause catastrophic missclassifications \cite{goodfellow2015explainingharnessingadversarialexamples}. Extensive research has been devoted to build robustness against adversarial attacks, with Adversarial Training via Projected Gradient Descent (PGD) \cite{madry2019deeplearningmodelsresistant} emerging as the most effective defense to date. While effective, Adversarial Training requires significant computational resources, as it involves iteratively generating strong adversarial examples during training, increasing training time by an order of magnitude compared to standard training. 
+Deep neural networks are very brittle to adversarial attacks; imperceptible perturbations to inputs can cause catastrophic missclassifications \cite{goodfellow2015explainingharnessingadversarialexamples}. Extensive research has been devoted to build robustness against adversarial attacks, with Adversarial Training via Projected Gradient Descent (PGD) \cite{madry2019deeplearningmodelsresistant} emerging as the most effective defense to date. While effective, Adversarial Training requires significant computational resources, as it involves iteratively generating strong adversarial examples during training, increasing training time by an order of magnitude compared to standard training. Consequently, one-step methods such as Input Gradient Regularization (IGR) and the Fast Gradient Sign Method (FGSM)  were proposed as efficient alternatives. 
 
-Consequently, Input Gradient Regularization (IGR) has been proposed as a more efficient alternative. First introduced in \cite{165600} to improve generalization, this method penalizes sensitivity to input perturbations, which aligns with the necessary requirement for model robustness: a function stable to small perturbations should have a small norm of its derivative. Therefore, IGR serves as a natural defense against adversarial examples by furnishing local smoothness, and its intuition is theoretically grounded in the robust optimization framework established by Madry et al. \cite{madry2019deeplearningmodelsresistant}, which formulates robustness training as a minimax optimization problem $\min_{\theta} \mathbb{E}[\max_{\delta} \mathcal{L}(x + \delta, y; \theta)]$. Simon-Gabriel et al. showed in \cite{simongabriel2019firstorderadversarialvulnerabilityneural} that IGR can be viewed as a first-order Taylor approximation of this inner maximization problem, and thus serving as a proxy for Adversarial Training without the cost of iterative backpropagation.
+Although both methods fundamentally rely on a first-order approximation of the robust optimization framework, they have historically been viewed as distinct optimization strategies. In particular, FGSM has been considered data augmentation, whereas IGR as a regularization technique. Consequently, they are often analyzed separately with distinct failure modes. IGR often leads to inferior performance \cite{ross2017improvingadversarialrobustnessinterpretability, seck2019l1normdoublebackpropagation, papernot2017practicalblackboxattacksmachine}, while FGSM suffers from catastrophic overfitting \cite{kang2021understandingcatastrophicoverfittingadversarial}, where the model becomes robust to the FGSM attack but performs disastrously (e.g. $0\%$ robustness) against other types of attacks.
 
-Despite strong theoretical arguments, IGR has historically struggled to achieve competitive robustness comparable results to Adversarial Training, either leading inferior performance when generalizing to modern datasets \cite{ross2017improvingadversarialrobustnessinterpretability, seck2019l1normdoublebackpropagation} or gradient masking \cite{papernot2017practicalblackboxattacksmachine}, whereby the model breaks the gradient-based attacks but does not provide robustness against other types of attacks. Recently, however, Rodríguez-Muñoz et al. \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural} showed that IGR can yield comparable robustness results to Adversarial Training when using smooth activation functions such as GeLU instead of the standard ReLU. While their paper successfully generalized IGR to modern datasets and achieved competitive robustness results, their experiments only examined two smooth activation functions of extremely similar characteristics (GeLU and SiLU) and did not throughly isolate the effect of smoothness on IGR's performance.
+Recent work by Rodríguez-Muñoz et al. \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural} and Xie et al. \cite{xie2021smoothadversarialtraining} demonstrated respectively that IGR and FGSM can yield competitive results when using smooth activation functions like GeLU. However, their studies were mostly empirical and limited to IGR and activations with similar characteristics (GeLU and SiLU), leaving the broader role of smoothness in efficient training unexplored and the theoretical justification for their success unclear.
 
-In this project, we discuss the mathematical background and motivation behind IGR in robustness training and confirm whether smoothness is indeed the key to IGR's success.
+In this project, we propose a unified theoretical view of IGR and FGSM based on the local robustness bound established in \cite{finlay2019scaleableinputgradientregularization} and explain how the smoothness of activations impact the performance of both methods. By extending the analysis to Softplus and PReLU, we confirm that smoothness is the key to success and show that it effectively mitigates catastrophic overfitting in FGSM, allowing it to achieve robustness comparable to IGR.
 
 \section{Mathematical Background}
 
@@ -93,7 +93,7 @@ and so the FGSM attack is given by
   x^{\text{adv}} = x + \epsilon \cdot \operatorname{sign}(\nabla_x \mathcal{L}(x, y; \theta)) = x + \operatorname*{arg \, max}_{\|\delta\|_{\infty} \leq \epsilon} \delta^T\nabla_x \mathcal{L}(x, y; \theta). 
   \label{eq:fgsm}
 \end{equation}
-While computationally cheap, FGSM relies on the assumption that the loss surface is locally linear around $x$, which can be drasticaly far from the actual loss landscape. This often leads to catastrophic overfitting \cite{kang2021understandingcatastrophicoverfittingadversarial}, where the model becomes robust to the FGSM attack but performs disastrously ($0\%$ robustness) against other types of attacks like PGD.
+While computationally cheap, FGSM relies on the assumption that the loss surface is locally linear around $x$, which can be drasticaly far from the actual loss landscape and leads to the aforementioned catastrophic overfitting \cite{kang2021understandingcatastrophicoverfittingadversarial}.
 
 Madry et al. demonstrated that projected gradient descent (PGD) is a more powerful multi-step variant of FGSM, which iteratively applies FGSM then projects the result back into the allowed perturbation set $\mathcal{S}$:
 \[
@@ -103,7 +103,7 @@ PGD is then applied to adversarial training framework, which replaces the natura
 
 \subsection{Input Gradient Regularization as an Alternative}
 
-In contrast to the high training cost of the multi-step Adversarial Training, IGR was proposed as a more efficient alternative \cite{7373334, ross2017improvingadversarialrobustnessinterpretability, ororbia2016unifyingadversarialtrainingalgorithms}. The heuristic motivation is that inducing local smoothness by forcing loss gradients to be small should make the model less sensitive to input perturbations. Consider the inner maximization problem for a perturbation $\delta$ bounded by $\|\delta\|_{\infty} \leq \epsilon$. Assuming the loss function $\mathcal{L}$ is differentiable with respect to the input $x$, it is shown in \cite{simongabriel2019firstorderadversarialvulnerabilityneural} that for small $\epsilon$, 
+In contrast to the high training cost of the multi-step Adversarial Training, IGR was proposed as a more efficient alternative that directly penalizes the input gradient norm 2\cite{7373334, ross2017improvingadversarialrobustnessinterpretability, ororbia2016unifyingadversarialtrainingalgorithms}. The heuristic motivation is that inducing local smoothness by forcing loss gradients to be small should make the model less sensitive to input perturbations. Consider the inner maximization problem for a perturbation $\delta$ bounded by $\|\delta\|_{\infty} \leq \epsilon$. Assuming the loss function $\mathcal{L}$ is differentiable with respect to the input $x$, it is shown in \cite{simongabriel2019firstorderadversarialvulnerabilityneural} that for small $\epsilon$, 
 \[
   \max_{\|\delta\|_{\infty} \leq \epsilon} \mathcal{L}(x + \delta, y; \theta) \approx \mathcal{L}(x, y; \theta) + \epsilon\|\nabla_x \mathcal{L}(x, y; \theta)\|_{1}.
 \]
@@ -141,9 +141,9 @@ This bound yields three sufficient conditions for robustness: (i) large loss gap
 
 Historically, IGR has struggled to achieve competitive robustness compared to PGD adversarial training \cite{seck2019l1normdoublebackpropagation}. This failure is closely linked to the first-order approximation error term $\omega(\epsilon)$ in \eqref{eq:finlay_bound} and how it is handled in non-smooth networks like ReLU. 
 
-It is not explicitly discussed in \cite{finlay2019scaleableinputgradientregularization}, but for non-smooth networks the first-order approximation error $\omega(\epsilon)$ can be large even for small $\epsilon$, contradicting the requirement for robustness given by the robustness bound \eqref{eq:finlay_bound}. This mathematically explains the phenomenon of gradient masking \cite{papernot2017practicalblackboxattacksmachine}, where the model keeps the gradient norm small but does not provide robustness against other types of attacks. Finlay and Oberman did not directly resolve this issue in \cite{finlay2019scaleableinputgradientregularization} but offered a workaround using finite differences to estimate the gradient norm and avoided the calculation of second-order derivatives.
+For non-smooth networks, the $\omega(\epsilon)$ can be large even for small $\epsilon$ as the local curvature may be unbounded, contradicting the requirement for robustness given by the robustness bound \eqref{eq:finlay_bound}. This mathematically explains the phenomenon of gradient masking \cite{papernot2017practicalblackboxattacksmachine}, where the model keeps the gradient norm small but does not provide robustness against other types of attacks. Finlay and Oberman did not directly resolve this issue in \cite{finlay2019scaleableinputgradientregularization} but offered a workaround using finite differences to estimate the gradient norm and avoided the calculation of second-order derivatives.
 
-In recent work by Rodríguez-Muñoz et al. \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural} and Xie et al. \cite{xie2021smoothadversarialtraining}, it was shown that using smooth activation functions like GeLU and SiLU can significantly improve IGR's robustness. In particular, Rodríguez-Muñoz et al. showed replacing the non-smooth ReLU with the smooth GeLU and SiLU activation function achieves $> 90\%$ of robustness when compared to PGD adversarial training while using merely $63\%$ of the computing cost. While Xie et al. attribute this to better gradient quality, we argue that this success is due to smooth activations bounding the first-order approximation error $R(x, \delta)$, which in turn bounds the modulus of continuity $\omega(\epsilon)$. This ensures condition (ii) in \eqref{eq:finlay_bound} is satisfied. While Rodríguez-Muñoz et al. only examined two smooth activation functions of extremely similar characteristics (GeLU and SiLU) and did not throughly isolate the effect of smoothness on IGR's performance, we will experiment other activation functions of different characteristics (e.g. Softplus, PReLU) to empirically verify if smoothness is indeed the key to IGR's success.
+In recent work by Rodríguez-Muñoz et al. \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural} and Xie et al. \cite{xie2021smoothadversarialtraining}, it was shown that using smooth activation functions like GeLU and SiLU can significantly improve IGR's robustness. In particular, Rodríguez-Muñoz et al. showed replacing the non-smooth ReLU with the smooth GeLU and SiLU activation function achieves $> 90\%$ of robustness when compared to PGD adversarial training while using merely $63\%$ of the computing cost. Xie et al. discribed this as a better gradient quality, but we may further attribute this success to smooth activations bounding the local first-order approximation error $R(x, \delta)$, which in turn bounds the modulus of continuity $\omega(\epsilon)$. This ensures condition (ii) in \eqref{eq:finlay_bound} is satisfied. While Rodríguez-Muñoz et al. demonstrated empirical evidence for the effectiveness of smooth activations, they only examined two smooth activation functions of extremely similar characteristics (GeLU and SiLU).We will experiment with other activation functions of different characteristics (e.g. Softplus, PReLU) to further isolate the effect of smoothness on IGR's performance and empirically verify if smoothness is indeed the key to IGR's success.
 
 \subsection{IGR vs FGSM}
 
@@ -152,24 +152,23 @@ As mentioned in the previous sections, IGR and FGSM are both essentially first-o
 The phenomenon of catastrophic overfitting in FGSM-based training has been extensively studied, with numerous works identifying the breakdown of local linearity as the primary cause \cite{wong2020fastbetterfreerevisiting, andriushchenko2020understandingimprovingfastadversarial, kim2020understandingcatastrophicoverfittingsinglestep}. To mitigate this, the dominant approach has been to introduce regularization terms that penalize curvature or gradient misalignment, such as GradAlign \cite{andriushchenko2020understandingimprovingfastadversarial}, Local Linearization Regularization \cite{qin2019adversarialrobustnesslocallinearization}, and CURE \cite{moosavidezfooli2018robustnesscurvatureregularizationvice}. While these methods are effective, they treat the stability of FGSM and the objective of IGR as largely distinct optimization goals. 
 
 Simon-Gabriel et al. \cite{simongabriel2019firstorderadversarialvulnerabilityneural} noted a link between the two methods by showing that FGSM-based training is a data augmentation technique that accounts for additional points $x + \delta$ perturbed by $\epsilon$-sized FGSM attacks $\delta = \epsilon \cdot \operatorname{sign}(\nabla_x \mathcal{L}(x))$, which alters the training loss function to
-\[
+\begin{equation}
   \tilde{\mathcal{L}_{\epsilon}}(x, y; \theta) = \mathcal{L}(x, y; \theta) + \mathcal{L}(x + \delta, y; \theta).
-\]
+  \label{eq:fgsm_loss_naive}
+\end{equation}
 On the other hand, IGR is simply adding a regularization term to the loss function to penalize the input gradient norm $\|\nabla_x \mathcal{L}(x)\|_1$. However, this comparison is insufficient to explain why FGSM-based training leads to catastrophic overfitting while IGR remains stable. Here is where we fill in the theoretical gap: if we introduce the approximation error term $R(x, \delta)$ defined in \eqref{eq:remainder}, we get
 \begin{equation}
   \tilde{\mathcal{L}_{\epsilon}}(x, y; \theta) = \mathcal{L}(x, y; \theta) + \epsilon \|\nabla_x \mathcal{L}(x)\|_1 + R(x, \delta). \label{eq:fgsm_loss}
 \end{equation}
-Notice that this is essentially the same as the IGR loss function \eqref{eq:igr} when $\lambda = \epsilon$, with the critical difference being the addition of the approximation error term $R(x, \delta)$. This allows the model to ``cheat'' in FGSM-based training. Instead of minimizing the gradient norm $\|\nabla_x \mathcal{L}(x)\|_1$, the model resorts to minimizing $R(x, \delta)$ to be large and negative. This contradicts the necessary condition (iii) for robustness given by the Finlay-Oberman bound.
+Notice that this is essentially the same as the IGR loss function \eqref{eq:igr} when $\lambda = \epsilon$, with the critical difference being the addition of the approximation error term $R(x, \delta)$. This allows the model to ``cheat'' in FGSM-based training. Instead of minimizing the gradient norm $\|\nabla_x \mathcal{L}(x)\|_1$, the model may resort to minimizing $R(x, \delta)$ to be large and negative, contradicting the necessary condition (iii) for robustness given by the Finlay-Oberman bound.
 
-By making $R(x, \delta)$ negative and $|R(x, \delta)|$ large, the model essentially invalidates the first-order approximation which FGSM relies on. This gives mathematical explanation for why FGSM-based training leads to catastrophic overfitting. We suspect that this phenomenon is especially pronounced for non-smooth networks like ReLU, where the $R(x, \delta)$ term can be unbounded for the model to exploit. However, if we use smooth activation functions like GeLU, the term $R(x, \delta)$ is bounded by the Lipschitz constant of the gradient, then the loss function \eqref{eq:fgsm_loss} resembles the loss function of IGR \eqref{eq:igr}. Additionally, $R(x, \delta)$ being locally bounded suggests that the modulus of continuity $\omega(\epsilon)$ is also constrained, which aligns with a necessary condition for robustness given by \eqref{eq:finlay_bound}. Therefore, we suspect that FGSM-based training should be able to achieve comparable, if not better, robustness to IGR. This theoretical view is consistent with the experimental results in \cite{xie2021smoothadversarialtraining}, and we will also empirically verify FGSM-based training's failure modes and compare its performance with IGR in the next chapter.
+By making $R(x, \delta)$ negative and $|R(x, \delta)|$ large, the model essentially invalidates the first-order approximation which FGSM relies on. This gives mathematical explanation for why FGSM-based training leads to catastrophic overfitting. We suspect that this phenomenon is especially pronounced for non-smooth networks like ReLU, where the $R(x, \delta)$ term can be unbounded for the model to exploit. However, if we use smooth activation functions like GeLU, the term $R(x, \delta)$ is bounded and the loss function \eqref{eq:fgsm_loss} resembles the loss function of IGR \eqref{eq:igr}. Additionally, $R(x, \delta)$ being locally bounded suggests that the modulus of continuity $\omega(\epsilon)$ is also constrained, which aligns with a necessary condition for robustness given by \eqref{eq:finlay_bound}. Therefore, we suspect that FGSM-based training should achieve comparable robustness to IGR. This theoretical view is consistent with the experimental results in \cite{xie2021smoothadversarialtraining}, and we will also empirically verify FGSM-based training's failure modes and compare its performance with IGR in the next chapter.
 
 \section{Experiments}
 
 In this section, we provide empirical verification for the our unified theoretical view of IGR and FGSM as well as the effect of smooth activations on both methods. 
 
-\subsection{Setup}
-
-We follow the setup from \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural} and trained PreActResNet18 models on the CIFAR-10 dataset using two primary training objectives: (1) Input Gradient Regularization (IGR) with $\lambda=1.5$ and the attack strength $\epsilon=8/255$, and (2) FGSM adversarial training with attack strength $\epsilon=8/255$. In particular, we use the same architecture and training hyperparameters as in the original paper, with the exception that all models are trained for 100 epochs instead of 300.
+We follow the setup from \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural} and trained PreActResNet18 models on the CIFAR-10 dataset using two primary training objectives: (1) Input Gradient Regularization (IGR) with $\lambda=1.5$ and the attack strength $\epsilon=8/255$, and (2) FGSM adversarial training with attack strength $\epsilon=8/255$. In particular, we use the cross entropy loss for $\mathcal{L}$, and the architecture and training hyperparameters also follows the original paper, with the exception that all models are trained for 100 epochs instead of 300.
 
 The evaluation metric also follows \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural}, where we measure the clean accuracy, accuracy against PGD-50, and accuracy against AutoAttack \cite{croce2020reliableevaluationadversarialrobustness}, the current state-of-the-art ensemble of parameter-free attacks (APGD-CE, APGD-T, FAB-T, Square) for robustness.
 
@@ -177,42 +176,44 @@ A key novelty of our experimental design is the selection of activation function
 
 We also showcase the effect of smooth activations on FGSM-based training by plotting the approximation error $R(x, \delta)$ and gradient norm $\|\nabla_x \mathcal{L}(x)\|_1$ to epoch graph for ReLU and GeLU. To the best of our knowledge, this visual comparison is also novel.
 
-\subsection{Results}
-
 \begin{table}[t]
   \centering
-  \label{tab:main_results}
   \begin{tabular}{cc|ccc}
-  \toprule
-  \multicolumn{2}{c|}{\textbf{Method}} & \multicolumn{3}{c}{\textbf{Accuracy (\%)}} \\ 
-  \cmidrule(r){1-2} \cmidrule(l){3-5} 
-  Training & Activation & Clean & PGD-50 & AutoAttack-$L_\infty$ \\ 
-  \midrule
-  \multirow{4}{*}{IGR} 
-   & ReLU & 61.10 & 38.80 & 32.20 \\
-   & PReLU & 58.80 & 37.60 & 30.90 \\
-   & GELU & 82.50 & 44.40 & 39.30 \\
-   & Softplus & 77.20 & 44.90 & 37.10 \\ 
-  \midrule
-  \multirow{2}{*}{FGSM} 
-   & ReLU & 85.60 & 0.00 & 0.00 \\
-   & GELU & 78.80 & 47.30 & 41.90 \\ 
-  \bottomrule
+    \toprule
+    \multicolumn{2}{c|}{\textbf{Method}} & \multicolumn{3}{c}{\textbf{Accuracy (\%)}} \\ 
+    \cmidrule(r){1-2} \cmidrule(l){3-5} 
+    Training & Activation & Clean & PGD-50 & AutoAttack-$L_\infty$ \\ 
+    \midrule
+    \multirow{4}{*}{IGR} 
+    & ReLU & 61.10 & 38.80 & 32.20 \\
+    & PReLU & 58.80 & 37.60 & 30.90 \\
+    & GELU & 82.50 & 44.40 & 39.30 \\
+    & Softplus & 77.20 & 44.90 & 37.10 \\ 
+    \midrule
+    \multirow{2}{*}{FGSM} 
+    & ReLU & 85.60 & 0.00 & 0.00 \\
+    & GELU & 78.80 & 47.30 & 41.90 \\ 
+    \bottomrule
   \end{tabular}
   \vspace{1em}
-  \caption{Comparison of Clean and Robust Accuracy across different training methods and activation functions. All models were trained with $\epsilon = 8/255$. Robustness is evaluated using PGD-50 and AutoAttack ($L_\infty$).}
+  \caption{Accuracy results for IGR and FGSM with 100 epochs of training.}
+  \label{tab:main_results}
 \end{table}
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=1\textwidth]{images/fgsm.png}
-  \caption{Comparison of first-order approximation error $R(x, \delta)$ and input gradient norm $\|\nabla_x \mathcal{L}(x)\|_1$ during FGSM training for ReLU and GELU activations. The ReLU network exhibits large negative approximation errors and exploding gradient norms after epoch 40, demonstrating catastrophic overfitting, while GELU maintains stable behavior throughout training.}
+  \caption{FGSM-based training performance for ReLU and GeLU activations. The plots from left to right are the clean accuracy, FGSM accuracy, approximation error $R(x, \delta)$, and gradient norm $\|\nabla_x \mathcal{L}(x)\|_1$ to epoch graph.}
   \label{fig:fgsm}
 \end{figure}
 
-\subsection{Discussion}
+It is clear in Table \ref{tab:main_results} that both methods achieve significant improvements by adopting smooth activation functions. Softplus's close performance to GELU in IGR suggests that monotonicity is not a major factor in IGR's success. PReLU also fails to achieve better result than ReLU despite being a generalization of ReLU, indicating that the ``kink'' in the activation function may be the main culprit for their poor robustness performance. Both comparison yields further evidence that smooth activations are crucial for IGR's success. 
+
+Meanwhile, FGSM also benefits greatly from smooth activations and achieves comparable robustness to IGR when using GeLU, confirming our guess earlier. Furthermore, our experiment perfectly captures the phenomenon of catastrophic overfitting and how the model ``cheats'' in FGSM-based training when using ReLU. As shown in Figure \ref{fig:fgsm}, the FGSM accuracy jumps from $50\%$ to near $100\%$ while the approximation error $R(x, \delta)$ drops to the negative and the gradient norm $\|\nabla_x \mathcal{L}(x)\|_1$ explodes from near $0$ to above $15$. Paired with the $0\%$ accuracy against PGD-50 and AutoAttack-$L_\infty$ in \ref{tab:main_results}, this confirms our view that the model exploits the first-order approximation error $R(x, \delta)$ to achieve superficial robustness.
 
 \section{Conclusion}
+
+Our experiments provide empirical evidence for the theoretical view of IGR and FGSM as well as the effect of smooth activations on both methods. However, due to the limited computational resources, we are not able to completely follow Rodríguez-Muñoz et al. \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural} and perform the experiments on modern large-scale models and datasets (ResNet-50 on ImageNet). Similarly, we are also unable to train models via multi-step adversarial training with smooth activations to give a direct evidence that IGR and FGSM can indeed achieve comparable robustness to Adversarial Training. It would be interesting to see if the same phenomenon occurs on larger models and datasets.
 
 \bibliographystyle{plain}
 \bibliography{references}

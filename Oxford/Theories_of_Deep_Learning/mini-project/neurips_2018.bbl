@@ -8,11 +8,6 @@ Maksym Andriushchenko and Nicolas Flammarion.
 Francesco Croce and Matthias Hein.
 \newblock Reliable evaluation of adversarial robustness with an ensemble of diverse parameter-free attacks, 2020.
 
-\bibitem{165600}
-H.~Drucker and Y.~Le~Cun.
-\newblock Improving generalization performance using double backpropagation.
-\newblock {\em IEEE Transactions on Neural Networks}, 3(6):991--997, 1992.
-
 \bibitem{finlay2019scaleableinputgradientregularization}
 Chris Finlay and Adam~M Oberman.
 \newblock Scaleable input gradient regularization for adversarial robustness, 2019.
