@@ -49,6 +49,10 @@ Nicolas Papernot, Patrick McDaniel, Ian Goodfellow, Somesh Jha, Z.~Berkay Celik,
 Chongli Qin, James Martens, Sven Gowal, Dilip Krishnan, Krishnamurthy Dvijotham, Alhussein Fawzi, Soham De, Robert Stanforth, and Pushmeet Kohli.
 \newblock Adversarial robustness through local linearization, 2019.
 
+\bibitem{rocamora2024efficientlocallinearityregularization}
+Elias~Abad Rocamora, Fanghui Liu, Grigorios~G. Chrysos, Pablo~M. Olmos, and Volkan Cevher.
+\newblock Efficient local linearity regularization to overcome catastrophic overfitting, 2024.
+
 \bibitem{rodríguezmuñoz2024characterizingmodelrobustnessnatural}
 Adrián Rodríguez-Muñoz, Tongzhou Wang, and Antonio Torralba.
 \newblock Characterizing model robustness via natural input gradients, 2024.
@@ -64,6 +68,10 @@ Ismaïla Seck, Gaëlle Loosli, and Stephane Canu.
 \bibitem{simongabriel2019firstorderadversarialvulnerabilityneural}
 Carl-Johann Simon-Gabriel, Yann Ollivier, Léon Bottou, Bernhard Schölkopf, and David Lopez-Paz.
 \newblock First-order adversarial vulnerability of neural networks and input dimension, 2019.
+
+\bibitem{szegedy2014intriguingpropertiesneuralnetworks}
+Christian Szegedy, Wojciech Zaremba, Ilya Sutskever, Joan Bruna, Dumitru Erhan, Ian Goodfellow, and Rob Fergus.
+\newblock Intriguing properties of neural networks, 2014.
 
 \bibitem{wong2020fastbetterfreerevisiting}
 Eric Wong, Leslie Rice, and J.~Zico Kolter.
