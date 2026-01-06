@@ -28,6 +28,14 @@ Peilin Kang and Seyed-Mohsen Moosavi-Dezfooli.
 Hoki Kim, Woojin Lee, and Jaewook Lee.
 \newblock Understanding catastrophic overfitting in single-step adversarial training, 2020.
 
+\bibitem{loshchilov2017sgdrstochasticgradientdescent}
+Ilya Loshchilov and Frank Hutter.
+\newblock Sgdr: Stochastic gradient descent with warm restarts, 2017.
+
+\bibitem{loshchilov2019decoupledweightdecayregularization}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization, 2019.
+
 \bibitem{7373334}
 Chunchuan Lyu, Kaizhu Huang, and Hai-Ning Liang.
 \newblock A unified gradient regularization family for adversarial examples.
