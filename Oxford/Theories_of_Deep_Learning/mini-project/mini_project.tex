@@ -205,7 +205,7 @@ It is clear in Table \ref{tab:main_results} that both methods achieve significan
 Our experiments provide empirical evidence for the theoretical view of IGR and FGSM as well as the effect of smooth activations on both methods. According to our theoretical view and experimental results, FGSM may be a better alternative to IGR for robustness training, as it achieves comparable robustness to IGR while being computationally cheaper (FGSM does not need double backpropagation). However, due to limited computing resources, we are not able perform the experiments on modern large-scale models and datasets (ResNet-50 on ImageNet) as in \cite{rodríguezmuñoz2024characterizingmodelrobustnessnatural}. Similarly, we are also unable to train models via multi-step adversarial training with smooth activations to give a direct evidence that IGR and FGSM can indeed achieve state-of-the-art robustness to Adversarial Training. It would be interesting to see if smooth activations can also improve multi-step adversarial training.
 
 \bibliographystyle{plain}
-\setlength{\bibsep}{6pt} 
+\setlength{\bibsep}{5pt} 
 \bibliography{references}
 
 \end{document}
