@@ -230,27 +230,18 @@
     What is $\mathbb{P}(D_k > m \text{ for all } k \ge 1 \mid D_0 = m)$ for $m > 1$?
 
     \begin{proof}
-      Consider $\mathbb{T}_\infty$ to be a directed graph, with edges pointing from parent to child. Let $u$ be a neighbor of $v$. Notice that if $u$ is a parent of $v$, then $d(\rho, u) - d(\rho, v) = -1$, and if $u$ is a child of $v$, then $d(\rho, u) - d(\rho, v) = 1$. Since each non-root vertex has $1$ parent and $2$ children, if $X_{k - 1} \neq \rho$
+      Note that $(D_n)$ is a simple random walk on $\Z_{\geq 0}$ with up probability $\frac{2}{3}$, down probability $\frac{1}{3}$, and reflection at $0$. Put $q = \prob(\text{SRW hits 1}\mid D_0 = 2)$. Then, 
       \[
-        \prob(D_k = D_{k - 1} + 1) = \frac{2}{3}, \quad \prob(D_k = D_{k - 1} - 1) = \frac{1}{3},
+        \theta = \frac{2}{3}q, \quad \text{and} \quad q = \frac{1}{3} + \frac{2}{3}\prob(\text{SRW hits 1}\mid D_0 = 3).
       \]
-      where as $\prob(D_k = D_{k - 1} + 1) = 1$ if $D_{k - 1} = 0$. For $i \in \Z_{\geq 0}$, define
+      But then by the strong Markov property and translation invariance,
       \[
-        \theta_i := \mathbb{P}(D_k > 1 \text{ for all } k \ge 1 \mid D_0 = i),
+        \prob(\text{SRW hits 1}\mid D_0 = 3) = \prob(\text{SRW hits 2}\mid D_0 = 3) \cdot \prob(\text{SRW hits 1}\mid D_0 = 2) = q^2.
       \]
-      and note that $\theta_0 = 0$, $\lim_{i \to \infty} \theta_i = 1$, and
+      Thus, $q = \frac{1}{3} + \frac{2}{3}q^2$, which has the solution $\frac{1}{2}$. Thus by translation invariance, 
       \[
-        \theta_i = \frac{2}{3}\theta_{i + 1} + \frac{1}{3}\theta_{i - 1} \Rightarrow \theta_{i + 1} - \theta_i = \frac{1}{2}(\theta_i - \theta_{i - 1}) = \cdots = \frac{1}{2^i}(\theta_1 - \theta_0) = \frac{1}{2^i}\theta.
+        \mathbb{P}(D_k > m \text{ for all } k \ge 1 \mid D_0 = m) = \theta = \frac{1}{3}.
       \]
-      But then
-      \[
-        \theta_i = \theta_i - \theta_{i - 1} + \theta_{i - 1} - \theta_{i - 2} + \theta_{i - 2} - \cdots - \theta_1 + \theta_1 = \left(1 + \frac{1}{2} + \cdots + \frac{1}{2^{i - 1}}\right)\theta = \left(2 - \frac{1}{2^{i - 1}}\right)\theta.
-      \]
-      Thus,
-      \[
-        \lim_{i \to \infty} \theta_i = 2\theta = 1 \Rightarrow \theta = \frac{1}{2}.
-      \]
-      For $m > 1$, we have $\mathbb{P}(D_k > m \text{ for all } k \ge 1 \mid D_0 = m) = \mathbb{P}(D_k > 1 \text{ for all } k \ge 1 \mid D_0 = 1) = \frac{1}{2}$.
     \end{proof}
     
     \item Now write $\mathbb{T}_n^W$ for the wired version of $\mathbb{T}_n$, with wiring vertex $w_n$. Let one of the two neighbours of $\rho$ be $\alpha$. Prove that
@@ -258,43 +249,18 @@
     \liminf_{n \to \infty} \mathbb{P}(\text{SRW on } \mathbb{T}_n^W \text{ started from } \rho \text{ hits } w_n \text{ before } \alpha) > 0. \tag{1}
     \]
     \begin{proof}
-      Note that $w_n$ are connected to all the leaves of $\mathbb{T}_n^W$. Let $\beta$ be the other child of $\rho$. For $u, v \in V(\mathbb{T}_n^W)$, let $\tau_u(v)$ denote the hitting time of $v$ by the SRW on $\mathbb{T}_n^W$ started from $u$. Then we have
+      Let $\beta$ be the other child of $\rho$. Let $(X_k)_{k \geq 0}$ be the SRW on $\mathbb{T}_n$, and let $\tau_n = \inf\{k \geq 0 : D_k = n\}$. Then by the strong Markov property and translation invariance,
       \[
-        \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1}{2} \cdot \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)).
+        \prob(\text{SRW hits } w_n \text{ before } \alpha \mid X_0 = \rho) = \prob(X_1 = \beta \mid X_0 = \rho) \cdot \prob(\text{SRW doesn't hit } \alpha \text{ before }\tau_{n + 1} \mid X_0 = \beta) \geq \frac{1}{2}\theta.
       \]
-      Notice that if the SRW started from $\beta$, then to hit $\alpha$ it must go through $\rho$. Let $A$ denote the event where SRW hits started from $\beta$ hits $w_n$ before $\alpha$. Let $R$ be the event where the SRW started from $\beta$ hits $\rho$ before $w_n$. Then
-      \begin{align*}
-        \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)) = \prob(\tau_\beta(w_n) &< \tau_\beta(\alpha)|\tau_\beta(w_n) > \tau_\beta(\rho)) \cdot \prob(\tau_\beta(w_n) > \tau_\beta(\rho)) \\
-        &+ \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)|\tau_\beta(w_n) < \tau_\beta(\rho)) \cdot \prob(\tau_\beta(w_n) < \tau_\beta(\rho)).
-      \end{align*}
-      Note that
-      \[
-        \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)|\tau_\beta(w_n) < \tau_\beta(\rho)) = 1 \quad \text{and} \quad \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)|\tau_\beta(w_n) < \tau_\beta(\rho)) = \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)).
-      \]
-      Denote $\mathbb{P}(D_k > 1 \text{ for all } n \geq k \ge 1 \mid D_0 = i) = \theta^{(n)}$ and we have
-      \[
-        \prob(\tau_\beta(w_n) < \tau_\beta(\rho)) = \theta^{(n)},
-      \]
-      and so $\prob(\tau_\beta(w_n) > \tau_\beta(\rho)) = 1 - \prob(\tau_\beta(w_n) < \tau_\beta(\rho)) = 1 - \theta^{(n)}$. It now follows that
-      \[
-        \prob(\tau_\beta(w_n) < \tau_\beta(\alpha)) = 1 - \theta^{(n)} + \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) \cdot \theta^{(n)} 
-      \]
-      and so
-      \[
-        \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1 - \theta^{(n)}}{2} + \frac{1}{2} \cdot \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) \cdot \theta^{(n)}.
-      \]
-      By (a) we have $\lim_{n \to \infty} \theta^{(n)} = \frac{1}{2}$, and so
-      \[
-        \lim_{n \to \infty} \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1}{4} + \frac{1}{4} \cdot \lim_{n \to \infty} \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) \Rightarrow \lim_{n \to \infty} \prob(\tau_\rho(w_n) < \tau_\rho(\alpha)) = \frac{1}{3} > 0.
-      \]
-      This completes the proof.
+      The result now follows by taking $\liminf$ as $n \to \infty$.
     \end{proof}
     
     \item By considering also a version of (1) for a SRW started from $\alpha$, and using Wilson's algorithm on $\mathbb{T}_n^W$ with initial vertex $w_n$ (or otherwise), prove that the edge $\{\rho,\alpha\}$ is not $\mu^W$-almost surely present, and thus FUSF $\neq$ WUSF for $\mathbb{T}_\infty$.
     \begin{proof}
       By (a) we have
       \[
-      \liminf_{n \to \infty} \mathbb{P}(\text{SRW on } \mathbb{T}_n^W \text{ started from } \alpha \text{ hits } w_n \text{ before } \rho) = \theta = \frac{1}{2}.
+      \mathbb{P}(\text{SRW on } \mathbb{T}_n^W \text{ started from } \alpha \text{ hits } w_n \text{ before } \rho) \geq \frac{1}{3}.
       \]
       Now consider running Wilson's algorithm on $\mathbb{T}_n^W$ with an enumeration of the vertices $w_n, \rho, \alpha, \dots$. Then the probability that the edge $\{\rho,\alpha\}$ is not present is
       \[
@@ -302,7 +268,7 @@
       \]
       By the previous results, taking the limit as $n \to \infty$ yields
       \[
-        \lim_{n \to \infty} \prob(\{\rho, \alpha\} \notin E(\mathbb{T}_n^W)) = \frac{1}{3} \cdot \frac{1}{2} = \frac{1}{6} > 0.
+        \liminf_{n \to \infty} \prob(\{\rho, \alpha\} \notin E(\mathbb{T}_n^W)) > 0.
       \]
       The result now follows.
       \end{proof}
@@ -396,7 +362,6 @@
   \emph{Hint: recall basic results about branching processes.}
 
   \begin{proof}
-    Note that we may view the component of $\rho$ is a result of the branching process with offspring distribution $X \sim \text{Binomial}(d, p)$, where the level of the tree represents the generation of the process. Then the event $\{\rho \leftrightarrow \infty\}$ is the event that the branching process does not extinct. The expected number of offspring for each layer is $\mu = dp$. By the results about branching processes, the branching process will extinct if and only if $\mu \leq 1$. That is,
     \[
       p_c = \sup\{p : \mu \leq 1\} = \frac{1}{d},
     \]

@@ -1,0 +1,230 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#4}
+\newcommand{\hmwkDueDate}{Jan 14, 2026}
+\newcommand{\hmwkClass}{C3.8 Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor Goon}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Show that, for some $c > 1$ and every $n \geq 5$, there is a family $\mathcal{F} \subset \mathcal{P}[n]$ of size at least $c^n$ such that every set in $\mathcal{F}$ has odd size, and the intersection of any two distinct sets from $\mathcal{F}$ has odd size.
+
+  \begin{proof}
+    Put $m = \lceil n/2 \rceil - 1 \geq n / 4$. Define
+    \[
+      \mathcal{F} = \left\{\{1\} \cup \bigcup_{i \in S} \{2i\} \cup \{2i + 1\} : S \subseteq [m]\right\}.
+    \]
+    Then $|\mathcal{F}| = 2^m \geq 2^{n/4}$ and for any $A, B$, there are correpsonding $S_A, S_B \subseteq [m]$ such that
+    \[
+      A \cap B = \{1\} \cup \bigcup_{i \in S_A \cap S_B} \{2i\} \cup \{2i + 1\}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathcal{A}, \mathcal{B} \subset \mathcal{P}[n]$ be two set systems such that $|A \cap B|$ is even for all $A \in \mathcal{A}$ and $B \in \mathcal{B}$. Prove that $|\mathcal{A}| \cdot |\mathcal{B}| \leq 2^n$. Can you describe the pairs $\mathcal{A}, \mathcal{B}$ for which we have equality? 
+    
+  [Hint: Show that if $A, A' \in \mathcal{A}$ then we may assume $A \Delta A' \in \mathcal{A}$.]
+
+  \begin{proof}
+    We first note that if $A, A' \in \mathcal{A}$, then $|A \Delta A'| = |A| + |A'| - 2|A \cap A'|$ is even. Thus we may assume $A \Delta A' \in \mathcal{A}$ for all $A, A' \in \mathcal{A}$. We work over $\mathbb{F}_2$. For $A \in \mathcal{A}$ and $B \in \mathcal{B}$, let $\chi_A, \chi_B \in \mathbb{F}_2^n$ and $\chi_A(i) = 1$ or $\chi_B(i) = 1$ if and only if $i \in A$ or $i \in B$, respectively. Let $V = \{\chi_A : A \in \mathcal{A}\}$ and $W = \{\chi_B : B \in \mathcal{B}\}$. Since $\chi_A + \chi_{A'} = \chi_{A \Delta A'}$ for all $A, A' \in \mathcal{A}$, we have that $V$ is a linear subspace of $\mathbb{F}_2^n$. Similarly, $W$ is a linear subspace of $\mathbb{F}_2^n$. Since $\langle \chi_A, \chi_B \rangle = 0$ for all $A \in \mathcal{A}$ and $B \in \mathcal{B}$, we have that $W$ is the orthogonal complement $V$. But then $\dim(V) + \dim(W) \leq n$, so $|\mathcal{A}| \cdot |\mathcal{B}| \leq 2^n$. Thus if $\mathcal{A}, \mathcal{B}$ achieves the bound, then $V$ and $W$ are linear subspaces of $\mathbb{F}_2^n$ of dimension $n/2$ and $W = V^\perp$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $P$ be a set of $n$ points in the plane that do not all lie on a straight line. Prove that they determine at least $n$ lines. [Hint: For each point, consider the set of lines that passes through it.]
+    
+  \begin{proof}
+    Let $\mathcal{L} = \{L_1, \ldots, L_m\}$ be the set of lines determined by points in $P$. For $x \in P$, let $A_x = \{i \in [m] : x \in L_i\}$. Then $|A_x \cap A_{x'}| = 1$ for $x \neq x'$. Note that $\mathcal{A} = \{A_x : x \in P\} \subseteq [m]$. Thus, by Fisher's inequality, $n = |\mathcal{A}| \leq m$. This completes the proof.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  Prove that a non-trivial decomposition of the edges of $K_n$ into edge-disjoint complete subgraphs requires at least $n$ subgraphs. Show how this bound can be achieved. 
+  
+  [Hint: Consider the set of cliques that contain a given vertex.]
+
+  \begin{proof}
+    Let $G_1, \ldots, G_m$ be a non-trivial decomposition of the edges of $K_n$ into edge-disjoint complete subgraphs. For $x \in [n]$, let $A_x = \{i \in [m] : x \in A_i\}$. Note that $A_x \subseteq [m]$ and $|A_x \cap A_y| = 1$ for $x \neq y$. Since the decomposition is non-trivial, $|A_x| \geq 2$ for all $x$, and so each $A_x$ is distinct. It now follows from Fisher's inequality that $n = |\{A_x\}_{x \in [n]}| \leq m$.
+
+    To see how this bound can be achieved, let $G_1$ be the clique induced by $[n] \setminus \{1\}$, and for $[n] \setminus \{1\}$ let $G_i$ be the cliques of size $2$ induced by $1$ and $i$. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A set $P$ in $\mathbb{R}^n$ is a \textit{two-distance set} if there are positive real numbers $\alpha, \beta$ such that $||x - y||_2 \in \{\alpha, \beta\}$ for all distinct $x, y \in P$. Let $P = \{p_1, \dots, p_k\}$ be a two-distance set.
+    \begin{enumerate}
+      \item For each $i \in [k]$, let $f_i$ be the polynomial in variables $x = (x_1, \dots, x_n)$ defined by 
+      \[ f_i(x) = (||x - p_i||_2^2 - \alpha^2)(||x - p_i||_2^2 - \beta^2). \]
+      Show that the polynomials $f_i$ are linearly independent. [Hint: Consider $f_i(p_j)$.]
+
+      \begin{proof}
+        Suppose $f = \sum_{i = 1}^k \lambda_i f_i = 0$ where $\lambda_i \in \R$. Notice $f_i(p_i) = \alpha^2\beta^2$ and $f_i(p_j) = 0$ for $i \neq j$. Thus $f(p_i) = \alpha^2\beta^2\lambda_i = 0$ for all $i$, and so $\lambda_i = 0$ for all $i$. Thus the polynomials $f_i$ are linearly independent.
+      \end{proof}
+      
+      \item Deduce that $k \leq \binom{n}{2} + 3n + 2$. [Hint: Find a basis for the space spanned by the polynomials $f_i$.]
+      \begin{proof}
+        For $q \in \R^n$, write 
+        \[
+          \|x - q\|^2_2 - \alpha^2 = \|x\|_2^2 - 2\sum_{i = 1}^k q_i x_i + \|q\|_2^2 - \alpha^2,
+        \]
+        and so $\|x - q\|^2_2 - \alpha^2$ is a linear combination of $\|x\|_2^2, \{x_i\}_{i \in [n]}, \text{ and } 1$. Hence, each $f_i$ can be written as a linear combination of 
+        \[
+          \|x\|_2^4, \{\|x\|_2^2 x_i\}_{i \in [n]}, \{x_i x_j\}_{i, j \in [n]}, \{x_i\}_{i \in [n]}, 1.
+        \]
+        Thus the span of $\{f_i\}_{i \in [k]}$ has dimension at most $1 + n + n^2 + n + 1 = \binom{n}{2} + 3n + 2$ above. That is,
+        \[
+          k = |\{f_i\}_{i \in [k]}| \leq \binom{n}{2} + 3n + 2.
+        \]
+      \end{proof}
+    \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $\mathcal{F}$ be a collection of functions from $[n]$ to $\mathbb{Z}$. Suppose that, for every pair of distinct functions $f, g \in \mathcal{F}$ we have $f(i) = g(i) + 1$ for some $i$. Prove that $|\mathcal{F}| \leq 2^n$. 
+  
+  [Hint: Look for a suitable collection of polynomials.]
+
+  \begin{proof}
+    In $\Z[x_1, \ldots, x_n]$, define
+    \[
+      p_f(x_1, \ldots, x_n) = \prod_{i \in [n]} (x_i - f(i) - 1),
+    \]
+    for $f \in \mathcal{F}$. We show that $\{\{p_f\}_{f \in \mathcal{F}}\}$ is linearly independent. Suppose $P = \sum_{f \in \mathcal{F}} \lambda_f p_f = 0$ where $\lambda_f \in \Q$. Let $g \in \mathcal{F}$. Then
+    \[
+      P(g(1), \ldots, g(n)) = \lambda_g p_g(g(1), \ldots, g(n)) = 0.
+    \]
+    But then $p_g(g(1), \ldots, g(n)) \neq 0$, so $\lambda_g = 0$ for all $g \in \mathcal{F}$. Thus the polynomials $p_f$ are linearly independent in $\Q[x_1, \ldots, x_n]$. Since each $p_f$ can be written is a linear combination of $\left\{\prod_{i \in S}x_i\right\}_{S \subseteq [n]}$,
+    \[
+      |\mathcal{F}| = |\{p_f\}_{f \in \mathcal{F}}| \leq 2^n.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\end{document}
