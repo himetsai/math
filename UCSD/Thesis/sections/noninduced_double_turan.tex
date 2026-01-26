@@ -31,7 +31,7 @@ as each $T \in [m]$ with $|T| \geq 2$ is counted $\binom{|T|}{2}$ times in total
 
 \subsection{Proof of Theorem \ref{thm:asymp}}
 
-We need the following \textit{saturation theorem}, which may be found in~\cite{ErdosSimonovits1983}.
+We need the following \textit{saturation theorem}, which may be found in \cite{ErdosSimonovits1983}.
 
 \begin{proposition}\label{thm:sat}
 Let $F$ be any non-empty graph with $k$ vertices. For all $\epsilon > 0$, there exists $\delta > 0$ such that if $G$ is any $n$-vertex graph with $\ex(n,F) + \epsilon n^2$ edges, then  $G$ contains $\delta n^k$ copies of $F$. 
@@ -52,7 +52,7 @@ Let $F$ be any non-empty graph with $k$ vertices. For all $\epsilon > 0$, there 
 Since $F$ is not bipartite, $\ex(n,F) = \Theta(n^2)$ and so $\phi(m, n, F) \leq m \cdot \ex(n,F) + (\epsilon + 1/\delta m)mn^2$. Since $\epsilon$ was arbitrary and $\delta$ is a constant depending only on $\epsilon$, 
 we conclude $\phi(m, n, F) \leq (1 + o(1))m \cdot \ex(n,F)$ as $m \rightarrow \infty$. \qed
 
-Let $F$ be a bipartite graph with $k \geq 2$ vertices and $j \geq 1$ edges. A strong version of a conjecture of Simonovits~\cite{Sidorenko1993,Simonovits1984} would suggest that for all $\epsilon > 0$, there exists $\delta > 0$ such that every $n$-vertex graph $G$ with at least $p\binom{n}{2}(1 + \epsilon)\ex(n,F)$ edges contains at least $\delta p^j n^{k}$ copies of $F$. For instance, this is known to be true whenever the asymptotic behavior of $\ex(n,F)$ is known, which includes the case $F = K_{2,t}$. If $F$ is bipartite and $m \cdot \ex(n,F)/n^2 \rightarrow \infty$ as $m,n \rightarrow \infty$, then this conjecture with the same proof as above shows $\phi(m, n, F) = (1 + o(1))m \cdot \ex(n,F)$. When $F$ contains a cycle, then there exists $\alpha > 0$ such that $\ex(n,F) \geq n^{1 + \alpha}$ for large enough $n$. Thus, we conclude that if $F$ contains a cycle and the Simonovits conjecture is true for $F$, then $\phi(m, n, F) = (1 + o(1))m \cdot \ex(n,F)$ for $m \geq n$ and $n \rightarrow \infty$. In particular, this shows $\phi(m,n,K_{2,t}) = (1 + o(1))m \cdot \ex(n,F)$ for $m \geq n$ as $n \rightarrow \infty$.
+Let $F$ be a bipartite graph with $k \geq 2$ vertices and $j \geq 1$ edges. A strong version of a conjecture of Simonovits \cite{Sidorenko1993,Simonovits1984} would suggest that for all $\epsilon > 0$, there exists $\delta > 0$ such that every $n$-vertex graph $G$ with at least $p\binom{n}{2}(1 + \epsilon)\ex(n,F)$ edges contains at least $\delta p^j n^{k}$ copies of $F$. For instance, this is known to be true whenever the asymptotic behavior of $\ex(n,F)$ is known, which includes the case $F = K_{2,t}$. If $F$ is bipartite and $m \cdot \ex(n,F)/n^2 \rightarrow \infty$ as $m,n \rightarrow \infty$, then this conjecture with the same proof as above shows $\phi(m, n, F) = (1 + o(1))m \cdot \ex(n,F)$. When $F$ contains a cycle, then there exists $\alpha > 0$ such that $\ex(n,F) \geq n^{1 + \alpha}$ for large enough $n$. Thus, we conclude that if $F$ contains a cycle and the Simonovits conjecture is true for $F$, then $\phi(m, n, F) = (1 + o(1))m \cdot \ex(n,F)$ for $m \geq n$ and $n \rightarrow \infty$. In particular, this shows $\phi(m,n,K_{2,t}) = (1 + o(1))m \cdot \ex(n,F)$ for $m \geq n$ as $n \rightarrow \infty$.
 
 \subsection{Proof of Theorem \ref{thm:blowup}}
 

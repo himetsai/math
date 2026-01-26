@@ -1,44 +1,44 @@
 \section{Introduction}
 
-This thesis focuses on a variation of the \textit{Turán problem} in extremal combinatorics.  The fundamental question in extremal hypergraph theory is determining the maximum number of edges in an $n$-vertex $r$-uniform graph that does not contain a prescribed $r$-uniform graph $F$ as a subgraph. These maxima, denoted $\ex(n, F)$, are referred to as the \textit{extremal numbers} or \textit{Turán numbers} for $F$. One of the cornerstones of extremal graph theory, concerning the case $F$ is a clique, is Tur\'{a}n's Theorem~\cite{Turan1941}. To state the theorem, we need the \textit{Tur\'{a}n graphs} $T_k(n)$, which denotes a complete multipartite graph with $n$ vertices and $k$ parts of size $\lfloor n/k\rfloor$ or $\lceil n/k\rceil$. 
+This thesis focuses on a variation of the \textit{Turán problem} in extremal combinatorics.  The fundamental question in extremal hypergraph theory is determining the maximum number of edges in an $n$-vertex $r$-uniform graph that does not contain a prescribed $r$-uniform graph $F$ as a subgraph. These maxima, denoted $\ex(n, F)$, are referred to as the \textit{extremal numbers} or \textit{Turán numbers} for $F$. One of the cornerstones of extremal graph theory, concerning the case $F$ is a clique, is Turán's Theorem \cite{Turan1941}. To state the theorem, we need the \textit{Turán graphs} $T_k(n)$, which denotes a complete multipartite graph with $n$ vertices and $k$ parts of size $\lfloor n/k\rfloor$ or $\lceil n/k\rceil$. 
 
-\begin{oldtheorem}[Tur\'{a}n's Theorem]\label{thm:turan}
+\begin{oldtheorem}[Turán's Theorem]\label{thm:turan}
 The maximum number of edges in an $n$-vertex graph $G$ containing no clique of order $r + 1$ is $e(T_r(n))$, with equality only if $G = T_r(n)$.
 \end{oldtheorem}
 
-Simonovits~\cite{ErdosSimonovits1966} observed via the Erd\H{o}s-Stone Theorem~\cite{ErdosStone1946} that the asymptotic value of $\ex(n, F)$ may be obtained whenever $F$ is non-bipartite:
+Simonovits \cite{ErdosSimonovits1966} observed via the Erdős-Stone Theorem \cite{ErdosStone1946} that the asymptotic value of $\ex(n, F)$ may be obtained whenever $F$ is non-bipartite:
 
-\begin{oldtheorem}[Erd\H{o}s-Stone Theorem, Simonovits' Theorem]\label{thm:ess}
+\begin{oldtheorem}[Erdős-Stone Theorem, Simonovits' Theorem]\label{thm:ess}
 Let $F$ be any graph of chromatic number $r + 1 \geq 3$. Then $\ex(n, F) = (1 + o(1))T_r(n)$ as $n \rightarrow \infty$.
 \end{oldtheorem}
 
-There are a number of proofs of the Erd\H{o}s-Stone Theorem. A very general framework involves \textit{Szemer\'{e}di's Regularity Lemma}, which may be stated as follows. A pair $(U,V)$ of disjoint sets of vertices in a graph $G$ is called \textit{$\epsilon$-regular} if for any $X \subseteq U$ and $Y \subseteq V$ of size at least $\epsilon |U|$ and $\epsilon|V|$ respectively, 
+There are a number of proofs of the Erdős-Stone Theorem. A very general framework involves \textit{Szemerédi's Regularity Lemma}, which may be stated as follows. A pair $(U,V)$ of disjoint sets of vertices in a graph $G$ is called \textit{$\epsilon$-regular} if for any $X \subseteq U$ and $Y \subseteq V$ of size at least $\epsilon |U|$ and $\epsilon|V|$ respectively, 
 \[
   \left|\frac{e(X, Y)}{|X||Y|} - \frac{e(U, V)}{|U||V|}\right| < \epsilon.
 \]
-The following was proved by Szemer\'{e}di~\cite{Szemeredi1978}:
+The following was proved by Szemerédi \cite{Szemeredi1978}:
 
-\begin{oldtheorem} [Szemer\'{e}di's Regularity Lemma]
+\begin{oldtheorem} [Szemerédi's Regularity Lemma]
 For all $\epsilon > 0$, there exist $m$ and $M$ such that for every graph $G$, there exists a partition $(V_1, V_2, \dots, V_k)$ of $V(G)$ such that $m \leq k \leq M$ and $|V_1| \leq |V_2| \leq \dots \leq |V_k| \leq |V_1| + 1$ and all but at most $\epsilon k^2$ pairs $(V_i, V_j)$ are $\epsilon$-regular. 
 \end{oldtheorem}
 
-The value of $\ex(n, F)$ for bipartite $F$ is in general wide open, and the order of magnitude of $\ex(n, K_{4, 4})$ or $\ex(n, C_8)$ is not known -- see F\"{u}redi and Simonovits~\cite{FurediSimonovits2013} for a history of the bipartite Tur\'{a}n problem. There is also no analog of the above theorems for $r$-uniform hypergraphs. The asymptotic value of $\ex(n, K_k^r)$ is not known for any $k > r \geq 3$, where $K_k^r$ denotes the complete $r$-uniform hypergraph on $k$ vertices. The asymptotic value of $\ex(n, K_4^3)$ was conjectured by Tur\'{a}n~\cite{Turan1941} to be $\frac{5}{9} \binom{n}{3}$, and this remains open despite decades of intensive research. 
+The value of $\ex(n, F)$ for bipartite $F$ is in general wide open, and the order of magnitude of $\ex(n, K_{4, 4})$ or $\ex(n, C_8)$ is not known -- see Furedi and Simonovits \cite{FurediSimonovits2013} for a history of the bipartite Turán problem. There is also no analog of the above theorems for $r$-uniform hypergraphs. The asymptotic value of $\ex(n, K_k^r)$ is not known for any $k > r \geq 3$, where $K_k^r$ denotes the complete $r$-uniform hypergraph on $k$ vertices. The asymptotic value of $\ex(n, K_4^3)$ was conjectured by Turán \cite{Turan1941} to be $\frac{5}{9} \binom{n}{3}$, and this remains open despite decades of intensive research. 
 
 \subsection{Problem Statement}
 
-In this thesis, we investigate closely related problems which we refer to as \textit{double Tur\'{a}n problems}. To describe these problems, let $G_1, G_2, \ldots, G_m$ be graphs with the same vertex set $V(G_i) = [n]$ for $i \in [m]$. 
+In this thesis, we investigate closely related problems which we refer to as \textit{double Turán problems}. To describe these problems, let $G_1, G_2, \ldots, G_m$ be graphs with the same vertex set $V(G_i) = [n]$ for $i \in [m]$. 
 
 \begin{definition}
   For a graph $F$, we say that $G_1, G_2, \dots, G_m$ is \textit{double $F$-free} if $E(F) \not \subseteq E(G_i) \cap E(G_j)$ for $1 \leq i < j \leq m$. Moreover, we call a copy of $F$ in $G_i \cap G_j$ a \textit{double $F$} in $G_i, G_j$.
 \end{definition}
 
-The double Tur\'{a}n problem asks for the maximum sum of edges over $G_1, G_2, \ldots, G_m$ such that $G_1, G_2, \ldots, G_m$ are double $F$-free.
+The double Turán problem asks for the maximum sum of edges over $G_1, G_2, \ldots, G_m$ such that $G_1, G_2, \ldots, G_m$ are double $F$-free.
 
 \begin{definition}
   For a graph $F$, the double Turán number for $F$, denoted $\phi(m, n, F)$, is the maximum value of $\sum_{i = 1}^m e(G_i)$ such that $G_1, G_2, \dots, G_m$ are double $F$-free.
 \end{definition}
 
-We would also like to study a special case of the double Tur\'{a}n problem, which we refer to as \textit{induced double Tur\'{a}n problem}. 
+We would also like to study a special case of the double Turán problem, which we refer to as \textit{induced double Turán problem}. 
 
 \begin{definition}
   We call $G_1, G_2, \ldots, G_m$ induced if for each $i \in [m]$, $G_i$ is an induced subgraph of $\bigcup_{i = 1}^m G_i$.
@@ -50,7 +50,7 @@ In other words, if $\{u, v\} \in E(G_i)$ and $u, v \in V(G_j)$, then $\{u,v\} \i
   For a graph $F$, the induced double Turán number, denoted $\phi^*(m, n, F)$, is the maximum value of $\sum_{i = 1}^m e(G_i)$ such that $G_1, G_2, \dots, G_m$ are induced and double $F$-free.
 \end{definition}
 
-The induced double Tur\'{a}n problem is then to determine $\phi^*(m, n, F)$. Clearly, $\phi(m, n, F) \geq \phi^*(m, n, F)$. Similar to the Turán problem, the induced and non-induced double Turán problems behave differently depending on whether $F$ is bipartite or non-bipartite. Thus we will study these two cases separately in this thesis. We shall see that the study of $\phi(m, n, F)$ and $\phi^*(m, n, F)$ is motivated by certain hypergraph extremal problems.
+The induced double Turán problem is then to determine $\phi^*(m, n, F)$. Clearly, $\phi(m, n, F) \geq \phi^*(m, n, F)$. Similar to the Turán problem, the induced and non-induced double Turán problems behave differently depending on whether $F$ is bipartite or non-bipartite. Thus we will study these two cases separately in this thesis. We shall see that the study of $\phi(m, n, F)$ and $\phi^*(m, n, F)$ is motivated by certain hypergraph extremal problems.
 
 \subsection{Motivation : Link Graphs and Hypergraphs}
 
@@ -62,9 +62,9 @@ Apart from the intrinsic interest in investigating $\phi(m, n, F)$, one motivati
 
 A handy idea in extremal hypergraph theory is to reduce a hypergraph extremal problem to extremal problems for the link graphs. For instance, a triple system $H$ does not contain a tetrahedron, i.e. four triples on four vertices, if and only if all its link graphs are triangle-free.
 
-In the current context, given a graph $F$, let $F^+$ denote the triple system with $V(F^+) = V(F) \cup \{x, y\}$ and $E(F^+) = \{e \cup \{x\}, e \cup \{y\} : e \in E(F)\}$. For example, if $F$ is a 4-cycle $K_{2,2}$, then $F^+$ is the hypergraph for octahedron. We can see that $\phi(n, n, F)$ and $\ex(n, F^+)$ are intimately related: if $H$ is an $F^+$-free triple system with vertex set $[n]$, then the link graphs $H_1, H_2, \dots, H_n$ are double $F$-free, otherwise there exists a double $F$ in some $H_i \cap H_j$ and the vertices $i, j$ along with that copy of $F$ form a $F^+$ in $H$, contradiction. Thus, $\ex(n, F^+) \leq \phi(n, n, F)$, and this relates the double Tur\'{a}n problem to hypergraph extremal problems.
+In the current context, given a graph $F$, let $F^+$ denote the triple system with $V(F^+) = V(F) \cup \{x, y\}$ and $E(F^+) = \{e \cup \{x\}, e \cup \{y\} : e \in E(F)\}$. For example, if $F$ is a 4-cycle $K_{2,2}$, then $F^+$ is the hypergraph for octahedron. We can see that $\phi(n, n, F)$ and $\ex(n, F^+)$ are intimately related: if $H$ is an $F^+$-free triple system with vertex set $[n]$, then the link graphs $H_1, H_2, \dots, H_n$ are double $F$-free, otherwise there exists a double $F$ in some $H_i \cap H_j$ and the vertices $i, j$ along with that copy of $F$ form a $F^+$ in $H$, contradiction. Thus, $\ex(n, F^+) \leq \phi(n, n, F)$, and this relates the double Turán problem to hypergraph extremal problems.
 
-On the other hand, the study of the induced double Tur\'{a}n problem is motivated by a special case of the \textit{generalized Tur\'{a}n problem}, which asks for the maximum number $\ex(n, \bar{F}, K_3)$ of triangles in a graph $G$ with vertex set $[n]$ that does not contain some graph $\bar{F}$. This problem was studied by Alon and Shikhelman~\cite{AlonShikhelman2016} and Kostochka, Mubayi and Verstraete~\cite{KostochkaMubayiV2015, MubayiMukherjee2023, MubayiV2016}. Similar to how link graphs relate to hypergraph extremal problems, the generalized Tur\'{a}n problem is related to $\phi^*(n, n, F)$ as follows: Let $\bar{F}$ be the graph consisting of all pairs contained in triples in $F^+$. For example, if $F = K_{2,2}$ then $\bar{F} = K_{2,2,2}$. For $i \in [n]$, define $E(G_i) = \{\{j, k\} : \{i, j\}, \{j, k\}, \{i, k\} \in E(G)\}$. Then $G_1, G_2, \dots, G_n$ are induced and double $F$-free, so $\phi^*(n, n, F) \geq \ex(n, \bar{F}, K_3)$. This relates the induced double Tur\'{a}n problem to extremal problems for triangles in graphs.
+On the other hand, the study of the induced double Turán problem is motivated by a special case of the \textit{generalized Turán problem}, which asks for the maximum number $\ex(n, \bar{F}, K_3)$ of triangles in a graph $G$ with vertex set $[n]$ that does not contain some graph $\bar{F}$. This problem was studied by Alon and Shikhelman \cite{AlonShikhelman2016} and Kostochka, Mubayi and Verstraete \cite{KostochkaMubayiV2015, MubayiMukherjee2023, MubayiV2016}. Similar to how link graphs relate to hypergraph extremal problems, the generalized Turán problem is related to $\phi^*(n, n, F)$ as follows: Let $\bar{F}$ be the graph consisting of all pairs contained in triples in $F^+$. For example, if $F = K_{2,2}$ then $\bar{F} = K_{2,2,2}$. For $i \in [n]$, define $E(G_i) = \{\{j, k\} : \{i, j\}, \{j, k\}, \{i, k\} \in E(G)\}$. Then $G_1, G_2, \dots, G_n$ are induced and double $F$-free, so $\phi^*(n, n, F) \geq \ex(n, \bar{F}, K_3)$. This relates the induced double Turán problem to extremal problems for triangles in graphs.
 
 \subsection{Main Results : The Induced Case}
 
@@ -110,7 +110,7 @@ and so Conjecture \ref{conj:main} implies that an $n$-vertex graph not containin
 \[ 
   \ex(n, K_{1, 2, 2}, K_3) \leq \phi^*(n, n, K_{1,2}),
 \]
-and so Conjecture \ref{conj:main} implies that an $n$-vertex graph not containing the wheel graph has $O(n^{2})$ triangles, which is conjectured by Mubayi and Verstraete~\cite{MubayiV2016}. The conjecture proposes more generally that if $F$ is a tree, then $\phi^*(n, n, F) = O(n^2)$. In fact, it is possible to prove the following theorem using the \textit{removal lemma} as in~\cite{MubayiMukherjee2023} as well as a projective plane construction for $\phi(n, n, P)$:
+and so Conjecture \ref{conj:main} implies that an $n$-vertex graph not containing the wheel graph has $O(n^{2})$ triangles, which is conjectured by Mubayi and Verstraete \cite{MubayiV2016}. The conjecture proposes more generally that if $F$ is a tree, then $\phi^*(n, n, F) = O(n^2)$. In fact, it is possible to prove the following theorem using the \textit{removal lemma} as in \cite{MubayiMukherjee2023} as well as a projective plane construction for $\phi(n, n, P)$:
 
 \begin{theorem}\label{thm:inducedP}
 Let $P$ be a path with two edges. Then $\phi(n, n, P) = \Omega(n^{5/2})$, whereas $\phi^*(n, n, P) = o(n^{5/2})$, as $n \rightarrow \infty$. In particular, 
@@ -119,9 +119,9 @@ Let $P$ be a path with two edges. Then $\phi(n, n, P) = \Omega(n^{5/2})$, wherea
 \]
 \end{theorem}
 
-Apart from deterimining the order of magnitude of $\phi^*(m, n, F)$, this above theorem also shows that the order of magnitude of $\phi(n, n, P)$ and $\phi^*(n, n, P)$ can differ significantly. This suggests that the induced and non-induced double Tur\'{a}n problems may be fundamentally different.
+Apart from deterimining the order of magnitude of $\phi^*(m, n, F)$, this above theorem also shows that the order of magnitude of $\phi(n, n, P)$ and $\phi^*(n, n, P)$ can differ significantly. This suggests that the induced and non-induced double Turán problems may be fundamentally different.
 
-A special bipartite case where Conjecture \ref{conj:main} is true is when $F$ is a matching with two edges. Let $M$ denote a matching with two edges, and let $M^+$ denote the graph obtained from two copies of $K_4$ sharing one edge by removing that edge. Then  $\ex(n, M^+, K_3) \leq \phi^*(n, n, M)$. If $F$ is the triple system consisting of all four triangles in $M^+$, then F\"{u}redi~\cite{Furedi1984} showed $\ex(n, M^+) = O(n^2)$, answering a conjecture of Erd\H{o}s~\cite{Erdos1977}. It is possible to adapt F\"{u}redi's proof to give $\phi^*(n, n, M) = O(n^2)$, so in this case Conjecture \ref{conj:main} is true and $\ex(n, M^+, K_3) = \Theta(\phi^*(n, n, M))$. For improvements of the constant factor, see Mubayi and Verstraete~\cite{MubayiV2004} and Pikhurko and Verstraete~\cite{PikhurkoV2009}. We shall see that for some bipartite $F$, if $m$ is not too large relative to $n$, then Conjecture \ref{conj:main} is also true. 
+A special bipartite case where Conjecture \ref{conj:main} is true is when $F$ is a matching with two edges. Let $M$ denote a matching with two edges, and let $M^+$ denote the graph obtained from two copies of $K_4$ sharing one edge by removing that edge. Then  $\ex(n, M^+, K_3) \leq \phi^*(n, n, M)$. If $F$ is the triple system consisting of all four triangles in $M^+$, then Furedi \cite{Furedi1984} showed $\ex(n, M^+) = O(n^2)$, answering a conjecture of Erdős \cite{Erdos1977}. It is possible to adapt Furedi's proof to give $\phi^*(n, n, M) = O(n^2)$, so in this case Conjecture \ref{conj:main} is true and $\ex(n, M^+, K_3) = \Theta(\phi^*(n, n, M))$. For improvements of the constant factor, see Mubayi and Verstraete \cite{MubayiV2004} and Pikhurko and Verstraete \cite{PikhurkoV2009}. We shall see that for some bipartite $F$, if $m$ is not too large relative to $n$, then Conjecture \ref{conj:main} is also true. 
 
 \subsection{Main Results : The Non-induced Case}
 
@@ -134,11 +134,11 @@ Determining $\phi(m, n, F)$ even when $F$ is a complete graph is challenging. Th
   \]
 \end{theorem}
 
-By the Erd\H{o}s-Stone Theorem, the extremal number for any non-bipartite $F$ is $\Theta(n^2)$, which implies that the maximum degree of an extremal $F$-free graph exceeds $n^{1/2}$. Thus the condition on the maximum degree in the above theorem can only be satisfied for bipartite graphs, for instance, a path of two edges. An example of a bipartite graph that does not apply to this theorem would be a matching of two edges, whose extremal graph has a maximum degree of $n - 1$. 
+By the Erdős-Stone Theorem, the extremal number for any non-bipartite $F$ is $\Theta(n^2)$, which implies that the maximum degree of an extremal $F$-free graph exceeds $n^{1/2}$. Thus the condition on the maximum degree in the above theorem can only be satisfied for bipartite graphs, for instance, a path of two edges. An example of a bipartite graph that does not apply to this theorem would be a matching of two edges, whose extremal graph has a maximum degree of $n - 1$. 
 
 Since $\binom{n}{2} + m - 1 \leq \phi^*(m, n, F) \leq \phi(m, n, F)$ for any graph $F$ with at least two edges, Theorem \ref{wilsontheorem} shows $\phi^*(m, n, F) = (1 + o(1))\binom{n}{2}$ whenever the conditions on $m$ in the theorem are satisfied, proving Conjecture \ref{conj:main} to be true in this case.
 
-Our first theorem on $\phi(m, n, F)$ for non-bipartite graphs $F$ uses the notion of \textit{supersaturation} -- see Erd\H{o}s and Simonovits~\cite{ErdosSimonovits1983}. We determine the asymptotic value of $\phi(m, n, F)$ as $m \rightarrow \infty$ when $F$ is a non-bipartite graph:
+Our first theorem on $\phi(m, n, F)$ for non-bipartite graphs $F$ uses the notion of \textit{supersaturation} -- see Erdős and Simonovits \cite{ErdosSimonovits1983}. We determine the asymptotic value of $\phi(m, n, F)$ as $m \rightarrow \infty$ when $F$ is a non-bipartite graph:
 
 \begin{theorem}\label{thm:asymp}
   Let $n \geq 1$ and let $F$ be a non-bipartite graph. Then as $m \rightarrow \infty$, 
@@ -200,7 +200,7 @@ This turns out to be exactly the construction which determines $\phi(m, n, F)$ w
   \]
 \end{theorem}
 
-While computing $f(m, n, r)$ is a finite calculation, the Ramsey number $R_{\binom{m}{2}}(r)$ unfortunately appears to be intractable in general. It is known that $R_2(3) = 6$ and $R_3(3) = 17$ and $R_2(4) = 18$, but no further multicolor Ramsey numbers are known~\cite{ConlonFerber2021,Lefmann1987}. In the special case $r = m = 3$, the following holds: 
+While computing $f(m, n, r)$ is a finite calculation, the Ramsey number $R_{\binom{m}{2}}(r)$ unfortunately appears to be intractable in general. It is known that $R_2(3) = 6$ and $R_3(3) = 17$ and $R_2(4) = 18$, but no further multicolor Ramsey numbers are known \cite{ConlonFerber2021,Lefmann1987}. In the special case $r = m = 3$, the following holds: 
 
 \begin{theorem}\label{thm:triangles}
   For $n \geq 1$,

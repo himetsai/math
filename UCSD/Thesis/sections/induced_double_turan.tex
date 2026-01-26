@@ -1,4 +1,4 @@
-\section{The Induced Double Tur\'{a}n Problem}
+\section{The Induced Double Turán Problem}
 
 We prove the theorems for $\phi^*(m, n ,F)$ in this chapter. In particular, the main theorem we prove is Theorem \ref{thm:inducedF} for general non-bipartite graphs $F$ and in the special case of cliques. We will first introduce two observations that simplify the problem.
 
@@ -113,7 +113,7 @@ We need to show that $\phi(n,n,P) = \Omega(n^{5/2})$ and $\phi^*(n,n,P) = o(n^{5
   as $n \to \infty$.
 \end{claim}
 
-We first show that $\phi(m, n, P) \leq (mn^{3/2} + n^2)/2$. For each vertex $u \in [n]$, define $H_u$ as the $m \times n$ bipartite graph with edge set $E(H_u) \coloneq \{\{v, i\} : \{u, v\} \in E(G_i)\}$. If $H_u$ contains a quadrilateral $\{v, i\}, \{v, j\}, \{w, i\}, \{w, j\}$, then $\{u, v\}, \{u, w\}$ form a double $P$ in $G_i \cap G_j$, contradiction. Thus we conclude that $H_u$ is quadrilateral-free, and therefore $e(H_u) \leq m\sqrt{n} + n$, by the K\H{o}vari-S\'{o}s-Tur\'{a}n Theorem~\cite{KovariSosTuran1954}. It now follows that
+We first show that $\phi(m, n, P) \leq (mn^{3/2} + n^2)/2$. For each vertex $u \in [n]$, define $H_u$ as the $m \times n$ bipartite graph with edge set $E(H_u) \coloneq \{\{v, i\} : \{u, v\} \in E(G_i)\}$. If $H_u$ contains a quadrilateral $\{v, i\}, \{v, j\}, \{w, i\}, \{w, j\}$, then $\{u, v\}, \{u, w\}$ form a double $P$ in $G_i \cap G_j$, contradiction. Thus we conclude that $H_u$ is quadrilateral-free, and therefore $e(H_u) \leq m\sqrt{n} + n$, by the Kővári-Sós-Turán Theorem~\cite{KovariSosTuran1954}. It now follows that
 \[
   \sum_{i = 1}^m e(G_i) = \frac{1}{2}\sum_{u \in V(G)} e(H_u) \leq \frac{1}{2}(mn^{3/2} + n^2).
 \]
@@ -158,4 +158,4 @@ for large enough $n$. Remove all edges of $G_i$ on vertex $v$ such that $(i,v) \
 \[ 
   \sum_{i = 1}^n e(G_i) \leq 4\epsilon n^{5/2} + \sum_{i = 1}^m e(G_i'') \leq 4\epsilon n^{5/2} + \phi(m, n, P) \leq 5\epsilon n^{5/2}
 \]
-by Claim \ref{claim:phi-lower}. If $m > \epsilon n$, then we apply Szemer\'{e}di's Regularity Lemma to find, for some $\delta > 0$ depending only on $\epsilon$, a matching $M_1$ in $G_1''$ such that for some pair of set $X, Y \subseteq V(M_1)$ of size at least $\delta n$ each, there is a set $E$ of at least $\delta^3 n^2$ edges $\{x, y\}$ of $G_1'' \cup G_2'' \cup \dots \cup G_m''$ such that $x \in X$ and $y \in Y$. Since $G_1''$ is induced, $E \subseteq E(G_1)$. In particular, there are at least $\delta^5 n^3/4$ copies of $P$ in $G_1$. We can repeat the argument in the remaining graphs $G_i'' : i \in [2,m]$ to get say $M_2$ in $G_2''$ as above, which gives $\delta^5 n^3/4$ copies of $P$ in $G_2$. If we do this $4\delta^{-5}$ times, then we have found $n^3$ copies of $P$ in the first $4\delta^{-5}$ graphs, and two of them have the same edge-set. We conclude $\sum_{i = 1}^n e(G_i) \leq 5\epsilon n^{5/2}$ if $n$ is large enough. Since $\epsilon$ is arbitrary, this completes the proof.  \qed
+by Claim \ref{claim:phi-lower}. If $m > \epsilon n$, then we apply Szemerédi's Regularity Lemma to find, for some $\delta > 0$ depending only on $\epsilon$, a matching $M_1$ in $G_1''$ such that for some pair of set $X, Y \subseteq V(M_1)$ of size at least $\delta n$ each, there is a set $E$ of at least $\delta^3 n^2$ edges $\{x, y\}$ of $G_1'' \cup G_2'' \cup \dots \cup G_m''$ such that $x \in X$ and $y \in Y$. Since $G_1''$ is induced, $E \subseteq E(G_1)$. In particular, there are at least $\delta^5 n^3/4$ copies of $P$ in $G_1$. We can repeat the argument in the remaining graphs $G_i'' : i \in [2,m]$ to get say $M_2$ in $G_2''$ as above, which gives $\delta^5 n^3/4$ copies of $P$ in $G_2$. If we do this $4\delta^{-5}$ times, then we have found $n^3$ copies of $P$ in the first $4\delta^{-5}$ graphs, and two of them have the same edge-set. We conclude $\sum_{i = 1}^n e(G_i) \leq 5\epsilon n^{5/2}$ if $n$ is large enough. Since $\epsilon$ is arbitrary, this completes the proof.  \qed

@@ -201,13 +201,9 @@
     \item Prove that $\sum_{i=0}^{n} \frac{|\mathcal{F}_i|}{\binom{n}{i}} \le k$, where $\mathcal{F}_i = \mathcal{F} \cap [n]^{(i)}$ for each $i$.
 
     \begin{proof}
-      Since every chain in $\mathcal{F}$ has at most $k$ elements, the proof of Problem 4 furnishes a partition of $\mathcal{F}$ into $k$ antichains $A_1, \ldots, A_k$. By the LYM inequality, for $1 \leq j \leq k$ we have
+      Let $C$ be a maximal chain in $\mathcal{P}[n]$. Then
       \[
-        \sum_{i = 0}^n \frac{|A_j \cap [n]^{(i)}|}{\binom{n}{i}} \leq 1. \tag{1}
-      \]
-      But then
-      \[
-        \sum_{i=0}^{n} \frac{|\mathcal{F}_i|}{\binom{n}{i}} = \sum_{i=0}^{n} \sum_{j = 1}^k \frac{|A_j \cap [n]^{(i)}|}{\binom{n}{i}} = \sum_{j = 1}^k \sum_{i=0}^{n}  \frac{|A_j \cap [n]^{(i)}|}{\binom{n}{i}} \leq k. \tag{2}
+        k \geq \E[|F \cap C|] = \sum_{A \in \mathcal{F}} \prob(A \in C) = \sum_{i=0}^{n} \frac{|\mathcal{F}_i|}{\binom{n}{i}}.
       \]
     \end{proof}
 
