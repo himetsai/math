@@ -1,0 +1,242 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#0}
+\newcommand{\hmwkDueDate}{January 26, 2026}
+\newcommand{\hmwkClass}{C8.4 Probabilistic Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor P. Balister}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathbb{P}}
+\newcommand*{\E}{\mathbb{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Prove the following inequalities:
+  \begin{enumerate}[(a)]
+    \item $1+x \leqslant e^x$ for all real $x$.
+    \begin{proof}
+      Note that $y = x + 1$ is the tangent line to $y = e^x$ at $x = 0$. Since $e^x$ is convex, $e^x \geq x + 1$ for all real $x$.
+    \end{proof}
+    \item $e^{nx/(1+x)} \leqslant (1+x)^n \leqslant e^{nx}$ for $x > -1, n \geqslant 0$.
+    \begin{proof}
+      Since $x > -1$, by (a) we have $e^{x} \geq 1 + x > 0$. Hence, $(1 + x)^n \leq e^{nx}$. Let $z = -x/(1 + x)$. By (a),
+      \[
+        \frac{1}{1 + x} =1 + z \leq e^z = \frac{1}{e^{x/(1 + x)}} \implies 0 < e^{x/(1 + x)} \leq 1 + x.
+      \] 
+      The result now follows.
+    \end{proof}
+    \item $k! \geqslant (k/e)^k$ for $k \geqslant 1$.
+    \begin{proof}
+      Note that
+      \[
+        e^k = \sum_{i = 0}^{\infty} \frac{k^i}{i!} \geq 1 + k + \frac{k^2}{2!} + \cdots + \frac{k^k}{k!} \geq \frac{k^k}{k!}.
+      \]
+      The result now follows.
+    \end{proof}
+    \item $\left(\frac{n}{k}\right)^k \leqslant \binom{n}{k} \leqslant \frac{n^k}{k!} \leqslant \left(\frac{en}{k}\right)^k$ for $1 \leqslant k \leqslant n$.
+    \begin{proof}
+      It is obvious that $\binom{n}{k} \leq \frac{n^k}{k!}$. By (c), $\frac{n^k}{k!} \leq \left(\frac{ne}{k}\right)^k$. Since $n \geq k$, we have $n/k \geq (n - i)/(k - i)$ for all $1 \leq i \leq k$. Hence,
+      \[
+        \binom{n}{k} = \frac{n}{k} \cdot \frac{n - 1}{k - 1} \cdots \frac{n - k + 1}{1} \geq \left(\frac{n}{k}\right)^k.
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  For the following functions $f(n)$ and $g(n)$, decide whether $f = o(g)$ or $g = o(f)$ or $f = \Theta(g)$ as $n \to \infty$:
+  \begin{enumerate}[(a)]
+    \item $f(n) = \binom{n}{k}, g(n) = n^k$, first for $k$ fixed and then for the case where $k = k(n) \to \infty$ as $n \to \infty$;
+    \begin{proof}
+      Since $\left(\frac{n}{k}\right)^k \leqslant \binom{n}{k} \leqslant \frac{n^k}{k!}$,
+      \[
+        \frac{1}{k^k} \leq \frac{f(n)}{g(n)} \leq \frac{1}{k!}.
+      \]
+      Thus if $k$ is fixed, then $f(n) = \Theta(g)$. If $k = k(n) \to \infty$ as $n \to \infty$, then $f(n) = o(g)$.
+    \end{proof}
+    \item $f(n) = (\log n)^{1000}, g(n) = n^{1/1000}$.
+    \begin{proof}
+      Put $x = \log n$. By applying L'Hopital's rule 1000 times, 
+      \[
+      \lim_{n \to \infty} \frac{f(n)}{g(n)} = \lim_{x \to \infty} \frac{x^{1000}}{e^{x/1000}} = \lim_{x \to \infty} \frac{1000!}{(0.001)^{1000}e^{x/1000}} = 0.
+      \]
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Find the simplest function $f(n)$ you can such that $(n-2)^{n+2}/n^n \sim f(n)$ as $n \to \infty$.
+
+  \begin{proof}
+    Note that $(n-2)^{n+2}/n^n = (n - 2)^2 \cdot (1 - 2/n)^{n}$. But then
+    \[
+      \lim_{n \to \infty} \left(1 - \frac{2}{n}\right)^{n} = e^{-2}.
+    \]
+    Thus,
+    \[
+      (n-2)^{n+2}/n^n \sim n^2 e^{-2}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Show that if $n, k, \ell \geqslant 1$ are integers and $0 < p < 1$, then
+  \[
+  R(k, \ell) > n - \binom{n}{k} p^{\binom{k}{2}} - \binom{n}{\ell} (1-p)^{\binom{\ell}{2}}.
+  \]
+
+  \begin{proof}
+    Let $G \sim G(n, p)$. Let $X$ be the number of cliques of size $k$ and independent sets of size $\ell$ in $G$. Then $\mu = \binom{n}{k} p^{\binom{k}{2}} + \binom{n}{\ell} (1-p)^{\binom{\ell}{2}}$ is the expected number of $k$-cliques and $\ell$-independent sets in $G$. Since $\prob(X \leq \mu) > 0$, there exists a configuration such that $G$ has at most $\mu$ $k$-cliques and $\ell$-independent sets. Removing a vertex from each $k$-clique and $\ell$-independent set in $G$ yields a ramsey graph with at least $n - \mu$ vertices. The result now follows.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $H$ be an $r$-uniform hypergraph with fewer than $\frac{3^{r-1}}{2^r}$ edges. Prove that the vertices of $H$ can be coloured using three colours in such a way that in each edge, all three colours are represented.
+
+  \begin{proof}
+    Randomly the vertices of $H$ with 3 colors uniformly and independently. Let $A_e$ be the event that not all three colors are represented in edge $e$. Then,
+    \[
+      \prob(A_e) = \frac{2^{r} - 1}{3^{r - 1}}.
+    \]
+    Then the probability that there exists an edge without all three colors is
+    \[
+      \prob\left(\bigcup_{e \in E(H)} A_e\right) \leq \sum_{e \in E(H)} \prob(A_e) < \frac{3^{r-1}}{2^r} \cdot \frac{2^{r} - 1}{3^{r - 1}} < 1.
+    \]
+    Thus, there exists a coloring of $H$ such that no edge contains all three colors. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $F$ be a collection of binary strings (``codewords'') of finite length, where the $i$th codeword has length $c_i$. Suppose that no member of $F$ is an initial segment of another member (so you can decode any string made up by concatenating codewords as you go along, without looking ahead). Show that $\sum_i 2^{-c_i} \leqslant 1$ (the \textit{Kraft inequality} for prefix-free codes).
+
+  \begin{proof}
+    Let $s$ be a random string of infinite length. Let $X$ be the number of codewords in $F$ that are prefixes of $s$. Since no member of $F$ is an initial segment of another member, $X \leq 1$. But then
+    \[
+      1 \geq \E[X] = \sum_{s_i \in F} \prob(s_i \text{ is a prefix of } s) = \sum_{s_i \in F} 2^{-c_i}.
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\end{document}
