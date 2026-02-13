@@ -9,10 +9,9 @@
 \usepackage{tikz}
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
-\usepackage{amssymb}
+\usepackage{enumerate}
 \usepackage{dsfont}
 \usepackage{bbm}
-\usepackage{geometry}
 
 \usetikzlibrary{automata,positioning}
 
@@ -75,10 +74,10 @@
 }
 
 % Assignment Details
-\newcommand{\hmwkTitle}{Sheet\ \#0}
-\newcommand{\hmwkDueDate}{October 15, 2025}
-\newcommand{\hmwkClass}{C6.7 Optimal Burger Flipping}
-\newcommand{\hmwkClassInstructor}{Professor R. Tsai}
+\newcommand{\hmwkTitle}{Sheet\ \#1}
+\newcommand{\hmwkDueDate}{Feb 1, 2026}
+\newcommand{\hmwkClass}{C6.2 Continuous Optimization}
+\newcommand{\hmwkClassInstructor}{Professor C. Cartis}
 \newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
 
 % Title Page
@@ -109,8 +108,8 @@
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}}
 \newcommand{\Bias}{\mathrm{Bias}}
-\newcommand*{\prob}{\mathbb{P}}
-\newcommand*{\E}{\mathbb{E}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
 
 % Number Sets
 \newcommand*{\Z}{\mathbb{Z}}
@@ -125,10 +124,81 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  question.
+  Consider the function
+  \[ 
+    f(x) = 10(x_2 - x_1^2)^2 + (1 - x_1)^2, \quad x = (x_1 \quad x_2)^T \in \mathbb{R}^2. 
+  \]
+
+  \begin{enumerate}[(a)]
+    \item Compute the gradient vector and the Hessian matrix of $f$ at (any) $x \in \mathbb{R}^2$. Find all stationary points of $f$. Show that $x^* = (1 \quad 1)^T$ is the unique global minimizer of $f$ and that the Hessian of $f$ at $x^*$ is positive definite.
+
+    \begin{proof}
+      \[
+        \nabla f(x) = \begin{bmatrix}
+          -40x_1(x_2 - x_1^2) - 2(1 - x_1) \\
+          20(x_2 - x_1^2)
+        \end{bmatrix}, \quad
+        \nabla^2 f(x) = \begin{bmatrix}
+          -40(x_2 - x_1^2) + 80x_1^2 + 2 & -40x_1 \\
+          -40x_1 & 20
+        \end{bmatrix}.
+      \]
+      Note that $\nabla f(x) = 0$ only if $x = (1, 1)^T$. Since all minors of $\nabla^2 f(1, 1) = \begin{bmatrix}
+        82 & -40 \\
+        -40 & 20
+      \end{bmatrix}$ are positive, $\nabla^2 f$ is positive definite at $(1, 1)^T$.
+    \end{proof}
+    
+    \item Show that the Hessian matrix $\nabla^2 f(x)$ of $f$ is singular if and only if $x$ satisfies the condition
+    \[ x_2 - x_1^2 = 0.05. \]
+    Hence show that $\nabla^2 f(x)$ is positive definite for all $x$ such that $f(x) < 0.025$.
+
+    \begin{proof}
+      Note that
+      \[
+        \det(\nabla^2 f(x)) = 800(x_1^2 - x_2) + 40.
+      \]
+      Thus $\nabla^2 f(x)$ is singular if and only if $x_2 - x_1^2 = 40/800 = 0.05$. Thus if $f(x) < 0.025$, then 
+      \[
+        10(x_2 - x_1^2)^2 \leq 10(x_2 - x_1^2)^2 + (1 - x_1)^2 < 0.025 \implies x_2 - x_1^2 < 0.05.
+      \]
+    \end{proof}
+    
+    \item Show that $f$ is not a convex function.
+    \begin{proof}
+      Note that 
+      \[
+        \nabla^2 f(0, 1) = \begin{bmatrix}
+          -38 & 0 \\
+          0 & 20
+        \end{bmatrix}
+      \]
+      has negative determinant, so $\nabla^2 f(x)$ is not semipositive definite for all $x$. Thus, $f$ is not a convex function.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Show that the function
+  \[ 
+    f(x) = (x_2 - x_1^2)^2 + x_1^5
+  \]
+  has only one stationary point which is neither a local maximum nor a local minimum.
 
   \begin{proof}
-    proof.
+    \[
+      \nabla f(x) = \begin{bmatrix}
+        5x_1^4 + 4x^3_1 - 4x_1x_2 \\
+        2x_2 - 2x_1^2
+      \end{bmatrix}, \quad
+      \nabla^2 f(x) = \begin{bmatrix}
+        20x_1^3 + 12x_1^2 - 4x_2 & -4x_1 \\
+        -4x_1 & 2
+      \end{bmatrix}.
+    \]
+    Note that $\nabla f(x) = 0$ only when $x = (0, 0)^T$. Suppose $x_2 = x_1^2$. Then $f(x) = x_1^5$, which has a saddle point at $(0, 0)^T$. This shows that $x = (0, 0)^T$ is a stationary point which is neither a local maximum nor a local minimum.
   \end{proof}
 \end{homeworkProblem}
 

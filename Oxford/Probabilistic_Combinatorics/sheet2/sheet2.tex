@@ -1,0 +1,334 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#2}
+\newcommand{\hmwkDueDate}{February 12, 2026}
+\newcommand{\hmwkClass}{C8.4 Probabilistic Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor P. Balister}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathbb{P}}
+\newcommand*{\E}{\mathbb{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Show that all (finite) graphs of the following types are strictly balanced: complete graphs, cycles, trees, complete bipartite graphs, connected regular graphs.
+
+  Give (with proof) an example of a graph that is balanced but not strictly balanced.
+
+  \begin{proof}
+    We first note that for any subgraph $H$ of $G$ with vertex set $U \subseteq V(G)$, we have $d(H) \leq d(G[U])$. Thus it suffices to show that for $d(G[U]) < d(G)$ for all $U \subseteq V(G)$.
+
+    \textbf{Complete graphs:} Let $G$ be a complete graph with $n$ vertices. Note that all induced subgraphs of $G$ are also complete graphs. But then the function $f(n) = \binom{n}{2}/n$ is strictly increasing on $n$, so $d(G[U]) < d(G)$ for all $U \subseteq V(G)$.
+
+    \textbf{Cycles:} Let $G$ be a cycle with $n$ vertices. Note that for all strict subsets $U \subset V(G)$, the induced subgraph $G[U]$ is a collection of disjoint paths, which has density
+    \[
+      d(G[U]) \leq \frac{|U| - 1}{|U|} < 1 = d(G).
+    \]
+
+    \textbf{Trees:} Let $G$ be a tree with $n$ vertices. Note that all induced subgraphs of $G$ are forests. Thus for $U \subseteq V(G)$, the density of of the induced subgraph is
+    \[
+      d(G[U]) \leq \frac{|U| - 1}{|U|} = 1 - \frac{1}{|U|},
+    \]
+    which is strictly increasing on $|U| \geq 1$. Hence, $d(G[U]) < d(G)$ for all $U \subseteq V(G)$.
+
+    \textbf{Complete bipartite graphs:} Let $G$ be a complete bipartite graph with $n$ vertices with parts $A$ and $B$. Note that all induced subgraphs of $G$ are also complete bipartite graphs. Let $U \subseteq V(G)$ and let $a = |A \cap U|$ and $b = |B \cap U|$. By AM-GM
+    \[
+      d(G[U]) = \frac{ab}{a + b} \leq \frac{(a + b)^2}{4(a + b)} = \frac{|U|}{4},
+    \]
+    which is strictly increasing on $|U|$. Hence, $d(G[U]) < d(G)$ for all $U \subseteq V(G)$.
+
+    \textbf{Connected regular graphs:} Let $G$ be a connected regular graph with $n$ vertices with each vertex having degree $k$. Let $H$ be a strict subgraph of $G$. Note that $H$ cannot be $k$-regular, otherwise $H$ would be it's own component. Thus any $H$ must contain some vertex with degree less than $k$. But then
+    \[
+      d(H) < \frac{k|V(H)|}{2|V(H)|} = \frac{k}{2} = d(G).
+    \]
+
+    \textbf{Balanced graphs:} Consider $G$ being a union of two cycles $C_1$ and $C_2$. We already showed that $C_1$ and $C_2$ are balanced. It now follows $d(G) = 1 = d(C_1)$ that $G$ is not strictly balanced.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  Let $T$ be a tree with $k$ vertices. What is the threshold for $G(n, p)$ to contain a copy of $T$?
+    
+  Show that, for each fixed $k$, there is a function $p(n)$ such that the probability that $G(n, p(n))$ has a component of size exactly $k$ tends to 1 as $n \to \infty$.
+
+  \begin{proof}
+    By problem 1, we know that trees on $k$ vertices are balanced. Thus, it has threshold $n^{-1 - \frac{1}{k - 1}}$, by Theorem 2.5. Set $p = c/n$ for some constant $c < 1$. Let $X$ be the number of components of size $k$, $Y$ be the number of trees of size $k$, and $C$ be the number of cycles in $G(n, p)$. Note that
+    \[
+      \E[C] = \sum_{k = 3}^{n} \binom{n}{k} \cdot \frac{(k - 1)!}{2} \cdot p^k \leq \frac{1}{2}\sum_{k = 0}^{n} \frac{c^k}{k} \leq -\log(1 - c) = O(1).
+    \]
+    Thus $X = Y + O(1)$, almost surely. By Cayley's formula, there are $\binom{n}{k}k^{k - 2}$ trees on $k$ vertices in $K_n$. Thus,
+    \[
+      \E[X] = \binom{n}{k}k^{k - 2}p^{k - 1}(1 - p)^{\binom{k}{2} - k + 1}(1 - p)^{(n - k)k}.
+    \]
+    Since $\binom{n}{k} = \Theta(n^k)$ and $1 - p \approx e^{-p}$, we have
+    \[
+      \E[X] = \Theta(n^k) \cdot \Theta(n^{k - 1}) \cdot e^{-p(1 + o(1)kn)} = \Theta(n).
+    \]
+    For $S \subseteq V(G)$ with $|S| = k$, let $A_S$ be the event that $S$ induces an isolated tree. We note that
+    \[
+      \prob(A_S) = (1 - p)^{(n - k)k} \cdot \prob(S \text{ induces a tree})
+    \] 
+    Summing over all ordered pairs of sets of vertices $S, S'$ of size $k$,
+    \[
+      \E[X(X - 1)] = \sum_{S \neq S'} \prob(A_S \cap A_{S'})
+    \]
+    If $S$ and $S'$ intersect, then it is impossible for both $S$ and $S'$ to induce an isolated tree. Now suppose $S \cap S' = \emptyset$. Then
+    \[
+      \prob(A_S \cap A_{S'}) = (1 - p)^{2(n - k)k - k^2}\prob(S \text{ induces a tree}) \cdot \prob(S' \text{ induces a tree}). 
+    \]
+    But then
+    \[
+      \frac{\prob(A_S \cap A_{S'})}{\prob(A_S) \prob(A_{S'})} = \frac{(1 - p)^{2(n - k)k - k^2}}{((1 - p)^{(n - k)k})^2} = (1 - p)^{-k^2} \approx e^{-ck^2/n} \to 1,
+    \]
+    as $n \to \infty$. Thus,
+    \[
+      \E[X(X - 1)] \sim \sum_{S \neq S'} \prob(A_S)^2 = \sum_{S}\sum_{S'} \prob(A_S)\prob(A_{S'}) - \E[X] \sim \E[X]^2.
+    \]
+    It now follows from Chebyshev's inequality that
+    \[
+      \prob(Y = 0) \leq \prob(X = 0) \leq \prob(|X - \E[X]| \geq \E[X]) \leq \frac{\E[X^2]}{\E[X]^2} - 1 \to 0,
+    \]
+    as $n \to \infty$.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  What is the threshold for $G(n, p)$ to contain a cycle of length $k$, for fixed $k$?
+    
+  Find a threshold function for the property of containing a cycle. [\textit{Careful! It doesn't quite follow immediately from the first part.}]
+
+  \begin{proof}
+    By problem 1, cycles are balanced, so the threshold for cycles of length $k$ is $n^{-1}$. 
+
+    Let $X$ be the expected number of cycles in $G(n, p)$. Then
+    \[
+      \E[X] = \sum_{k = 3}^n \binom{n}{k} \cdot \frac{(k - 1)!}{2} \cdot p^k = \frac{1}{2}\sum_{k = 3}^n \frac{(np)^k}{k} \sim \frac{1}{2}\left(1 + np + \frac{(np)^2}{2} - \log(1 - np)\right),
+    \]
+    as $n \to \infty$. Thus $\E[X] \to 0$ if $np \to 0$, and $\E[X] \to \infty$ if $np \to \infty$. This shows that $\prob(X > 0) \to 0$ for $np \to 0$. If $np \to \infty$, then $p$ passes the threshold for cycles of length $k$, so $\prob(X > 0) \to 1$.
+  \end{proof}
+\end{homeworkProblem}
+\newpage
+
+\begin{homeworkProblem}
+  Show that it is possible to colour the edges of $K_n$ with $k = \lfloor 3\sqrt{n} \rfloor$ colours so that no triangle has all its edges the same colour.
+
+  \begin{proof}
+    Randomly color the edges of $K_n$ with $k$ colors. For triangle $i$ in $K_n$, let $A_i$ be the event that $i$ is monochromatic. Note that a triangle is adjacent to $d = 3(n - 3)$ other triangles in $K_n$, so $A_i$ is independent of the family of all but $d$ other $A_j$'s. Since 
+    \[
+      \prob(A_i) \leq \frac{1}{9n} \leq \frac{1}{e(3n - 8)},
+    \]
+    we have $\prob(\bigcap_{i = 1}^n A_i^c) > 0$ by LLL.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $H = (V, E)$ be a hypergraph. Suppose the vertices are $k$-coloured uniformly at random; each $v \in V$ receives each colour with probability $1/k$, and the colours of different vertices are independent. For $e \in E$, let $A_e$ be the event that the hyperedge $e$ is monochromatic.
+  
+  Show that if $|e \cap f| \le 1$, then $A_e$ and $A_f$ are independent.
+  
+  Is it true that $A_e$ is independent of the collection $\{A_f : |e \cap f| \le 1\}$ of events?
+
+  \begin{proof}
+    If $e \cap f  = \emptyset$ then obviously $A_e$ and $A_f$ are independent. Now suppose $e \cap f = \{v\}$. Then the only vertex in $e$ that is affected by $A_f$ is $v$. But then the color of $v$ is independent of the event $A_f$. Thus, $A_e$ and $A_f$ are independent.
+
+    However, $A_e$ is not necessarily independent of the collection $\{A_f : |e \cap f| \le 1\}$. Consider the cycle of length 4 $C_4$. If three of the edges are monochromatic, then the fourth edge must be monochromatic. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A $k$-SAT (more properly $k$-CNF) formula is an expression such as (for $k=3$)
+  \[ (x_1 \text{ OR } x_4 \text{ OR } \overline{x_6}) \text{ AND } (\overline{x_1} \text{ OR } x_2 \text{ OR } x_5) \]
+  \[ \text{AND } (\overline{x_2} \text{ OR } \overline{x_3} \text{ OR } \overline{x_4}) \text{ AND } (\overline{x_4} \text{ OR } \overline{x_5} \text{ OR } x_6), \]
+  where the variables $x_i$ take values TRUE or FALSE, $\overline{x_i}$ means NOT $x_i$, and $k$ distinct variables or their negations are ORd together in each clause. A formula is satisfiable if there is an assignment of values to the variables making the expression true.
+  
+  \begin{enumerate}[(a)]
+    \item Use the first-moment method to show that each $k$-SAT formula with fewer than $2^k$ clauses is satisfiable.
+    \begin{proof}
+      Suppose there are $m < 2^k$ clauses. Randomly assign values to each variable with probability $1/2$. Let $X$ be the number of clauses that are not satisfied. Then
+      \[
+        \prob(X \geq 1) = \E[X] = \sum_{i = 1}^m \prob(\text{clause $i$ is not satisfied}) =  \frac{m}{2^k} < 1.
+      \]
+      Thus, there exists an assignment of values to the variables that satisfies all the clauses.
+    \end{proof}
+    \item Use the Symmetric Local Lemma to show that each $k$-SAT formula in which no variable appears in more than $2^{k-2}/k$ clauses is satisfiable.
+    \begin{proof}
+      Randomly assign values to each variable with probability $1/2$. Let $A_i$ be the event that the $i$th clause is not satisfied. Since each clause contains $k$ variables and each variable appears in at most $2^{k-2}/k$ clauses, $A_i$ is dependent on at most $2^{k-2} - 1$ other $A_j$'s. But then $\prob(A_i) = 2^{-k} \leq \frac{1}{e(2^{k-2})}$. The result now follows from the Symmetric Local Lemma.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $G = (V, E)$ be a graph with maximum degree $\Delta$, and let $V_1, V_2, \dots, V_s$ be a collection of disjoint subsets of $V$, each of size $k \ge 2e\Delta$. Show that $G$ has an independent set which contains a vertex from each set $V_i$. 
+
+  \begin{proof}
+    Pick a vertex $v_i$ from each $V_i$ uniformly at random, and let $I = \{v_1, v_2, \dots, v_s\}$. For $\{u, v\} \in E$, let $A_{uv}$ be the event that $\{u, v\} \subseteq I$. Note that the $A_{uv}$ is dependent to only $A_{u'v'}$ where $u, u'$ or $v, v'$ share the same set $V_i$. Thus, the $A_uv$ is independent of the family of all but at most $d = 2\Delta(2e\Delta) - 1$ other $A_{e'}$. But then $\prob(A_e) \leq 1/(2e\Delta)^2 = 1/e(d + 1)$. The result now follows from the Symmetric Local Lemma.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $G = (V, E)$ be a graph, and suppose that for each $v \in V$ there is a list $S(v)$ of at least $2er$ colours, where $r$ is a positive integer. Suppose also that for each $v \in V$ and each $c \in S(v)$, there are at most $r$ neighbours $u$ of $v$ such that $c \in S(u)$.
+  
+  Prove that there is a proper colouring of $G$ under which each vertex $v$ receives a colour from its list $S(v)$.
+
+  \begin{proof}
+    For each vertex $v \in V$, randomly assign it a color from $S(v)$ uniformly at random. For $e \in E$, let $A_e$ be the event that $e$ is monochromatic. Note that each edge $e$ is incident to at most $2r - 1$ other edges such that $e \cup e'$ could be monochromatic. Thus $A_e$ is independent of the family of all but at most $d = 2r - 1$ other $A_{e'}$. Since $\prob(A_e) \leq 1/2er = 1/ed$, the result now follows from the Symmetric Local Lemma.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $W(k)$ be the smallest integer $n$ such that any two-colouring of the set $\{1, 2, \dots, n\}$ contains a monochromatic arithmetic progression of length $k$.
+  
+  \begin{enumerate}[(a)]
+    \item Use the first-moment method to show that $W(k) \ge 2^{k/2}$.
+    \begin{proof}
+      Randomly two-color the set $\{1, 2, \dots, n\}$, where $n < 2^{k/2}$. Let $X$ be the number of monochromatic arithmetic progressions of length $k$. Note that the number of $k$-APs in $[n]$ is 
+      \[
+        \sum_{a = 1}^{n - 1}\frac{n - a}{k - 1} = \frac{n(n - 1)}{2(k - 1)} \leq \frac{n^2}{2(k - 1)}.
+      \]
+      But then
+      \[
+        \E[X] = \frac{n^2}{2(k - 1)} \cdot \frac{2}{2^k} < 1.
+      \]
+      Thus there exists a two-coloring of $\{1, 2, \dots, n\}$ that contains an arithmetic progression of length $k$ that is not monochromatic.
+    \end{proof}
+    \item Use the Local Lemma to show that $W(k) \ge \frac{2^k}{2ek}(1 + o(1))$.
+    \begin{proof}
+      Suppose $n < \frac{2^k}{2ek}(1 + o(1))$. Randomly two-color the set $\{1, 2, \dots, n\}$. For each arithmetic progression $A$, let $E_A$ be the event that $A$ is monochromatic. Note that $E_A$ is only dependent on the events $E_{A'}$ where $A'$ overlaps with $A$ by at least 1 element. Since each AP is determined by it's first element and the common difference, for each $a \in A$ there are at most $k \cdot \frac{n}{k - 1}$ APs that contain $a$. Thus there are at most $d = k^2 \cdot \frac{n}{k - 1} - 1$ APs that overlap with $A$ by at least 1 element. Since
+      \[
+        \prob(E_A) = 2^{1 - k} < \frac{k - 1}{e \cdot k \cdot \frac{2^k}{2ek}} \leq \frac{1}{ed},
+      \]
+      the result now follows from the Symmetric Local Lemma.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\end{document}

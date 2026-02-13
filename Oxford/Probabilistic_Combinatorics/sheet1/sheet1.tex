@@ -240,7 +240,7 @@
     \]
     Obtain matrix $M'$ by flipping an entry of each $r \times r$ submatrix of $M$ which is ``all 0''. Note that $M'$ has no $r \times r$ submatrix which is ``all 0'' and the number of $0$ entries in $M'$ is $Z = X - R$. Thus,
     \[
-      \E[Z] = \E[X] - \E[R] = pn^2 - \frac{n^{2r}p^{r^2}}{r!^2}.
+      \E[Z] = \E[X] - \E[R] \geq pn^2 - \frac{n^{2r}p^{r^2}}{r!^2}.
     \]
     But then there is an $n \times n$ matrix $M'$ without any $r \times r$ submatrix which is ``all 0'' and the number of $0$ entries in $M'$ is at least $pn^2 - n^{2r}p^{r^2}/r!^2$. Thus, $z(r, n) \geq pn^2 - n^{2r}p^{r^2}/r!^2$. By calculus, the bound is optimized when $p = c_rn^{-2/(r + 1)}$, where $c_r = (r - 1)!^{2/(r^2 - 1)}$.
   \end{proof}
@@ -311,11 +311,11 @@
       &= \sum_{v \in V(G)} \E[\mathbbm{1}_{d(v) = 0}^2] + \sum_{\{u, v\} \subseteq V(G)} \E[\mathbbm{1}_{d(u) = 0} \cdot \mathbbm{1}_{d(v) = 0}] \\
       &= \E[X] + \sum_{u \neq v} \prob(N(u) \cup N(v) = \emptyset) \\
       &= \E[X] + n(n - 1) (1 - p)^{2n - 3} \\
-      &= \E[X] + n(n - 1)(\E[X]^2 \cdot (1 - p)^{-1}).
+      &\sim \E[X] + \E[X]^2 \cdot (1 - p)^{-1}.
     \end{align*}
-    But then $p \to 0$, so 
+    But then since $f(n) \to -\infty$ and $|f(n)| \leq \log n$, we have $p \to 0$. It follows that $\E[X] \to \infty$, and so
     \[
-      \frac{\E[X^2]}{\E[X]^2} = \frac{1}{\E[X]} + \left(1 - \frac{1}{n}\right) (1 - p)^{-1} \to 1.
+      \frac{\E[X^2]}{\E[X]^2} \sim \frac{1}{\E[X]} + (1 - p)^{-1} \to 1.
     \]
     By Chebyshev's inequality,
     \[
@@ -353,7 +353,7 @@
       \begin{proof}
         Suppose $n^{2/k}p \to 0$. For $a \in S_{n, p}$, let $X$ be the number of arithmetic progressions of length $k$. Each $k$-AP can be determined by the first element $a \in [n]$ and the common difference $d \leq (n - a)/(k - 1)$. Thus, the number of $k$-APs in $[n]$ is $N = n(n - 1)/2(k - 1) \sim n^2/2(k - 1)$. But then
         \[
-          \E[X] = \sum_{A \text{is $k$-AP}} p^k = \frac{n(n - 1)p^k}{k - 1} \to 0.
+          \E[X] = \sum_{A \text{is $k$-AP}} p^k = \frac{n(n - 1)p^k}{2(k - 1)} = p^k\Theta(n^2) \to 0.
         \]
         Thus by Markov's inequality, $\prob(X > 0) \to 0$. Now suppose $n^{2/k}p \to \infty$. For $k$-term arithmetic progression $A \subseteq [n]$, let $\mathbbm{1}_{A}$ be the indicator random variable that $A \subseteq S_{n, p}$. Since the events $A \subseteq S_{n, p}$ and $B \subseteq S_{n, p}$ are positively correlated, $\E[\mathbbm{1}_{A} \mathbbm{1}_{B}] \geq \E[\mathbbm{1}_{A}] \E[\mathbbm{1}_{B}]$. Thus,
         \[
