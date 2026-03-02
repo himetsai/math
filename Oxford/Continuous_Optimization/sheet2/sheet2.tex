@@ -1,0 +1,350 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{dsfont}
+\usepackage{bbm}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#2}
+\newcommand{\hmwkDueDate}{Feb 26, 2026}
+\newcommand{\hmwkClass}{C6.2 Continuous Optimization}
+\newcommand{\hmwkClassInstructor}{Professor C. Cartis}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+  Consider that on each iteration of a generic linesearch method (GLM) for minimizing a function $f$, the stepsize is required to satisfy the Armijo condition of sufficient decrease
+
+  \begin{equation}
+  f(x^k + \alpha^k s^k) \leq f(x^k) + \beta \alpha^k \nabla f(x^k)^\top s^k, \tag{1}
+  \end{equation}
+
+  for some constant $\beta \in (0, 1)$ independent of $k$. Show that there exists $\bar{\alpha}^k > 0$ such that (1) is satisfied for all $\alpha \in [0, \bar{\alpha}^k]$. Furthermore, show that the backtracking-Armijo (bArmijo) linesearch algorithm terminates in a finite number of iterations $i \geq 0$ with $\alpha^k := \alpha_{(i)} \geq \min\{\alpha_{(0)}, \tau \bar{\alpha}^k\}$.
+
+  \begin{proof}
+    Define
+    \[
+      \Phi_k(\alpha) = f(x^k + \alpha s^k),
+    \]
+    and let
+    \[
+      \Psi(\alpha) = \Phi(\alpha) - \Phi(0) - \beta\alpha\Phi'(0).
+    \]
+    Note that
+    \[
+      \Psi'(\alpha) = \Phi'(\alpha) - \beta\Phi'(0),
+    \]
+    and so $\Psi'(0) = (1 - \beta)\Phi'(0)$. But then since $s^k$ is a descent direction, we must have $\Phi'(0) \leq 0$ and thus $\Psi'(0) \leq 0$. But then there exists $\bar{\alpha}^k > 0$ such that $\Psi'(\alpha) \leq 0$ for all $\alpha \in [0, \bar{\alpha}^k]$. It now follows that,
+    \[
+      \Psi(\alpha) - \Psi(0) = \Phi(\alpha) \leq 0,
+    \]
+    for all $\alpha \in [0, \bar{\alpha}^k]$, and so (1) is satisfied.
+
+    Note that if $a_{(0)}$ satisfies (1), then the bArmijo terminates at $i = 0$. Otherwise, the bArmijo terminates the moment $\alpha^k \leq \bar{\alpha}^k$. Since $\alpha_{(i)} = \tau^{i} \alpha_{(0)}$ for some $\tau \in (0, 1)$, $\alpha_{(i)} \leq \bar{\alpha}^k$ for some finite $i$. Let $i$ be the smallest such $i$. Then $\alpha_{(i - 1)} > \bar{\alpha}^k$. But then $\alpha_{(i)} = \tau \alpha_{(i - 1)} > \tau \bar{\alpha}^k$ and we are done.
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Consider that on each iteration of a linesearch method for minimizing a function $f$, the stepsize is required to satisfy the Armijo condition of sufficient decrease (1) above. Let us assume that we want to find $\alpha^k$ to satisfy the Armijo condition (not by backtracking as described in lectures), but by interpolation (similar to Problem 5, Problem Sheet 1). In particular, assume that $\alpha_0 > 0$ is the initial guess of $\alpha^k$ and that it does not satisfy (1). 
+
+  \begin{enumerate}[(i)]
+    \item Using that $s^k$ is a descent direction, justify why the interval $(0, \alpha_0)$ must contain steps that satisfy (1).
+    \begin{proof}
+      By Problem 1, there exists $\bar{\alpha}^k > 0$ such that (1) is satisfied for all $\alpha \in [0, \bar{\alpha}^k]$. The result now follows.
+    \end{proof}
+    \item Construct a quadratic polynomial $q(\alpha)$ that interpolates $\Phi(\alpha) := f(x^k + \alpha s^k)$ at $\Phi(0)$, $\Phi'(0)$ and $\Phi(\alpha_0)$. Find the expression of $q$ based on the interpolation conditions.
+    \begin{proof}
+      Define $q(\alpha) = a\alpha^2 + b\alpha + c$, where
+      \begin{itemize}
+        \item $c = q(0) = \Phi(0)$
+        \item $b = q'(0) = \Phi'(0)$
+        \item $q(\alpha_0) = \Phi(\alpha_0) = f(x^k + \alpha_0 s^k)$.
+      \end{itemize}
+      In particular,
+      \[
+        a\alpha_0^2 + \Phi'(0)\alpha_0 + \Phi(0) = \Phi(\alpha_0) \implies a = \frac{\Phi(\alpha_0) - \Phi(0) - \Phi'(0)\alpha_0}{\alpha_0^2}.
+      \]
+    \end{proof}
+    \item Let the new trial stepsize $\alpha_1$ be the (global) minimizer of $q(\alpha)$ over $\alpha \in \mathbb{R}$. Show that this minimizer is well-defined and it satisfies $\alpha_1 < \alpha_0/[2(1 - \beta)]$. \textit{(Comment: Since $\beta$ is chosen to be small in practice, the previous strict inequality indicates that $\alpha_1$ cannot be much greater than $0.5\alpha_0$ (though it can be smaller). This gives us an idea about the size of the new stepsize.)}
+    \begin{proof}
+      Since $\alpha_0 > 0$ does not satisfy (1), 
+      \[
+        \Phi(\alpha_0) > \Phi(\alpha_0) + \beta \alpha_0 \Phi'(0).
+      \]
+      Also note that $\Phi(\alpha_0) \geq \Phi(0)$. Thus
+      \[
+        \alpha_1 = \frac{-b}{2a} = \frac{-\alpha_0^2\Phi'(0)}{2(\Phi(\alpha_0) - \Phi(0) - \Phi'(0)\alpha_0)} < \frac{-\alpha_0^2\Phi'(0)}{2(\Phi(\alpha_0) + (\beta - 1) \alpha_0 \Phi'(0) - \Phi(0))} \leq \frac{\alpha_0}{2(1 - \beta)}. 
+      \] 
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  Consider the unconstrained optimization problem
+
+  \begin{equation}
+  \min_{x \in \mathbb{R}^2} f(x), \tag{2}
+  \end{equation}
+
+  where $f : \mathbb{R}^2 \rightarrow \mathbb{R}$ is the function
+
+  \begin{equation}
+  f(x) = \frac{1}{2}(ax_1^2 + x_2^2), \quad \text{where } x = (x_1 \;\; x_2)^T \in \mathbb{R}^2, \tag{3}
+  \end{equation}
+
+  and $a > 0$ is a constant.
+
+  \begin{enumerate}[(i)]
+    \item Show that the Hessian $\nabla^2 f(x)$ is positive definite for all $x \in \mathbb{R}^2$. Find the global minimizer $x^*$ of $f(x)$ over $x \in \mathbb{R}^2$ and show that it is the unique (local and global) minimizer of $f$ over $\mathbb{R}^2$.
+    \begin{proof}
+      Note that
+      \[
+        \nabla f(x) = \begin{bmatrix}
+          ax_1 \\
+          x_2
+        \end{bmatrix}, \quad \nabla^2 f(x) = \begin{bmatrix}
+          a & 0 \\
+          0 & 1
+        \end{bmatrix}.
+      \]
+      Since $\nabla^2 f(x)$ has postitive minors, it is positive definite. Let $x^* = (0, 0)^T$. Since $f(x^*) = 0 \leq f(x)$ for all $x \in \mathbb{R}^2$, $x^*$ is the global minimizer.
+    \end{proof}
+
+    \item Assume the steepest descent method with exact linesearches is used to solve (2), starting at $x^0 = (1 \;\; a)^T$. Let $\{x^k\}$ be the generated iterates. Show that
+
+    \begin{equation}
+    x^k = \left(\frac{a-1}{a+1}\right)^k \left( \begin{array}{c} (-1)^k \\ a \end{array} \right), \quad \forall k \geq 0. \tag{4}
+    \end{equation}
+
+    \begin{proof}
+      Let $\phi_k(\alpha) = f(x^k + \alpha s^k)$. Then the optimal step size at iteration $k$ is
+      \[
+        \alpha^k = \frac{-(s^k)^T\nabla f(x^k)}{(s^k)^T\nabla^2 f(x^k) s^k} = \frac{-|\nabla f(x^k)|^2}{(\nabla f(x_k))^T\nabla^2 f(x^k) \nabla f(x_k)}.
+      \]
+      Thus
+      \[
+        x^{k + 1} = x^k - \alpha^k \nabla f(x^k)
+      \]
+      We proceed by induction on $k$ to show (4). The base case $k = 0$ is clear. Suppose $k \geq 0$. Put $c_k = \frac{a-1}{a+1}$. By induction,
+      \[
+        \nabla f(x^k) = a c_k \begin{bmatrix} (-1)^k \\ 1 \end{bmatrix},
+      \]
+      and so
+      \[
+        (\nabla f(x_k))^T\nabla^2 f(x^k) \nabla f(x_k)^k = a^2 c_k^2 \begin{bmatrix} (-1)^k \\ 1 \end{bmatrix}^T \begin{bmatrix} a & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} (-1)^k \\ 1 \end{bmatrix} = a^2c_k^2(a + 1).
+      \]
+      Thus,
+      \[
+        x^{k + 1} = c_k \begin{bmatrix} (-1)^k \\ a \end{bmatrix} - \frac{2a c_k}{a + 1} \begin{bmatrix} (-1)^k \\ 1 \end{bmatrix} = \left(\frac{a-1}{a+1}\right)^{k + 1} \left( \begin{array}{c} (-1)^{k + 1} \\ a \end{array} \right)
+      \]
+    \end{proof}
+
+    \item Show that the sequence $\{x^k\}$ converges linearly to $x^*$ as $k \rightarrow \infty$, where $x^k$ is given in (4) and $x^*$, in (i). Find the (precise) convergence factor. For any given $\epsilon \in (0,1)$, find the number of iterations required to achieve $\|x^k - x^*\| \leq \epsilon$.
+
+    \begin{proof}
+      Let $\epsilon > 0$. Then for
+      \[
+        k > \log\left(\epsilon\sqrt{a^2 + 1}\right) / \log\left(\frac{a-1}{a+1}\right),
+      \]
+      \[
+        \|x^k - x^*\| = \|x^k\| = \left(\frac{a-1}{a+1}\right)^k \sqrt{a^2 + 1} < \epsilon.
+      \]
+    \end{proof}
+
+    \item Assume that an inexact linesearch is used with the steepest descent method, so that the stepsize $\alpha^{k,ine}$ is now chosen as the largest step $\alpha > 0$ such that the following sufficient decrease (Armijo) condition holds
+
+    $$f(x^k + \alpha s^k) \leq f(x^k) + \beta \alpha \nabla f(x^k)^T s^k,$$
+
+    where $s^k$ is the steepest descent direction, $\nabla f(x^k)$ denotes the gradient of $f$ at $x^k$ and $\beta \in (0, 1)$. Show that, if $\beta \leq \frac{1}{2}$, then $\alpha^k \leq \alpha^{k,ine}$, where $\alpha^k$ is the stepsize determined by exact linesearch from $x^k$ along $s^k$ (see (ii)). Is this property true when $f$ is a general convex quadratic function? Justify your answer.
+
+    \begin{proof}
+      By the Taylor's approximation, the Armijo condition can be written as
+      \[
+        f(x^k) + \alpha (s^k)^T \nabla f(x^k) + \frac{1}{2} \alpha^2 (s^k)^T \nabla^2 f(x^k) s^k \leq f(x^k) + \beta \alpha (s^k)^T \nabla f(x^k).
+      \]
+      Rearranged,
+      \[
+        \alpha \leq \frac{2(1 - \beta)\|\nabla f(x^k)\|^2}{(\nabla^2 f(x^k))^T \nabla^2 f(x^k) \nabla f(x^k)} = 2(1 - \beta)\alpha^k.
+      \]
+      But then $\beta \leq 1/2$, so $\alpha^{k,ine} \leq \alpha^k$.
+
+      Since we only relied on the fact that $\nabla^2 f(x)$ is positive definite, the result remains true for general convex quadratic functions.
+    \end{proof}
+
+    \item Assume that we make the following change of coordinates
+
+    $$y = \left( \begin{array}{cc} a^{\frac{1}{2}} & 0 \\ 0 & 1 \end{array} \right) x.$$
+
+    Write the function $f$ in the new coordinates, i.e., find $\bar{f}(y) = f(x(y))$. Describe what you observe if the problem is solved in this new coordinates. In other words, let the steepest descent method with exact linesearches be applied to $\bar{f}(y)$, starting from $y^0$ corresponding to $x^0$ under the change of variables, and deduce how many iterations it takes to solve the problem in the new coordinates. What property of the steepest descent method does this example illustrate?
+
+    \begin{proof}
+      Note that $\bar{f}(y) = \frac{1}{2}(y_1^2 + y_2^2) = \frac{1}{2}\|y\|^2$, and so
+      \[
+        \nabla \bar{f}(y) = y, \quad \nabla^2 \bar{f}(y) = I.
+      \]
+      But then the steepest descent method with exact linesearches moves to $y^k = (0, 0)^T$ in one iteration. This shows the scale dependence of the steepest descent method.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Apply Newton's method (without linesearch) to minimizing the function of one variable,
+
+  $$f(x) = \frac{11}{546}x^6 - \frac{38}{364}x^4 + \frac{1}{2}x^2, \quad x \in \mathbb{R},$$
+
+  starting from $x^0 = 1.01$ and let $\{x^k\}$ be the generated sequence of iterates.
+  Show that the Hessian matrix $\nabla^2 f(x)$ is positive definite for all $x$, and that the sequence $\{f(x^k)\}$ is monotonically decreasing. Prove that the limit points of the sequence of iterates $\{x^k\}$ are $+1$ and $-1$ as $k \rightarrow \infty$, and that $\nabla f(\pm 1) \neq 0$. \textit{(hint: think of the Newton iterate $x^{k+1}$ as a continuous function of $x^k$; alternatively, you may consider showing numerical results.)}
+
+  \begin{proof}
+    Note that 
+    \[
+      f'(x) = \frac{66}{546}x^5 - \frac{152}{364}x^3 + x, \quad f''(x) = \frac{330}{546}x^4 - \frac{456}{364}x^2 + 1.
+    \]
+    Thus, $f''(x) > 0$ for all $x \in \mathbb{R}$. Note that $s^k = -\frac{f'(x^k)}{f''(x^k)}$. But then 
+    \[
+      f'(x) = \frac{66}{546}x^5 - \frac{152}{364}x^3 + x = \frac{x}{91}(11x^4 - 38x^2 + 91),
+    \]
+    and $11x^4 - 38x^2 + 91 > 0$ for all $x \in \R$, so $f'(x) > 0$ for all $x > 0$. Since $f(x) = f(-x)$, we have $f$ is strictly increasing on $(0, \infty)$ while strictly decreasing on $(-\infty, 0)$. Therefore, if $|x^{k + 1}| < |x^{k}|$, then $f(x^{k + 1}) < f(x^k)$. But then
+    \[
+      x^{k + 1} = \frac{x^k((x^k)^2)(99(x^k)^2 - 91)}{55(x^k)^4 - 114(x^k)^2 + 91}.
+    \]
+    Since the denominator is greater than 1 and so $|x^k| > |x^{k + 1}| > 1$. This shows that the sequence $\{f(x^k)\}$ is monotonically decreasing. We also know that $|x^k| \to 1$, as
+    \[
+      \lim_{k \to \infty} |x^k| = \lim_{k \to \infty} |x^{k + 1}| = \lim_{k \to \infty} \left|\frac{x^k((x^k)^2)(99(x^k)^2 - 91)}{55(x^k)^4 - 114(x^k)^2 + 91}\right| = 1.
+    \]
+
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Newton's method (without linesearch) is used to minimize the function of one variable
+
+  $$f(x) = x^6 - 14x^4 + 49x^2 - 36, \quad x \in \mathbb{R}.$$
+
+  What is the order of convergence in the two cases when (a) the starting point $x^0$ is close to $\sqrt{7}$ and (b) $x^0$ is close to $0$. Find a nonzero value of $x^0$ such that $x^{k+1} = -x^k$ on every iteration.
+\end{homeworkProblem}
+
+\end{document}

@@ -1,0 +1,372 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#3}
+\newcommand{\hmwkDueDate}{February 27, 2026}
+\newcommand{\hmwkClass}{C8.4 Probabilistic Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor P. Balister}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathbb{P}}
+\newcommand*{\E}{\mathbb{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+
+  \begin{enumerate}[(a)]
+    \item Show that if $X$ is a random variable with $X \in [a, b]$ then for $\lambda > 0$
+    \[ 
+      \mathbb{E}[e^{\lambda X}] \leq \exp(\lambda\mathbb{E}[X] + \lambda^2(b - a)^2/8). 
+    \]
+    \begin{proof}
+      Set $Y = \frac{X - a}{b - a}$ so that $Y \in [0, 1]$. Note that for any $s \in \R$, the function $e^{sy}$ is strictly convex over $[0, 1]$, so 
+      \[
+        e^{sy} \leq y(e^s - 1) + 1.
+      \]
+      But then since $X - \E[X] = (b - a)(Y - \E[Y])$, setting $s = \lambda(b - a)$ yields
+      \[
+        \E[e^{\lambda(X - \E[X])}] = \E[e^{s(Y - \E[Y])}] = \E[e^{sY}]e^{-s\E[Y]} \leq e^{-s\E[Y]}(\E[Y](e^s - 1) + 1).
+      \]
+      It remains to show that
+      \[
+        \phi(s) = -s\E[Y] + \log(\E[Y](e^s - 1) + 1) \leq \frac{s^2}{8}.
+      \]
+      By the Taylor expansion, there exists $t \in (0, s)$ such that
+      \[
+        \phi(s) = \phi(0) + \phi'(0)s + \phi''(t)\frac{s^2}{2} = \phi''(t)\frac{s^2}{2}.
+      \]
+      Set $u = \frac{\E[Y]e^s}{1 - \E[Y] + \E[Y]e^s} \in [0, 1]$. Then
+      \[
+        \phi''(t) = \frac{\E[Y]e^s(1 - \E[Y])}{(1 - \E[Y] + \E[Y]e^s)^2} = u(1 - u) \leq \frac{1}{4}.
+      \]
+      The result now follows.
+    \end{proof}
+    \item Deduce Hoeffding's inequality: if $X_i \in [a_i, b_i]$ are independent and $X = \sum_{i=1}^n X_i$ then, for $t > 0$,
+    \[ 
+      \mathbb{P}(X \geq \mathbb{E}[X] + t) \leq \exp\left(-\frac{2t^2}{\sum_{i=1}^n(b_i - a_i)^2}\right). 
+    \]
+    \begin{proof}
+      Note that
+      \[
+        \E[e^{\lambda X}] = \E[e^{\lambda X_1}] \cdots \E[e^{\lambda X_n}] \leq \exp\left(\lambda\E[X] + \lambda^2\sum_{i=1}^n(b_i - a_i)^2/8\right).
+      \]
+      Thus,
+      \begin{align*}
+        \prob(X \geq \E[X] + t) \\
+        &= \prob(e^{\lambda X} \geq e^{\lambda(\E[X] + t)}) \\
+        &\leq \frac{\exp\left(\lambda\E[X] + \lambda^2\sum_{i=1}^n(b_i - a_i)^2/8\right)}{e^{\lambda(\E[X] + t)}} \\
+        &= \exp\left(\lambda^2\sum_{i=1}^n(b_i - a_i)^2/8 - \lambda t\right).
+      \end{align*}
+      Setting $\lambda = \frac{4t}{\sum_{i=1}^n(b_i - a_i)^2}$ yields the result.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Using results from lectures, show that the survival probability $\rho(c) = 1 - \eta(c)$ of the Poisson branching process $\mathbf{X}_{\mathrm{Po}(c)}$ satisfies $\rho(1 + \varepsilon) \sim 2\varepsilon$ as $\varepsilon$ tends to zero from above.
+
+  Can you obtain further terms in this expansion?
+
+  \begin{proof}
+
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  If $(V_1, V_2)$ is a fixed partition of the vertices of $G(n, \frac{1}{2})$, what is the distribution of the number of edges of $G(n, \frac{1}{2})$ joining $V_1$ to $V_2$?
+
+  Show that the probability that $G(n, \frac{1}{2})$ contains a bipartite subgraph with at least $\frac{n^2}{8} + n^{3/2}$ edges is $o(1)$.
+
+  \begin{proof}
+    For $u \in V_1$ and $v \in V_2$, let $X_{uv}$ be the indicator that $uv$ is an edge of $G(n, \frac{1}{2})$. Then $X = \sum_{u \in V_1, v \in V_2} X_{uv}$ is the number of edges of $G(n, \frac{1}{2})$ joining $V_1$ to $V_2$, which has a binomial distribution with parameters $|V_1||V_2|$ and $\frac{1}{2}$. Note that $\mu = \E[X] \leq \frac{n^2}{8}$. By the Chernoff bound,
+    \[
+      \prob(X \geq \frac{n^2}{8} + n^{3/2}) \leq \prob(X \geq \mu + n^{3/2}) \leq \exp\left(-8n\right) = o(2^{-n})
+    \]
+    There are $2^{n - 1}$ choices for the partition $(V_1, V_2)$, so the probability that $G(n, \frac{1}{2})$ contains a bipartite subgraph with at least $\frac{n^2}{8} + n^{3/2}$ edges is $o(1)$. 
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  A \textit{tournament} on a vertex set $V$ is an orientation of the edges of the complete graph on $V$. Thus, for each pair $\{i,j\}$ of distinct elements of $V$, exactly one of the directed edges $i \rightarrow j$ and $j \rightarrow i$ is present. (Think of an all-play-all tournament whose players are the elements of $V$; the orientation of the edge between $i$ and $j$ indicates who wins the match between $i$ and $j$.)
+
+  Let $\sigma$ be a permutation of $\{1, 2, \dots, n\}$. The permutation can be seen as a ranking of the players. We say that an \textit{upset} occurs if the edge $i \rightarrow j$ is present (i.e. $j$ beats $i$) but $\sigma(i) < \sigma(j)$ (i.e. $i$ is higher ranked than $j$).
+
+  Show that there exists a tournament on $\{1, 2, \dots, n\}$ such that, for all rankings $\sigma$, the difference between the number of upsets and the number of non-upsets is no greater than $n^{3/2}\sqrt{\log n}$. (In other words, no ranking gives a correct prediction for significantly more than $50\%$ of the matches.)
+
+  \begin{proof}
+    Let $T$ be a random tournament on $n$ vertices. Then for any permutation $\sigma$, the number of upsets $U$ has a binomial distribution with parameters $\binom{n}{2}$ and $1/2$. Note $\mu = \E[U] \leq n^2$. It now follows from the Chernoff bound that
+    \[
+      \prob\left(|U - \mu| \geq \frac{1}{2}n^{3/2}\sqrt{\log n}\right)\leq 2\prob\left(U \geq n^2 + \frac{1}{2}n^{3/2}\sqrt{\log n}\right) \leq n^{-n} 
+    \]
+    But then the probability that $|U - \mu| \geq \frac{1}{2}n^{3/2}\sqrt{\log n}$ for all permutations $\sigma$ is at most
+    \[
+      n! \cdot 2n^{-n} = (1 + o(1))\frac{2\sqrt{2\pi n}}{e^n} = o(1).
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $H = (V, E)$ be a hypergraph. Let $\chi$ be a two-colouring (red/blue) of its vertices.
+
+  The \textit{discrepancy} of an edge $e \in E$ under the colouring $\chi$ is the absolute difference between the number of blue vertices in $e$ and the number of red vertices in $e$. The \textit{discrepancy} of $H$ under $\chi$, denoted $\operatorname{disc}(H, \chi)$, is the maximum over all edges $e$ of the discrepancy of $e$ under $\chi$. Finally, the \textit{discrepancy} of $H$, $\operatorname{disc}(H)$, is defined as $\min_\chi \operatorname{disc}(H, \chi)$. [For example, if $H$ is $k$-uniform, $\operatorname{disc}(H) < k$ if and only if $H$ is 2-colourable.]
+
+  \begin{enumerate}[(a)]
+    \item Show that if $H$ is $k$-uniform and has $m \geq 2$ edges, then $\operatorname{disc}(H) \leq 2\sqrt{k \log m}$.
+    \begin{proof}
+      Take a random coloring $\chi$. Let $D_e$ be the discrepancy of edge $e$ under $\chi$, and let $R_e$ be the number of red vertices in $e$. Note that $R_e \sim \text{Bin}(k, 1/2)$ and  $\prob(D_e = i) = \prob(R_e = (k + i)/2 \text{ or } R_e = (k - i)/2)$. By the Chernoff bound,
+      \[
+        \prob(D_e \geq 2\sqrt{k \log m}) \leq 2\prob\left(R_e \geq \frac{k}{2} + \sqrt{k \log m}\right) \leq 2\exp(-2\log m) = o(m^{-1})
+      \]
+      But then there are $m$ edges, so 
+      \[
+        \prob(\operatorname{disc}(H, \chi) \geq 2\sqrt{k \log m}) \leq m\prob(D_e \geq 2\sqrt{k \log m}) = o(1).
+      \]
+    \end{proof}
+    \item Show that if $H$ is $k$-uniform and each edge intersects at most $d$ other edges, then
+    \[
+      \operatorname{disc}(H) \leq \sqrt{2k \log(6(d + 1))}.
+    \]
+    \begin{proof}
+      For $e \in E$, let $A_e$ be the event that $D_e \geq \sqrt{2k \log(6(d + 1))}$. Note
+      \[
+        \prob(A_e) \leq 2\prob\left(R_e \geq \frac{k}{2} + \frac{1}{2}\sqrt{2k \log(6(d + 1))}\right) \leq 2\exp\left(-\log(6(d + 1))\right) = \frac{1}{3(d + 1)} < \frac{1}{e(d + 1)}
+      \]
+      By Lemma 3.2, we may construct a dependency digraph $D$ on $A_e$'s. Since each $A_e$ is independent of the family of all but at most $d$ other $A_e$'s, the result now follows from LLL.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Let $X_k$ denote the number of $k$-vertex components of $G = G(n, p)$.
+
+  \begin{enumerate}[(a)]
+    \item Using Cayley's formula $k^{k-2}$ for the number of trees on $k$ (labelled) vertices, show directly that if $k$ is fixed and $p = p(n)$ satisfies $np \rightarrow c$ with $c > 0$ constant, then
+    \[ 
+      \mathbb{E}[X_k] \sim \binom{n}{k} k^{k-2} p^{k-1} e^{-ck}. 
+    \]
+    \begin{proof}
+      Let $T_k$ be the set of all $k$-vertex trees in $K_k$. Then
+      \begin{align*}
+        \E[X_k] 
+        &= \sum_{|C| = k}\prob(C \text{ is a component}) \\
+        &= \binom{n}{k}(\prob(C \text{ is a component} \mid C \text{ is a tree}) + \prob(C \text{ is a component} \mid C \text{ is not a tree})).
+      \end{align*}
+      Note
+      \[
+        \prob(C \text{ is a component} \mid C \text{ is a tree}) = k^{k - 2}p^{k - 1}(1 - p)^{(n - k)k}
+      \]
+      and
+      \[
+        \prob(C \text{ is a component} \mid C \text{ is not a tree}) = O(p^{k})(1 - p)^{(n - k)k} = o(p^{k - 1})(1 - p)^{(n - k)k}.
+      \]
+      Additionally,
+      \[
+        (1 - p)^{(n - k)k} = \left(1 - \frac{c}{n}\right)^{(n - k)k} \to e^{-ck},
+      \]
+      as $n \to \infty$. Thus,
+      \[
+        \E[X_k] \sim \binom{n}{k}k^{k - 2}p^{k - 1}e^{-ck}.
+      \]
+    \end{proof}
+    \item Deduce that $\rho_k(c) = (ck)^{k-1}e^{-ck}/k!$. [You may like to give a direct proof of this formula.]
+    \begin{proof}
+      The probability that a random vertex $v$ belongs to a $k$-vertex component is 
+      \[
+        \prob(|C_v| = k) = \frac{k\E[X_k]}{n} \sim \mathbb{E}[X_k] \sim \binom{n}{k} k^{k-1} \left(\frac{c}{n}\right)^{k-1} e^{-ck}/n = \frac{n(n - 1) \cdots (n - k + 1)}{n^k}\frac{(ck)^{k - 1}}{k!}e^{-ck}.
+      \]
+      But then by Lemma 6.1,
+      \[
+        \rho_k(c) = \lim_{n \to \infty} \prob(|C_v| = k) = \frac{(ck)^{k - 1}}{k!}e^{-ck}.
+      \]
+    \end{proof}
+    \item Deduce that
+    \[ 
+    \sum_{k=1}^\infty \frac{(ck)^{k-1}}{k!} e^{-ck} = 1 
+    \]
+    if $0 \leq c \leq 1$, and that the sum is strictly less than $1$ if $c > 1$. [You may not like to give a direct proof of this!]
+
+    \begin{proof}
+      \[ 
+      \sum_{k=1}^\infty \frac{(ck)^{k-1}}{k!} e^{-ck} = \sum_{k = 1}^\infty \rho_k(c) = \eta,
+      \]
+      where $\eta$ is the extinction probability of the branching process $\mathbf{X}_{\mathrm{Po}(c)}$. The result now follows from Theorem 5.4.
+    \end{proof}
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(a)]
+    \item Show that for each $c \in (1, \infty)$ there is a unique $d \in (0, 1)$ such that $ce^{-c} = de^{-d}$.
+    \begin{proof}
+      Let $f(x) = xe^{-x}$. Note that $f'(x) = e^{-x}(1 - x)$, so $f$ is strictly increasing on $(0, 1)$ while strictly decreasing on $(1, \infty)$. The result now follows from $f(0) = 0$, $\lim_{x \to \infty} f(x) = 0$, and that $f$ has a unique maximum at $x = 1$. 
+    \end{proof}
+
+    \item Let $\eta$ be the extinction probability of $\mathbf{X}_{\mathrm{Po}(c)}$, the Galton--Watson branching process with offspring distribution $\mathrm{Po}(c)$. Show that $c\eta = d$ where $d$ is related to $c$ as in part (a).
+    \begin{proof}
+      By Theorem 5.4,
+      \[
+        \eta = e^{-c(1 - \eta)},
+      \]
+      and so
+      \[
+        c\eta = ce^{-c(1 - \eta)} = ce^{-c} \cdot e^{c\eta}. 
+      \]
+      The result now follows from rearranging.
+    \end{proof}
+
+    \item Consider the the root in the branching process $\mathbf{X}_{\mathrm{Po}(c)}$. What is the probability of extinction of the process conditional on the event that the root has $k$ children? Use this to find the conditional distribution of the number of children of the root, conditional on the event that the process dies out.
+    \begin{proof}
+      Since
+      \[
+        \prob(\mathbf{X}_{\mathrm{Po}(c)} \text{ extincts} \mid X_1 = k) = \eta^k,
+      \]
+      we have
+      \[
+        \prob(X_1 = k \mid \mathbf{X}_{\mathrm{Po}(c)} \text{ extincts}) = \frac{\prob(\mathbf{X}_{\mathrm{Po}(c)} \text{ extincts} \mid X_1 = k) \cdot \prob(X_1 = k)}{\prob(\mathbf{X}_{\mathrm{Po}(c)} \text{ extincts})} = \frac{\eta^k \cdot e^{-c}\frac{c^k}{k!}}{\eta} = \eta^{k - 1}e^{-c}\frac{c^k}{k!}.
+      \]
+    \end{proof}
+
+    \item Hence or otherwise argue that the branching process $\mathbf{X}_{\mathrm{Po}(c)}$, conditioned on extinction, has the same distribution as the branching process $\mathbf{X}_{\mathrm{Po}(d)}$.
+    \begin{proof}
+      By (b),
+      \[
+        \prob(X_1 = k \mid \mathbf{X}_{\mathrm{Po}(c)} \text{ extincts}) = \eta^{k - 1}e^{-c}\frac{c^k}{k!} = \eta^{k - 1} \cdot \frac{c^{k - 1}}{k!} \cdot c\eta e^{-c\eta} = \frac{d^k}{k!}e^{-d},
+      \]
+      which yields the distribution $\mathbf{X}_{\mathrm{Po}(d)}$.
+    \end{proof}
+  \end{enumerate}
+
+  What does this \textit{suggest} about the random graphs $G(n, d/n)$ and $G(n, c/n)$?
+
+  \begin{proof}[Solution]
+    $G(n, d/n)$ is restricted to the sample space of $G(n, c/n)$ that doesn't have an infinite component.
+  \end{proof}
+\end{homeworkProblem}
+
+\end{document}
