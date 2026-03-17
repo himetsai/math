@@ -237,11 +237,11 @@
     \begin{proof}
       Take a random coloring $\chi$. Let $D_e$ be the discrepancy of edge $e$ under $\chi$, and let $R_e$ be the number of red vertices in $e$. Note that $R_e \sim \text{Bin}(k, 1/2)$ and  $\prob(D_e = i) = \prob(R_e = (k + i)/2 \text{ or } R_e = (k - i)/2)$. By the Chernoff bound,
       \[
-        \prob(D_e \geq 2\sqrt{k \log m}) \leq 2\prob\left(R_e \geq \frac{k}{2} + \sqrt{k \log m}\right) \leq 2\exp(-2\log m) = o(m^{-1})
+        \prob(D_e \geq 2\sqrt{k \log m}) \leq 2\prob\left(R_e \geq \frac{k}{2} + \sqrt{k \log m}\right) \leq 2\exp(-2\log m) = 2m^{-2}
       \]
       But then there are $m$ edges, so 
       \[
-        \prob(\operatorname{disc}(H, \chi) \geq 2\sqrt{k \log m}) \leq m\prob(D_e \geq 2\sqrt{k \log m}) = o(1).
+        \prob(\operatorname{disc}(H, \chi) \geq 2\sqrt{k \log m}) \leq m\prob(D_e \geq 2\sqrt{k \log m}) \leq \frac{2}{m}.
       \]
     \end{proof}
     \item Show that if $H$ is $k$-uniform and each edge intersects at most $d$ other edges, then
@@ -253,7 +253,7 @@
       \[
         \prob(A_e) \leq 2\prob\left(R_e \geq \frac{k}{2} + \frac{1}{2}\sqrt{2k \log(6(d + 1))}\right) \leq 2\exp\left(-\log(6(d + 1))\right) = \frac{1}{3(d + 1)} < \frac{1}{e(d + 1)}
       \]
-      By Lemma 3.2, we may construct a dependency digraph $D$ on $A_e$'s. Since each $A_e$ is independent of the family of all but at most $d$ other $A_e$'s, the result now follows from LLL.
+      By Lemma 3.2, we may construct a dependency digraph $D$ on $A_e$'s by joining $A_e$ to $A_f$ if $e \cap f \neq \emptyset$. Since each $A_e$ is independent of the family of all but at most $d$ other $A_e$'s, the result now follows from LLL.
     \end{proof}
   \end{enumerate}
 \end{homeworkProblem}
@@ -335,9 +335,9 @@
       \]
       and so
       \[
-        c\eta = ce^{-c(1 - \eta)} = ce^{-c} \cdot e^{c\eta}. 
+        c\eta e^{-c\eta} = ce^{-c}. 
       \]
-      The result now follows from rearranging.
+      Since $\eta < 1$, we know $d < c$. But then there's no $d \in [1, c)$ that satisfies the equation by part (a). The result now follows from part (a).
     \end{proof}
 
     \item Consider the the root in the branching process $\mathbf{X}_{\mathrm{Po}(c)}$. What is the probability of extinction of the process conditional on the event that the root has $k$ children? Use this to find the conditional distribution of the number of children of the root, conditional on the event that the process dies out.
@@ -356,9 +356,11 @@
     \begin{proof}
       By (b),
       \[
-        \prob(X_1 = k \mid \mathbf{X}_{\mathrm{Po}(c)} \text{ extincts}) = \eta^{k - 1}e^{-c}\frac{c^k}{k!} = \eta^{k - 1} \cdot \frac{c^{k - 1}}{k!} \cdot c\eta e^{-c\eta} = \frac{d^k}{k!}e^{-d},
+        \prob(X_1 = k \mid \mathbf{X}_{\mathrm{Po}(c)} \text{ extincts}) = \eta^{k - 1}e^{-c}\frac{c^k}{k!} = \eta^{k - 1} \cdot \frac{c^{k - 1}}{k!} \cdot c\eta e^{-c\eta} = \frac{d^k}{k!}e^{-d} = \prob(\mathrm{Po}(d) = k).
       \]
-      which yields the distribution $\mathbf{X}_{\mathrm{Po}(d)}$.
+      Condition on extinction. Then the all the subtrees will also go extinct. It follows from induction and part (c) that each vertex in the branching process will have the same distribution as the branching process $\mathbf{X}_{\mathrm{Po}(d)}$.
+
+      
     \end{proof}
   \end{enumerate}
 

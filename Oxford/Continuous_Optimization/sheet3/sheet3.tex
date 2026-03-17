@@ -1,0 +1,214 @@
+\documentclass{article}
+
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{dsfont}
+\usepackage{bbm}
+
+\usetikzlibrary{automata,positioning}
+
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+  \stepcounter{#1}
+  \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+  \ifnum#1>0
+    \setcounter{homeworkProblemCounter}{#1}
+  \fi
+  \section{Problem \arabic{homeworkProblemCounter}}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{homeworkProblemCounter}
+}{
+  \exitProblemHeader{homeworkProblemCounter}
+}
+
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ \#3}
+\newcommand{\hmwkDueDate}{Mar 11, 2026}
+\newcommand{\hmwkClass}{C6.2 Continuous Optimization}
+\newcommand{\hmwkClassInstructor}{Professor C. Cartis}
+\newcommand{\hmwkAuthorName}{\textbf{Ray Tsai}}
+
+% Title Page
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 12:00pm}\\
+  \vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+  \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+% Part Command
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathds{P}}
+\newcommand*{\E}{\mathds{E}}
+
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+% To change sections, use: \renewcommand{\hmwkSection}{B}
+% Example: Uncomment the line below when you start Section B
+\renewcommand{\hmwkSection}{B}
+
+\begin{homeworkProblem}
+  \begin{enumerate}[(i)]
+    \item Show that if $\nabla f(x)$ is the gradient of the quadratic function $f(x) = g^T x + \frac{1}{2} x^T B x$, then for any $s$,
+    \[
+    Bs = \gamma, \text{ where } \gamma = \nabla f(x + s) - \nabla f(x).
+    \]
+    \textit{Hint: See Lecture slides Lecture 7.}
+
+    \begin{proof}
+      Since $\nabla f(x) = Bx + g$,
+      \[
+        \gamma = \nabla f(x + s) - \nabla f(x) = Bs.
+      \]
+    \end{proof}
+
+    \item Consider a general nonlinear function $f : \mathbb{R}^n \to \mathbb{R}$, and apply a quasi-Newton generic linesearch method (GLM) for its minimization that generates iterates $x^k$. Suppose that $B^k$ is a given symmetric matrix (that approximates the Hessian of $f$ on the $k$th iteration), and that $B^{k+1} = B^k + \beta v v^T$ is a rank-one correction for which the secant condition
+    \begin{equation}
+    B^{k+1} \delta^k = \gamma^k, \text{ where } \gamma^k = \nabla f(x^{k+1}) - \nabla f(x^k) \text{ and } \delta^k = x^{k+1} - x^k, \tag{1}
+    \end{equation}
+    is required to hold. Show that the resulting $B^{k+1}$ is unique, and give its form; state any assumptions you need to make.
+
+    \begin{proof}
+      Note that 
+      \[
+        \gamma^k = (B^k + \beta v v^T)\delta^k \implies \beta(v^T\delta^k)v = \gamma^k - B^k\delta^k.
+      \]
+      Write scalar $\rho = (\beta(v^T\delta^k))^{-1}$, so $v = \rho(\gamma^k - B^k\delta^k)$. Assume that $(\gamma^k - B^k\delta^k)^T\delta^k \neq 0$. Then 
+      \[
+        \gamma^k - B^k\delta^k = \beta\rho^2[(\gamma^k - B^k\delta^k)^T\delta^k](\gamma^k - B^k\delta^k) \implies \beta\rho^2 = \frac{1}{(\gamma^k - B^k\delta^k)^T\delta^k}.
+      \]
+      Thus,
+      \[
+        \beta vv^T = \frac{(\gamma^k - B^k\delta^k)(\gamma^k - B^k\delta^k)^T}{(\gamma^k - B^k\delta^k)^T\delta^k},
+      \]
+      so $B^{k+1}$ is unique.
+    \end{proof}
+
+    \item Now suppose that (in the same set-up as in (ii))
+    \begin{equation}
+    B^{k+1} = B^k + \theta \gamma^k (\gamma^k)^T + \beta v v^T \tag{2}
+    \end{equation}
+    is a rank-two correction to a given symmetric matrix $B^k$ for which (1) holds. Find an expression for $\theta, \beta$ and $v$ in terms of
+    \[
+    \phi = 1 - \theta (\gamma^k)^T \delta^k,
+    \]
+    where $\delta^k = x^{k+1} - x^k$; once again state any assumptions you require. What special cases occur in the formula you have derived when $\phi = 0$ and $\phi = 1$?
+    \begin{proof}
+      We can easily see that
+      \[
+        \theta = \frac{1 - \phi}{(\gamma^k)^T\delta^k}.
+      \]
+      Note that
+      \[
+        \gamma^k = (B^k + \theta \gamma^k (\gamma^k)^T + \beta v v^T)\delta^k \implies \beta(v^T\delta^k)v = \phi\gamma^k - B^k\delta^k,
+      \]
+      so $v$ is parallel to $\phi\gamma^k - B^k\delta^k$. Suppose $v = \phi\gamma^k - B^k\delta^k$. Assume that $(\phi\gamma^k - B^k\delta^k)^T\delta^k \neq 0$. Then
+      \[
+        \beta(v^T\delta^k) = 1 \implies \beta = \frac{1}{(\phi\gamma^k - B^k\delta^k)^T\delta^k}.
+      \]
+      When $\delta = 1$, then $\theta = 1$ and the update is the same as in (ii). 
+    \end{proof}
+
+    \item (difficult) Show that if $B$ is symmetric positive definite and $\delta^T \gamma > 0$, then the BFGS update
+    \[
+    B^+ = B + \frac{\gamma \gamma^T}{\gamma^T \delta} - \frac{B \delta \delta^T B}{\delta^T B \delta}
+    \]
+    is also positive definite.
+  \end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+  Consider the overdetermined system $r : \mathbb{R} \to \mathbb{R}^2, r(x) := (r_1(x) \enspace r_2(x))^T = 0$, with $x \in \mathbb{R}$, where
+  \[
+  r(x) := (x + 1 \quad \lambda x^2 + x - 1)^T, \quad \text{where } \lambda \in \mathbb{R} \text{ is a constant.}
+  \]
+  Consider the least-squares objective $f(x) = \frac{1}{2} r(x)^T r(x)$; compute its gradient and Hessian, and show that $x^* = 0$ is a stationary point of $f$ for all $\lambda$, and it is a minimizer of $f$ if $\lambda < 1$.
+  Apply Newton's method and Gauss-Newton method, without linesearch (i.e., with stepsize $\alpha^k = 1$, for all $k$) to $f(x)$: compute the Newton iterate in the form $x^{k+1} = \psi_N(x^k)$ and the Gauss-Newton, $x^{k+1} = \psi_{GN}(x^k)$.
+  Consider now the functions $\psi_N(x)$ and $\psi_{GN}(x)$. Show that $\psi'_N(0) = 0$ for all $\lambda$, and show that this implies that the rate of convergence of Newton is at least quadratic (asymptotically). Show that $\psi'_{GN}(0) = \lambda$ and that this implies that convergence of Gauss-Newton is linear if $|\lambda| < 1$, and does not occur if $|\lambda| > 1$.
+
+  \textit{Comment: Note that $r(x^*) = r(0) = [1, -1]^T \neq 0$, and so we have a nonzero residual least-squares problem (and hence, the Gauss-Newton approximation to the Hessian is poor, yielding only linear convergence, or even nonconvergence of Gauss-Newton method).}
+\end{homeworkProblem}
+
+\end{document}
