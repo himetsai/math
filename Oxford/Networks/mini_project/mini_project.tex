@@ -137,7 +137,7 @@ Let $T$ denote the number of triangles in the network, and write $T_N$ for the n
 \end{equation}
 This linear recurrence has the same structure as~\eqref{eq:edge_rec}. Substituting the exact edge formula and solving with $\E[T_1]=0$ gives, for $p\neq 1/2, 1/3$,
 \begin{equation}\label{eq:tri_exact}
-  \E[T] = \frac{2pN}{(1\!-\!2p)(1\!-\!3p)} + \frac{2A_N}{1\!-\!2p} - \frac{2B_N}{1\!-\!3p},
+  \boxed{\E[T] = \frac{2pN}{(1-2p)(1-3p)} + \frac{2A_N}{1-2p} - \frac{2B_N}{1-3p}},
 \end{equation}
 where $A_N$ is as in~\eqref{eq:edge_exact} and $B_N = \Gamma(N+3p)/[\Gamma(1+3p)\Gamma(N)]$. Thus two regimes emerge:
 \begin{itemize}
@@ -258,26 +258,32 @@ Write $\sigma_u = \sum_{j\neq u}d(u,j)$. We now consider the two events separate
 Averaging over the two events and the uniform choice of $u$, and noting that $\frac{1}{N}\sum_u\sigma_u = 2D_N/N$, we have
 \begin{align}
   \sum_{j}d(v,j)
-  &= (1 - p)(N +  \E_u\left[\sigma_u\right]) + p(1 + \E_u\left[\sigma_u\right]) \\
+  &= (1 - p)(N +  \E_u\left[\sigma_u\right]) + p(1 + \E_u\left[\sigma_u\right]) \notag \\
   &= (1 - p)N + p + \frac{2D_N}{N},
 \end{align}
 and so
 \begin{equation}\label{eq:D_rec}
   \E[D_{N+1}] = \left(1+\frac{2}{N}\right)\E[D_N] + (1-p)N + p.
 \end{equation}
-This is a first-order linear recurrence with $\E[D_1]=0$. The homogeneous solution is $\mathcal{H}_N = N(N+1)/2$, satisfying $\mathcal{H}_{N+1}/\mathcal{H}_N = (N+2)/N$. Setting $\E[D_N]=\mathcal{H}_N\,c_N$ reduces~\eqref{eq:D_rec} to
+The homogeneous solution is $F_N = N(N+1)/2$, satisfying $F_{N+1}/F_N = (N+2)/N$. Set $\E[D_N]=\gamma_N F_N$. Then \eqref{eq:D_rec} is reduced to
 \begin{equation}
-  c_{N+1}-c_N = \frac{2(2p-1)}{N+1}+\frac{2(2-3p)}{N+2},
+  \gamma_{N+1}-\gamma_N = \frac{2[(1-p)N+p]}{(N+1)(N+2)} = \frac{2(2p-1)}{N+1}+\frac{2(2-3p)}{N+2}. \notag
 \end{equation}
-after partial-fraction decomposition of $2[(1-p)N+p]/[(N+1)(N+2)]$. Telescoping with $c_1=0$ gives
-\begin{equation}\label{eq:D_exact}
-  \E[D_N] = \tfrac{N(N\!+\!1)}{2}\!\Big[2(2p\!-\!1)(H_N\!-\!1)+2(2\!-\!3p)\!\Big(H_{N+1}\!-\!\tfrac{3}{2}\Big)\Big],
+It follows from $\gamma_1 = 0$ that
+\begin{align}
+  \gamma_N 
+  &= \sum_{k = 1}^{N - 1} \frac{2(2p-1)}{k+1}+\frac{2(2-3p)}{k+2} \\
+  &= 2(2p-1)(H_N-1) + 2(2-3p)\left(H_{N+1}- \frac{3}{2}\right),
+\end{align}
+where $H_N=\sum_{j=1}^{N}1/j$ is the $N$-th harmonic number. Since $H_N\sim\ln N$ as $N \to \infty$, we have $\gamma_N\sim 2(1-p)\ln N$, and so
+\begin{equation}
+  \E[D_N]\sim(1-p)\,N(N+1)\ln N.
 \end{equation}
-where $H_N=\sum_{j=1}^{N}1/j$ is the $N$-th harmonic number. Since $H_N\sim\ln N$ for large $N$, the leading behaviour is $c_N\sim 2(1-p)\ln N$, hence $\E[D_N]\sim(1-p)\,N(N+1)\ln N$. Dividing by $\binom{N}{2}$ pairs,
+Substituting into~\eqref{eq:distance_definition} now yields
 \begin{equation}\label{eq:dist_exact}
-  \boxed{\ell(N) \sim 2(1-p)\ln N},
+  \boxed{\ell \sim 2(1-p)\ln N},
 \end{equation}
-valid for all $p\in[0,1)$. At $p=0$ this recovers the known result $\ell\sim 2\ln N$ for the random recursive tree; at $p=1$ the network is $K_N$ with $\ell=1$. The distance scales logarithmically for every $p<1$, with no phase transition, confirming the small-world property in conjunction with the $O(1)$ clustering coefficient from Section~\ref{sec:clustering}.
+for all $p\in[0,1)$. At $p=1$ the network is $K_N$ with $\ell=1$. Note that the distance scales logarithmically for every $p \in [0, 1)$ with no phase transition, which confirms the small-world property that we established with the $O(1)$ clustering coefficient from Section~\ref{sec:clustering}.
 
 \begin{figure}[h]
   \centering
