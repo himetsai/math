@@ -62,20 +62,20 @@ The network begins with a single node ($N=1$). At each growth step ($N\to N+1$):
 \section{\label{sec:edges}Number of Edges}
 % ============================================================
 
-Let $M$ denote the number of edges in the network, and write $M_N$ for the number of edges when the network has $N$ nodes. At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. The expected number of new edges is $1 + p\,k_u$, where $k_u$ is the degree of $u$. Note that by the handshake lemma, the average value of $k_u$ over all choices of $u$ is $2M_N/N$. It follows that,
+Let $M$ denote the expected number of edges in the network, and write $M_N$ for the expected number of edges when the network has $N$ nodes. At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. The expected number of new edges is $1 + p\,k_u$, where $k_u$ is the degree of $u$. Note that by the handshake lemma, the average value of $k_u$ over all choices of $u$ is $2M_N/N$. It follows that,
 \begin{align}\label{eq:edge_rec}
-  \E[M_{N+1}] 
-  &= \E[M_N] + \left(\frac{2p}{N}\E[M_N] + 1\right) \notag \\
-  &= \left(1 + \frac{2p}{N}\right)\E[M_N] + 1.
+  M_{N+1}
+  &= M_N + \left(\frac{2p}{N}M_N + 1\right) \notag \\
+  &= \left(1 + \frac{2p}{N}\right)M_N + 1.
 \end{align}
-This is a first-order linear recurrence. A particular solution of the form $\alpha N$ yields $\alpha = 1/(1-2p)$ for $p\neq 1/2$. The homogeneous solution is $A_N = \Gamma(N+2p)/[\Gamma(1+2p)\,\Gamma(N)]$, satisfying $A_{N+1}/A_N = (N+2p)/N$. Imposing $\E[M_1]=0$ now yields
+This is a first-order linear recurrence. A particular solution of the form $\alpha_M N$ yields $\alpha_M = 1/(1-2p)$ for $p\neq 1/2$. The homogeneous solution is $\mathcal{A}_N = \Gamma(N+2p)/[\Gamma(1+2p)\,\Gamma(N)]$, satisfying $\mathcal{A}_{N+1}/\mathcal{A}_N = (N+2p)/N$. Imposing $M_1=0$ now yields
 \begin{equation}\label{eq:edge_exact}
-  \boxed{\E[M] = \frac{1}{1-2p}\!\left(N - \frac{\Gamma(N+2p)}{\Gamma(1+2p)\,\Gamma(N)}\right)}, \quad p\neq\tfrac{1}{2}.
+  \boxed{M = \frac{1}{1-2p}\!\left(N - \frac{\Gamma(N+2p)}{\Gamma(1+2p)\,\Gamma(N)}\right)},
 \end{equation}
-Since $\Gamma(N+2p)/\Gamma(N)\sim N^{2p}$ for large $N$, two regimes emerge:
+for $p\neq 1/2$. Since $\Gamma(N+2p)/\Gamma(N)\sim N^{2p}$ as $N \to \infty$, two regimes emerge:
 \begin{itemize}
-  \item \emph{Sparse} ($p<1/2$): $\E[M]\sim N/(1-2p)$ (linear).
-  \item \emph{Dense} ($p>1/2$): $\E[M]\sim N^{2p}/[(2p-1)\,\Gamma(1+2p)]$ (superlinear).
+  \item \emph{Sparse} ($p<1/2$): $M\sim \frac{N}{1-2p}$ (linear).
+  \item \emph{Dense} ($p>1/2$): $M\sim \frac{N^{2p}}{(2p-1)\,\Gamma(1+2p)}$ (superlinear).
 \end{itemize}
 
 \subsection{Numerical results}
@@ -83,7 +83,7 @@ Since $\Gamma(N+2p)/\Gamma(N)\sim N^{2p}$ for large $N$, two regimes emerge:
 \begin{figure}[h]
   \centering
   % \includegraphics[width=\columnwidth]{figures/edges_vs_p.pdf}
-  \caption{Expected number of edges $\E[M]$ as a function of $p$ for several values of $N$, obtained by averaging over $10^4$ independent realisations. Solid lines show the analytical prediction~\eqref{eq:edge_exact}.}
+  \caption{Number of edges $M$ as a function of $p$ for several values of $N$, obtained by averaging over $10^4$ independent realisations. Solid lines show the analytical prediction~\eqref{eq:edge_exact}.}
   \label{fig:edges}
 \end{figure}
 
@@ -119,11 +119,11 @@ In terms of the Gamma function,
 \begin{equation}\label{eq:Pk_gamma}
   P_k = \frac{(1-p)\,\Gamma(2+2/p)}{(2+p)\,\Gamma(2+ 1/p)} \cdot \frac{\Gamma(k+1+ 1/p)}{\Gamma(k+1+2/p)}.
 \end{equation}
-For large $k$, $\Gamma(k+1+ 1/p)/\Gamma(k+1+2/p)\sim k^{-1/p}$, so
+As $k \to \infty$, we have $\Gamma(k+1+ 1/p)/\Gamma(k+1+2/p)\sim k^{-1/p}$, and so
 \begin{equation}\label{eq:Pk_tail}
-  P_k \sim c_p\; k^{-1/p}, \quad k\to\infty,
+  P_k \sim \lambda_p k^{-1/p},
 \end{equation}
-where $c_p = (1-p)\,\Gamma(2+2/p)/[(2+p)\,\Gamma(2+1/p)]$. The degree distribution thus follows a power law with exponent $1/p$, which matches the degree distribution of the BA model at $p=1/3$.
+where $\lambda_p = (1-p)\,\Gamma(2+2/p)/[(2+p)\,\Gamma(2+1/p)]$. The degree distribution thus follows a power law with exponent $1/p$, which matches the degree distribution of the BA model at $p=1/3$.
 
 % ============================================================
 \section{\label{sec:clustering}Triangles and Clustering}
@@ -131,27 +131,27 @@ where $c_p = (1-p)\,\Gamma(2+2/p)/[(2+p)\,\Gamma(2+1/p)]$. The degree distributi
 
 \subsection{Triangles}
 
-Let $T$ denote the number of triangles in the network, and write $T_N$ for the number of triangles when the network has $N$ nodes. Triangles are created in an all-or-none network if and only if the ``all'' event occurs and $N \geq 2$. If the target $u$ has degree $k_u$ and there are $e_u$ edges among its neighbours, the new node forms $k_u$ triangles of type $(v_{\text{new}}, u, w_i)$ and $e_u$ triangles of type $(v_{\text{new}}, w_i, w_j)$. Note that $\sum_u k_u = 2M_N$ and $\sum_u e_u = 3T_N$. Averaging over the target choice $u$ thus yields
+Let $T$ denote the expected number of triangles in the network, and write $T_N$ for the expected number of triangles when the network has $N$ nodes. Triangles are created in an all-or-none network if and only if the ``all'' event occurs and $N \geq 2$. If the target $u$ has degree $k_u$ and there are $e_u$ edges among its neighbours, the new node $v$ forms $k_u$ triangles of type $(v, u, w_i)$ and $e_u$ triangles of type $(v, w_i, w_j)$, where $w_i, w_j$ are distinct neighbours of $u$. Note that $\sum_u k_u = 2M_N$ and $\sum_u e_u = 3T_N$. Averaging over the target choice $u$ thus yields
 \begin{equation}\label{eq:tri_rec}
-  \E[T_{N+1}] = \left(1+\frac{3p}{N}\right)\E[T_N] + \frac{2p\,\E[M_N]}{N}.
+  T_{N+1} = \left(1+\frac{3p}{N}\right)T_N + \frac{2p\,M_N}{N}.
 \end{equation}
-This linear recurrence has the same structure as~\eqref{eq:edge_rec}. Substituting the exact edge formula and solving with $\E[T_1]=0$ gives, for $p\neq 1/2, 1/3$,
+This linear recurrence has the same structure as~\eqref{eq:edge_rec}. Substituting the exact edge formula and solving with $T_1=0$ gives, for $p\neq 1/2, 1/3$,
 \begin{equation}\label{eq:tri_exact}
-  \boxed{\E[T] = \frac{2pN}{(1-2p)(1-3p)} + \frac{2A_N}{1-2p} - \frac{2B_N}{1-3p}},
+  \boxed{T = \frac{2pN}{(1-2p)(1-3p)} + \frac{2\mathcal{A}_N}{1-2p} - \frac{2\mathcal{B}_N}{1-3p}},
 \end{equation}
-where $A_N$ is as in~\eqref{eq:edge_exact} and $B_N = \Gamma(N+3p)/[\Gamma(1+3p)\Gamma(N)]$. Thus two regimes emerge:
+where $\mathcal{A}_N$ is as in~\eqref{eq:edge_exact} and $\mathcal{B}_N = \Gamma(N+3p)/[\Gamma(1+3p)\Gamma(N)]$. Thus two regimes emerge as $N \to \infty$:
 \begin{itemize}
-  \item $p<1/3$: $\E[T]\sim \frac{2p}{(1 -2p)(1 -3p)}N$ (linear).
-  \item $p>1/3$: $\E[T]\sim \frac{2}{\Gamma(1+3p)(3p-1)}N^{3p}$ (superlinear).
+  \item $p<1/3$: $T\sim \frac{2p}{(1 -2p)(1 -3p)}N$ (linear).
+  \item $p>1/3$: $T\sim \frac{2}{\Gamma(1+3p)(3p-1)}N^{3p}$ (superlinear).
 \end{itemize}
 
 \subsection{Clustering coefficient}
 
-The global clustering coefficient is given by 
-\[
-  C = \E\left[\frac{3T}{W}\right],
-\]
-where $W = \frac{1}{2}\sum_{i} k_i(k_i-1)$ is the number of connected triples. Let $S_N = \sum_i k_i^2$, and note that $W=(S_N-2M_N)/2$. To derive a recurrence for $S_N$, note that when a node gains one link ($k\to k+1$), its contribution to $S$ changes by $(k+1)^2-k^2=2k+1$. At step $N\to N+1$, the target $u$ always gains degree 1, and in the ``all'' event each neighbour $w$ of $u$ also gains degree 1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $S$ given target $u$ is
+The global clustering coefficient is given as
+\begin{equation}
+  C = \frac{3T}{W},
+\end{equation}
+where $W = \frac{1}{2}\sum_{i} k_i(k_i-1)$ is the expected number of connected triples. Let $S_N = \sum_i k_i^2$, and note that $W=(S_N-2M_N)/2$. To derive a recurrence for $S_N$, note that when a node gains one link ($k\to k+1$), its contribution to $S$ changes by $(k+1)^2-k^2=2k+1$. At step $N\to N+1$, the target $u$ always gains degree 1, and in the ``all'' event each neighbour $w$ of $u$ also gains degree 1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $S$ given target $u$ is
 \begin{align}
   \E[\Delta S\mid u] &= (1\!-\!p)\cdot 1 + p(1\!+\!k_u)^2 + (2k_u\!+\!1) \notag \\
   &\quad+ p\!\sum_{w\sim u}\!(2k_w\!+\!1),
@@ -163,23 +163,23 @@ Notice that
 \end{equation}
 as each node $w$ appears as a neighbour of exactly $k_w$ other nodes. Thus, averaging over the uniform choice of $u$, and using $\sum_u k_u = 2M$, $\sum_u k_u^2 = S$, and \eqref{eq:sum_of_neighbours} gives
 \begin{equation}\label{eq:S_rec}
-  \E[S_{N+1}] = \left(1+\frac{3p}{N}\right)S_N + 2 + \frac{(4+6p)\E[M_N]}{N}.
+  S_{N+1} = \left(1+\frac{3p}{N}\right)S_N + 2 + \frac{(4+6p)M_N}{N}.
 \end{equation}
 Solving~\eqref{eq:S_rec} by the same method used for~\eqref{eq:edge_rec} and~\eqref{eq:tri_rec} gives, for $p\neq 0,\tfrac{1}{2},\tfrac{1}{3}$,
 \begin{equation}\label{eq:S_exact}
-  \E[S] = \frac{(6\!+\!2p)N}{(1\!-\!2p)(1\!-\!3p)} + \frac{(4\!+\!6p)A_N}{p(1\!-\!2p)} - \frac{4(1\!+\!2p)B_N}{p(1\!-\!3p)},
+  S = \frac{(6\!+\!2p)N}{(1\!-\!2p)(1\!-\!3p)} + \frac{(4\!+\!6p)\mathcal{A}_N}{p(1\!-\!2p)} - \frac{4(1\!+\!2p)\mathcal{B}_N}{p(1\!-\!3p)},
 \end{equation}
-where $A_N$ and $B_N$ are as in~\eqref{eq:tri_exact}. Recall that $W=(S-2M)/2$, so substituting \eqref{eq:edge_exact} and \eqref{eq:S_exact} yields 
+where $\mathcal{A}_N$ and $\mathcal{B}_N$ are as in~\eqref{eq:tri_exact}. Recall that $W=(S-2M)/2$, so substituting \eqref{eq:edge_exact} and \eqref{eq:S_exact} yields 
 \begin{equation}
-  \E[W] = \frac{2(1 + 2p)}{p}\!\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{A_N}{1 -2p} - \frac{B_N}{1 -3p}\right],
+  W = \frac{2(1 + 2p)}{p}\!\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{\mathcal{A}_N}{1 -2p} - \frac{\mathcal{B}_N}{1 -3p}\right],
 \end{equation}
-Comparing with $3\E[T]$ from~\eqref{eq:tri_exact},
+Comparing with $3T$ from~\eqref{eq:tri_exact},
 \begin{equation}
-  3\E[T] = 6\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{A_N}{1 -2p} - \frac{B_N}{1 -3p}\right],
+  3T = 6\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{\mathcal{A}_N}{1 -2p} - \frac{\mathcal{B}_N}{1 -3p}\right],
 \end{equation}
-we see that $\E[W]$ and $\E[3T]$ have the same bracketed term, and thus we get
+we see that $W$ and $3T$ have the same bracketed term, and thus we get
 \begin{equation}\label{eq:clustering}
-  \boxed{\E[C]  \sim \frac{\E[3T]}{\E[W]} = \frac{3p}{1+2p}},
+  \boxed{C = \frac{3p}{1+2p}},
 \end{equation}
 for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is independent of $N$, which is a hallmark of small-world networks.
 
@@ -194,36 +194,93 @@ for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is independent
 \section{\label{sec:assortativity}Assortativity}
 % ============================================================
 
-The degree assortativity coefficient~\cite{newman2002} can be written as
-\begin{equation}\label{eq:newman_r}
-  r = \frac{4MR - S^2}{2MK_3 - S^2},
-\end{equation}
-where $M=M_N$, $S=\sum_i k_i^2$, $K_3=\sum_i k_i^3$, and $R=\sum_{(i,j)\in E}k_ik_j$. We already have recurrences for $M$ and $S$; a closed-form for $r$ requires tracking $K_3$ and $R$ via the same moment-closure method.
-
-\subsection{Recurrences for higher moments}
-
-When node $v_{\text{new}}$ is added, the target $u$ gains degree~1 (always) and each neighbour $w_i$ of $u$ gains degree~1 (with probability $p$, all or none). Accounting for degree changes of existing nodes and the new node's contribution, one obtains
-\begin{align}
-  K_{3,N+1} &= \!\left(1+\frac{4p}{N}\right)K_{3,N}+2+\frac{(3\!+\!6p)S_N+(6\!+\!8p)M_N}{N},\label{eq:K3_rec}\\
-  R_{N+1} &= \!\left(1+\frac{4p}{N}\right)\!R_N + 1 + \frac{(1\!+\!3p)S_N+(2\!+\!6p)M_N+3pT_N}{N}.\label{eq:R_rec}
-\end{align}
-The derivation of~\eqref{eq:R_rec} uses the identity $\sum_u\sum_{w\sim u}\sigma_w = 2R$, where $\sigma_w = \sum_{z\sim w}k_z$, since each edge $\{w,z\}$ contributes $k_wk_z$ to both sides via the factor $k_w$.
-
-Both recurrences share the homogeneous growth factor $(1+4p/N)$, with solution $\Phi_N = \Gamma(N+4p)/[\Gamma(1+4p)\,\Gamma(N)] \sim N^{4p}/\Gamma(1+4p)$.
-
-\subsection{Closed-form in the sparse regime}
-
-For $p<1/4$, all quantities $M,S,T,K_3,R$ grow linearly: $X_N\sim\alpha_X N$. Substituting this ansatz into~\eqref{eq:K3_rec}--\eqref{eq:R_rec} and using the known coefficients $\alpha_M$, $\alpha_S$, $\alpha_T$ gives
+Let $X, Y$ be the random variables representing the degrees of two nodes of an edge chosen uniformly at random from the network. The degree assortativity coefficient is the Pearson correlation coefficient of the degree of pairs of adjacent nodes:
 \begin{equation}
-  \alpha_{K_3} = \frac{26+22p}{(1-2p)(1-3p)(1-4p)},\;\;\alpha_R = \frac{3(3+5p)}{(1-2p)(1-3p)(1-4p)}.
+  r = \frac{\E[(X - \E[X])(Y - \E[Y])]}{\sigma_X\sigma_Y} =  \frac{\E[XY] - \E[X]\E[Y]}{\E[X^2] - (\E[X])^2}. \notag
 \end{equation}
-Inserting into~\eqref{eq:newman_r}, the factors $(1-2p)$, $(1-3p)$, and $(1-4p)$ cancel between numerator and denominator, yielding
-\begin{equation}\label{eq:assort}
-  \boxed{r = \frac{p(9-2p)}{(1+2p)(2-p)}}, \quad p < \tfrac{1}{3}.
-\end{equation}
-This is derived from the exact algebraic identity $4\alpha_M\alpha_R - \alpha_S^2 = 8p(9-2p)(1-p)/[\cdots]$ and $2\alpha_M\alpha_{K_3} - \alpha_S^2 = 8(1-p)(1+2p)(2-p)/[\cdots]$, with common denominators cancelling.
+Note that
+\begin{itemize}
+  \item $\E[X] = \E[Y] = \frac{1}{|E|}\sum_{(u, v) \in E} \frac{1}{2}(k_u + k_v)$,
+  \item $\E[X^2] = \E[Y^2] = \frac{1}{|E|}\sum_{(u, v) \in E} \frac{1}{2}(k_u^2 + k_v^2)$,
+  \item $\E[XY] = \frac{1}{|E|}\sum_{(u, v) \in E} k_uk_v$.
+\end{itemize}
+Thus we have
+\begin{align}
+ r 
+ &= \frac{\frac{1}{|E|}\sum_{(i, j)\in E} k_ik_j - \frac{1}{|E|^2}\left[\sum_{(i, j) \in E} \frac{1}{2}(k_i + k_j)\right]^2}{\frac{1}{|E|}\sum_{(i, j)\in E} \frac{1}{2}(k_i^2 + k_j^2) - \frac{1}{|E|^2}\left[\sum_{(i, j) \in E} \frac{1}{2}(k_i + k_j)\right]^2} \notag \\
+ &= \frac{4MR - S^2}{2MQ - S^2},
+\end{align}
+where $M = |E|$ and $S = \sum_i k_i^2$ are defined as before, $Q = \sum_i k_i^3$, and $R=\sum_{(i,j)\in E}k_ik_j$. Let $Q_N$ and $R_N$ denote the corresponding quantities when the network has $N$ nodes. 
 
-The formula gives $r(0)=0$ (uncorrelated random recursive tree) and increases monotonically to $r\to 1$ as $p\to 1/3^-$. The strong assortativity near $p=1/3$ reflects the divergence of $\langle k^2\rangle$: a few high-degree hubs become mutually connected through repeated ``all'' events, dominating the degree--degree correlation. For $p\ge 1/3$, the linear-growth regime breaks down and the homogeneous terms $(\sim N^{4p})$ in $K_{3,N}$ and $R_N$ dominate; numerical simulations indicate that $r$ decreases for $p>1/3$.
+We first derive a recurrence for $Q_N$. Note that when a node $i$ gains one edge ($k_i\to k_i+1$), its contribution to $Q$ changes by $(k_i+1)^3-k_i^3=3k_i^2+3k_i+1$. At step $N\to N+1$, the target $u$ always gains degree~1, and in the ``all'' event each neighbour $w$ of $u$ also gains degree~1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $Q$ given target $u$ is
+\begin{align}
+  \E[\Delta Q\mid u] &= (1\!-\!p)\cdot 1 + p(1\!+\!k_u)^3 + (3k_u^2\!+\!3k_u\!+\!1) \notag \\
+  &\quad+ p\!\sum_{w\sim u}\!(3k_w^2\!+\!3k_w\!+\!1).
+\end{align}
+By the same argument as~\eqref{eq:sum_of_neighbours}, $\sum_u\sum_{w\sim u}k_w^2 = \sum_w k_w^3 = Q$. Thus, averaging over the uniform choice of $u$, and using $\sum_u k_u = 2M$, $\sum_u k_u^2 = S$, $\sum_u k_u^3 = Q$, and~\eqref{eq:sum_of_neighbours} yields
+\begin{equation}\label{eq:Q_rec}
+  Q_{N+1} = \!\left(1+\frac{4p}{N}\right)Q_N+2+\frac{(3\!+\!6p)S_N+(6\!+\!8p)M_N}{N}.
+\end{equation}
+
+To derive a recurrence for $R_N$, note that when node $i$ gains one edge, the product $k_ik_j$ on each incident edge $(i,j)$ increases by $k_j$. If both endpoints gain degree simultaneously, the product increases by $k_i+k_j+1$ instead. Write $\pi_i = \sum_{j\sim i}k_j$. We consider the two events separately.
+
+\emph{``None'' event.} Only the target $u$ gains degree~1, and the single new edge $(v,u)$ contributes $k_v\cdot k_u^{\mathrm{new}}=k_u+1$. The total change is thus
+\begin{equation}
+  \Delta R_{\mathrm{none}} = \pi_u + k_u + 1.
+\end{equation}
+
+\emph{``All'' event.} The target $u$ and all its neighbours gain degree~1, so the set of nodes whose degree increases is $\{u\}\cup N(u)$. Each node $i$ that gains degree~1 increases the product $k_ik_j$ by $k_j$ on every incident edge $(i,j)$, contributing $\pi_i$ in total, summing over all such nodes yields
+\begin{equation}\label{eq:pi_sum}
+  \pi_u + \sum_{w\sim u}\pi_w.
+\end{equation}
+Also note that, for an edge $(i,j)$ where both endpoints gain degree 1, the change in the product is $(k_i+1)(k_j+1)-k_ik_j = k_i+k_j+1$, but \eqref{eq:pi_sum} counts only $k_i+k_j$. Thus each such edge requires an additional $+1$ correction. The edges with both endpoints in $\{u\}\cup N(u)$ are the $k_u$ edges $(u,w)$ and the $e_u$ edges among neighbours of $u$, so we need to add $k_u+e_u$ to the correction. For the new edges, the new node has degree $k_v=1+k_u$, so their total contribution to $R$ is
+\begin{equation}
+  (k_u+1)^2 + \sum_{w\sim u}(k_u+1)(k_w+1) = (k_u+1)(2k_u+1+\pi_u). \notag
+\end{equation}
+Combining all three parts, we get
+\begin{equation}
+  \Delta R_{\mathrm{all}} = (2\!+\!k_u)\pi_u + \!\sum_{w\sim u}\!\pi_w + 2k_u^2 + 4k_u + 1 + e_u.
+\end{equation}
+Thus the expected change in $R$ given target $u$ is
+\begin{equation}
+  \E[\Delta R\mid u] = (1-p)\,\Delta R_{\mathrm{none}} + p\,\Delta R_{\mathrm{all}}.
+\end{equation}
+Note that 
+\begin{equation}\label{eq:pi_sum_identity}
+  \sum_u\sum_{w\sim u}\pi_w = \sum_w k_w\,\pi_w = 2R,
+\end{equation}
+as each edge $\{w,z\}$ contributes $k_wk_z$ once on each endpoint. Averaging over the uniform choice of $u$ using~\eqref{eq:pi_sum_identity}, $\sum_u\pi_u = S$, $\sum_u k_u\pi_u = 2R$, $\sum_u e_u = 3T$, $\sum_u k_u = 2M$, and $\sum_u k_u^2 = S$ yields
+\begin{align}\label{eq:R_rec}
+  R_{N+1} 
+  &= \left(1+\frac{4p}{N}\right)R_N + 1 \notag \\
+  &\quad+ \frac{(1+3p)S_N+(2+6p)M_N+3pT_N}{N}.
+\end{align}
+Both recurrences~\eqref{eq:Q_rec} and~\eqref{eq:R_rec} share the homogeneous growth factor $(1+4p/N)$, with solution $\mathcal{C}_N = \Gamma(N+4p)/[\Gamma(1+4p)\,\Gamma(N)]$. Substituting the exact formulas for $M_N$, $S_N$, $T_N$ from Sections~\ref{sec:edges}--\ref{sec:clustering} into the forcing terms and solving by the same method used for~\eqref{eq:edge_rec},\eqref{eq:tri_rec}, and \eqref{eq:S_rec} yields, for $p\neq 0,\tfrac{1}{2},\tfrac{1}{3},\tfrac{1}{4}$,
+\begin{align}\label{eq:Q_exact}
+  Q_N &= \frac{(26+22p)N}{(1-2p)(1-3p)(1-4p)} - \frac{(12+36p+28p^2)\mathcal{A}_N}{2p^2(1-2p)} \notag \\
+  &\quad + \frac{4(3+12p+12p^2)\mathcal{B}_N}{p^2(1-3p)} + \lambda_Q\, \mathcal{C}_N,
+\end{align}
+\begin{align}\label{eq:R_exact}
+  R_N &= \frac{3(3+5p)N}{(1-2p)(1-3p)(1-4p)} - \frac{(4+16p+18p^2)\mathcal{A}_N}{2p^2(1-2p)} \notag \\
+  &\quad + \frac{2(2+10p+15p^2)\mathcal{B}_N}{p^2(1-3p)} + \lambda_R\, \mathcal{C}_N,
+\end{align}
+where $\mathcal{A}_N$ and $\mathcal{B}_N$ are as in~\eqref{eq:tri_exact}, and $\lambda_Q$, $\lambda_R$ are constants determined by the initial conditions $Q_1=R_1=0$.
+
+Since $\mathcal{C}_N\sim N^{4p}$, for $p < 1/4$, the homogeneous terms $\mathcal{A}_N$, $\mathcal{B}_N$, $\mathcal{C}_N$ are all sublinear and all five quantities $M,S,T,Q,R$ grow linearly. Let
+\begin{gather}
+  \alpha_Q = \frac{26+22p}{(1-2p)(1-3p)(1-4p)}, \\
+  \alpha_R = \frac{3(3+5p)}{(1-2p)(1-3p)(1-4p)}
+\end{gather}
+be the linear term coefficients of $Q_N$ and $R_N$ respectively. From \eqref{eq:edge_rec} and \eqref{eq:S_exact} we can also see that $\alpha_M = 1/(1-2p)$ and $\alpha_S = (6+2p)/[(1-2p)(1-3p)]$. For $p < 1/4$, we have
+\begin{align}
+  4\alpha_M\alpha_R - \alpha_S^2 &= \frac{8p(9-2p)(1-p)}{(1-2p)^2(1-3p)^2(1-4p)}, \notag \\
+  2\alpha_M\alpha_Q - \alpha_S^2 &= \frac{8(1-p)(1+2p)(2-p)}{(1-2p)^2(1-3p)^2(1-4p)}.
+\end{align}
+It now follows that as $N \to \infty$,
+\begin{equation}\label{eq:assort}
+  \boxed{r \sim \frac{p(9-2p)}{(1+2p)(2-p)}}
+\end{equation}
+for $p < 1/4$.
 
 \begin{figure}[h]
   \centering
@@ -236,7 +293,7 @@ The formula gives $r(0)=0$ (uncorrelated random recursive tree) and increases mo
 \section{\label{sec:distance}Average Shortest-Path Distance}
 % ============================================================
 
-Let $D = \sum_{i<j}d(i,j)$ denote the sum of all pairwise shortest-path distances, and write $D_N$ for this sum when the network has $N$ nodes. The average shortest-path distance is then
+Let $D = \sum_{i<j}d(i,j)$ denote the expected sum of all pairwise shortest-path distances, and write $D_N$ for this sum when the network has $N$ nodes. The average shortest-path distance is then
 \begin{equation}\label{eq:distance_definition}
   \ell = \frac{2D_N}{N(N-1)}.
 \end{equation}
@@ -245,16 +302,16 @@ At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes
   D_{N+1} = D_N + \sum_{j}d(v,j).
 \end{equation}
 Write $\sigma_u = \sum_{j\neq u}d(u,j)$. We now consider the two events separately.
-\begin{itemize}
-  \item ``None'' event: the new node $v$ is connected only to the target $u$. Thus, $d(v,u)=1$ and $d(v,j)=1+d(u,j)$ for every $j\neq u$, which yields
-  \begin{equation}
-    \sum_{j}d(v,j) = N + \sigma_u.
-  \end{equation}
-  \item ``All'' event: The new node $v$ is adjacent to the target $u$ and all its neighbours. But then $N(u) = N(v)$, so any path from $u$ to $j$ can be rerouted through $v$ by simply replacing the starting point $u$ with $v$. Thus, $d(v,j)=d(u,j)$ for all $j \neq u$, and so
-  \begin{equation}
-    \sum_{j}d(v,j) = 1 + \sigma_u.
-  \end{equation}
-\end{itemize}
+
+\emph{``None'' event.} The new node $v$ is connected only to the target $u$. Thus, $d(v,u)=1$ and $d(v,j)=1+d(u,j)$ for every $j\neq u$, which yields
+\begin{equation}
+  \sum_{j}d(v,j) = N + \sigma_u.
+\end{equation}
+
+\emph{``All'' event.} The new node $v$ is adjacent to the target $u$ and all its neighbours. But then $N(u) = N(v)$, so any path from $u$ to $j$ can be rerouted through $v$ by simply replacing the starting point $u$ with $v$. Thus, $d(v,j)=d(u,j)$ for all $j \neq u$, and so
+\begin{equation}
+  \sum_{j}d(v,j) = 1 + \sigma_u.
+\end{equation}
 Averaging over the two events and the uniform choice of $u$, and noting that $\frac{1}{N}\sum_u\sigma_u = 2D_N/N$, we have
 \begin{align}
   \sum_{j}d(v,j)
@@ -263,9 +320,9 @@ Averaging over the two events and the uniform choice of $u$, and noting that $\f
 \end{align}
 and so
 \begin{equation}\label{eq:D_rec}
-  \E[D_{N+1}] = \left(1+\frac{2}{N}\right)\E[D_N] + (1-p)N + p.
+  D_{N+1} = \left(1+\frac{2}{N}\right)D_N + (1-p)N + p.
 \end{equation}
-The homogeneous solution is $F_N = N(N+1)/2$, satisfying $F_{N+1}/F_N = (N+2)/N$. Set $\E[D_N]=\gamma_N F_N$. Then \eqref{eq:D_rec} is reduced to
+The homogeneous solution is $\mathcal{D}_N = N(N+1)/2$, satisfying $\mathcal{D}_{N+1}/\mathcal{D}_N = (N+2)/N$. Set $D_N=\gamma_N \mathcal{D}_N$. Then \eqref{eq:D_rec} is reduced to
 \begin{equation}
   \gamma_{N+1}-\gamma_N = \frac{2[(1-p)N+p]}{(N+1)(N+2)} = \frac{2(2p-1)}{N+1}+\frac{2(2-3p)}{N+2}. \notag
 \end{equation}
@@ -277,13 +334,13 @@ It follows from $\gamma_1 = 0$ that
 \end{align}
 where $H_N=\sum_{j=1}^{N}1/j$ is the $N$-th harmonic number. Since $H_N\sim\ln N$ as $N \to \infty$, we have $\gamma_N\sim 2(1-p)\ln N$, and so
 \begin{equation}
-  \E[D_N]\sim(1-p)\,N(N+1)\ln N.
+  D_N\sim(1-p)\,N(N+1)\ln N.
 \end{equation}
 Substituting into~\eqref{eq:distance_definition} now yields
 \begin{equation}\label{eq:dist_exact}
   \boxed{\ell \sim 2(1-p)\ln N},
 \end{equation}
-for all $p\in[0,1)$. At $p=1$ the network is $K_N$ with $\ell=1$. Note that the distance scales logarithmically for every $p \in [0, 1)$ with no phase transition, which confirms the small-world property that we established with the $O(1)$ clustering coefficient from Section~\ref{sec:clustering}.
+for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The distance scales logarithmically for every with no phase transition, and thus confirms the small-world property that we established with the $O(1)$ clustering coefficient from Section~\ref{sec:clustering}.
 
 \begin{figure}[h]
   \centering
