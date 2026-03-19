@@ -62,7 +62,7 @@ The network begins with a single node ($N=1$). At each growth step ($N\to N+1$):
 \section{\label{sec:edges}Number of Edges}
 % ============================================================
 
-Let $M_N$ denote the number of edges in the all-or-none network of $N$ nodes. At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. The expected number of new edges is $1 + p\,k_u$, where $k_u$ is the degree of $u$. Note that by the handshake lemma, the average value of $k_u$ over all choices of $u$ is $2M_N/N$. It follows that,
+Let $M$ denote the number of edges in the network, and write $M_N$ for the number of edges when the network has $N$ nodes. At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. The expected number of new edges is $1 + p\,k_u$, where $k_u$ is the degree of $u$. Note that by the handshake lemma, the average value of $k_u$ over all choices of $u$ is $2M_N/N$. It follows that,
 \begin{align}\label{eq:edge_rec}
   \E[M_{N+1}] 
   &= \E[M_N] + \left(\frac{2p}{N}\E[M_N] + 1\right) \notag \\
@@ -97,7 +97,7 @@ Denote by $f(k, i, N)$ the probability that node $i$ has degree $k$ when the net
   &= \frac{1+\!p(k-1)}{N}\,f(k-1, i, N) \notag \\
   &\qquad+ \left(1-\frac{1+pk}{N}\right)f(k, i, N).
 \end{align}
-When $N$ is large, we seek the asymptotic degree distribution $P_k = \lim_{N\to\infty} n_k(N)/N$, where $n_k(N)=\sum_{i=1}^{N}f(k,i,N)$ is the expected number of nodes with degree $k$ in the $N$-node network. Note that the new node enters with degree $1$ with probability $1 - p$ and with degree $k$ with probability $p\,n_{k-1}(N)/N$ for $k \geq 2$. Hence, summing \eqref{eq:master_node} over the $N$ existing nodes and adding the new node yields
+Assume that $p < 1/2$ so that the expected number of edges $\E[M]$ is linear in $N$, by the results of Section~\ref{sec:edges}. This allows us to seek the asymptotic degree distribution $P_k = \lim_{N\to\infty} n_k(N)/N$, where $n_k(N)=\sum_{i=1}^{N}f(k,i,N)$ is the expected number of nodes with degree $k$ in the $N$-node network. Note that the new node enters with degree $1$ with probability $1 - p$ and with degree $k$ with probability $p\,n_{k-1}(N)/N$ for $k \geq 2$. Hence, summing \eqref{eq:master_node} over the $N$ existing nodes and adding the new node yields
 \begin{align}\label{eq:master}
   n_k(N+1) 
   &= \frac{1+p(k-1)}{N}\,n_{k-1}(N) + \left(1-\frac{1+\!pk}{N}\right)n_k(N) \notag \\
@@ -131,7 +131,7 @@ where $c_p = (1-p)\,\Gamma(2+2/p)/[(2+p)\,\Gamma(2+1/p)]$. The degree distributi
 
 \subsection{Triangles}
 
-Let $T_N$ denote the number of triangles in the all-or-none network of $N$ nodes. Triangles are created if and only if the ``all'' event occurs and $N \geq 2$. If the target $u$ has degree $k_u$ and there are $e_u$ edges among its neighbours, the new node forms $k_u$ triangles of type $(v_{\text{new}}, u, w_i)$ and $e_u$ triangles of type $(v_{\text{new}}, w_i, w_j)$. Note that $\sum_u k_u = 2M_N$ and $\sum_u e_u = 3T_N$. Averaging over the target choice $u$ thus yields
+Let $T$ denote the number of triangles in the network, and write $T_N$ for the number of triangles when the network has $N$ nodes. Triangles are created in an all-or-none network if and only if the ``all'' event occurs and $N \geq 2$. If the target $u$ has degree $k_u$ and there are $e_u$ edges among its neighbours, the new node forms $k_u$ triangles of type $(v_{\text{new}}, u, w_i)$ and $e_u$ triangles of type $(v_{\text{new}}, w_i, w_j)$. Note that $\sum_u k_u = 2M_N$ and $\sum_u e_u = 3T_N$. Averaging over the target choice $u$ thus yields
 \begin{equation}\label{eq:tri_rec}
   \E[T_{N+1}] = \left(1+\frac{3p}{N}\right)\E[T_N] + \frac{2p\,\E[M_N]}{N}.
 \end{equation}
@@ -139,23 +139,49 @@ This linear recurrence has the same structure as~\eqref{eq:edge_rec}. Substituti
 \begin{equation}\label{eq:tri_exact}
   \E[T] = \frac{2pN}{(1\!-\!2p)(1\!-\!3p)} + \frac{2A_N}{1\!-\!2p} - \frac{2B_N}{1\!-\!3p},
 \end{equation}
-where $A_N = \Gamma(N+2p)/[\Gamma(1+2p)\Gamma(N)]$ and $B_N = \Gamma(N+3p)/[\Gamma(1+3p)\Gamma(N)]$.
+where $A_N$ is as in~\eqref{eq:edge_exact} and $B_N = \Gamma(N+3p)/[\Gamma(1+3p)\Gamma(N)]$. Thus two regimes emerge:
+\begin{itemize}
+  \item $p<1/3$: $\E[T]\sim \frac{2p}{(1 -2p)(1 -3p)}N$ (linear).
+  \item $p>1/3$: $\E[T]\sim \frac{2}{\Gamma(1+3p)(3p-1)}N^{3p}$ (superlinear).
+\end{itemize}
 
 \subsection{Clustering coefficient}
 
-The global clustering coefficient is 
+The global clustering coefficient is given by 
 \[
-  C = \frac{\# \text{triangles}}{\# \text{connected triples} / 3}.
+  C = \E\left[\frac{3T}{W}\right],
 \]
-Note that the number of connected triples is $\frac{1}{2}\sum_{i} k_i(k_i-1)$. Tracking $S_N = \sum_i k_i^2$ via a recurrence analogous to~\eqref{eq:tri_rec},
+where $W = \frac{1}{2}\sum_{i} k_i(k_i-1)$ is the number of connected triples. Let $S_N = \sum_i k_i^2$, and note that $W=(S_N-2M_N)/2$. To derive a recurrence for $S_N$, note that when a node gains one link ($k\to k+1$), its contribution to $S$ changes by $(k+1)^2-k^2=2k+1$. At step $N\to N+1$, the target $u$ always gains degree 1, and in the ``all'' event each neighbour $w$ of $u$ also gains degree 1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $S$ given target $u$ is
+\begin{align}
+  \E[\Delta S\mid u] &= (1\!-\!p)\cdot 1 + p(1\!+\!k_u)^2 + (2k_u\!+\!1) \notag \\
+  &\quad+ p\!\sum_{w\sim u}\!(2k_w\!+\!1),
+\end{align}
+Notice that
 \begin{equation}
-  S_{N+1} = \left(1+\frac{3p}{N}\right)S_N + 2 + \frac{(4+6p)M_N}{N},
+  \label{eq:sum_of_neighbours}
+  \sum_u\sum_{w\sim u}k_w = \sum_i k_i^2 = S,
 \end{equation}
-and using $W=(S-2M)/2$, one finds that the dominant growth rates of $3T$ and $W$ share the same exponent for all $p$, and their ratio converges to a $p$-dependent constant. Specifically, for $p < 1/3$ both $T$ and $W$ grow linearly in $N$, while for $p > 1/3$ both grow as $N^{3p}$. In either case the prefactors yield
+as each node $w$ appears as a neighbour of exactly $k_w$ other nodes. Thus, averaging over the uniform choice of $u$, and using $\sum_u k_u = 2M$, $\sum_u k_u^2 = S$, and \eqref{eq:sum_of_neighbours} gives
+\begin{equation}\label{eq:S_rec}
+  \E[S_{N+1}] = \left(1+\frac{3p}{N}\right)S_N + 2 + \frac{(4+6p)\E[M_N]}{N}.
+\end{equation}
+Solving~\eqref{eq:S_rec} by the same method used for~\eqref{eq:edge_rec} and~\eqref{eq:tri_rec} gives, for $p\neq 0,\tfrac{1}{2},\tfrac{1}{3}$,
+\begin{equation}\label{eq:S_exact}
+  \E[S] = \frac{(6\!+\!2p)N}{(1\!-\!2p)(1\!-\!3p)} + \frac{(4\!+\!6p)A_N}{p(1\!-\!2p)} - \frac{4(1\!+\!2p)B_N}{p(1\!-\!3p)},
+\end{equation}
+where $A_N$ and $B_N$ are as in~\eqref{eq:tri_exact}. Recall that $W=(S-2M)/2$, so substituting \eqref{eq:edge_exact} and \eqref{eq:S_exact} yields 
+\begin{equation}
+  \E[W] = \frac{2(1 + 2p)}{p}\!\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{A_N}{1 -2p} - \frac{B_N}{1 -3p}\right],
+\end{equation}
+Comparing with $3\E[T]$ from~\eqref{eq:tri_exact},
+\begin{equation}
+  3\E[T] = 6\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{A_N}{1 -2p} - \frac{B_N}{1 -3p}\right],
+\end{equation}
+we see that $\E[W]$ and $\E[3T]$ have the same bracketed term, and thus we get
 \begin{equation}\label{eq:clustering}
-  \boxed{C = \frac{3p}{1+2p}},
+  \boxed{\E[C]  \sim \frac{\E[3T]}{\E[W]} = \frac{3p}{1+2p}},
 \end{equation}
-valid for all $p\in(0,1)$ in the large-$N$ limit. This is \emph{independent of $N$}, a hallmark of small-world networks. The formula interpolates from $C=0$ (tree at $p=0$) to $C=1$ (complete graph at $p=1$), with $C=3/7\approx 0.43$ at $p=1/3$.
+for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is independent of $N$, which is a hallmark of small-world networks.
 
 \begin{figure}[h]
   \centering
@@ -210,34 +236,48 @@ The formula gives $r(0)=0$ (uncorrelated random recursive tree) and increases mo
 \section{\label{sec:distance}Average Shortest-Path Distance}
 % ============================================================
 
-Unlike the previous quantities, the average shortest-path distance $\ell$ can be computed via an \emph{exact} recurrence on the total sum of pairwise distances $D_N = \sum_{i<j}d(i,j)$, without any mean-field approximation.
-
-\subsection{Exact distance recurrence}
-
-The key observation is that adding $v_{\text{new}}$ never shortens any existing pairwise distance (any path through $v_{\text{new}}$ can be rerouted through the target $u$ or its neighbours). When the ``all'' event occurs, $v_{\text{new}}$ acquires the \emph{same closed neighbourhood} as $u$, so for every existing node $j\neq u$, the first step on a shortest $u$--$j$ path goes through some neighbour $w$ of $u$; since $v_{\text{new}}\sim w$, we obtain $d(v_{\text{new}},j) = 1+d(w,j)=d(u,j)$ exactly. Together with $d(v_{\text{new}},u)=1$:
-\begin{align}\label{eq:dist_cases}
-  \text{``all'':}\;\; &\textstyle\sum_j d(v_{\text{new}},j) = 1 + \sigma_u, \nonumber\\
-  \text{``none'':}\;\; &\textstyle\sum_j d(v_{\text{new}},j) = N + \sigma_u,
-\end{align}
-where $\sigma_u = \sum_{j\neq u}d(u,j)$ and the sums run over the $N$ existing nodes. Averaging over the uniform choice of $u$ and the binary event,
-\begin{equation}\label{eq:D_rec}
-  \E[D_{N+1}] = \left(1+\frac{2}{N}\right)\E[D_N] + (1-p)N+p,
+Let $D = \sum_{i<j}d(i,j)$ denote the sum of all pairwise shortest-path distances, and write $D_N$ for this sum when the network has $N$ nodes. The average shortest-path distance is then
+\begin{equation}\label{eq:distance_definition}
+  \ell = \frac{2D_N}{N(N-1)}.
 \end{equation}
-using $\frac{1}{N}\sum_u\sigma_u = 2D_N/N$. This recurrence is \emph{exact in expectation}, with $\E[D_1]=0$.
-
-\subsection{Asymptotic solution}
-
-The homogeneous solution is $\mathcal{H}_N = N(N+1)/2$. By variation of parameters, $\E[D_N] = \mathcal{H}_N\,c_N$ with partial fractions giving
+At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. Note that adding $v$ does not shorten any existing pairwise distance, as any path through $v$ can be rerouted through $u$ or its neighbours without increasing length. Thus
 \begin{equation}
-  c_N = 2(2p\!-\!1)(H_N\!-\!1)+2(2\!-\!3p)\!\left(H_{N+1}-\tfrac{3}{2}\right),
+  D_{N+1} = D_N + \sum_{j}d(v,j).
 \end{equation}
-where $H_N = \sum_{j=1}^{N}1/j$ is the harmonic number. For large $N$, $c_N\sim 2(1-p)\ln N$, hence $\E[D_N]\sim (1-p)N(N+1)\ln N$. Dividing by $\binom{N}{2}$ pairs,
+Write $\sigma_u = \sum_{j\neq u}d(u,j)$. We now consider the two events separately.
+\begin{itemize}
+  \item ``None'' event: the new node $v$ is connected only to the target $u$. Thus, $d(v,u)=1$ and $d(v,j)=1+d(u,j)$ for every $j\neq u$, which yields
+  \begin{equation}
+    \sum_{j}d(v,j) = N + \sigma_u.
+  \end{equation}
+  \item ``All'' event: The new node $v$ is adjacent to the target $u$ and all its neighbours. But then $N(u) = N(v)$, so any path from $u$ to $j$ can be rerouted through $v$ by simply replacing the starting point $u$ with $v$. Thus, $d(v,j)=d(u,j)$ for all $j \neq u$, and so
+  \begin{equation}
+    \sum_{j}d(v,j) = 1 + \sigma_u.
+  \end{equation}
+\end{itemize}
+Averaging over the two events and the uniform choice of $u$, and noting that $\frac{1}{N}\sum_u\sigma_u = 2D_N/N$, we have
+\begin{align}
+  \sum_{j}d(v,j)
+  &= (1 - p)(N +  \E_u\left[\sigma_u\right]) + p(1 + \E_u\left[\sigma_u\right]) \\
+  &= (1 - p)N + p + \frac{2D_N}{N},
+\end{align}
+and so
+\begin{equation}\label{eq:D_rec}
+  \E[D_{N+1}] = \left(1+\frac{2}{N}\right)\E[D_N] + (1-p)N + p.
+\end{equation}
+This is a first-order linear recurrence with $\E[D_1]=0$. The homogeneous solution is $\mathcal{H}_N = N(N+1)/2$, satisfying $\mathcal{H}_{N+1}/\mathcal{H}_N = (N+2)/N$. Setting $\E[D_N]=\mathcal{H}_N\,c_N$ reduces~\eqref{eq:D_rec} to
+\begin{equation}
+  c_{N+1}-c_N = \frac{2(2p-1)}{N+1}+\frac{2(2-3p)}{N+2},
+\end{equation}
+after partial-fraction decomposition of $2[(1-p)N+p]/[(N+1)(N+2)]$. Telescoping with $c_1=0$ gives
+\begin{equation}\label{eq:D_exact}
+  \E[D_N] = \tfrac{N(N\!+\!1)}{2}\!\Big[2(2p\!-\!1)(H_N\!-\!1)+2(2\!-\!3p)\!\Big(H_{N+1}\!-\!\tfrac{3}{2}\Big)\Big],
+\end{equation}
+where $H_N=\sum_{j=1}^{N}1/j$ is the $N$-th harmonic number. Since $H_N\sim\ln N$ for large $N$, the leading behaviour is $c_N\sim 2(1-p)\ln N$, hence $\E[D_N]\sim(1-p)\,N(N+1)\ln N$. Dividing by $\binom{N}{2}$ pairs,
 \begin{equation}\label{eq:dist_exact}
   \boxed{\ell(N) \sim 2(1-p)\ln N},
 \end{equation}
-valid for all $p\in[0,1)$. At $p=0$ this recovers the known Wiener-index scaling $\ell\sim 2\ln N$ of the random recursive tree; at $p=1$ the network is $K_N$ with $\ell=1$.
-
-The distance scales \emph{logarithmically} for every $p<1$, with no phase transition. The high clustering ($C=O(1)$, Section~\ref{sec:clustering}) invalidates the locally tree-like assumption underlying the branching-process heuristic $\ell\sim\ln N/\ln\kappa$, which would incorrectly predict bounded distances for $p>1/3$. The exact recurrence~\eqref{eq:D_rec} bypasses this difficulty entirely.
+valid for all $p\in[0,1)$. At $p=0$ this recovers the known result $\ell\sim 2\ln N$ for the random recursive tree; at $p=1$ the network is $K_N$ with $\ell=1$. The distance scales logarithmically for every $p<1$, with no phase transition, confirming the small-world property in conjunction with the $O(1)$ clustering coefficient from Section~\ref{sec:clustering}.
 
 \begin{figure}[h]
   \centering
