@@ -11,6 +11,7 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{xcolor}
+\usepackage[skip=3pt,justification=raggedright,singlelinecheck=false]{caption}
 
 % Mathematical Commands
 \newcommand*{\prob}{\mathbb{P}}
@@ -30,21 +31,17 @@
 
 \author{Ray Tsai}
 
-\begin{abstract}
-We study the structural properties of the all-or-none network growth model, a variation of preferential attachment and copying mechanisms in which a new node connects to a uniformly chosen target and, with probability $p$, to \emph{all} of its neighbours, or with probability $1-p$ to \emph{none}. We derive analytical expressions for the expected number of edges as a function of $p$ and the number of nodes $N$, characterise the degree distribution in the sparse regime, and compute the clustering coefficient, assortativity coefficient, and average shortest-path distance. Our analytical predictions are supported by extensive numerical simulations.
-\end{abstract}
-
 \maketitle
 
 % ============================================================
 \section{\label{sec:intro}Introduction}
 % ============================================================
 
-Network growth models are central to our understanding of real-world complex systems, ranging from the World Wide Web to biological and social networks. The Barab\'asi--Albert (BA) model introduced preferential attachment as a mechanism for generating power-law degree distributions, while copying models propose an alternative microscopic rule in which new nodes replicate the connections of existing ones.
+Network growth models are central to our understanding of complex systems in the real world, ranging from the World Wide Web to biological and social networks. The Barab\'asi--Albert (BA) model introduced preferential attachment as a mechanism for generating power-law degree distributions, while copying models propose an alternative microscopic rule in which new nodes replicate the connections of existing ones.
 
-In this work we analyze the \emph{all-or-none} model: at each growth step a new node is added and connected to a target chosen uniformly at random; it then connects to \emph{all} neighbours of the target with probability $p$, or to \emph{none} of them with probability $1-p$. This binary choice creates a sharp interpolation between two qualitatively distinct regimes and leads to non-trivial structural properties that we characterise below.
+In this work we analyze the \emph{all-or-none} model. At each growth step a new node is added and connected to a target chosen uniformly at random, and then it connects to \emph{all} neighbors of the target with probability $p$, or to \emph{none} of them with probability $1-p$. We show that despite its simplicity, the model produces power-law degree distributions with exponent $1/p$, an $N$-independent clustering coefficient $C=3p/(1+2p)$, and logarithmic average distances, making it a small-world network for every $p\in(0,1)$.
 
-The remainder of this paper is organised as follows. Section~\ref{sec:model} defines the model precisely. Sections~\ref{sec:edges}--\ref{sec:distance} derive analytical results and present numerical evidence for the edge count, degree distribution, clustering, assortativity, and average shortest-path distance, respectively. Section~\ref{sec:conclusion} concludes.
+The remainder of this paper is organized with Section \ref{sec:model} defining the model, Section \ref{sec:edges} deriving the expected number of edges, Section \ref{sec:degree} deriving the degree distribution, Section \ref{sec:clustering} deriving the clustering coefficient, Section \ref{sec:assortativity} deriving the assortativity coefficient, and Section \ref{sec:distance} deriving the average shortest-path distance.
 
 % ============================================================
 \section{\label{sec:model}Model Definition}
@@ -55,7 +52,7 @@ The network begins with a single node ($N=1$). At each growth step ($N\to N+1$):
   \item A new node $v$ is introduced.
   \item A target node $u$ is chosen uniformly at random from the existing $N$ nodes.
   \item An edge $(v, u)$ is added.
-  \item With probability $p$, edges $(v, w)$ are added for every neighbour $w$ of $u$; with probability $1-p$, no further edges are added.
+  \item With probability $p$, edges $(v, w)$ are added for every neighbor $w$ of $u$; with probability $1-p$, no further edges are added.
 \end{enumerate}
 
 % ============================================================
@@ -64,13 +61,11 @@ The network begins with a single node ($N=1$). At each growth step ($N\to N+1$):
 
 Let $M$ denote the expected number of edges in the network, and write $M_N$ for the expected number of edges when the network has $N$ nodes. At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. The expected number of new edges is $1 + p\,k_u$, where $k_u$ is the degree of $u$. Note that by the handshake lemma, the average value of $k_u$ over all choices of $u$ is $2M_N/N$. It follows that,
 \begin{align}\label{eq:edge_rec}
-  M_{N+1}
-  &= M_N + \left(\frac{2p}{N}M_N + 1\right) \notag \\
-  &= \left(1 + \frac{2p}{N}\right)M_N + 1.
+  M_{N+1} = \left(1 + \frac{2p}{N}\right)M_N + 1.
 \end{align}
 This is a first-order linear recurrence. A particular solution of the form $\alpha_M N$ yields $\alpha_M = 1/(1-2p)$ for $p\neq 1/2$. The homogeneous solution is $\mathcal{A}_N = \Gamma(N+2p)/[\Gamma(1+2p)\,\Gamma(N)]$, satisfying $\mathcal{A}_{N+1}/\mathcal{A}_N = (N+2p)/N$. Imposing $M_1=0$ now yields
 \begin{equation}\label{eq:edge_exact}
-  \boxed{M = \frac{1}{1-2p}\!\left(N - \frac{\Gamma(N+2p)}{\Gamma(1+2p)\,\Gamma(N)}\right)},
+  \boxed{M = \frac{1}{1-2p}\left(N - \frac{\Gamma(N+2p)}{\Gamma(1+2p)\,\Gamma(N)}\right)},
 \end{equation}
 for $p\neq 1/2$. Since $\Gamma(N+2p)/\Gamma(N)\sim N^{2p}$ as $N \to \infty$, two regimes emerge:
 \begin{itemize}
@@ -78,12 +73,10 @@ for $p\neq 1/2$. Since $\Gamma(N+2p)/\Gamma(N)\sim N^{2p}$ as $N \to \infty$, tw
   \item \emph{Dense} ($p>1/2$): $M\sim \frac{N^{2p}}{(2p-1)\,\Gamma(1+2p)}$ (superlinear).
 \end{itemize}
 
-\subsection{Numerical results}
-
 \begin{figure}[h]
   \centering
-  % \includegraphics[width=\columnwidth]{figures/edges_vs_p.pdf}
-  \caption{Number of edges $M$ as a function of $p$ for several values of $N$, obtained by averaging over $10^4$ independent realisations. Solid lines show the analytical prediction~\eqref{eq:edge_exact}.}
+  \includegraphics[width=0.85\columnwidth]{figures/edges_vs_p.pdf}
+  \caption{Expected number of edges $M$ (log scale) as a function of $p$ for $N=50,200,1000$ with $10^3$ trials. Shaded regions show one standard deviation. The dashed lines are the analytical prediction \eqref{eq:edge_exact}, fitting the simulation results perfectly across all tested network sizes.}
   \label{fig:edges}
 \end{figure}
 
@@ -91,47 +84,40 @@ for $p\neq 1/2$. Since $\Gamma(N+2p)/\Gamma(N)\sim N^{2p}$ as $N \to \infty$, tw
 \section{\label{sec:degree}Degree Distribution}
 % ============================================================
 
-Denote by $f(k, i, N)$ the probability that node $i$ has degree $k$ when the network has $N$ nodes. At step $N\to N+1$, degree $k$ increases by one with probability $(1+pk)/N$, because either the node is chosen as target (probability $1/N$) or a neighbour of it is chosen and the ``all'' event occurs (probability $pk/N$) The master equation for $f$ is then
+Denote by $f(k, i, N)$ the probability that node $i$ has degree $k$ when the network has $N$ nodes. At step $N\to N+1$, degree $k$ increases by one with probability $(1+pk)/N$, because either the node is chosen as target (probability $1/N$) or a neighbor of it is chosen and the ``all'' event occurs (probability $pk/N$) The master equation for $f$ is then
 \begin{align}\label{eq:master_node}
   f(k, i, N+1) 
-  &= \frac{1+\!p(k-1)}{N}\,f(k-1, i, N) \notag \\
+  &= \frac{1+p(k-1)}{N}\,f(k-1, i, N) \notag \\
   &\qquad+ \left(1-\frac{1+pk}{N}\right)f(k, i, N).
 \end{align}
 Assume that $p < 1/2$ so that the expected number of edges $\E[M]$ is linear in $N$, by the results of Section~\ref{sec:edges}. This allows us to seek the asymptotic degree distribution $P_k = \lim_{N\to\infty} n_k(N)/N$, where $n_k(N)=\sum_{i=1}^{N}f(k,i,N)$ is the expected number of nodes with degree $k$ in the $N$-node network. Note that the new node enters with degree $1$ with probability $1 - p$ and with degree $k$ with probability $p\,n_{k-1}(N)/N$ for $k \geq 2$. Hence, summing \eqref{eq:master_node} over the $N$ existing nodes and adding the new node yields
-\begin{align}\label{eq:master}
-  n_k(N+1) 
-  &= \frac{1+p(k-1)}{N}\,n_{k-1}(N) + \left(1-\frac{1+\!pk}{N}\right)n_k(N) \notag \\
-  &\qquad+ (1 - p)\,\delta_{k,1} + \frac{p\,n_{k-1}(N)}{N}.
+\begin{align}
+  n_k(N+1)
+  &= \frac{1+p(k-1)}{N}\,n_{k-1}(N) + \left(1-\frac{1+pk}{N}\right)n_k(N) \notag \\
+  &\qquad+ (1 - p)\,\delta_{k,1} + \frac{p\,n_{k-1}(N)}{N}. \notag
 \end{align}
-Substituting $n_k(N) = NP_k$, we have
-\begin{equation}\label{eq:Pk_rec}
-  (2+pk)\,P_k = (1+pk)\,P_{k-1} + (1-p)\,\delta_{k,1}.
-\end{equation}
-This yields $P_1 = (1-p)/(2+p)$ and, for $k\ge 2$,
-\begin{equation}\label{eq:Pk_recursion}
-  P_k = \frac{1+pk}{2+pk}\,P_{k-1},
-\end{equation}
-which have the closed form
-\begin{equation}\label{eq:Pk_exact}
-  \boxed{P_k = \frac{1-p}{2+p}\prod_{j=2}^{k}\frac{1+pj}{2+pj}}, \quad k\ge 1.
+Substituting $n_k(N) = NP_k$, we have $(2+pk)\,P_k = (1+pk)\,P_{k-1} + (1-p)\,\delta_{k,1}.$. This yields $P_1 = (1-p)/(2+p)$ and, for $k\ge 2$, we have $P_k = \frac{1+pk}{2+pk}\,P_{k-1}$, which has the closed form
+\begin{equation}
+  \boxed{P_k = \frac{1-p}{2+p}\prod_{j=2}^{k}\frac{1+pj}{2+pj}}, \quad k\ge 1. \notag
 \end{equation}
 In terms of the Gamma function,
-\begin{equation}\label{eq:Pk_gamma}
+\begin{equation}\label{eq:degree_dist}
   P_k = \frac{(1-p)\,\Gamma(2+2/p)}{(2+p)\,\Gamma(2+ 1/p)} \cdot \frac{\Gamma(k+1+ 1/p)}{\Gamma(k+1+2/p)}.
 \end{equation}
-As $k \to \infty$, we have $\Gamma(k+1+ 1/p)/\Gamma(k+1+2/p)\sim k^{-1/p}$, and so
-\begin{equation}\label{eq:Pk_tail}
-  P_k \sim \lambda_p k^{-1/p},
-\end{equation}
-where $\lambda_p = (1-p)\,\Gamma(2+2/p)/[(2+p)\,\Gamma(2+1/p)]$. The degree distribution thus follows a power law with exponent $1/p$, which matches the degree distribution of the BA model at $p=1/3$.
+As $k \to \infty$, we have $\Gamma(k+1+ 1/p)/\Gamma(k+1+2/p)\sim k^{-1/p}$, and so $P_k \sim \lambda_p k^{-1/p}$, where $\lambda_p = (1-p)\,\Gamma(2+2/p)/[(2+p)\,\Gamma(2+1/p)]$. The degree distribution thus follows a power law with exponent $1/p$, which matches the degree distribution of the BA model at $p=1/3$.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.85\columnwidth]{figures/degree_distribution.pdf}
+  \caption{Log-log scaled degree distribution $P_k$ for $p=0.1,0.2,0.3$ with $N=10^3$, averaged over $10^3$ realizations. Dashed lines show the analytical formula \eqref{eq:degree_dist}}
+  \label{fig:degree}
+\end{figure}
 
 % ============================================================
 \section{\label{sec:clustering}Triangles and Clustering}
 % ============================================================
 
-\subsection{Triangles}
-
-Let $T$ denote the expected number of triangles in the network, and write $T_N$ for the expected number of triangles when the network has $N$ nodes. Triangles are created in an all-or-none network if and only if the ``all'' event occurs and $N \geq 2$. If the target $u$ has degree $k_u$ and there are $e_u$ edges among its neighbours, the new node $v$ forms $k_u$ triangles of type $(v, u, w_i)$ and $e_u$ triangles of type $(v, w_i, w_j)$, where $w_i, w_j$ are distinct neighbours of $u$. Note that $\sum_u k_u = 2M_N$ and $\sum_u e_u = 3T_N$. Averaging over the target choice $u$ thus yields
+Let $T$ denote the expected number of triangles in the network, and write $T_N$ for the expected number of triangles when the network has $N$ nodes. Triangles are created in an all-or-none network if and only if the ``all'' event occurs and $N \geq 2$. If the target $u$ has degree $k_u$ and there are $e_u$ edges among its neighbors, the new node $v$ forms $k_u$ triangles of type $(v, u, w_i)$ and $e_u$ triangles of type $(v, w_i, w_j)$, where $w_i, w_j$ are distinct neighbors of $u$. Note that $\sum_u k_u = 2M_N$ and $\sum_u e_u = 3T_N$. Averaging over the target choice $u$ thus yields
 \begin{equation}\label{eq:tri_rec}
   T_{N+1} = \left(1+\frac{3p}{N}\right)T_N + \frac{2p\,M_N}{N}.
 \end{equation}
@@ -145,48 +131,49 @@ where $\mathcal{A}_N$ is as in~\eqref{eq:edge_exact} and $\mathcal{B}_N = \Gamma
   \item $p>1/3$: $T\sim \frac{2}{\Gamma(1+3p)(3p-1)}N^{3p}$ (superlinear).
 \end{itemize}
 
-\subsection{Clustering coefficient}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.85\columnwidth]{figures/triangles_vs_p.pdf}
+  \caption{Expected number of triangles $T$ as a function of $p$ for $N=50,200,500$ with $10^3$ trails. Shaded regions show one standard deviation. Dashed lines are the analytical prediction~\eqref{eq:tri_exact}, fitting the simuation results perfectly across all tested networks sizes}
+  \label{fig:triangles}
+\end{figure}
 
-The global clustering coefficient is given as
-\begin{equation}
-  C = \frac{3T}{W},
-\end{equation}
-where $W = \frac{1}{2}\sum_{i} k_i(k_i-1)$ is the expected number of connected triples. Let $S_N = \sum_i k_i^2$, and note that $W=(S_N-2M_N)/2$. To derive a recurrence for $S_N$, note that when a node gains one link ($k\to k+1$), its contribution to $S$ changes by $(k+1)^2-k^2=2k+1$. At step $N\to N+1$, the target $u$ always gains degree 1, and in the ``all'' event each neighbour $w$ of $u$ also gains degree 1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $S$ given target $u$ is
+We now derive the global clustering coefficient $C = 3T/W$, where $W = \frac{1}{2}\sum_{i} k_i(k_i-1)$ is the expected number of connected triples. Let $S_N = \sum_i k_i^2$, and note that $W=(S_N-2M_N)/2$. To derive a recurrence for $S_N$, note that when a node gains one link ($k\to k+1$), its contribution to $S$ changes by $(k+1)^2-k^2=2k+1$. At step $N\to N+1$, the target $u$ always gains degree 1, and in the ``all'' event each neighbor $w$ of $u$ also gains degree 1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $S$ given target $u$ is
 \begin{align}
-  \E[\Delta S\mid u] &= (1\!-\!p)\cdot 1 + p(1\!+\!k_u)^2 + (2k_u\!+\!1) \notag \\
-  &\quad+ p\!\sum_{w\sim u}\!(2k_w\!+\!1),
+  \E[\Delta S\mid u] &= (1-p)\cdot 1 + p(1+k_u)^2 + (2k_u+1) \notag \\
+  &\quad+ p\sum_{w\sim u}(2k_w+1), \notag
 \end{align}
 Notice that
 \begin{equation}
-  \label{eq:sum_of_neighbours}
+  \label{eq:sum_of_neighbors}
   \sum_u\sum_{w\sim u}k_w = \sum_i k_i^2 = S,
 \end{equation}
-as each node $w$ appears as a neighbour of exactly $k_w$ other nodes. Thus, averaging over the uniform choice of $u$, and using $\sum_u k_u = 2M$, $\sum_u k_u^2 = S$, and \eqref{eq:sum_of_neighbours} gives
+as each node $w$ appears as a neighbor of exactly $k_w$ other nodes. Thus, averaging over the uniform choice of $u$, and using $\sum_u k_u = 2M$, $\sum_u k_u^2 = S$, and \eqref{eq:sum_of_neighbors} gives
 \begin{equation}\label{eq:S_rec}
   S_{N+1} = \left(1+\frac{3p}{N}\right)S_N + 2 + \frac{(4+6p)M_N}{N}.
 \end{equation}
 Solving~\eqref{eq:S_rec} by the same method used for~\eqref{eq:edge_rec} and~\eqref{eq:tri_rec} gives, for $p\neq 0,\tfrac{1}{2},\tfrac{1}{3}$,
 \begin{equation}\label{eq:S_exact}
-  S = \frac{(6\!+\!2p)N}{(1\!-\!2p)(1\!-\!3p)} + \frac{(4\!+\!6p)\mathcal{A}_N}{p(1\!-\!2p)} - \frac{4(1\!+\!2p)\mathcal{B}_N}{p(1\!-\!3p)},
+  S = \frac{(6+2p)N}{(1-2p)(1-3p)} + \frac{(4+6p)\mathcal{A}_N}{p(1-2p)} - \frac{4(1+2p)\mathcal{B}_N}{p(1-3p)},
 \end{equation}
 where $\mathcal{A}_N$ and $\mathcal{B}_N$ are as in~\eqref{eq:tri_exact}. Recall that $W=(S-2M)/2$, so substituting \eqref{eq:edge_exact} and \eqref{eq:S_exact} yields 
 \begin{equation}
-  W = \frac{2(1 + 2p)}{p}\!\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{\mathcal{A}_N}{1 -2p} - \frac{\mathcal{B}_N}{1 -3p}\right],
+  W = \frac{2(1 + 2p)}{p}\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{\mathcal{A}_N}{1 -2p} - \frac{\mathcal{B}_N}{1 -3p}\right], \notag
 \end{equation}
 Comparing with $3T$ from~\eqref{eq:tri_exact},
 \begin{equation}
-  3T = 6\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{\mathcal{A}_N}{1 -2p} - \frac{\mathcal{B}_N}{1 -3p}\right],
+  3T = 6\left[\frac{pN}{(1 -2p)(1 -3p)} + \frac{\mathcal{A}_N}{1 -2p} - \frac{\mathcal{B}_N}{1 -3p}\right], \notag
 \end{equation}
 we see that $W$ and $3T$ have the same bracketed term, and thus we get
 \begin{equation}\label{eq:clustering}
   \boxed{C = \frac{3p}{1+2p}},
 \end{equation}
-for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is independent of $N$, which is a hallmark of small-world networks.
+for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is constant on $N$, which is large compared to the Erdős-Rényi random graph and thus a sign for the small-world property.
 
 \begin{figure}[h]
   \centering
-  % \includegraphics[width=\columnwidth]{figures/clustering.pdf}
-  \caption{Global clustering coefficient $C$ as a function of $p$ for $N = 10^3$. Error bars represent one standard deviation over $10^3$ realisations. The dashed line is the analytical prediction~\eqref{eq:clustering}.}
+  \includegraphics[width=0.85\columnwidth]{figures/clustering.pdf}
+  \caption{Global clustering coefficient $C$ as a function of $p$ for $N = 500$ with $10^3$ trials. Shaded region shows one standard deviation. The dashed line is the analytical prediction~\eqref{eq:clustering}, fitting the simulation result tightly.}
   \label{fig:clustering}
 \end{figure}
 
@@ -198,54 +185,44 @@ Let $X, Y$ be the random variables representing the degrees of two nodes of an e
 \begin{equation}
   r = \frac{\E[(X - \E[X])(Y - \E[Y])]}{\sigma_X\sigma_Y} =  \frac{\E[XY] - \E[X]\E[Y]}{\E[X^2] - (\E[X])^2}. \notag
 \end{equation}
-Note that
-\begin{itemize}
-  \item $\E[X] = \E[Y] = \frac{1}{|E|}\sum_{(u, v) \in E} \frac{1}{2}(k_u + k_v)$,
-  \item $\E[X^2] = \E[Y^2] = \frac{1}{|E|}\sum_{(u, v) \in E} \frac{1}{2}(k_u^2 + k_v^2)$,
-  \item $\E[XY] = \frac{1}{|E|}\sum_{(u, v) \in E} k_uk_v$.
-\end{itemize}
-Thus we have
-\begin{align}
- r 
+Note that $\E[X] = \E[Y] = \frac{1}{|E|}\sum_{(u, v) \in E} \frac{1}{2}(k_u + k_v)$, $\E[X^2] = \E[Y^2] = \frac{1}{|E|}\sum_{(u, v) \in E} \frac{1}{2}(k_u^2 + k_v^2)$, and $\E[XY] = \frac{1}{|E|}\sum_{(u, v) \in E} k_uk_v$. Thus we have
+\begin{align} \label{eq:assortativity_formula}
+ r
  &= \frac{\frac{1}{|E|}\sum_{(i, j)\in E} k_ik_j - \frac{1}{|E|^2}\left[\sum_{(i, j) \in E} \frac{1}{2}(k_i + k_j)\right]^2}{\frac{1}{|E|}\sum_{(i, j)\in E} \frac{1}{2}(k_i^2 + k_j^2) - \frac{1}{|E|^2}\left[\sum_{(i, j) \in E} \frac{1}{2}(k_i + k_j)\right]^2} \notag \\
  &= \frac{4MR - S^2}{2MQ - S^2},
 \end{align}
 where $M = |E|$ and $S = \sum_i k_i^2$ are defined as before, $Q = \sum_i k_i^3$, and $R=\sum_{(i,j)\in E}k_ik_j$. Let $Q_N$ and $R_N$ denote the corresponding quantities when the network has $N$ nodes. 
 
-We first derive a recurrence for $Q_N$. Note that when a node $i$ gains one edge ($k_i\to k_i+1$), its contribution to $Q$ changes by $(k_i+1)^3-k_i^3=3k_i^2+3k_i+1$. At step $N\to N+1$, the target $u$ always gains degree~1, and in the ``all'' event each neighbour $w$ of $u$ also gains degree~1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $Q$ given target $u$ is
+We first derive a recurrence for $Q_N$. Note that when a node $i$ gains one edge ($k_i\to k_i+1$), its contribution to $Q$ changes by $(k_i+1)^3-k_i^3=3k_i^2+3k_i+1$. At step $N\to N+1$, the target $u$ always gains degree~1, and in the ``all'' event each neighbor $w$ of $u$ also gains degree~1. On the other hand, the new node enters with degree $k_v=1$ or $1+k_u$. Summing up all contributions, the expected change in $Q$ given target $u$ is
 \begin{align}
-  \E[\Delta Q\mid u] &= (1\!-\!p)\cdot 1 + p(1\!+\!k_u)^3 + (3k_u^2\!+\!3k_u\!+\!1) \notag \\
-  &\quad+ p\!\sum_{w\sim u}\!(3k_w^2\!+\!3k_w\!+\!1).
+  \E[\Delta Q\mid u] &= (1-p)\cdot 1 + p(1+k_u)^3 + (3k_u^2+3k_u+1) \notag \\
+  &\quad+ p\sum_{w\sim u}(3k_w^2+3k_w+1). \notag
 \end{align}
-By the same argument as~\eqref{eq:sum_of_neighbours}, $\sum_u\sum_{w\sim u}k_w^2 = \sum_w k_w^3 = Q$. Thus, averaging over the uniform choice of $u$, and using $\sum_u k_u = 2M$, $\sum_u k_u^2 = S$, $\sum_u k_u^3 = Q$, and~\eqref{eq:sum_of_neighbours} yields
+By the same argument as~\eqref{eq:sum_of_neighbors}, $\sum_u\sum_{w\sim u}k_w^2 = \sum_w k_w^3 = Q$. Thus, averaging over the uniform choice of $u$, and using $\sum_u k_u = 2M$, $\sum_u k_u^2 = S$, $\sum_u k_u^3 = Q$, and~\eqref{eq:sum_of_neighbors} yields
 \begin{equation}\label{eq:Q_rec}
-  Q_{N+1} = \!\left(1+\frac{4p}{N}\right)Q_N+2+\frac{(3\!+\!6p)S_N+(6\!+\!8p)M_N}{N}.
+  Q_{N+1} = \left(1+\frac{4p}{N}\right)Q_N+2+\frac{(3+6p)S_N+(6+8p)M_N}{N}.
 \end{equation}
 
 To derive a recurrence for $R_N$, note that when node $i$ gains one edge, the product $k_ik_j$ on each incident edge $(i,j)$ increases by $k_j$. If both endpoints gain degree simultaneously, the product increases by $k_i+k_j+1$ instead. Write $\pi_i = \sum_{j\sim i}k_j$. We consider the two events separately.
 
 \emph{``None'' event.} Only the target $u$ gains degree~1, and the single new edge $(v,u)$ contributes $k_v\cdot k_u^{\mathrm{new}}=k_u+1$. The total change is thus
 \begin{equation}
-  \Delta R_{\mathrm{none}} = \pi_u + k_u + 1.
+  \Delta R_{\mathrm{none}} = \pi_u + k_u + 1. \notag
 \end{equation}
 
-\emph{``All'' event.} The target $u$ and all its neighbours gain degree~1, so the set of nodes whose degree increases is $\{u\}\cup N(u)$. Each node $i$ that gains degree~1 increases the product $k_ik_j$ by $k_j$ on every incident edge $(i,j)$, contributing $\pi_i$ in total, summing over all such nodes yields
+\emph{``All'' event.} The target $u$ and all its neighbors gain degree~1, so the set of nodes whose degree increases is $\{u\}\cup N(u)$. Each node $i$ that gains degree~1 increases the product $k_ik_j$ by $k_j$ on every incident edge $(i,j)$, contributing $\pi_i$ in total, summing over all such nodes yields
 \begin{equation}\label{eq:pi_sum}
   \pi_u + \sum_{w\sim u}\pi_w.
 \end{equation}
-Also note that, for an edge $(i,j)$ where both endpoints gain degree 1, the change in the product is $(k_i+1)(k_j+1)-k_ik_j = k_i+k_j+1$, but \eqref{eq:pi_sum} counts only $k_i+k_j$. Thus each such edge requires an additional $+1$ correction. The edges with both endpoints in $\{u\}\cup N(u)$ are the $k_u$ edges $(u,w)$ and the $e_u$ edges among neighbours of $u$, so we need to add $k_u+e_u$ to the correction. For the new edges, the new node has degree $k_v=1+k_u$, so their total contribution to $R$ is
+Also note that, for an edge $(i,j)$ where both endpoints gain degree 1, the change in the product is $(k_i+1)(k_j+1)-k_ik_j = k_i+k_j+1$, but \eqref{eq:pi_sum} counts only $k_i+k_j$. Thus each such edge requires an additional $+1$ correction. The edges with both endpoints in $\{u\}\cup N(u)$ are the $k_u$ edges $(u,w)$ and the $e_u$ edges among neighbors of $u$, so we need to add $k_u+e_u$ to the correction. For the new edges, the new node has degree $k_v=1+k_u$, so their total contribution to $R$ is
 \begin{equation}
   (k_u+1)^2 + \sum_{w\sim u}(k_u+1)(k_w+1) = (k_u+1)(2k_u+1+\pi_u). \notag
 \end{equation}
 Combining all three parts, we get
 \begin{equation}
-  \Delta R_{\mathrm{all}} = (2\!+\!k_u)\pi_u + \!\sum_{w\sim u}\!\pi_w + 2k_u^2 + 4k_u + 1 + e_u.
+  \Delta R_{\mathrm{all}} = (2+k_u)\pi_u + \sum_{w\sim u}\pi_w + 2k_u^2 + 4k_u + 1 + e_u. \notag
 \end{equation}
-Thus the expected change in $R$ given target $u$ is
-\begin{equation}
-  \E[\Delta R\mid u] = (1-p)\,\Delta R_{\mathrm{none}} + p\,\Delta R_{\mathrm{all}}.
-\end{equation}
-Note that 
+Thus the expected change in $R$ given target $u$ is $\E[\Delta R\mid u] = (1-p)\,\Delta R_{\mathrm{none}} + p\,\Delta R_{\mathrm{all}}$. Note that 
 \begin{equation}\label{eq:pi_sum_identity}
   \sum_u\sum_{w\sim u}\pi_w = \sum_w k_w\,\pi_w = 2R,
 \end{equation}
@@ -256,36 +233,27 @@ as each edge $\{w,z\}$ contributes $k_wk_z$ once on each endpoint. Averaging ove
   &\quad+ \frac{(1+3p)S_N+(2+6p)M_N+3pT_N}{N}.
 \end{align}
 Both recurrences~\eqref{eq:Q_rec} and~\eqref{eq:R_rec} share the homogeneous growth factor $(1+4p/N)$, with solution $\mathcal{C}_N = \Gamma(N+4p)/[\Gamma(1+4p)\,\Gamma(N)]$. Substituting the exact formulas for $M_N$, $S_N$, $T_N$ from Sections~\ref{sec:edges}--\ref{sec:clustering} into the forcing terms and solving by the same method used for~\eqref{eq:edge_rec},\eqref{eq:tri_rec}, and \eqref{eq:S_rec} yields, for $p\neq 0,\tfrac{1}{2},\tfrac{1}{3},\tfrac{1}{4}$,
-\begin{align}\label{eq:Q_exact}
+\begin{align}
   Q_N &= \frac{(26+22p)N}{(1-2p)(1-3p)(1-4p)} - \frac{(12+36p+28p^2)\mathcal{A}_N}{2p^2(1-2p)} \notag \\
-  &\quad + \frac{4(3+12p+12p^2)\mathcal{B}_N}{p^2(1-3p)} + \lambda_Q\, \mathcal{C}_N,
-\end{align}
-\begin{align}\label{eq:R_exact}
+  &\quad + \frac{4(3+12p+12p^2)\mathcal{B}_N}{p^2(1-3p)} + \lambda_Q\, \mathcal{C}_N, \notag \\
   R_N &= \frac{3(3+5p)N}{(1-2p)(1-3p)(1-4p)} - \frac{(4+16p+18p^2)\mathcal{A}_N}{2p^2(1-2p)} \notag \\
-  &\quad + \frac{2(2+10p+15p^2)\mathcal{B}_N}{p^2(1-3p)} + \lambda_R\, \mathcal{C}_N,
+  &\quad + \frac{2(2+10p+15p^2)\mathcal{B}_N}{p^2(1-3p)} + \lambda_R\, \mathcal{C}_N, \notag
 \end{align}
 where $\mathcal{A}_N$ and $\mathcal{B}_N$ are as in~\eqref{eq:tri_exact}, and $\lambda_Q$, $\lambda_R$ are constants determined by the initial conditions $Q_1=R_1=0$.
 
 Since $\mathcal{C}_N\sim N^{4p}$, for $p < 1/4$, the homogeneous terms $\mathcal{A}_N$, $\mathcal{B}_N$, $\mathcal{C}_N$ are all sublinear and all five quantities $M,S,T,Q,R$ grow linearly. Let
-\begin{gather}
-  \alpha_Q = \frac{26+22p}{(1-2p)(1-3p)(1-4p)}, \\
-  \alpha_R = \frac{3(3+5p)}{(1-2p)(1-3p)(1-4p)}
-\end{gather}
-be the linear term coefficients of $Q_N$ and $R_N$ respectively. From \eqref{eq:edge_rec} and \eqref{eq:S_exact} we can also see that $\alpha_M = 1/(1-2p)$ and $\alpha_S = (6+2p)/[(1-2p)(1-3p)]$. For $p < 1/4$, we have
-\begin{align}
-  4\alpha_M\alpha_R - \alpha_S^2 &= \frac{8p(9-2p)(1-p)}{(1-2p)^2(1-3p)^2(1-4p)}, \notag \\
-  2\alpha_M\alpha_Q - \alpha_S^2 &= \frac{8(1-p)(1+2p)(2-p)}{(1-2p)^2(1-3p)^2(1-4p)}.
-\end{align}
-It now follows that as $N \to \infty$,
+\[
+  \alpha_Q = \frac{26+22p}{(1-2p)(1-3p)(1-4p)}, \, \alpha_R = \frac{3(3+5p)}{(1-2p)(1-3p)(1-4p)}.
+\]
+be the linear term coefficients of $Q_N$ and $R_N$ respectively. From \eqref{eq:edge_rec} and \eqref{eq:S_exact} we can also see that $\alpha_M = 1/(1-2p)$ and $\alpha_S = (6+2p)/[(1-2p)(1-3p)]$. Substituting into \eqref{eq:assortativity_formula} and simplifying, we get that, for $p < 1/4$, as $N \to \infty$,
 \begin{equation}\label{eq:assort}
-  \boxed{r \sim \frac{p(9-2p)}{(1+2p)(2-p)}}
+  \boxed{r \sim \frac{4\alpha_M\alpha_R}{2\alpha_M\alpha_Q - \alpha_S^2} = \frac{p(9-2p)}{(1+2p)(2-p)}}.
 \end{equation}
-for $p < 1/4$.
 
 \begin{figure}[h]
   \centering
-  % \includegraphics[width=\columnwidth]{figures/assortativity.pdf}
-  \caption{Assortativity coefficient $r$ as a function of $p$ for $N = 10^3$. The dashed line is the analytical prediction~\eqref{eq:assort}.}
+  \includegraphics[width=0.85\columnwidth]{figures/assortativity.pdf}
+  \caption{Assortativity coefficient $r$ as a function of $p$ for $N=200,2000,20000$ with $10^3$ trials. Shaded regions show one standard deviation. The dashed line is the asymptotic prediction~\eqref{eq:assort} for $p<1/4$. The simuations slowly converges to our predicted curve, with higher values of $p$ exhibiting even slower convergnece.}
   \label{fig:assortativity}
 \end{figure}
 
@@ -297,26 +265,24 @@ Let $D = \sum_{i<j}d(i,j)$ denote the expected sum of all pairwise shortest-path
 \begin{equation}\label{eq:distance_definition}
   \ell = \frac{2D_N}{N(N-1)}.
 \end{equation}
-At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. Note that adding $v$ does not shorten any existing pairwise distance, as any path through $v$ can be rerouted through $u$ or its neighbours without increasing length. Thus
+At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes. Note that adding $v$ does not shorten any existing pairwise distance, as any path through $v$ can be rerouted through $u$ or its neighbors without increasing length. Thus
 \begin{equation}
-  D_{N+1} = D_N + \sum_{j}d(v,j).
+  D_{N+1} = D_N + \sum_{j}d(v,j). \notag
 \end{equation}
 Write $\sigma_u = \sum_{j\neq u}d(u,j)$. We now consider the two events separately.
 
 \emph{``None'' event.} The new node $v$ is connected only to the target $u$. Thus, $d(v,u)=1$ and $d(v,j)=1+d(u,j)$ for every $j\neq u$, which yields
 \begin{equation}
-  \sum_{j}d(v,j) = N + \sigma_u.
+  \sum_{j}d(v,j) = N + \sigma_u. \notag
 \end{equation}
 
-\emph{``All'' event.} The new node $v$ is adjacent to the target $u$ and all its neighbours. But then $N(u) = N(v)$, so any path from $u$ to $j$ can be rerouted through $v$ by simply replacing the starting point $u$ with $v$. Thus, $d(v,j)=d(u,j)$ for all $j \neq u$, and so
+\emph{``All'' event.} The new node $v$ is adjacent to the target $u$ and all its neighbors. But then $N(u) = N(v)$, so any path from $u$ to $j$ can be rerouted through $v$ by simply replacing the starting point $u$ with $v$. Thus, $d(v,j)=d(u,j)$ for all $j \neq u$, and so
 \begin{equation}
-  \sum_{j}d(v,j) = 1 + \sigma_u.
+  \sum_{j}d(v,j) = 1 + \sigma_u. \notag
 \end{equation}
 Averaging over the two events and the uniform choice of $u$, and noting that $\frac{1}{N}\sum_u\sigma_u = 2D_N/N$, we have
 \begin{align}
-  \sum_{j}d(v,j)
-  &= (1 - p)(N +  \E_u\left[\sigma_u\right]) + p(1 + \E_u\left[\sigma_u\right]) \notag \\
-  &= (1 - p)N + p + \frac{2D_N}{N},
+  \sum_{j}d(v,j) = (1 - p)N + p + \frac{2D_N}{N}, \notag
 \end{align}
 and so
 \begin{equation}\label{eq:D_rec}
@@ -327,25 +293,25 @@ The homogeneous solution is $\mathcal{D}_N = N(N+1)/2$, satisfying $\mathcal{D}_
   \gamma_{N+1}-\gamma_N = \frac{2[(1-p)N+p]}{(N+1)(N+2)} = \frac{2(2p-1)}{N+1}+\frac{2(2-3p)}{N+2}. \notag
 \end{equation}
 It follows from $\gamma_1 = 0$ that
-\begin{align}
-  \gamma_N 
-  &= \sum_{k = 1}^{N - 1} \frac{2(2p-1)}{k+1}+\frac{2(2-3p)}{k+2} \\
+\begin{align} \label{eq:gamma}
+  \gamma_N
+  &= \sum_{k = 1}^{N - 1} \frac{2(2p-1)}{k+1}+\frac{2(2-3p)}{k+2} \notag \\
   &= 2(2p-1)(H_N-1) + 2(2-3p)\left(H_{N+1}- \frac{3}{2}\right),
 \end{align}
 where $H_N=\sum_{j=1}^{N}1/j$ is the $N$-th harmonic number. Since $H_N\sim\ln N$ as $N \to \infty$, we have $\gamma_N\sim 2(1-p)\ln N$, and so
 \begin{equation}
-  D_N\sim(1-p)\,N(N+1)\ln N.
+  D_N\sim(1-p)\,N(N+1)\ln N. \notag
 \end{equation}
 Substituting into~\eqref{eq:distance_definition} now yields
-\begin{equation}\label{eq:dist_exact}
-  \boxed{\ell \sim 2(1-p)\ln N},
+\begin{equation}
+  \boxed{\ell \sim 2(1-p)\ln N}, \notag
 \end{equation}
-for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The distance scales logarithmically for every with no phase transition, and thus confirms the small-world property that we established with the $O(1)$ clustering coefficient from Section~\ref{sec:clustering}.
+for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The distance scales logarithmically for every with no phase transition, confirming the small-world property we established with the constant clustering coefficient from Section~\ref{sec:clustering}.
 
 \begin{figure}[h]
   \centering
-  % \includegraphics[width=\columnwidth]{figures/distance.pdf}
-  \caption{Average shortest-path distance $\ell$ as a function of $N$ on a log-linear scale for several values of $p$. Dashed lines show the analytical prediction $2(1-p)\ln N$.}
+  \includegraphics[width=0.85\columnwidth]{figures/distance.pdf}
+  \caption{Average shortest-path distance $\ell$ as a function of log scaled $N$ for $p=0.0,0.1,0.3,0.5$. Dashed lines show the analytical prediction \eqref{eq:gamma}, fitting the simulation results perfectly across all tested $p$. Note that we use \eqref{eq:gamma} in the figure instead of the asymptotic formula $2(1-p)\ln N$ to retain the constant correction terms.}
   \label{fig:distance}
 \end{figure}
 
@@ -353,14 +319,13 @@ for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The
 \section{\label{sec:conclusion}Conclusion}
 % ============================================================
 
-We have studied the all-or-none network growth model and derived exact or asymptotic analytical expressions for five structural properties, all controlled by the single parameter $p$:
+We have studied the all-or-none network growth model and derived exact or asymptotic analytical expressions for five structural properties, all controlled by the single parameter $p$: 
+(i) The expected number of edges transitions from linear in the sparse regime ($p<1/2$) to superlinear in the dense regime ($p>1/2$).
+(ii) The degree distribution follows a power law $P_k\sim k^{-1/p}$, reproducing the BA model exponent at $p=1/3$.
+(iii) The global clustering coefficient converges to $C=3p/(1+2p)$, independent of $N$ and valid for all $p$.
+(iv) The assortativity coefficient converges to $r=p(9-2p)/[(1+2p)(2-p)]$ for $p < 1/4$.
+(v) The average shortest-path distance scales as $\ell\sim 2(1-p)\ln N$ for all $p<1$, with no phase transition.
 
-(i)~The expected number of edges transitions from linear ($\sim N/(1-2p)$ for $p<1/2$) through $N\ln N$ at $p=1/2$ to superlinear ($\sim N^{2p}$) for $p>1/2$.
-(ii)~The degree distribution follows a power law $P_k\sim k^{-1/p}$ with a continuously tunable exponent, matching the independent copying model at the mean-field level.
-(iii)~The global clustering coefficient converges to $C=3p/(1+2p)$, a remarkably simple $N$-independent expression valid for all $p$.
-(iv)~In the sparse regime ($p<1/3$), the assortativity coefficient is $r=p(9-2p)/[(1+2p)(2-p)]$, derived by moment closure, increasing from $r=0$ at $p=0$ to $r\to 1$ as $p\to 1/3^-$.
-(v)~An exact topological recurrence for the sum of pairwise distances shows that the average shortest-path distance scales as $\ell\sim 2(1-p)\ln N$ for all $p<1$, with no phase transition.
-
-The network is a \emph{small world} for every $p\in(0,1)$: logarithmic distances coexist with $O(1)$ clustering. The parameter $p$ smoothly interpolates between a random recursive tree ($p=0$) and the complete graph ($p=1$), passing through regimes that reproduce key features of real-world networks including scale-free degree distributions, tuneable assortativity, and the small-world property. Future directions include extending the assortativity formula beyond $p=1/3$, analysing the model on directed or weighted networks, and studying its spectral properties.
+Together, results (iii) and (v) establish that the network exhibits the small-world property for all $p\in(0,1)$: logarithmic distances combined with large clustering.
 
 \end{document}
