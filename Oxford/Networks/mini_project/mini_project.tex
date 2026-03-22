@@ -40,9 +40,7 @@
 
 Network growth models are central to our understanding of complex systems in the real world, ranging from the World Wide Web to biological and social networks. The Barab\'asi--Albert (BA) model introduced preferential attachment as a mechanism for generating power-law degree distributions, while copying models propose an alternative microscopic rule in which new nodes replicate the connections of existing ones.
 
-In this work we analyze the \emph{all-or-none} model. At each growth step a new node is added and connected to a target chosen uniformly at random, and then it connects to \emph{all} neighbors of the target with probability $p$, or to \emph{none} of them with probability $1-p$. We show that despite its simplicity, the model produces power-law degree distributions with exponent $1/p$, an $N$-independent clustering coefficient $C=3p/(1+2p)$, and logarithmic average distances, making it a small-world network for every $p\in(0,1)$.
-
-The remainder of this paper is organized with Section \ref{sec:model} defining the model, Section \ref{sec:edges} deriving the expected number of edges, Section \ref{sec:degree} deriving the degree distribution, Section \ref{sec:clustering} deriving the clustering coefficient, Section \ref{sec:assortativity} deriving the assortativity coefficient, and Section \ref{sec:distance} deriving the average shortest-path distance.
+In this work we analyze the \emph{all-or-none} model. At each growth step a new node is added and connected to a target chosen uniformly at random, and then it connects to \emph{all} neighbors of the target with probability $p$, or to \emph{none} of them with probability $1-p$. We show that despite its simplicity, the model produces power-law degree distributions with exponent $1/p$, an $N$-independent clustering coefficient $C=3p/(1+2p)$, and logarithmic average distances, making it a small-world network for every $p\in(0,1)$. Additionally, we will also investigate the model's assortative nature, as well as its consensus dynamics.
 
 % ============================================================
 \section{\label{sec:model}Model Definition}
