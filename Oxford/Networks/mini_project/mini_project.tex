@@ -293,18 +293,17 @@ for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The
   \label{fig:distance}
 \end{figure}
 
-\vspace{-0.5cm}
+\vspace{-0.7cm}
 
 \section{Consensus Dynamics}
 
-The consensus dynamics of a network is the process of all nodes reaching a common state. Assign each node with a scalar state $x_i \in \R$ and let $L = D - A$ be the Laplacian matrix of the network. The consensus dynamics is defined as $\mathbf{\dot{x}} = -L\mathbf{x}$. Let $0 = \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_N$ be the eigenvalues of $L$, and let $v_i$ be the corresponding eigenvectors. Then the consensus dynamics converges to a mean state $\frac{1}{N}\sum_i x_i(0) \mathbf{1}$ at a rate determined by the second smallest eigenvalue $\lambda_2$. Specifically, $\mathbf{x}(t) = \sum_{i} e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$.
-Note that for each $i$, the contribution of $e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$ decays exponentially with rate $\lambda_i$. Since $\lambda_2$ is the smallest non-zero eigenvalue, the second term decays the slowest and thus it sets the convergence time $\tau = 1/\lambda_2$. In \cite{DAS2004715}, it is shown that $\lambda_2 \geq 1/(N \cdot \operatorname{diam}(G))$, where $\operatorname{diam}(G)$ is the diameter of the network. Since the all-or-none network is a random recursive tree at $p = 0$, which has diameter $O(\log N)$ \cite{Pittel1994}, and the diameter would only decrease for $p > 0$, we have $\lambda_2 = \Omega\left(1/N \log N\right)$. Thus the timescale for consensus is $\tau = O(N \log N)$. On the other hand, the network is a complete graph at $p = 1$, which has Laplacian matrix $L = (N - 1)I - A$. Since $A = \mathbf{1}\mathbf{1}^T - I$, we have $L = N \cdot I - \mathbf{1}\mathbf{1}^T$, which has eigenvalue $0$ with multiplicity $N-1$ and eigenvalue $N$ with multiplicity $1$. Thus $\lambda_2 = N$ and the timescale for consensus is $\tau = 1/N$. In particular, $\tau$ collapses from $O(N \log N)$ to $1/N$ as $p$ increases from $0$ to $1$.
+The consensus dynamics of a network is the process of all nodes reaching a common state. Assign each node with a scalar state $x_i \in \R$ and let $L = D - A$ be the Laplacian matrix of the network. The consensus dynamics is defined as $\mathbf{\dot{x}} = -L\mathbf{x}$. Let $0 = \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_N$ be the eigenvalues of $L$, and let $v_i$ be the corresponding eigenvectors. Then the consensus dynamics converges to a mean state $\frac{1}{N}\sum_i x_i(0) \mathbf{1}$ at a rate determined by the second smallest eigenvalue $\lambda_2$. Specifically, $\mathbf{x}(t) = \sum_{i} e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$, and so the contribution of $e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$ decays exponentially with rate $\lambda_i$ for each $i$. Since $\lambda_2$ is the smallest non-zero eigenvalue, the second term decays the slowest and thus it sets the convergence time $\tau = 1/\lambda_2$. In \cite{DAS2004715}, it is shown that $\lambda_2 \geq 1/(N \cdot \operatorname{diam}(G))$, where $\operatorname{diam}(G)$ is the diameter of the network. Note that the all-or-none network is a random recursive tree at $p = 0$, which has diameter $O(\log N)$ \cite{Pittel1994}. Since the diameter would only decrease as $p$ increases, we have $\lambda_2 = \Omega\left(1/N \log N\right)$. It follows that $\tau = O(N \log N)$. On the other hand, the network is a complete graph at $p = 1$, which has Laplacian matrix $L = (N - 1)I - A$. In particular, $A = \mathbf{1}\mathbf{1}^T - I$, so we may write $L = N \cdot I - \mathbf{1}\mathbf{1}^T$, which has eigenvalue $0$ with multiplicity $N-1$ and eigenvalue $N$ with multiplicity $1$. Thus $\lambda_2 = N$ and the timescale for consensus is $\tau = 1/N$ at $p = 1$. This implies that $\tau$ collapses from $O(N \log N)$ to $1/N$ as $p$ increases from $0$ to $1$, as shown in Figure \ref{fig:timescale}.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\columnwidth]{figures/spectral_gap.pdf}
-  \caption{Timescale $\tau = 1/\lambda_2$ as a function of $N$ for varying values of $p$. As $p$ inceases, $\tau$ grows towards our predicted bound $O(N\log N)$. On the other hand, $\tau = 1/N$ at $p = 0$, also as predicted.}
-  \label{fig:spectral_gap}
+  \caption{Timescale $\tau = 1/\lambda_2$ as a function of $N$ for varying values of $p$. As $p$ decreases to $0$, $\tau$ approaches our predicted bound $O(N\log N)$. On the other hand, $\tau$ collapses to $1/N$ at $p = 1$, also as predicted.}
+  \label{fig:timescale}
 \end{figure}
 
 \vspace{-0.5cm}
@@ -313,14 +312,7 @@ Note that for each $i$, the contribution of $e^{-\lambda_i t} \mathbf{v}_i \math
 \section{\label{sec:conclusion}Conclusion}
 % ============================================================
 
-We have studied the all-or-none network growth model and derived exact or asymptotic analytical expressions for five structural properties, all controlled by the single parameter $p$: 
-(i) The expected number of edges transitions from linear in the sparse regime ($p<1/2$) to superlinear in the dense regime ($p>1/2$).
-(ii) The degree distribution follows a power law $P_k\sim k^{-1/p}$, reproducing the BA model exponent at $p=1/3$.
-(iii) The global clustering coefficient converges to $C=3p/(1+2p)$, independent of $N$ and valid for all $p$.
-(iv) The assortativity coefficient converges to $r=p(9-2p)/[(1+2p)(2-p)]$ for $p < 1/4$.
-(v) The average shortest-path distance scales as $\ell\sim 2(1-p)\ln N$ for all $p<1$, with no phase transition.
-
-Together, results (iii) and (v) establish that the network exhibits the small-world property for all $p\in(0,1)$: logarithmic distances combined with large clustering.
+We have presented an analytical study of the all-or-none copying model, showing that its single parameter $p$ governs a rich variety of network phenomena. The edge count exhibits a sparse-to-dense transition at $p=1/2$, while the degree distribution follows a power law $P_k \sim k^{-1/p}$, recovering the Barab\'asi--Albert exponent at $p=1/3$ without invoking preferential attachment. An $N$-independent clustering coefficient $C=3p/(1+2p)$ and logarithmic distances $\ell \sim 2(1-p)\ln N$ establish the small-world property for every $p \in (0,1)$, and the positive assortativity $r = p(9-2p)/[(1+2p)(2-p)]$ for $p<1/4$ further aligns the model with empirical social networks. On the dynamical side, our logarithmic diameter bound yields a consensus timescale of $\tau = O(N\log N)$ for general $p$, while the complete-graph limit at $p=1$ gives $\tau = 1/N$, confirming that a minimal copying rule can produce realistic network structure and efficient dynamics simultaneously.
 
 \bibliographystyle{apsrev4-2}
 \bibliography{references}
