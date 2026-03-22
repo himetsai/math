@@ -83,13 +83,13 @@ for $p\neq 1/2$. Since $\Gamma(N+2p)/\Gamma(N)\sim N^{2p}$ as $N \to \infty$, tw
 \section{\label{sec:degree}Degree Distribution}
 % ============================================================
 
-Denote by $f(k, i, N)$ the probability that node $i$ has degree $k$ when the network has $N$ nodes. At step $N\to N+1$, degree $k$ increases by one with probability $(1+pk)/N$, because either the node is chosen as target (probability $1/N$) or a neighbor of it is chosen and the ``all'' event occurs (probability $pk/N$) The master equation for $f$ is then
+Denote by $f(k, i, N)$ the probability that node $i$ has degree $k$ when the network has $N$ nodes. At step $N\to N+1$, degree $k$ increases by one with probability $(1+pk)/N$, because either the node is chosen as target (probability $1/N$) or a neighbor of it is chosen and the ``all'' event occurs (probability $pk/N$). Thus,
 \begin{align}\label{eq:master_node}
   f(k, i, N+1) 
   &= \frac{1+p(k-1)}{N}\,f(k-1, i, N) \notag\\
   &\qquad+ \left(1-\frac{1+pk}{N}\right)f(k, i, N).
 \end{align}
-Assume that $p < 1/2$ so that the expected number of edges $\E[M]$ is linear in $N$, by the results of Section~\ref{sec:edges}. This allows us to seek the asymptotic degree distribution $P_k = \lim_{N\to\infty} n_k(N)/N$, where $n_k(N)=\sum_{i=1}^{N}f(k,i,N)$ is the expected number of nodes with degree $k$ in the $N$-node network. Note that the new node enters with degree $1$ with probability $1 - p$ and with degree $k$ with probability $p\,n_{k-1}(N)/N$ for $k \geq 2$. Hence, summing \eqref{eq:master_node} over the $N$ existing nodes and adding the new node yields
+Assume that $p < 1/2$ so that the expected number of edges $M$ is linear in $N$, by the results of Section~\ref{sec:edges}. This allows us to seek the asymptotic degree distribution $P_k = \lim_{N\to\infty} n_k(N)/N$, where $n_k(N)=\sum_{i=1}^{N}f(k,i,N)$ is the expected number of nodes with degree $k$ in the $N$-node network. Note that the new node enters with degree $1$ with probability $1 - p$ and with degree $k$ with probability $p\,n_{k-1}(N)/N$ for $k \geq 2$. Hence, summing \eqref{eq:master_node} over the $N$ existing nodes and adding the new node yields
 \begin{align}
   n_k(N+1) 
   &= \frac{1+p(k-1)}{N}\,n_{k-1}(N) + \left(1-\frac{1+pk}{N}\right)n_k(N) \notag\\
@@ -108,7 +108,7 @@ As $k \to \infty$, we have $\Gamma(k+1+ 1/p)/\Gamma(k+1+2/p)\sim k^{-1/p}$, and 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\columnwidth]{figures/degree_distribution.pdf}
-  \caption{Log-log scaled degree distribution $P_k$ for $p=0.1,0.2,0.3$, with $N=10^3$ and averaging over $10^3$ trails. Dashed lines are the analytical formulae \eqref{eq:degree_dist}}
+  \caption{Log-log scaled degree distribution $P_k$ for $p=0.1,0.2,0.3$, with $N=10^3$ and averaging over $10^3$ trials. Dashed lines show the analytical prediction \eqref{eq:degree_dist}.}
   \label{fig:degree}
 \end{figure}
 
@@ -131,7 +131,7 @@ where $\mathcal{A}_N$ is as in~\eqref{eq:edge_exact} and $\mathcal{B}_N = \Gamma
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\columnwidth]{figures/triangles_vs_p.pdf}
-  \caption{Expected number of triangles $T$ as a function of $p$ for $N=50,200,500$ with $10^3$ trails. Shaded regions show one standard deviation. Dashed lines are the analytical prediction~\eqref{eq:tri_exact}, fitting the simuation results perfectly across all tested networks sizes}
+  \caption{Expected number of triangles $T$ as a function of $p$ for $N=50,200,500$ with $N=10^3$ averaged over $10^3$ trials. Dashed lines show the analytical prediction \eqref{eq:degree_dist}.}
   \label{fig:triangles}
 \end{figure}
 
@@ -169,7 +169,7 @@ for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is constant on
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\columnwidth]{figures/clustering.pdf}
-  \caption{Global clustering coefficient $C$ as a function of $p$ for $N = 500$ with $10^3$ trials. Shaded region shows one standard deviation. The dashed line is the analytical prediction~\eqref{eq:clustering}, fitting the simulation result tightly.}
+  \caption{Global clustering coefficient $C$ as a function of $p$ for $N = 500$ with $10^3$ trials. Shaded regions show one standard deviation. Dashed lines show the analytical prediction \eqref{eq:tri_exact}.}
   \label{fig:clustering}
 \end{figure}
 
@@ -179,7 +179,7 @@ for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is constant on
 \section{\label{sec:assortativity}Assortativity}
 % ============================================================
 
-Let $X, Y$ be the random variables representing the degrees of two nodes of an edge chosen uniformly at random from the network. The degree assortativity coefficient is the Pearson correlation coefficient of the degree of pairs of adjacent nodes:
+Let $X, Y$ be the random variables representing the degrees of two nodes of an edge chosen uniformly at random from the network. The degree assortativity coefficient \cite{newman} is the Pearson correlation coefficient of the degree of pairs of adjacent nodes:
 \begin{equation}
   r = \frac{\E[(X - \E[X])(Y - \E[Y])]}{\sigma_X\sigma_Y} =  \frac{\E[XY] - \E[X]\E[Y]}{\E[X^2] - (\E[X])^2}. \notag
 \end{equation}
@@ -264,7 +264,7 @@ At step $N\to N+1$, a target $u$ is chosen uniformly from the $N$ existing nodes
 
 \emph{``None'' event.} The new node $v$ is connected only to the target $u$. Thus, $d(v,u)=1$ and $d(v,j)=1+d(u,j)$ for every $j\neq u$, which yields $\sum_{j}d(v,j) = N + \sigma_u$.
 
-\emph{``All'' event.} The new node $v$ is adjacent to the target $u$ and all its neighbors. But then $N(u) = N(v)$, so any path from $u$ to $j$ can be rerouted through $v$ by simply replacing the starting point $u$ with $v$. Thus, $d(v,j)=d(u,j)$ for all $j \neq u$, and so $\sum_{j}d(v,j) = 1 + \sigma_u$. 
+\emph{``All'' event.} The new node $v$ is adjacent to the target $u$ and all its neighbors, so any path from $u$ to $j$ can be rerouted through $v$ by simply replacing the starting point $u$ with $v$. Any path from $v$ to $j$ may also be modified to a path from $u$ to $j$ in the same fashion. Thus, $d(v,j) = d(u,j)$ for all $j \neq u$, and so $\sum_{j}d(v,j) = 1 + \sigma_u$. 
 
 Averaging over the two events and the uniform choice of $u$, and noting that $\frac{1}{N}\sum_u\sigma_u = 2D_N/N$, we have $\sum_{j}d(v,j) = (1 - p)N + p + 2D_N/N$, and so
 \begin{equation}\label{eq:D_rec}
@@ -284,7 +284,9 @@ where $H_N=\sum_{j=1}^{N}1/j$ is the $N$-th harmonic number. Since $H_N\sim\ln N
 \begin{equation}
   \boxed{\ell \sim 2(1-p)\ln N}, \notag
 \end{equation}
-for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The distance scales logarithmically for every with no phase transition, confirming the small-world property we established with the constant clustering coefficient from Section~\ref{sec:clustering}.
+for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The distance scales logarithmically for $p \in (0, 1)$ with no phase transition, confirming the small-world property we established with the constant clustering coefficient from Section~\ref{sec:clustering}.
+
+\vspace{-0.1cm}
 
 \begin{figure}[h]
   \centering
@@ -297,12 +299,14 @@ for all $p\in[0,1)$. At $p=1$ the network is a complete graph with $\ell=1$. The
 
 \section{Consensus Dynamics}
 
-The consensus dynamics of a network is the process of all nodes reaching a common state. Assign each node with a scalar state $x_i \in \R$ and let $L = D - A$ be the Laplacian matrix of the network. The consensus dynamics is defined as $\mathbf{\dot{x}} = -L\mathbf{x}$. Let $0 = \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_N$ be the eigenvalues of $L$, and let $v_i$ be the corresponding eigenvectors. Then the consensus dynamics converges to a mean state $\frac{1}{N}\sum_i x_i(0) \mathbf{1}$ at a rate determined by the second smallest eigenvalue $\lambda_2$. Specifically, $\mathbf{x}(t) = \sum_{i} e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$, and so the contribution of $e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$ decays exponentially with rate $\lambda_i$ for each $i$. Since $\lambda_2$ is the smallest non-zero eigenvalue, the second term decays the slowest and thus it sets the convergence time $\tau = 1/\lambda_2$. In \cite{DAS2004715}, it is shown that $\lambda_2 \geq 1/(N \cdot \operatorname{diam}(G))$, where $\operatorname{diam}(G)$ is the diameter of the network. Note that the all-or-none network is a random recursive tree at $p = 0$, which has diameter $O(\log N)$ \cite{Pittel1994}. Since the diameter would only decrease as $p$ increases, we have $\lambda_2 = \Omega\left(1/N \log N\right)$. It follows that $\tau = O(N \log N)$. On the other hand, the network is a complete graph at $p = 1$, which has Laplacian matrix $L = (N - 1)I - A$. In particular, $A = \mathbf{1}\mathbf{1}^T - I$, so we may write $L = N \cdot I - \mathbf{1}\mathbf{1}^T$, which has eigenvalue $0$ with multiplicity $N-1$ and eigenvalue $N$ with multiplicity $1$. Thus $\lambda_2 = N$ and the timescale for consensus is $\tau = 1/N$ at $p = 1$. This implies that $\tau$ collapses from $O(N \log N)$ to $1/N$ as $p$ increases from $0$ to $1$, as shown in Figure \ref{fig:timescale}.
+The consensus dynamics of a network is the process of all nodes reaching a common state. Assign each node with a scalar state $x_i \in \R$ and let $L = D - A$ be the Laplacian matrix of the network. The consensus dynamics is defined as $\mathbf{\dot{x}} = -L\mathbf{x}$. Let $0 = \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_N$ be the eigenvalues of $L$, and let $v_i$ be the corresponding eigenvectors. Then the consensus dynamics converges to a mean state $\frac{1}{N}\sum_i x_i(0) \mathbf{1}$ at a rate determined by the second smallest eigenvalue $\lambda_2$. Specifically, $\mathbf{x}(t) = \sum_{i} e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$, and so the contribution of $e^{-\lambda_i t} \mathbf{v}_i \mathbf{v}_i^T\mathbf{x}(0)$ decays exponentially with rate $\lambda_i$ for each $i$. Since $\lambda_2$ is the smallest non-zero eigenvalue, the second term decays the slowest and thus it sets the convergence time $\tau = 1/\lambda_2$. In \cite{DAS2004715}, it is shown that $\lambda_2 \geq 1/(N \cdot \operatorname{diam}(G))$, where $\operatorname{diam}(G)$ is the diameter of the network. Note that the all-or-none network is a random recursive tree at $p = 0$, which has diameter $O(\log N)$ \cite{Pittel1994}. Since the diameter would only decrease as $p$ increases, we have $\lambda_2 = \Omega\left(1/N \log N\right)$. It follows that $\tau = O(N \log N)$. However, this bound is likely not tight, and the \textit{Cheeger inequality} could yield a stronger estimate of $\lambda_2$ if the \textit{conductance} could be bounded directly. We do not pursue this here. On the other hand, the network is a complete graph at $p = 1$, which has Laplacian matrix $L = (N - 1)I - A$. In particular, $A = \mathbf{1}\mathbf{1}^T - I$, so $L = N \cdot I - \mathbf{1}\mathbf{1}^T$, which has eigenvalue $0$ with multiplicity $1$ and eigenvalue $N$ with multiplicity $N - 1$. Thus $\lambda_2 = N$ and the timescale for consensus is $\tau = 1/N$ at $p = 1$. This implies that $\tau$ collapses from $O(N \log N)$ to $1/N$ as $p$ increases from $0$ to $1$, as shown in Figure \ref{fig:timescale}.
+
+\vspace{-0.1cm}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\columnwidth]{figures/spectral_gap.pdf}
-  \caption{Timescale $\tau = 1/\lambda_2$ as a function of $N$ for varying values of $p$. As $p$ decreases to $0$, $\tau$ approaches our predicted bound $O(N\log N)$. On the other hand, $\tau$ collapses to $1/N$ at $p = 1$, also as predicted.}
+  \caption{As $p \to 0$, $\tau$ approaches the $O(N\log N)$ scaling of the random recursive tree. For $p > 0$, $\tau$ grows considerably slower than $N\log N$, suggesting the diameter-based bound is not tight. At $p = 1$ the network is complete and $\tau = 1/N$.}
   \label{fig:timescale}
 \end{figure}
 
@@ -312,7 +316,7 @@ The consensus dynamics of a network is the process of all nodes reaching a commo
 \section{\label{sec:conclusion}Conclusion}
 % ============================================================
 
-We have presented an analytical study of the all-or-none copying model, showing that its single parameter $p$ governs a rich variety of network phenomena. The edge count exhibits a sparse-to-dense transition at $p=1/2$, while the degree distribution follows a power law $P_k \sim k^{-1/p}$, recovering the Barab\'asi--Albert exponent at $p=1/3$ without invoking preferential attachment. An $N$-independent clustering coefficient $C=3p/(1+2p)$ and logarithmic distances $\ell \sim 2(1-p)\ln N$ establish the small-world property for every $p \in (0,1)$, and the positive assortativity $r = p(9-2p)/[(1+2p)(2-p)]$ for $p<1/4$ further aligns the model with empirical social networks. On the dynamical side, our logarithmic diameter bound yields a consensus timescale of $\tau = O(N\log N)$ for general $p$, while the complete-graph limit at $p=1$ gives $\tau = 1/N$, confirming that a minimal copying rule can produce realistic network structure and efficient dynamics simultaneously.
+We have presented an analytical study of the all-or-none copying model, showing that its single parameter $p$ governs a rich variety of network phenomena. The edge count exhibits a sparse-to-dense transition at $p=1/2$, while the degree distribution follows a power law $P_k \sim k^{-1/p}$, recovering the exponent in the BA model at $p=1/3$ without invoking preferential attachment. A clustering coefficient $C=3p/(1+2p)$ independent to $N$ and logarithmic distances $\ell \sim 2(1-p)\ln N$ establish the small-world property for every $p \in (0,1)$, and a positive assortativity $r = p(9-2p)/[(1+2p)(2-p)]$ for $p<1/4$. For the network dynamics, our logarithmic diameter bound yields a consensus timescale of $\tau = O(N\log N)$ for general $p$, while the complete-graph limit at $p=1$ gives $\tau = 1/N$, confirming that a minimal copying rule can produce realistic network structure and efficient dynamics simultaneously.
 
 \bibliographystyle{apsrev4-2}
 \bibliography{references}
