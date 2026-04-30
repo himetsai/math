@@ -42,7 +42,7 @@
 \newcommand{\eps}{\varepsilon}
 
 \title{C6.2 \\[0.3em] \Large Continuous Optimization}
-\author{Ray Tsai \\ \small (based on the lectures of Coralia Cartis, Oxford)}
+\author{Lecture notes \\ \small (based on the lectures of Coralia Cartis, Oxford)}
 \date{}
 
 \begin{document}
@@ -91,7 +91,15 @@ exists $\bar{\alpha}>0$ such that $f(x+\alpha s)<f(x)$ for all
 $\alpha\in(0,\bar{\alpha}]$.
 \end{lemma}
 \begin{proof}
-  \todo
+  Since $s$ is a descent direction, $\grad f(x)\trans s<0$. By continuity of
+  $\grad f$, there exists $\bar{\alpha}>0$ such that
+  \[
+    \grad f(x+t s)\trans s<0
+  \]
+  for all $t\in[0,\bar{\alpha}]$. Hence, for any $\alpha \in (0, \bar{\alpha}]$, by the mean value theorem there exists $t\in(0, \alpha)$ such that
+  \[
+    f(x+\alpha s)-f(x) = \alpha \cdot \grad f(x+t s)\trans s < 0.
+  \]
 \end{proof}
 
 \section{First-order optimality conditions}
@@ -101,7 +109,7 @@ Let $f\in\mathcal{C}^{1}(\R^{n})$. If $x^{*}$ is a local minimizer of $f$,
 then $\grad f(x^{*})=0$.
 \end{theorem}
 \begin{proof}
-  \todo
+  Suppose not. Put $s = -\grad f(x^{*})$ and note that $s$ is a descent direction. By Lemma~\ref{lem:descent} there exists $\bar{\alpha}>0$ such that $f(x^{*}+\alpha s)<f(x^{*})$ for all $\alpha \in (0, \bar{\alpha}]$, contradiction.
 \end{proof}
 
 \begin{definition}[Stationary point]
@@ -115,13 +123,25 @@ Let $f\in\mathcal{C}^{2}(\R^{n})$. If $x^{*}$ is a local minimizer of $f$,
 then $\grad f(x^{*})=0$ and $\hess f(x^{*})\succeq 0$ (positive semidefinite),
 i.e.\ $s\trans\hess f(x^{*})s\ge 0$ for all $s\in\R^{n}$.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  By Theorem~\ref{thm:foc}, $\grad f(x^{*})=0$. Suppose for contradiction that $s\trans\hess f(x^{*})s < 0$ for some $s \in \R^{n}$. Since $s \neq 0$ and $f \in \mathcal{C}^2$, there exists $\hat{\alpha} > 0$ such that $s\trans\hess f(x^{*} + \alpha s)s < 0$ for all $\alpha \in (0, \hat{\alpha}]$. By Taylor's theorem, for any $\alpha \in (0, \hat{\alpha}]$, there exists $\bar{\alpha} \in (0, \alpha)$ such that
+  \[
+    f(x^{*} + \alpha s) - f(x^{*}) = \frac{\alpha^2}{2} s\trans\hess f(x^{*} + \bar{\alpha} s)s < 0,
+  \]
+  contradiction.
+\end{proof}
 
 \begin{theorem}[Second-order sufficient conditions]\label{thm:soc-suf}
 Let $f\in\mathcal{C}^{2}(\R^{n})$. If $\grad f(x^{*})=0$ and $\hess f(x^{*})\succ 0$
 (positive definite), then $x^{*}$ is a strict local minimizer of $f$.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Since $f \in \mathcal{C}^2$, there exists $\hat{\alpha} > 0$ such that $s\trans\hess f(x^{*} + \alpha s)s > 0$ for all $\alpha \in (0, \hat{\alpha}]$ and $s \in \R^{n}$. By Taylor's theorem, for any $\alpha \in (0, \hat{\alpha}]$, there exists $\bar{\alpha} \in (0, \alpha)$ such that
+  \[
+    f(x^{*} + \alpha s) - f(x^{*}) = \frac{\alpha^2}{2} s\trans\hess f(x^{*} + \bar{\alpha} s)s > 0.
+  \]
+  Thus $x^{*}$ is a strict local minimizer within the ball $N(x^{*}, \hat{\alpha})$.
+\end{proof}
 
 \section{Convex problems}
 
@@ -135,7 +155,17 @@ $f(\lambda x+(1-\lambda)y)\le \lambda f(x)+(1-\lambda)f(y)$.
 Let $f:\R^{n}\to\R$ be convex and $\mathcal{C}^{1}$. Then $x^{*}$ is a global
 minimizer of $f$ if and only if $\grad f(x^{*})=0$.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  If $x^{*}$ is a global minimizer, then by Theorem~\ref{thm:foc}, $\grad f(x^{*})=0$. It remains to show the converse.
+
+  We first show that if $x^{*}$ is a local minimizer, then it is a global minimizer. Suppose not. There exists $y \in \R^{n}$ such that $f(y) < f(x^{*})$. Put $s = y - x^{*}$. By convexity, for $\lambda \in (0, 1)$,
+  \[
+    f(x^{*} + \lambda s) = f((1 - \lambda)x^* + \lambda y) \leq (1 - \lambda) f(x^{*}) + \lambda f(y) < f(x^{*}).
+  \]
+  But then $x^*$ is a local minimizer, so there exists $\delta > 0$ such that $f(x^{*} + \lambda s) \leq f(x^{*})$ for all $\lambda \in (0, \delta)$, contradiction.
+
+  \todo
+\end{proof}
 
 
 %==========================================================
@@ -177,14 +207,31 @@ for all $\alpha\in[0,\alpha^{k}_{\max}]$, where
 \alpha^{k}_{\max}=\frac{(\beta-1)\,\grad f(x^{k})\trans s^{k}}{L\norm{s^{k}}^{2}}.
 \]
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  First note that $\alpha^{k}_{\max} < 0$ as $\beta < 1$ and $s^k$ is a descent direction. Let $s^k$ be a descent direction and let $\alpha \in [0, \alpha^{k}_{\max}]$. By Taylor's theorem, there exists $\tilde{\alpha} \in (0, \alpha)$ such that
+  \begin{align*}
+    f(x^{k} + \alpha s^{k}) 
+    &= f(x^{k}) + \alpha \grad f(x^{k} + \tilde{\alpha} s^k)\trans s^{k} \\
+    &= f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha \bigl[\grad f(x^{k} + \tilde{\alpha} s^k) - \grad f(x^{k})\bigr]\trans s^{k} \\
+    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha L\norm{x^k - \tilde{\alpha}s^k - x^k} \cdot \norm{s^{k}} \\
+    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha^2 L\norm{s^{k}}^2 \\
+    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha^2(\beta - 1)\grad f(x^{k})\trans s^{k}  \\
+    &\leq f(x^{k}) + \beta\alpha\grad f(x^{k})\trans s^{k},
+  \end{align*}
+  which satisfies the Armijo condition.
+\end{proof}
 
 \begin{lemma}[Lower bound on bArmijo stepsize]\label{lem:bArmijo-step}
 Under the conditions of Lemma~\ref{lem:armijo-range}, the bArmijo stepsize
 $\alpha_{k}$ satisfies $\alpha_{k}\ge\min\{\alpha^{(0)},\,\tau\alpha^{k}_{\max}\}$
 for all $k\ge 0$.
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Note that $a_k = a^{(0)}$ if bArmijo terminates at the start. Suppose this is not the case. By Lemma~\ref{lem:armijo-range}, bArmijo terminates whenever $\alpha \leq \alpha^{k}_{\max}$. Let $i - 1$ be the last iteration before termination, so $\alpha^{(i - 1)} > \alpha^{k}_{\max}$ and $\tau\alpha^{(i - 1)} = \alpha^{(i)} \leq \alpha^{k}_{\max}$. But then
+  \[
+    \alpha_k = \alpha^{(i)} = \tau\alpha^{(i - 1)} > \tau\alpha^{k}_{\max}.
+  \]
+\end{proof}
 
 \section{Global convergence of GLM}
 
@@ -198,7 +245,40 @@ or
    |\grad f(x^{k})\trans s^{k}|\right\}=0.
 \]
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Suppose $\grad f(x^k) \neq 0$ for all $k \geq 0$. Then Armijo condition with $x^{k + 1} = x^k + \alpha_ks^k$ gives
+  \[
+    f(x^{k + 1}) \leq f(x^k) + \beta \alpha_k \grad f(x^k)\trans s^k \implies f(x^k) - f(x^{k + 1}) \geq \beta \alpha_k |\grad f(x^k)\trans s^k|.
+  \]
+  for all $k \geq 0$. By the telescoping sum,
+  \[
+    f(x^0) - f(x^{k + 1}) \geq \sum_{i = 0}^{k} \beta \alpha_i |\grad f(x^i)\trans s^i|.
+  \]
+  Since $f$ is bounded below by $f_{\mathrm{low}}$, 
+  \[
+    \infty > f(x^0) - f_{\mathrm{low}} \geq \sum_{i = 0}^{\infty} \beta \alpha_i |\grad f(x^i)\trans s^i|.
+  \]
+  Thus, $\alpha_k |\grad f(x^k)\trans s^k| \to 0$ as $k \to \infty$. Recall from Lemma~\ref{lem:bArmijo-step} that $\alpha_k \geq \min\{\alpha^{(0)}, \tau\alpha^{k}_{\max}\}$ for all $k \geq 0$. Define
+  \[
+    \mathcal{K}_1 \coloneqq \{k : \alpha^{(0)} \geq \tau\alpha^{k}_{\max}\}, \qquad \mathcal{K}_2 \coloneqq \{k : \alpha^{(0)} < \tau\alpha^{k}_{\max}\}.
+  \]
+  By Lemma~\ref{lem:bArmijo-step}, for $k \in \mathcal{K}_1$,
+  \[
+    \alpha_k |\grad f(x^k)\trans s^k| \geq \frac{(1 - \beta)\tau}{L} \cdot \left(\frac{|\grad f(x^k)\trans s^k|}{\norm{s^k}}\right)^2 \geq 0.
+  \]
+  But then $\alpha_k |\grad f(x^k)\trans s^k| \to 0$ as $k \to \infty$ in $\mathcal{K}_1$, so
+  \[
+    \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_1}} \frac{|\grad f(x^k)\trans s^k|}{\norm{s^k}} \to 0.
+  \]
+  On the other hand, by Lemma~\ref{lem:bArmijo-step}, for $k \in \mathcal{K}_2$ we have $a_k \geq \alpha^{(0)}$, so
+  \[
+    0 \leq \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} |\grad f(x^k)\trans s^k| \leq \frac{1}{\alpha^{(0)}} \cdot \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} \alpha_k |\grad f(x^k)\trans s^k| \to 0.
+  \]
+  Combining both cases, we have
+  \[
+    \lim_{k\to\infty}\min\!\left\{\frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}},\, \grad f(x^{k})\trans s^{k}|\right\}=0.
+  \]
+\end{proof}
 
 \begin{remark}\label{rem:angle}
 Writing $\cos\theta_{k}=\frac{-\grad f(x^{k})\trans s^{k}}{\norm{\grad f(x^{k})}\norm{s^{k}}}$,
