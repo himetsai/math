@@ -28,9 +28,9 @@
 
 \begin{document}
 
-\title{Network Mini-project}
+\title{Network Mini-project: All-or-None Model}
 
-\author{Ray Tsai}
+\author{Candidate number: 1099950}
 
 \begin{abstract}
   We analyze various properties of the all-or-none model of network growth.
@@ -40,9 +40,9 @@
 
 \section{\label{sec:intro}Introduction}
 
-Network growth models are central to our understanding of complex systems in the real world. The Barab\'asi--Albert (BA) model introduced preferential attachment as a mechanism for generating power-law degree distributions, while copying models propose an alternative microscopic rule in which new nodes replicate the connections of existing ones.
+Network growth models are crucial to our understanding of complex systems in the real world. The Barab\'asi--Albert (BA) model introduced preferential attachment as a mechanism for generating power-law degree distributions, while copying models propose an alternative microscopic rule in which new nodes replicate the connections of existing ones.
 
-In this work we analyze the \emph{all-or-none} model. At each growth step a new node is added and connected to a target chosen uniformly at random, and then it connects to \emph{all} neighbors of the target with probability $p$, or to \emph{none} of them with probability $1-p$. We show that despite its simplicity, the model produces power-law degree distributions with exponent $1/p$, an $N$-independent clustering coefficient $C=3p/(1+2p)$, and logarithmic average distances, making it a small-world network for every $p\in(0,1)$. Additionally, we will also investigate the model's assortative nature, as well as its consensus dynamics.
+In this work we analyze the \emph{all-or-none} model. At each growth step a new node is added and connected to a target chosen uniformly at random, and then it connects to \emph{all} neighbors of the target with probability $p$, or to \emph{none} of them with probability $1-p$. We show that the model produces power-law degree distributions with exponent $1/p$, a clustering coefficient $C=3p/(1+2p)$ independent of $N$, and logarithmic average distances, which makes it a small-world network for every $p\in(0,1)$. Additionally, we will also investigate the model's assortative nature, as well as its consensus dynamics.
 
 \section{\label{sec:model}Model Definition}
 
@@ -156,7 +156,7 @@ we see that $W$ and $3T$ have the same bracketed term, and thus we get
 \begin{equation}\label{eq:clustering}
   C = \frac{3p}{1+2p},
 \end{equation}
-for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is constant on $N$, which is large compared to the clustering coefficient of the Erdős-Rényi random graph and thus a sign for the small-world property.
+for all $p\in(0,1)$ as $N \to \infty$. In particular, this result is constant on $N$, which is large compared to the clustering coefficient of the Erdős-Rényi random graph and thus a sign of the small-world property.
 
 \begin{figure}[h]
   \centering
@@ -299,7 +299,7 @@ The consensus dynamics of a network is the process of all nodes reaching a commo
 
 \section{\label{sec:conclusion}Conclusion}
 
-We have presented an analytical study of the all-or-none copying model, showing that its single parameter $p$ governs a rich variety of network phenomena. The edge count exhibits a sparse-to-dense transition at $p=1/2$, while the degree distribution follows a power law $P_k \sim k^{-1/p}$, recovering the exponent in the BA model at $p=1/3$ without invoking preferential attachment. A clustering coefficient $C=3p/(1+2p)$ independent of $N$ and logarithmic distances $\ell \sim 2(1-p)\ln N$ establish the small-world property for every $p \in (0,1)$, and a positive assortativity $r = p(9-2p)/[(1+2p)(2-p)]$ for $p<1/4$. For the network dynamics, our logarithmic diameter bound yields a consensus timescale of $\tau = O(N\log N)$ for general $p$, while the complete-graph limit at $p=1$ gives $\tau = 1/N$, confirming that a minimal copying rule can produce realistic network structure and efficient dynamics simultaneously.
+We have presented an analytical study of the all-or-none copying model, showing that its single parameter $p$ governs various network properties. The edge count exhibits a sparse-to-dense transition at $p=1/2$, while the degree distribution follows a power law $P_k \sim k^{-1/p}$, recovering the exponent in the BA model at $p=1/3$ without preferential attachment. A clustering coefficient $C=3p/(1+2p)$ independent of $N$ and logarithmic distances $\ell \sim 2(1-p)\ln N$ establish the small-world property for every $p \in (0,1)$, and a positive assortativity $r = p(9-2p)/[(1+2p)(2-p)]$ for $p<1/4$. For the network dynamics, our logarithmic diameter bound yields a consensus timescale of $\tau = O(N\log N)$ for general $p$, while the complete-graph limit at $p=1$ gives $\tau = 1/N$, confirming that a minimal copying rule can produce complex network structures.
 
 \bibliographystyle{apsrev4-2}
 \bibliography{references}

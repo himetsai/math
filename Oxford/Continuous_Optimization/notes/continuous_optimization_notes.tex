@@ -1,0 +1,854 @@
+\documentclass[11pt,a4paper]{report}
+
+%==========================================================
+% Packages
+%==========================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}  % uncomment for nicer fonts if available
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black}
+\usepackage{microtype}  % uncomment if you have lmodern or another scalable font
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{algorithm}[theorem]{Algorithm}
+
+\newcommand{\todo}{\textit{[Proof to be filled in.]}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\inner}[2]{\langle #1,\,#2\rangle}
+\newcommand{\grad}{\nabla}
+\newcommand{\hess}{\nabla^{2}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\trans}{^{\top}}
+\newcommand{\eps}{\varepsilon}
+
+\title{C6.2 \\[0.3em] \Large Continuous Optimization}
+\author{Ray Tsai \\ \small (based on the lectures of Coralia Cartis, Oxford)}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent\textbf{References.}
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item N.~I.~M.~Gould, \emph{An Introduction to Algorithms for Continuous Optimization},
+        2006.
+  \item J.~Nocedal and S.~J.~Wright, \emph{Numerical Optimization}, Springer (2nd ed.~2006).
+  \item A.~R.~Conn, N.~I.~M.~Gould and Ph.~L.~Toint, \emph{Trust-Region Methods}, SIAM 2000.
+  \item R.~Fletcher, \emph{Practical Methods of Optimization}, 2nd ed., Wiley 1987.
+\end{itemize}
+
+\tableofcontents
+
+%==========================================================
+\chapter{Optimality Conditions for Unconstrained Optimization}
+%==========================================================
+
+\section{Problem classes and notation}
+
+We consider the unconstrained optimization problem
+\begin{equation}\tag{UP}\label{eq:UP}
+\min_{x\in\R^{n}}\; f(x),
+\end{equation}
+where $f:\R^{n}\to\R$ is smooth (typically $f\in\mathcal{C}^{1}$ or $\mathcal{C}^{2}$).
+
+\begin{definition}[Local and global minimizers]
+A point $x^{*}\in\R^{n}$ is a \emph{local minimizer} of $f$ if there exists
+$\delta>0$ such that $f(x^{*})\le f(x)$ for all $x\in N(x^{*},\delta)
+=\{x:\norm{x-x^{*}}<\delta\}$. It is a \emph{strict} local minimizer if the
+inequality is strict for $x\ne x^{*}$, and a \emph{global minimizer} if
+$f(x^{*})\le f(x)$ for all $x\in\R^{n}$.
+\end{definition}
+
+\begin{definition}[Descent direction]
+Given $x\in\R^{n}$ with $\grad f(x)\ne 0$, a vector $s\in\R^{n}$ is a
+\emph{descent direction} for $f$ at $x$ if $\grad f(x)\trans s<0$.
+\end{definition}
+
+\begin{lemma}[Descent property]\label{lem:descent}
+If $f\in\mathcal{C}^{1}$ and $s$ is a descent direction at $x$, then there
+exists $\bar{\alpha}>0$ such that $f(x+\alpha s)<f(x)$ for all
+$\alpha\in(0,\bar{\alpha}]$.
+\end{lemma}
+\begin{proof}
+  \todo
+\end{proof}
+
+\section{First-order optimality conditions}
+
+\begin{theorem}[First-order necessary conditions]\label{thm:foc}
+Let $f\in\mathcal{C}^{1}(\R^{n})$. If $x^{*}$ is a local minimizer of $f$,
+then $\grad f(x^{*})=0$.
+\end{theorem}
+\begin{proof}
+  \todo
+\end{proof}
+
+\begin{definition}[Stationary point]
+A point $x$ with $\grad f(x)=0$ is called a \emph{stationary point} of $f$.
+\end{definition}
+
+\section{Second-order optimality conditions}
+
+\begin{theorem}[Second-order necessary conditions]\label{thm:soc-nec}
+Let $f\in\mathcal{C}^{2}(\R^{n})$. If $x^{*}$ is a local minimizer of $f$,
+then $\grad f(x^{*})=0$ and $\hess f(x^{*})\succeq 0$ (positive semidefinite),
+i.e.\ $s\trans\hess f(x^{*})s\ge 0$ for all $s\in\R^{n}$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\begin{theorem}[Second-order sufficient conditions]\label{thm:soc-suf}
+Let $f\in\mathcal{C}^{2}(\R^{n})$. If $\grad f(x^{*})=0$ and $\hess f(x^{*})\succ 0$
+(positive definite), then $x^{*}$ is a strict local minimizer of $f$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Convex problems}
+
+\begin{definition}[Convex function]
+A function $f:\R^{n}\to\R$ is \emph{convex} if its domain is convex and, for all
+$x,y$ in its domain and all $\lambda\in[0,1]$,
+$f(\lambda x+(1-\lambda)y)\le \lambda f(x)+(1-\lambda)f(y)$.
+\end{definition}
+
+\begin{theorem}[Optimality for convex problems]\label{thm:convex-opt}
+Let $f:\R^{n}\to\R$ be convex and $\mathcal{C}^{1}$. Then $x^{*}$ is a global
+minimizer of $f$ if and only if $\grad f(x^{*})=0$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+
+%==========================================================
+\chapter{Linesearch Methods}
+%==========================================================
+
+\section{The generic linesearch method}
+
+\begin{algorithm}[Generic Linesearch Method (GLM)]\label{alg:GLM}
+Choose $\eps>0$ and $x^{0}\in\R^{n}$. For $k\ge 0$:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item If $\norm{\grad f(x^{k})}\le\eps$, stop.
+  \item Compute a descent direction $s^{k}$ with $\grad f(x^{k})\trans s^{k}<0$.
+  \item Compute a stepsize $\alpha_{k}>0$ along $s^{k}$ such that
+        $f(x^{k}+\alpha_{k}s^{k})<f(x^{k})$.
+  \item Set $x^{k+1}:=x^{k}+\alpha_{k}s^{k}$.
+\end{enumerate}
+\end{algorithm}
+
+\section{Stepsize rules: the Armijo condition}
+
+For $\beta\in(0,1)$ the \emph{Armijo (sufficient decrease) condition} at
+iteration $k$ is
+\begin{equation}\label{eq:armijo}\tag{ac}
+f(x^{k}+\alpha s^{k})\le f(x^{k})+\beta\alpha\,\grad f(x^{k})\trans s^{k}.
+\end{equation}
+
+\begin{algorithm}[Backtracking-Armijo (bArmijo) linesearch]\label{alg:bArmijo}
+Choose $\alpha^{(0)}>0$, $\tau\in(0,1)$, $\beta\in(0,1)$. Set $i:=0$.
+While \eqref{eq:armijo} fails with $\alpha=\alpha^{(i)}$, set
+$\alpha^{(i+1)}:=\tau\alpha^{(i)}$ and $i:=i+1$. Set $\alpha_{k}:=\alpha^{(i)}$.
+\end{algorithm}
+
+\begin{lemma}[Range of admissible stepsizes]\label{lem:armijo-range}
+Let $f\in\mathcal{C}^{1}$ with $\grad f$ Lipschitz continuous with constant $L$.
+At iteration $k$ of GLM, the Armijo condition \eqref{eq:armijo} is satisfied
+for all $\alpha\in[0,\alpha^{k}_{\max}]$, where
+\[
+\alpha^{k}_{\max}=\frac{(\beta-1)\,\grad f(x^{k})\trans s^{k}}{L\norm{s^{k}}^{2}}.
+\]
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\begin{lemma}[Lower bound on bArmijo stepsize]\label{lem:bArmijo-step}
+Under the conditions of Lemma~\ref{lem:armijo-range}, the bArmijo stepsize
+$\alpha_{k}$ satisfies $\alpha_{k}\ge\min\{\alpha^{(0)},\,\tau\alpha^{k}_{\max}\}$
+for all $k\ge 0$.
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{Global convergence of GLM}
+
+\begin{theorem}[Global convergence of GLM with bArmijo]\label{thm:GLM-global}
+Let $f\in\mathcal{C}^{1}(\R^{n})$ be bounded below by $f_{\mathrm{low}}$, and
+$\grad f$ be Lipschitz continuous. Apply GLM with bArmijo linesearch
+($\eps:=0$). Then either there exists $\ell\ge 0$ with $\grad f(x^{\ell})=0$,
+or
+\[
+\lim_{k\to\infty}\min\!\left\{\frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}},\,
+   |\grad f(x^{k})\trans s^{k}|\right\}=0.
+\]
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\begin{remark}\label{rem:angle}
+Writing $\cos\theta_{k}=\frac{-\grad f(x^{k})\trans s^{k}}{\norm{\grad f(x^{k})}\norm{s^{k}}}$,
+Theorem~\ref{thm:GLM-global} gives
+$\norm{\grad f(x^{k})}\cos\theta_{k}\min\{1,\norm{s^{k}}\}\to 0$.
+Hence to ensure $\norm{\grad f(x^{k})}\to 0$ it is not enough that $s^{k}$ be
+descent: the angle condition $\cos\theta_{k}\ge\delta>0$ for some $\delta$ is
+required.
+\end{remark}
+
+
+%==========================================================
+\chapter{The Steepest Descent Method}
+%==========================================================
+
+\section{The steepest descent direction}
+
+\begin{definition}[Steepest descent direction]
+The \emph{steepest descent (SD) direction} at $x^{k}$ is
+$s^{k}_{\mathrm{SD}}:=-\grad f(x^{k})$.
+\end{definition}
+
+\begin{lemma}[Optimality of $-\grad f$]\label{lem:SD}
+The steepest descent direction is the unique global solution of
+\[
+\min_{s\in\R^{n}}\; f(x^{k})+s\trans\grad f(x^{k})
+\quad\text{subject to}\quad \norm{s}=\norm{\grad f(x^{k})}.
+\]
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{Global convergence of steepest descent}
+
+\begin{theorem}[Global convergence of SD with bArmijo]\label{thm:SD-global}
+Let $f\in\mathcal{C}^{1}(\R^{n})$ be bounded below with $\grad f$ Lipschitz
+continuous. Apply GLM with $s^{k}=-\grad f(x^{k})$ and bArmijo linesearch.
+Then either there exists $\ell$ with $\grad f(x^{\ell})=0$, or
+$\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Local rate of convergence}
+
+\begin{definition}[Rates of convergence]
+A sequence $\{x^{k}\}\subset\R^{n}$ converges to $x^{*}$ with rate $p\ge 1$ if
+there exist $\rho>0$ and $k_{0}$ with
+$\norm{x^{k+1}-x^{*}}\le\rho\norm{x^{k}-x^{*}}^{p}$ for all $k\ge k_{0}$.
+The cases $p=1$ ($\rho<1$) and $p=2$ are called \emph{linear} and
+\emph{quadratic} convergence respectively. The convergence is
+\emph{superlinear} if $\norm{x^{k+1}-x^{*}}/\norm{x^{k}-x^{*}}\to 0$.
+\end{definition}
+
+\begin{theorem}[Local linear convergence of SD]\label{thm:SD-local}
+Let $f\in\mathcal{C}^{2}$ and let $x^{*}$ be a local minimizer of $f$ with
+$\hess f(x^{*})\succ 0$ and eigenvalues $0<\lambda^{*}_{\min}\le\lambda^{*}_{\max}$.
+Apply SD with exact linesearch. If $x^{k}\to x^{*}$, then the convergence is
+linear with factor
+\[
+\rho\le \frac{\kappa(x^{*})-1}{\kappa(x^{*})+1},
+\qquad
+\kappa(x^{*})=\frac{\lambda^{*}_{\max}}{\lambda^{*}_{\min}}.
+\]
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+
+%==========================================================
+\chapter{Newton's Method}
+%==========================================================
+
+\section{The Newton direction}
+
+\begin{definition}[Newton direction]
+For $f\in\mathcal{C}^{2}$ with $\hess f(x^{k})$ nonsingular, the
+\emph{Newton direction} at $x^{k}$ is the solution $s^{k}$ of
+\begin{equation}\label{eq:newton-system}
+\hess f(x^{k})\,s^{k}=-\grad f(x^{k}).
+\end{equation}
+The \emph{(pure) Newton iteration} sets $x^{k+1}:=x^{k}+s^{k}$.
+\end{definition}
+
+\begin{lemma}[Descent property of the Newton direction]\label{lem:newton-descent}
+If $\hess f(x^{k})\succ 0$, then the Newton direction is a descent direction.
+Moreover, $s^{k}$ is the unique minimizer of the second-order Taylor model
+$q_{k}(s):=f(x^{k})+s\trans\grad f(x^{k})+\tfrac12 s\trans\hess f(x^{k})s$.
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{Local convergence of pure Newton}
+
+\begin{theorem}[Local quadratic convergence of pure Newton]\label{thm:newton-local}
+Let $f\in\mathcal{C}^{2}(\R^{n})$, $\grad f(x^{*})=0$, $\hess f(x^{*})$ nonsingular,
+and $\hess f$ locally Lipschitz continuous at $x^{*}$. If $x^{k_{0}}$ is sufficiently
+close to $x^{*}$ for some $k_{0}\ge 0$, then $x^{k}$ is well-defined for all
+$k\ge k_{0}$ and $x^{k}\to x^{*}$ at a quadratic rate.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Linesearch Newton (damped Newton) method}
+
+\begin{algorithm}[Linesearch Newton method]
+Choose $\eps>0$ and $x^{0}\in\R^{n}$. While $\norm{\grad f(x^{k})}>\eps$:
+solve $\hess f(x^{k})s^{k}=-\grad f(x^{k})$, then set $x^{k+1}=x^{k}+\alpha_{k}s^{k}$
+with $\alpha_{k}\in(0,1]$ chosen by, e.g., bArmijo linesearch.
+\end{algorithm}
+
+\begin{theorem}[Local convergence of linesearch Newton]\label{thm:newton-armijo}
+Let $f\in\mathcal{C}^{2}(\R^{n})$ with $\hess f$ Lipschitz continuous and positive
+definite at the iterates. Apply Newton's method with bArmijo linesearch using
+$\beta\le 1/2$ and $\alpha^{(0)}=1$. If $x^{k}\to x^{*}$ with $\grad f(x^{*})=0$
+and $\hess f(x^{*})\succ 0$, then $\alpha_{k}=1$ for all $k$ sufficiently large
+and the convergence is asymptotically quadratic.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Global convergence with general second-order models}
+
+In GLM, let $B_{k}$ be symmetric positive definite for all $k$, and let $s^{k}$
+solve
+\begin{equation}\label{eq:Bksk}
+B_{k}s^{k}=-\grad f(x^{k}).
+\end{equation}
+
+\begin{theorem}[Global convergence with bounded $B_{k}$]\label{thm:Bk-global}
+Let $f\in\mathcal{C}^{1}(\R^{n})$ be bounded below with $\grad f$ Lipschitz
+continuous. Apply GLM with $s^{k}$ from \eqref{eq:Bksk} and bArmijo linesearch
+($\eps:=0$). Suppose the eigenvalues of $B_{k}$ are uniformly bounded above and
+uniformly bounded away from zero, independently of $k$. Then either there exists
+$\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+
+%==========================================================
+\chapter{Quasi-Newton Methods and Nonlinear Least-Squares}
+%==========================================================
+
+\section{The secant equation}
+
+In quasi-Newton methods, $\hess f(x^{k+1})$ is approximated by a symmetric matrix
+$B_{k+1}$ satisfying the \emph{secant equation}
+\begin{equation}\label{eq:secant}
+B_{k+1}\,\delta^{k}=\gamma^{k},
+\qquad \delta^{k}:=x^{k+1}-x^{k},\;\;
+\gamma^{k}:=\grad f(x^{k+1})-\grad f(x^{k}).
+\end{equation}
+
+\begin{lemma}[Quadratic case]\label{lem:secant-quad}
+If $f(x)=g\trans x+\tfrac12 x\trans Hx$, then \eqref{eq:secant} is satisfied with
+$B_{k+1}=\hess f=H$.
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{The BFGS update}
+
+\begin{definition}[BFGS update]
+The \emph{BFGS} update is the rank-2 symmetric update
+\begin{equation}\label{eq:BFGS}
+B_{k+1}=B_{k}-\frac{B_{k}\delta^{k}(\delta^{k})\trans B_{k}}{(\delta^{k})\trans B_{k}\delta^{k}}
++\frac{\gamma^{k}(\gamma^{k})\trans}{(\delta^{k})\trans\gamma^{k}}.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Properties of the BFGS update]\label{thm:BFGS-pd}
+If $B_{k}$ is symmetric positive definite and $(\delta^{k})\trans\gamma^{k}>0$,
+then the BFGS update \eqref{eq:BFGS} is well-defined, symmetric and positive
+definite, and satisfies the secant equation \eqref{eq:secant}.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\begin{remark}
+The condition $(\delta^{k})\trans\gamma^{k}>0$ is guaranteed by use of the
+Wolfe linesearch.
+\end{remark}
+
+\begin{theorem}[Convergence of BFGS]\label{thm:BFGS-conv}
+Under suitable conditions on $f$ and using the Wolfe linesearch, the BFGS method
+is globally convergent and locally Q-superlinearly convergent.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Nonlinear least-squares}
+
+The nonlinear least-squares problem is
+\begin{equation}\label{eq:NLS}
+\min_{x\in\R^{n}}\; f(x)=\tfrac12\norm{r(x)}^{2}=\tfrac12\sum_{j=1}^{m}r_{j}(x)^{2},
+\end{equation}
+where $r:\R^{n}\to\R^{m}$ is smooth with Jacobian $J(x)$.
+
+\begin{lemma}[Derivatives of $f$]\label{lem:NLS-deriv}
+For $f$ in \eqref{eq:NLS},
+\[
+\grad f(x)=J(x)\trans r(x),\qquad
+\hess f(x)=J(x)\trans J(x)+\sum_{j=1}^{m}r_{j}(x)\hess r_{j}(x).
+\]
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{The Gauss-Newton method}
+
+\begin{definition}[Gauss-Newton direction]
+The \emph{Gauss-Newton (GN) direction} solves the linear system
+\begin{equation}\label{eq:GN}
+J(x^{k})\trans J(x^{k})\,s^{k}=-J(x^{k})\trans r(x^{k}).
+\end{equation}
+\end{definition}
+
+\begin{lemma}[Descent property]\label{lem:GN-descent}
+If $J(x^{k})$ has full column rank, then the Gauss-Newton direction is a descent
+direction for $f$.
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\begin{theorem}[Convergence of Gauss-Newton]\label{thm:GN-conv}
+Apply Gauss-Newton with bArmijo linesearch.
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+\item (Global.) If $J(x^{k})$ is uniformly full rank, $f\in\mathcal{C}^{1}$ bounded below
+and $\grad f$ Lipschitz, then $\norm{\grad f(x^{k})}\to 0$.
+\item (Local.) If $r(x^{*})=0$ and $J(x^{*})$ has full rank, the convergence is
+quadratic; if $r(x^{*})\ne 0$ but small, the convergence is linear.
+\end{enumerate}
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+
+%==========================================================
+\chapter{Trust-Region Methods}
+%==========================================================
+
+\section{The trust-region framework}
+
+At iteration $k$, we form a quadratic model
+\begin{equation}\label{eq:TRmodel}
+m_{k}(s)=f(x^{k})+s\trans\grad f(x^{k})+\tfrac12 s\trans B_{k}s,
+\end{equation}
+where $B_{k}$ is symmetric (e.g.\ $B_{k}=\hess f(x^{k})$). The
+\emph{trust-region (TR) subproblem} is
+\begin{equation}\label{eq:TRsub}\tag{TR}
+\min_{s\in\R^{n}}\; m_{k}(s) \quad\text{subject to}\quad \norm{s}\le\Delta_{k},
+\end{equation}
+with trust-region radius $\Delta_{k}>0$.
+
+\begin{algorithm}[Generic Trust-Region (GTR) method]\label{alg:GTR}
+Given $\Delta_{0}>0$, $x^{0}\in\R^{n}$, $\eps>0$. While $\norm{\grad f(x^{k})}>\eps$:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item Form $m_{k}$ and (approximately) solve \eqref{eq:TRsub} for $s^{k}$ with
+        $m_{k}(s^{k})<f(x^{k})$.
+  \item Compute $\rho_{k}=\dfrac{f(x^{k})-f(x^{k}+s^{k})}{f(x^{k})-m_{k}(s^{k})}$.
+  \item If $\rho_{k}\ge 0.9$: set $x^{k+1}:=x^{k}+s^{k}$, $\Delta_{k+1}:=2\Delta_{k}$.\\
+        Else if $\rho_{k}\ge 0.1$: set $x^{k+1}:=x^{k}+s^{k}$, $\Delta_{k+1}:=\Delta_{k}$.\\
+        Else: set $x^{k+1}:=x^{k}$, $\Delta_{k+1}:=\tfrac12\Delta_{k}$.
+\end{enumerate}
+\end{algorithm}
+
+\section{The Cauchy point}
+
+\begin{definition}[Cauchy point]
+The \emph{Cauchy point} of \eqref{eq:TRsub} is $y^{k}_{c}=x^{k}+s^{k}_{c}$, where
+$s^{k}_{c}=-\alpha^{k}_{c}\grad f(x^{k})$ and
+\[
+\alpha^{k}_{c}=\argmin_{\alpha>0}\, m_{k}\!\left(-\alpha\grad f(x^{k})\right)
+\quad\text{subject to}\quad
+\norm{\alpha\grad f(x^{k})}\le\Delta_{k}.
+\]
+\end{definition}
+
+\begin{lemma}[Cauchy-point decrease]\label{lem:cauchy}
+With $h_{k}=\grad f(x^{k})\trans B_{k}\grad f(x^{k})$,
+\[
+f(x^{k})-m_{k}(s^{k}_{c})\ge \tfrac12\norm{\grad f(x^{k})}\,
+\min\!\left\{\Delta_{k},\,\frac{\norm{\grad f(x^{k})}}{\norm{B_{k}}}\right\}.
+\]
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{Global convergence of GTR}
+
+\begin{theorem}[Global convergence of GTR]\label{thm:GTR-global}
+Let $f\in\mathcal{C}^{2}(\R^{n})$ be bounded below with $\grad f$ Lipschitz
+continuous, and assume $\norm{B_{k}}$ is uniformly bounded. Apply GTR
+(Algorithm~\ref{alg:GTR}) requiring $m_{k}(s^{k})\le m_{k}(s^{k}_{c})$. Then either
+there exists $\ell\ge 0$ with $\grad f(x^{\ell})=0$, or
+$\liminf_{k\to\infty}\norm{\grad f(x^{k})}=0$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\begin{theorem}[Stronger global convergence]\label{thm:GTR-lim}
+Under the conditions of Theorem~\ref{thm:GTR-global},
+$\lim_{k\to\infty}\norm{\grad f(x^{k})}=0$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Solving the trust-region subproblem}
+
+\begin{theorem}[Characterization of the global TR solution]\label{thm:TR-charac}
+A vector $s^{*}\in\R^{n}$ is a global solution of \eqref{eq:TRsub} if and only if
+$\norm{s^{*}}\le\Delta_{k}$ and there exists $\lambda^{*}\ge 0$ such that
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item $(B_{k}+\lambda^{*}I)s^{*}=-\grad f(x^{k})$,
+  \item $\lambda^{*}(\Delta_{k}-\norm{s^{*}})=0$ \quad(complementarity),
+  \item $B_{k}+\lambda^{*}I\succeq 0$.
+\end{enumerate}
+Moreover $\lambda^{*}$ is unique whenever $B_{k}+\lambda^{*}I\succ 0$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+
+%==========================================================
+\chapter{Optimality Conditions for Constrained Optimization}
+%==========================================================
+
+\section{The constrained problem}
+
+We consider the general constrained problem
+\begin{equation}\label{eq:CP}\tag{CP}
+\min_{x\in\R^{n}}\; f(x)\quad\text{subject to}\quad
+c_{i}(x)=0,\;i\in E;\;\;c_{i}(x)\ge 0,\;i\in I,
+\end{equation}
+with feasible set
+$\Omega=\{x\in\R^{n}:c_{i}(x)=0,\,i\in E;\;c_{i}(x)\ge 0,\,i\in I\}$,
+and active set at $x\in\Omega$:
+$\mathcal{A}(x)=E\cup\{i\in I:c_{i}(x)=0\}$.
+
+\section{Tangent cone and linearized feasible directions}
+
+\begin{definition}[Tangent cone]
+The \emph{tangent cone} to $\Omega$ at $x\in\Omega$ is
+\[
+T_{\Omega}(x)=\Bigl\{s\in\R^{n}:\exists\,z^{k}\in\Omega,\,t^{k}\downarrow 0,\,
+z^{k}\to x,\;s=\lim_{k\to\infty}\frac{z^{k}-x}{t^{k}}\Bigr\}.
+\]
+\end{definition}
+
+\begin{definition}[Linearized feasible directions]
+The set of \emph{linearized feasible directions} at $x\in\Omega$ is
+\[
+\mathcal{F}(x)=\{s:\grad c_{i}(x)\trans s=0,\,i\in E;\;
+\grad c_{i}(x)\trans s\ge 0,\,i\in I\cap\mathcal{A}(x)\}.
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:TF}
+$T_{\Omega}(x)\subseteq\mathcal{F}(x)$.
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{Constraint qualifications}
+
+\begin{definition}[LICQ]
+\eqref{eq:CP} satisfies the \emph{Linear Independence Constraint Qualification (LICQ)}
+at $x\in\Omega$ if the active constraint gradients
+$\{\grad c_{i}(x):i\in\mathcal{A}(x)\}$ are linearly independent.
+\end{definition}
+
+\begin{definition}[Slater CQ]
+A convex problem \eqref{eq:CP} (with $c_{E}(x)=Ax-b$, $c_{i}$ concave for $i\in I$)
+satisfies the \emph{Slater CQ} if there exists $\bar{x}$ with $A\bar{x}=b$ and
+$c_{i}(\bar{x})>0$ for all $i\in I$.
+\end{definition}
+
+\begin{theorem}[CQ implies $T_{\Omega}=\mathcal{F}$]\label{thm:CQ}
+Under LICQ (or any standard CQ), $T_{\Omega}(x)=\mathcal{F}(x)$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{First-order necessary conditions (KKT)}
+
+\begin{definition}[Lagrangian]
+The \emph{Lagrangian} of \eqref{eq:CP} is
+\[
+\mathcal{L}(x,y,\lambda)=f(x)-\sum_{i\in E}y_{i}c_{i}(x)-\sum_{i\in I}\lambda_{i}c_{i}(x).
+\]
+\end{definition}
+
+\begin{theorem}[KKT first-order necessary conditions]\label{thm:KKT}
+Let $x^{*}$ be a local minimizer of \eqref{eq:CP} at which a CQ holds. Then
+there exist multipliers $y^{*}\in\R^{|E|}$ and $\lambda^{*}\in\R^{|I|}$ such that
+\begin{align*}
+\grad f(x^{*})&=\sum_{i\in E}y^{*}_{i}\grad c_{i}(x^{*})+\sum_{i\in I}\lambda^{*}_{i}\grad c_{i}(x^{*}),\\
+c_{i}(x^{*})&=0,\quad i\in E,\\
+c_{i}(x^{*})&\ge 0,\quad i\in I,\\
+\lambda^{*}_{i}&\ge 0,\quad i\in I,\\
+\lambda^{*}_{i}c_{i}(x^{*})&=0,\quad i\in I \quad\text{(complementarity).}
+\end{align*}
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Second-order conditions}
+
+Let $\mathcal{F}(\lambda^{*})=\{s\in\mathcal{F}(x^{*}):\grad c_{i}(x^{*})\trans s=0
+\text{ for } i\in I\text{ with }\lambda^{*}_{i}>0\}$.
+
+\begin{theorem}[Second-order necessary conditions]\label{thm:CP-SO-nec}
+Let $x^{*}$ be a local minimizer of \eqref{eq:CP} at which a CQ holds, with
+multipliers $(y^{*},\lambda^{*})$. Then
+$s\trans\hess_{xx}\mathcal{L}(x^{*},y^{*},\lambda^{*})s\ge 0$ for all
+$s\in\mathcal{F}(\lambda^{*})$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\begin{theorem}[Second-order sufficient conditions]\label{thm:CP-SO-suf}
+Let $x^{*}$ be feasible for \eqref{eq:CP}, and let $(y^{*},\lambda^{*})$ satisfy
+the KKT conditions at $x^{*}$. If
+$s\trans\hess_{xx}\mathcal{L}(x^{*},y^{*},\lambda^{*})s>0$
+for all $0\ne s\in\mathcal{F}(\lambda^{*})$, then $x^{*}$ is a strict local
+minimizer of \eqref{eq:CP}.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Convex problems}
+
+\begin{theorem}[KKT is sufficient for convex problems]\label{thm:CP-convex}
+Suppose \eqref{eq:CP} is a convex problem (i.e.\ $f$ convex, $c_{i}$ concave for
+$i\in I$, $c_{E}$ affine). If $\hat{x}$ is a KKT point of \eqref{eq:CP}, then
+$\hat{x}$ is a global minimizer of \eqref{eq:CP}.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+
+%==========================================================
+\chapter{Penalty Methods}
+%==========================================================
+
+We now turn to algorithms for the equality-constrained problem
+\begin{equation}\label{eq:eCP}\tag{eCP}
+\min_{x\in\R^{n}} f(x)\quad\text{subject to}\quad c(x)=0,
+\end{equation}
+where $c=(c_{1},\dots,c_{m}):\R^{n}\to\R^{m}$ is smooth.
+
+\section{The quadratic penalty function}
+
+\begin{definition}[Quadratic penalty function]
+For $\sigma>0$, the \emph{quadratic penalty function} associated with \eqref{eq:eCP} is
+\begin{equation}\label{eq:Phi}
+\Phi_{\sigma}(x)=f(x)+\frac{1}{2\sigma}\norm{c(x)}^{2}.
+\end{equation}
+\end{definition}
+
+\begin{algorithm}[Basic quadratic penalty method]\label{alg:penalty}
+Choose $\sigma_{0}>0$ and $\eps_{0}>0$. For $k=0,1,2,\dots$:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item Find $x^{k}$ with $\norm{\grad\Phi_{\sigma_{k}}(x^{k})}\le\eps_{k}$.
+  \item Choose $\sigma_{k+1}<\sigma_{k}$ and $\eps_{k+1}<\eps_{k}$.
+\end{enumerate}
+\end{algorithm}
+
+\begin{lemma}[Gradient of $\Phi_{\sigma}$]\label{lem:gradPhi}
+With $J(x)$ the Jacobian of $c$,
+\[
+\grad\Phi_{\sigma}(x)=\grad f(x)+\frac{1}{\sigma}J(x)\trans c(x)
+=\grad f(x)-J(x)\trans y(x),
+\]
+where $y(x)=-c(x)/\sigma$.
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{Convergence of the penalty method}
+
+\begin{theorem}[Global convergence of the quadratic penalty method]\label{thm:penalty}
+Apply Algorithm~\ref{alg:penalty} to \eqref{eq:eCP}. Assume $f,c\in\mathcal{C}^{1}$, set
+$y^{k}_{i}=-c_{i}(x^{k})/\sigma_{k}$, and assume
+$\norm{\grad\Phi_{\sigma_{k}}(x^{k})}\le\eps_{k}$ with $\eps_{k}\to 0$ and
+$\sigma_{k}\to 0$ as $k\to\infty$. Suppose further that $x^{k}\to x^{*}$ where
+$\{\grad c_{i}(x^{*}):i=1,\dots,m\}$ are linearly independent. Then $x^{*}$ is a
+KKT point of \eqref{eq:eCP} and $y^{k}\to y^{*}$, the corresponding Lagrange
+multiplier vector.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\begin{remark}
+If $J(x^{*})$ is not full rank then $x^{*}$ instead (locally) minimizes the
+infeasibility $\norm{c(x)}$.
+\end{remark}
+
+\section{Other penalty functions}
+
+\begin{definition}[Exact penalty function]
+A penalty function $\Phi(x,\sigma)$ is \emph{exact} if there exists $\sigma^{*}>0$
+such that for all $\sigma<\sigma^{*}$, every local solution of the original problem
+is a local minimizer of $\Phi(\cdot,\sigma)$.
+\end{definition}
+
+\begin{example}[$\ell_{1}$ and $\ell_{2}$ penalty functions]
+For \eqref{eq:CP},
+\[
+\Phi_{1}(x,\sigma)=f(x)+\tfrac{1}{\sigma}\sum_{i\in E}|c_{i}(x)|+\tfrac{1}{\sigma}\sum_{i\in I}[c_{i}(x)]_{-},
+\]
+\[
+\Phi_{2}(x,\sigma)=f(x)+\tfrac{1}{\sigma}\norm{c_{E}(x)}_{2}+\tfrac{1}{\sigma}\norm{[c_{I}(x)]_{-}}_{2}.
+\]
+Both are exact (but generally non-smooth); the quadratic penalty is smooth but
+not exact.
+\end{example}
+
+
+%==========================================================
+\chapter{Augmented Lagrangian Methods}
+%==========================================================
+
+\section{The augmented Lagrangian}
+
+\begin{definition}[Augmented Lagrangian]
+The \emph{augmented Lagrangian} for \eqref{eq:eCP} is
+\begin{equation}\label{eq:auglag}
+\Phi(x,u,\sigma)=f(x)-u\trans c(x)+\frac{1}{2\sigma}\norm{c(x)}^{2},
+\end{equation}
+where $u\in\R^{m}$ is an estimate of the Lagrange multipliers and $\sigma>0$.
+\end{definition}
+
+\begin{remark}
+$\Phi(x,u,\sigma)$ has two interpretations:
+(i) the Lagrangian augmented with a quadratic penalty;
+(ii) a shifted quadratic penalty with shift $u$.
+\end{remark}
+
+\section{The basic algorithm}
+
+\begin{algorithm}[Augmented Lagrangian method]\label{alg:auglag}
+Choose $u^{0}\in\R^{m}$, $\sigma_{0}>0$, $\eps_{0}>0$. For $k=0,1,\dots$:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item Find $x^{k}$ with $\norm{\grad_{x}\Phi(x^{k},u^{k},\sigma_{k})}\le\eps_{k}$.
+  \item Update $u^{k+1}=u^{k}-c(x^{k})/\sigma_{k}$.
+  \item Choose $\sigma_{k+1}\le\sigma_{k}$, $\eps_{k+1}<\eps_{k}$.
+\end{enumerate}
+\end{algorithm}
+
+\section{Convergence}
+
+\begin{theorem}[Global convergence of augmented Lagrangian]\label{thm:auglag}
+Apply Algorithm~\ref{alg:auglag} to \eqref{eq:eCP}. Assume $f,c\in\mathcal{C}^{1}$,
+let $y^{k}=u^{k}-c(x^{k})/\sigma_{k}$, and
+$\norm{\grad_{x}\Phi(x^{k},u^{k},\sigma_{k})}\le\eps_{k}$ with $\eps_{k}\to 0$.
+Suppose $x^{k}\to x^{*}$ where $\{\grad c_{i}(x^{*})\}_{i=1}^{m}$ are linearly
+independent. Then $y^{k}\to y^{*}$ with
+$\grad f(x^{*})-J(x^{*})\trans y^{*}=0$. Moreover, if either
+$\sigma_{k}\to 0$ for bounded $u^{k}$, or $u^{k}\to y^{*}$ for bounded
+$\sigma_{k}$, then $x^{*}$ is a KKT point of \eqref{eq:eCP} with associated
+multipliers $y^{*}$.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+
+%==========================================================
+\chapter{Interior Point Methods}
+%==========================================================
+
+We consider the inequality-constrained problem
+\begin{equation}\label{eq:iCP}\tag{iCP}
+\min_{x\in\R^{n}} f(x)\quad\text{subject to}\quad c(x)\ge 0,
+\end{equation}
+where $c=(c_{1},\dots,c_{p}):\R^{n}\to\R^{p}$ is smooth.
+
+\section{The logarithmic barrier function}
+
+\begin{definition}[Barrier function]
+For $\mu>0$, the \emph{logarithmic barrier function} is
+\begin{equation}\label{eq:barrier}
+f_{\mu}(x)=f(x)-\mu\sum_{i=1}^{p}\log c_{i}(x),
+\end{equation}
+defined on the strict interior $\{x:c(x)>0\}$.
+\end{definition}
+
+\begin{lemma}[Barrier derivatives]\label{lem:barrier-deriv}
+With $J(x)$ the Jacobian of $c$ and $C(x)=\diag(c_{1}(x),\dots,c_{p}(x))$,
+\begin{align*}
+\grad f_{\mu}(x)&=\grad f(x)-\mu J(x)\trans c^{-1}(x)
+=\grad f(x)-J(x)\trans \lambda(x),\\
+\hess f_{\mu}(x)&=\hess f(x)-\sum_{i=1}^{p}\frac{\mu}{c_{i}(x)}\hess c_{i}(x)
++\mu J(x)\trans C(x)^{-2}J(x),
+\end{align*}
+where $\lambda_{i}(x):=\mu/c_{i}(x)$ are estimates of the Lagrange multipliers.
+\end{lemma}
+\begin{proof}\todo\end{proof}
+
+\section{The basic barrier algorithm}
+
+\begin{algorithm}[Basic barrier algorithm]\label{alg:barrier}
+Choose $\mu_{0}>0$, $\eps_{0}>0$ and $x^{0}$ with $c(x^{0})>0$.
+For $k=0,1,\dots$:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item Find $x^{k}$ with $c(x^{k})>0$ and $\norm{\grad f_{\mu_{k}}(x^{k})}\le\eps_{k}$.
+  \item Choose $\mu_{k+1}<\mu_{k}$, $\eps_{k+1}<\eps_{k}$.
+\end{enumerate}
+\end{algorithm}
+
+\section{Convergence}
+
+\begin{theorem}[Global convergence of the barrier method]\label{thm:barrier}
+Apply Algorithm~\ref{alg:barrier} to \eqref{eq:iCP}. Assume $f,c\in\mathcal{C}^{1}$,
+$\lambda^{k}_{i}=\mu_{k}/c_{i}(x^{k})$ for $i=1,\dots,p$ with $c(x^{k})>0$,
+$\mu_{k}>0$, and
+$\norm{\grad f_{\mu_{k}}(x^{k})}\le\eps_{k}$ with $\eps_{k}\to 0$, $\mu_{k}\to 0$
+as $k\to\infty$. Suppose $x^{k}\to x^{*}$ where the active gradients
+$\{\grad c_{i}(x^{*}):i\in\mathcal{A}\}$ are linearly independent (i.e.\ LICQ),
+$\mathcal{A}=\{i:c_{i}(x^{*})=0\}$. Then $x^{*}$ is a KKT point of
+\eqref{eq:iCP} and $\lambda^{k}\to\lambda^{*}$, the associated Lagrange multipliers.
+\end{theorem}
+\begin{proof}\todo\end{proof}
+
+\section{Primal-dual interior point methods}
+
+\begin{remark}
+Modern interior point software (KNITRO, IPOPT, GALAHAD) uses
+\emph{primal-dual} variants that apply Newton's method directly to the
+perturbed KKT system
+\[
+\grad f(x)-J(x)\trans\lambda=0,\qquad C(x)\lambda=\mu e,\qquad c(x)>0,\;\lambda>0,
+\]
+where $e=(1,\dots,1)\trans$. The path traced out by solutions as $\mu\downarrow 0$
+is called the \emph{central path}.
+\end{remark}
+
+%==========================================================
+\appendix
+%==========================================================
+
+\chapter{Useful background}
+
+\section{Taylor's theorem}
+
+\begin{theorem}[First-order Taylor]
+Let $f\in\mathcal{C}^{1}$. For any $x,s\in\R^{n}$ there exists $\tilde{\alpha}\in(0,1)$
+with $f(x+s)=f(x)+\grad f(x+\tilde{\alpha}s)\trans s$.
+\end{theorem}
+
+\begin{theorem}[Second-order Taylor]
+Let $f\in\mathcal{C}^{2}$. For any $x,s\in\R^{n}$ there exists $\tilde{\alpha}\in(0,1)$
+with
+\[
+f(x+s)=f(x)+\grad f(x)\trans s+\tfrac12 s\trans\hess f(x+\tilde{\alpha}s)s.
+\]
+\end{theorem}
+
+\section{Lipschitz continuity}
+
+\begin{definition}
+A function $g:\R^{n}\to\R^{m}$ is \emph{Lipschitz continuous} on $\R^{n}$
+with constant $L>0$ if $\norm{g(y)-g(x)}\le L\norm{y-x}$ for all $x,y\in\R^{n}$.
+\end{definition}
+
+\section{Convexity}
+
+\begin{theorem}[First-order characterization]
+Let $f\in\mathcal{C}^{1}$. Then $f$ is convex if and only if
+$f(y)\ge f(x)+\grad f(x)\trans(y-x)$ for all $x,y$.
+\end{theorem}
+
+\begin{theorem}[Second-order characterization]
+Let $f\in\mathcal{C}^{2}$. Then $f$ is convex if and only if
+$\hess f(x)\succeq 0$ for all $x$.
+\end{theorem}
+
+\end{document}
