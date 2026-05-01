@@ -308,7 +308,21 @@ The steepest descent direction is the unique global solution of
 \quad\text{subject to}\quad \norm{s}=\norm{\grad f(x^{k})}.
 \]
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Note that
+  \[
+    \argmin_{s\in\R^{n}} f(x^{k}) + s\trans\grad f(x^{k}) = \argmin_{s\in\R^{n}} s\trans\grad f(x^{k}).
+  \]
+  By Cauchy-Schwarz inequality,
+  \[
+    |s\trans\grad f(x^{k})| \leq \norm{s}\norm{\grad f(x^{k})} = \norm{\grad f(x^{k})}^2,
+  \]
+  with equality if and only if $s = \pm\grad f(x^{k})$. In particular,
+  \[
+    s\trans\grad f(x^{k}) \geq -\norm{\grad f(x^{k})}^2,
+  \]
+  which is only achieved when $s = -\grad f(x^{k})$.
+\end{proof}
 
 \section{Global convergence of steepest descent}
 
@@ -318,7 +332,12 @@ continuous. Apply GLM with $s^{k}=-\grad f(x^{k})$ and bArmijo linesearch.
 Then either there exists $\ell$ with $\grad f(x^{\ell})=0$, or
 $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Suppose there are no $\ell$ with $\grad f(x^{\ell}) = 0$. Then by Theorem~\ref{thm:GLM-global}, 
+  \[
+  \lim_{k\to\infty}\min \left\{\frac{\norm{\grad f(x^{k})}^2}{\norm{-\grad f(x^k)}}, \norm{\grad f(x^{k})}\right\} = \norm{\grad f(x^{k})} = 0.
+  \]
+\end{proof}
 
 \section{Local rate of convergence}
 
