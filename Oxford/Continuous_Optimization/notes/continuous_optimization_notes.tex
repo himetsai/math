@@ -143,7 +143,25 @@ Let $f\in\mathcal{C}^{2}(\R^{n})$. If $\grad f(x^{*})=0$ and $\hess f(x^{*})\suc
   Thus $x^{*}$ is a strict local minimizer within the ball $N(x^{*}, \hat{\alpha})$.
 \end{proof}
 
+\begin{example}[Necessary $\not\Rightarrow$ sufficient]
+The conditions are different:
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item $f(x)=x^{3}$, $x^{*}=0$: satisfies the second-order necessary condition
+        ($f''(0)=0\ge 0$) but is not a local minimizer.
+  \item $f(x)=x^{4}$, $x^{*}=0$: is a strict local minimizer but the second-order
+        sufficient condition \emph{fails} ($f''(0)=0\not>0$).
+\end{itemize}
+The gap between necessary and sufficient is the case $\hess f(x^{*})\succeq 0$ but
+not $\succ 0$, in which case optimality cannot be decided from $\grad f$ and
+$\hess f$ alone.
+\end{example}
+
 \section{Convex problems}
+
+For convex problems, the picture simplifies dramatically: \emph{every local
+minimizer is global}, and the first-order necessary condition $\grad f(x^{*})=0$
+becomes \emph{sufficient}. This is one of the main reasons convex optimization is
+algorithmically tractable.
 
 \begin{definition}[Convex function]
 A function $f:\R^{n}\to\R$ is \emph{convex} if its domain is convex and, for all
@@ -172,6 +190,12 @@ minimizer of $f$ if and only if $\grad f(x^{*})=0$.
 \chapter{Linesearch Methods}
 %==========================================================
 
+A linesearch method generates iterates $x^{k+1}=x^{k}+\alpha_{k}s^{k}$ where
+$s^{k}$ is a descent direction and $\alpha_{k}>0$ is a stepsize. The philosophy is
+``liberal in the choice of search direction, keeping bad behaviour in control by
+choice of $\alpha_{k}$''. Choosing $\alpha_{k}$ properly is essential: too long and
+the method may overshoot, too short and progress is negligible.
+
 \section{The generic linesearch method}
 
 \begin{algorithm}[Generic Linesearch Method (GLM)]\label{alg:GLM}
@@ -187,11 +211,32 @@ Choose $\eps>0$ and $x^{0}\in\R^{n}$. For $k\ge 0$:
 
 \section{Stepsize rules: the Armijo condition}
 
+\paragraph{Choices of $\alpha_{k}$.} The conceptually simplest choice is the
+\emph{exact linesearch}
+$\alpha_{k}:=\argmin_{\alpha>0} f(x^{k}+\alpha s^{k})$, but this is computationally
+expensive for nonlinear $f$. Inexact linesearches replace it with a cheap rule that
+guarantees the stepsize is ``not too long'' and ``not too short''.
+
+The \emph{Armijo condition} demands sufficient decrease: $\alpha$ is acceptable
+provided the actual decrease is at least a fraction $\beta$ of what the linear model
+predicts. In practice $\beta$ is taken small, e.g.\ $\beta=0.1$ or even $\beta=0.001$,
+to keep the rule mild.
+
 For $\beta\in(0,1)$ the \emph{Armijo (sufficient decrease) condition} at
 iteration $k$ is
 \begin{equation}\label{eq:armijo}\tag{ac}
 f(x^{k}+\alpha s^{k})\le f(x^{k})+\beta\alpha\,\grad f(x^{k})\trans s^{k}.
 \end{equation}
+
+\begin{remark}[Wolfe conditions]
+The Armijo condition prevents $\alpha_{k}$ from being too long, but on its own
+admits arbitrarily small $\alpha_{k}$. The \emph{Wolfe conditions} add a second
+(``curvature'') inequality
+$\grad f(x^{k}+\alpha s^{k})\trans s^{k}\ge \eta\,\grad f(x^{k})\trans s^{k}$
+with $\eta\in(\beta,1)$, ruling out steps that are too short. Wolfe linesearches
+are needed for some methods (e.g.\ BFGS, see Chapter~\ref{ch:qn-nls}) to ensure
+the curvature condition $(\delta^{k})\trans\gamma^{k}>0$.
+\end{remark}
 
 \begin{algorithm}[Backtracking-Armijo (bArmijo) linesearch]\label{alg:bArmijo}
 Choose $\alpha^{(0)}>0$, $\tau\in(0,1)$, $\beta\in(0,1)$. Set $i:=0$.
@@ -208,7 +253,7 @@ for all $\alpha\in[0,\alpha^{k}_{\max}]$, where
 \]
 \end{lemma}
 \begin{proof}
-  First note that $\alpha^{k}_{\max} < 0$ as $\beta < 1$ and $s^k$ is a descent direction. Let $s^k$ be a descent direction and let $\alpha \in [0, \alpha^{k}_{\max}]$. By Taylor's theorem, there exists $\tilde{\alpha} \in (0, \alpha)$ such that
+  First note that $\alpha^{k}_{\max} > 0$ as $\beta < 1$ and $s^k$ is a descent direction. Let $s^k$ be a descent direction and let $\alpha \in [0, \alpha^{k}_{\max}]$. By Taylor's theorem, there exists $\tilde{\alpha} \in (0, \alpha)$ such that
   \begin{align*}
     f(x^{k} + \alpha s^{k}) 
     &= f(x^{k}) + \alpha \grad f(x^{k} + \tilde{\alpha} s^k)\trans s^{k} \\
@@ -294,6 +339,10 @@ required.
 \chapter{The Steepest Descent Method}
 %==========================================================
 
+The steepest descent (SD) method is the simplest concrete instance of GLM, obtained
+by choosing $s^{k}=-\grad f(x^{k})$. It is a \emph{first-order method}: only
+gradient information is used.
+
 \section{The steepest descent direction}
 
 \begin{definition}[Steepest descent direction]
@@ -360,13 +409,45 @@ linear with factor
 \qquad
 \kappa(x^{*})=\frac{\lambda^{*}_{\max}}{\lambda^{*}_{\min}}.
 \]
+\qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
+
+\section{Summary of steepest descent}
+
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item \textbf{Inexpensive:} only first derivatives required.
+  \item \textbf{Strong global convergence} under weak assumptions, with second-order
+        optimality guarantees for the generated solution (see e.g.\ saddle-point
+        avoidance properties in Lecture 5).
+  \item \textbf{Scale-dependent:} a poor scaling of variables produces a
+        steepest-descent direction that gives little progress. Newton's method
+        does not have this defect (Theorem~\ref{thm:newton-scale}).
+  \item \textbf{Slow asymptotic convergence}: when $\kappa(x^{*})$ is large,
+        $\rho_{SD}=(\kappa-1)/(\kappa+1)$ is very close to $1$ and the iterates
+        ``zig-zag''. SD is therefore not used in general-purpose software, but it
+        remains useful for certain very well-conditioned problems with structure
+        (e.g.\ compressed sensing).
+\end{itemize}
 
 
 %==========================================================
 \chapter{Newton's Method}
+\label{ch:newton}
 %==========================================================
+
+Newton's method for unconstrained minimization can be derived in two equivalent
+ways:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item \emph{Quadratic model.} The Newton step $s^{k}$ minimizes the second-order
+        Taylor approximation of $f$ at $x^{k}$ (when the Hessian is positive
+        definite). Compare this with steepest descent, whose direction minimizes
+        the first-order Taylor approximation under a norm constraint.
+  \item \emph{Newton's root-finding.} Stationarity is the equation $\grad f(x)=0$,
+        an $n\times n$ nonlinear system. Applying Newton's root-finding scheme to
+        $r(x):=\grad f(x)$ produces
+        $x^{k+1}=x^{k}-[J(x^{k})]^{-1}r(x^{k})=x^{k}-[\hess f(x^{k})]^{-1}\grad f(x^{k})$,
+        recovering the Newton iterate.
+\end{enumerate}
 
 \section{The Newton direction}
 
@@ -380,11 +461,31 @@ The \emph{(pure) Newton iteration} sets $x^{k+1}:=x^{k}+s^{k}$.
 \end{definition}
 
 \begin{lemma}[Descent property of the Newton direction]\label{lem:newton-descent}
-If $\hess f(x^{k})\succ 0$, then the Newton direction is a descent direction.
-Moreover, $s^{k}$ is the unique minimizer of the second-order Taylor model
+If $\hess f(x^{k})\succ 0$ and $\grad f(x^{k})\ne0$, then the Newton direction is
+a descent direction. Moreover, $s^{k}$ is the unique minimizer of the
+second-order Taylor model
 $q_{k}(s):=f(x^{k})+s\trans\grad f(x^{k})+\tfrac12 s\trans\hess f(x^{k})s$.
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Put $H_{k}:=\hess f(x^{k})$ and $g_{k}:=\grad f(x^{k})$. Since
+  $H_{k}\succ 0$, it is nonsingular and the Newton equation gives
+  \[
+    s^k = -H_{k}^{-1}g_{k}.
+  \]
+  Also $H_{k}^{-1}\succ 0$, so, as $g_{k}\ne0$,
+  \[
+    g_{k}\trans s^k = -g_{k}\trans H_{k}^{-1}g_{k}<0,
+  \]
+  which makes $s^k$ a descent direction.
+
+  It remains to prove the model-minimizing property. Completing the square, we may write
+  \[
+    q_{k}(s) = f(x^{k})-\frac12 g_{k}\trans H_{k}^{-1}g_{k} + \frac12 (s+H_{k}^{-1}g_{k})\trans H_{k}(s+H_{k}^{-1}g_{k}).
+  \]
+  The last term is nonnegative, and it vanishes if and only if
+  $s=-H_{k}^{-1}g_{k}=s^{k}$. Hence $s^{k}$ is the unique global minimizer of
+  $q_{k}$.
+\end{proof}
 
 \section{Local convergence of pure Newton}
 
@@ -394,7 +495,92 @@ and $\hess f$ locally Lipschitz continuous at $x^{*}$. If $x^{k_{0}}$ is suffici
 close to $x^{*}$ for some $k_{0}\ge 0$, then $x^{k}$ is well-defined for all
 $k\ge k_{0}$ and $x^{k}\to x^{*}$ at a quadratic rate.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Write $g(x):=\grad f(x)$, $H(x):=\hess f(x)$, and
+  $e^{k}:=x^{k}-x^{*}$. Since $H(x^{*})$ is nonsingular and $H$ is continuous,
+  there is a radius $\rho>0$ such that $H(x)$ is nonsingular for
+  $x\in N(x^{*},\rho)$. Shrinking $\rho$ if necessary, local Lipschitz
+  continuity gives a constant $L>0$ such that
+  \[
+    \norm{H(y)-H(x)}\le L\norm{y-x}
+    \quad\text{for all }x,y\in N(x^{*},\rho),
+  \]
+  and continuity of $x\mapsto H(x)^{-1}$ gives a constant $M>0$ such that
+  \[
+    \norm{H(x)^{-1}}\le M
+    \quad\text{for all }x\in N(x^{*},\rho).
+  \]
+  For any $x\in N(x^{*},\rho)$, Taylor's theorem for $g$ with Lipschitz derivative gives
+  \[
+    g(x^{*})=g(x)+H(x)(x^{*}-x)+r(x),
+    \qquad
+    \norm{r(x)}\le \frac{L}{2}\norm{x-x^{*}}^{2}.
+  \]
+  Since $g(x^{*})=0$, the pure Newton iterate
+  $N(x):=x-H(x)^{-1}g(x)$ satisfies
+  \[
+    N(x)-x^{*}
+    =H(x)^{-1}\bigl(H(x)(x-x^{*})-g(x)\bigr)
+    =H(x)^{-1}r(x).
+  \]
+  Hence
+  \[
+    \norm{N(x)-x^{*}}
+    \le \frac{ML}{2}\norm{x-x^{*}}^{2}.
+  \]
+
+  Choose $\delta\in(0,\rho)$ so small that
+  $\frac{ML}{2}\delta\le\frac12$. If $x^{k_{0}}\in N(x^{*},\delta)$, the above
+  estimate shows inductively that every Newton iterate is well-defined and
+  remains in $N(x^{*},\delta)$, since
+  \[
+    \norm{x^{k+1}-x^{*}}
+    \le \frac{ML}{2}\norm{x^{k}-x^{*}}^{2}
+    \le \frac12\norm{x^{k}-x^{*}}.
+  \]
+  Therefore $x^{k}\to x^{*}$, and the sharper estimate
+  \[
+    \norm{x^{k+1}-x^{*}}
+    \le \frac{ML}{2}\norm{x^{k}-x^{*}}^{2}
+  \]
+  gives quadratic convergence.
+\end{proof}
+
+\begin{theorem}[Scale invariance of Newton]\label{thm:newton-scale}
+Newton's method (with or without linesearch) is scale invariant under linear
+transformations of the variables. Explicitly, if $A\in\R^{n\times n}$ is
+nonsingular, $y=Ax$, and $\bar f(y):=f(A^{-1}y)$, then the Newton direction $s_{y}$
+for $\bar f$ at $y$ satisfies $y+\alpha s_{y}=A(x+\alpha s_{x})$.
+\end{theorem}
+
+\begin{proof}
+  Note that
+  \[
+    \grad \bar f(y) = (A^{-1})\trans \grad f(x), \quad \hess \bar f(y) = (A^{-1})\trans \hess f(x) A^{-1}.
+  \]
+  Thus,
+  \begin{align*}
+    s_y = -\bigl[\hess \bar f(y)\bigr]^{-1} \grad \bar f(y) = \bigl(A \bigl[\hess f(x)\bigr]^{-1} A\trans\bigr) \bigl((A^{-1})\trans \grad f(x)\bigr) = A s_x.
+  \end{align*}
+\end{proof}
+
+\begin{remark}[Disadvantages of Newton's method]
+Despite its fast local convergence, the pure Newton iteration suffers several
+serious drawbacks:
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item $s^{k}$ is not well-defined when $\hess f(x^{k})$ is singular.
+  \item $s^{k}$ may not be a descent direction when $\hess f(x^{k})$ is not
+        positive definite.
+  \item Pure Newton may be attracted to local maxima or saddle points (the local
+        convergence Theorem~\ref{thm:newton-local} only requires $\hess f(x^{*})$
+        nonsingular, not positive definite).
+  \item Pure Newton may fail to converge if $x^{0}$ is far from a solution; for
+        example, applied to $f(x)=-x^{6}/6+x^{4}/4+2x^{2}$ from $x^{0}=1$, it
+        cycles between $\pm 1$ (neither stationary).
+\end{itemize}
+This is why a linesearch (or trust-region) safeguard is needed to make Newton's
+method globally convergent.
+\end{remark}
 
 \section{Linesearch Newton (damped Newton) method}
 
@@ -407,11 +593,70 @@ with $\alpha_{k}\in(0,1]$ chosen by, e.g., bArmijo linesearch.
 \begin{theorem}[Local convergence of linesearch Newton]\label{thm:newton-armijo}
 Let $f\in\mathcal{C}^{2}(\R^{n})$ with $\hess f$ Lipschitz continuous and positive
 definite at the iterates. Apply Newton's method with bArmijo linesearch using
-$\beta\le 1/2$ and $\alpha^{(0)}=1$. If $x^{k}\to x^{*}$ with $\grad f(x^{*})=0$
-and $\hess f(x^{*})\succ 0$, then $\alpha_{k}=1$ for all $k$ sufficiently large
-and the convergence is asymptotically quadratic.
+$\beta<1/2$ and $\alpha^{(0)}=1$. If $x^{k}\to x^{*}$ with $\grad f(x^{*})=0$ and
+$\hess f(x^{*})\succ 0$, then $\alpha_{k}=1$ for all $k$ sufficiently large and
+the convergence is asymptotically quadratic.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Put $g_{k}:=\grad f(x^{k})$, $H_{k}:=\hess f(x^{k})$, and let
+  $s^{k}=-H_{k}^{-1}g_{k}$ be the Newton direction. Since
+  $x^{k}\to x^{*}$ and $H(x^{*})\succ0$, there exist $m>0$ and $k_{0}$ such that
+  \[
+    H_{k}\succeq m I
+    \quad\text{for all }k\ge k_{0}.
+  \]
+  In particular, for $k\ge k_{0}$,
+  \[
+    g_{k}\trans s^{k}=-(s^{k})\trans H_{k}s^{k}
+    \le -m\norm{s^{k}}^{2}.
+  \]
+  Also $g_{k}\to0$ and $H_{k}^{-1}$ is bounded for large $k$, so
+  $s^{k}\to0$.
+
+  Let $L$ be a Lipschitz constant for $\hess f$ on a neighbourhood of $x^{*}$
+  containing $x^{k}$ and $x^{k}+s^{k}$ for all sufficiently large $k$. Taylor's
+  theorem with Lipschitz Hessian gives
+  \[
+    f(x^{k}+s^{k})
+    \le f(x^{k})+g_{k}\trans s^{k}
+      +\frac12 (s^{k})\trans H_{k}s^{k}
+      +\frac{L}{6}\norm{s^{k}}^{3}.
+  \]
+  Using $H_{k}s^{k}=-g_{k}$, this becomes
+  \[
+    f(x^{k}+s^{k})
+    \le f(x^{k})+\frac12 g_{k}\trans s^{k}
+      +\frac{L}{6}\norm{s^{k}}^{3}.
+  \]
+  Since $\beta<1/2$ and $s^{k}\to0$, for all sufficiently large $k$,
+  \[
+    \frac{L}{6}\norm{s^{k}}
+    \le \left(\frac12-\beta\right)m.
+  \]
+  Therefore
+  \[
+    \frac{L}{6}\norm{s^{k}}^{3}
+    \le \left(\frac12-\beta\right)(s^{k})\trans H_{k}s^{k}
+    = \left(\frac12-\beta\right)(-g_{k}\trans s^{k}),
+  \]
+  and hence
+  \[
+    f(x^{k}+s^{k})
+    \le f(x^{k})+\beta\, g_{k}\trans s^{k}.
+  \]
+  Thus the full step $\alpha=1$ satisfies the Armijo condition. Since bArmijo
+  starts with $\alpha^{(0)}=1$, it accepts $\alpha_{k}=1$ for all sufficiently
+  large $k$.
+
+  From that point on the method is pure Newton. The hypotheses of
+  Theorem~\ref{thm:newton-local} hold at $x^{*}$, so the tail of the sequence
+  satisfies
+  \[
+    \norm{x^{k+1}-x^{*}}\le C\norm{x^{k}-x^{*}}^{2}
+  \]
+  for some constant $C>0$ and all sufficiently large $k$. This is asymptotic
+  quadratic convergence.
+\end{proof}
 
 \section{Global convergence with general second-order models}
 
@@ -428,14 +673,71 @@ continuous. Apply GLM with $s^{k}$ from \eqref{eq:Bksk} and bArmijo linesearch
 uniformly bounded away from zero, independently of $k$. Then either there exists
 $\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Write $H_k = \hess f(x^k)$ and $g_k = \grad f(x^k)$. Note that $B_k$ is nonsingular, so we may write $s^k = -B_k^{-1}g_k$. Assume that $g_k \neq 0$ for all $k \geq 0$. Then by Theorem~\ref{thm:GLM-global}
+  \begin{equation}\label{eq:Bk-global-condition}
+    \lim_{k\to\infty}\min\!\left\{\frac{|g_k\trans s^k|}{\norm{s^k}}, |g_k\trans s^k|\right\}=0.
+  \end{equation}
+  We are left to show that this implies that $\norm{\grad f(x^k)} \to 0$ as $k \to \infty$.
+
+  Since $B_k$ is symmetric, $B_k$ admits real eigenvalues by the spectral theorem. Since the eigenvalues are uniformly bounded above and away from zero, there exists constants $\lambda_{\max}$ and $\lambda_{\min}$ such that $\lambda_{\max} \geq \lambda_{\max}(B_k) \geq \lambda_{\min}(B_k) \geq \lambda_{\min}$ for all $k \geq 0$. In particular, for any $s \in \R^n$ and any $B_k$,
+  \[
+    \lambda_{\min} \norm{s}^2 \leq \lambda_{\min}(B_k) \norm{s}^2 \leq s\trans B_k s \leq \lambda_{\max}(B_k) \norm{s}^2 \leq \lambda_{\max} \norm{s}^2 \implies \lambda_{\min} \leq \frac{s\trans B_k s}{\norm{s}^2} \leq \lambda_{\max}.
+  \]
+  Since $\grad f$ is Lipschitz continuous, $\norm{H_k}$ is uniformly bounded above. Thus, by possibly enlarging $\lambda_{\max}$, we have $\lambda_{\max}(H_k) \leq \lambda_{\max}$ for all $k \geq 0$. 
+
+  By definition of the $s^k$ and $g_k \neq 0$, 
+  \[
+    |g_k\trans s^k| = |g_k\trans B_k^{-1}g_k| \geq \lambda_{\min}(B_k^{-1}) \norm{g_k}^2 \geq \frac{\norm{g_k}^2}{\lambda_{\max}}.
+  \]
+  On the other hand,
+  \[
+    \norm{s^k}^2 = g_k\trans B_k^{-2}g_k \leq \lambda_{\max}(B^{-2})\norm{g_k}^2 \leq \frac{\norm{g_k}^2}{\lambda_{\min}^2} \implies \frac{1}{\norm{s^k}} \geq \frac{\lambda_{\min}}{\norm{g_k}}.
+  \]
+  Plugging into \eqref{eq:Bk-global-condition}, we have
+  \[
+    \lim_{k\to\infty} \min\!\left\{\frac{\lambda_{\min}}{\lambda_{\max}} \norm{g_k}, \frac{\norm{g_k}^2}{\lambda_{\max}}\right\} \leq \lim_{k\to\infty}\min\!\left\{\frac{|g_k\trans s^k|}{\norm{s^k}}, |g_k\trans s^k|\right\} \to 0 \implies \lim_{k \to \infty} g_k = 0.
+  \]
+\end{proof}
 
 
 %==========================================================
 \chapter{Quasi-Newton Methods and Nonlinear Least-Squares}
+\label{ch:qn-nls}
 %==========================================================
 
+Newton's method has fast local convergence but each iteration is expensive: forming
+$\hess f(x^{k})$ costs $O(n^{2})$ second-derivative evaluations, and solving the
+linear system costs $O(n^{3})$. \emph{Quasi-Newton methods} aim for a sweet spot:
+faster than steepest descent, but cheaper per iteration than Newton, by using
+\emph{secant approximations} $B_{k}\approx\hess f(x^{k})$ built from gradient
+information already computed.
+
+The design principles for $B_{k+1}$ form a ``wish list'':
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item built from already-computed quantities $\grad f(x^{k+1}),\grad f(x^{k}),
+        \dots,B_{k},s^{k}$;
+  \item symmetric, nonsingular, and ideally positive definite;
+  \item ``close'' to $B_{k}$ and a ``cheap'' update of $B_{k}$;
+  \item asymptotically, $B_{k}\to\hess f(x^{*})$.
+\end{itemize}
+No single update satisfies the entire list; different methods make different
+trade-offs.
+
+\begin{remark}[Approximating the Hessian by finite differences]
+An alternative when second derivatives are unavailable is to approximate
+$[\hess f(x)]e_{i}\approx \frac{1}{h}[\grad f(x+he_{i})-\grad f(x)]$ for
+$i=1,\dots,n$, costing $n+1$ gradient evaluations. Choice of $h$ is delicate (too
+large $\to$ inaccurate; too small $\to$ cancellation errors).
+\end{remark}
+
 \section{The secant equation}
+
+\paragraph{Interpretation.} The secant equation requires the new model to predict
+correctly the change in gradient: in the quadratic case $f(x)=g\trans x+\tfrac12
+x\trans Hx$, $\grad f(x^{k+1})-\grad f(x^{k})=H(x^{k+1}-x^{k})$, so $B_{k+1}=H$
+satisfies the equation. More generally, the change in gradient encodes
+information about the Hessian (cf.\ finite differences).
 
 In quasi-Newton methods, $\hess f(x^{k+1})$ is approximated by a symmetric matrix
 $B_{k+1}$ satisfying the \emph{secant equation}
@@ -452,6 +754,13 @@ $B_{k+1}=\hess f=H$.
 \begin{proof}\todo\end{proof}
 
 \section{The BFGS update}
+
+There are infinitely many ways to satisfy the secant equation. One choice is the
+\emph{symmetric rank-1 (SR1)} update $B_{k+1}=B_{k}+u^{k}(u^{k})\trans$, which is
+cheap ($O(n^{2})$ per iteration via the Sherman--Morrison--Woodbury formula) but
+may fail to be positive definite, leading to non-descent directions.
+The \emph{BFGS} update (Broyden, Fletcher, Goldfarb, Shanno, independently 1970)
+is a rank-2 update that preserves positive definiteness.
 
 \begin{definition}[BFGS update]
 The \emph{BFGS} update is the rank-2 symmetric update
@@ -479,7 +788,24 @@ is globally convergent and locally Q-superlinearly convergent.
 \end{theorem}
 \begin{proof}\todo\end{proof}
 
+\begin{remark}[BFGS in practice]
+BFGS satisfies essentially all the items on the wish list: it is symmetric and
+positive definite (so $s^{k}=-B_{k}^{-1}\grad f(x^{k})$ is descent), close to $B_{k}$,
+cheap to update (in practice the Cholesky factors of $B_{k}$ are stored and updated
+directly). Applied with exact linesearch to a strictly convex quadratic, $B_{k}$
+converges to $\hess f$ in at most $n$ iterations. BFGS suffers much less from poor
+scaling than steepest descent. It has been the most popular general-purpose method
+when second derivatives are unavailable, and is the basis of MATLAB's
+\texttt{fminunc}.
+\end{remark}
+
 \section{Nonlinear least-squares}
+
+Many problems (model fitting, parameter estimation, data assimilation) take the
+form: choose $x$ to minimise the sum of squared residuals $r_{j}(x)^{2}$. The
+problem is called \emph{zero-residual} if $r(x^{*})=0$ (the model fits exactly)
+and \emph{nonzero-residual} otherwise. The special structure of $f$ allows
+significant savings over generic Newton methods.
 
 The nonlinear least-squares problem is
 \begin{equation}\label{eq:NLS}
@@ -497,6 +823,13 @@ For $f$ in \eqref{eq:NLS},
 \begin{proof}\todo\end{proof}
 
 \section{The Gauss-Newton method}
+
+\paragraph{Motivation.} The Hessian decomposes as $\hess f(x)=J(x)\trans J(x)
++\sum_{j}r_{j}(x)\hess r_{j}(x)$. When residuals are small ($r_{j}(x^{*})\approx 0$)
+or the model is nearly linear ($\hess r_{j}\approx 0$), the second term is
+negligible and $\hess f(x)\approx J(x)\trans J(x)$. The Gauss-Newton method
+substitutes this approximation into the Newton system, dispensing with second
+derivatives entirely.
 
 \begin{definition}[Gauss-Newton direction]
 The \emph{Gauss-Newton (GN) direction} solves the linear system
@@ -522,13 +855,52 @@ quadratic; if $r(x^{*})\ne 0$ but small, the convergence is linear.
 \end{theorem}
 \begin{proof}\todo\end{proof}
 
+\begin{remark}[Newton vs.\ Gauss-Newton]\
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item \textbf{Cost per iteration:} Newton $>$ Gauss-Newton (no second
+        derivatives needed for GN).
+  \item \textbf{Newton direction may be ascent} if $\hess f(x^{k})$ is not positive
+        definite. In contrast, the GN direction is always descent provided
+        $J(x^{k})$ has full column rank.
+  \item \textbf{Local rate:} Newton always quadratic; GN only quadratic for
+        zero-residual problems and only linear when $r(x^{*})\ne 0$.
+  \item Both methods are unreliable without a linesearch (or trust-region)
+        safeguard.
+\end{itemize}
+\end{remark}
+
 
 %==========================================================
 \chapter{Trust-Region Methods}
 %==========================================================
 
+Trust-region methods are an alternative to linesearch for globalising Newton-type
+iterations. The two philosophies differ:
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item \textbf{Linesearch:} ``liberal'' in choice of search direction; keeps bad
+        behaviour in control by choosing $\alpha_{k}$.
+  \item \textbf{Trust-region:} ``conservative'' in choice of step; the full step
+        is accepted if a sufficient \emph{model decrease} is realised in the
+        objective. Otherwise the step is rejected and the model is refined.
+\end{itemize}
+A key advantage of TR methods is that they accommodate \emph{indefinite} or
+ill-behaved Hessians: the trust-region constraint regularises an otherwise
+unbounded model. They also fit naturally with quasi-Newton ideas, since there is
+no need for $B_{k}$ to be positive definite.
+
 \section{The trust-region framework}
 
+We approximate $f(x^{k}+s)$ by a local model. Two natural choices are:
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item linear: $\ell_{k}(s):=f(x^{k})+s\trans\grad f(x^{k})$;
+  \item quadratic: $q_{k}(s):=f(x^{k})+s\trans\grad f(x^{k})+\tfrac12 s\trans
+        B_{k} s$, with $B_{k}=\hess f(x^{k})$ in the standard case.
+\end{itemize}
+\paragraph{Impediments.} The model may not resemble $f$ when $\norm{s}$ is large,
+and may be unbounded below: $\ell_{k}$ is always unbounded below (unless
+$\grad f(x^{k})=0$), and $q_{k}$ is unbounded below whenever $B_{k}$ is negative
+definite or indefinite, and sometimes when $B_{k}$ is only positive
+semidefinite. We trust the model only on a region $\norm{s}\le\Delta_{k}$:
 At iteration $k$, we form a quadratic model
 \begin{equation}\label{eq:TRmodel}
 m_{k}(s)=f(x^{k})+s\trans\grad f(x^{k})+\tfrac12 s\trans B_{k}s,
@@ -552,7 +924,24 @@ Given $\Delta_{0}>0$, $x^{0}\in\R^{n}$, $\eps>0$. While $\norm{\grad f(x^{k})}>\
 \end{enumerate}
 \end{algorithm}
 
+\begin{remark}[The ratio $\rho_{k}$]
+$\rho_{k}$ measures the ratio of the \emph{actual function decrease} to the
+\emph{predicted model decrease}. $\rho_{k}\approx 1$ indicates the model is
+accurate (we expand the trust region to take longer steps); $\rho_{k}\ll 1$
+indicates the model is poor (we reject the step and shrink the trust region).
+The thresholds $0.1,0.9$ are conventional; other reasonable values appear in
+practice.
+\end{remark}
+
 \section{The Cauchy point}
+
+The Cauchy point is the trust-region analogue of the steepest descent direction:
+it minimises the model $m_{k}$ along the steepest descent direction subject to the
+trust-region constraint. Recall (Theorem~\ref{thm:SD-global}) that steepest descent
+has strong global convergence properties; insisting that any approximate solution
+$s^{k}$ of the TR subproblem do at least as well as the Cauchy point is a
+``minimal sufficient decrease'' condition that suffices for global convergence
+of GTR.
 
 \begin{definition}[Cauchy point]
 The \emph{Cauchy point} of \eqref{eq:TRsub} is $y^{k}_{c}=x^{k}+s^{k}_{c}$, where
@@ -573,6 +962,13 @@ f(x^{k})-m_{k}(s^{k}_{c})\ge \tfrac12\norm{\grad f(x^{k})}\,
 \end{lemma}
 \begin{proof}\todo\end{proof}
 
+\begin{remark}
+Lemma~\ref{lem:cauchy} is the key technical estimate underlying global
+convergence: any step that does at least as well as the Cauchy step inherits
+this lower bound on the model decrease, and combined with the ratio test in
+GTR this drives $\norm{\grad f(x^{k})}\to 0$.
+\end{remark}
+
 \section{Global convergence of GTR}
 
 \begin{theorem}[Global convergence of GTR]\label{thm:GTR-global}
@@ -592,6 +988,10 @@ $\lim_{k\to\infty}\norm{\grad f(x^{k})}=0$.
 
 \section{Solving the trust-region subproblem}
 
+\paragraph{Strategy.} The characterisation below shows that solving \eqref{eq:TRsub}
+reduces to the secular equation $\norm{(B_{k}+\lambda I)^{-1}\grad f(x^{k})}=\Delta_{k}$
+in the scalar $\lambda\ge\max\{0,-\lambda_{\min}(B_{k})\}$.
+
 \begin{theorem}[Characterization of the global TR solution]\label{thm:TR-charac}
 A vector $s^{*}\in\R^{n}$ is a global solution of \eqref{eq:TRsub} if and only if
 $\norm{s^{*}}\le\Delta_{k}$ and there exists $\lambda^{*}\ge 0$ such that
@@ -604,10 +1004,54 @@ Moreover $\lambda^{*}$ is unique whenever $B_{k}+\lambda^{*}I\succ 0$.
 \end{theorem}
 \begin{proof}\todo\end{proof}
 
+\begin{remark}[Two cases for the global solution]
+Theorem~\ref{thm:TR-charac} reduces practical solution to two cases:
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item \textbf{Case 1:} $B_{k}\succ 0$ and the unconstrained Newton step
+        $s=-B_{k}^{-1}\grad f(x^{k})$ satisfies $\norm{s}\le\Delta_{k}$ — then
+        $s^{*}=s$ and $\lambda^{*}=0$ (Newton step is inside the trust region).
+  \item \textbf{Case 2:} otherwise — find $\lambda\ge\max\{0,-\lambda_{\min}(B_{k})\}$
+        with $\norm{(B_{k}+\lambda I)^{-1}\grad f(x^{k})}=\Delta_{k}$, by a 1-D
+        root-find; the solution $s^{*}$ lies on the boundary.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Large-scale problems]
+For large $n$, repeated Cholesky factorisations of $B_{k}+\lambda I$ become
+prohibitive. In practice one uses iterative methods (truncated conjugate gradient,
+Lanczos / Steihaug--Toint) that produce an approximate solution at least as good
+as the Cauchy point, hence preserving the global convergence guarantee.
+\end{remark}
+
+\begin{remark}[Linesearch vs.\ trust-region in practice]
+Both linesearch and trust-region methods underpin state-of-the-art unconstrained
+optimisation software. Linesearch needs more heuristics to deal with negative
+curvature; TR handles indefinite Hessians naturally and accommodates quasi-Newton
+$B_{k}$ that need not be positive definite. The choice between them is largely a
+matter of taste.
+\end{remark}
+
 
 %==========================================================
 \chapter{Optimality Conditions for Constrained Optimization}
 %==========================================================
+
+The unconstrained theory characterised optimality by $\grad f(x^{*})=0$. For
+constrained problems this fails: the gradient at the minimiser need not vanish,
+because feasibility is preventing further descent. The right generalisation is
+the \emph{Karush--Kuhn--Tucker (KKT)} conditions, which characterise points at
+which no \emph{feasible} descent direction exists.
+
+The development proceeds in three steps:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item Define geometric (tangent cone $T_{\Omega}$) and algebraic (linearised
+        feasible directions $\mathcal{F}$) descriptions of feasible directions;
+        always $T_{\Omega}\subseteq\mathcal{F}$, but the reverse can fail.
+  \item Identify a \emph{constraint qualification (CQ)} ensuring
+        $T_{\Omega}=\mathcal{F}$ — without a CQ, optimality conditions need not
+        hold.
+  \item Derive the KKT conditions from the algebraic description $\mathcal{F}$.
+\end{enumerate}
 
 \section{The constrained problem}
 
@@ -663,7 +1107,19 @@ Under LICQ (or any standard CQ), $T_{\Omega}(x)=\mathcal{F}(x)$.
 \end{theorem}
 \begin{proof}\todo\end{proof}
 
+\begin{remark}[Linear constraints]
+If the constraints of \eqref{eq:CP} are linear, i.e.\ $(c_{E},c_{I})(x)=Ax-b$,
+then \emph{no constraint qualification is required}: the KKT conditions hold at
+every local minimiser. This is the content of Theorem~17 in the slides.
+\end{remark}
+
 \section{First-order necessary conditions (KKT)}
+
+\paragraph{Interpretation.} The KKT conditions generalise the unconstrained
+stationarity condition $\grad f=0$: at a constrained minimiser, $\grad f$ lies in
+the cone generated by the gradients of active constraints (with appropriate signs).
+Inactive inequality constraints contribute nothing — by complementarity
+$\lambda^{*}_{i}c_{i}(x^{*})=0$, so $c_{i}(x^{*})>0$ forces $\lambda^{*}_{i}=0$.
 
 \begin{definition}[Lagrangian]
 The \emph{Lagrangian} of \eqref{eq:CP} is
@@ -721,6 +1177,14 @@ $\hat{x}$ is a global minimizer of \eqref{eq:CP}.
 \chapter{Penalty Methods}
 %==========================================================
 
+Constrained optimisation introduces a fundamental tension: we want to minimise $f$
+\emph{and} satisfy the constraints. For inequality-constrained or linear
+equality-constrained problems we can sometimes maintain feasibility throughout,
+but with general nonlinear equality constraints this is very hard, even
+impossible. The idea behind \emph{penalty methods} is to replace the constrained
+problem by a sequence of unconstrained problems whose minimisers approach the
+original solution as a parameter is varied.
+
 We now turn to algorithms for the equality-constrained problem
 \begin{equation}\label{eq:eCP}\tag{eCP}
 \min_{x\in\R^{n}} f(x)\quad\text{subject to}\quad c(x)=0,
@@ -735,6 +1199,13 @@ For $\sigma>0$, the \emph{quadratic penalty function} associated with \eqref{eq:
 \Phi_{\sigma}(x)=f(x)+\frac{1}{2\sigma}\norm{c(x)}^{2}.
 \end{equation}
 \end{definition}
+
+\paragraph{Interpretation.} The parameter $\sigma>0$ controls the penalty on
+infeasibility. As $\sigma\to 0$, infeasibility is forced down and the unconstrained
+minimisers of $\Phi_{\sigma}$ approach a solution of \eqref{eq:eCP}. The function
+$\Phi_{\sigma}$ may have stationary points that are \emph{not} solutions of
+\eqref{eq:eCP} — for example, local minimisers of $\norm{c(x)}$ when $c(x)=0$ has
+no solution.
 
 \begin{algorithm}[Basic quadratic penalty method]\label{alg:penalty}
 Choose $\sigma_{0}>0$ and $\eps_{0}>0$. For $k=0,1,2,\dots$:
@@ -772,7 +1243,23 @@ If $J(x^{*})$ is not full rank then $x^{*}$ instead (locally) minimizes the
 infeasibility $\norm{c(x)}$.
 \end{remark}
 
+\begin{remark}[Ill-conditioning of $\hess\Phi_{\sigma_{k}}$]\label{rem:penalty-ill}
+A serious practical drawback of the basic penalty method is that, asymptotically,
+$\hess\Phi_{\sigma_{k}}(x^{k})$ has $m$ eigenvalues of order $O(1/\sigma_{k})$ and
+the remaining $n-m$ eigenvalues of order $O(1)$ — so the condition number is
+$O(1/\sigma_{k})$ and \emph{blows up as $\sigma_{k}\to 0$}. Consequently we may
+not be able to compute $x^{k}$ accurately by Newton's method on $\Phi_{\sigma_{k}}$.
+This motivates augmented Lagrangians (Chapter~\ref{ch:auglag}), which avoid the
+need to drive $\sigma_{k}\to 0$.
+\end{remark}
+
 \section{Other penalty functions}
+
+The quadratic penalty is \emph{smooth} but \emph{inexact}: $\sigma_{k}\to 0$ is
+required, with the ill-conditioning consequences in
+Remark~\ref{rem:penalty-ill}. \emph{Exact} penalty functions allow convergence at
+a fixed (sufficiently small) $\sigma$, avoiding ill-conditioning, but are
+typically non-smooth and so harder to minimise.
 
 \begin{definition}[Exact penalty function]
 A penalty function $\Phi(x,\sigma)$ is \emph{exact} if there exists $\sigma^{*}>0$
@@ -795,7 +1282,15 @@ not exact.
 
 %==========================================================
 \chapter{Augmented Lagrangian Methods}
+\label{ch:auglag}
 %==========================================================
+
+The quadratic penalty method has a fundamental drawback: $\sigma_{k}\to 0$ is
+required, leading to severe ill-conditioning of the subproblem Hessian
+(Remark~\ref{rem:penalty-ill}). The augmented Lagrangian method retains the
+quadratic penalty term but adds an explicit estimate $u\in\R^{m}$ of the
+Lagrange multipliers, so that as $u\to y^{*}$ feasibility is achieved
+\emph{without} driving $\sigma$ to zero.
 
 \section{The augmented Lagrangian}
 
@@ -807,11 +1302,30 @@ The \emph{augmented Lagrangian} for \eqref{eq:eCP} is
 where $u\in\R^{m}$ is an estimate of the Lagrange multipliers and $\sigma>0$.
 \end{definition}
 
-\begin{remark}
-$\Phi(x,u,\sigma)$ has two interpretations:
-(i) the Lagrangian augmented with a quadratic penalty;
-(ii) a shifted quadratic penalty with shift $u$.
+\begin{remark}[Two interpretations of $\Phi(x,u,\sigma)$]
+$\Phi(x,u,\sigma)$ admits two complementary readings:
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item \textbf{Lagrangian augmented with a quadratic penalty}, $\mathcal{L}(x,u)+\frac{1}{2\sigma}\norm{c(x)}^{2}$.
+        The quadratic term \emph{convexifies} the Lagrangian locally, fixing the
+        well-known issue that the Lagrangian itself is generally a saddle in
+        $(x,y)$ rather than a minimum in $x$.
+  \item \textbf{Shifted quadratic penalty}: completing the square in $c(x)$ gives
+        $\Phi(x,u,\sigma)=f(x)+\frac{1}{2\sigma}\norm{c(x)-\sigma u}^{2}-\tfrac{\sigma}{2}\norm{u}^{2}$,
+        a quadratic penalty centred at the shifted target $c(x)=\sigma u$ rather
+        than $c(x)=0$. As $u\to y^{*}$, the shift vanishes correctly even with
+        $\sigma$ bounded away from zero.
+\end{itemize}
+The aim is to adjust both $u$ and $\sigma$ to encourage convergence.
 \end{remark}
+
+\paragraph{Lagrange multiplier estimates.} A short calculation gives
+\[
+\grad_{x}\Phi(x,u,\sigma)=\grad f(x)-J(x)\trans y(x), \qquad
+y(x):=u-c(x)/\sigma,
+\]
+so the gradient of the augmented Lagrangian coincides with the gradient of the
+ordinary Lagrangian evaluated at the multiplier estimate $y(x)$. This is the
+update rule used in Algorithm~\ref{alg:auglag}.
 
 \section{The basic algorithm}
 
@@ -839,10 +1353,27 @@ multipliers $y^{*}$.
 \end{theorem}
 \begin{proof}\todo\end{proof}
 
+\begin{remark}[Why the augmented Lagrangian helps]
+The crucial difference from the basic penalty method is the second alternative
+in Theorem~\ref{thm:auglag}: convergence is achieved as soon as $u^{k}\to y^{*}$,
+\emph{with $\sigma_{k}$ bounded away from zero}. This means the ill-conditioning
+of the subproblem Hessian is controlled — $\hess_{xx}\Phi(x,u,\sigma)=
+\hess_{xx}\mathcal{L}(x,y)+\frac{1}{\sigma}J(x)\trans J(x)$ has condition number
+$O(1/\sigma)$, which stays bounded if $\sigma$ does. Augmented Lagrangian methods
+underpin the LANCELOT software and are competitive with state-of-the-art
+nonlinear programming codes.
+\end{remark}
+
 
 %==========================================================
 \chapter{Interior Point Methods}
 %==========================================================
+
+For inequality-constrained problems, an alternative to penalty methods is to
+\emph{stay strictly inside the feasible region throughout} and rely on a
+\emph{barrier} that diverges as $c_{i}(x)\downarrow 0$. As we relax the barrier
+parameter $\mu$, the unconstrained minimisers approach the boundary
+along the so-called \emph{central path}.
 
 We consider the inequality-constrained problem
 \begin{equation}\label{eq:iCP}\tag{iCP}
@@ -851,6 +1382,13 @@ We consider the inequality-constrained problem
 where $c=(c_{1},\dots,c_{p}):\R^{n}\to\R^{p}$ is smooth.
 
 \section{The logarithmic barrier function}
+
+\paragraph{Why the logarithm?} Since $-\log c_{i}(x)\to+\infty$ as $c_{i}(x)\downarrow 0$,
+any minimiser $x(\mu)$ of $f_{\mu}$ must lie strictly inside $\Omega$ — the
+constraint $c(x)>0$ is enforced \emph{implicitly} rather than as an explicit
+inequality. When $\mu$ is large, $x(\mu)$ sits ``far inside'' $\Omega$; when $\mu$
+is small, $f$ dominates and $x(\mu)$ is close to the optimal boundary of $\Omega$
+(this is also the regime in which ill-conditioning kicks in; see below).
 
 \begin{definition}[Barrier function]
 For $\mu>0$, the \emph{logarithmic barrier function} is
@@ -870,6 +1408,33 @@ With $J(x)$ the Jacobian of $c$ and $C(x)=\diag(c_{1}(x),\dots,c_{p}(x))$,
 \end{align*}
 where $\lambda_{i}(x):=\mu/c_{i}(x)$ are estimates of the Lagrange multipliers.
 \end{lemma}
+\begin{proof}\todo\end{proof}
+
+\begin{remark}[Connection to the Lagrangian]
+Lemma~\ref{lem:barrier-deriv} reveals a striking fact: $\grad f_{\mu}(x)=
+\grad_{x}\mathcal{L}(x,\lambda(x))$, the gradient of the Lagrangian of
+\eqref{eq:iCP} evaluated at the multiplier estimate $\lambda(x)=\mu/c(x)$.
+Hence $f_{\mu}$ stationarity coincides with stationarity of the Lagrangian of
+the original problem, with multipliers $\lambda(x)$. As $\mu\to 0$ the conditions
+$\lambda_{i}(x)c_{i}(x)=\mu\to 0$ recover complementarity.
+\end{remark}
+
+\section{The central path}
+
+\begin{theorem}[Local existence of the central path]\label{thm:central-path}
+Assume $\Omega^{o}\ne\emptyset$ and $x^{*}$ is a local minimiser of \eqref{eq:iCP}
+satisfying:
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item $\lambda^{*}_{i}>0$ whenever $c_{i}(x^{*})=0$ \emph{(strict
+        complementarity)};
+  \item $\{\grad c_{i}(x^{*}):i\in\mathcal{A}\}$ are linearly independent (LICQ);
+  \item there exists $\alpha>0$ such that $s\trans\hess_{xx}\mathcal{L}(x^{*},\lambda^{*})s
+        \ge\alpha\norm{s}^{2}$ for all $s$ with $J_{\mathcal{A}}(x^{*})s=0$.
+\end{enumerate}
+Then there exists a unique, continuously differentiable path
+$\{x(\mu):\mu_{\eps}>\mu>0\}$ of (global) minimisers of $f_{\mu}$, with
+$x(\mu)\to x^{*}$ as $\mu\to 0$.
+\end{theorem}
 \begin{proof}\todo\end{proof}
 
 \section{The basic barrier algorithm}
@@ -897,17 +1462,57 @@ $\mathcal{A}=\{i:c_{i}(x^{*})=0\}$. Then $x^{*}$ is a KKT point of
 \end{theorem}
 \begin{proof}\todo\end{proof}
 
+\begin{remark}[Difficulties of basic (primal) IPMs]\label{rem:ipm-difficulties}\
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item \emph{Ill-conditioning of $\hess f_{\mu}$.} As $\mu\to 0$,
+        $\mu J(x)\trans C(x)^{-2}J(x)$ has $|\mathcal{A}|$ eigenvalues of order
+        $O(1/\mu)$ tending to infinity, while the rest are $O(1)$. The condition
+        number is $O(1/\mu_{k})$, blowing up. This is the main reason barrier
+        methods fell out of favour in the 1960s, until primal-dual methods
+        revived them in the 1980s.
+  \item \emph{Poor starting points.} The current iterate $x^{k}$ is generally a
+        poor starting point for the next subproblem $\min f_{\mu_{k+1}}$: a full
+        Newton step typically violates $c(x^{k}+s^{k})>0$ as soon as $\mu$ is
+        meaningfully decreased, so progress is slow.
+\end{itemize}
+The remedy for both is to switch to primal-dual methods.
+\end{remark}
+
 \section{Primal-dual interior point methods}
 
-\begin{remark}
-Modern interior point software (KNITRO, IPOPT, GALAHAD) uses
-\emph{primal-dual} variants that apply Newton's method directly to the
-perturbed KKT system
+\begin{remark}[Primal-dual reformulation]
+Modern interior point software (KNITRO, IPOPT, GALAHAD) works with the
+\emph{perturbed KKT system}
 \[
 \grad f(x)-J(x)\trans\lambda=0,\qquad C(x)\lambda=\mu e,\qquad c(x)>0,\;\lambda>0,
 \]
-where $e=(1,\dots,1)\trans$. The path traced out by solutions as $\mu\downarrow 0$
-is called the \emph{central path}.
+where $e=(1,\dots,1)\trans$. The path traced by solutions as $\mu\downarrow 0$ is
+the \emph{central path}. Newton's method applied to the perturbed KKT system
+treats $(x,\lambda)$ as joint variables — multiplier updates are computed
+explicitly each iteration, in contrast to the implicit estimate
+$\lambda(x)=\mu/c(x)$ in the primal method.
+
+\textbf{Benefits over the primal barrier method:}
+\begin{itemize}[leftmargin=2em,itemsep=0pt]
+  \item Ill-conditioning is sidestepped: solving the linear system in the right
+        $(x,\lambda)$ subspaces, the asymptotic conditioning is benign.
+  \item Current iterates are good starting points for the next subproblem, so
+        only a few Newton iterations per $\mu_{k}$ are needed.
+  \item Aggressive parameter schedule $\mu_{k+1}=O(\mu_{k}^{2})$ yields
+        \emph{superlinear} asymptotic convergence.
+\end{itemize}
+Computing an initial $x^{0}$ with $c(x^{0})>0$ is itself nontrivial; various
+heuristics exist (e.g.\ phase-I problems).
+\end{remark}
+
+\begin{remark}[Linear programming: simplex vs.\ IPMs]
+For LP, the simplex method has worst-case exponential complexity
+(Klee--Minty 1972) but very good average-case behaviour. Karmarkar's IPM (1984)
+gave the first practical polynomial-time algorithm for LP; the central path is
+unique and global, and Newton's method on the barrier function can be precisely
+quantified. IPMs scale to very large LPs, with numerically observed average
+complexity $O(\log(\text{LP dim}))$ iterations, each more expensive than a
+simplex pivot.
 \end{remark}
 
 %==========================================================
