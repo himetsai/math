@@ -14,6 +14,9 @@
 \hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black}
 \usepackage{microtype}  % uncomment if you have lmodern or another scalable font
 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -71,6 +74,12 @@ We consider the unconstrained optimization problem
 \min_{x\in\R^{n}}\; f(x),
 \end{equation}
 where $f:\R^{n}\to\R$ is smooth (typically $f\in\mathcal{C}^{1}$ or $\mathcal{C}^{2}$).
+
+\paragraph{Iteration notation.} Iterates and other vector sequences are indexed by
+superscripts, e.g.\ $x^{k}$, $s^{k}$, $u^{k}$, $\delta^{k}$, so that subscripts
+remain available for components such as $x_i$ and $\lambda_i$. Scalar algorithmic
+parameters and named model quantities are indexed by subscripts, e.g.\ $\alpha_k$,
+$\eps_k$, $\Delta_k$, $\rho_k$, $B_k$, $m_k$.
 
 \begin{definition}[Local and global minimizers]
 A point $x^{*}\in\R^{n}$ is a \emph{local minimizer} of $f$ if there exists
@@ -247,18 +256,18 @@ $\alpha^{(i+1)}:=\tau\alpha^{(i)}$ and $i:=i+1$. Set $\alpha_{k}:=\alpha^{(i)}$.
 \begin{lemma}[Range of admissible stepsizes]\label{lem:armijo-range}
 Let $f\in\mathcal{C}^{1}$ with $\grad f$ Lipschitz continuous with constant $L$.
 At iteration $k$ of GLM, the Armijo condition \eqref{eq:armijo} is satisfied
-for all $\alpha\in[0,\alpha^{k}_{\max}]$, where
+for all $\alpha\in[0,\alpha_{k,\max}]$, where
 \[
-\alpha^{k}_{\max}=\frac{(\beta-1)\,\grad f(x^{k})\trans s^{k}}{L\norm{s^{k}}^{2}}.
+\alpha_{k,\max}=\frac{(\beta-1)\,\grad f(x^{k})\trans s^{k}}{L\norm{s^{k}}^{2}}.
 \]
 \end{lemma}
 \begin{proof}
-  First note that $\alpha^{k}_{\max} > 0$ as $\beta < 1$ and $s^k$ is a descent direction. Let $s^k$ be a descent direction and let $\alpha \in [0, \alpha^{k}_{\max}]$. By Taylor's theorem, there exists $\tilde{\alpha} \in (0, \alpha)$ such that
+  First note that $\alpha_{k,\max} > 0$ as $\beta < 1$ and $s^{k}$ is a descent direction. Let $s^{k}$ be a descent direction and let $\alpha \in [0, \alpha_{k,\max}]$. By Taylor's theorem, there exists $\tilde{\alpha} \in (0, \alpha)$ such that
   \begin{align*}
     f(x^{k} + \alpha s^{k}) 
-    &= f(x^{k}) + \alpha \grad f(x^{k} + \tilde{\alpha} s^k)\trans s^{k} \\
-    &= f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha \bigl[\grad f(x^{k} + \tilde{\alpha} s^k) - \grad f(x^{k})\bigr]\trans s^{k} \\
-    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha L\norm{x^k - \tilde{\alpha}s^k - x^k} \cdot \norm{s^{k}} \\
+    &= f(x^{k}) + \alpha \grad f(x^{k} + \tilde{\alpha} s^{k})\trans s^{k} \\
+    &= f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha \bigl[\grad f(x^{k} + \tilde{\alpha} s^{k}) - \grad f(x^{k})\bigr]\trans s^{k} \\
+    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha L\norm{\tilde{\alpha}s^{k}} \cdot \norm{s^{k}} \\
     &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha^2 L\norm{s^{k}}^2 \\
     &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha^2(\beta - 1)\grad f(x^{k})\trans s^{k}  \\
     &\leq f(x^{k}) + \beta\alpha\grad f(x^{k})\trans s^{k},
@@ -268,13 +277,13 @@ for all $\alpha\in[0,\alpha^{k}_{\max}]$, where
 
 \begin{lemma}[Lower bound on bArmijo stepsize]\label{lem:bArmijo-step}
 Under the conditions of Lemma~\ref{lem:armijo-range}, the bArmijo stepsize
-$\alpha_{k}$ satisfies $\alpha_{k}\ge\min\{\alpha^{(0)},\,\tau\alpha^{k}_{\max}\}$
+$\alpha_{k}$ satisfies $\alpha_{k}\ge\min\{\alpha^{(0)},\,\tau\alpha_{k,\max}\}$
 for all $k\ge 0$.
 \end{lemma}
 \begin{proof}
-  Note that $a_k = a^{(0)}$ if bArmijo terminates at the start. Suppose this is not the case. By Lemma~\ref{lem:armijo-range}, bArmijo terminates whenever $\alpha \leq \alpha^{k}_{\max}$. Let $i - 1$ be the last iteration before termination, so $\alpha^{(i - 1)} > \alpha^{k}_{\max}$ and $\tau\alpha^{(i - 1)} = \alpha^{(i)} \leq \alpha^{k}_{\max}$. But then
+  Note that $\alpha_{k} = \alpha^{(0)}$ if bArmijo terminates at the start. Suppose this is not the case. By Lemma~\ref{lem:armijo-range}, bArmijo terminates whenever $\alpha \leq \alpha_{k,\max}$. Let $i - 1$ be the last iteration before termination, so $\alpha^{(i - 1)} > \alpha_{k,\max}$ and $\tau\alpha^{(i - 1)} = \alpha^{(i)} \leq \alpha_{k,\max}$. But then
   \[
-    \alpha_k = \alpha^{(i)} = \tau\alpha^{(i - 1)} > \tau\alpha^{k}_{\max}.
+    \alpha_{k} = \alpha^{(i)} = \tau\alpha^{(i - 1)} > \tau\alpha_{k,\max}.
   \]
 \end{proof}
 
@@ -291,37 +300,37 @@ or
 \]
 \end{theorem}
 \begin{proof}
-  Suppose $\grad f(x^k) \neq 0$ for all $k \geq 0$. Then Armijo condition with $x^{k + 1} = x^k + \alpha_ks^k$ gives
+  Suppose $\grad f(x^{k}) \neq 0$ for all $k \geq 0$. Then Armijo condition with $x^{k+1} = x^{k} + \alpha_{k} s^{k}$ gives
   \[
-    f(x^{k + 1}) \leq f(x^k) + \beta \alpha_k \grad f(x^k)\trans s^k \implies f(x^k) - f(x^{k + 1}) \geq \beta \alpha_k |\grad f(x^k)\trans s^k|.
+    f(x^{k+1}) \leq f(x^{k}) + \beta \alpha_{k} \grad f(x^{k})\trans s^{k} \implies f(x^{k}) - f(x^{k+1}) \geq \beta \alpha_{k} |\grad f(x^{k})\trans s^{k}|.
   \]
   for all $k \geq 0$. By the telescoping sum,
   \[
-    f(x^0) - f(x^{k + 1}) \geq \sum_{i = 0}^{k} \beta \alpha_i |\grad f(x^i)\trans s^i|.
+    f(x^{0}) - f(x^{k+1}) \geq \sum_{i = 0}^{k} \beta \alpha_{i} |\grad f(x^{i})\trans s^{i}|.
   \]
   Since $f$ is bounded below by $f_{\mathrm{low}}$, 
   \[
-    \infty > f(x^0) - f_{\mathrm{low}} \geq \sum_{i = 0}^{\infty} \beta \alpha_i |\grad f(x^i)\trans s^i|.
+    \infty > f(x^{0}) - f_{\mathrm{low}} \geq \sum_{i = 0}^{\infty} \beta \alpha_{i} |\grad f(x^{i})\trans s^{i}|.
   \]
-  Thus, $\alpha_k |\grad f(x^k)\trans s^k| \to 0$ as $k \to \infty$. Recall from Lemma~\ref{lem:bArmijo-step} that $\alpha_k \geq \min\{\alpha^{(0)}, \tau\alpha^{k}_{\max}\}$ for all $k \geq 0$. Define
+  Thus, $\alpha_{k} |\grad f(x^{k})\trans s^{k}| \to 0$ as $k \to \infty$. Recall from Lemma~\ref{lem:bArmijo-step} that $\alpha_{k} \geq \min\{\alpha^{(0)}, \tau\alpha_{k,\max}\}$ for all $k \geq 0$. Define
   \[
-    \mathcal{K}_1 \coloneqq \{k : \alpha^{(0)} \geq \tau\alpha^{k}_{\max}\}, \qquad \mathcal{K}_2 \coloneqq \{k : \alpha^{(0)} < \tau\alpha^{k}_{\max}\}.
+    \mathcal{K}_1 \coloneqq \{k : \alpha^{(0)} \geq \tau\alpha_{k,\max}\}, \qquad \mathcal{K}_2 \coloneqq \{k : \alpha^{(0)} < \tau\alpha_{k,\max}\}.
   \]
   By Lemma~\ref{lem:bArmijo-step}, for $k \in \mathcal{K}_1$,
   \[
-    \alpha_k |\grad f(x^k)\trans s^k| \geq \frac{(1 - \beta)\tau}{L} \cdot \left(\frac{|\grad f(x^k)\trans s^k|}{\norm{s^k}}\right)^2 \geq 0.
+    \alpha_{k} |\grad f(x^{k})\trans s^{k}| \geq \frac{(1 - \beta)\tau}{L} \cdot \left(\frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}}\right)^2 \geq 0.
   \]
-  But then $\alpha_k |\grad f(x^k)\trans s^k| \to 0$ as $k \to \infty$ in $\mathcal{K}_1$, so
+  But then $\alpha_{k} |\grad f(x^{k})\trans s^{k}| \to 0$ as $k \to \infty$ in $\mathcal{K}_1$, so
   \[
-    \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_1}} \frac{|\grad f(x^k)\trans s^k|}{\norm{s^k}} \to 0.
+    \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_1}} \frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}} \to 0.
   \]
-  On the other hand, by Lemma~\ref{lem:bArmijo-step}, for $k \in \mathcal{K}_2$ we have $a_k \geq \alpha^{(0)}$, so
+  On the other hand, by Lemma~\ref{lem:bArmijo-step}, for $k \in \mathcal{K}_2$ we have $\alpha_{k} \geq \alpha^{(0)}$, so
   \[
-    0 \leq \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} |\grad f(x^k)\trans s^k| \leq \frac{1}{\alpha^{(0)}} \cdot \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} \alpha_k |\grad f(x^k)\trans s^k| \to 0.
+    0 \leq \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} |\grad f(x^{k})\trans s^{k}| \leq \frac{1}{\alpha^{(0)}} \cdot \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} \alpha_{k} |\grad f(x^{k})\trans s^{k}| \to 0.
   \]
   Combining both cases, we have
   \[
-    \lim_{k\to\infty}\min\!\left\{\frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}},\, \grad f(x^{k})\trans s^{k}|\right\}=0.
+    \lim_{k\to\infty}\min\!\left\{\frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}},\, |\grad f(x^{k})\trans s^{k}|\right\}=0.
   \]
 \end{proof}
 
@@ -384,7 +393,7 @@ $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
 \begin{proof}
   Suppose there are no $\ell$ with $\grad f(x^{\ell}) = 0$. Then by Theorem~\ref{thm:GLM-global}, 
   \[
-  \lim_{k\to\infty}\min \left\{\frac{\norm{\grad f(x^{k})}^2}{\norm{-\grad f(x^k)}}, \norm{\grad f(x^{k})}\right\} = \norm{\grad f(x^{k})} = 0.
+  \lim_{k\to\infty}\min \left\{\frac{\norm{\grad f(x^{k})}^2}{\norm{-\grad f(x^{k})}}, \norm{\grad f(x^{k})}\right\} = \norm{\grad f(x^{k})} = 0.
   \]
 \end{proof}
 
@@ -470,13 +479,13 @@ $q_{k}(s):=f(x^{k})+s\trans\grad f(x^{k})+\tfrac12 s\trans\hess f(x^{k})s$.
   Put $H_{k}:=\hess f(x^{k})$ and $g_{k}:=\grad f(x^{k})$. Since
   $H_{k}\succ 0$, it is nonsingular and the Newton equation gives
   \[
-    s^k = -H_{k}^{-1}g_{k}.
+    s^{k} = -H_{k}^{-1}g_{k}.
   \]
   Also $H_{k}^{-1}\succ 0$, so, as $g_{k}\ne0$,
   \[
-    g_{k}\trans s^k = -g_{k}\trans H_{k}^{-1}g_{k}<0,
+    g_{k}\trans s^{k} = -g_{k}\trans H_{k}^{-1}g_{k}<0,
   \]
-  which makes $s^k$ a descent direction.
+  which makes $s^{k}$ a descent direction.
 
   It remains to prove the model-minimizing property. Completing the square, we may write
   \[
@@ -674,11 +683,11 @@ uniformly bounded away from zero, independently of $k$. Then either there exists
 $\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
 \end{theorem}
 \begin{proof}
-  Write $H_k = \hess f(x^k)$ and $g_k = \grad f(x^k)$. Note that $B_k$ is nonsingular, so we may write $s^k = -B_k^{-1}g_k$. Assume that $g_k \neq 0$ for all $k \geq 0$. Then by Theorem~\ref{thm:GLM-global}
+  Write $H_k = \hess f(x^{k})$ and $g_k = \grad f(x^{k})$. Note that $B_k$ is nonsingular, so we may write $s^{k} = -B_k^{-1}g_k$. Assume that $g_k \neq 0$ for all $k \geq 0$. Then by Theorem~\ref{thm:GLM-global}
   \begin{equation}\label{eq:Bk-global-condition}
-    \lim_{k\to\infty}\min\!\left\{\frac{|g_k\trans s^k|}{\norm{s^k}}, |g_k\trans s^k|\right\}=0.
+    \lim_{k\to\infty}\min\!\left\{\frac{|g_k\trans s^{k}|}{\norm{s^{k}}}, |g_k\trans s^{k}|\right\}=0.
   \end{equation}
-  We are left to show that this implies that $\norm{\grad f(x^k)} \to 0$ as $k \to \infty$.
+  We are left to show that this implies that $\norm{\grad f(x^{k})} \to 0$ as $k \to \infty$.
 
   Since $B_k$ is symmetric, $B_k$ admits real eigenvalues by the spectral theorem. Since the eigenvalues are uniformly bounded above and away from zero, there exists constants $\lambda_{\max}$ and $\lambda_{\min}$ such that $\lambda_{\max} \geq \lambda_{\max}(B_k) \geq \lambda_{\min}(B_k) \geq \lambda_{\min}$ for all $k \geq 0$. In particular, for any $s \in \R^n$ and any $B_k$,
   \[
@@ -686,25 +695,23 @@ $\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\inft
   \]
   Since $\grad f$ is Lipschitz continuous, $\norm{H_k}$ is uniformly bounded above. Thus, by possibly enlarging $\lambda_{\max}$, we have $\lambda_{\max}(H_k) \leq \lambda_{\max}$ for all $k \geq 0$. 
 
-  By definition of the $s^k$ and $g_k \neq 0$, 
+  By definition of $s^{k}$ and $g_k \neq 0$, 
   \[
-    |g_k\trans s^k| = |g_k\trans B_k^{-1}g_k| \geq \lambda_{\min}(B_k^{-1}) \norm{g_k}^2 \geq \frac{\norm{g_k}^2}{\lambda_{\max}}.
+    |g_k\trans s^{k}| = |g_k\trans B_k^{-1}g_k| \geq \lambda_{\min}(B_k^{-1}) \norm{g_k}^2 \geq \frac{\norm{g_k}^2}{\lambda_{\max}}.
   \]
   On the other hand,
   \[
-    \norm{s^k}^2 = g_k\trans B_k^{-2}g_k \leq \lambda_{\max}(B^{-2})\norm{g_k}^2 \leq \frac{\norm{g_k}^2}{\lambda_{\min}^2} \implies \frac{1}{\norm{s^k}} \geq \frac{\lambda_{\min}}{\norm{g_k}}.
+    \norm{s^{k}}^2 = g_k\trans B_k^{-2}g_k \leq \lambda_{\max}(B_k^{-2})\norm{g_k}^2 \leq \frac{\norm{g_k}^2}{\lambda_{\min}^2} \implies \frac{1}{\norm{s^{k}}} \geq \frac{\lambda_{\min}}{\norm{g_k}}.
   \]
   Plugging into \eqref{eq:Bk-global-condition}, we have
   \[
-    \lim_{k\to\infty} \min\!\left\{\frac{\lambda_{\min}}{\lambda_{\max}} \norm{g_k}, \frac{\norm{g_k}^2}{\lambda_{\max}}\right\} \leq \lim_{k\to\infty}\min\!\left\{\frac{|g_k\trans s^k|}{\norm{s^k}}, |g_k\trans s^k|\right\} \to 0 \implies \lim_{k \to \infty} g_k = 0.
+    \lim_{k\to\infty} \min\!\left\{\frac{\lambda_{\min}}{\lambda_{\max}} \norm{g_k}, \frac{\norm{g_k}^2}{\lambda_{\max}}\right\} \leq \lim_{k\to\infty}\min\!\left\{\frac{|g_k\trans s^{k}|}{\norm{s^{k}}}, |g_k\trans s^{k}|\right\} \to 0 \implies \lim_{k \to \infty} g_k = 0.
   \]
 \end{proof}
 
 
-%==========================================================
 \chapter{Quasi-Newton Methods and Nonlinear Least-Squares}
 \label{ch:qn-nls}
-%==========================================================
 
 Newton's method has fast local convergence but each iteration is expensive: forming
 $\hess f(x^{k})$ costs $O(n^{2})$ second-derivative evaluations, and solving the
@@ -733,25 +740,25 @@ large $\to$ inaccurate; too small $\to$ cancellation errors).
 
 \section{The secant equation}
 
-\paragraph{Interpretation.} The secant equation requires the new model to predict
-correctly the change in gradient: in the quadratic case $f(x)=g\trans x+\tfrac12
-x\trans Hx$, $\grad f(x^{k+1})-\grad f(x^{k})=H(x^{k+1}-x^{k})$, so $B_{k+1}=H$
-satisfies the equation. More generally, the change in gradient encodes
-information about the Hessian (cf.\ finite differences).
-
 In quasi-Newton methods, $\hess f(x^{k+1})$ is approximated by a symmetric matrix
 $B_{k+1}$ satisfying the \emph{secant equation}
 \begin{equation}\label{eq:secant}
 B_{k+1}\,\delta^{k}=\gamma^{k},
-\qquad \delta^{k}:=x^{k+1}-x^{k},\;\;
-\gamma^{k}:=\grad f(x^{k+1})-\grad f(x^{k}).
+\qquad \delta^{k}:=x^{k+1}-x^{k},
+\qquad \gamma^{k}:=\grad f(x^{k+1})-\grad f(x^{k}).
 \end{equation}
 
 \begin{lemma}[Quadratic case]\label{lem:secant-quad}
 If $f(x)=g\trans x+\tfrac12 x\trans Hx$, then \eqref{eq:secant} is satisfied with
 $B_{k+1}=\hess f=H$.
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Since $\grad f(x) = Hx + g$,
+  \[
+    \grad f(x^{k+1}) - \grad f(x^{k}) = H(x^{k+1} - x^{k}),
+  \]
+  which satisfies the secant equation.
+\end{proof}
 
 \section{The BFGS update}
 
@@ -775,7 +782,22 @@ If $B_{k}$ is symmetric positive definite and $(\delta^{k})\trans\gamma^{k}>0$,
 then the BFGS update \eqref{eq:BFGS} is well-defined, symmetric and positive
 definite, and satisfies the secant equation \eqref{eq:secant}.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  It is easy to see that $B_{k + 1}$ is symmetric, as the two terms after $B_k$ are symmetric. For $x \in \R^n$ with $x \neq 0$, 
+  \[
+    x\trans B_{k+1} x = x\trans B_{k}x - \frac{\bigl[(\delta^{k})\trans B_{k} x\bigr]^2}{(\delta^{k})\trans B_{k}\delta^{k}}
+    +\frac{\bigl[(\gamma^{k})\trans x\bigr]^2}{(\delta^{k})\trans\gamma^{k}}.
+  \]
+  Since $B_k$ is positive definite, we may define the inner product $\langle x, y \rangle_B = x\trans B_k y$ induced by $B_k$. Since $(\delta^{k})\trans\gamma^{k}>0$, the term $\frac{[(\gamma^{k})\trans x]^2}{(\delta^{k})\trans\gamma^{k}}$ is positive, and so by Cauchy-Schwarz inequality,
+  \[
+    x\trans B_{k+1} x > \langle x, x \rangle_B - \frac{\langle \delta^k, x \rangle_B^2}{\langle \delta^k, \delta^k \rangle_B} \geq \langle x, x \rangle_B - \frac{\langle x, x \rangle_B \cdot \langle \delta^k, \delta^k \rangle_B}{\langle \delta^k, \delta^k \rangle_B} = 0.
+  \]
+  Since
+  \[
+    B_{k + 1}\delta^k = B_k\delta^k - \frac{B_k\delta^k[(\delta^k)\trans B_k\delta^k]}{(\delta^k)\trans B_k\delta^k} + \frac{\gamma^k[(\gamma^k)\trans\delta^k]}{(\delta^k)\trans\gamma^k} = \gamma^k,
+  \]
+  the secant equation is satisfied.
+\end{proof}
 
 \begin{remark}
 The condition $(\delta^{k})\trans\gamma^{k}>0$ is guaranteed by use of the
@@ -784,9 +806,8 @@ Wolfe linesearch.
 
 \begin{theorem}[Convergence of BFGS]\label{thm:BFGS-conv}
 Under suitable conditions on $f$ and using the Wolfe linesearch, the BFGS method
-is globally convergent and locally Q-superlinearly convergent.
+is globally convergent and locally Q-superlinearly convergent. \qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
 \begin{remark}[BFGS in practice]
 BFGS satisfies essentially all the items on the wish list: it is symmetric and
@@ -820,7 +841,18 @@ For $f$ in \eqref{eq:NLS},
 \hess f(x)=J(x)\trans J(x)+\sum_{j=1}^{m}r_{j}(x)\hess r_{j}(x).
 \]
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  \[
+    [\grad f(x)]_i = \frac{\partial f}{\partial x_i}(x) = \sum_{j = 1}^m r_j(x) \cdot \frac{\partial r_j}{\partial x_i}(x) = r(x)\trans \frac{\partial r}{\partial x_i}(x) = r(x)\trans J(x)e_i.
+  \]
+  \begin{align*}
+    [\hess f(x)]_{ik} 
+    &= \frac{\partial f}{\partial x_i x_k}(x) \\
+    &= \sum_{j = 1}^m \frac{\partial}{\partial x_k} \left[r_j(x) \cdot \frac{\partial r_j}{\partial x_i}(x)\right] \\
+    &= \sum_{j = 1}^m \frac{\partial r_j}{\partial x_i}(x) \cdot \frac{\partial r_j}{\partial x_k}(x) + r_j(x) \cdot \frac{\partial^2 r_j}{\partial x_i \partial x_k}(x) \\
+    &= [J^T(x)J(x)]_{ik} + \left[\sum_{j=1}^{m}r_{j}(x)\hess r_{j}(x)\right]_{ik}.
+  \end{align*}
+\end{proof}
 
 \section{The Gauss-Newton method}
 
@@ -842,18 +874,21 @@ J(x^{k})\trans J(x^{k})\,s^{k}=-J(x^{k})\trans r(x^{k}).
 If $J(x^{k})$ has full column rank, then the Gauss-Newton direction is a descent
 direction for $f$.
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Since $J(x^k)$ has full column rank, $J(x^k)\trans J(x^k)$ is positive definite, and so 
+  \[
+    [\grad f(x^k)]\trans s^k = -r(x^k)\trans J(x^k)  J(x^k)\trans r(x^k) < 0.
+  \]
+\end{proof}
 
 \begin{theorem}[Convergence of Gauss-Newton]\label{thm:GN-conv}
 Apply Gauss-Newton with bArmijo linesearch.
 \begin{enumerate}[leftmargin=2em,itemsep=0pt]
 \item (Global.) If $J(x^{k})$ is uniformly full rank, $f\in\mathcal{C}^{1}$ bounded below
 and $\grad f$ Lipschitz, then $\norm{\grad f(x^{k})}\to 0$.
-\item (Local.) If $r(x^{*})=0$ and $J(x^{*})$ has full rank, the convergence is
-quadratic; if $r(x^{*})\ne 0$ but small, the convergence is linear.
+\item (Local.) If $r(x^{*})=0$ and $J(x^{*})$ has full rank, the convergence is quadratic; if $r(x^{*})\ne 0$ but small, the convergence is linear. \qed
 \end{enumerate}
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
 \begin{remark}[Newton vs.\ Gauss-Newton]\
 \begin{itemize}[leftmargin=2em,itemsep=0pt]
@@ -870,9 +905,7 @@ quadratic; if $r(x^{*})\ne 0$ but small, the convergence is linear.
 \end{remark}
 
 
-%==========================================================
 \chapter{Trust-Region Methods}
-%==========================================================
 
 Trust-region methods are an alternative to linesearch for globalising Newton-type
 iterations. The two philosophies differ:
@@ -945,22 +978,84 @@ of GTR.
 
 \begin{definition}[Cauchy point]
 The \emph{Cauchy point} of \eqref{eq:TRsub} is $y^{k}_{c}=x^{k}+s^{k}_{c}$, where
-$s^{k}_{c}=-\alpha^{k}_{c}\grad f(x^{k})$ and
+$s^{k}_{c}=-\alpha_{k,c}\grad f(x^{k})$ and
 \[
-\alpha^{k}_{c}=\argmin_{\alpha>0}\, m_{k}\!\left(-\alpha\grad f(x^{k})\right)
+\alpha_{k,c}=\argmin_{\alpha>0}\, m_{k}\!\left(-\alpha\grad f(x^{k})\right)
 \quad\text{subject to}\quad
 \norm{\alpha\grad f(x^{k})}\le\Delta_{k}.
 \]
 \end{definition}
 
 \begin{lemma}[Cauchy-point decrease]\label{lem:cauchy}
-With $h_{k}=\grad f(x^{k})\trans B_{k}\grad f(x^{k})$,
 \[
 f(x^{k})-m_{k}(s^{k}_{c})\ge \tfrac12\norm{\grad f(x^{k})}\,
 \min\!\left\{\Delta_{k},\,\frac{\norm{\grad f(x^{k})}}{\norm{B_{k}}}\right\}.
 \]
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Write $g_k := \grad f(x^{k})$ and $h_{k}=\grad f(x^{k})\trans B_{k}\grad f(x^{k})$. Define
+  \[
+  \psi(\alpha) := m_k(-\alpha g_k)
+              = f(x^{k}) - \alpha\norm{g_k}^{2} + \tfrac{1}{2}\alpha^{2} h_k,
+  \qquad \alpha > 0,
+  \]
+  so that the Cauchy step is $s^{k}_c = -\alpha^{k}_c g_k$ with
+  \[
+  \alpha^{k}_c \;=\; \arg\min_{0<\alpha\le\bar\alpha}\psi(\alpha),
+  \qquad
+  \bar\alpha := \frac{\Delta_k}{\norm{g_k}}.
+  \]
+  Note $\psi'(0) = -\norm{g_k}^{2} < 0$, so $\psi$ is initially decreasing
+  and $\alpha^{k}_c > 0$.
+  
+  \noindent\textbf{Case 1: $h_k \le 0$.}\quad
+  Then $\psi$ is concave (or linear) and strictly decreasing on
+  $(0,\bar\alpha]$, so the minimum on the trust region is attained at the
+  boundary: $\alpha^{k}_c = \bar\alpha = \Delta_k/\norm{g_k}$. Since the
+  quadratic term $\tfrac12\alpha^{2}h_k \leq 0$,
+  \[
+  f(x^{k}) - m_k(s^{k}_c) = \alpha^{k}_c\norm{g_k}^{2} - \tfrac12(\alpha^{k}_c)^{2} h_k \geq \alpha^{k}_c\norm{g_k}^{2} = \Delta_k \norm{g_k}.
+  \]
+  
+  \textbf{Case 2: $h_k > 0$.}\quad
+  Now $\psi$ is a strictly convex quadratic in $\alpha$ with unconstrained
+  minimiser
+  \[
+  \alpha_{\min} \;=\; \frac{\norm{g_k}^{2}}{h_k},
+  \]
+  and $\alpha^{k}_c = \min\{\alpha_{\min},\,\bar\alpha\}$. We consider the
+  two sub-cases.
+  
+  \emph{Sub-case 2a: $\alpha_{\min} \le \bar\alpha$.}\quad
+  Then $\alpha^{k}_c = \alpha_{\min}$ and substituting gives
+  \[
+  f(x^{k}) - m_k(s^{k}_c)
+      = \alpha_{\min}\norm{g_k}^{2} - \tfrac12\alpha_{\min}^{2}h_k
+      = \frac{\norm{g_k}^{4}}{2h_k}.
+  \]
+  By Cauchy--Schwarz and the Rayleigh-quotient bound,
+  $h_k = g_k\trans B_k g_k \le \norm{B_k}\,\norm{g_k}^{2}$, hence
+  \[
+  f(x^{k}) - m_k(s^{k}_c)
+    \ge \frac{\norm{g_k}^{2}}{2\norm{B_k}}
+    \ge \tfrac12\norm{g_k}\,
+            \min\left\{\Delta_k, \frac{\norm{g_k}}{\norm{B_k}}\right\}.
+  \]
+  
+  \emph{Sub-case 2b: $\alpha_{\min} > \bar\alpha$.}\quad
+  Then $\alpha^{k}_c = \bar\alpha = \Delta_k/\norm{g_k}$. Since $\psi$ is
+  decreasing on $[0,\alpha_{\min})$, evaluating at $\bar\alpha$ and using
+  $\bar\alpha < \alpha_{\min} = \norm{g_k}^{2}/h_k$, i.e.\
+  $\bar\alpha\,h_k < \norm{g_k}^{2}$,
+  \[
+  f(x^{k}) - m_k(s^{k}_c)
+    = \bar\alpha\norm{g_k}^{2} - \tfrac12\bar\alpha^{2}h_k
+    > \bar\alpha\norm{g_k}^{2} - \tfrac12\bar\alpha\norm{g_k}^{2}
+    = \tfrac12\bar\alpha\norm{g_k}^{2}
+    = \tfrac12\Delta_k\norm{g_k}.
+  \]
+  This completes the proof.
+\end{proof}
 
 \begin{remark}
 Lemma~\ref{lem:cauchy} is the key technical estimate underlying global
@@ -972,24 +1067,114 @@ GTR this drives $\norm{\grad f(x^{k})}\to 0$.
 \section{Global convergence of GTR}
 
 \begin{theorem}[Global convergence of GTR]\label{thm:GTR-global}
-Let $f\in\mathcal{C}^{2}(\R^{n})$ be bounded below with $\grad f$ Lipschitz
-continuous, and assume $\norm{B_{k}}$ is uniformly bounded. Apply GTR
+Let $f\in\mathcal{C}^{2}(\R^{n})$ be bounded below with $\grad f$ $L$-Lipschitz continuous, and assume $\norm{B_{k}}$ is uniformly bounded. Apply GTR
 (Algorithm~\ref{alg:GTR}) requiring $m_{k}(s^{k})\le m_{k}(s^{k}_{c})$. Then either
 there exists $\ell\ge 0$ with $\grad f(x^{\ell})=0$, or
 $\liminf_{k\to\infty}\norm{\grad f(x^{k})}=0$.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+  
+\medskip
+The proof rests on two lemmas: the Cauchy-point decrease (Lemma~\ref{lem:cauchy})
+and the lower bound on the trust-region radius below.
+  
+\begin{lemma}[Lower bound on the TR radius]\label{lem:tr-radius}
+Under the assumptions of Theorem~\ref{thm:GTR-global}, suppose there exists
+$\eps>0$ such that $\norm{\grad f(x^{k})}\ge\eps$ for all $k$. Then there
+exists a constant $c\in(0,1)$ such that
+\[
+\Delta_{k}\;\ge\;\frac{c\,\eps}{L}\qquad\text{for all }k\ge 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $g_{k}:=\grad f(x^{k})$. By the integral form of Taylor's theorem and $\norm{\grad^{2}f(x)}\le L$,
+\[
+  \bigl|f(x^{k}+s^{k})-m_{k}(s^{k})\bigr| \le \tfrac{L}{2}\norm{s^{k}}^{2} \le \tfrac{L}{2}\Delta_{k}^{2}.
+\]
+Combined with the Cauchy-point bound (Lemma~\ref{lem:cauchy}) and $\norm{B_{k}}=\norm{\grad^{2}f(x^{k})}\le L$,
+\[
+  f(x^{k})-m_{k}(s^{k}) \ge \tfrac{1}{2}\eps\, \min\left\{\Delta_{k},\,\tfrac{\eps}{L}\right\}.
+\]
+Hence
+\[
+  \bigl|\rho_{k}-1\bigr| = \frac{|f(x^k + s^k) - m_k(s^k)|}{f(x^k) - m_k(s^k)} \le \frac{(L/2)\Delta_{k}^{2}}{(\eps/2) \min\{\Delta_{k},\eps/L\}}.
+\]
+
+Now choose $c := \min\left\{\tfrac{1}{2},\,\tfrac{\Delta_{0}L}{\eps}\right\}\in(0,1)$. Suppose, for contradiction, that some iteration $k$ has $\Delta_{k}\le 2c\eps/L\le\eps/L$. Then $\min\{\Delta_{k},\eps/L\}=\Delta_{k}$, and substituting,
+\[
+|\rho_{k}-1| \le \frac{(L/2)\Delta_{k}^{2}}{(\eps/2)\Delta_{k}} = \frac{L\Delta_{k}}{\eps} \le 2c \le 1 - 0.9 + c \le 0.1.
+\]
+Therefore $\rho_{k}\ge 0.9$, so iteration $k$ is \emph{very successful} and the GTR rule sets $\Delta_{k+1}=2\Delta_{k}\ge\Delta_{k}$.
+
+Thus the radius can never drop below $c\eps/L$: any iteration with
+$\Delta_{k}\le 2c\eps/L$ at least preserves the radius, so by induction on $k$,
+\[
+\Delta_{k}\;\ge\;\min\!\left\{\Delta_{0},\,\tfrac{c\eps}{L}\right\}
+            \;\ge\;\tfrac{c\eps}{L}
+\]
+for all $k\ge 0$ (after possibly shrinking $c$ further so that
+$\Delta_{0}\ge c\eps/L$). This proves the claim.
+\end{proof}
+  
+\begin{proof}[Proof of Theorem~\ref{thm:GTR-global}]
+If $\grad f(x^{k})=0$ for some $k$, the algorithm terminates and there is
+nothing to prove; this also covers the case of finitely many successful
+iterations, since on every unsuccessful step $\Delta_{k+1}=\tfrac12\Delta_{k}$,
+so $\Delta_{k}\to 0$, contradicting Lemma~\ref{lem:tr-radius} unless the
+gradient at the last successful iterate is zero.
+
+Suppose instead, for contradiction, that there exists $\eps>0$ with
+$\norm{\grad f(x^{k})}\ge\eps$ for all $k$, and that the set
+$\mathcal{S}:=\{k:\rho_{k}\ge 0.1\}$ of successful iterations is infinite.
+For every $k\in\mathcal{S}$ the GTR update gives $x^{k+1}=x^{k}+s^{k}$ and
+\[
+f(x^{k})-f(x^{k+1})
+    \;\ge\;0.1\bigl(f(x^{k})-m_{k}(s^{k})\bigr)
+    \;\ge\;\tfrac{0.1}{2}\norm{g_{k}}\,
+        \min\!\left\{\Delta_{k},\,\tfrac{\norm{g_{k}}}{\norm{B_{k}}}\right\},
+\]
+by Lemma~\ref{lem:cauchy}. Since $\norm{g_{k}}\ge\eps$ and
+$\norm{B_{k}}=\norm{\grad^{2}f(x^{k})}\le L$,
+\[
+f(x^{k})-f(x^{k+1})
+    \;\ge\;0.05\,\eps\,\min\!\left\{\Delta_{k},\,\tfrac{\eps}{L}\right\}
+    \;\ge\;0.05\,\eps\,\min\!\left\{\tfrac{c\eps}{L},\,\tfrac{\eps}{L}\right\}
+    \;=\;\tfrac{0.05\,c}{L}\,\eps^{2},
+\tag{$\ast$}\label{eq:per-step}
+\]
+where the second inequality uses Lemma~\ref{lem:tr-radius} and $c\in(0,1)$.
+
+Since $f(x^{k+1})=f(x^{k})$ on every unsuccessful iteration, telescoping the
+decrease over all $k\le K-1$ gives
+\[
+f(x^{0})-f(x^{K})
+    \;=\;\sum_{i=0}^{K-1}\!\bigl(f(x^{i})-f(x^{i+1})\bigr)
+    \;=\;\sum_{i\in\mathcal{S},\,i<K}\!\bigl(f(x^{i})-f(x^{i+1})\bigr).
+\]
+Letting $K\to\infty$ and using $f(x^{K})\ge f_{\mathrm{low}}$,
+\[
+f(x^{0})-f_{\mathrm{low}}
+  \;\ge\;\sum_{i\in\mathcal{S}}\bigl(f(x^{i})-f(x^{i+1})\bigr)
+  \;\ge\;|\mathcal{S}|\cdot\tfrac{0.05\,c}{L}\,\eps^{2} \to \infty,
+\tag{$\ast\ast$}\label{eq:telescoped}
+\]
+by~\eqref{eq:per-step}. But then left-hand side is finite by assumption, contradiction. Hence no such $\eps>0$ exists, and so $\liminf_{k\to\infty}\norm{\grad f(x^{k})}=0$.
+\end{proof}
 
 \begin{theorem}[Stronger global convergence]\label{thm:GTR-lim}
 Under the conditions of Theorem~\ref{thm:GTR-global},
-$\lim_{k\to\infty}\norm{\grad f(x^{k})}=0$.
+\[
+  \lim_{k\to\infty}\norm{\grad f(x^{k})}=0.
+\]
+\qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
 \section{Solving the trust-region subproblem}
 
-\paragraph{Strategy.} The characterisation below shows that solving \eqref{eq:TRsub}
-reduces to the secular equation $\norm{(B_{k}+\lambda I)^{-1}\grad f(x^{k})}=\Delta_{k}$
+The characterisation below shows that solving \eqref{eq:TRsub} reduces to the secular equation 
+\[
+  \norm{(B_{k}+\lambda I)^{-1}\grad f(x^{k})}=\Delta_{k}
+\]
 in the scalar $\lambda\ge\max\{0,-\lambda_{\min}(B_{k})\}$.
 
 \begin{theorem}[Characterization of the global TR solution]\label{thm:TR-charac}
@@ -1000,21 +1185,17 @@ $\norm{s^{*}}\le\Delta_{k}$ and there exists $\lambda^{*}\ge 0$ such that
   \item $\lambda^{*}(\Delta_{k}-\norm{s^{*}})=0$ \quad(complementarity),
   \item $B_{k}+\lambda^{*}I\succeq 0$.
 \end{enumerate}
-Moreover $\lambda^{*}$ is unique whenever $B_{k}+\lambda^{*}I\succ 0$.
+Moreover $\lambda^{*}$ is unique whenever $B_{k}+\lambda^{*}I\succ 0$. \qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
-\begin{remark}[Two cases for the global solution]
-Theorem~\ref{thm:TR-charac} reduces practical solution to two cases:
+Theorem~\ref{thm:TR-charac} gives necessary and sufficient global
+optimality conditions for a nonconvex optimization problem. It splits the practical solution into two cases:
 \begin{itemize}[leftmargin=2em,itemsep=0pt]
-  \item \textbf{Case 1:} $B_{k}\succ 0$ and the unconstrained Newton step
-        $s=-B_{k}^{-1}\grad f(x^{k})$ satisfies $\norm{s}\le\Delta_{k}$ — then
-        $s^{*}=s$ and $\lambda^{*}=0$ (Newton step is inside the trust region).
-  \item \textbf{Case 2:} otherwise — find $\lambda\ge\max\{0,-\lambda_{\min}(B_{k})\}$
+  \item \textbf{Case 1:} $B_{k}\succ 0$ and the Newton step $s=-B_{k}^{-1}\grad f(x^{k})$ satisfies $\norm{s}\le\Delta_{k}$ — then $s^{*}=s$ and $\lambda^{*}=0$ (Newton step is inside the trust region).
+  \item \textbf{Case 2:} otherwise — find $\lambda > \max\{0,-\lambda_{\min}(B_{k})\}$
         with $\norm{(B_{k}+\lambda I)^{-1}\grad f(x^{k})}=\Delta_{k}$, by a 1-D
         root-find; the solution $s^{*}$ lies on the boundary.
 \end{itemize}
-\end{remark}
 
 \begin{remark}[Large-scale problems]
 For large $n$, repeated Cholesky factorisations of $B_{k}+\lambda I$ become
