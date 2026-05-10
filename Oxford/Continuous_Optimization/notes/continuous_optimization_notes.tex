@@ -13,6 +13,7 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black}
 \usepackage{microtype}  % uncomment if you have lmodern or another scalable font
+\usepackage{tabularx, booktabs}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
@@ -41,6 +42,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\range}{range}
 \newcommand{\trans}{^{\top}}
 \newcommand{\eps}{\varepsilon}
 
@@ -190,8 +192,6 @@ minimizer of $f$ if and only if $\grad f(x^{*})=0$.
     f(x^{*} + \lambda s) = f((1 - \lambda)x^* + \lambda y) \leq (1 - \lambda) f(x^{*}) + \lambda f(y) < f(x^{*}).
   \]
   But then $x^*$ is a local minimizer, so there exists $\delta > 0$ such that $f(x^{*} + \lambda s) \leq f(x^{*})$ for all $\lambda \in (0, \delta)$, contradiction.
-
-  \todo
 \end{proof}
 
 
@@ -709,6 +709,46 @@ $\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\inft
   \]
 \end{proof}
 
+\section{SGD vs Newton}
+
+\begin{table}[h]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{@{}l X X@{}}
+   & \textbf{Steepest Descent} & \textbf{Newton's Method} \\
+  \midrule
+  \textbf{Search direction}
+    & $s^k = -\grad f(x^k)$
+    & $\grad^2 f(x^k)\, s^k = -\grad f(x^k)$ \\
+  \midrule
+  \textbf{Info required}
+    & $\grad f$ only
+    & Both $\grad f$ and $\grad^2 f$ \\
+  \midrule
+  \textbf{Descent property}
+    & Always descent unless $\grad f(x^k) = 0$ (then terminate)
+    & $(s^k)\trans \grad f(x^k) < 0$ iff $\grad^2 f(x^k) \succ 0$ \\
+  \midrule
+  \textbf{Local rate near $x^*$}
+    & Linear: $f(x^{k+1})-f_* \le \beta(f(x^k)-f_*)$, $\beta \in (0,1)$; $\beta \approx 1$ when ill-conditioned
+    & Quadratic: $f(x^{k+1})-f_* \le C(f(x^k)-f_*)^2$ --- requires $\alpha_k = 1$ (or $\alpha_k \to 1$) \\
+  \midrule
+  \textbf{Scale invariance}
+    & No
+    & Yes \\
+  \midrule
+  \textbf{Global convergence}
+    & $f$ bounded below, $\grad f$ Lipschitz $\implies \grad f(x^k) \to 0$; $f$ may be nonconvex
+    & Same plus $\grad^2 f(x^k) \succeq \lambda_* I$ for some $\lambda_* > 0$ and all $k$ (i.e.\ uniformly strongly convex) $\implies \grad f(x^k) \to 0$ \\
+  \midrule
+  \textbf{Main restriction}
+    & Slow when ill-conditioned
+    & Needs $\grad^2 f \succ 0$ globally --- big restriction (essentially $f$ convex) \\
+  \bottomrule
+  \end{tabularx}
+  \label{tab:sd-vs-newton}
+  \end{table}
+
 
 \chapter{Quasi-Newton Methods and Nonlinear Least-Squares}
 \label{ch:qn-nls}
@@ -1219,18 +1259,19 @@ matter of taste.
 
 The unconstrained theory characterised optimality by $\grad f(x^{*})=0$. For
 constrained problems this fails: the gradient at the minimiser need not vanish,
-because feasibility is preventing further descent. The right generalisation is
+because feasibility prevents further descent. The right generalisation is
 the \emph{Karush--Kuhn--Tucker (KKT)} conditions, which characterise points at
 which no \emph{feasible} descent direction exists.
 
 The development proceeds in three steps:
 \begin{enumerate}[leftmargin=2em,itemsep=0pt]
-  \item Define geometric (tangent cone $T_{\Omega}$) and algebraic (linearised
-        feasible directions $\mathcal{F}$) descriptions of feasible directions;
-        always $T_{\Omega}\subseteq\mathcal{F}$, but the reverse can fail.
+  \item Define the geometric (tangent cone $T_{\Omega}$) and algebraic
+        (linearized feasible directions $\mathcal{F}$) descriptions of feasible
+        directions; always $T_{\Omega}\subseteq\mathcal{F}$, but the reverse
+        can fail.
   \item Identify a \emph{constraint qualification (CQ)} ensuring
-        $T_{\Omega}=\mathcal{F}$ — without a CQ, optimality conditions need not
-        hold.
+        $T_{\Omega}=\mathcal{F}$ — without a CQ, optimality conditions need
+        not hold.
   \item Derive the KKT conditions from the algebraic description $\mathcal{F}$.
 \end{enumerate}
 
@@ -1241,117 +1282,318 @@ We consider the general constrained problem
 \min_{x\in\R^{n}}\; f(x)\quad\text{subject to}\quad
 c_{i}(x)=0,\;i\in E;\;\;c_{i}(x)\ge 0,\;i\in I,
 \end{equation}
-with feasible set
-$\Omega=\{x\in\R^{n}:c_{i}(x)=0,\,i\in E;\;c_{i}(x)\ge 0,\,i\in I\}$,
-and active set at $x\in\Omega$:
+where $f:\R^{n}\to\R$, $c_{E}:\R^{n}\to\R^{m}$ collects the equality
+constraints $(c_{i})_{i\in E}$, and $c_{I}:\R^{n}\to\R^{p}$ collects the
+inequality constraints $(c_{i})_{i\in I}$. The condition $c_{I}(x)\ge 0$ is
+componentwise. The \emph{feasible set} is
+\[
+\Omega=\{x\in\R^{n}:c_{E}(x)=0,\;c_{I}(x)\ge 0\},
+\]
+and the \emph{active set} at $x\in\Omega$ is
 $\mathcal{A}(x)=E\cup\{i\in I:c_{i}(x)=0\}$.
 
 \section{Tangent cone and linearized feasible directions}
 
 \begin{definition}[Tangent cone]
-The \emph{tangent cone} to $\Omega$ at $x\in\Omega$ is
+The \emph{tangent cone} to $\Omega$ at $x\in\Omega$ is the set of limits of
+feasible difference quotients,
 \[
 T_{\Omega}(x)=\Bigl\{s\in\R^{n}:\exists\,z^{k}\in\Omega,\,t^{k}\downarrow 0,\,
 z^{k}\to x,\;s=\lim_{k\to\infty}\frac{z^{k}-x}{t^{k}}\Bigr\}.
 \]
+This is the \emph{geometric} description of feasible directions.
 \end{definition}
 
 \begin{definition}[Linearized feasible directions]
 The set of \emph{linearized feasible directions} at $x\in\Omega$ is
 \[
-\mathcal{F}(x)=\{s:\grad c_{i}(x)\trans s=0,\,i\in E;\;
-\grad c_{i}(x)\trans s\ge 0,\,i\in I\cap\mathcal{A}(x)\}.
+\mathcal{F}(x)=\bigl\{s\in\R^{n}:\grad c_{i}(x)\trans s=0,\,i\in E;\;
+\grad c_{i}(x)\trans s\ge 0,\,i\in I\cap\mathcal{A}(x)\bigr\}.
 \]
+This is the \emph{algebraic} description of feasible directions.
 \end{definition}
 
 \begin{lemma}\label{lem:TF}
 $T_{\Omega}(x)\subseteq\mathcal{F}(x)$.
 \end{lemma}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+Let $s\in T_{\Omega}(x)$, so there exist $z^{k}\in\Omega$ and $t^{k}\downarrow 0$
+with $(z^{k}-x)/t^{k}\to s$. For $i\in E$, $c_{i}(z^{k})=c_{i}(x)=0$, so by
+Taylor,
+\[
+0=c_{i}(z^{k})-c_{i}(x)=\grad c_{i}(x)\trans(z^{k}-x)+o\left(\norm{z^{k}-x}\right).
+\]
+Dividing by $t^{k}$ and letting $k\to\infty$ gives $\grad c_{i}(x)\trans s=0$.
+For $i\in I\cap\mathcal{A}(x)$, $c_{i}(z^{k})\ge 0$ and $c_{i}(x)=0$, so the
+same expansion yields $\grad c_{i}(x)\trans s\ge 0$.
+\end{proof}
+
+The reverse inclusion $\mathcal{F}(x)\subseteq T_{\Omega}(x)$ can fail: a
+direction in $\mathcal{F}$ that is not realisable by any feasible sequence is
+``algebraically feasible but geometrically not''.
+
+\begin{example}[$T_{\Omega}\subsetneq\mathcal{F}$]\label{ex:CQ-fail}
+Let $\Omega=\{x\in\R^{2}:c_{1}(x)\ge 0,\,c_{2}(x)\ge 0\}$ with
+\[
+c_{1}(x)=1-x_{1}^{2}-(x_{2}-1)^{2},\qquad
+c_{2}(x)=1-x_{1}^{2}-(x_{2}+1)^{2}.
+\]
+The two unit disks centred at $(0,1)$ and $(0,-1)$ touch only at the origin,
+so $\Omega=\{(0,0)\}$ and $T_{\Omega}(0)=\{(0,0)\}$. On the other hand,
+$\grad c_{1}(0)=(0,2)\trans$ and $\grad c_{2}(0)=(0,-2)\trans$, so
+\[
+\mathcal{F}(0)=\{s\in\R^{2}:s_{2}\ge 0,\,-s_{2}\ge 0\}=\{(s_{1},0):s_{1}\in\R\}.
+\]
+Thus $T_{\Omega}(0)\subsetneq\mathcal{F}(0)$.
+\end{example}
 
 \section{Constraint qualifications}
 
+We need a regularity condition on the constraints that rules out pathologies
+like Example~\ref{ex:CQ-fail}.
+
 \begin{definition}[LICQ]
-\eqref{eq:CP} satisfies the \emph{Linear Independence Constraint Qualification (LICQ)}
-at $x\in\Omega$ if the active constraint gradients
+\eqref{eq:CP} satisfies the \emph{Linear Independence Constraint Qualification
+(LICQ)} at $x\in\Omega$ if the active constraint gradients
 $\{\grad c_{i}(x):i\in\mathcal{A}(x)\}$ are linearly independent.
 \end{definition}
 
 \begin{definition}[Slater CQ]
-A convex problem \eqref{eq:CP} (with $c_{E}(x)=Ax-b$, $c_{i}$ concave for $i\in I$)
-satisfies the \emph{Slater CQ} if there exists $\bar{x}$ with $A\bar{x}=b$ and
-$c_{i}(\bar{x})>0$ for all $i\in I$.
+A convex problem \eqref{eq:CP} (with $c_{E}(x)=Ax-b$ affine and $c_{i}$ concave
+for $i\in I$) satisfies the \emph{Slater CQ} if there exists $\bar{x}$ with
+$A\bar{x}=b$ and $c_{i}(\bar{x})>0$ for all $i\in I$.
 \end{definition}
 
 \begin{theorem}[CQ implies $T_{\Omega}=\mathcal{F}$]\label{thm:CQ}
-Under LICQ (or any standard CQ), $T_{\Omega}(x)=\mathcal{F}(x)$.
+Under LICQ (or Slater, in the convex case), $T_{\Omega}(x)=\mathcal{F}(x)$. \qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
-\begin{remark}[Linear constraints]
-If the constraints of \eqref{eq:CP} are linear, i.e.\ $(c_{E},c_{I})(x)=Ax-b$,
-then \emph{no constraint qualification is required}: the KKT conditions hold at
-every local minimiser. This is the content of Theorem~17 in the slides.
-\end{remark}
+In Example~\ref{ex:CQ-fail}, $\grad c_{1}(0)$ and $\grad c_{2}(0)$ are
+parallel, so LICQ fails; the Slater condition also fails because no point
+satisfies both $c_{1}>0$ and $c_{2}>0$.
 
 \section{First-order necessary conditions (KKT)}
-
-\paragraph{Interpretation.} The KKT conditions generalise the unconstrained
-stationarity condition $\grad f=0$: at a constrained minimiser, $\grad f$ lies in
-the cone generated by the gradients of active constraints (with appropriate signs).
-Inactive inequality constraints contribute nothing — by complementarity
-$\lambda^{*}_{i}c_{i}(x^{*})=0$, so $c_{i}(x^{*})>0$ forces $\lambda^{*}_{i}=0$.
 
 \begin{definition}[Lagrangian]
 The \emph{Lagrangian} of \eqref{eq:CP} is
 \[
-\mathcal{L}(x,y,\lambda)=f(x)-\sum_{i\in E}y_{i}c_{i}(x)-\sum_{i\in I}\lambda_{i}c_{i}(x).
+\mathcal{L}(x,y,\lambda)=f(x)-\sum_{i\in E}y_{i}c_{i}(x)-\sum_{i\in I}\lambda_{i}c_{i}(x)
+=f(x)-y\trans c_{E}(x)-\lambda\trans c_{I}(x).
 \]
 \end{definition}
 
+\begin{definition}[KKT point]
+A feasible point $\hat{x}\in\Omega$ is a \emph{KKT point} of \eqref{eq:CP} if
+there exist $\hat{y}\in\R^{m}$ and $\hat{\lambda}\in\R^{p}$ such that
+\begin{align*}
+\grad f(\hat{x})&=\sum_{i\in E}\hat{y}_{i}\grad c_{i}(\hat{x})
+                   +\sum_{i\in I}\hat{\lambda}_{i}\grad c_{i}(\hat{x}),\\
+c_{E}(\hat{x})&=0,\;\;c_{I}(\hat{x})\ge 0,\\
+\hat{\lambda}_{i}&\ge 0,\qquad\hat{\lambda}_{i}c_{i}(\hat{x})=0,\quad i\in I.
+\end{align*}
+The last line is the \emph{complementarity} condition. Equivalently,
+$\grad_{x}\mathcal{L}(\hat{x},\hat{y},\hat{\lambda})=0$ together with primal
+feasibility, dual feasibility ($\hat{\lambda}\ge 0$), and complementarity.
+\end{definition}
+
+The vectors $\hat{y}$ and $\hat{\lambda}$ are called the \emph{Lagrange
+multipliers} for the equality and inequality constraints respectively. They
+arise naturally in sensitivity analysis: $\hat{\lambda}_{i}$ measures the
+sensitivity of the optimal value to a perturbation of $c_{i}\ge 0$.
+
 \begin{theorem}[KKT first-order necessary conditions]\label{thm:KKT}
 Let $x^{*}$ be a local minimizer of \eqref{eq:CP} at which a CQ holds. Then
-there exist multipliers $y^{*}\in\R^{|E|}$ and $\lambda^{*}\in\R^{|I|}$ such that
-\begin{align*}
-\grad f(x^{*})&=\sum_{i\in E}y^{*}_{i}\grad c_{i}(x^{*})+\sum_{i\in I}\lambda^{*}_{i}\grad c_{i}(x^{*}),\\
-c_{i}(x^{*})&=0,\quad i\in E,\\
-c_{i}(x^{*})&\ge 0,\quad i\in I,\\
-\lambda^{*}_{i}&\ge 0,\quad i\in I,\\
-\lambda^{*}_{i}c_{i}(x^{*})&=0,\quad i\in I \quad\text{(complementarity).}
-\end{align*}
+$x^{*}$ is a KKT point of \eqref{eq:CP}.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+
+We give the proof of Theorem~\ref{thm:KKT} for the equality-constrained case ($I=\emptyset$).
+
+\begin{proof}[Proof for equality constraints only]
+The KKT conditions reduce to $c_{E}(x^{*})=0$ (which holds by feasibility) and
+\begin{equation}\label{eq:KKT-eq}
+\grad f(x^{*})=J_{E}(x^{*})\trans y^{*}\quad\text{for some }y^{*}\in\R^{m},
+\end{equation}
+where $J_{E}$ is the Jacobian of $c_{E}$.
+
+\emph{Step 1: feasible directions satisfy $J_{E}(x^{*})s=0$.} Consider a feasible $\mathcal{C}^{1}$ path $x:(-\delta,\delta)\to\Omega$ with
+$x(0)=x^{*}$ and $x(\alpha)=x^{*}+\alpha s+O(\alpha^{2})$, $s\ne 0$, so that
+$c_{E}(x(\alpha))=0$ for all $\alpha\in(-\delta,\delta)$. Existence of such a
+path tangent to a given $s$ requires the CQ. For each $i\in E$, Taylor's
+theorem gives
+\[
+0=c_{i}(x(\alpha))=c_{i}(x^{*})+\grad c_{i}(x^{*})\trans(\alpha s)+O(\alpha^{2})
+=\alpha\grad c_{i}(x^{*})\trans s+O(\alpha^{2}),
+\]
+using $c_{i}(x^{*})=0$. Dividing by $\alpha$ and letting $\alpha\to 0$ yields
+$\grad c_{i}(x^{*})\trans s=0$ for all $i\in E$, i.e.\ $J_{E}(x^{*})s=0$.
+
+\emph{Step 2: $\grad f(x^{*})\trans s=0$ for every such $s$.} Since $x^{*}$ is
+a local minimizer and $x(\alpha)\in\Omega$ for $\alpha$ small,
+$f(x(\alpha))\ge f(x^{*})$ for all $\alpha\in(-\delta',\delta')$, some
+$\delta'>0$. Taylor's theorem gives
+\[
+0\le f(x(\alpha))-f(x^{*})=\alpha\grad f(x^{*})\trans s+O(\alpha^{2}).
+\]
+Dividing by $\alpha>0$ and letting $\alpha\downarrow 0$ gives
+$\grad f(x^{*})\trans s\ge 0$. Dividing by $\alpha<0$ and letting
+$\alpha\uparrow 0$ gives $\grad f(x^{*})\trans s\le 0$. Hence
+$\grad f(x^{*})\trans s=0$ for every $s\in\ker J_{E}(x^{*})$.
+
+\emph{Step 3: $\grad f(x^{*})\in\range J_{E}(x^{*})\trans$.}
+By the rank--nullity theorem, $\R^{n}=\range J_{E}(x^{*})\trans
+\oplus\ker J_{E}(x^{*})$, so we can write
+\begin{equation}\label{eq:KKT-decomp}
+\grad f(x^{*})=J_{E}(x^{*})\trans y^{*}+s^{*},\qquad J_{E}(x^{*})s^{*}=0,
+\end{equation}
+for some $y^{*}\in\R^{m}$. Taking the inner product of \eqref{eq:KKT-decomp}
+with $s^{*}$ and using $J_{E}(x^{*})s^{*}=0$,
+\[
+\grad f(x^{*})\trans s^{*}=(J_{E}(x^{*})\trans y^{*})\trans s^{*}+\norm{s^{*}}^{2}
+=y^{*\top}J_{E}(x^{*})s^{*}+\norm{s^{*}}^{2}=\norm{s^{*}}^{2}.
+\]
+But $s^{*}\in\ker J_{E}(x^{*})$, so by Step 2 the left-hand side is zero.
+Hence $s^{*}=0$, and \eqref{eq:KKT-decomp} reduces to \eqref{eq:KKT-eq}.
+\end{proof}
+
+\begin{remark}[Where does the CQ enter?]
+The proof of Theorem~\ref{thm:KKT} uses a feasible perturbation tangent to a
+prescribed $s\in\ker J_{E}(x^{*})$. The CQ guarantees the existence of such a
+path: under LICQ, the implicit function theorem reduces the equality
+constraints to a smooth manifold whose tangent space is precisely
+$\ker J_{E}(x^{*})$. Without a CQ, $T_{\Omega}\subsetneq\mathcal{F}$ is
+possible (Example~\ref{ex:CQ-fail}), and the necessary conditions can fail.
+\end{remark}
+
+\begin{theorem}[Linear constraints need no CQ]\label{thm:KKT-linear}
+Suppose $(c_{E},c_{I})(x)=Ax-b$ is affine, with
+$A=\begin{pmatrix}A_{E}\\A_{I}\end{pmatrix}$ and
+$b=\begin{pmatrix}b_{E}\\b_{I}\end{pmatrix}$. Then any local minimizer $x^{*}$
+of \eqref{eq:CP} is a KKT point: there exist $y^{*}\in\R^{m}$ and
+$\lambda^{*}\in\R^{p}$ with
+\begin{align*}
+\grad f(x^{*})&=A_{E}\trans y^{*}+A_{I}\trans\lambda^{*},\\
+A_{E}x^{*}&=b_{E},\quad A_{I}x^{*}\ge b_{I},\\
+\lambda^{*}&\ge 0,\quad (\lambda^{*})\trans(A_{I}x^{*}-b_{I})=0.
+\end{align*}
+\qed
+\end{theorem}
+
+\section{Sufficiency for convex problems}
+
+\eqref{eq:CP} is a \emph{convex programming problem} if $\Omega$ is a convex set and $f$ is convex on $\Omega$. 
+
+\begin{theorem}
+  \eqref{eq:CP} is a convex programming problem if and only if $f$ is convex over $\Omega$ and 
+  \begin{itemize}
+    \item $c_E(x) = Ax - b = 0$
+    \item $c_i(x)$ is concave for all $i \in I$,
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Let $x, y \in \Omega$ and put $z = \alpha x + (1 - \alpha)y$ for $\alpha \in [0, 1]$. Then,
+  \[
+    c_E(z) = Az - b = \alpha (Ax - b) + (1 - \alpha)(Ay - b) = 0
+  \]
+  and for $i \in I$, by concavity of $c_i$,
+  \[
+    c_i(z) \geq \alpha c_i(x) + (1 - \alpha)c_i(y) \geq 0.
+  \]
+  Hence, $z \in \Omega$.
+\end{proof}
+
+For such problems,
+every local minimizer is global, and the KKT conditions are not just necessary
+(under a CQ) but also sufficient.
+
+\begin{theorem}[KKT is sufficient for convex problems]\label{thm:CP-convex}
+Let \eqref{eq:CP} be a convex programming problem and let $\hat{x}$ be a KKT
+point. Then $\hat{x}$ is a global minimizer of \eqref{eq:CP}.
+\end{theorem}
+\begin{proof}
+By convexity of $f$ (first-order characterization),
+\begin{equation}\label{eq:cvx-foc}
+f(x)\ge f(\hat{x})+\grad f(\hat{x})\trans(x-\hat{x})\quad\text{for all }x\in\R^{n}.
+\end{equation}
+The KKT stationarity condition reads
+$\grad f(\hat{x})=A\trans\hat{y}+\sum_{i\in I}\hat{\lambda}_{i}\grad c_{i}(\hat{x})$.
+Substituting into \eqref{eq:cvx-foc},
+\begin{equation}\label{eq:cvx-mid}
+f(x)\ge f(\hat{x})+\hat{y}\trans A(x-\hat{x})+
+\sum_{i\in I}\hat{\lambda}_{i}\grad c_{i}(\hat{x})\trans(x-\hat{x}).
+\end{equation}
+Now fix any $x\in\Omega$. Then $Ax=b=A\hat{x}$, so
+$A(x-\hat{x})=0$, killing the equality-multiplier term in
+\eqref{eq:cvx-mid}.
+
+For each $i\in I$, $c_{i}$ is concave, hence
+$c_{i}(x)\le c_{i}(\hat{x})+\grad c_{i}(\hat{x})\trans(x-\hat{x})$, giving
+\[
+\grad c_{i}(\hat{x})\trans(x-\hat{x})\ge c_{i}(x)-c_{i}(\hat{x}).
+\]
+Multiplying by $\hat{\lambda}_{i}\ge 0$ and using complementarity
+$\hat{\lambda}_{i}c_{i}(\hat{x})=0$,
+\[
+\hat{\lambda}_{i}\grad c_{i}(\hat{x})\trans(x-\hat{x})
+\ge \hat{\lambda}_{i}c_{i}(x)-\hat{\lambda}_{i}c_{i}(\hat{x})
+=\hat{\lambda}_{i}c_{i}(x)\ge 0,
+\]
+the last inequality because $\hat{\lambda}_{i}\ge 0$ and $c_{i}(x)\ge 0$.
+Substituting back into \eqref{eq:cvx-mid} gives $f(x)\ge f(\hat{x})$.
+\end{proof}
 
 \section{Second-order conditions}
 
-Let $\mathcal{F}(\lambda^{*})=\{s\in\mathcal{F}(x^{*}):\grad c_{i}(x^{*})\trans s=0
-\text{ for } i\in I\text{ with }\lambda^{*}_{i}>0\}$.
+The second-order theory mirrors the unconstrained case, but only on a
+restricted set of directions where the first-order information is
+inconclusive.
+
+\begin{definition}[Critical cone]
+At a KKT point $x^{*}$ with multipliers $(y^{*},\lambda^{*})$, the
+\emph{critical cone} is
+\[
+\mathcal{F}(\lambda^{*})=\{s\in\mathcal{F}(x^{*}):
+\grad c_{i}(x^{*})\trans s=0\text{ for all }i\in I\cap\mathcal{A}(x^{*})
+\text{ with }\lambda^{*}_{i}>0\}.
+\]
+\end{definition}
+
+The critical cone discards directions where the first-order term
+$\grad f(x^{*})\trans s$ is strictly positive (so $f$ already increases at
+first order) and retains only those where it is zero. By the KKT identity, for
+$s\in\mathcal{F}(x^{*})$,
+\[
+\grad f(x^{*})\trans s
+=\underbrace{(J_{E}(x^{*})s)\trans y^{*}}_{=0}
++\sum_{i\in I\cap\mathcal{A}(x^{*})}\lambda^{*}_{i}\grad c_{i}(x^{*})\trans s
+\ge 0,
+\]
+with equality iff $\grad c_{i}(x^{*})\trans s=0$ whenever $\lambda^{*}_{i}>0$
+— this is exactly $\mathcal{F}(\lambda^{*})$.
 
 \begin{theorem}[Second-order necessary conditions]\label{thm:CP-SO-nec}
 Let $x^{*}$ be a local minimizer of \eqref{eq:CP} at which a CQ holds, with
 multipliers $(y^{*},\lambda^{*})$. Then
 $s\trans\hess_{xx}\mathcal{L}(x^{*},y^{*},\lambda^{*})s\ge 0$ for all
-$s\in\mathcal{F}(\lambda^{*})$.
+$s\in\mathcal{F}(\lambda^{*})$. \qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
 \begin{theorem}[Second-order sufficient conditions]\label{thm:CP-SO-suf}
-Let $x^{*}$ be feasible for \eqref{eq:CP}, and let $(y^{*},\lambda^{*})$ satisfy
-the KKT conditions at $x^{*}$. If
+Let $x^{*}$ be feasible for \eqref{eq:CP}, and let $(y^{*},\lambda^{*})$
+satisfy the KKT conditions at $x^{*}$. If
 $s\trans\hess_{xx}\mathcal{L}(x^{*},y^{*},\lambda^{*})s>0$
 for all $0\ne s\in\mathcal{F}(\lambda^{*})$, then $x^{*}$ is a strict local
-minimizer of \eqref{eq:CP}.
+minimizer of \eqref{eq:CP}. \qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
-\section{Convex problems}
-
-\begin{theorem}[KKT is sufficient for convex problems]\label{thm:CP-convex}
-Suppose \eqref{eq:CP} is a convex problem (i.e.\ $f$ convex, $c_{i}$ concave for
-$i\in I$, $c_{E}$ affine). If $\hat{x}$ is a KKT point of \eqref{eq:CP}, then
-$\hat{x}$ is a global minimizer of \eqref{eq:CP}.
-\end{theorem}
-\begin{proof}\todo\end{proof}
+Here
+\[
+\hess_{xx}\mathcal{L}(x,y,\lambda)
+=\hess f(x)-\sum_{j\in E}y_{j}\hess c_{j}(x)-\sum_{i\in I}\lambda_{i}\hess c_{i}(x).
+\]
+Note that the second-order conditions involve the Hessian of the Lagrangian
+rather than of $f$ alone — the constraint curvature, weighted by the
+multipliers, plays a genuine role.
 
 
 %==========================================================
@@ -1396,16 +1638,6 @@ Choose $\sigma_{0}>0$ and $\eps_{0}>0$. For $k=0,1,2,\dots$:
 \end{enumerate}
 \end{algorithm}
 
-\begin{lemma}[Gradient of $\Phi_{\sigma}$]\label{lem:gradPhi}
-With $J(x)$ the Jacobian of $c$,
-\[
-\grad\Phi_{\sigma}(x)=\grad f(x)+\frac{1}{\sigma}J(x)\trans c(x)
-=\grad f(x)-J(x)\trans y(x),
-\]
-where $y(x)=-c(x)/\sigma$.
-\end{lemma}
-\begin{proof}\todo\end{proof}
-
 \section{Convergence of the penalty method}
 
 \begin{theorem}[Global convergence of the quadratic penalty method]\label{thm:penalty}
@@ -1417,11 +1649,48 @@ $\{\grad c_{i}(x^{*}):i=1,\dots,m\}$ are linearly independent. Then $x^{*}$ is a
 KKT point of \eqref{eq:eCP} and $y^{k}\to y^{*}$, the corresponding Lagrange
 multiplier vector.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+
+\begin{proof}
+  Differentiating $\Phi_{\sigma_k}(x)$ and substituting $y^k = -c(x^k)/\sigma_k$:
+  \[
+  \grad\Phi_{\sigma_k}(x^k) 
+  = \grad f(x^k) + \tfrac{1}{\sigma_k}J(x^k)\trans c(x^k) 
+  = \grad f(x^k) - J(x^k)\trans y^k. \tag{$\diamondsuit$}
+  \]
+  
+  \textit{Step 1: $y^k \to y^*$.}
+  LICQ means $J(x^*)$ has full row rank, so the pseudo-inverse $J(x^*)^+ = (J(x^*)J(x^*)\trans)^{-1}J(x^*)$ exists. Since $x^k \to x^*$ and $J$ is continuous, $J(x^k)^+$ is well-defined and $\norm{J(x^k)^+} \leq C$ for large $k$ and some constant $C$.
+   
+  Applying $J(x^k)^+$ to both sides of $(\diamondsuit)$ and using $J^+J\trans = I$:
+  \[
+  J(x^k)^+\grad\Phi_{\sigma_k}(x^k) 
+  = J(x^k)^+\grad f(x^k) - \underbrace{J(x^k)^+J(x^k)\trans}_{= I} y^k 
+  = J(x^k)^+\grad f(x^k) - y^k.
+  \]
+  Taking norms:
+  \[
+  \norm{J(x^k)^+\grad f(x^k) - y^k} = \norm{J(x^k)^+\grad\Phi_{\sigma_k}(x^k)} \leq \norm{J(x^k)^+}\cdot\norm{\grad\Phi_{\sigma_k}(x^k)} \leq C\,\epsilon_k \to 0. \tag{$\diamondsuit\diamondsuit$}
+  \]
+  Now define $y^* := J(x^*)^+\grad f(x^*)$. By the triangle inequality:
+  \[
+  \norm{y^k - y^*} 
+  \leq \underbrace{\norm{y^k - J(x^k)^+\grad f(x^k)}}_{\to\,0\text{ by }(\diamondsuit\diamondsuit)} 
+  + \underbrace{\norm{J(x^k)^+\grad f(x^k) - J(x^*)^+\grad f(x^*)}}_{\to\,0\text{ by continuity of }J^+\text{ and }\grad f}.
+  \]
+  Hence $y^k \to y^*$.
+   
+  \textit{Step 2: $c(x^*) = 0$.}
+  Note that $c(x^k) = -\sigma_k y^k$. Since $\sigma_k \to 0$ and $\norm{y^k}$ is bounded (as $y^k \to y^*$), we get $\norm{c(x^k)} \to 0$. By continuity, $c(x^*) = 0$.
+   
+  \textit{Step 3: $\grad f(x^*) = J(x^*)\trans y^*$.}
+  The LHS of $(\diamondsuit)$ satisfies $\norm{\grad\Phi_{\sigma_k}(x^k)} \leq \epsilon_k \to 0$. The RHS converges to $\grad f(x^*) - J(x^*)\trans y^*$ by continuity. Equating the limits: $\grad f(x^*) = J(x^*)\trans y^*$.
+   
+  \medskip
+  Steps 2 and 3 give the KKT conditions at $x^*$.
+\end{proof}
 
 \begin{remark}
-If $J(x^{*})$ is not full rank then $x^{*}$ instead (locally) minimizes the
-infeasibility $\norm{c(x)}$.
+If $J(x^{*})$ is not full rank then $x^{*}$ instead (locally) minimizes the infeasibility $\norm{c(x)}$.
 \end{remark}
 
 \begin{remark}[Ill-conditioning of $\hess\Phi_{\sigma_{k}}$]\label{rem:penalty-ill}
@@ -1532,7 +1801,44 @@ $\sigma_{k}\to 0$ for bounded $u^{k}$, or $u^{k}\to y^{*}$ for bounded
 $\sigma_{k}$, then $x^{*}$ is a KKT point of \eqref{eq:eCP} with associated
 multipliers $y^{*}$.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+\begin{proof}
+  Differentiating $\Phi_{\sigma_k}(x)$ and substituting $y^k = u^k - c(x^k)/\sigma_k$:
+  \[
+  \grad\Phi_{\sigma_k}(x^k) 
+  = \grad f(x^k) - J(x^k)\trans u^k + \tfrac{1}{\sigma_k}J(x^k)\trans c(x^k) 
+  = \grad f(x^k) - J(x^k)\trans y^k. \tag{$\diamondsuit$}
+  \]
+  
+  \textit{Step 1: $y^k \to y^*$.}
+  LICQ means $J(x^*)$ has full row rank, so the pseudo-inverse $J(x^*)^+ = (J(x^*)J(x^*)\trans)^{-1}J(x^*)$ exists. Since $x^k \to x^*$ and $J$ is continuous, $J(x^k)^+$ is well-defined and $\norm{J(x^k)^+} \leq C$ for large $k$ and some constant $C$.
+   
+  Applying $J(x^k)^+$ to both sides of $(\diamondsuit)$ and using $J^+J\trans = I$:
+  \[
+  J(x^k)^+\grad\Phi_{\sigma_k}(x^k) 
+  = J(x^k)^+\grad f(x^k) - \underbrace{J(x^k)^+J(x^k)\trans}_{= I} y^k 
+  = J(x^k)^+\grad f(x^k) - y^k.
+  \]
+  Taking norms:
+  \[
+  \norm{J(x^k)^+\grad f(x^k) - y^k} = \norm{J(x^k)^+\grad\Phi_{\sigma_k}(x^k)} \leq \norm{J(x^k)^+}\cdot\norm{\grad\Phi_{\sigma_k}(x^k)} \leq C\,\epsilon_k \to 0. \tag{$\diamondsuit\diamondsuit$}
+  \]
+  Now define $y^* := J(x^*)^+\grad f(x^*)$. By the triangle inequality:
+  \[
+  \norm{y^k - y^*} 
+  \leq \underbrace{\norm{y^k - J(x^k)^+\grad f(x^k)}}_{\to\,0\text{ by }(\diamondsuit\diamondsuit)} 
+  + \underbrace{\norm{J(x^k)^+\grad f(x^k) - J(x^*)^+\grad f(x^*)}}_{\to\,0\text{ by continuity of }J^+\text{ and }\grad f}.
+  \]
+  Hence $y^k \to y^*$.
+   
+  \textit{Step 2: $c(x^*) = 0$.}
+  Note that $c(x^k) = \sigma_k (u^k - y^k)$. If $u_k$ is bounded and $\sigma_k \to 0$, then $c(x^k) \to 0$. If $\sigma_k$ is bounded and $u_k \to y^*$, then $c(x^k) \to 0$. Hence $c(x^k) = 0$, and so $c(x^*) = 0$ by continuity of $c$.
+   
+  \textit{Step 3: $\grad f(x^*) = J(x^*)\trans y^*$.}
+  The LHS of $(\diamondsuit)$ satisfies $\norm{\grad\Phi_{\sigma_k}(x^k)} \leq \epsilon_k \to 0$. The RHS converges to $\grad f(x^*) - J(x^*)\trans y^*$ by continuity. Equating the limits: $\grad f(x^*) = J(x^*)\trans y^*$.
+   
+  \medskip
+  Steps 2 and 3 give the KKT conditions at $x^*$.
+\end{proof}
 
 \begin{remark}[Why the augmented Lagrangian helps]
 The crucial difference from the basic penalty method is the second alternative
@@ -1587,9 +1893,8 @@ With $J(x)$ the Jacobian of $c$ and $C(x)=\diag(c_{1}(x),\dots,c_{p}(x))$,
 \hess f_{\mu}(x)&=\hess f(x)-\sum_{i=1}^{p}\frac{\mu}{c_{i}(x)}\hess c_{i}(x)
 +\mu J(x)\trans C(x)^{-2}J(x),
 \end{align*}
-where $\lambda_{i}(x):=\mu/c_{i}(x)$ are estimates of the Lagrange multipliers.
+where $\lambda_{i}(x):=\mu/c_{i}(x)$ are estimates of the Lagrange multipliers. \qed
 \end{lemma}
-\begin{proof}\todo\end{proof}
 
 \begin{remark}[Connection to the Lagrangian]
 Lemma~\ref{lem:barrier-deriv} reveals a striking fact: $\grad f_{\mu}(x)=
@@ -1614,9 +1919,8 @@ satisfying:
 \end{enumerate}
 Then there exists a unique, continuously differentiable path
 $\{x(\mu):\mu_{\eps}>\mu>0\}$ of (global) minimisers of $f_{\mu}$, with
-$x(\mu)\to x^{*}$ as $\mu\to 0$.
+$x(\mu)\to x^{*}$ as $\mu\to 0$. \qed
 \end{theorem}
-\begin{proof}\todo\end{proof}
 
 \section{The basic barrier algorithm}
 
@@ -1641,7 +1945,42 @@ $\{\grad c_{i}(x^{*}):i\in\mathcal{A}\}$ are linearly independent (i.e.\ LICQ),
 $\mathcal{A}=\{i:c_{i}(x^{*})=0\}$. Then $x^{*}$ is a KKT point of
 \eqref{eq:iCP} and $\lambda^{k}\to\lambda^{*}$, the associated Lagrange multipliers.
 \end{theorem}
-\begin{proof}\todo\end{proof}
+
+\begin{proof}
+Let $\mathcal{A} = \{i : c_i(x^*) = 0\}$ and $\mathcal{I} = \{1,\ldots,p\}\setminus\mathcal{A}$. The barrier gradient is
+\[
+\grad f_{\mu_k}(x^k) = \grad f(x^k) - J_\mathcal{A}(x^k)\trans\lambda^k_\mathcal{A} - J_\mathcal{I}(x^k)\trans\lambda^k_\mathcal{I}. \tag{$\diamondsuit$}
+\]
+ 
+Note that $c(x^k) > 0$ and $x^k \to x^*$ give $c(x^*) \geq 0$ by continuity, so feasibility is satisfied.
+ 
+\textit{Step 1: $\lambda^k_\mathcal{I} \to 0$.}\;
+For $i \in \mathcal{I}$: $c_i(x^*) > 0$, so $\lambda^k_i = \mu_k/c_i(x^k) \to 0/c_i(x^*) = 0$ as $\mu_k \to 0$.
+ 
+\textit{Step 2: $\lambda^k_\mathcal{A} \to \lambda^*_\mathcal{A}$.}\;
+Rearranging $(\diamondsuit)$ and taking norms:
+\[
+\norm{\grad f(x^k) - J_\mathcal{A}(x^k)\trans\lambda^k_\mathcal{A}} \leq \underbrace{\norm{\grad f_{\mu_k}(x^k)}}_{\leq\,\epsilon_k} + \underbrace{\norm{J_\mathcal{I}(x^k)\trans\lambda^k_\mathcal{I}}}_{\leq\,\norm{J_\mathcal{I}(x^k)}\cdot\norm{\lambda^k_\mathcal{I}}} \;\longrightarrow\; 0, \tag{$\diamondsuit\diamondsuit$}
+\]
+using $\epsilon_k \to 0$, $\lambda^k_\mathcal{I} \to 0$, and $J_\mathcal{I}(x^k)$ bounded.
+ 
+LICQ gives $J_\mathcal{A}(x^k)^+$ well-defined and bounded: $\norm{J_\mathcal{A}(x^k)^+} \leq C$. Since $J_\mathcal{A}^+ J_\mathcal{A}\trans = I$, applying $J_\mathcal{A}(x^k)^+$ to $\grad f(x^k) - J_\mathcal{A}(x^k)\trans\lambda^k_\mathcal{A}$:
+\[
+\norm{J_\mathcal{A}(x^k)^+\grad f(x^k) - \lambda^k_\mathcal{A}} \leq C \cdot \norm{\grad f(x^k) - J_\mathcal{A}(x^k)\trans\lambda^k_\mathcal{A}} \;\longrightarrow\; 0.
+\]
+Define $\lambda^*_\mathcal{A} := J_\mathcal{A}(x^*)^+\grad f(x^*)$. By triangle inequality and continuity ($x^k \to x^*$):
+\[
+\norm{\lambda^k_\mathcal{A} - \lambda^*_\mathcal{A}} \leq \underbrace{\norm{\lambda^k_\mathcal{A} - J_\mathcal{A}(x^k)^+\grad f(x^k)}}_{\to\,0} + \underbrace{\norm{J_\mathcal{A}(x^k)^+\grad f(x^k) - J_\mathcal{A}(x^*)^+\grad f(x^*)}}_{\to\,0\text{ by continuity}} \;\longrightarrow\; 0.
+\]
+Since $\lambda^k > 0$ by definition and $\lambda^k_\mathcal{A} \to \lambda^*_\mathcal{A}$, we get $\lambda^*_\mathcal{A} \geq 0$ (dual feasibility).
+ 
+\textit{Step 3: Stationarity.}\;
+$(\diamondsuit\diamondsuit)$ gives $\grad f(x^k) - J_\mathcal{A}(x^k)\trans\lambda^k_\mathcal{A} \to 0$. Taking limits: $\grad f(x^*) = J_\mathcal{A}(x^*)\trans\lambda^*_\mathcal{A}$.
+ 
+\textit{Conclusion.}\;
+Set $\lambda^*_\mathcal{I} = 0$. Then stationarity $\grad f(x^*) = J(x^*)\trans\lambda^*$, feasibility $c(x^*) \geq 0$, dual feasibility $\lambda^* \geq 0$, and complementarity $\lambda^*_i c_i(x^*) = 0$ for all $i$ (active: $c_i = 0$; inactive: $\lambda^*_i = 0$) are all satisfied. These are the KKT conditions.
+
+\end{proof}
 
 \begin{remark}[Difficulties of basic (primal) IPMs]\label{rem:ipm-difficulties}\
 \begin{itemize}[leftmargin=2em,itemsep=0pt]
