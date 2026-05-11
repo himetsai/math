@@ -143,15 +143,16 @@ i.e.\ $s\trans\hess f(x^{*})s\ge 0$ for all $s\in\R^{n}$.
 \end{proof}
 
 \begin{theorem}[Second-order sufficient conditions]\label{thm:soc-suf}
-Let $f\in\mathcal{C}^{2}(\R^{n})$. If $\grad f(x^{*})=0$ and $\hess f(x^{*})\succ 0$
-(positive definite), then $x^{*}$ is a strict local minimizer of $f$.
+Let $f\in\mathcal{C}^{2}(\R^{n})$. If $\grad f(x^{*})=0$ and $\hess f(x^{*})\succ 0$, then $x^{*}$ is a strict local minimizer of $f$.
 \end{theorem}
 \begin{proof}
-  Since $f \in \mathcal{C}^2$, there exists $\hat{\alpha} > 0$ such that $s\trans\hess f(x^{*} + \alpha s)s > 0$ for all $\alpha \in (0, \hat{\alpha}]$ and $s \in \R^{n}$. By Taylor's theorem, for any $\alpha \in (0, \hat{\alpha}]$, there exists $\bar{\alpha} \in (0, \alpha)$ such that
+  Since $\hess f(x^{*})\succ 0$ and $\hess f$ is continuous, there exists $\delta>0$ such that $\hess f(x)\succ 0$ for all $x\in N(x^{*},\delta)$. Now let $0\ne d\in\R^{n}$ with $\norm{d}<\delta$. By Taylor's theorem with $\grad f(x^{*})=0$, there exists $\tilde{t}\in(0,1)$ such that
   \[
-    f(x^{*} + \alpha s) - f(x^{*}) = \frac{\alpha^2}{2} s\trans\hess f(x^{*} + \bar{\alpha} s)s > 0.
+    f(x^{*}+d)-f(x^{*})
+    =\grad f(x^{*})\trans d+\tfrac12 d\trans\hess f(x^{*}+\tilde{t}\,d)\,d
+    =\tfrac12 d\trans\hess f(x^{*}+\tilde{t}\,d)\,d>0,
   \]
-  Thus $x^{*}$ is a strict local minimizer within the ball $N(x^{*}, \hat{\alpha})$.
+  since $\norm{\tilde{t}\,d}<\delta$, so $\hess f(x^{*}+\tilde{t}\,d)\succ 0$. Thus $f(x)>f(x^{*})$ for all $x\in N(x^{*},\delta)\setminus\{x^{*}\}$.
 \end{proof}
 
 \begin{example}[Necessary $\not\Rightarrow$ sufficient]
@@ -187,11 +188,23 @@ minimizer of $f$ if and only if $\grad f(x^{*})=0$.
 \begin{proof}
   If $x^{*}$ is a global minimizer, then by Theorem~\ref{thm:foc}, $\grad f(x^{*})=0$. It remains to show the converse.
 
-  We first show that if $x^{*}$ is a local minimizer, then it is a global minimizer. Suppose not. There exists $y \in \R^{n}$ such that $f(y) < f(x^{*})$. Put $s = y - x^{*}$. By convexity, for $\lambda \in (0, 1)$,
+  Since $f$ is convex and $\mathcal{C}^{1}$, the first-order characterisation of convexity gives
   \[
-    f(x^{*} + \lambda s) = f((1 - \lambda)x^* + \lambda y) \leq (1 - \lambda) f(x^{*}) + \lambda f(y) < f(x^{*}).
+    f(y)\ge f(x^{*})+\grad f(x^{*})\trans(y-x^{*})=f(x^{*})
+    \qquad\text{for all }y\in\R^{n},
   \]
-  But then $x^*$ is a local minimizer, so there exists $\delta > 0$ such that $f(x^{*} + \lambda s) \leq f(x^{*})$ for all $\lambda \in (0, \delta)$, contradiction.
+  using $\grad f(x^{*})=0$. Hence $x^{*}$ is a global minimizer.
+\end{proof}
+
+\begin{corollary}[Local $=$ global for convex problems]\label{cor:convex-local-global}
+If $f:\R^{n}\to\R$ is convex and $x^{*}$ is a local minimizer of $f$, then $x^{*}$ is a global minimizer.
+\end{corollary}
+\begin{proof}
+  Suppose $x^{*}$ is a local minimizer but not a global minimizer. Then there exists $y$ with $f(y)<f(x^{*})$. By convexity, for any $\lambda\in(0,1)$,
+  \[
+    f(x^{*}+\lambda(y-x^{*}))\le (1-\lambda)f(x^{*})+\lambda f(y)<f(x^{*}).
+  \]
+  Taking $\lambda$ small enough that $\norm{\lambda(y-x^{*})}<\delta$ contradicts local minimality.
 \end{proof}
 
 
@@ -237,21 +250,89 @@ iteration $k$ is
 f(x^{k}+\alpha s^{k})\le f(x^{k})+\beta\alpha\,\grad f(x^{k})\trans s^{k}.
 \end{equation}
 
-\begin{remark}[Wolfe conditions]
+\section{The Wolfe conditions}
+
 The Armijo condition prevents $\alpha_{k}$ from being too long, but on its own
 admits arbitrarily small $\alpha_{k}$. The \emph{Wolfe conditions} add a second
-(``curvature'') inequality
-$\grad f(x^{k}+\alpha s^{k})\trans s^{k}\ge \eta\,\grad f(x^{k})\trans s^{k}$
-with $\eta\in(\beta,1)$, ruling out steps that are too short. Wolfe linesearches
+(``curvature'') inequality that rules out steps that are too short. Wolfe linesearches
 are needed for some methods (e.g.\ BFGS, see Chapter~\ref{ch:qn-nls}) to ensure
 the curvature condition $(\delta^{k})\trans\gamma^{k}>0$.
-\end{remark}
+
+\begin{definition}[Wolfe conditions]
+Given $0<\beta<\eta<1$, the stepsize $\alpha>0$ satisfies the \emph{Wolfe conditions} if
+\begin{align}
+f(x^{k}+\alpha s^{k})&\le f(x^{k})+\beta\alpha\,\grad f(x^{k})\trans s^{k},
+\tag{W1}\label{eq:W1}\\
+\grad f(x^{k}+\alpha s^{k})\trans s^{k}&\ge \eta\,\grad f(x^{k})\trans s^{k}.
+\tag{W2}\label{eq:W2}
+\end{align}
+\end{definition}
+
+\begin{lemma}[Existence of an Armijo stepsize]\label{lem:armijo-exist}
+Let $f\in\mathcal{C}^{1}$, let $s^{k}$ be a descent direction at $x^{k}$, and let
+$\beta\in(0,1)$. Then there exists $\bar{\alpha}>0$ such that \eqref{eq:W1} holds
+for all $\alpha\in[0,\bar{\alpha}]$.
+\end{lemma}
+\begin{proof}
+Define $\varphi(\alpha):=f(x^{k}+\alpha s^{k})$. Then $\varphi(0)=f(x^{k})$ and
+$\varphi'(0)=\grad f(x^{k})\trans s^{k}<0$. The Armijo condition at stepsize $\alpha$ reads $\varphi(\alpha)\le \varphi(0)+\beta\alpha\varphi'(0)$.
+Since $\beta\in(0,1)$, the slope $\beta\varphi'(0)$ is strictly less negative than
+$\varphi'(0)$. By Taylor,
+\[
+\varphi(\alpha)=\varphi(0)+\alpha\varphi'(0)+o(\alpha)
+<\varphi(0)+\beta\alpha\varphi'(0)
+\]
+for all $\alpha>0$ sufficiently small, since
+$\alpha\varphi'(0)+o(\alpha)<\beta\alpha\varphi'(0)$ iff
+$(1-\beta)\varphi'(0)+o(1)<0$, which holds for $\alpha$ small enough because
+$(1-\beta)\varphi'(0)<0$.
+\end{proof}
+
+\begin{lemma}[Existence of a Wolfe stepsize]\label{lem:wolfe-exist}
+Let $f\in\mathcal{C}^{1}$ be bounded below, let $s^{k}$ be a descent direction at
+$x^{k}$, and let $0<\beta<\eta<1$. Then there exists $\alpha^{*}>0$ satisfying both
+\eqref{eq:W1} and \eqref{eq:W2}.
+\end{lemma}
+\begin{proof}
+Define $\varphi(\alpha):=f(x^{k}+\alpha s^{k})$, so $\varphi'(\alpha)=\grad f(x^{k}+\alpha s^{k})\trans s^{k}$. The Armijo line is $\ell(\alpha):=\varphi(0)+\beta\alpha\varphi'(0)$. Since $\ell(\alpha)\to-\infty$ as $\alpha\to\infty$ and $\varphi(\alpha)=f(x^{k}+\alpha s^{k})\ge f_{\mathrm{low}}>-\infty$, the Armijo condition $\varphi(\alpha)\le\ell(\alpha)$ cannot hold for all $\alpha>0$. By Lemma~\ref{lem:armijo-exist} it holds for small $\alpha$, so there exists a smallest $\bar{\alpha}>0$ at which it first fails, i.e.\
+$\varphi(\bar{\alpha})=\ell(\bar{\alpha})$ and $\varphi(\alpha)\le\ell(\alpha)$ for $\alpha\in[0,\bar{\alpha}]$.
+
+By the mean value theorem applied to $\varphi$ on $[0,\bar{\alpha}]$, there exists $\alpha^{*}\in(0,\bar{\alpha})$ with
+\[
+\varphi'(\alpha^{*})
+=\frac{\varphi(\bar{\alpha})-\varphi(0)}{\bar{\alpha}}
+=\frac{\ell(\bar{\alpha})-\varphi(0)}{\bar{\alpha}}
+=\beta\varphi'(0).
+\]
+Since $\eta>\beta$ and $\varphi'(0)<0$, we have
+$\varphi'(\alpha^{*})=\beta\varphi'(0)>\eta\varphi'(0)$, so \eqref{eq:W2} holds at $\alpha^{*}$. And $\alpha^{*}<\bar{\alpha}$, so $\varphi(\alpha^{*})\le\ell(\alpha^{*})$, i.e.\ \eqref{eq:W1} holds as well.
+\end{proof}
 
 \begin{algorithm}[Backtracking-Armijo (bArmijo) linesearch]\label{alg:bArmijo}
 Choose $\alpha^{(0)}>0$, $\tau\in(0,1)$, $\beta\in(0,1)$. Set $i:=0$.
 While \eqref{eq:armijo} fails with $\alpha=\alpha^{(i)}$, set
 $\alpha^{(i+1)}:=\tau\alpha^{(i)}$ and $i:=i+1$. Set $\alpha_{k}:=\alpha^{(i)}$.
 \end{algorithm}
+
+\begin{lemma}[Descent lemma]\label{lem:descent-lemma}
+Let $f\in\mathcal{C}^{1}$ with $\grad f$ Lipschitz continuous with constant $L$.
+Then for any $x,s\in\R^{n}$ and $\alpha>0$,
+\[
+f(x+\alpha s)\le f(x)+\alpha\,\grad f(x)\trans s+\alpha^{2}L\norm{s}^{2}.
+\]
+\end{lemma}
+\begin{proof}
+By Taylor's theorem, there exists $\tilde{\alpha}\in(0,\alpha)$ such that
+$f(x+\alpha s)=f(x)+\alpha\,\grad f(x+\tilde{\alpha}s)\trans s$. Adding and
+subtracting $\grad f(x)$, then applying Cauchy--Schwarz and the Lipschitz condition:
+\begin{align*}
+f(x+\alpha s)
+&=f(x)+\alpha\,\grad f(x)\trans s+\alpha\bigl[\grad f(x+\tilde{\alpha}s)-\grad f(x)\bigr]\trans s\\
+&\le f(x)+\alpha\,\grad f(x)\trans s+\alpha\,\norm{\grad f(x+\tilde{\alpha}s)-\grad f(x)}\,\norm{s}\\
+&\le f(x)+\alpha\,\grad f(x)\trans s+\alpha L\tilde{\alpha}\norm{s}^{2}
+\le f(x)+\alpha\,\grad f(x)\trans s+\alpha^{2}L\norm{s}^{2}.\qedhere
+\end{align*}
+\end{proof}
 
 \begin{lemma}[Range of admissible stepsizes]\label{lem:armijo-range}
 Let $f\in\mathcal{C}^{1}$ with $\grad f$ Lipschitz continuous with constant $L$.
@@ -396,6 +477,39 @@ $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
   \lim_{k\to\infty}\min \left\{\frac{\norm{\grad f(x^{k})}^2}{\norm{-\grad f(x^{k})}}, \norm{\grad f(x^{k})}\right\} = \norm{\grad f(x^{k})} = 0.
   \]
 \end{proof}
+
+\begin{corollary}[Iteration complexity of SD with bArmijo]\label{cor:SD-complexity}
+Under the conditions of Theorem~\ref{thm:SD-global}, for any $\eps>0$, there exists
+an iteration $k$ with $\norm{\grad f(x^{k})}\le\eps$ and
+\[
+k\le\frac{f(x^{0})-f_{\mathrm{low}}}{C\,\eps^{2}},
+\qquad
+C:=\beta\min\!\left\{\alpha^{(0)},\,
+\frac{(1-\beta)\tau}{L}\right\},
+\]
+where $L$ is the Lipschitz constant of $\grad f$, $\beta$ is the Armijo parameter, $\tau$ the backtracking factor, and $\alpha^{(0)}$ the initial stepsize.
+\end{corollary}
+\begin{proof}
+For steepest descent with $s^{k}=-\grad f(x^{k})$, Lemma~\ref{lem:bArmijo-step} gives
+$\alpha_{k}\ge\min\{\alpha^{(0)},\,\tau(1-\beta)/L\}=:C'$.
+The Armijo condition then yields
+\[
+f(x^{k})-f(x^{k+1})\ge\beta\alpha_{k}\norm{\grad f(x^{k})}^{2}
+\ge \beta C'\norm{\grad f(x^{k})}^{2}
+=C\norm{\grad f(x^{k})}^{2}.
+\]
+If $\norm{\grad f(x^{i})}>\eps$ for all $i=0,\dots,k-1$, telescoping gives
+\[
+f(x^{0})-f_{\mathrm{low}}\ge\sum_{i=0}^{k-1}C\,\eps^{2}=kC\eps^{2},
+\]
+so $k\le(f(x^{0})-f_{\mathrm{low}})/(C\eps^{2})$.
+\end{proof}
+
+\begin{remark}
+The $O(1/\eps^{2})$ complexity is a worst-case bound for first-order methods on
+smooth nonconvex problems. Newton's method can be faster asymptotically, but the
+$O(1/\eps^{2})$ bound is tight for steepest descent without further assumptions.
+\end{remark}
 
 \section{Local rate of convergence}
 
@@ -709,6 +823,51 @@ $\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\inft
   \]
 \end{proof}
 
+\begin{corollary}[Newton with bArmijo: stepsize bound and global convergence]\label{cor:newton-global}
+Let $f\in\mathcal{C}^{2}(\R^{n})$ be bounded below with $\grad f$ Lipschitz continuous
+(constant $L$). Suppose the eigenvalues of $\hess f(x)$ satisfy
+$\lambda_{\max}\ge\lambda_{\max}(\hess f(x))\ge\lambda_{\min}(\hess f(x))\ge\lambda_{\min}>0$
+for all $x$. Apply Newton's method with bArmijo linesearch to $f$.
+\begin{enumerate}[leftmargin=2em,itemsep=0pt]
+  \item The bArmijo stepsize satisfies
+        $\alpha_{k}\ge\min\bigl\{\alpha^{(0)},\,\tau(1-\beta)\lambda_{\min}^{2}/L^{2}\bigr\}=:C$
+        for all $k\ge 0$.
+  \item Newton with bArmijo is globally convergent:
+        $\norm{\grad f(x^{k})}\to 0$.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+The Newton direction $s^{k}=-[\hess f(x^{k})]^{-1}\grad f(x^{k})$ is descent since
+$\hess f(x^{k})\succ 0$. By Lemma~\ref{lem:bArmijo-step},
+$\alpha_{k}\ge\min\{\alpha^{(0)},\,\tau\alpha_{k,\max}\}$, where
+$\alpha_{k,\max}=(1-\beta)|\grad f(x^{k})\trans s^{k}|/(L\norm{s^{k}}^{2})$.
+It remains to bound the ratio $|\grad f(x^{k})\trans s^{k}|/\norm{s^{k}}^{2}$.
+
+Write $g_{k}:=\grad f(x^{k})$ and $H_{k}:=\hess f(x^{k})$. Then
+\[
+|g_{k}\trans s^{k}|=g_{k}\trans H_{k}^{-1}g_{k}
+\ge\lambda_{\min}(H_{k}^{-1})\norm{g_{k}}^{2}
+=\frac{\norm{g_{k}}^{2}}{\lambda_{\max}(H_{k})}
+\ge\frac{\norm{g_{k}}^{2}}{L},
+\]
+and
+\[
+\norm{s^{k}}^{2}=g_{k}\trans H_{k}^{-2}g_{k}
+\le\lambda_{\max}(H_{k}^{-2})\norm{g_{k}}^{2}
+=\frac{\norm{g_{k}}^{2}}{\lambda_{\min}(H_{k})^{2}}
+\le\frac{\norm{g_{k}}^{2}}{\lambda_{\min}^{2}}.
+\]
+Hence
+$\alpha_{k,\max}\ge (1-\beta)\lambda_{\min}^{2}/L^{2}$,
+proving (1). For (2), the Armijo condition gives
+\[
+f(x^{k})-f(x^{k+1})\ge\beta\alpha_{k}|g_{k}\trans s^{k}|
+\ge\frac{\beta C}{L}\norm{g_{k}}^{2}.
+\]
+Telescoping and using $f$ bounded below:
+$\sum_{k=0}^{\infty}\norm{g_{k}}^{2}<\infty$, so $\norm{g_{k}}\to 0$.
+\end{proof}
+
 \section{SGD vs Newton}
 
 \begin{table}[h]
@@ -825,13 +984,15 @@ definite, and satisfies the secant equation \eqref{eq:secant}.
 \begin{proof}
   It is easy to see that $B_{k + 1}$ is symmetric, as the two terms after $B_k$ are symmetric. For $x \in \R^n$ with $x \neq 0$, 
   \[
-    x\trans B_{k+1} x = x\trans B_{k}x - \frac{\bigl[(\delta^{k})\trans B_{k} x\bigr]^2}{(\delta^{k})\trans B_{k}\delta^{k}}
-    +\frac{\bigl[(\gamma^{k})\trans x\bigr]^2}{(\delta^{k})\trans\gamma^{k}}.
+    x\trans B_{k+1} x = \underbrace{x\trans B_{k}x - \frac{\bigl[(\delta^{k})\trans B_{k} x\bigr]^2}{(\delta^{k})\trans B_{k}\delta^{k}}}_{=:P}
+    +\underbrace{\frac{\bigl[(\gamma^{k})\trans x\bigr]^2}{(\delta^{k})\trans\gamma^{k}}}_{=:Q\,\ge\,0}.
   \]
-  Since $B_k$ is positive definite, we may define the inner product $\langle x, y \rangle_B = x\trans B_k y$ induced by $B_k$. Since $(\delta^{k})\trans\gamma^{k}>0$, the term $\frac{[(\gamma^{k})\trans x]^2}{(\delta^{k})\trans\gamma^{k}}$ is positive, and so by Cauchy-Schwarz inequality,
+  Since $B_k\succ 0$, we may define the inner product $\langle u, v \rangle_B = u\trans B_k v$. By Cauchy--Schwarz,
   \[
-    x\trans B_{k+1} x > \langle x, x \rangle_B - \frac{\langle \delta^k, x \rangle_B^2}{\langle \delta^k, \delta^k \rangle_B} \geq \langle x, x \rangle_B - \frac{\langle x, x \rangle_B \cdot \langle \delta^k, \delta^k \rangle_B}{\langle \delta^k, \delta^k \rangle_B} = 0.
+    P = \langle x, x \rangle_B - \frac{\langle \delta^k, x \rangle_B^2}{\langle \delta^k, \delta^k \rangle_B} \geq 0,
   \]
+  so $x\trans B_{k+1}x\ge 0$. Suppose $x\trans B_{k+1}x=0$. Then $P=0$ and $Q=0$. From $Q=0$: $(\gamma^{k})\trans x=0$. From $P=0$: Cauchy--Schwarz is tight, so $x=c\,\delta^{k}$ for some $c\in\R$ (in the $B_k$-inner product). But then $(\gamma^{k})\trans x=c\,(\delta^{k})\trans\gamma^{k}=0$, and since $(\delta^{k})\trans\gamma^{k}>0$, we get $c=0$, hence $x=0$, a contradiction. Therefore $x\trans B_{k+1}x>0$ for all $x\ne 0$.
+
   Since
   \[
     B_{k + 1}\delta^k = B_k\delta^k - \frac{B_k\delta^k[(\delta^k)\trans B_k\delta^k]}{(\delta^k)\trans B_k\delta^k} + \frac{\gamma^k[(\gamma^k)\trans\delta^k]}{(\delta^k)\trans\gamma^k} = \gamma^k,
@@ -839,10 +1000,23 @@ definite, and satisfies the secant equation \eqref{eq:secant}.
   the secant equation is satisfied.
 \end{proof}
 
-\begin{remark}
-The condition $(\delta^{k})\trans\gamma^{k}>0$ is guaranteed by use of the
-Wolfe linesearch.
-\end{remark}
+\begin{lemma}[Wolfe conditions guarantee $(\delta^{k})\trans\gamma^{k}>0$]\label{lem:wolfe-curvature}
+If the stepsize $\alpha_{k}$ satisfies the Wolfe conditions \eqref{eq:W1}--\eqref{eq:W2} with $0<\beta<\eta<1$ and $s^{k}$ is a descent direction, then $(\delta^{k})\trans\gamma^{k}>0$.
+\end{lemma}
+\begin{proof}
+Write $\delta^{k}=\alpha_{k}s^{k}$ and $\gamma^{k}=\grad f(x^{k+1})-\grad f(x^{k})$. The curvature condition \eqref{eq:W2} gives
+\[
+\grad f(x^{k+1})\trans s^{k}\ge\eta\,\grad f(x^{k})\trans s^{k}.
+\]
+Subtracting $\grad f(x^{k})\trans s^{k}$ from both sides,
+\[
+(\gamma^{k})\trans s^{k}\ge(\eta-1)\grad f(x^{k})\trans s^{k}.
+\]
+Since $\eta<1$ and $\grad f(x^{k})\trans s^{k}<0$, the right-hand side is strictly positive. Multiplying by $\alpha_{k}>0$,
+\[
+(\delta^{k})\trans\gamma^{k}=\alpha_{k}(\gamma^{k})\trans s^{k}\ge\alpha_{k}(\eta-1)\grad f(x^{k})\trans s^{k}>0.\qedhere
+\]
+\end{proof}
 
 \begin{theorem}[Convergence of BFGS]\label{thm:BFGS-conv}
 Under suitable conditions on $f$ and using the Wolfe linesearch, the BFGS method
@@ -915,10 +1089,13 @@ If $J(x^{k})$ has full column rank, then the Gauss-Newton direction is a descent
 direction for $f$.
 \end{lemma}
 \begin{proof}
-  Since $J(x^k)$ has full column rank, $J(x^k)\trans J(x^k)$ is positive definite, and so 
+  Since $J(x^k)$ has full column rank, $J(x^k)\trans J(x^k)$ is positive definite, and so $s^{k}\ne 0$ (as $\grad f(x^{k})=J(x^{k})\trans r(x^{k})\ne 0$). From \eqref{eq:GN},
   \[
-    [\grad f(x^k)]\trans s^k = -r(x^k)\trans J(x^k)  J(x^k)\trans r(x^k) < 0.
+    [\grad f(x^k)]\trans s^k
+    =-[J(x^{k})\trans J(x^{k})s^{k}]\trans s^{k}
+    =-(s^{k})\trans J(x^{k})\trans J(x^{k})s^{k}<0,
   \]
+  since $J(x^{k})\trans J(x^{k})\succ 0$ and $s^{k}\ne 0$.
 \end{proof}
 
 \begin{theorem}[Convergence of Gauss-Newton]\label{thm:GN-conv}
@@ -926,9 +1103,31 @@ Apply Gauss-Newton with bArmijo linesearch.
 \begin{enumerate}[leftmargin=2em,itemsep=0pt]
 \item (Global.) If $J(x^{k})$ is uniformly full rank, $f\in\mathcal{C}^{1}$ bounded below
 and $\grad f$ Lipschitz, then $\norm{\grad f(x^{k})}\to 0$.
-\item (Local.) If $r(x^{*})=0$ and $J(x^{*})$ has full rank, the convergence is quadratic; if $r(x^{*})\ne 0$ but small, the convergence is linear. \qed
+\item (Local.) If $r(x^{*})=0$ and $J(x^{*})$ has full rank, the convergence is quadratic; if $r(x^{*})\ne 0$ but small, the convergence is linear.
 \end{enumerate}
 \end{theorem}
+
+Part~(1) follows from Theorem~\ref{thm:Bk-global} with $B_{k}=J(x^{k})\trans J(x^{k})$ and the uniform full-rank assumption. We sketch the proof of the quadratic rate in part~(2).
+
+\begin{proof}[Proof sketch of local quadratic convergence (zero-residual case)]
+Assume $r(x^{*})=0$, $J(x^{*})$ full column rank, and $J$ locally Lipschitz at $x^{*}$.
+Taylor-expand $r$ around $x^{k}$ (sufficiently close to $x^{*}$):
+\[
+0=r(x^{*})=r(x^{k})+J(x^{k})(x^{*}-x^{k})+O(\norm{x^{*}-x^{k}}^{2}).
+\]
+Since $J(x^{k})$ has full column rank near $x^{*}$, the pseudo-inverse
+$J(x^{k})^{+}:=(J(x^{k})\trans J(x^{k}))^{-1}J(x^{k})\trans$ is well-defined and
+bounded. Applying $J(x^{k})^{+}$ and using $J(x^{k})^{+}J(x^{k})=I$:
+\[
+x^{k}-x^{*}=J(x^{k})^{+}r(x^{k})+O(\norm{x^{*}-x^{k}}^{2}).
+\]
+The pure GN iterate (with $\alpha_{k}=1$) is
+$x^{k+1}=x^{k}-J(x^{k})^{+}r(x^{k})$, so
+\[
+x^{k+1}-x^{*}=O(\norm{x^{k}-x^{*}}^{2}),
+\]
+giving quadratic convergence.
+\end{proof}
 
 \begin{remark}[Newton vs.\ Gauss-Newton]\
 \begin{itemize}[leftmargin=2em,itemsep=0pt]
@@ -1225,8 +1424,35 @@ $\norm{s^{*}}\le\Delta_{k}$ and there exists $\lambda^{*}\ge 0$ such that
   \item $\lambda^{*}(\Delta_{k}-\norm{s^{*}})=0$ \quad(complementarity),
   \item $B_{k}+\lambda^{*}I\succeq 0$.
 \end{enumerate}
-Moreover $\lambda^{*}$ is unique whenever $B_{k}+\lambda^{*}I\succ 0$. \qed
+Moreover $\lambda^{*}$ is unique whenever $B_{k}+\lambda^{*}I\succ 0$.
 \end{theorem}
+
+We prove the sufficiency direction (the necessity direction uses Lagrangian duality and is not given here).
+
+\begin{proof}[Proof of sufficiency]
+Write $g:=\grad f(x^{k})$ and set $B:=B_{k}+\lambda^{*}I\succeq 0$.
+Condition~(1) reads $Bs^{*}=-g$, which says $s^{*}$ is a stationary point of the
+unconstrained quadratic $M(s):=s\trans g+\tfrac12 s\trans Bs$.
+Since $B\succeq 0$, $M$ is convex and $s^{*}$ is its global minimizer:
+$M(s)\ge M(s^{*})$ for all $s\in\R^{n}$.
+
+Now the original model is $m_{k}(s)=f(x^{k})+s\trans g+\tfrac12 s\trans B_{k}s
+=f(x^{k})+M(s)-\tfrac{\lambda^{*}}{2}\norm{s}^{2}$.
+For any feasible $s$ with $\norm{s}\le\Delta_{k}$,
+\[
+m_{k}(s)=f(x^{k})+M(s)-\tfrac{\lambda^{*}}{2}\norm{s}^{2}
+\ge f(x^{k})+M(s^{*})-\tfrac{\lambda^{*}}{2}\norm{s}^{2}
+=m_{k}(s^{*})+\tfrac{\lambda^{*}}{2}\bigl(\norm{s^{*}}^{2}-\norm{s}^{2}\bigr).
+\]
+By complementarity~(2), $\lambda^{*}(\Delta_{k}-\norm{s^{*}})=0$, so
+$\lambda^{*}\norm{s^{*}}^{2}=\lambda^{*}\Delta_{k}^{2}$ (either $\lambda^{*}=0$ or
+$\norm{s^{*}}=\Delta_{k}$). Since $\norm{s}\le\Delta_{k}$ and $\lambda^{*}\ge 0$,
+\[
+\tfrac{\lambda^{*}}{2}\bigl(\norm{s^{*}}^{2}-\norm{s}^{2}\bigr)
+=\tfrac{\lambda^{*}}{2}\bigl(\Delta_{k}^{2}-\norm{s}^{2}\bigr)\ge 0.
+\]
+Hence $m_{k}(s)\ge m_{k}(s^{*})$ for every feasible $s$.
+\end{proof}
 
 Theorem~\ref{thm:TR-charac} gives necessary and sufficient global
 optimality conditions for a nonconvex optimization problem. It splits the practical solution into two cases:
@@ -1831,7 +2057,7 @@ multipliers $y^{*}$.
   Hence $y^k \to y^*$.
    
   \textit{Step 2: $c(x^*) = 0$.}
-  Note that $c(x^k) = \sigma_k (u^k - y^k)$. If $u_k$ is bounded and $\sigma_k \to 0$, then $c(x^k) \to 0$. If $\sigma_k$ is bounded and $u_k \to y^*$, then $c(x^k) \to 0$. Hence $c(x^k) = 0$, and so $c(x^*) = 0$ by continuity of $c$.
+  Note that $c(x^k) = \sigma_k (u^k - y^k)$. If $u_k$ is bounded and $\sigma_k \to 0$, then $c(x^k) \to 0$. If $\sigma_k$ is bounded and $u_k \to y^*$, then $c(x^k) \to 0$. Hence $c(x^k) \to 0$, and so $c(x^*) = 0$ by continuity of $c$.
    
   \textit{Step 3: $\grad f(x^*) = J(x^*)\trans y^*$.}
   The LHS of $(\diamondsuit)$ satisfies $\norm{\grad\Phi_{\sigma_k}(x^k)} \leq \epsilon_k \to 0$. The RHS converges to $\grad f(x^*) - J(x^*)\trans y^*$ by continuity. Equating the limits: $\grad f(x^*) = J(x^*)\trans y^*$.
@@ -2070,9 +2296,26 @@ Let $f\in\mathcal{C}^{1}$. Then $f$ is convex if and only if
 $f(y)\ge f(x)+\grad f(x)\trans(y-x)$ for all $x,y$.
 \end{theorem}
 
-\begin{theorem}[Second-order characterization]
+\begin{theorem}[Second-order characterization]\label{thm:convex-second-order}
 Let $f\in\mathcal{C}^{2}$. Then $f$ is convex if and only if
 $\hess f(x)\succeq 0$ for all $x$.
 \end{theorem}
+\begin{proof}
+($\Leftarrow$) Suppose $\hess f(x)\succeq 0$ for all $x$. Fix $x,y\in\R^{n}$ and put $s:=y-x$. By second-order Taylor's theorem with remainder, there exists $\tilde{\alpha}\in(0,1)$ such that
+\[
+f(y)=f(x+s)=f(x)+\grad f(x)\trans s+\tfrac12 s\trans\hess f(x+\tilde{\alpha}s)\,s.
+\]
+Since $\hess f(x+\tilde{\alpha}s)\succeq 0$, the last term is nonnegative, giving
+$f(y)\ge f(x)+\grad f(x)\trans(y-x)$.
+This is the first-order characterisation, so $f$ is convex.
+
+($\Rightarrow$) Suppose $f$ is convex. Fix $x,d\in\R^{n}$ and $t>0$. The first-order characterisation gives both $f(x+td)\ge f(x)+t\,\grad f(x)\trans d$ and $f(x)\ge f(x+td)+(-td)\trans\grad f(x+td)$. Adding:
+\[
+0\ge t\bigl[\grad f(x)-\grad f(x+td)\bigr]\trans d.
+\]
+Dividing by $t^{2}>0$ and letting $t\downarrow 0$:
+$0\le\frac{[\grad f(x+td)-\grad f(x)]\trans d}{t}\to d\trans\hess f(x)d$.
+Hence $d\trans\hess f(x)d\ge 0$ for all $d$, so $\hess f(x)\succeq 0$.
+\end{proof}
 
 \end{document}
