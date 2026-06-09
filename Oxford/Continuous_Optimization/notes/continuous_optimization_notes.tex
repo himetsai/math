@@ -135,15 +135,16 @@ then $\grad f(x^{*})=0$ and $\hess f(x^{*})\succeq 0$ (positive semidefinite),
 i.e.\ $s\trans\hess f(x^{*})s\ge 0$ for all $s\in\R^{n}$.
 \end{theorem}
 \begin{proof}
-  By Theorem~\ref{thm:foc}, $\grad f(x^{*})=0$. Suppose for contradiction that $s\trans\hess f(x^{*})s < 0$ for some $s \in \R^{n}$. Since $s \neq 0$ and $f \in \mathcal{C}^2$, there exists $\hat{\alpha} > 0$ such that $s\trans\hess f(x^{*} + \alpha s)s < 0$ for all $\alpha \in (0, \hat{\alpha}]$. By Taylor's theorem, for any $\alpha \in (0, \hat{\alpha}]$, there exists $\bar{\alpha} \in (0, \alpha)$ such that
+  By Theorem~\ref{thm:foc}, $\grad f(x^{*})=0$. Suppose for contradiction that $s\trans\hess f(x^{*})s < 0$ for some $s \in \R^{n}$. Since $s \neq 0$ and $f \in \mathcal{C}^2$, there exists $\hat{\alpha} > 0$ such that $s\trans\hess f(x^{*} + \alpha s)s < 0$ for all $\alpha \in (0, \hat{\alpha}]$. By Taylor's theorem, for any $\alpha \in (0, \hat{\alpha}]$, there exists $t \in (0, \alpha)$ such that
   \[
-    f(x^{*} + \alpha s) - f(x^{*}) = \frac{\alpha^2}{2} s\trans\hess f(x^{*} + \bar{\alpha} s)s < 0,
+    f(x^{*} + \alpha s) - f(x^{*}) = \frac{\alpha^2}{2} s\trans\hess f(x^{*} + t s)s < 0,
   \]
   contradiction.
 \end{proof}
 
 \begin{theorem}[Second-order sufficient conditions]\label{thm:soc-suf}
-Let $f\in\mathcal{C}^{2}(\R^{n})$. If $\grad f(x^{*})=0$ and $\hess f(x^{*})\succ 0$, then $x^{*}$ is a strict local minimizer of $f$.
+Let $f\in\mathcal{C}^{2}(\R^{n})$. If $\grad f(x^{*})=0$ and $\hess f(x^{*})\succ 0$
+(positive definite), then $x^{*}$ is a strict local minimizer of $f$.
 \end{theorem}
 \begin{proof}
   Since $\hess f(x^{*})\succ 0$ and $\hess f$ is continuous, there exists $\delta>0$ such that $\hess f(x)\succ 0$ for all $x\in N(x^{*},\delta)$. Now let $0\ne d\in\R^{n}$ with $\norm{d}<\delta$. By Taylor's theorem with $\grad f(x^{*})=0$, there exists $\tilde{t}\in(0,1)$ such that
@@ -186,7 +187,7 @@ Let $f:\R^{n}\to\R$ be convex and $\mathcal{C}^{1}$. Then $x^{*}$ is a global
 minimizer of $f$ if and only if $\grad f(x^{*})=0$.
 \end{theorem}
 \begin{proof}
-  If $x^{*}$ is a global minimizer, then by Theorem~\ref{thm:foc}, $\grad f(x^{*})=0$. It remains to show the converse.
+  If $x^{*}$ is a global minimizer, then by Theorem~\ref{thm:foc}, $\grad f(x^{*})=0$. It remains to show the converse: $\grad f(x^{*})=0$ implies $x^{*}$ is a global minimizer.
 
   Since $f$ is convex and $\mathcal{C}^{1}$, the first-order characterisation of convexity gives
   \[
@@ -275,17 +276,16 @@ for all $\alpha\in[0,\bar{\alpha}]$.
 \end{lemma}
 \begin{proof}
 Define $\varphi(\alpha):=f(x^{k}+\alpha s^{k})$. Then $\varphi(0)=f(x^{k})$ and
-$\varphi'(0)=\grad f(x^{k})\trans s^{k}<0$. The Armijo condition at stepsize $\alpha$ reads $\varphi(\alpha)\le \varphi(0)+\beta\alpha\varphi'(0)$.
-Since $\beta\in(0,1)$, the slope $\beta\varphi'(0)$ is strictly less negative than
-$\varphi'(0)$. By Taylor,
+$\varphi'(0)=\grad f(x^{k})\trans s^{k}<0$. Since $f \in \mathcal{C}^1$, $\varphi'$ is continuous. But then the set $\{\alpha : \varphi'(\alpha) < \beta \varphi'(0)\}$ is open and contains 0, so there exists $\bar{\alpha}>0$ such that
 \[
-\varphi(\alpha)=\varphi(0)+\alpha\varphi'(0)+o(\alpha)
-<\varphi(0)+\beta\alpha\varphi'(0)
+\varphi'(\alpha)< \beta\,\varphi'(0)\qquad\text{for all }\alpha\in[0,\bar{\alpha}].
 \]
-for all $\alpha>0$ sufficiently small, since
-$\alpha\varphi'(0)+o(\alpha)<\beta\alpha\varphi'(0)$ iff
-$(1-\beta)\varphi'(0)+o(1)<0$, which holds for $\alpha$ small enough because
-$(1-\beta)\varphi'(0)<0$.
+By the mean value theorem, for each $\alpha\in(0,\bar{\alpha}]$, there exists $\tilde{\alpha}\in(0,\alpha)$ with
+\[
+\varphi(\alpha)=\varphi(0)+\alpha\,\varphi'(\tilde{\alpha})
+<\varphi(0)+\beta\alpha\,\varphi'(0),
+\]
+which is exactly the Armijo condition \eqref{eq:W1}.
 \end{proof}
 
 \begin{lemma}[Existence of a Wolfe stepsize]\label{lem:wolfe-exist}
@@ -294,7 +294,7 @@ $x^{k}$, and let $0<\beta<\eta<1$. Then there exists $\alpha^{*}>0$ satisfying b
 \eqref{eq:W1} and \eqref{eq:W2}.
 \end{lemma}
 \begin{proof}
-Define $\varphi(\alpha):=f(x^{k}+\alpha s^{k})$, so $\varphi'(\alpha)=\grad f(x^{k}+\alpha s^{k})\trans s^{k}$. The Armijo line is $\ell(\alpha):=\varphi(0)+\beta\alpha\varphi'(0)$. Since $\ell(\alpha)\to-\infty$ as $\alpha\to\infty$ and $\varphi(\alpha)=f(x^{k}+\alpha s^{k})\ge f_{\mathrm{low}}>-\infty$, the Armijo condition $\varphi(\alpha)\le\ell(\alpha)$ cannot hold for all $\alpha>0$. By Lemma~\ref{lem:armijo-exist} it holds for small $\alpha$, so there exists a smallest $\bar{\alpha}>0$ at which it first fails, i.e.\
+Define $\varphi(\alpha):=f(x^{k}+\alpha s^{k})$, so $\varphi'(\alpha)=\grad f(x^{k}+\alpha s^{k})\trans s^{k}$. The Armijo line is $\ell(\alpha):=\varphi(0)+\beta\alpha\varphi'(0)$. Since $\ell(\alpha)\to-\infty$ as $\alpha\to\infty$ and $\varphi(\alpha)=f(x^{k}+\alpha s^{k})$ is bounded below, the Armijo condition $\varphi(\alpha)\le\ell(\alpha)$ cannot hold for all $\alpha>0$. By Lemma~\ref{lem:armijo-exist} it holds for small $\alpha$, so there exists a smallest $\bar{\alpha}>0$ at which it first fails, i.e.\
 $\varphi(\bar{\alpha})=\ell(\bar{\alpha})$ and $\varphi(\alpha)\le\ell(\alpha)$ for $\alpha\in[0,\bar{\alpha}]$.
 
 By the mean value theorem applied to $\varphi$ on $[0,\bar{\alpha}]$, there exists $\alpha^{*}\in(0,\bar{\alpha})$ with
@@ -302,10 +302,9 @@ By the mean value theorem applied to $\varphi$ on $[0,\bar{\alpha}]$, there exis
 \varphi'(\alpha^{*})
 =\frac{\varphi(\bar{\alpha})-\varphi(0)}{\bar{\alpha}}
 =\frac{\ell(\bar{\alpha})-\varphi(0)}{\bar{\alpha}}
-=\beta\varphi'(0).
+=\beta\varphi'(0) > \eta \varphi'(0)
 \]
-Since $\eta>\beta$ and $\varphi'(0)<0$, we have
-$\varphi'(\alpha^{*})=\beta\varphi'(0)>\eta\varphi'(0)$, so \eqref{eq:W2} holds at $\alpha^{*}$. And $\alpha^{*}<\bar{\alpha}$, so $\varphi(\alpha^{*})\le\ell(\alpha^{*})$, i.e.\ \eqref{eq:W1} holds as well.
+Thus \eqref{eq:W2} holds at $\alpha^{*}$. And $\alpha^{*}<\bar{\alpha}$, so $\varphi(\alpha^{*})\le\ell(\alpha^{*})$, i.e.\ \eqref{eq:W1} holds as well.
 \end{proof}
 
 \begin{algorithm}[Backtracking-Armijo (bArmijo) linesearch]\label{alg:bArmijo}
@@ -329,8 +328,8 @@ subtracting $\grad f(x)$, then applying Cauchy--Schwarz and the Lipschitz condit
 f(x+\alpha s)
 &=f(x)+\alpha\,\grad f(x)\trans s+\alpha\bigl[\grad f(x+\tilde{\alpha}s)-\grad f(x)\bigr]\trans s\\
 &\le f(x)+\alpha\,\grad f(x)\trans s+\alpha\,\norm{\grad f(x+\tilde{\alpha}s)-\grad f(x)}\,\norm{s}\\
-&\le f(x)+\alpha\,\grad f(x)\trans s+\alpha L\tilde{\alpha}\norm{s}^{2}
-\le f(x)+\alpha\,\grad f(x)\trans s+\alpha^{2}L\norm{s}^{2}.\qedhere
+&\le f(x)+\alpha\,\grad f(x)\trans s+\alpha L\tilde{\alpha}\norm{s}^{2} \\
+&\le f(x)+\alpha\,\grad f(x)\trans s+\alpha^{2}L\norm{s}^{2}.\qedhere
 \end{align*}
 \end{proof}
 
@@ -343,14 +342,11 @@ for all $\alpha\in[0,\alpha_{k,\max}]$, where
 \]
 \end{lemma}
 \begin{proof}
-  First note that $\alpha_{k,\max} > 0$ as $\beta < 1$ and $s^{k}$ is a descent direction. Let $s^{k}$ be a descent direction and let $\alpha \in [0, \alpha_{k,\max}]$. By Taylor's theorem, there exists $\tilde{\alpha} \in (0, \alpha)$ such that
+  First note that $\alpha_{k,\max} > 0$ as $\beta < 1$ and $s^{k}$ is a descent direction. Let $s^{k}$ be a descent direction and let $\alpha \in [0, \alpha_{k,\max}]$. By Lemma~\ref{lem:descent-lemma}, 
   \begin{align*}
     f(x^{k} + \alpha s^{k}) 
-    &= f(x^{k}) + \alpha \grad f(x^{k} + \tilde{\alpha} s^{k})\trans s^{k} \\
-    &= f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha \bigl[\grad f(x^{k} + \tilde{\alpha} s^{k}) - \grad f(x^{k})\bigr]\trans s^{k} \\
-    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha L\norm{\tilde{\alpha}s^{k}} \cdot \norm{s^{k}} \\
     &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha^2 L\norm{s^{k}}^2 \\
-    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha^2(\beta - 1)\grad f(x^{k})\trans s^{k}  \\
+    &\leq f(x^{k}) + \alpha \grad f(x^{k})\trans s^{k} + \alpha(\beta - 1)\grad f(x^{k})\trans s^{k}  \\
     &\leq f(x^{k}) + \beta\alpha\grad f(x^{k})\trans s^{k},
   \end{align*}
   which satisfies the Armijo condition.
@@ -364,7 +360,7 @@ for all $k\ge 0$.
 \begin{proof}
   Note that $\alpha_{k} = \alpha^{(0)}$ if bArmijo terminates at the start. Suppose this is not the case. By Lemma~\ref{lem:armijo-range}, bArmijo terminates whenever $\alpha \leq \alpha_{k,\max}$. Let $i - 1$ be the last iteration before termination, so $\alpha^{(i - 1)} > \alpha_{k,\max}$ and $\tau\alpha^{(i - 1)} = \alpha^{(i)} \leq \alpha_{k,\max}$. But then
   \[
-    \alpha_{k} = \alpha^{(i)} = \tau\alpha^{(i - 1)} > \tau\alpha_{k,\max}.
+    \alpha_{k} = \alpha^{(i)} = \tau\alpha^{(i - 1)} > \tau\alpha_{k,\max}. \qedhere
   \]
 \end{proof}
 
@@ -397,7 +393,7 @@ or
   \[
     \mathcal{K}_1 \coloneqq \{k : \alpha^{(0)} \geq \tau\alpha_{k,\max}\}, \qquad \mathcal{K}_2 \coloneqq \{k : \alpha^{(0)} < \tau\alpha_{k,\max}\}.
   \]
-  By Lemma~\ref{lem:bArmijo-step}, for $k \in \mathcal{K}_1$,
+  For $k \in \mathcal{K}_1$,
   \[
     \alpha_{k} |\grad f(x^{k})\trans s^{k}| \geq \frac{(1 - \beta)\tau}{L} \cdot \left(\frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}}\right)^2 \geq 0.
   \]
@@ -405,7 +401,7 @@ or
   \[
     \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_1}} \frac{|\grad f(x^{k})\trans s^{k}|}{\norm{s^{k}}} \to 0.
   \]
-  On the other hand, by Lemma~\ref{lem:bArmijo-step}, for $k \in \mathcal{K}_2$ we have $\alpha_{k} \geq \alpha^{(0)}$, so
+  On the other hand, for $k \in \mathcal{K}_2$ we have $\alpha_{k} \geq \alpha^{(0)}$, so
   \[
     0 \leq \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} |\grad f(x^{k})\trans s^{k}| \leq \frac{1}{\alpha^{(0)}} \cdot \lim_{\substack{k \to \infty \\ k \in \mathcal{K}_2}} \alpha_{k} |\grad f(x^{k})\trans s^{k}| \to 0.
   \]
@@ -474,7 +470,7 @@ $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
 \begin{proof}
   Suppose there are no $\ell$ with $\grad f(x^{\ell}) = 0$. Then by Theorem~\ref{thm:GLM-global}, 
   \[
-  \lim_{k\to\infty}\min \left\{\frac{\norm{\grad f(x^{k})}^2}{\norm{-\grad f(x^{k})}}, \norm{\grad f(x^{k})}\right\} = \norm{\grad f(x^{k})} = 0.
+  \lim_{k\to\infty}\min \left\{\frac{\norm{\grad f(x^{k})}^2}{\norm{-\grad f(x^{k})}}, \norm{\grad f(x^{k})}\right\} = \norm{\grad f(x^{k})} = 0. \qedhere
   \]
 \end{proof}
 
@@ -530,7 +526,7 @@ linear with factor
 \[
 \rho\le \frac{\kappa(x^{*})-1}{\kappa(x^{*})+1},
 \qquad
-\kappa(x^{*})=\frac{\lambda^{*}_{\max}}{\lambda^{*}_{\min}}.
+\kappa(x^{*})=\frac{\lambda^{*}_{\max}}{\lambda^{*}_{\min}}. 
 \]
 \qed
 \end{theorem}
@@ -619,26 +615,26 @@ close to $x^{*}$ for some $k_{0}\ge 0$, then $x^{k}$ is well-defined for all
 $k\ge k_{0}$ and $x^{k}\to x^{*}$ at a quadratic rate.
 \end{theorem}
 \begin{proof}
-  Write $g(x):=\grad f(x)$, $H(x):=\hess f(x)$, and
-  $e^{k}:=x^{k}-x^{*}$. Since $H(x^{*})$ is nonsingular and $H$ is continuous,
-  there is a radius $\rho>0$ such that $H(x)$ is nonsingular for
-  $x\in N(x^{*},\rho)$. Shrinking $\rho$ if necessary, local Lipschitz
-  continuity gives a constant $L>0$ such that
-  \[
-    \norm{H(y)-H(x)}\le L\norm{y-x}
-    \quad\text{for all }x,y\in N(x^{*},\rho),
-  \]
-  and continuity of $x\mapsto H(x)^{-1}$ gives a constant $M>0$ such that
-  \[
-    \norm{H(x)^{-1}}\le M
-    \quad\text{for all }x\in N(x^{*},\rho).
-  \]
-  For any $x\in N(x^{*},\rho)$, Taylor's theorem for $g$ with Lipschitz derivative gives
+  Write $g(x):=\grad f(x)$ and $H(x):=\hess f(x)$. Since $H(x^{*})$ is nonsingular and locally Lipschitz continuous and $H$ is continuous,
+  there is a radius $\rho>0$ such that for $x, y \in N(x^{*},\rho)$,
+  \begin{itemize}
+    \item $H(x)^{-1}$ exists and $\norm{H(x)^{-1}}\le M$ for some $M>0$,
+    \item $\norm{H(y)-H(x)}\le L\norm{y-x}$.
+  \end{itemize}
+  For $x\in N(x^{*},\rho)$, Taylor's theorem gives
   \[
     g(x^{*})=g(x)+H(x)(x^{*}-x)+r(x),
-    \qquad
-    \norm{r(x)}\le \frac{L}{2}\norm{x-x^{*}}^{2}.
   \]
+  where the remainder term
+  \begin{align*}
+    \|r(x)\|
+    &= \|g(x + h) - g(x) - H(x)h\| \\
+    &\leq \int_{0}^1 \|H(x + th) - H(x)\|\cdot\|h\| \, dt \\
+    &\leq L\|h\|^2\int_{0}^1 t \, dt = \frac{L}{2}\|x^* - x\|^2,
+  \end{align*}
+  by Lipschitz and $h := x^* - x$.
+
+
   Since $g(x^{*})=0$, the pure Newton iterate
   $N(x):=x-H(x)^{-1}g(x)$ satisfies
   \[
@@ -661,12 +657,7 @@ $k\ge k_{0}$ and $x^{k}\to x^{*}$ at a quadratic rate.
     \le \frac{ML}{2}\norm{x^{k}-x^{*}}^{2}
     \le \frac12\norm{x^{k}-x^{*}}.
   \]
-  Therefore $x^{k}\to x^{*}$, and the sharper estimate
-  \[
-    \norm{x^{k+1}-x^{*}}
-    \le \frac{ML}{2}\norm{x^{k}-x^{*}}^{2}
-  \]
-  gives quadratic convergence.
+  Therefore, $x^{k}\to x^{*}$ and the first inequality gives quadratic convergence.
 \end{proof}
 
 \begin{theorem}[Scale invariance of Newton]\label{thm:newton-scale}
@@ -790,24 +781,22 @@ B_{k}s^{k}=-\grad f(x^{k}).
 \end{equation}
 
 \begin{theorem}[Global convergence with bounded $B_{k}$]\label{thm:Bk-global}
-Let $f\in\mathcal{C}^{1}(\R^{n})$ be bounded below with $\grad f$ Lipschitz
-continuous. Apply GLM with $s^{k}$ from \eqref{eq:Bksk} and bArmijo linesearch
+Let $f\in\mathcal{C}^{1}(\R^{n})$ be bounded below and $\grad f$ Lipschitz continuous. Apply GLM with $s^{k}$ from \eqref{eq:Bksk} and bArmijo linesearch
 ($\eps:=0$). Suppose the eigenvalues of $B_{k}$ are uniformly bounded above and
 uniformly bounded away from zero, independently of $k$. Then either there exists
 $\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\infty$.
 \end{theorem}
 \begin{proof}
-  Write $H_k = \hess f(x^{k})$ and $g_k = \grad f(x^{k})$. Note that $B_k$ is nonsingular, so we may write $s^{k} = -B_k^{-1}g_k$. Assume that $g_k \neq 0$ for all $k \geq 0$. Then by Theorem~\ref{thm:GLM-global}
+  Write $H_k = \hess f(x^{k})$ and $g_k = \grad f(x^{k})$. Since $B_k \succ 0$, we may write $s^{k} = -B_k^{-1}g_k$. Assume that $g_k \neq 0$ for all $k \geq 0$. Since $f$ is bounded below and $\grad f$ is Lipschitz continuous, Theorem~\ref{thm:GLM-global} gives
   \begin{equation}\label{eq:Bk-global-condition}
     \lim_{k\to\infty}\min\!\left\{\frac{|g_k\trans s^{k}|}{\norm{s^{k}}}, |g_k\trans s^{k}|\right\}=0.
   \end{equation}
-  We are left to show that this implies that $\norm{\grad f(x^{k})} \to 0$ as $k \to \infty$.
+  It remains to show that $\|g_k\| \to 0$ as $k \to \infty$.
 
   Since $B_k$ is symmetric, $B_k$ admits real eigenvalues by the spectral theorem. Since the eigenvalues are uniformly bounded above and away from zero, there exists constants $\lambda_{\max}$ and $\lambda_{\min}$ such that $\lambda_{\max} \geq \lambda_{\max}(B_k) \geq \lambda_{\min}(B_k) \geq \lambda_{\min}$ for all $k \geq 0$. In particular, for any $s \in \R^n$ and any $B_k$,
   \[
     \lambda_{\min} \norm{s}^2 \leq \lambda_{\min}(B_k) \norm{s}^2 \leq s\trans B_k s \leq \lambda_{\max}(B_k) \norm{s}^2 \leq \lambda_{\max} \norm{s}^2 \implies \lambda_{\min} \leq \frac{s\trans B_k s}{\norm{s}^2} \leq \lambda_{\max}.
   \]
-  Since $\grad f$ is Lipschitz continuous, $\norm{H_k}$ is uniformly bounded above. Thus, by possibly enlarging $\lambda_{\max}$, we have $\lambda_{\max}(H_k) \leq \lambda_{\max}$ for all $k \geq 0$. 
 
   By definition of $s^{k}$ and $g_k \neq 0$, 
   \[
@@ -824,8 +813,7 @@ $\ell$ with $\grad f(x^{\ell})=0$, or $\norm{\grad f(x^{k})}\to 0$ as $k\to\inft
 \end{proof}
 
 \begin{corollary}[Newton with bArmijo: stepsize bound and global convergence]\label{cor:newton-global}
-Let $f\in\mathcal{C}^{2}(\R^{n})$ be bounded below with $\grad f$ Lipschitz continuous
-(constant $L$). Suppose the eigenvalues of $\hess f(x)$ satisfy
+Let $f\in\mathcal{C}^{2}(\R^{n})$ be bounded below with $\grad f$ $L$-Lipschitz continuous. Suppose the eigenvalues of $\hess f(x)$ satisfy
 $\lambda_{\max}\ge\lambda_{\max}(\hess f(x))\ge\lambda_{\min}(\hess f(x))\ge\lambda_{\min}>0$
 for all $x$. Apply Newton's method with bArmijo linesearch to $f$.
 \begin{enumerate}[leftmargin=2em,itemsep=0pt]
@@ -867,6 +855,8 @@ f(x^{k})-f(x^{k+1})\ge\beta\alpha_{k}|g_{k}\trans s^{k}|
 Telescoping and using $f$ bounded below:
 $\sum_{k=0}^{\infty}\norm{g_{k}}^{2}<\infty$, so $\norm{g_{k}}\to 0$.
 \end{proof}
+
+\newpage
 
 \section{SGD vs Newton}
 

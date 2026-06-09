@@ -419,4 +419,51 @@
   \end{enumerate}
 \end{homeworkProblem}
 
+\newpage
+
+\begin{homeworkProblem}
+  By path coupling or otherwise, show Theorem 4.9 from the lecture notes, that Glauber dynamics for proper $q$-colourings mixes in time $O(n\log n)$ when $q \geq 2 \Delta + 1$.
+
+  \begin{proof}
+    Let $S$ be the set of proper $q$-coloringsc of $G$ and suppose that $S \neq \emptyset$. Let $x \in S$. Consider the Markov chain $(\eta_t)_{t \geq 0}$ with $\eta_0 = x$ on $S$ with steps defined as follows:
+    \begin{enumerate}
+      \item Given $\eta_t$, select a uniformly random vertex $v_t \in V$ and a uniformly random color $c_t \in [q]$.
+      \item Obtain $\eta_t'$ from $\eta_t$ by recoloring vertex $v_t$ using $c_t$. 
+      \item If $\eta_t'$ is a proper coloring, then put $\eta_{t + 1} = \eta_t'$, otherwise set $\eta_{t + 1} = \eta_t$. 
+    \end{enumerate}
+    Note that $(\eta_t)$ is irreducible and aperiodic. To see that the equilibrium distribution is uniform, notice
+    \[
+      P_{\eta, \eta^{v, c}} = \frac{1}{qn} = P_{\eta^{v, c}, \eta}
+    \]
+    for every possible transition from $\eta$ to $\eta^{v, c}$ where the color of $v$ is changed to $c$. Thus, for all $x, y \in S$, 
+    \[
+      P^t_x(y) \to \frac{1}{|S|},
+    \]
+    as $t \to \infty$.
+
+    Define $d(x, y) = |\{v \in V : x_i \neq y_i\}|$ on $S$. For $x, y \in S$ with distance 1, there exists $v \in V$ such that $y = x^{v, c}$, where $c$ is the color of $v$ in $y$. Pick such $x, y$. Let $(X, Y)$ be a coupling of $(P_x^1, P_y^1)$ by sampling vertex $W \sim \text{Unif}[V]$ and color $C_x \sim \text{Unif}\{1, \ldots, q\}$. Define color $C_y$ as follows:
+    \begin{itemize}
+      \item If $W$ is a neighbor of $v$ and $C_x = x(v)$, then let $C_y = y(v)$.
+      \item If $W$ is a neighbor of $v$ and $C_x = y(v)$, then let $C_y = x(v)$.
+      \item Otherwise, let $C_y = C_x$.
+    \end{itemize}
+    Finally, we attempt to change $x(v)$ to $C_x$ and $y(v)$ to $C_y$.
+    
+    Considering the following cases:
+    \begin{enumerate}
+      \item If $(W, c)$ is a good move, then $d(X, Y) = 0$. In this case, $W = v$ and either the update succeeds for both $x, y$ or fail for both, as $x(u) = y(u)$ for all $u \in N(v)$. This excludes at most $\Delta$ colors, so the probability of a good move is $p_g \geq (q - \Delta)/qn$.
+      \item If $(W, C)$ is a bad move, then $d(X, Y) = 2$. In this case, $W$ must be a neighbor of $v$ and $C_x = y(v)$. The probability of a bad is thus $p_b \leq \Delta/qn$.
+      \item The remaining possibility is that $d(X, Y) = 1$, which has probability $1 - p_g - p_b$. 
+    \end{enumerate}
+    Thus
+    \[
+      \E[d(X, Y)] \leq 2 \cdot p_b + 1 - p_g - p_b = 1 - p_g + p_b = 1 - \alpha,
+    \]
+    where $\alpha = p_g - p_b \geq \frac{q - 2\Delta}{qn} > 0$. By the path coupling lemma,
+    \[
+      t_{mix}(\epsilon) \leq O\left(\frac{1}{\alpha}\log n\right) = O(n \log n).
+    \]
+  \end{proof}
+\end{homeworkProblem}
+
 \end{document}

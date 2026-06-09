@@ -1,0 +1,351 @@
+\documentclass{article}
+% Packages
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usetikzlibrary{automata,positioning}
+% Document Layout
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+\linespread{1.1}
+% Page Style
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass:\ \hmwkTitle}
+\rhead{Section \hmwkSection, \firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+% Paragraph Settings
+\setlength\parindent{0pt}
+\setlength{\parskip}{5pt}
+% Section Management
+\newcommand{\hmwkSection}{A} % Current section (A, B, or C) - update manually
+% Problem Header Management
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+\stepcounter{#1}
+\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+% Counters
+\setcounter{secnumdepth}{0}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+% Homework Problem Environment
+% Optional argument adjusts problem counter for non-sequential problems
+\newenvironment{homeworkProblem}[1][-1]{
+\ifnum#1>0
+\setcounter{homeworkProblemCounter}{#1}
+\fi
+\section{Problem \arabic{homeworkProblemCounter}}
+\enterProblemHeader{homeworkProblemCounter}
+}{
+\exitProblemHeader{homeworkProblemCounter}
+}
+% Assignment Details
+\newcommand{\hmwkTitle}{Sheet\ 4}
+\newcommand{\hmwkDueDate}{---}
+\newcommand{\hmwkClass}{C8.4 Probabilistic Combinatorics}
+\newcommand{\hmwkClassInstructor}{Professor P. Balister}
+\newcommand{\hmwkAuthorName}{\textbf{}}
+% Title Page
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Components in $G(n, p)$, Janson's inequalities}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor}} \\
+\vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+% Mathematical Commands
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+% Probability and Statistics
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand*{\prob}{\mathbb{P}}
+\newcommand*{\E}{\mathbb{E}}
+% Number Sets
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\begin{document}
+
+\maketitle
+\pagebreak
+
+% ================ SECTION A ================
+\renewcommand{\hmwkSection}{A}
+\setcounter{homeworkProblemCounter}{1}
+
+\begin{homeworkProblem}
+Let $X$ and $Y$ be independent with $X \sim \text{Po}(c)$ and $Y \sim \text{Po}(d)$. Show that $X + Y \sim \text{Po}(c + d)$. Show that the conditional distribution of $X$, given that $X + Y = n$, is binomial with parameters $n$ and $c/(c+d)$. Deduce that if $Z \sim \text{Po}(a)$ and the conditional distribution of $W$ given that $Z = n$ is $\text{Bin}(n, p)$, then $W \sim \text{Po}(ap)$, $Z-W \sim \text{Po}(a(1-p))$ and $W$ and $Z - W$ are independent.
+\begin{proof}
+\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+% ================ SECTION B ================
+\renewcommand{\hmwkSection}{B}
+\setcounter{homeworkProblemCounter}{2}
+
+\begin{homeworkProblem}
+Consider $G(n, p)$ with $p \sim \frac{\log n}{n}$, and let $Y_r$ be the number of components with $r$ vertices.
+\begin{enumerate}[(a)]
+\item Using Cayley's formula, show that
+\[
+\E[Y_r] \leqslant \binom{n}{r} r^{r-2} p^{r-1} (1 - p)^{r(n-r)}.
+\]
+
+\begin{proof}
+  For any set of vertices $S \subseteq V$ with $|S| = r$, any component on $S$ contains a tree that spans $S$, and there are no edges between $S$ and $V \setminus S$. The equation follow from Cayley's formula.
+\end{proof}
+
+\item Hence show that
+\[
+\E\left\lfloor \sum_{r=2}^{n/2} Y_r \right\rfloor \to 0 \quad \text{as } n \to \infty.
+\]
+
+\begin{proof}
+  Note that
+  \[
+    \E[Y_r] \leq \frac{(ne)^r}{r^2} \cdot p^{r - 1}e^{-pr(n - r)} \leq r^{-2}p^{-1}(enpe^{-p(n - r)})^r \leq r^{-2}p^{-1}(enpe^{-pn/2})^r
+  \]
+  Put $x_n = enpe^{-pn/2}$. For large enough $n$,
+  \[
+    x_n \leq 2e(\log n)e^{-0.49\log n} = o(n^{-1/3}).
+  \]
+  Thus,
+  \[
+    \E\left\lfloor \sum_{r=2}^{n/2} Y_r \right\rfloor \leq \sum_{r=2}^{n/2} \E[Y_r] \leq \sum_{r=2}^{n/2} r^{-2}p^{-1}x_n^r \leq \frac{4}{n}\sum_{r=2}^{n/2} x_n^r = \frac{4x_n^2}{n(1 - x_n)} = o(1).
+  \]
+\end{proof}
+\item Deduce that as $n \to \infty$,
+\[
+\prob\left(\text{all non-isolated vertices are in a single component}\right) \to 1
+\]
+for any fixed $c$.
+\begin{proof}
+  By (b), all non-isolated vertices are in a component of size greater than $n/2$. But then there cannot be multiple of such components.
+\end{proof}
+\item Deduce that $p(n) = \frac{\log n}{n}$ is a threshold function for $G(n, p)$ to be connected.
+
+\begin{proof}
+  Suppose $\frac{p}{(\log n) / n}$. By Sheet 1 Q8, there are almost surely no isolated vertices, so by part (c) $G$ is almost surely connected. The converse follows the same argument.
+\end{proof}
+\end{enumerate}
+
+\textit{Hints: (a) connected graphs contain at least one spanning tree. (b) it may help to bound $\E[Y_2]$ and $\E[Y_r]$, $3 \leqslant r \leqslant n/2$, differently. (d) recall the result of Sheet 1 Q7.}
+
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Give an example of three events $A$, $B_1$ and $B_2$ such that $\prob(A \mid B_i) > \prob(A)$ for $i = 1, 2$ but $\prob(A \mid B_1 \cup B_2) < \prob(A)$.
+\begin{proof}
+  Consider the probability space $\{w, x, y, z\}$ with $p_w = 0.1, p_x = p_y = p_z = 0.3$. Let $A = \{w \cup z\}$, $B_1 = \{w \cup x\}$, $B_2 = \{w \cup y\}$. 
+\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Let $U_1, U_2, \ldots$ be up-sets (increasing events) in $\mathcal{P}(X)$, let $D$ be a down-set, and let $\prob_p$ denote the probability measure associated to selecting each element of $X$ independently with probability $p$.
+\begin{enumerate}[(a)]
+\item Show that $\prob_p(U_1 \cap \cdots \cap U_k) \geqslant \prod_{i=1}^k \prob_p(U_i)$.
+\begin{proof}
+  This follows immediately from induction and Harris Lemma.
+\end{proof}
+\item Show that $\prob_p(U_1 \mid D) \leqslant \prob_p(U_1)$.
+\begin{proof}
+  By Harris' Lemma,
+  \[
+    \prob_p(U_1 \cap D) = \prob_p(U_1) - \prob_p(U_1 \cap D^c) \leq \prob_p(U_1) - \prob_p(U_1)\prob_p(D^c) = \prob_p(U_1)\prob_p(D). \qedhere
+  \]
+\end{proof}
+\item Show that if $U_1$ and $U_2$ are independent, then $\prob_p(U_1 \mid U_2 \cap D) \leqslant \prob_p(U_1 \mid U_2)$.
+\begin{proof}
+  By Harris Lemma,
+  \begin{align*}
+    \prob_p(U_1 \mid U_2 \cap D) 
+    &= \frac{\prob_p(U_1 \cap U_2 \cap D)}{\prob_p(U_2 \cap D)} \\
+    &= \frac{\prob_p(U_1 \cap U_2) - \prob_p(U_1 \cap U_2 \cap D^c)}{\prob_p(U_2 \cap D)} \\
+    &\leq \frac{\prob_p(U_1)\prob_p(U_2) - \prob_p(U_1)\prob_p(U_2)\prob_p(D^c)}{\prob_p(U_2 \cap D)} \\
+    &= \frac{\prob_p(U_1)\prob_p(U_2 \cap D)}{\prob_p(U_2 \cap D)} = \prob_p(U_1).
+  \end{align*}
+\end{proof}
+\item Does the last inequality always hold, i.e., without assuming independence?
+\begin{proof}
+  
+\end{proof}
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Let $U \subseteq \mathcal{P}(X)$ be an up-set. Show that the function $f(p)$ defined by $f(p) := \prob_p(U)$ is increasing on $[0, 1]$. Is it continuous? Differentiable?
+\begin{proof}
+  Let $0 \leq p \leq q \leq 1$. For $x \in X$, let $U_x$ be a uniform random varaible on $[0, 1]$. Let $X_p = \sum_{x \in X} \mathbbm{1}_{U_x \leq p} \cdot x$ and $X_q = \sum_{x \in X} \mathbbm{1}_{U_x \leq q}\cdot x$. Then $X_p \subseteq X_q$. Thus, since $U$ is an upset, $X_p \in U$ implies $X_q \in U$. It follows that $f(p) \leq f(q)$. 
+
+  Since $f(p) = \sum_{A \in U} p^{|A|}(1 - p)^{n - |A|}$, $f(p)$ is a polynomial, which is continuous and differentiable.
+\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+\begin{enumerate}[(a)]
+\item When does equality hold in Harris's Lemma?
+\begin{proof}
+  We call $\mathcal{A} \subseteq \mathcal{P}(n)$ independent of some $x \in [n]$ if
+  \[
+    \prob(X_p \in \mathcal{A}) = \prob(X_p \cup \{n\} \in \mathcal{A}) = \prob(X_p \setminus \{n\} \in \mathcal{A}).
+  \] 
+  Equality in Harris's Lemma holds if $\mathcal{A}_0 = \mathcal{A}_1$ or $\mathcal{B}_0 = \mathcal{B}_1$. Say $\mathcal{A}_0 = \mathcal{A}_1$. Then $\mathcal{A}$ is independent of $n$. But then the same applies replacing $n$ with any other coordinates. Thus, there exists $S \sqcup T = [n]$ such that $\mathcal{A}$ only depends on $S$ and $\mathcal{B}$ only depends on $T$. 
+\end{proof}
+\item Deduce that if $U$ is up-set that is (pairwise) independent of the up-sets $U_i$ for $i = 1, \ldots, k$, then $U$ is independent of the family $\{U_1, \ldots, U_k\}$.
+\begin{proof}
+  By (a), $U$ depends on some set $S \subseteq X$ that is disjoint from $\bigcup_{i = 1}^k S_i$, where $S_i \subseteq X$ is the set that $U_i$ depends on. Thus, $U$ is independent of the family $\{U_1, \ldots, U_k\}$.
+\end{proof}
+\item Deduce that Janson's inequalities also hold for general up-sets.
+\begin{proof}
+  The only part of the proof Janson's inequality that assumed the events $A_i$ were principal up-sets was the assumption that if $A_i$ is independent of $A_j$ for $j \not\sim i$, then it is independent of $\bigcap_{j \not\sim i} A_j$. This follows for general up-sets from (b).
+\end{proof}
+\end{enumerate}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Let $0 < p < 1$ be fixed, and let $X$ denote the number of triangles in $G(n, p)$. Show that there is a constant $c = c(p) > 0$ such that $\prob(X = 0) \leqslant e^{-cn^2}$ for all $n \geqslant 3$. Is $\prob(X = 0)$ at least $e^{-c'n^2}$ for some constant $c'$?
+
+Let $G = G(n, p)$, where $0 < p < 1$ is constant. Call a subset $V$ of $V(G)$ triangle-free if the subgraph of $G$ induced by $V$ contains no triangles. Show that there is a constant $A$ such that whp (i.e., with probability tending to 1) $G$ contains no triangle-free subset with more than $A \log n$ vertices.
+
+Do you expect $G(n, 1/2)$ to have a triangle-free subset of size at least $B \log n$ for some constant $B$?
+
+\begin{proof}
+  Let $T_1, \ldots, T_M$ be all the possible triangles in $G(n, p)$, where $M = \binom{n}{3}$. For each $i$, let $A_i$ be the event that $T_i$ is present in $G(n, p)$. Then $\mu = \E[X] = \sum_{i = 1}^M \prob(A_i) = \Theta(n^3p^3)$ and $\Delta = \sum_{i}\sum_{i \sim j} \prob(A_i \cap A_j) = \Theta(n^4p^5)$. Since $\Delta > \mu$, by the second Janson's inequality, $\prob(X = 0) \leq e^{-\mu^2/2\Delta} \leq e^{-cn^2}$, for some constant $c = c(p) > 0$.
+
+  Note that 
+  \[
+    \prob(X = 0) \geq \prob(e(G(n, p)) = 0) = (1 - p)^{\binom{n}{2}} \geq \exp(-\Theta(n^2)).
+  \]
+
+  For any subset $S \subseteq V(G)$ with $|S| > A\log n$, by Janson,
+  \[
+    \prob(G[S] \text{ is triangle-free}) \leq \exp(-c(A\log n)^2) = n^{-cA^2\log n}.
+  \]
+  By the union bound,
+  \[
+    \prob\left(\bigcup_{\substack{S \subseteq V(G) \\ |S| > A\log n}} \prob(G[S] \text{ is triangle-free})\right) \leq n^{A \log n} \cdot n^{-cA^2\log n} = \exp((1 - Ac)A(\log n)^2) = o(1),
+  \]
+  for $A > 1/c$.
+\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+Let $H$ be a fixed strictly balanced graph, let $0 < \alpha < |V(H)|/|E(H)|$ be fixed, let $p = p(n) = n^{-\alpha}$, and let $X$ denote the number of copies of $H$ in $G(n, p)$. Use Janson's inequality to show that there is some constant $\beta > 0$ such that $\prob(X = 0) \leqslant \exp(-n^\beta)$ for $n$ sufficiently large.
+\begin{proof}
+  Put $v = |V(H)|$, $e = |E(H)|$. Let $H_1, \ldots, H_m$ be all possible copies of $H$ in $G(n, p)$. For each $i$, let $A_i$ be the event that $H_i$ is present in $G(n, p)$. Then
+  \[
+    \mu = \E[X] = \sum_{i} \prob(A_i) = \Theta(n^vp^e) = \Theta(n^c),
+  \]
+  where $c = v - \alpha e > 0$, and $\Delta = \sum_i \sum_{i \sim j} \prob(A_i \cap A_j)$. For a given $(r, s)$, the pairs of $H_i, H_j$ that intersect $r$ vertices and $s$ edges contribute $\Theta(n^{2v - r}p^{2e - s}) = \Theta(\mu^2/n^rp^s)$ to $\Delta$. Note that
+  \[
+    n^rp^s = (np^{s/r})^{r} > (np^{e/v})^{r} > n^{c'_r},
+  \]
+  where $c'_r = r(1 - \alpha e/v) > 0$. Thus, there exists $c' > 0$, the smallest $c'_r$ among all possible $r$, such that $\Delta = \Theta(\mu^2/n^{c'})$. Thus $\mu^2/2(\mu + \Delta) = \Theta(n^{c''})$, where $c'' = \min(c, c')$. It follows from the third Janson's inequality that
+  \[
+    \prob(X = 0) \leq \exp\bigl(-\Theta(n^{c'})\bigr) \leq \exp(-n^{\beta}),
+  \]
+  for $0 < \beta < c''$ and $n$ large enough.
+\end{proof}
+\end{homeworkProblem}
+
+\newpage
+
+\begin{homeworkProblem}
+\textbf{Buffon's needle.} A floor is made up of parallel strips of wood, each of width 1. A needle of length $\ell < 1$ is dropped onto the floor. What is the probability $p(\ell)$ that it crosses the boundary between two strips? (If the picture is not clear, Google for ``Buffon's needle''!). The answer leads to an experimental method for estimating $\pi$.
+
+The traditional solution is to average over the position of the end of the needle and over the angle at which the needle lies, using a double integral. This is reasonably straightforward, but an alternative approach is to use the principle of linearity of expectation.
+
+Instead of $p(\ell)$, consider $e(\ell)$, the expected number of times that the needle crosses a line.
+\begin{enumerate}[(a)]
+\item Show that if $\ell < 1$ then $p(\ell) = e(\ell)$.
+\item Show that $e(\ell) = c\ell$ for some constant $c$ (for all positive $\ell$).
+\item If we replace a straight needle by some other shape with the same length, the probability of crossing a line will change; however, note that the expectation of the number of line-crossings doesn't! So to calculate $e(\ell)$ we may consider ``needles'' which are not straight lines. Find a ``needle'' for which the expectation is very easy to calculate. Hence find $c$.
+\end{enumerate}
+
+\begin{proof}
+\end{proof}
+\end{homeworkProblem}
+
+% ================ SECTION C ================
+\renewcommand{\hmwkSection}{C}
+\setcounter{homeworkProblemCounter}{10}
+\pagebreak
+
+\textbf{Optional Problems:} These questions are optional, but MFoCS students are recommended to attempt them. Outline solutions will be provided later; you can also approach class tutors (if they have time) or the lecturer to discuss them.
+
+\begin{homeworkProblem}
+Let $X_1, \ldots, X_n$ be independent random variables with $X_i \sim \text{Bernoulli}(p_i)$. Let $X := \sum_{i=1}^n X_i$ and let $Y \sim \text{Po}(\mu)$ where $\mu := \E[X] = \sum_{i=1}^n p_i$. Prove Le Cam's Theorem: for any $S \subseteq \N$,
+\[
+\left|\prob(X \in S) - \prob(Y \in S)\right| \leqslant \sum_{i=1}^n p_i^2.
+\]
+\textit{Hint: introduce $Y_i \sim \text{Po}(p_i)$ with $\prob(X_i \neq Y_i) \leqslant p_i^2$.}
+\begin{proof}
+\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Let $p = \frac{\log n + c}{n}$ where $c$ is constant and let $X_n$ denote the number of isolated vertices in $G(n, p)$. Show that $X_n$ tends in distribution to $\text{Po}(e^{-c})$ as $n \to \infty$.
+
+Deduce that if $p = \frac{\log n + c}{n}$ where $c$ is constant, then
+\[
+\prob(G(n, p) \text{ is connected}) \to e^{-e^{-c}}.
+\]
+\begin{proof}
+\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+Let $U \subseteq \mathcal{P}(X)$ be an up-set. The \textit{influence} $I_p(i, U)$ of an element $i \in X$ on $U$ is the probability that exactly one of $X_p \setminus \{i\}$ and $X_p \cup \{i\}$ is in $U$. Defining $f(p)$ as in Problem 5, show that
+\[
+\frac{d}{dp} f(p) = \sum_{i \in X} I_p(i, U).
+\]
+\begin{proof}
+\end{proof}
+\end{homeworkProblem}
+
+\end{document}
